@@ -12,6 +12,6 @@ public class MockDeliveryTruck extends Mock implements DeliveryTruck {
 	}
 	
 	public void msgDeliverOrderToCook(Order o) {
-		log.add(new LoggedEvent("Received msgDeliverOrderToCook for " + o.mPersonRole));
+		log.add(new LoggedEvent("Received msgDeliverOrderToCook."));
 	}
 }

@@ -2,16 +2,16 @@ package market.test.mock;
 
 import java.util.Map;
 
-import market.Invoice;
-import market.Order;
+import market.*;
 import market.interfaces.Cook;
 import test.mock.Mock;
-import base.Item;
 import base.Item.EnumMarketItemType;
+import base.PersonAgent;
+import base.interfaces.Role;
 
-public class MockCookCustomer extends Mock implements Cook {
+public class MockCookCustomer extends Mock implements Cook, Role {
 
-	public MockCookCustomer(String name) {
+	public MockCookCustomer() {
 		super();
 	}
 	
@@ -21,5 +21,25 @@ public class MockCookCustomer extends Mock implements Cook {
 	
 	public void msgHereIsCookOrder(Order o) {
 		
+	}
+
+/*Role Actions*/
+	public boolean pickAndExecuteAnAction() {
+		return false;
+	}
+
+	public void setPerson(PersonAgent person) {
+	}
+
+	public PersonAgent getPersonAgent() {
+		return null;
+	}
+
+	public boolean isActive() {
+		return false;
+	}
+
+	public int getSSN() {
+		return 0;
 	}
 }
