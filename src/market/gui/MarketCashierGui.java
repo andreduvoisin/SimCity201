@@ -21,7 +21,6 @@ public class MarketCashierGui implements MarketBaseGui {
 	}
 	
 	public void updatePosition() {
-		System.out.println(xPos + " " + yPos);
         if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)

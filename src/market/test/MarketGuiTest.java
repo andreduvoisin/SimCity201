@@ -32,20 +32,31 @@ public class MarketGuiTest extends TestCase {
 		MarketCashierGui mCashierGui = new MarketCashierGui(mCashier);
 		mCashier.setGui(mCashierGui);
 		mMarketPanel.addGui(mCashierGui);
+		
 		mCashier.DoGoToPosition();
-	  //assert agent has received message
+	  //wait for animation to finish
 		try {
 			mCashier.inTransit.acquire();
 		}
 		catch(InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		//		while(mCashierGui.mCommand != MarketCashierGui.EnumCommand.noCommand) { 
-		System.out.println(mCashierGui.mCommand);
-
-//		}
+	  //assert cashier received the message
 		assertTrue("Cashier should have received msgAnimationAtPosition. Instead " + mCashier.log.getLastLoggedEvent().toString(),
 				mCashier.log.containsString("Received msgAnimationAtPositon."));
+
+		mCashier.DoLeaveMarket();
+	  //wait for animation to finish
+		try {
+			mCashier.inTransit.acquire();
+		}
+		catch(InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Do.");
+	  //assert cashier received the message
+		assertTrue("Cashier should have received msgAnimationLeftMarket. Instead " + mCashier.log.getLastLoggedEvent().toString(),
+				mCashier.log.containsString("Received msgAnimationLeftMarket."));
+
 	}
 }

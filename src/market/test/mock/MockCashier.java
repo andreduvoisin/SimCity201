@@ -14,7 +14,6 @@ import market.*;
  */
 public class MockCashier extends Mock implements MarketCashier {
 	MarketCashierGui mCashierGui;
-	public Semaphore inTransit = new Semaphore(0,true);
 	
 	public MockCashier() {
 		super();
@@ -48,11 +47,5 @@ public class MockCashier extends Mock implements MarketCashier {
 	
 	public void DoLeaveMarket() {
 		mCashierGui.DoLeaveMarket();
-		try {
-			inTransit.acquire();
-		}
-		catch(InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 }
