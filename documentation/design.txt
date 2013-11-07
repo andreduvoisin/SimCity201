@@ -7,6 +7,25 @@ Restaurant Project
 
 -----------------------------------------INTERACTION DIAGRAMS-----------------------------------------
 
+Market
+	Message					Parameters					[Sender] 	--> [Recipient]
+1.	msgIWantOrder			Order 						Customer 		Worker
+2.	msgCanFulfillOrder		Order						Worker			Customer
+3.	msgCalculateBill		Order 						Worker			Cashier
+4.	msgHereIsBill			Order 						Cashier			Worker
+5.	msgHereIsOrderAndBill	Order, Bill 				Worker			Customer
+6.	msgPayingForOrder		Bill, cash 					Customer		Cashier
+7.	msgHereIsChange			cash						Cashier			Customer
+
+8.	
+
+
+
+
+
+
+
+
 Normative Scenario (without paying)
 	Message					Parameters					[Sender] 	--> [Recipient]
 1.	msgIWantFood			Customer					Customer 	--> Host
