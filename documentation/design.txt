@@ -1,0 +1,665 @@
+Shane Mileham
+Prof. Crowley
+CSCI 201
+Restaurant Project
+
+										  -Design Document-
+
+-----------------------------------------INTERACTION DIAGRAMS-----------------------------------------
+
+Normative Scenario (without paying)
+	Message					Parameters					[Sender] 	--> [Recipient]
+1.	msgIWantFood			Customer					Customer 	--> Host
+2.	msgSeatCustomer			Table, Customer				Host 		--> Waiter
+3.	msgSitAtTable			Waiter, tableNum, Menu		Waiter 		--> Customer
+4.	msgReadyToOrder			Customer					Customer 	--> Waiter
+5.	msgWhatWouldYouLike		Menu						Waiter 		--> Customer
+6.	msgHereIsMyChoice		Customer, choice			Customer 	--> Waiter
+7.	msgMakeFood				Order						Waiter 		--> Cook
+8.	msgOrderIsReady			Order						Cook 		--> Waiter
+9.	msgHereIsYourFood		choice						Waiter 		--> Customer
+10.	msgDoneEating			Customer					Customer 	--> Waiter
+11.	msgLeavingTable			Table						Waiter 		--> Host
+
+Out of Food
+	Message					Parameters					[Sender] 	--> [Recipient]
+1.	msgHereIsMyChoice		Customer, choice			Customer	--> Waiter
+2. 	msgMakeFood				Order						Waiter		--> Cook
+3. 	msgOutOfFood			Order, choice				Cook		--> Waiter
+4. 	msgChoiceNotAvailable	choice						Waiter		--> Customer
+
+Want to Go on Break
+	Message					Parameters					[Sender] 	--> [Recipient]
+1. 	msgWantToGoOnBreak		Waiter						Waiter		--> Host
+2. 	msgBreakReply			boolean answer				Host		--> Waiter
+
+Market Ordering
+	Message					Parameters					[Sender] 	--> [Recipient]
+1.	msgOrderFood			List<EnumFoodOptions>		Cook		--> Market
+2.	msgOrderResponse		List<">, MarketAgent		Market		--> Cook
+3.	msgOrderFulfillment		List<">, MarketAgent		Market		--> Cook
+4.	msgFoodArrived										Cook		--> Waiter
+5.	msgWhatArrived										Waiter		--> Cook
+6.	msgNewMenu				List<EnumFoodOptions>		Cook		--> Waiter
+
+Cashier Payment
+	Message					Parameters					[Sender] 	--> [Recipient]
+1. 	msgReadyForCheck		choice, Customer			Customer	--> Waiter
+2. 	msgHereIsCheck			check						Waiter		--> Customer
+3.	msgDoneAndPaying		Customer					Customer	--> Waiter
+4.	msgCustomerPaid			Order						Waiter		--> Cashier
+5. 	msgChangeForCustomer	Order						Cashier		--> Waiter
+6. 	msgHereIsYourChange		change						Waiter		--> Customer
+
+
+
+---------------------------------------------CUSTOMER---------------------------------------------
+
+DATA
+	//Constants
+	private static final int cHUNGER_LEVEL = 5;
+	private static final int cMAX_CASH = 20;
+	
+	//Regular Member Variables
+	private String mName;
+	private int mHunger;
+	private int mTableNum;
+	private Menu mMenu;
+	private EnumFoodOptions mChoice;
+	private boolean mIsHungry;
+	private int mCash;
+	private int mCheck;
+	
+	private Timer mTimer;
+	private HostAgent mHost;
+	private WaiterAgent mWaiter;
+
+	// States and Events
+	public enum EnumAgentState {DoingNothing, WaitingInRestaurant, BeingSeated, Seated, Ordering, WaitingForFood, Eating, AwaitingCheck, Paying, Leaving};
+	private EnumAgentState mState;
+	public enum EnumAgentEvent {none, gotHungry, restaurantFullLeave, followHost, seated, askedForOrder, receivedFood, doneEating, gotCheck, donePaying, doneLeaving};
+	private EnumAgentEvent mEvent;
+	
+	public Semaphore semLeftRestaurant = new Semaphore(0);
+	
+	//GUI
+	private CustomerGui mCustomerGui;
+	private LabelGui mFoodLabelGui;
+	private RestaurantGui mGUI;
+
+
+MESSAGES
+	msgGotHungry(){
+		mEvent = EnumAgentEvent.gotHungry;
+		stateChanged();
+	}
+	
+	msgRestaurantFull(){
+		randomly stay or go
+		if leaving, choose event to restaurantFullLeave;
+		stateChanged();
+	}
+
+	msgSitAtTable(WaiterAgent waiter, int tableNum, Menu menu) {
+		mTableNum = tableNum;
+		mMenu = menu;
+		mWaiter = waiter;
+		
+		mEvent = EnumAgentEvent.followHost;
+		stateChanged();
+	}
+	
+	msgAnimationFinishedGoToSeat() {
+		mEvent = EnumAgentEvent.seated;
+		stateChanged();
+	}
+	
+	msgWhatWouldYouLike(){
+		mEvent = EnumAgentEvent.askedForOder;
+		stateChanged();
+	}
+	
+	msgHereIsYourFood(Choice choice){
+		check if received the correct food
+		mEvent = EnumAgentEvent.receivedFood;
+		stateChanged();
+	}
+
+	msgHereIsCheck(int check){
+		mCheck = check;
+		mEvent = EnumAgentEvent.gotCheck;
+		stateChanged();
+	}
+	
+	msgHereIsYourChange(int change){
+		mCash += change;
+		mEvent = EnumAgentEvent.donePaying;
+		stateChanged();
+	}
+	
+	msgAnimationFinishedLeaveRestaurant() {
+		mEvent = EnumAgentEvent.doneLeaving;
+		mTableNum = -1;
+		stateChanged();
+	}
+	
+	
+SCHEDULER
+	pickAndExecuteAnAction() {
+		if DoingNothing + gotHungry
+			mState = EnumAgentState.WaitingInRestaurant;
+			goToRestaurant();
+			return true;
+		
+		if WaitingInRestaurant + followHost
+			mState = EnumAgentState.BeingSeated;
+			sitDown();
+			return true;
+		
+		if BeingSeated + seated
+			mState = EnumAgentState.Seated;
+			getWaitersAttention();
+			return true;
+		}
+		
+		if Seated +  askedForOder
+			orderFood();
+			mState = EnumAgentState.WaitingForFood;
+			return true;
+		}
+		
+		if WaitingForFood + receivedFood
+			mState = EnumAgentState.Eating;
+			eatFood();
+			return true;
+		}
+
+		if Eating + doneEating
+			mState = EnumAgentState.Paying;
+			leaveTable(); //on timer
+			return true;
+		}
+
+		//AwaitingCheck + gotCheck = Paying
+		if (mState == EnumAgentState.AwaitingCheck && mEvent == EnumAgentEvent.gotCheck){
+			mState = EnumAgentState.Paying;
+			payCheck();
+			return true;
+		}
+		
+		//Paying + donePaying = Leaving
+		if (mState == EnumAgentState.Paying && mEvent == EnumAgentEvent.donePaying){
+			mState = EnumAgentState.Leaving;
+			leaveTable(); //on timer
+			return true;
+		}
+		
+		if Leaving + doneLeaving
+			mState = EnumAgentState.DoingNothing;
+			//no action
+			return true;
+		}
+		return false;
+	}
+
+ACTIONS
+	goToRestaurant() {
+		mHost.msgIWantFood(this);//send our instance, so he can respond to us
+	}
+
+	sitDown() {
+		mCustomerGui.DoGoToTable(mTableNum);
+	}
+	
+	getWaitersAttention(){
+		mWaiter.msgReadyToOrder(this);
+	}
+	
+	orderFood(){
+		Choice choice = new Choice();
+		limit menu if can't pay
+		randomly choose an item from the menu
+		if can't buy anything, leave
+		mWaiter.msgHereIsMyChoice(this, choice);
+	}
+
+	eatFood() {
+		run a timer to eat food
+		when finished
+			mEvent = EnumAgentEvent.doneEating;
+			stateChanged();
+	}
+
+	askForCheck(){
+		print("Action: askForCheck()");
+		mWaiter.msgReadyForCheck(mChoice, this);
+	}
+	
+	payCheck(){
+		print("Action: payCheck()");
+		int cash = mCash;
+		mCash -= cash;
+		mWaiter.msgDoneAndPaying(cash, this);
+	}
+
+	leaveTable() {
+		mHost.msgLeavingTable(this);
+		mCustomerGui.DoExitRestaurant();
+	}
+
+	leaveRestaurant(){
+		print("Action: leaveRestaurant()");
+		mHost.msgLeavingRestaurant(this);
+	}
+
+-----------------------------------------------HOST-----------------------------------------------
+DATA
+	//Constants
+	public static final int cNUM_TABLES = 3;
+	public static final int cSPEED_LIMIT = 5;
+	
+	//Regular Member Variables
+	private String mName;
+	private CookAgent mCook;
+	private List<WaiterAgent> mWaiters;
+	public List<CustomerAgent> mWaitingCustomers;
+	public Collection<Table> mTables;
+
+	//GUI
+	public HostGui mHostGui;
+	public RestaurantGui mGUI;
+
+MESSAGES
+	
+	msgAddWaiter(WaiterAgent waiter){
+		mWaiters.add(waiter);
+		if (mWaiters.size() == 1) stateChanged();
+	}
+
+	msgIWantFood(CustomerAgent customer) {
+		mWaitingCustomers.add(customer);
+		stateChanged();
+	}
+
+	msgLeavingTable(CustomerAgent cust) {
+		for (Table table : mTables) {
+			if (table.getOccupant() == cust) {
+				table.setUnoccupied();
+				stateChanged();
+			}
+		}
+	}
+
+	msgLeavingRestaurant(CustomerAgent customer) {
+		print("Message msgLeavingRestaurant()");
+		mWaitingCustomers.remove(customer);
+		//no state changed
+	}
+	
+	
+	//Want to go on break
+	msgWantToGoOnBreak(WaiterAgent waiter){
+		print("Message: msgWantToGoOnBreak");
+		waiter.msgBreakReply(getNumWorkingWaiters() != 0);
+	}
+
+SCHEDULER
+	pickAndExecuteAnAction() {
+
+		if (isRestaurantFull()){
+			for (CustomerAgent iCustomer : mWaitingCustomers){
+				iCustomer.msgRestaurantFull();
+			}
+		}
+
+		If there is an open table and a waiting customer
+			seatCustomer(mWaitingCustomers.get(0), iTable);
+			return true;
+		return false;
+	}
+
+ACTIONS
+	seatCustomer(CustomerAgent customer, Table table) {
+		table.setOccupant(customer);
+		mWaitingCustomers.remove(customer);
+		mWaiter.msgSeatCustomer(table, customer);
+	}
+
+
+----------------------------------------------WAITER----------------------------------------------
+DATA
+	//Constants
+	public static final int cBREAK_LENGTH = 10; //in seconds
+	
+	//Member Variables
+	private String mName;
+	private boolean mOnBreak;
+	private List<Order> mOrders;
+	private List<EnumFoodOptions> mFoodsOut;
+	private HostAgent mHost;
+	private CookAgent mCook;
+	private Timer mTimer;
+	private boolean mWantBreak;
+	
+	//Semaphores
+	public Semaphore semAtTable = new Semaphore(0);
+	public Semaphore semAtDoor = new Semaphore(0);
+	public Semaphore semAtCook = new Semaphore(0);
+	public Semaphore semGettingOrder = new Semaphore(0);
+	public Semaphore semGettingCheck = new Semaphore(0);
+
+	//GUI
+	private WaiterGui mWaiterGui;
+	private RestaurantGui mGUI;
+
+MESSAGES
+
+	msgSeatCustomer(Table table, CustomerAgent customer){
+		Order order = new Order(this, table, customer, EnumOrderStatus.waiting);
+		mOrders.add(order);
+		stateChanged();
+	}
+	
+	msgReadyToOrder(CustomerAgent customer){
+		change the corresponding customer order state to ordering
+		stateChanged();
+	}
+	
+	msgHereIsMyChoice(CustomerAgent customer, Choice choice){
+		set choice for corresponding order
+		semGettingOrder.release(); //allow waiter to leave table
+		stateChanged();
+	}
+
+	msgNotGettingFood(CustomerAgent customer){
+		print("Message: msgNotGettingFood()");
+		for (Order iOrder : mOrders){
+			if (iOrder.mCustomer == customer){
+				iOrder.mOrderStatus = EnumOrderStatus.DONE;
+				break;
+			}
+		}
+		semGettingOrder.release(); //allow waiter to leave table
+		//state changes to DONE
+		stateChanged();
+	}
+	
+	msgOrderIsReady(Order order){
+		order.mOrderStatus = EnumOrderStatus.ready;
+		stateChanged();
+	}
+	
+	msgDoneEating(CustomerAgent customer){
+		set corresponding order status to done
+		stateChanged();
+	}
+
+	msgOutOfFood(Order order, List<EnumFoodOptions> foods){
+			print("Message: msgOutOfFood");
+			mFoodsOut = foods;
+			if (order.mOrderStatus == EnumOrderStatus.PENDING) order.mOrderStatus = EnumOrderStatus.ORDERING;
+			stateChanged();
+		}
+
+
+		msgBreakReply(boolean reply){
+		print("Message: msgBreakReply()");
+		if (reply){
+			schedule timer task
+					print("Done with break");
+					mOnBreak = false;
+					stateChanged();
+				}
+			},
+			cBREAK_LENGTH * 1000);
+		}
+		}
+
+	
+	public void msgNewMenu(List<EnumFoodOptions> foods){
+		print("Message: msgNewMenu");
+		mFoodsOut = foods;
+	}
+	
+	public void msgWantBreak(){
+		print("Message: msgWantBreak()");
+		mWantBreak = true;
+		stateChanged();
+	}
+	
+	public void msgReadyForCheck(EnumFoodOptions choice, CustomerAgent customer){
+		print("Message: msgReadyForCheck()");
+		int price = Menu.cFOOD_PRICES.get(choice);
+		customer.msgHereIsCheck(price);
+		stateChanged();
+	}
+	
+	public void msgDoneAndPaying(int cash, CustomerAgent customer){
+		print("Message: msgDoneAndPaying(" + cash + ")");
+		for (Order iOrder : mOrders){
+			if (iOrder.mCustomer == customer){
+				iOrder.mOrderStatus = EnumOrderStatus.PAYING;
+				iOrder.mCash = cash;
+				break;
+			}
+		}
+		stateChanged();
+	}
+	
+	public void msgChangeForCustomer(Order order){
+		print("Message: msgChangeForCustomer(" + order.mChange + ")");
+		order.mOrderStatus = EnumOrderStatus.PAID;
+		stateChanged();
+	}
+
+
+
+SCHEDULER
+	pickAndExecuteAnAction() {
+		//On Break
+		if ((mOrders.size() == 0) && (mOnBreak)) return false;
+		
+		//Want to go on break
+		if (mWantBreak){
+			askForBreak();
+			return true;
+		}
+
+		if order status is waiting
+			seatCustomer(iOrder.mCustomer, iOrder.mTable);
+		if order status is ordering
+			getOrderFromCustomer(iOrder);
+		if order status is ordered
+			deliverOrder(iOrder);
+		if order status is ready
+			getOrderFromCook(iOrder);
+		if order status is delivering
+			deliverFoodToCustomer(iOrder);
+		if order status is done
+			cleanUp(iOrder);
+		
+		return false;
+	}
+
+ACTIONS
+	seatCustomer(CustomerAgent customer, Table table) {
+		mWaiterGui.DoGoToDoor();
+		acquireSemaphore(semAtDoor); //get to door
+		
+		customer.msgSitAtTable(this, table.getTableNumber(), new Menu());
+		
+		mWaiterGui.DoGoToTable(table.getTableNumber());
+		acquireSemaphore(semAtTable); //get to table
+	}
+	
+	getOrderFromCustomer(Order order){
+		mWaiterGui.DoGoToTable(order.mTable.mTableNumber);
+		acquireSemaphore(semAtTable);
+		
+		order.mCustomer.msgWhatWouldYouLike();
+		acquireSemaphore(semGettingOrder);
+		//Now has choice and can leave
+		order.mOrderStatus = EnumOrderStatus.ordered;
+	}
+	
+	deliverOrder(Order order){
+		mWaiterGui.DoGoToCook();
+		acquireSemaphore(semAtCook);
+		
+		mCook.msgMakeFood(order);
+		order.mOrderStatus = EnumOrderStatus.pending;
+	}
+	
+	getOrderFromCook(Order order){
+		mWaiterGui.DoGoToCook();
+		acquireSemaphore(semAtCook);
+		
+		order.mOrderStatus = EnumOrderStatus.delivering;
+	}
+	
+	deliverFoodToCustomer(Order order){
+		mWaiterGui.DoGoToTable(order.mTable.mTableNumber);
+		acquireSemaphore(semAtTable);
+		
+		order.mCustomer.msgHereIsYourFood(order.mChoice);
+		order.mOrderStatus = EnumOrderStatus.delivered;
+	}
+
+	private void paymentToCashier(Order order){
+		print("Action: paymentProcess()");
+		mHost.getCashier().msgCustomerPaid(order);
+	}
+
+	private void changeToCustomer(Order order){
+		print("Action: changeToCustomer()");
+		order.mCustomer.msgHereIsYourChange(order.mChange); //if customer can't pay, this becomes a loan and the customer has "negative" cash
+		order.mOrderStatus = EnumOrderStatus.DONE;
+		stateChanged();
+	}
+	
+	private void cleanUp(Order order){
+		print("Action: cleanUp()");
+		mOrders.remove(order);
+		mHost.msgLeavingTable(order.mCustomer);
+	}
+	
+	//Want Break
+	private void askForBreak(){
+		print("Action: askForBreak()");
+		mWantBreak = false;
+		mHost.msgWantToGoOnBreak(this);
+	}
+	
+	//Menu updated
+	private void updateMenu(){
+		print("Action: updateMenu()");
+		
+		mWaiterGui.DoGoToCook();
+		acquireSemaphore(semAtCook);
+	}
+	
+	cleanUp(Order order){
+		mOrders.remove(order);
+		mHost.msgLeavingTable(order.mCustomer);
+	}
+
+
+-----------------------------------------------COOK-----------------------------------------------
+DATA
+	//Member Variables
+	private String mName;
+	private Timer mTimer;
+	private List<Order> mOrders;
+	private Map<EnumFoodOptions, Food> mInventory;
+	private Map<EnumFoodOptions, Integer> mIncomingInventory;
+	private List<EnumFoodOptions> mFoodsOut;
+	private List<MarketAgent> mMarkets;
+	private Set<WaiterAgent> mWaiters;
+	private int mNumMarkets;
+	private boolean mFoodArrived; //change this to states next version
+	
+	//Semaphores
+	public Semaphore semOrderResponse = new Semaphore(0);
+
+	//GUI
+	private CookGui mCookGui;
+	private RestaurantGui mGUI;
+
+MESSAGES
+	public void msgMakeFood(Order order){
+		print("Message: msgMakeFood()");
+		Food food = mInventory.get(order.mFood.mChoice);
+		
+		if (food.mQuantity > 0){
+			food.mQuantity--;
+		}
+		
+		mWaiters.add(order.mWaiter); //if not in waiter list
+		
+		mOrders.add(order);
+		stateChanged();
+	}
+	
+	public void msgOrderResponse(EnumFoodOptions food, int newIncomingAmount){
+		add food to incoming inventory
+		//increase incoming food by response
+		semOrderResponse.release();
+	}
+	
+	public void msgOrderFulfillment(EnumFoodOptions food, int amountArrived){
+		existingFood.mQuantity += incomingFood; //add new food to inventory
+		mIncomingInventory.remove(food);
+		mFoodsOut.remove(food);
+		
+		mFoodArrived = true;
+		stateChanged();
+	}
+
+SCHEDULER
+	boolean pickAndExecuteAnAction() {
+		for (each order){
+			if the order is cooked
+				take it off the stove and notify the correct waiter that it is ready
+		}
+		for (each order){
+			if the order has not been cooked yet
+				cook it
+		}
+
+		return false;
+	}
+
+ACTIONS
+	cookFood(Choice food){
+		int time = (look up food time)
+		set timer to time
+		when timer goes off
+		
+		change corresponding order status to ready
+		mWaiter.msgOrderIsReady(iOrder);
+	}
+
+
+-------------------------------------------OTHER CLASSES------------------------------------------
+Table
+	static final int cTABLE_X = 100;
+	static final int cTABLE_Y = 100;
+	static final int cTABLE_SPACING = 100;
+	static final int cNUM_ROWS = 3;
+	CustomerAgent mOccupiedBy;
+	int mTableNumber;
+
+Menu
+	public Choice mFoodOptions
+
+Choice
+	enum EnumFoodOptions {steak, chicken, salad, pizza};
+	EnumFoodOptions mChoice;
+
+Order
+	WaiterAgent mWaiter;
+	Table mTable;
+	CustomerAgent mCustomer;
+	Choice mChoice;
+	enum EnumOrderStatus {waiting, ordering, ordered, pending, cooking, ready, delivering, delivered, done};
+	EnumOrderStatus mOrderStatus; 
