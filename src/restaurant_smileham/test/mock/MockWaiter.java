@@ -1,19 +1,19 @@
-package restaurant.test.mock;
+package restaurant_smileham.test.mock;
 
 import java.util.List;
 
-import agent.Check;
-import restaurant.Food.EnumFoodOptions;
-import restaurant.Order;
-import restaurant.Table;
-import restaurant.agents.CookAgent;
-import restaurant.agents.CustomerAgent;
-import restaurant.agents.HostAgent;
-import restaurant.gui.WaiterGui;
-import restaurant.interfaces.Cook;
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Host;
-import restaurant.interfaces.Waiter;
+import restaurant_smileham.agent.Check;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Order;
+import restaurant_smileham.Table;
+import restaurant_smileham.agents.CookAgent;
+import restaurant_smileham.agents.CustomerAgent;
+import restaurant_smileham.agents.HostAgent;
+import restaurant_smileham.gui.WaiterGui;
+import restaurant_smileham.interfaces.Cook;
+import restaurant_smileham.interfaces.Customer;
+import restaurant_smileham.interfaces.Host;
+import restaurant_smileham.interfaces.Waiter;
 
 public class MockWaiter extends Mock implements Waiter {
 

@@ -1,14 +1,14 @@
-package restaurant.test.mock;
+package restaurant_smileham.test.mock;
 
 
-import restaurant.Food.EnumFoodOptions;
-import restaurant.Menu;
-import restaurant.gui.CustomerGui;
-import restaurant.interfaces.Cashier;
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Host;
-import restaurant.interfaces.Waiter;
-import agent.Check;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Menu;
+import restaurant_smileham.gui.CustomerGui;
+import restaurant_smileham.interfaces.Cashier;
+import restaurant_smileham.interfaces.Customer;
+import restaurant_smileham.interfaces.Host;
+import restaurant_smileham.interfaces.Waiter;
+import restaurant_smileham.agent.Check;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.

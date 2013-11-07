@@ -1,10 +1,10 @@
-package restaurant.interfaces;
+package restaurant_smileham.interfaces;
 
-import restaurant.Food.EnumFoodOptions;
-import restaurant.Menu;
-import restaurant.gui.CustomerGui;
-import restaurant.test.mock.EventLog;
-import agent.Check;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Menu;
+import restaurant_smileham.gui.CustomerGui;
+import restaurant_smileham.test.mock.EventLog;
+import restaurant_smileham.agent.Check;
 
 public interface Customer{
 	

@@ -1,7 +1,7 @@
-package restaurant.test.mock;
+package restaurant_smileham.test.mock;
 
-import restaurant.Food.EnumFoodOptions;
-import restaurant.interfaces.Market;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.interfaces.Market;
 
 public class MockMarket extends Mock implements Market{
 

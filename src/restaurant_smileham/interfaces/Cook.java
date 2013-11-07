@@ -1,9 +1,9 @@
-package restaurant.interfaces;
+package restaurant_smileham.interfaces;
 
-import restaurant.Food.EnumFoodOptions;
-import restaurant.Order;
-import restaurant.gui.CookGui;
-import restaurant.test.mock.EventLog;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Order;
+import restaurant_smileham.gui.CookGui;
+import restaurant_smileham.test.mock.EventLog;
 
 public interface Cook {
 	

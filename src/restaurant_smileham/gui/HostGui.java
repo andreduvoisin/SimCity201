@@ -1,9 +1,9 @@
-package restaurant.gui;
+package restaurant_smileham.gui;
 
 
-import restaurant.Table;
-import restaurant.agents.CustomerAgent;
-import restaurant.agents.HostAgent;
+import restaurant_smileham.Table;
+import restaurant_smileham.agents.CustomerAgent;
+import restaurant_smileham.agents.HostAgent;
 
 import java.awt.*;
 

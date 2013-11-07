@@ -1,9 +1,9 @@
-package restaurant.test.mock;
+package restaurant_smileham.test.mock;
 
-import restaurant.Food.EnumFoodOptions;
-import restaurant.Order;
-import restaurant.gui.CookGui;
-import restaurant.interfaces.Cook;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Order;
+import restaurant_smileham.gui.CookGui;
+import restaurant_smileham.interfaces.Cook;
 
 public class MockCook extends Mock implements Cook{
 

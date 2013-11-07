@@ -1,8 +1,8 @@
-package restaurant;
+package restaurant_smileham;
 
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Waiter;
-import agent.Check;
+import restaurant_smileham.interfaces.Customer;
+import restaurant_smileham.interfaces.Waiter;
+import restaurant_smileham.agent.Check;
 
 public class Order {
 	public Waiter mWaiter;

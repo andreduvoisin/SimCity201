@@ -1,8 +1,8 @@
-package restaurant;
+package restaurant_smileham;
 
 import java.awt.Color;
 
-import restaurant.interfaces.Customer;
+import restaurant_smileham.interfaces.Customer;
 
 
 

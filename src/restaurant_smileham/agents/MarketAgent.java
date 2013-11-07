@@ -1,17 +1,17 @@
-package restaurant.agents;
+package restaurant_smileham.agents;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import restaurant.Menu;
-import restaurant.Food.EnumFoodOptions;
-import restaurant.gui.RestaurantGui;
-import restaurant.interfaces.Cashier;
-import restaurant.interfaces.Cook;
-import restaurant.interfaces.Market;
-import agent.Agent;
+import restaurant_smileham.Menu;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.gui.RestaurantGui;
+import restaurant_smileham.interfaces.Cashier;
+import restaurant_smileham.interfaces.Cook;
+import restaurant_smileham.interfaces.Market;
+import restaurant_smileham.agent.Agent;
 
 public class MarketAgent extends Agent implements Market{
 	//Constants

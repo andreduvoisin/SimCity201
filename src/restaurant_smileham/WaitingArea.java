@@ -1,4 +1,4 @@
-package restaurant;
+package restaurant_smileham;
 
 import java.awt.Color;
 

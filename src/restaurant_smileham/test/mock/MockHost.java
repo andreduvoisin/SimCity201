@@ -1,15 +1,15 @@
-package restaurant.test.mock;
+package restaurant_smileham.test.mock;
 
 import java.util.Collection;
 import java.util.List;
 
-import restaurant.Table;
-import restaurant.agents.CashierAgent;
-import restaurant.gui.HostGui;
-import restaurant.interfaces.Cook;
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Host;
-import restaurant.interfaces.Waiter;
+import restaurant_smileham.Table;
+import restaurant_smileham.agents.CashierAgent;
+import restaurant_smileham.gui.HostGui;
+import restaurant_smileham.interfaces.Cook;
+import restaurant_smileham.interfaces.Customer;
+import restaurant_smileham.interfaces.Host;
+import restaurant_smileham.interfaces.Waiter;
 
 public class MockHost extends Mock implements Host{
 

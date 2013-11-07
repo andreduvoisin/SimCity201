@@ -1,12 +1,12 @@
-package restaurant.gui;
+package restaurant_smileham.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.concurrent.Semaphore;
 
-import restaurant.WaitingArea;
-import restaurant.agents.CookAgent;
-import restaurant.agents.HostAgent;
+import restaurant_smileham.WaitingArea;
+import restaurant_smileham.agents.CookAgent;
+import restaurant_smileham.agents.HostAgent;
 
 public class CookGui implements Gui {
 

@@ -1,11 +1,11 @@
-package restaurant.test.mock;
+package restaurant_smileham.test.mock;
 
 import java.util.List;
 
-import agent.Check;
-import restaurant.Order;
-import restaurant.interfaces.Cashier;
-import restaurant.interfaces.Market;
+import restaurant_smileham.agent.Check;
+import restaurant_smileham.Order;
+import restaurant_smileham.interfaces.Cashier;
+import restaurant_smileham.interfaces.Market;
 
 public class MockCashier extends Mock implements Cashier{
 

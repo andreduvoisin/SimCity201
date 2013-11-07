@@ -1,4 +1,4 @@
-package restaurant.agents;
+package restaurant_smileham.agents;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -13,17 +13,17 @@ import java.util.concurrent.Semaphore;
 
 import javax.management.monitor.Monitor;
 
-import restaurant.Food;
-import restaurant.Food.EnumFoodOptions;
-import restaurant.Order;
-import restaurant.Order.EnumOrderStatus;
-import restaurant.gui.CookGui;
-import restaurant.gui.LabelGui;
-import restaurant.gui.RestaurantGui;
-import restaurant.interfaces.Cook;
-import restaurant.interfaces.Market;
-import restaurant.interfaces.Waiter;
-import agent.Agent;
+import restaurant_smileham.Food;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Order;
+import restaurant_smileham.Order.EnumOrderStatus;
+import restaurant_smileham.gui.CookGui;
+import restaurant_smileham.gui.LabelGui;
+import restaurant_smileham.gui.RestaurantGui;
+import restaurant_smileham.interfaces.Cook;
+import restaurant_smileham.interfaces.Market;
+import restaurant_smileham.interfaces.Waiter;
+import restaurant_smileham.agent.Agent;
 
 public class CookAgent extends Agent implements Cook {
 	//Member Variables

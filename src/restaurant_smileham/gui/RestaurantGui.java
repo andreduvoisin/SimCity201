@@ -1,6 +1,6 @@
-package restaurant.gui;
+package restaurant_smileham.gui;
 
-import restaurant.agents.CustomerAgent;
+import restaurant_smileham.agents.CustomerAgent;
 
 import javax.swing.*;
 

@@ -1,11 +1,11 @@
-package restaurant.interfaces;
+package restaurant_smileham.interfaces;
 
 import java.util.Collection;
 import java.util.List;
 
-import restaurant.Table;
-import restaurant.gui.HostGui;
-import restaurant.test.mock.EventLog;
+import restaurant_smileham.Table;
+import restaurant_smileham.gui.HostGui;
+import restaurant_smileham.test.mock.EventLog;
 
 public interface Host {
 	

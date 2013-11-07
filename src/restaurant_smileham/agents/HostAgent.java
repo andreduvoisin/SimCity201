@@ -1,17 +1,17 @@
-package restaurant.agents;
+package restaurant_smileham.agents;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import restaurant.Table;
-import restaurant.gui.HostGui;
-import restaurant.gui.RestaurantGui;
-import restaurant.interfaces.Cook;
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Host;
-import restaurant.interfaces.Waiter;
-import agent.Agent;
+import restaurant_smileham.Table;
+import restaurant_smileham.gui.HostGui;
+import restaurant_smileham.gui.RestaurantGui;
+import restaurant_smileham.interfaces.Cook;
+import restaurant_smileham.interfaces.Customer;
+import restaurant_smileham.interfaces.Host;
+import restaurant_smileham.interfaces.Waiter;
+import restaurant_smileham.agent.Agent;
 
 /**
  * Restaurant Host Agent

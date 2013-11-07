@@ -1,4 +1,4 @@
-package restaurant.gui;
+package restaurant_smileham.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -8,11 +8,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant.Menu;
-import restaurant.agents.CashierAgent;
-import restaurant.agents.CookAgent;
-import restaurant.agents.CustomerAgent;
-import restaurant.agents.HostAgent;
+import restaurant_smileham.Menu;
+import restaurant_smileham.agents.CashierAgent;
+import restaurant_smileham.agents.CookAgent;
+import restaurant_smileham.agents.CustomerAgent;
+import restaurant_smileham.agents.HostAgent;
 
 /**
  * Panel in frame that contains all the restaurant information,

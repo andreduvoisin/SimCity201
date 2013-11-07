@@ -1,4 +1,4 @@
-package restaurant.agents;
+package restaurant_smileham.agents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,18 +7,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import restaurant.Food.EnumFoodOptions;
-import restaurant.Menu;
-import restaurant.WaitingArea;
-import restaurant.gui.CustomerGui;
-import restaurant.gui.LabelGui;
-import restaurant.gui.RestaurantGui;
-import restaurant.interfaces.Cashier;
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Host;
-import restaurant.interfaces.Waiter;
-import agent.Agent;
-import agent.Check;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Menu;
+import restaurant_smileham.WaitingArea;
+import restaurant_smileham.gui.CustomerGui;
+import restaurant_smileham.gui.LabelGui;
+import restaurant_smileham.gui.RestaurantGui;
+import restaurant_smileham.interfaces.Cashier;
+import restaurant_smileham.interfaces.Customer;
+import restaurant_smileham.interfaces.Host;
+import restaurant_smileham.interfaces.Waiter;
+import restaurant_smileham.agent.Agent;
+import restaurant_smileham.agent.Check;
 
 /**
  * Restaurant customer agent.

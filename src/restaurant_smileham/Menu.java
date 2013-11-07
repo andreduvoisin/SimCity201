@@ -1,4 +1,4 @@
-package restaurant;
+package restaurant_smileham;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import restaurant.Food.EnumFoodOptions;
+import restaurant_smileham.Food.EnumFoodOptions;
 
 public class Menu {
 	private Map<EnumFoodOptions, Integer> mMenu;

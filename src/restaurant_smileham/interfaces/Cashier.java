@@ -1,10 +1,10 @@
-package restaurant.interfaces;
+package restaurant_smileham.interfaces;
 
 import java.util.List;
 
-import restaurant.Order;
-import restaurant.test.mock.EventLog;
-import agent.Check;
+import restaurant_smileham.Order;
+import restaurant_smileham.test.mock.EventLog;
+import restaurant_smileham.agent.Check;
 
 public interface Cashier {
 	

@@ -1,4 +1,4 @@
-package restaurant.agents;
+package restaurant_smileham.agents;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,13 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import restaurant.Menu;
-import restaurant.Order;
-import restaurant.gui.RestaurantGui;
-import restaurant.interfaces.Cashier;
-import restaurant.interfaces.Market;
-import agent.Agent;
-import agent.Check;
+import restaurant_smileham.Menu;
+import restaurant_smileham.Order;
+import restaurant_smileham.gui.RestaurantGui;
+import restaurant_smileham.interfaces.Cashier;
+import restaurant_smileham.interfaces.Market;
+import restaurant_smileham.agent.Agent;
+import restaurant_smileham.agent.Check;
 
 public class CashierAgent extends Agent implements Cashier{
 	

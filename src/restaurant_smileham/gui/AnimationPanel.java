@@ -1,10 +1,10 @@
-package restaurant.gui;
+package restaurant_smileham.gui;
 
 import javax.swing.*;
 
-import restaurant.Table;
-import restaurant.WaitingArea;
-import restaurant.agents.HostAgent;
+import restaurant_smileham.Table;
+import restaurant_smileham.WaitingArea;
+import restaurant_smileham.agents.HostAgent;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,4 +1,4 @@
-package restaurant.gui;
+package restaurant_smileham.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;

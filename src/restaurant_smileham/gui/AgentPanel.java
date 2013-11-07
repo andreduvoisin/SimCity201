@@ -1,4 +1,4 @@
-package restaurant.gui;
+package restaurant_smileham.gui;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -19,16 +19,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import restaurant.Order;
-import restaurant.agents.CashierAgent;
-import restaurant.agents.CookAgent;
-import restaurant.agents.CustomerAgent;
-import restaurant.agents.HostAgent;
-import restaurant.agents.WaiterAgent;
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Host;
-import restaurant.interfaces.Waiter;
-import agent.Agent;
+import restaurant_smileham.Order;
+import restaurant_smileham.agents.CashierAgent;
+import restaurant_smileham.agents.CookAgent;
+import restaurant_smileham.agents.CustomerAgent;
+import restaurant_smileham.agents.HostAgent;
+import restaurant_smileham.agents.WaiterAgent;
+import restaurant_smileham.interfaces.Customer;
+import restaurant_smileham.interfaces.Host;
+import restaurant_smileham.interfaces.Waiter;
+import restaurant_smileham.agent.Agent;
 
 /**
  * Subpanel of restaurantPanel.
