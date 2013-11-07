@@ -14,10 +14,17 @@ Market
 3.	msgCalculateBill		Order 						Worker			Cashier
 4.	msgHereIsBill			Order 						Cashier			Worker
 5.	msgHereIsOrderAndBill	Order, Bill 				Worker			Customer
-6.	msgPayingForOrder		Bill, cash 					Customer		Cashier
-7.	msgHereIsChange			cash						Cashier			Customer
+6.	msgPayingForOrder		Bill	 					Customer		Cashier
+7.	msgHereIsChange			Bill						Cashier			Customer
 
-8.	
+1.	msgIWantOrder			Order						Cook			Worker
+2.  msgCanFulfillOrder		Order						Worker			Cook
+3.	msgCalculateBill		Order 						Worker			Cashier
+4.	msgHereIsBill			Order 						Cashier			Worker
+5.	msgDeliverOrderAndBill	Order, Bill					Worker			DeliveryTruck
+6.	msgHereIsOrderAndBill	Order, Bill					DeliveryTruck	Cook
+7.	msgDeliverPayment		Bill						Cook			DeliveryTruck
+8.	msgHereIsPayment		Bill						DeliveryTruck	Cashier
 
 
 
