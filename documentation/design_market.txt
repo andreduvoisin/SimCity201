@@ -6,8 +6,8 @@
 Market
 	Message							Parameters				[Sender] 	--> [Recipient]
 1.	msgCustomerWantsOrder			Order 					Customer 		Cashier
-2.	msgCanFulfillOrder				Order, boolean			Cashier			Customer
-3.	msgFulfillOrder					Order					Cashier			Worker
+2.	msgCanFulfillOrder				Order					Cashier			Customer
+3.	msgFulfillCustomerOrder			Order					Cashier			Worker
 4.	msgBillToCustomer				Bill 					Cashier			Customer
 5.	msgPayingForOrder				Bill	 				Customer		Cashier
 6.	msgHereIsReceipt				Receipt					Cashier			Customer
@@ -16,7 +16,7 @@ Market
 9.	msgHereIsCustomerOrder			Order					Worker			Customer
 
 1.	msgCookWantsOrder				Order					Cook			Cashier
-2.  msgCanFulfillOrder				Order, boolean			Cashier			Cook
+2.  msgCanFulfillOrder				Order					Cashier			Cook
 4.	msgFulfillDeliveryOrder			Order 					Cashier			Worker
 5.	msgDeliverOrderAndBill			Bill					Worker			DeliveryTruck
 6.	msgOrderAndBillToCook			Bill					DeliveryTruck	Cook
@@ -25,15 +25,15 @@ Market
 7.	msgDeliverPayment				Receipt					DeliveryTruck	Cashier
 
 Item
-	static enum sEnumItemChoice = new enum {item possibilities}
-	EnumItemChoice choice;
+	static enum EnumItemType = new enum {item possibilities}
+	EnumItemType mProduct;
 
 Order
 	Map<Item, Integer> mItems;
-	MarketCustomerAgent mCustomer;
+	Person mPerson;
 	
 Bill
-	Order mOrder
+	Order mOrder;
 	final int mTotal;
 	int payment;
 
@@ -70,47 +70,40 @@ ACTIONS
 
 
 
------------------------------------------------WORKER-----------------------------------------------
-
-DATA
-
-
-MESSAGES
-msgCustomerWantsOrder(Order order)
-
-msgGiveWorkerBill(Bill bill)
-
-
-msgCookWantsOrder(Order order)
-
-
-
-
-SCHEDULER
-
-
-ACTIONS
-
-
-
-
 ----------------------------------------------CASHIER----------------------------------------------
 
 DATA
 
 
 MESSAGES
-msgCalculateBill(Order order)
-
-msgPayingForOrder(Bill bill)
-
-msgHereIsPayment(Bill bill)
 
 
 SCHEDULER
 
 
 ACTIONS
+
+
+
+
+
+-----------------------------------------------WORKER-----------------------------------------------
+
+DATA
+mCustomerOrders
+mDeliveryOrders
+
+MESSAGES
+
+
+
+
+SCHEDULER
+
+
+ACTIONS
+
+
 
 
 
@@ -121,9 +114,6 @@ DATA
 
 
 MESSAGES
-msgCanFulfillOrder(Order order)
-
-msgOrderAndBillToCook(Order order, Bill bill)
 
 SCHEDULER
 
@@ -137,9 +127,6 @@ DATA
 
 
 MESSAGES
-msgDeliverOrderAndBill(Order order, Bill bill)
-
-msgDeliverPayment(Bill bill)
 
 SCHEDULER
 
