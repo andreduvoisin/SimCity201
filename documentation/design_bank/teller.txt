@@ -16,7 +16,7 @@ List<Account> accounts;
 
 class myCustomer{
 	Customer c;
-	int amount;
+	double amount;
 	State state;
 	{none, deposit, withdrawal, check, open, loan, payment, robbery}
 }
@@ -32,13 +32,13 @@ myCustomer customer; (Only service one at a time)
 MESSAGES
 --------
 
-deposit(Customer c, int amount){
+deposit(Customer c, double amount){
 	customer.c = c;
 	customer.amount = amount;
 	customer.state = deposit;
 }
 
-withdrawal(Customer c, int amount){
+withdrawal(Customer c, double amount){
 	customer.c = c;
 	customer.amount = amount;
 	customer.state = withdrawal;
@@ -49,25 +49,25 @@ checkBalance(Customer c){
 	customer.state = check;
 }
 
-applyLoan(Customer c, int amount){
+applyLoan(Customer c, double amount){
 	customer.c = c;
 	customer.amount = amount;
 	customer.state = loan;
 }
 
-makePayment(Customer c, int amount){
+makePayment(Customer c, double amount){
 	customer.c = c;
 	customer.amount = amount;
 	customer.state = payment;
 }
 
-openAccount(Customer c, int amount){
+openAccount(Customer c, double amount){
 	customer = c;
 	customer.amount = amount;
 	customer.state = open;
 }
 
-robbery(Customer c, int amount){
+robbery(Customer c, double amount){
 	customer = c;
 	customer.amount = amount;
 	customer.state = robbery;
