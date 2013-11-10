@@ -4,25 +4,41 @@
 -----------------------------------------INTERACTION DIAGRAM-----------------------------------------
 
 Market
-	Message						Parameters					[Sender] 	--> [Recipient]
-1.	msgIWantOrder				Order 						Customer 		Worker
-2.	msgCanFulfillOrder			Order						Worker			Customer
-3.	msgCalculateBill			Order 						Worker			Cashier
-4.	msgHereIsBill				Order 						Cashier			Worker
-5.	msgHereIsOrderAndBill		Order, Bill 				Worker			Customer
-6.	msgPayingForOrder			Bill	 					Customer		Cashier
-7.	msgHereIsChange				Bill						Cashier			Customer
+	Message						Parameters				[Sender] 	--> [Recipient]
+1.	msgCustomerWantsOrder		Order 					Customer 		Worker
+2.	msgCanFulfillOrder			Order					Worker			Customer
+3.	msgCalculateBill			Order 					Worker			Cashier
+4.	msgGiveWorkerBill			Bill					Cashier			Worker
+5.	msgGiveBillToCustomer		Bill 					Worker			Customer
+6.	msgPayingForOrder			Bill	 				Customer		Cashier
+7.	msgHereIsChange				Bill					Cashier			Customer
 
-1.	msgIWantOrder				Order						Cook			Worker
-2.  msgCanFulfillOrder			Order						Worker			Cook
-3.	msgCalculateBill			Order 						Worker			Cashier
-4.	msgHereIsBill				Order 						Cashier			Worker
-5.	msgDeliverOrderAndBill		Order, Bill					Worker			DeliveryTruck
-6.	msgHereIsOrderAndBill		Order, Bill					DeliveryTruck	Cook
-7.	msgDeliverPayment			Bill						Cook			DeliveryTruck
-8.	msgHereIsPayment			Bill						DeliveryTruck	Cashier
+1.	msgCookWantsOrder			Order					Cook			Worker
+2.  msgCanFulfillOrder			Order					Worker			Cook
+3.	msgCalculateBill			Order 					Worker			Cashier
+4.	msgGiveWorkerBill			Order 					Cashier			Worker
+5.	msgDeliverOrderAndBill		Order, Bill				Worker			DeliveryTruck
+6.	msgOrderAndBillToCook		Order, Bill				DeliveryTruck	Cook
+7.	msgDeliverPayment			Bill					Cook			DeliveryTruck
+8.	msgHereIsPayment			Bill					DeliveryTruck	Cashier
 
+Item
+	static enum sEnumItemChoice = new enum {item possibilities}
+	EnumItemChoice choice;
 
+Order
+	List<Item> mItems;
+	MarketCustomerAgent mCustomer;
+	
+Bill
+	MarketCustomerAgent mCustomer;
+	int total;
+
+*Customer = MarketCustomerAgent
+*Worker = MarketWorkerAgent
+*Cashier = MarketCashierAgent
+*Cook = MarketCookAgent
+*DeliveryTruck = MarketDeliveryTruckAgent
 
 ----------------------------------------------CUSTOMER----------------------------------------------
 
@@ -30,6 +46,13 @@ DATA
 
 
 MESSAGES
+msgCanFulfillOrder(Order order)
+
+msgGiveBillToCustomer(Bill bill)
+
+msgHereIsChange(Bill bill)
+
+
 
 
 SCHEDULER
@@ -45,6 +68,14 @@ DATA
 
 
 MESSAGES
+msgCustomerWantsOrder(Order order)
+
+msgGiveWorkerBill(Bill bill)
+
+
+msgCookWantsOrder(Order order)
+
+
 
 
 SCHEDULER
@@ -61,6 +92,11 @@ DATA
 
 
 MESSAGES
+msgCalculateBill(Order order)
+
+msgPayingForOrder(Bill bill)
+
+msgHereIsPayment(Bill bill)
 
 
 SCHEDULER
@@ -69,6 +105,22 @@ SCHEDULER
 ACTIONS
 
 
+
+
+------------------------------------------------COOK------------------------------------------------
+
+DATA
+
+
+MESSAGES
+msgCanFulfillOrder(Order order)
+
+msgOrderAndBillToCook(Order order, Bill bill)
+
+SCHEDULER
+
+
+ACTIONS
 
 
 -------------------------------------------DELIVERY TRUCK-------------------------------------------
@@ -77,11 +129,15 @@ DATA
 
 
 MESSAGES
+msgDeliverOrderAndBill(Order order, Bill bill)
 
+msgDeliverPayment(Bill bill)
 
 SCHEDULER
 
 
 ACTIONS
+
+
 
 
