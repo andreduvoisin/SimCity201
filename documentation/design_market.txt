@@ -4,35 +4,43 @@
 -----------------------------------------INTERACTION DIAGRAM-----------------------------------------
 
 Market
-	Message						Parameters				[Sender] 	--> [Recipient]
-1.	msgCustomerWantsOrder		Order 					Customer 		Worker
-2.	msgCanFulfillOrder			Order					Worker			Customer
-3.	msgCalculateBill			Order 					Worker			Cashier
-4.	msgGiveWorkerBill			Bill					Cashier			Worker
-5.	msgGiveBillToCustomer		Bill 					Worker			Customer
-6.	msgPayingForOrder			Bill	 				Customer		Cashier
-7.	msgHereIsChange				Bill					Cashier			Customer
+	Message							Parameters				[Sender] 	--> [Recipient]
+1.	msgCustomerWantsOrder			Order 					Customer 		Cashier
+2.	msgCanFulfillOrder				Order					Cashier			Customer
+3.	msgFulfillOrder					Bill					Cashier			Worker
+4.	msgBillToCustomer				Bill 					Cashier			Customer
+5.	msgPayingForOrder				Bill	 				Customer		Cashier
+6.	msgHereIsReceipt				Receipt					Cashier			Customer
+7.	msgCustomerOrderReady									Worker			Customer
+8.	msgReceiptValidation			Receipt					Customer		Worker
+9.	msgHereIsCustomerOrder			Order					Worker			Customer
 
-1.	msgCookWantsOrder			Order					Cook			Worker
-2.  msgCanFulfillOrder			Order					Worker			Cook
-3.	msgCalculateBill			Order 					Worker			Cashier
-4.	msgGiveWorkerBill			Order 					Cashier			Worker
-5.	msgDeliverOrderAndBill		Order, Bill				Worker			DeliveryTruck
-6.	msgOrderAndBillToCook		Order, Bill				DeliveryTruck	Cook
-7.	msgDeliverPayment			Bill					Cook			DeliveryTruck
-8.	msgHereIsPayment			Bill					DeliveryTruck	Cashier
+1.	msgCookWantsOrder				Order					Cook			Worker
+2.  msgCanFulfillOrder				Order					Worker			Cook
+3.	msgCalculateBill				Order 					Worker			Cashier
+4.	msgGiveWorkerBill				Order 					Cashier			Worker
+5.	msgDeliverOrderAndBill			Order, Bill				Worker			DeliveryTruck
+6.	msgOrderAndBillToCook			Order, Bill				DeliveryTruck	Cook
+7.	msgDeliverPayment				Bill					Cook			DeliveryTruck
+8.	msgHereIsPayment				Bill					DeliveryTruck	Cashier
 
 Item
 	static enum sEnumItemChoice = new enum {item possibilities}
 	EnumItemChoice choice;
 
 Order
-	List<Item> mItems;
+	Map<Item, Integer> mItems;
 	MarketCustomerAgent mCustomer;
 	
 Bill
-	MarketCustomerAgent mCustomer;
-	int total;
+	Order mOrder
+	final int mTotal;
+	int payment;
+
+Receipt
+	Bill mBill;
+	final boolean mPaid;
+
 
 *Customer = MarketCustomerAgent
 *Worker = MarketWorkerAgent
