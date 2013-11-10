@@ -16,8 +16,8 @@ Market
 9.	msgHereIsCustomerOrder			Order					Worker			Customer
 
 1.	msgCookWantsOrder				Order					Cook			Cashier
-2.  msgCanFulfillOrder				Order					Cashier			Cook
-4.	msgFulfillDeliveryOrder			Order 					Cashier			Worker
+2.  msgCanFulfillOrder				Order, Order			Cashier			Cook
+4.	msgFulfillCookOrder				Order 					Cashier			Worker
 5.	msgDeliverOrderAndBill			Bill					Worker			DeliveryTruck
 6.	msgOrderAndBillToCook			Bill					DeliveryTruck	Cook
 7.	msgPayingDeliveryTruck			Bill					Cook			DeliveryTruck
@@ -35,7 +35,7 @@ Order
 Bill
 	Order mOrder;
 	final int mTotal;
-	int payment;
+	int mPayment;
 
 Receipt
 	Bill mBill;
@@ -49,28 +49,12 @@ Receipt
 *DeliveryTruck = MarketDeliveryTruckAgent
 
 
-----------------------------------------------CASHIER----------------------------------------------
-
-DATA
-
-
-MESSAGES
-
-
-SCHEDULER
-
-
-ACTIONS
-
-
-
 
 
 -----------------------------------------------WORKER-----------------------------------------------
 
 DATA
-mCustomerOrders
-mDeliveryOrders
+
 
 MESSAGES
 

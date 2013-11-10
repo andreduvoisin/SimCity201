@@ -1,0 +1,134 @@
+----------------------------------------------CASHIER----------------------------------------------
+
+DATA
+Map<EnumItemType, Integer> mInventory;
+List<Worker> mWorkers;
+static int mWorkerIndex;
+int mCash;
+
+List<Order> mCustomerOrders;
+List<Bill> mCustomerBills;
+
+List<Order> mCookOrders;
+
+
+MESSAGES
+
+	//Customer
+	msgCustomerWantsOrder(Order order){
+		mCustomerOrders.add(order);
+		stateChanged();
+	}
+
+	msgPayingForOrder(Bill bill){
+		mCustomerBills.add(bill);
+		stateChanged();
+	}
+
+	//Cook
+	msgCookWantsOrder(Order order){
+		mCookOrders.add(order);
+		stateChanged();
+	}
+
+	msgDeliverPayment(Receipt receipt){
+		mCash += receipt.mBill.mPayment;
+		//no state changed
+	}
+
+
+SCHEDULER
+
+boolean pickAndExecuteAnAction(){
+	
+	//notify customer
+	if (mCustomerOrders.size() > 0){
+		notifyCustomer();
+		return true;
+	}
+
+	//customer payment
+	if (mCustomerBills.size() > 0){
+		customerPayment();
+		return true;
+	}
+
+
+	//notify cook
+	if (mCookOrders.size() > 0){
+		notifyCook();
+		return true;
+	}
+	
+}
+
+
+
+
+
+ACTIONS
+
+void notifyCustomer(){
+	Order order = mCustomerOrders.get(0);
+	MarketCustomer customer = order.mCustomer;
+	Order orderCanFulfill = new Order();
+	int cost;
+
+	for (iItemType : order.keySet()){
+		int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
+		orderCanFulfill.put(iItemType, amountCanFulfill);
+		cost += cost of item * amountCanFulfill;
+	}
+
+	customer.msgCanFulfillOrder(order, orderCanFulfill);
+
+	Bill bill = new Bill(orderCanFulfill, cost);
+	customer.msgBillToCustomer(bill);
+
+	mCustomerOrders.remove(0);
+}
+
+
+void customerPayment(){
+	Bill bill = mCustomerBills.get(0);
+	boolean paid = (bill.mPayment == bill.mTotal);
+
+	Receipt receipt = new Receipt(bill, paid);
+
+	Customer customer = bill.mOrder.mCustomer; //cast to person
+
+	customer.msgHereIsReceipt(receipt);
+
+	mCustomerBills.remove(0);
+}
+
+
+void notifyCook(){
+	Order order = mCookOrders.get(0);
+	Cook cook = order.mPerson;
+	Order orderCanFulfill = new Order();
+	int cost;
+
+	for (iItemType : order.keySet()){
+		int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
+		orderCanFulfill.put(iItemType, amountCanFulfill);
+		cost += cost of item * amountCanFulfill;
+	}
+
+	cook.msgCanFulfillOrder(order, orderCanFulfill);
+
+	Bill bill = new Bill(orderCanFulfill, cost);
+
+	customer.msgBillToCustomer(bill);
+
+
+
+	//tell worker to fulfill order
+	Worker worker = mWorkers.get(mWorkerIndex);
+	increase worker index mod style
+
+	worker.msgFulfillCookOrder(orderCanFulfill);
+
+
+	mCustomerOrders.remove(0);
+}
