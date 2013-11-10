@@ -1,0 +1,58 @@
+-----------------------------GUARD----------------------------------------
+
+DATA
+----
+
+class myTeller{
+	Teller t
+	bool Available
+}
+
+//Synch Lists to avoid errors
+List<myTeller> tellers;
+List<Customer> customers;
+List<Customer> criminals;
+
+MESSAGES
+--------
+
+needService(Customer c){
+	customers.add(c);
+}
+
+readyToWork(Teller t){
+	tellers.add(t, true);
+}
+
+readyForNext(Teller t){
+	t.available = true;
+}
+
+offWork(Teller t){
+	tellers.remove(t);
+}
+
+robberAlert(Customer c){
+	criminals.add(c);
+}
+	
+SCHEDULER
+---------
+
+if there exists a c in criminals:
+	killRobber(c);
+if there exists a c in customers AND
+there exists a t in tellers such that t.available:
+	provideService(c, t);
+
+ACTIONS
+
+killRobber(Customer c){
+	//Gui Actions
+}
+
+provideService(Customer c, Teller t){
+	c.goToTeller(t);
+	customers.remove(c);
+	t.available = false;
+}
