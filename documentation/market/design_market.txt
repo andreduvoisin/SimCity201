@@ -1,0 +1,117 @@
+
+									  -Design Document: Market-
+
+-----------------------------------------INTERACTION DIAGRAM-----------------------------------------
+
+Market
+	Message							Parameters				[Sender] 	--> [Recipient]
+1.	msgCustomerWantsOrder			Order 					Customer 		Cashier
+2.	msgCanFulfillOrder				Order, Order			Cashier			Customer
+3.	msgBillToCustomer				Bill 					Cashier			Customer
+4.	msgPayingForOrder				Bill	 				Customer		Cashier
+5.	msgHereIsReceipt				Receipt					Cashier			Customer
+6.	msgFulfillCustomerOrder			Order					Cashier			Worker
+7.	msgCustomerOrderReady			Order					Worker			Customer
+8.	msgReceiptValidation			Receipt					Customer		Worker
+9.	msgHereIsCustomerOrder			Order					Worker			Customer
+
+1.	msgCookWantsOrder				Order					Cook			Cashier
+2.  msgCanFulfillOrder				Order					Cashier			Cook
+4.	msgFulfillDeliveryOrder			Order 					Cashier			Worker
+5.	msgDeliverOrderAndBill			Bill					Worker			DeliveryTruck
+6.	msgOrderAndBillToCook			Bill					DeliveryTruck	Cook
+7.	msgPayingDeliveryTruck			Bill					Cook			DeliveryTruck
+8.	msgHereIsCookReceipt			Receipt					DeliveryTruck	Cook
+7.	msgDeliverPayment				Receipt					DeliveryTruck	Cashier
+
+Item
+	static enum EnumItemType = new enum {item possibilities}
+	EnumItemType mProduct;
+
+Order
+	Map<Item, Integer> mItems;
+	Person mPerson;
+	
+Bill
+	Order mOrder;
+	final int mTotal;
+	int payment;
+
+Receipt
+	Bill mBill;
+	final boolean mPaid;
+
+
+*Customer = MarketCustomerAgent
+*Worker = MarketWorkerAgent
+*Cashier = MarketCashierAgent
+*Cook = MarketCookAgent
+*DeliveryTruck = MarketDeliveryTruckAgent
+
+
+----------------------------------------------CASHIER----------------------------------------------
+
+DATA
+
+
+MESSAGES
+
+
+SCHEDULER
+
+
+ACTIONS
+
+
+
+
+
+-----------------------------------------------WORKER-----------------------------------------------
+
+DATA
+mCustomerOrders
+mDeliveryOrders
+
+MESSAGES
+
+
+
+
+SCHEDULER
+
+
+ACTIONS
+
+
+
+
+
+
+------------------------------------------------COOK------------------------------------------------
+
+DATA
+
+
+MESSAGES
+
+SCHEDULER
+
+
+ACTIONS
+
+
+-------------------------------------------DELIVERY TRUCK-------------------------------------------
+
+DATA
+
+
+MESSAGES
+
+SCHEDULER
+
+
+ACTIONS
+
+
+
+

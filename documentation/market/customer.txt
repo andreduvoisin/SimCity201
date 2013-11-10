@@ -1,0 +1,135 @@
+----------------------------------------------CUSTOMER----------------------------------------------
+
+DATA
+
+Map<Item, Integer> mItemsDesired; //not ordered yet
+Map<Item, Integer> mItemsOrdered; //ordered but not confirmed
+Map<Item, Integer> mItemsIncoming; //ordered and on their way
+Map<Item, Integer> mItems; //personal inventory
+
+List<Bill> mBillsToPay;
+List<Receipt> mReceipts;
+Map<Receipt, MarketWorkerAgent> mOrdersToGet;
+Map<Receipt, MarketWorkerAgent> mOrdersInProcess;
+
+MarketCashierAgent mCashier;
+int mCash; //inherited from person?
+
+
+
+MESSAGES
+
+	void msgCanFulfillOrder(Order fulfilling, Order notFulfilling){
+		Map<Item, Integer> fulfillingItems = fulfilling.mItems;
+		Map<Item, Integer> notFulfillingItems = notFulfilling.mItems;
+
+		//fulfilling
+		for (iItem : fulfillingItems){
+			subtract int from mItemsOrdered
+			add int to mItemsIncoming
+
+			if mItemsOrdered amount is 0, remove that item
+		}
+
+		//not being fulfilled
+		for (iItem : notFulfillingItems){
+			subtract int from mItemsOrdered
+			add int to mItemsDesired //how do i make sure it doesn't keep asking the same market? static market num to order from?
+
+			if mItemsOrdered amount is 0, remove that item
+		}
+
+		stateChanged();
+	}
+
+	void msgBillToCustomer(Bill bill){
+		mBillsToPay.add(bill);
+		stateChanged();
+	}
+
+	void msgHereIsReceipt(Receipt receipt){
+		mReceiptsToBeFulfilled.add(receipt);
+		stateChanged();
+	}
+
+
+	void msgCustomerOrderReady(Order order, MarketWorkerAgent worker){
+		//add corresponding receipt to list to get from the worker
+		for (iReceipt : mReceipts){
+			if (iReceipt.mBill.mOrder == order){
+				mOrdersToGet.put(iReceipt, worker);
+				mReceipts.remove(iReceipt);
+			}
+		}
+		stateChanged();
+	}
+
+	void msgHereIsCustomerOrder(Order order){
+		for each item in order{
+			remove from mItemsIncoming
+			add to mItems
+		}
+
+		find corresponding order in mOrdersInProcess and remove it
+
+		stateChanged();
+	}
+
+
+SCHEDULER
+
+boolean pickAndExecuteAnAction(){
+	//order items
+	//somehow decide to get some items?
+	if (mItemsDesired.size() != 0)
+		orderItems();
+		return true;
+	}
+	
+	//pay order
+	if (mBillsToPay.size() > 0){
+		payBill();
+		return true;
+	}
+	
+	//receive order
+	if (mOrdersToGet.size() > 0){
+		getOrder();
+		return true;
+	}
+
+	return false;
+}
+
+ACTIONS
+
+void orderItems(){
+	Order order = new Order(mItemsDesired, this);
+	mCashier.msgCustomerWantsOrder(order);
+}
+
+void payBill(){
+	//assert true mBillsToPay.size() > 0
+	Bill bill = mBillsToPay.get(0);
+
+	if (bill.mTotal > mCash){
+		//WHAT IF I CAN'T PAY FOR THE ORDER?
+	}
+
+	mCash -= bill.mTotal;
+	bill.mPayment += bill.mTotal;
+
+	mCashier.msgPayingForOrder(bill);
+
+	mBillToPay.remove(0);
+}
+
+void getOrder(){
+	Receipt receipt = get first receipt from mOrdersToGet
+	Worker worker = get corresponding worker
+
+	worker.msgReceiptValidation(receipt);
+
+	mOrdersInProcess.put(first entry of mOrdersToGet)
+	mOrdersToGet remove first entry
+}
