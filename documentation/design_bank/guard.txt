@@ -52,7 +52,7 @@ killRobber(Customer c){
 }
 
 provideService(Customer c, Teller t){
-	c.goToTeller(t);
+	c.GoToTeller(t);
 	customers.remove(c);
 	t.available = false;
 }

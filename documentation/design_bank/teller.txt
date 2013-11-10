@@ -142,7 +142,7 @@ ProcessLoan(myCustomer c){
 		c.c.AccountError();
 	c.state = none;
 }
-
+c
 MakePayment(myCustomer c){
 	if there exists an account in accounts
 	such that account.ID = c.c.ID:
