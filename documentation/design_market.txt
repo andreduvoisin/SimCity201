@@ -6,8 +6,8 @@
 Market
 	Message							Parameters				[Sender] 	--> [Recipient]
 1.	msgCustomerWantsOrder			Order 					Customer 		Cashier
-2.	msgCanFulfillOrder				Order					Cashier			Customer
-3.	msgFulfillOrder					Bill					Cashier			Worker
+2.	msgCanFulfillOrder				Order, boolean			Cashier			Customer
+3.	msgFulfillOrder					Order					Cashier			Worker
 4.	msgBillToCustomer				Bill 					Cashier			Customer
 5.	msgPayingForOrder				Bill	 				Customer		Cashier
 6.	msgHereIsReceipt				Receipt					Cashier			Customer
@@ -15,14 +15,14 @@ Market
 8.	msgReceiptValidation			Receipt					Customer		Worker
 9.	msgHereIsCustomerOrder			Order					Worker			Customer
 
-1.	msgCookWantsOrder				Order					Cook			Worker
-2.  msgCanFulfillOrder				Order					Worker			Cook
-3.	msgCalculateBill				Order 					Worker			Cashier
-4.	msgGiveWorkerBill				Order 					Cashier			Worker
-5.	msgDeliverOrderAndBill			Order, Bill				Worker			DeliveryTruck
-6.	msgOrderAndBillToCook			Order, Bill				DeliveryTruck	Cook
-7.	msgDeliverPayment				Bill					Cook			DeliveryTruck
-8.	msgHereIsPayment				Bill					DeliveryTruck	Cashier
+1.	msgCookWantsOrder				Order					Cook			Cashier
+2.  msgCanFulfillOrder				Order, boolean			Cashier			Cook
+4.	msgFulfillDeliveryOrder			Order 					Cashier			Worker
+5.	msgDeliverOrderAndBill			Bill					Worker			DeliveryTruck
+6.	msgOrderAndBillToCook			Bill					DeliveryTruck	Cook
+7.	msgPayingDeliveryTruck			Bill					Cook			DeliveryTruck
+8.	msgHereIsCookReceipt			Receipt					DeliveryTruck	Cook
+7.	msgDeliverPayment				Receipt					DeliveryTruck	Cashier
 
 Item
 	static enum sEnumItemChoice = new enum {item possibilities}
