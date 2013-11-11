@@ -8,6 +8,7 @@ int mCash;
 
 List<Order> mCustomerOrders;
 List<Bill> mCustomerBills;
+//combination of lists?
 
 List<Order> mCookOrders;
 
