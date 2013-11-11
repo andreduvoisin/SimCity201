@@ -1,4 +1,4 @@
-
+﻿
 									  -Design Document: Market-
 
 -----------------------------------------INTERACTION DIAGRAM-----------------------------------------
@@ -17,7 +17,7 @@ Market
 
 1.	msgCookWantsOrder				Order					Cook			Cashier
 2.  msgCanFulfillOrder				Order					Cashier			Cook
-4.	msgFulfillDeliveryOrder			Order 					Cashier			Worker
+4.	msgFulfillDeliveryOrder			Order, Bill 			Cashier			Worker
 5.	msgDeliverOrderAndBill			Bill					Worker			DeliveryTruck
 6.	msgOrderAndBillToCook			Bill					DeliveryTruck	Cook
 7.	msgPayingDeliveryTruck			Bill					Cook			DeliveryTruck
@@ -90,48 +90,221 @@ ACTIONS
 -----------------------------------------------WORKER-----------------------------------------------
 
 DATA
-mCustomerOrders
-mDeliveryOrders
+List<MyOrder> mCustomerOrders;
+List<MyDeliveryOrder> mDeliveryOrders;
+Timer mTimer;
+int mBaseTime;
+
+enum OrderStatus {Pending, Fulfilling, Ready, Validating, Validated, BeingDelivered, Finished};
+
+class MyOrder {
+	Order mo;
+	OrderStatus ms;
+}
+
+class MyDeliveryOrder {
+	Order mo;
+	Bill mb;
+	DeliveryTruck md;
+}
 
 MESSAGES
+msgFulfillCustomerOrder(Order o) {
+	mCustomerOrders.add(new MyOrder(o, OrderStatus.Pending));
+}
 
+msgReceiptValidation(Receipt r) {
+	if ∃ order in mCustomerOrders ∈ order = r.mBill.mOrder
+		then order.ms = Validated;
+}
 
+msgFulfillDeliveryOrder(Order o, Bill b, DeliveryTruck d) {
+	mDeliveryOrders.add(new MyOrder(o, b, d, OrderStatus.Pending));
+}
 
+msgOrderDone(Order o) {					//from timer or animation
+	if ∃ order in mCustomerOrders ∈ order.mo = o
+		then order.ms = Ready;
+	if ∃ order in mDeliveryOrders ∈ order.mo = o
+		then order.ms = Ready;
+}
+
+msgDeliveryFinished(Bill b) {
+	if ∃ order in mDeliveryOrders ∈ order.mb = b
+		then order.ms = Delivered;
+}
 
 SCHEDULER
-
+if ∃ order in mCustomerOrders ∈ order.ms = Validated
+	then giveCustomerOrder(order);
+if ∃ order in mDeliveryOrders ∈ order.ms = Delivered
+	then finishDeliveryOrder(order);
+if ∃ order in mCustomerOrders ∈ order.ms = Ready
+	then validateOrder(order);
+if ∃ order in mDeliveryOrders ∈ order.ms = Ready
+	then giveOrderToDeliveryTruck(order);
+if ∃ order in mCustomerOrders ∈ order.ms = Pending
+	then fulfillOrder(order);
+if ∃ order in mDeliveryOrders ∈ order.ms = Pending
+	then fulfillOrder(order);
 
 ACTIONS
+fulfillOrder(MyOrder o)
+	o.ms = Fulfilling;
+	mTimer.start(run(msgOrderDone(o),mBaseTime));	//either a timer or call to animation
+}
 
+giveOrderToDeliveryToOrder(MyOrder o) {
+	o.ms = BeingDelivered;
+	o.md.msgDeliverOrderAndBill(o.mo, o.mb);
+}
 
+validateOrder(MyOrder o) {
+	o.ms = Validating;
+	o.mo.mPerson.msgCustomerOrderReady(o.mo);
+}
 
+giveCustomerOrder(MyOrder o) {
+	o.ms = Finished;
+	o.mo.mPerson.msgHereIsCustomerOrder(o.mo);
+}
 
-
+finishDeliveryOrder(MyOrder o) {
+	o.ms = Finished;
+}
 
 ------------------------------------------------COOK------------------------------------------------
 
 DATA
+List<MyOrder> mOrders;
+double mMoney;
 
+enum OrderStatus {Pending, Sent, BeingFulfilled, Paying, Paid, Received, Done}
+
+class MyOrder {
+	Order mo;
+	OrderStatus ms;
+	Bill mb;
+	Market mm;
+	DeliveryTruck md;
+}
 
 MESSAGES
+msgCanFulfillOrder(Order o, Market m) {
+	if ∃ order in mOrders ∈ order.mo = o && order.mm = m
+		then order.ms = BeingFulfilled;
+}
+
+msgOrderAndBillToCook(Bill b, DeliveryTruck d) {
+	if ∃ order in mOrders ∈ b.mOrder = order
+		then order.ms = Paying;
+		order.md = d;
+}
+
+msgHereIsCookRceipt(Receipt r) {	//from deliveryTruck
+	if ∃ order in mOrders ∈ r.mBill = order.mb
+		then order.ms = Received;
+		order.mr = r;
+}
 
 SCHEDULER
-
-
+	if ∃ order in mOrders ∈ order.mo = Pending
+		then sendOrder(order);
+	if ∃ order in mOrders ∈ order.mo = Paying
+		then payOrder(order);
+	if ∃ order in mOrders ∈ order.mo = Received
+		then finishOrder(order);
+		
 ACTIONS
+sendOrder(MyOrder o) {
+	o.ms = Sent;
+	o.mm.msgCookWantsOrder(o.mo);
+}
 
+payOrder(MyOrder o) {
+	o.ms = WaitingForReceipt;
+	Bill b = o.mb;
+	b.payment = b.mTotal;
+	mMoney -= b.mTotal;
+	o.md.msgPayingDeliveryTruck(o.mb);
+}
+
+finishOrder(MyOrder o) {
+	o.ms = Finished;
+}
 
 -------------------------------------------DELIVERY TRUCK-------------------------------------------
 
 DATA
+List<MyDelivery> mDeliveries;
 
+enum Status {Pending, GoingToDeliveryLocation, DeliveringOrder, AwaitingPayment, ReceivedPayment, Delivered, NotifyingOfDelivery, Finished}
+
+class MyDelivery {
+	Bill mb;
+	Receipt mr;
+	Status ms;
+}
 
 MESSAGES
+msgDeliverOrderAndBill(Bill b) {
+	if ∃ delivery in mDeliveries ∈ delivery.mb = b;
+		then mDeliveries.add(new MyDelivery(b, Status.Pending);
+}
+
+msgPayingDeliveryTruck(Bill b) {
+	if ∃ delivery in mDeliveries ∈ delivery.mb = b
+		then delivery.ms = ReceivedPayment;
+}
+
+msgAtRestaurant(Bill b) {
+	if ∃ delivery in mDeliveries ∈ delivery.mb = b
+		then delivery.ms = DeliveringOrder;
+}
+
+msgAtMarket() {
+	if ∃ delivery in mDeliveries ∈ delivery.ms = BringingReceiptToMarket
+		then deliver.ms = NotifyingOfDelivery;
 
 SCHEDULER
-
+if ∃ delivery in mDeliveries ∈ delivery.ms = NotifyingOfDelivery;
+	then notifyDeliveryFinished(delivery);
+if ∃ delivery in mDeliveries ∈ delivery.ms = Pending;
+	then deliverOrder(delivery);
+if ∃ delivery in mDeliveries ∈ delivery.ms = DeliveringOrder;
+	then giveOrder(delivery);
+if ∃ delivery in mDeliveries ∈ delivery.ms = ReceivedPayment;
+	then acceptPayment(delivery);
+if ∃ delivery in mDeliveries ∈ delivery.ms = Delivered;
+	then returnToMarket(delivery);
 
 ACTIONS
+deliverOrder(MyDelivery d) {
+	d.ms = GoingToDeliveryLocation
+	DoDeliverOrder(d);		//animation call
+}
+
+giveOrder(MyDelivery d) {
+	d.ms = AwaitingPayment;
+	d.mb.mOrder.mPerson.msgOrderAndBillToCook(d.mb.mOrder, this);
+}
+
+acceptPayment(MyDelivery d) {
+	d.ms = Delivered;
+	Receipt r = new Receipt(d.mb);
+	d.mr = r;
+	d.mo.mPerson.msgHereIsCookReceipt(r);
+}
+
+returnToMarket(MyDelivery d) {
+	d.ms = BringingReceiptToMarket
+	DoGoToMarket();			//animation call
+}
+
+notifyDeliveryFinished(MyDelivery d) {
+	d.ms = Finished;
+	cashier.msgDeliverPayment(d.r);
+}
 
 
 

@@ -1,0 +1,59 @@
+﻿------------------------------------------------COOK------------------------------------------------
+
+DATA
+List<MyOrder> mOrders;
+double mMoney;
+
+enum OrderStatus {Pending, Sent, BeingFulfilled, Paying, Paid, Received, Done}
+
+class MyOrder {
+	Order mo;
+	OrderStatus ms;
+	Bill mb;
+	Market mm;
+	DeliveryTruck md;
+}
+
+MESSAGES
+msgCanFulfillOrder(Order o, Market m) {
+	if ∃ order in mOrders ∈ order.mo = o
+		then order.ms = BeingFulfilled;
+}
+
+msgOrderAndBillToCook(Bill b, DeliveryTruck d) {
+	if ∃ order in mOrders ∈ b.mOrder = order
+		then order.ms = Paying;
+		order.md = d;
+}
+
+msgHereIsCookRceipt(Receipt r) {	//from deliveryTruck
+	if ∃ order in mOrders ∈ r.mBill = order.mb
+		then order.ms = Received;
+		order.mr = r;
+}
+
+SCHEDULER
+	if ∃ order in mOrders ∈ order.mo = Pending
+		then sendOrder(order);
+	if ∃ order in mOrders ∈ order.mo = Paying
+		then payOrder(order);
+	if ∃ order in mOrders ∈ order.mo = Received
+		then finishOrder(order);
+		
+ACTIONS
+sendOrder(MyOrder o) {
+	o.ms = Sent;
+	o.mm.msgCookWantsOrder(o.mo);
+}
+
+payOrder(MyOrder o) {
+	o.ms = WaitingForReceipt;
+	Bill b = o.mb;
+	b.payment = b.mTotal;
+	mMoney -= b.mTotal;
+	o.md.msgPayingDeliveryTruck(o.mb);
+}
+
+finishOrder(MyOrder o) {
+	o.ms = Finished;
+}
