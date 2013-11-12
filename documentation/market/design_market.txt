@@ -15,8 +15,8 @@ Market
 7a.	VALIDATING				ORDER_READY			VALIDATED					msgInvoiceValidation			Invoice					Customer		Worker					
 8a.	VALIDATED				1					DONE						msgHereIsCustomerOrder			Order					Worker			Customer				
 
-6b.	ORDERING				TOLD_TO_DELIVER		DELIVERING					msgDeliverOrderToCook			Order					Worker			DeliveryTruck			
-7b.	DELIVERING				TOLD_TO_DRIVE		VALIDATING					msgCookOrderReady				Order					DeliveryTruck	Cook					
+6b.	ORDERING				TOLD_TO_SEND		DELIVERING					msgDeliverOrderToCook			Order					Worker			DeliveryTruck			
+7b.	DELIVERING				TOLD_TO_DELIVER		VALIDATING					msgCookOrderReady				Order					DeliveryTruck	Cook					
 8b.	VALIDATING				ORDER_READY			VALIDATED					msgInvoiceValidation			Invoice					Cook			DeliveryTruck			
 9b.	VALIDATED				1					DONE						msgHereIsCookOrder				Order					DeliveryTruck	Cook					
 
@@ -26,8 +26,10 @@ Item
 	map from item type to price
 
 Order
-	static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, VALIDATING, VALIDATED, DONE}; //use states too?
-	EnumOrderStatus mOrderStatus;
+	static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, VALIDATING, VALIDATED, DONE};
+	EnumOrderStatus mStatus;
+	static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, ORDER_READY};
+	EnumOrderEvent mEvent;
 	Map<Item, Integer> mItems;
 	Person mPerson;
 	
