@@ -57,11 +57,13 @@ void notifyPerson(Order order){
 	Order orderCanFulfill = new Order();
 	int cost;
 
+	//set cost
 	for (EnumItemType iItemType : order.mItems.keySet()){
 		int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
 		orderCanFulfill.mItems.put(iItemType, amountCanFulfill);
 		cost += cost of item * amountCanFulfill;
 	}
+
 
 	Person person = order.mPerson;
 
@@ -70,25 +72,17 @@ void notifyPerson(Order order){
 		Cook cook = (Cook) order.mPerson;
 		orderCanFulfill.mPerson = cook;
 
-		cook.msgCanFulfillOrder(order, orderCanFulfill);
-
-
-		//tell worker to fulfill order
-		Worker worker = mWorkers.get(mWorkerIndex);
-		increase worker index mod style
-
-		worker.msgFulfillCookOrder(orderCanFulfill);
-
-
+		Invoice invoice = new Invoice(orderCanFulfill, cost);
+		customer.msgInvoiceToCustomer(order, invoice);
 	}
 
 	//if a customer
 	else if (person instanceof Customer){
 		Customer customer = (Customer) order.mPerson;
 		orderCanFulfill.mPerson = customer;
-		Invoice invoice = new Invoice(orderCanFulfill, cost);
 
-		customer.msgInvoiceToCustomer(bill);
+		Invoice invoice = new Invoice(orderCanFulfill, cost);
+		customer.msgInvoiceToCustomer(order, invoice);
 	}
 
 	
@@ -100,6 +94,19 @@ void notifyPerson(Order order){
 
 
 void customerPayment(){
+
+
+
+
+		//tell worker to fulfill order
+		Worker worker = mWorkers.get(mWorkerIndex);
+		increase worker index mod style
+
+		worker.msgFulfillCookOrder(orderCanFulfill);
+
+
+
+
 	Bill bill = mCustomerBills.get(0);
 	boolean paid = (bill.mPayment == bill.mTotal);
 

@@ -3,8 +3,6 @@
 DATA
 
 Map<Item, Integer> mItemsDesired; //not ordered yet
-Map<Item, Integer> mItemsOrdered; //ordered but not confirmed
-Map<Item, Integer> mItemsIncoming; //ordered and on their way
 
 Map<Item, Integer> mItemInventory; //personal inventory
 List<Order> mOrders;
