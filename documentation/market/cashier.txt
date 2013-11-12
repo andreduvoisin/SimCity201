@@ -6,29 +6,20 @@ List<Worker> mWorkers;
 static int mWorkerIndex;
 int mCash;
 
-List<Order> mCustomerOrders;
-List<Bill> mCustomerBills;
-//combination of lists?
-
-List<Order> mCookOrders;
+List<Order> mOrders;
+List<Invoice> mInvoices;
 
 
 MESSAGES
 
-	//Customer
-	msgCustomerWantsOrder(Order order){
-		mCustomerOrders.add(order);
+	msgOrderPlacement(Order order){
+		mOrders.add(order);
+		order.mStatus = EnumOrderStatus.PLACED;
 		stateChanged();
 	}
 
 	msgPayingForOrder(Bill bill){
 		mCustomerBills.add(bill);
-		stateChanged();
-	}
-
-	//Cook
-	msgCookWantsOrder(Order order){
-		mCookOrders.add(order);
 		stateChanged();
 	}
 
@@ -42,10 +33,14 @@ SCHEDULER
 
 boolean pickAndExecuteAnAction(){
 	
-	//notify customer
-	if (mCustomerOrders.size() > 0){
-		notifyCustomer();
-		return true;
+	//notify customer if an order has been placed
+	if (mOrders.size() > 0){
+		for (Order iOrder : mOrders){
+			if (iOrder.mOrderStatus == EnumOrderStatus.PLACED){
+				notifyPerson(iOrder);
+				return true;
+			}
+		}
 	}
 
 	//customer payment
@@ -53,40 +48,54 @@ boolean pickAndExecuteAnAction(){
 		customerPayment();
 		return true;
 	}
-
-
-	//notify cook
-	if (mCookOrders.size() > 0){
-		notifyCook();
-		return true;
-	}
 	
 }
 
 
-
-
-
 ACTIONS
-
-void notifyCustomer(){
-	Order order = mCustomerOrders.get(0);
-	MarketCustomer customer = order.mCustomer;
+void notifyPerson(Order order){
 	Order orderCanFulfill = new Order();
 	int cost;
 
-	for (iItemType : order.keySet()){
+	for (EnumItemType iItemType : order.mItems.keySet()){
 		int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
-		orderCanFulfill.put(iItemType, amountCanFulfill);
+		orderCanFulfill.mItems.put(iItemType, amountCanFulfill);
 		cost += cost of item * amountCanFulfill;
 	}
 
-	customer.msgCanFulfillOrder(order, orderCanFulfill);
+	Person person = order.mPerson;
 
-	Bill bill = new Bill(orderCanFulfill, cost);
-	customer.msgBillToCustomer(bill);
+	//if a cook
+	if (person instanceof Cook){
+		Cook cook = (Cook) order.mPerson;
+		orderCanFulfill.mPerson = cook;
 
-	mCustomerOrders.remove(0);
+		cook.msgCanFulfillOrder(order, orderCanFulfill);
+
+
+		//tell worker to fulfill order
+		Worker worker = mWorkers.get(mWorkerIndex);
+		increase worker index mod style
+
+		worker.msgFulfillCookOrder(orderCanFulfill);
+
+
+	}
+
+	//if a customer
+	else if (person instanceof Customer){
+		Customer customer = (Customer) order.mPerson;
+		orderCanFulfill.mPerson = customer;
+		Invoice invoice = new Invoice(orderCanFulfill, cost);
+
+		customer.msgInvoiceToCustomer(bill);
+	}
+
+	
+
+
+	mOrders.remove(0);
+	//change to state change
 }
 
 
@@ -104,32 +113,3 @@ void customerPayment(){
 }
 
 
-void notifyCook(){
-	Order order = mCookOrders.get(0);
-	Cook cook = order.mPerson;
-	Order orderCanFulfill = new Order();
-	int cost;
-
-	for (iItemType : order.keySet()){
-		int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
-		orderCanFulfill.put(iItemType, amountCanFulfill);
-		cost += cost of item * amountCanFulfill;
-	}
-
-	cook.msgCanFulfillOrder(order, orderCanFulfill);
-
-	Bill bill = new Bill(orderCanFulfill, cost);
-
-	customer.msgBillToCustomer(bill);
-
-
-
-	//tell worker to fulfill order
-	Worker worker = mWorkers.get(mWorkerIndex);
-	increase worker index mod style
-
-	worker.msgFulfillCookOrder(orderCanFulfill);
-
-
-	mCustomerOrders.remove(0);
-}

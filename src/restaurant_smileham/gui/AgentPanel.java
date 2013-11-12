@@ -214,7 +214,6 @@ public class AgentPanel extends JPanel implements ActionListener {
     }
     
     public void pauseSimulation(){
-    	System.out.println("PAUSING SIMULATION..."); //TODO: remove
     	Vector<Agent> agents = new Vector<Agent>();
     	
 		HostAgent host = mRestPanel.getHost();
