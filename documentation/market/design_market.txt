@@ -4,26 +4,23 @@
 -----------------------------------------INTERACTION DIAGRAM-----------------------------------------
 
 Market
-	Original OrderStatus	OrderEvent			New OrderStatus				Message							Parameters				[Sender] 	--> [Recipient]				
-1.	CARTED					1					PLACED						msgOrderPlacement				Order 					Customer/Cook	Cashier					
-2.	PLACED					ORDER_PLACED		PAYING						msgInvoiceToCustomer			Order, Invoice 			Cashier			Customer/Cook		
-3.	PAYING					RECEIVED_INVOICE	PAID						msgPayingForOrder				Invoice	 				Customer/Cook	Cashier					
-4.	PAID					ORDER_PAID			PAYMENT_RECEIVED			msgHereIsReceiptInvoice			Invoice					Cashier			Customer/Cook				
-5.	PAYMENT_RECEIVED		1					ORDERING					msgFulfillOrder					Order					Cashier			Worker			
+	Original OrderStatus	OrderEvent			New OrderStatus				Message							Parameters					[Sender] 	--> [Recipient]				
+1.	CARTED					1					PLACED						msgOrderPlacement				Order 						Customer/Cook	Cashier					
+2.	PLACED					ORDER_PLACED		PAYING						msgInvoiceToPerson				Map<Item, Integer>, Invoice Cashier			Customer/Cook		
+3.	PAYING					RECEIVED_INVOICE	PAID						msgPayingForOrder				Invoice	 					Customer/Cook	Cashier					
+4.	PAID					1					ORDERING					msgFulfillOrder					Order						Cashier			Worker			
 
-6a.	ORDERING				TOLD_TO_FULFILL		VALIDATING					msgCustomerOrderReady			Order					Worker			Customer		
-7a.	VALIDATING				ORDER_READY			VALIDATED					msgInvoiceValidation			Invoice					Customer		Worker					
-8a.	VALIDATED				1					DONE						msgHereIsCustomerOrder			Order					Worker			Customer				
+5a.	ORDERING				TOLD_TO_FULFILL		FULFILLING					msgHereIsCustomerOrder			Order						Worker			Customer
+6a.	FULFILLING				RECEIVED_ORDER		DONE						(action: remove order)										Customer		
 
-6b.	ORDERING				TOLD_TO_SEND		DELIVERING					msgDeliverOrderToCook			Order					Worker			DeliveryTruck			
-7b.	DELIVERING				TOLD_TO_DELIVER		VALIDATING					msgCookOrderReady				Order					DeliveryTruck	Cook					
-8b.	VALIDATING				ORDER_READY			VALIDATED					msgInvoiceValidation			Invoice					Cook			DeliveryTruck			
-9b.	VALIDATED				1					DONE						msgHereIsCookOrder				Order					DeliveryTruck	Cook					
+5b.	ORDERING				TOLD_TO_SEND		DELIVERING					msgDeliverOrderToCook			Order						Worker			DeliveryTruck			
+6b.	DELIVERING				TOLD_TO_DELIVER		FULFILLING					msgHereIsCookOrder				Order						DeliveryTruck	Cook					
+7b.	FULFILLING				RECEIVED_ORDER		DONE						(action: remove order)										Cook
 
 
 Item
 	static enum EnumItemType = new enum {item possibilities}
-	map from item type to price
+	static Map<Item, Integer> sPrices;
 
 Order
 	static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, VALIDATING, VALIDATED, DONE};
@@ -31,7 +28,9 @@ Order
 	static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, ORDER_READY};
 	EnumOrderEvent mEvent;
 	Map<Item, Integer> mItems;
-	Person mPerson;
+	Person mPerson; //TODO: Role???????????????????
+	Worker mWorker;
+	Cashier mCashier;
 	
 Invoice
 	Order mOrder;

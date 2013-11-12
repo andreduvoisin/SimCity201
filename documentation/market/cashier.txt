@@ -14,14 +14,23 @@ MESSAGES
 
 	msgOrderPlacement(Order order){
 		mOrders.add(order);
-		order.mStatus = EnumOrderStatus.PLACED;
+		order.mEvent = EnumOrderEvent.ORDER_PLACED;
 		stateChanged();
 	}
 
-	msgPayingForOrder(Bill bill){
-		mCustomerBills.add(bill);
+	msgPayingForOrder(Invoice invoice){
+		if (invoice.mTotal == invoice.mPayment){
+			invoice.mOrder.mEvent = EnumOrderEvent.ORDER_PAID;
+		}
+		else throw error?
 		stateChanged();
 	}
+
+
+
+
+
+
 
 	msgDeliverPayment(Receipt receipt){
 		mCash += receipt.mBill.mPayment;
@@ -36,12 +45,26 @@ boolean pickAndExecuteAnAction(){
 	//notify customer if an order has been placed
 	if (mOrders.size() > 0){
 		for (Order iOrder : mOrders){
-			if (iOrder.mOrderStatus == EnumOrderStatus.PLACED){
+			if ((iOrder.mStatus == EnumOrderStatus.PLACED) && (iOrder.mEvent == EnumOrderEvent.ORDER_PLACED)){
+				iOrder.mStatus = EnumOrderStatus.PAYING;
 				notifyPerson(iOrder);
 				return true;
 			}
+
+			if ((iOrder.mStatus == EnumOrderStatus.PAID) && (iOrder.mEvent == EnumOrderEvent.ORDER_PAID)){
+				iOrder.mStatus = EnumOrderStatus.PAYMENT_RECEIVED;
+				fulfillOrder(iOrder);
+				return true;
+			}
+
+
+
 		}
 	}
+
+
+
+
 
 	//customer payment
 	if (mCustomerBills.size() > 0){
@@ -54,43 +77,37 @@ boolean pickAndExecuteAnAction(){
 
 ACTIONS
 void notifyPerson(Order order){
-	Order orderCanFulfill = new Order();
+	Map<Item, Integer> canFulfill;
 	int cost;
 
 	//set cost
 	for (EnumItemType iItemType : order.mItems.keySet()){
 		int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
-		orderCanFulfill.mItems.put(iItemType, amountCanFulfill);
+		canFulfill.put(iItemType, amountCanFulfill);
 		cost += cost of item * amountCanFulfill;
 	}
 
 
 	Person person = order.mPerson;
+	Invoice invoice = new Invoice(order, cost);
 
 	//if a cook
 	if (person instanceof Cook){
 		Cook cook = (Cook) order.mPerson;
-		orderCanFulfill.mPerson = cook;
-
-		Invoice invoice = new Invoice(orderCanFulfill, cost);
-		customer.msgInvoiceToCustomer(order, invoice);
+		cook.msgInvoiceToPerson(canFulfill, invoice);
 	}
 
 	//if a customer
 	else if (person instanceof Customer){
 		Customer customer = (Customer) order.mPerson;
-		orderCanFulfill.mPerson = customer;
-
-		Invoice invoice = new Invoice(orderCanFulfill, cost);
-		customer.msgInvoiceToCustomer(order, invoice);
+		customer.msgInvoiceToPerson(canFulfill, invoice);
 	}
-
-	
-
-
-	mOrders.remove(0);
-	//change to state change
 }
+
+
+void fulfillOrder(Order order){
+}
+
 
 
 void customerPayment(){
