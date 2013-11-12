@@ -4,29 +4,21 @@
 -----------------------------------------INTERACTION DIAGRAM-----------------------------------------
 
 Market
-	Message							Parameters				[Sender] 	--> [Recipient]			EnumOrderStatus (Originally CARTED)
-1.	msgOrderPlacement				Order 					Customer 		Cashier				PLACED
-2.	msgInvoiceToCustomer			Order, Invoice 			Cashier			Customer			PAYING
-3.	msgPayingForOrder				Invoice	 				Customer		Cashier				PAID
-4.	msgHereIsReceiptInvoice			Invoice					Cashier			Customer			PAYMENT_RECEIVED
-5.	msgFulfillOrder					Order					Cashier			Worker				ORDERING
+	Original OrderStatus	OrderEvent			New OrderStatus				Message							Parameters				[Sender] 	--> [Recipient]				
+1.	CARTED					1					PLACED						msgOrderPlacement				Order 					Customer/Cook	Cashier					
+2.	PLACED					ORDER_PLACED		PAYING						msgInvoiceToCustomer			Order, Invoice 			Cashier			Customer/Cook		
+3.	PAYING					RECEIVED_INVOICE	PAID						msgPayingForOrder				Invoice	 				Customer/Cook	Cashier					
+4.	PAID					ORDER_PAID			PAYMENT_RECEIVED			msgHereIsReceiptInvoice			Invoice					Cashier			Customer/Cook				
+5.	PAYMENT_RECEIVED		1					ORDERING					msgFulfillOrder					Order					Cashier			Worker			
 
-6.	msgCustomerOrderReady			Order					Worker			Customer			VALIDATING
-7.	msgInvoiceValidation			Invoice					Customer		Worker				VALIDATED
-8.	msgHereIsCustomerOrder			Order					Worker			Customer			DONE
+6a.	ORDERING				TOLD_TO_FULFILL		VALIDATING					msgCustomerOrderReady			Order					Worker			Customer		
+7a.	VALIDATING				ORDER_READY			VALIDATED					msgInvoiceValidation			Invoice					Customer		Worker					
+8a.	VALIDATED				1					DONE						msgHereIsCustomerOrder			Order					Worker			Customer				
 
-
-
-1.	msgOrderPlacement				Order					Cook			Cashier				PLACED
-2.	msgInvoiceToCook				Order, Invoice			Cashier			Cook				PAYING
-3.	msgPayingForOrder				Invoice	 				Cook			Cashier				PAID
-4.	msgHereIsReceiptInvoice			Invoice					Cashier			Cook				PAYMENT_RECEIVED
-5.	msgFulfillOrder					Order 					Cashier			Worker				ORDERING
-
-6.	msgDeliverOrderToCook			Order					Worker			DeliveryTruck		DELIVERING
-7.	msgCookOrderReady				Order					DeliveryTruck	Cook				VALIDATING
-8.	msgInvoiceValidation			Invoice					Cook			DeliveryTruck		VALIDATED
-9.	msgHereIsCookOrder				Order					DeliveryTruck	Cook				DONE
+6b.	ORDERING				TOLD_TO_DELIVER		DELIVERING					msgDeliverOrderToCook			Order					Worker			DeliveryTruck			
+7b.	DELIVERING				TOLD_TO_DRIVE		VALIDATING					msgCookOrderReady				Order					DeliveryTruck	Cook					
+8b.	VALIDATING				ORDER_READY			VALIDATED					msgInvoiceValidation			Invoice					Cook			DeliveryTruck			
+9b.	VALIDATED				1					DONE						msgHereIsCookOrder				Order					DeliveryTruck	Cook					
 
 
 Item
@@ -34,7 +26,7 @@ Item
 	map from item type to price
 
 Order
-	static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, VALIDATING, VALIDATED, DONE};
+	static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, VALIDATING, VALIDATED, DONE}; //use states too?
 	EnumOrderStatus mOrderStatus;
 	Map<Item, Integer> mItems;
 	Person mPerson;
