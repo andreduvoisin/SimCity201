@@ -5,10 +5,10 @@ DATA
 Map<Item, Integer> mItemsDesired; //not ordered yet
 Map<Item, Integer> mItemsOrdered; //ordered but not confirmed
 Map<Item, Integer> mItemsIncoming; //ordered and on their way
-Map<Item, Integer> mItems; //personal inventory
 
+Map<Item, Integer> mItemInventory; //personal inventory
+List<Order> mOrders;
 List<Bill> mBillsToPay;
-List<Receipt> mReceipts;
 Map<Receipt, MarketWorkerAgent> mOrdersToGet;
 Map<Receipt, MarketWorkerAgent> mOrdersInProcess;
 

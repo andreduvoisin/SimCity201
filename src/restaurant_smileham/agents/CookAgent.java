@@ -79,7 +79,7 @@ public class CookAgent extends Agent implements Cook {
     	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y, mGUI);
     	
 		mTimer = new Timer();
-		mOrders = new HashSet<Order>();//TODO 0
+		mOrders = new HashSet<Order>();
 		mNumMarkets = 0;
 		mFoodArrived = false;
 		

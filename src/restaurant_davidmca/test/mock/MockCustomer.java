@@ -30,19 +30,16 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void setHost(HostAgent host) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public double getMoney() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public String getCustomerName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -73,61 +70,51 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void gotHungry() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void msgAnimationFinishedGoToSeat() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void msgAnimationFinishedLeaveRestaurant() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void msgFollowMe(Waiter w, Table t) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void msgWhatWouldYouLike(Menu m) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void msgHereIsYourOrder() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public int getHungerLevel() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setHungerLevel(int hungerLevel) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setGui(CustomerGui g) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public CustomerGui getGui() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -139,7 +126,6 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void msgAnimationFinishedGoToWaitingArea() {
-		// TODO Auto-generated method stub
 
 	}
 

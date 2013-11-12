@@ -29,7 +29,7 @@ public class PersonAgent extends Agent implements Person{
 
 	public PersonAgent(){
 		mSSN = sSSN++; //assign SSN
-		mTimeSchedule = (sTimeSchedule++ % 3); //assign time schedule 
+		mTimeSchedule = (sTimeSchedule++ % 24); //assign time schedule 
 		mRoles = new ArrayList<Role>();
 		mCredit = 0; //TODO: 3 update this val
 		mCreditScore = 0; //TODO: 3 update this val
@@ -57,9 +57,6 @@ public class PersonAgent extends Agent implements Person{
 	
 	@Override
 	protected boolean pickAndExecuteAnAction() {
-		// TODO Auto-generated method stub
-		
-		
 		
 		
 		for (Role iRole : mRoles){
