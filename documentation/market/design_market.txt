@@ -8,7 +8,7 @@ Market
 1.	CARTED					1					PLACED						msgOrderPlacement				Order 						Customer/Cook	Cashier					
 2.	PLACED					ORDER_PLACED		PAYING						msgInvoiceToPerson				Map<Item, Integer>, Invoice Cashier			Customer/Cook		
 3.	PAYING					RECEIVED_INVOICE	PAID						msgPayingForOrder				Invoice	 					Customer/Cook	Cashier					
-4.	PAID					1					ORDERING					msgFulfillOrder					Order						Cashier			Worker			
+4.	PAID					ORDER_PAID			ORDERING					msgFulfillOrder					Order						Cashier			Worker			
 
 5a.	ORDERING				TOLD_TO_FULFILL		FULFILLING					msgHereIsCustomerOrder			Order						Worker			Customer
 6a.	FULFILLING				RECEIVED_ORDER		DONE						(action: remove order)										Customer		
@@ -28,7 +28,7 @@ Order
 	static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, ORDER_READY};
 	EnumOrderEvent mEvent;
 	Map<Item, Integer> mItems;
-	Person mPerson; //TODO: Role???????????????????
+	Person mPerson; //TODO: Role???????
 	Worker mWorker;
 	Cashier mCashier;
 	

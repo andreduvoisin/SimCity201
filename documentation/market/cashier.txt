@@ -28,16 +28,6 @@ MESSAGES
 
 
 
-
-
-
-
-	msgDeliverPayment(Receipt receipt){
-		mCash += receipt.mBill.mPayment;
-		//no state changed
-	}
-
-
 SCHEDULER
 
 boolean pickAndExecuteAnAction(){
@@ -52,24 +42,11 @@ boolean pickAndExecuteAnAction(){
 			}
 
 			if ((iOrder.mStatus == EnumOrderStatus.PAID) && (iOrder.mEvent == EnumOrderEvent.ORDER_PAID)){
-				iOrder.mStatus = EnumOrderStatus.PAYMENT_RECEIVED;
+				iOrder.mStatus = EnumOrderStatus.ORDERING;
 				fulfillOrder(iOrder);
 				return true;
 			}
-
-
-
 		}
-	}
-
-
-
-
-
-	//customer payment
-	if (mCustomerBills.size() > 0){
-		customerPayment();
-		return true;
 	}
 	
 }
@@ -106,34 +83,7 @@ void notifyPerson(Order order){
 
 
 void fulfillOrder(Order order){
+	order.mWorker = mWorkers.get(mWorkerIndex++ % mNumWorkers); //TODO: here or in worker?
+	order.mWorker.msgFulfillOrder(order);
 }
-
-
-
-void customerPayment(){
-
-
-
-
-		//tell worker to fulfill order
-		Worker worker = mWorkers.get(mWorkerIndex);
-		increase worker index mod style
-
-		worker.msgFulfillCookOrder(orderCanFulfill);
-
-
-
-
-	Bill bill = mCustomerBills.get(0);
-	boolean paid = (bill.mPayment == bill.mTotal);
-
-	Receipt receipt = new Receipt(bill, paid);
-
-	Customer customer = bill.mOrder.mCustomer; //cast to person
-
-	customer.msgHereIsReceipt(receipt);
-
-	mCustomerBills.remove(0);
-}
-
 

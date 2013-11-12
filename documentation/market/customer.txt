@@ -8,6 +8,8 @@ Map<Item, Integer> mItemsDesired; //not ordered yet
 List<Order> mOrders;
 List<Invoice> mInvoices;
 
+Cashier mCashier;
+
 int mMarketToOrderFrom = 0; //TODO: use for market switching % Market.getNumMarkets
 
 
@@ -15,7 +17,6 @@ MESSAGES
 
 	void msgInvoiceToPerson(Map<Item, Integer> cannotFulfill, Invoice invoice){
 		mInvoices.add(invoice);
-
 
 		//not being fulfilled
 		for (iItem : cannotFulfill){
@@ -27,48 +28,15 @@ MESSAGES
 	}
 
 
-
-
-
-
-
-
-
-	void msgBillToCustomer(Bill bill){
-		mBillsToPay.add(bill);
-		stateChanged();
-	}
-
-	void msgHereIsReceipt(Receipt receipt){
-		mReceiptsToBeFulfilled.add(receipt);
-		stateChanged();
-	}
-
-
-	void msgCustomerOrderReady(Order order, MarketWorkerAgent worker){
-		//add corresponding receipt to list to get from the worker
-		for (iReceipt : mReceipts){
-			if (iReceipt.mBill.mOrder == order){
-				mOrdersToGet.put(iReceipt, worker);
-				mReceipts.remove(iReceipt);
-			}
-		}
-		stateChanged();
-	}
-
 	void msgHereIsCustomerOrder(Order order){
-		for each item in order{
-			remove from mItemsIncoming
+
+		for ecah item in order{
 			add to mItems
 		}
 
-		find corresponding order in mOrdersInProcess and remove it
-
+		order.mStatus = EnumOrderEvent.RECEIVED_ORDER;
 		stateChanged();
 	}
-
-
-
 
 
 SCHEDULER
@@ -88,34 +56,12 @@ boolean pickAndExecuteAnAction(){
 			payForOrder(iOrder);
 			return true;
 		}
-	}
 
-
-
-
-
-
-
-
-
-
-	//order items
-	//somehow decide to get some items?
-	if (mItemsDesired.size() != 0)
-		orderItems();
-		return true;
-	}
-	
-	//pay order
-	if (mBillsToPay.size() > 0){
-		payBill();
-		return true;
-	}
-	
-	//receive order
-	if (mOrdersToGet.size() > 0){
-		getOrder();
-		return true;
+		if ((iOrder.mStatus == EnumOrderStatus.FULFILLING) && (iOrder.mEvent == EnumOrderEvent.RECEIVED_ORDER)){
+			iOrder.mStatus == EnumOrderStatus.DONE;
+			removeOrder(iOrder);
+			return true;
+		}
 	}
 
 	return false;
@@ -130,7 +76,7 @@ void formOrder(){
 }
 
 void placeOrder(Order order){
-	mCashier.msgCustomerWantsOrder(order);
+	mCashier.msgOrderPlacement(order);
 }
 
 void payForOrder(Order order){
@@ -151,20 +97,6 @@ void payForOrder(Order order){
 	mCashier.msgPayingForOrder(invoice);
 }
 
-
-
-
-
-
-
-
-
-void getOrder(){
-	Receipt receipt = get first receipt from mOrdersToGet
-	Worker worker = get corresponding worker
-
-	worker.msgReceiptValidation(receipt);
-
-	mOrdersInProcess.put(first entry of mOrdersToGet)
-	mOrdersToGet remove first entry
+void removeOrder(Order order){
+	remove from mOrders and mInvoices
 }
