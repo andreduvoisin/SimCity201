@@ -1,33 +1,25 @@
-package restaurant_smileham.test.mock;
+package market;
 
-
-import restaurant_smileham.Menu;
 import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Menu;
 import restaurant_smileham.agent.Check;
 import restaurant_smileham.gui.CustomerGui;
-import restaurant_smileham.interfaces.Cashier;
-import restaurant_smileham.interfaces.Customer;
-import restaurant_smileham.interfaces.Host;
-import restaurant_smileham.interfaces.Waiter;
+import market.interfaces.Customer;
+import market.interfaces.Host;
+import market.interfaces.Waiter;
+import base.Role;
 
-/**
- * A sample MockCustomer built to unit test a CashierAgent.
- *
- * @author Monroe Ekilah
- *
- */
-public class MockCustomer extends Mock implements Customer {
+public class MarketCustomerRole extends Role implements Customer{
 
-	/**
-	 * Reference to the Cashier under test that can be set by the unit test.
-	 */
-	public Cashier mCashier;
-
-	public MockCustomer(String name) {
-		super(name);
-
-	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void msgGotHungry() {
 		// TODO Auto-generated method stub
@@ -72,7 +64,8 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void msgGoodToGo(int change) {
-		log.add(new LoggedEvent("msgGoodToGo(" + change + ")"));
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -82,9 +75,9 @@ public class MockCustomer extends Mock implements Customer {
 	}
 
 	@Override
-	public boolean pickAndExecuteAnAction() {
+	public void msgAnimationPickedUp() {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
@@ -95,6 +88,12 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public String getCustomerName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -133,12 +132,6 @@ public class MockCustomer extends Mock implements Customer {
 	public boolean isHungry() {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public void msgAnimationPickedUp() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -2,8 +2,8 @@ package restaurant_smileham.test.mock;
 
 import java.util.List;
 
-import restaurant_smileham.agent.Check;
 import restaurant_smileham.Order;
+import restaurant_smileham.agent.Check;
 import restaurant_smileham.interfaces.Cashier;
 import restaurant_smileham.interfaces.Market;
 

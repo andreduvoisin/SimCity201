@@ -5,13 +5,13 @@ import java.util.Collection;
 import java.util.List;
 
 import restaurant_smileham.Table;
+import restaurant_smileham.agent.Agent;
 import restaurant_smileham.gui.HostGui;
 import restaurant_smileham.gui.RestaurantGui;
 import restaurant_smileham.interfaces.Cook;
 import restaurant_smileham.interfaces.Customer;
 import restaurant_smileham.interfaces.Host;
 import restaurant_smileham.interfaces.Waiter;
-import restaurant_smileham.agent.Agent;
 
 /**
  * Restaurant Host Agent

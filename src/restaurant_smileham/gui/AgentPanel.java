@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import restaurant_smileham.Order;
+import restaurant_smileham.agent.Agent;
 import restaurant_smileham.agents.CashierAgent;
 import restaurant_smileham.agents.CookAgent;
 import restaurant_smileham.agents.CustomerAgent;
@@ -28,7 +29,6 @@ import restaurant_smileham.agents.WaiterAgent;
 import restaurant_smileham.interfaces.Customer;
 import restaurant_smileham.interfaces.Host;
 import restaurant_smileham.interfaces.Waiter;
-import restaurant_smileham.agent.Agent;
 
 /**
  * Subpanel of restaurantPanel.

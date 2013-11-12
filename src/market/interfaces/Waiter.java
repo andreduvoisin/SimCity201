@@ -1,4 +1,4 @@
-package restaurant_smileham.interfaces;
+package market.interfaces;
 
 import java.util.List;
 

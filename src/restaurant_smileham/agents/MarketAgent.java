@@ -7,11 +7,11 @@ import java.util.TimerTask;
 
 import restaurant_smileham.Menu;
 import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.agent.Agent;
 import restaurant_smileham.gui.RestaurantGui;
 import restaurant_smileham.interfaces.Cashier;
 import restaurant_smileham.interfaces.Cook;
 import restaurant_smileham.interfaces.Market;
-import restaurant_smileham.agent.Agent;
 
 public class MarketAgent extends Agent implements Market{
 	//Constants

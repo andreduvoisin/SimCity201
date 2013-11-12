@@ -2,10 +2,10 @@ package restaurant_smileham.test.mock;
 
 import java.util.List;
 
-import restaurant_smileham.agent.Check;
-import restaurant_smileham.Food.EnumFoodOptions;
 import restaurant_smileham.Order;
 import restaurant_smileham.Table;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.agent.Check;
 import restaurant_smileham.agents.CookAgent;
 import restaurant_smileham.agents.CustomerAgent;
 import restaurant_smileham.agents.HostAgent;

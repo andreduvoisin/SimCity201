@@ -2,10 +2,11 @@ package restaurant_smileham.test;
 
 import junit.framework.TestCase;
 import restaurant_smileham.Food;
-import restaurant_smileham.Food.EnumFoodOptions;
 import restaurant_smileham.Order;
-import restaurant_smileham.Order.EnumOrderStatus;
 import restaurant_smileham.Table;
+import restaurant_smileham.Food.EnumFoodOptions;
+import restaurant_smileham.Order.EnumOrderStatus;
+import restaurant_smileham.agent.Check;
 import restaurant_smileham.agents.CashierAgent;
 import restaurant_smileham.gui.RestaurantGui;
 import restaurant_smileham.interfaces.Cashier;
@@ -15,7 +16,6 @@ import restaurant_smileham.interfaces.Waiter;
 import restaurant_smileham.test.mock.MockCustomer;
 import restaurant_smileham.test.mock.MockMarket;
 import restaurant_smileham.test.mock.MockWaiter;
-import restaurant_smileham.agent.Check;
 
 
 /**

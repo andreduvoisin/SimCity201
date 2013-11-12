@@ -8,11 +8,11 @@ import java.util.Map;
 
 import restaurant_smileham.Menu;
 import restaurant_smileham.Order;
+import restaurant_smileham.agent.Agent;
+import restaurant_smileham.agent.Check;
 import restaurant_smileham.gui.RestaurantGui;
 import restaurant_smileham.interfaces.Cashier;
 import restaurant_smileham.interfaces.Market;
-import restaurant_smileham.agent.Agent;
-import restaurant_smileham.agent.Check;
 
 public class CashierAgent extends Agent implements Cashier{
 	
