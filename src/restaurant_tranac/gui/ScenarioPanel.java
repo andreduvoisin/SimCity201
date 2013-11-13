@@ -1,7 +1,7 @@
 package restaurant_tranac.gui;
 
 import restaurant_tranac.*;
-import restaurant_tranac.agent.Agent;
+import base.Agent;
 import restaurant_tranac.agents.CashierAgent;
 import restaurant_tranac.agents.CookAgent;
 

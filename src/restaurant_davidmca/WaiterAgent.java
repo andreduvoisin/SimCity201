@@ -7,12 +7,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import restaurant_davidmca.agent.Agent;
 import restaurant_davidmca.gui.HostGui;
 import restaurant_davidmca.gui.WaiterGui;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
+import base.Agent;
 
 /**
  * Restaurant Waiter Agent
