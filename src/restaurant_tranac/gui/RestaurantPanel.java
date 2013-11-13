@@ -1,6 +1,6 @@
 package restaurant_tranac.gui;
 
-import restaurant_tranac.agent.Agent;
+import base.Agent;
 import restaurant_tranac.agents.CashierAgent;
 import restaurant_tranac.agents.CookAgent;
 import restaurant_tranac.agents.CustomerAgent;
@@ -12,15 +12,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
 /**
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
-public class RestaurantPanel extends JPanel implements ActionListener {
+public class RestaurantPanel extends JPanel {
 
 	private Vector<Agent> agents = new Vector<Agent>();	//List of all the agents
 	
@@ -38,8 +36,7 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
 
     private JPanel restLabel = new JPanel();
-    private JButton pauseButton = new JButton("Pause");
-    
+
     private JTabbedPane agentPanel = new JTabbedPane();
     private ListPanel customerPanel = new ListPanel(this, "Customers");
     private ListPanel waiterPanel = new ListPanel(this, "Waiters");
@@ -114,27 +111,8 @@ public class RestaurantPanel extends JPanel implements ActionListener {
         restLabel.add(label);
 
         d = new Dimension(width, bHeight);
-        pauseButton.setPreferredSize(d);
-        pauseButton.setMaximumSize(d);
-        pauseButton.setMinimumSize(d);
-        pauseButton.addActionListener(this);
-        restLabel.add(pauseButton);
     }
-    
-	/** Handles the pause button. Call the pause/restart button for 
-	 * 	each agent in the restaurant and changes text of button to
-	 *  reflect current state. */
-	public void actionPerformed(ActionEvent e) {
-    	if(e.getSource() == pauseButton) {
-    		if(pauseButton.getText() == "Pause")
-    			pauseButton.setText("Resume");
-    		else
-    			pauseButton.setText("Pause");
-    		for(Agent a : agents) {
-    			a.pauseRestartAgent();
-    		}
-    	}
-	}
+
 	
     /**
      * Adds a customer or waiter to the appropriate list

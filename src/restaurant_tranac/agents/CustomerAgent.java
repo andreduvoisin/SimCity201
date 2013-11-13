@@ -2,7 +2,7 @@ package restaurant_tranac.agents;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
-import restaurant_tranac.agent.Agent;
+import base.Agent;
 import restaurant_tranac.gui.CustomerGui;
 import restaurant_tranac.interfaces.*;
 
