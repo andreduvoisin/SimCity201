@@ -1,59 +1,73 @@
 ﻿------------------------------------------------COOK------------------------------------------------
 
 DATA
-List<MyOrder> mOrders;
-double mMoney;
+RestaurantCashierRole mRestaurantCashier;	//form restaurantCookRole
+Map<Item, Integer> mItemInventory;			//from restaurantCookRole
+Map<Item, Integer> mItemsDesired;			//from restaurantCookRole
 
-enum OrderStatus {Pending, Sent, BeingFulfilled, Paying, Paid, Received, Done}
+Map<Item, Integer> mCannotFulfill;
 
-class MyOrder {
-	Order mo;
-	OrderStatus ms;
-	Bill mb;
-	Market mm;
-	DeliveryTruck md;
-}
+List<Order> mOrders;
+List<Invoice> mInvoices;
+
+MarketCashierRole mMarketCashier;	//market cashier for this specific market
 
 MESSAGES
-msgCanFulfillOrder(Order o, Market m) {
-	if ∃ order in mOrders ∈ order.mo = o
-		then order.ms = BeingFulfilled;
+msgInvoiceToPerson(Map<Item, Integer> cannotFulfill, Invoice invoice) {
+	mInvoices.add(invoice);
+	
+	mCannotFulfill = cannotFulfill;
+	
+	invoice.mOrder.mEvent = RECEIVED_INVOICE;
 }
 
-msgOrderAndBillToCook(Bill b, DeliveryTruck d) {
-	if ∃ order in mOrders ∈ b.mOrder = order
-		then order.ms = Paying;
-		order.md = d;
-}
-
-msgHereIsCookRceipt(Receipt r) {	//from deliveryTruck
-	if ∃ order in mOrders ∈ r.mBill = order.mb
-		then order.ms = Received;
-		order.mr = r;
+msgHereIsCookOrder(Order o) {
+	o.mStatus = RECEIVED_ORDER;
 }
 
 SCHEDULER
-	if ∃ order in mOrders ∈ order.mo = Pending
-		then sendOrder(order);
-	if ∃ order in mOrders ∈ order.mo = Paying
-		then payOrder(order);
-	if ∃ order in mOrders ∈ order.mo = Received
-		then finishOrder(order);
-		
+if ∃ order in mOrders ∈ order.mStatus = PAYING & order.mEvent = RECEIVED_INVOICE
+	then invoice.mOrder.mStatus = PAID;
+	payAndProcessOrder(invoice);
+if ∃ order in mOrders ∈ order.mStatus = FULFILLING & order.mEvent = RECIEVED_ORDER
+	then order.mStatus = DONE;
+	completeOrder(order);
+if ∃ order in mOrders ∈ order.mStatus = CARTED
+	then order.mStatus = PLACED;
+	placeOrder(order);
+if ∃ item in mItemsDesired ∈ mItemsDesired.get(item) != 0
+	then createOrder();
+
 ACTIONS
-sendOrder(MyOrder o) {
-	o.ms = Sent;
-	o.mm.msgCookWantsOrder(o.mo);
+createOrder() {
+	Order o = new Order(mItemsDesired, CARTED);		//copy of mItemsDesired
+	
+	foreach item in mItemsDesired
+		mItemsOrdered.get(item) += mItemsDesired.get(item);
+		mItemsDesired.get(item) = 0;
+		
+	mOrders.add(i.o);
 }
 
-payOrder(MyOrder o) {
-	o.ms = WaitingForReceipt;
-	Bill b = o.mb;
-	b.payment = b.mTotal;
-	mMoney -= b.mTotal;
-	o.md.msgPayingDeliveryTruck(o.mb);
+placeOrder(Order o) {
+	mMarketCashier.msgOrderPlacement(o);
 }
 
-finishOrder(MyOrder o) {
-	o.ms = Finished;
+payAndProcessOrder(Invoice i) {
+	i.mPayment = i.mTotal;
+	
+	if ∃ item in cannotFulfill	
+		then mItemsDesired.get(item) += cannotFulfill.get(item);
+
+	mRestaurantCashier.msgHereIsInvoice(i);	//tell restaurant about payment
+	mMarketCashier.msgPayingForOrder(i);
+	mInvoices.remove(i);
+}
+
+completeOrder(Order o) {
+	foreach item in o.mItems
+		mItemInventory.get(item) += i.o.mItems.get(item);
+
+	mOrders.remove(o);
+	
 }

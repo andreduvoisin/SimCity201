@@ -1,85 +1,46 @@
 ﻿-----------------------------------------------WORKER-----------------------------------------------
 
 DATA
-List<MyOrder> mCustomerOrders;
-List<MyDeliveryOrder> mDeliveryOrders;
-Timer mTimer;
-int mBaseTime;
-
-enum OrderStatus {Pending, Fulfilling, Ready, Validating, Validated, BeingDelivered, Finished};
-
-class MyOrder {
-	Order mo;
-	OrderStatus ms;
-}
-
-class MyDeliveryOrder {
-	Order mo;
-	Bill mb;
-	DeliveryTruck md;
-}
+List<Order> mOrders;
 
 MESSAGES
-msgFulfillCustomerOrder(Order o) {
-	mCustomerOrders.add(new MyOrder(o, OrderStatus.Pending));
+msgFulfillOrder(Order o) {
+	mOrders.add(o);
+	o.mEvent = ORDER_PAID;
 }
 
-msgReceiptValidation(Receipt r) {
-	if ∃ order in mCustomerOrders ∈ order = r.mBill.mOrder
-		then order.ms = Validated;
-}
-
-msgFulfillDeliveryOrder(Order o, Bill b, DeliveryTruck d) {
-	mDeliveryOrders.add(new MyOrder(o, b, d, OrderStatus.Pending));
-}
-
-msgOrderDone(Order o) {					//from timer or animation
-	if ∃ order in mCustomerOrders ∈ order.mo = o
-		then order.ms = Ready;
-	if ∃ order in mDeliveryOrders ∈ order.mo = o
-		then order.ms = Ready;
-}
-
-msgDeliveryFinished(Bill b) {
-	if ∃ order in mDeliveryOrders ∈ order.mb = b
-		then order.ms = Delivered;
+msgOrderFulfilled(Order o) {				//from animation
+	if(o.mPersonRole = instanceOf(MarketCustomerRole))
+		then o.mEvent = TOLD_TO_FULFILL;
+	else
+		then o.mEvent = TOLD_TO_SEND;
 }
 
 SCHEDULER
-if ∃ order in mCustomerOrders ∈ order.ms = Validated
-	then giveCustomerOrder(order);
-if ∃ order in mDeliveryOrders ∈ order.ms = Delivered
-	then finishDeliveryOrder(order);
-if ∃ order in mCustomerOrders ∈ order.ms = Ready
-	then validateOrder(order);
-if ∃ order in mDeliveryOrders ∈ order.ms = Ready
-	then giveOrderToDeliveryTruck(order);
-if ∃ order in mCustomerOrders ∈ order.ms = Pending
-	then fulfillOrder(order);
-if ∃ order in mDeliveryOrders ∈ order.ms = Pending
-	then fulfillOrder(order);
+if ∃ order in mOrders ∈ order.mStatus = PAID & order.mEvent = ORDER_PAID
+	then o.mStatus = ORDERING;
+	processOrder(order);
+if ∃ order in mOrders ∈ order.mStatus = ORDERING & order.mEvent = TOLD_TO_FULFILL
+	then o.mStatus = FULFILLING;
+	fulfillOrder(order);
+if ∃ order in mOrders ∈ order.mStatus = ORDERING & order.mEvent = TOLD_TO_SEND
+	then o.mStatus = DELIVERING;
+	sendOrder(order);
 
 ACTIONS
-fulfillOrder(MyOrder o)
-	o.ms = Fulfilling;
-	mTimer.start(run(msgOrderDone(o),mBaseTime));	//either a timer or call to animation
+processOrder(Order o) {
+	DoFulfillOrder(o);						//animation call
 }
 
-giveOrderToDeliveryToOrder(MyOrder o) {
-	o.ms = BeingDelivered;
-	o.md.msgDeliverOrderAndBill(o.mo, o.mb);
+fulfillOrder(Order o) {
+	DoGoToFront();							//animation call
+	o.mPersonRole.msgHereIsCustomerOrder(o);
+	mOrders.remove(o);
 }
 
-validateOrder(MyOrder o) {
-	o.ms = Validating;
-	o.mo.mPerson.msgCustomerOrderReady(o.mo);
-}
+sendOrder(Order o) {
+	DoGoToDeliveryTruck(o.mDeliveryTruck);	//animation call
 
-giveCustomerOrder(MyOrder o) {
-	o.ms = Finished;
-	o.mo.mPerson.msgHereIsCustomerOrder(o.mo);
-}
-
-finishDeliveryOrder(MyOrder o) {
-	o.ms = Finished;
+	o.mDeliveryTruck.msgDeliverOrderToCook(o);
+	mOrders.remove(o);
 }

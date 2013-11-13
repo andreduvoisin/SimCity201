@@ -2,75 +2,47 @@
 
 DATA
 List<MyDelivery> mDeliveries;
+Map<MarketCookAgent, String> mRestaurants;		//restaurant name
 
-enum Status {Pending, GoingToDeliveryLocation, DeliveringOrder, AwaitingPayment, ReceivedPayment, Delivered, NotifyingOfDelivery, Finished}
-
-class MyDelivery {
-	Bill mb;
-	Receipt mr;
-	Status ms;
-}
+enum DeliveryTruckStatus {READY, DELIVERING, WAITING}
 
 MESSAGES
-msgDeliverOrderAndBill(Bill b) {
-	if ∃ delivery in mDeliveries ∈ delivery.mb = b;
-		then mDeliveries.add(new MyDelivery(b, Status.Pending);
+msgDeliverOrderToCook(Order o) {
+	mDeliveries.add(o);
+	o.mEvent= XXXXXXXXXXXXXXXXXXXX;
+	mStatus = DELIVERING;
 }
 
-msgPayingDeliveryTruck(Bill b) {
-	if ∃ delivery in mDeliveries ∈ delivery.mb = b
-		then delivery.ms = ReceivedPayment;
+msgAnimationAtRestaurant(Order o) {
+	o.mEvent = TOLD_TO_DELIVER;
 }
 
-msgAtRestaurant(Bill b) {
-	if ∃ delivery in mDeliveries ∈ delivery.mb = b
-		then delivery.ms = DeliveringOrder;
+msgAnimationAtMarket() {
+	mStatus = READY;
 }
-
-msgAtMarket() {
-	if ∃ delivery in mDeliveries ∈ delivery.ms = BringingReceiptToMarket
-		then deliver.ms = NotifyingOfDelivery;
 
 SCHEDULER
-if ∃ delivery in mDeliveries ∈ delivery.ms = NotifyingOfDelivery;
-	then notifyDeliveryFinished(delivery);
-if ∃ delivery in mDeliveries ∈ delivery.ms = Pending;
-	then deliverOrder(delivery);
-if ∃ delivery in mDeliveries ∈ delivery.ms = DeliveringOrder;
-	then giveOrder(delivery);
-if ∃ delivery in mDeliveries ∈ delivery.ms = ReceivedPayment;
-	then acceptPayment(delivery);
-if ∃ delivery in mDeliveries ∈ delivery.ms = Delivered;
-	then returnToMarket(delivery);
+if ∃ delivery in mDeliveries ∈ delivery.mStatus = ORDERING & delivery.mEvent = XXXXXXXXXXXXXXXXXXXX
+	delivery.mStatus = DELIVERING;
+	goToDeliverOrder(delivery);
+if ∃ delivery in mDeliveries ∈ delivery.mStatus = DELIVERING & delivery.mEvent = TOLD_TO_DELIVER
+	delivery.mStatus = FULFILLING;
+if mStatus = READY
+	mStatus = WAITING;
+	notifyCashier();
+else
+	DoGoToMarket();
 
 ACTIONS
-deliverOrder(MyDelivery d) {
-	d.ms = GoingToDeliveryLocation
-	DoDeliverOrder(d);		//animation call
+goToDeliverOrder(Order o) {
+	DoGoToRestaurant(mRestaurants.get(o.mPersonRole));	//animation call
 }
 
-giveOrder(MyDelivery d) {
-	d.ms = AwaitingPayment;
-	d.mb.mOrder.mPerson.msgOrderAndBillToCook(d.mb.mOrder, this);
+deliverOrder(Order o) {
+	o.mPersonRole.msgHereIsCookOrder(o);
+	mDeliveries.remove(o);
 }
 
-acceptPayment(MyDelivery d) {
-	d.ms = Delivered;
-	Receipt r = new Receipt(d.mb);
-	d.mr = r;
-	d.mo.mPerson.msgHereIsCookReceipt(r);
+notifyCashier() {
+	msgDeliveryTruckReady(this);
 }
-
-returnToMarket(MyDelivery d) {
-	d.ms = BringingReceiptToMarket
-	DoGoToMarket();			//animation call
-}
-
-notifyDeliveryFinished(MyDelivery d) {
-	d.ms = Finished;
-	cashier.msgDeliverPayment(d.r);
-}
-
-
-
-
