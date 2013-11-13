@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import restaurant_davidmca.agent.Agent;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Market;
 import restaurant_davidmca.interfaces.Waiter;
 import restaurant_davidmca.test.mock.EventLog;
 import restaurant_davidmca.test.mock.LoggedEvent;
+import base.Agent;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
