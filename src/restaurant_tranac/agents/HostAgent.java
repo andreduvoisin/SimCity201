@@ -1,6 +1,6 @@
 package restaurant_tranac.agents;
 
-import restaurant_tranac.agent.Agent;
+import base.Agent;
 import restaurant_tranac.gui.HostGui;
 import restaurant_tranac.interfaces.*;
 

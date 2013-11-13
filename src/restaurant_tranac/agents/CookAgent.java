@@ -3,7 +3,7 @@ package restaurant_tranac.agents;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import restaurant_tranac.agent.Agent;
+import base.Agent;
 import restaurant_tranac.gui.CookGui;
 import restaurant_tranac.interfaces.*;
 
