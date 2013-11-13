@@ -6,7 +6,7 @@ import restaurant_maggiyan.CookAgent.state;
 import restaurant_maggiyan.gui.CustomerGui;
 import restaurant_maggiyan.gui.RestaurantGui;
 import restaurant_maggiyan.interfaces.Customer;
-import agent.Agent;
+import base.Agent;
 
 import java.util.Timer;
 import java.util.TimerTask;

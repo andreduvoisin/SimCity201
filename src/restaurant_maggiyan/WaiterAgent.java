@@ -1,6 +1,6 @@
 package restaurant_maggiyan;
 
-import agent.Agent;
+import base.Agent;
 import restaurant_maggiyan.Check;
 import restaurant_maggiyan.Menu;
 import restaurant_maggiyan.gui.WaiterGui;

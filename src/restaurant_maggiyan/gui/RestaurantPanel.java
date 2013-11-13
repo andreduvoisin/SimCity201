@@ -64,7 +64,7 @@ public class RestaurantPanel extends JPanel {
     public ListPanel getCustPanel(){
     	return customerPanel; 
     }
-    
+   /* 
     public void pause(){
     	cook.pause(); 
     	host.pause();
@@ -96,7 +96,7 @@ public class RestaurantPanel extends JPanel {
     	market3.restart();
     	System.out.println("Restarted");
     }
-    
+*/    
     public Vector<CustomerAgent> getCust(){
     	return customers;
     }

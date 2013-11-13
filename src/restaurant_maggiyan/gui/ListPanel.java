@@ -138,7 +138,7 @@ public class ListPanel extends JPanel implements ActionListener {
         	String waiterName = waiterNameBox.getText(); 
         	addWaiter(waiterName); 
         }
-        if(e.getSource() == pauseButton){
+ /*       if(e.getSource() == pauseButton){
         	if(!pressed){
         		pressed = true; 
         		restPanel.pause(); 
@@ -149,7 +149,7 @@ public class ListPanel extends JPanel implements ActionListener {
         	}
         		
         }
-        else {
+ */       else {
         	//Checks for hungry customers
         	for(int i = 0; i<checkBoxList.size(); i++){
         		JCheckBox temp = checkBoxList.get(i); 
