@@ -1,4 +1,6 @@
-﻿-------------------------------------------DELIVERY TRUCK-------------------------------------------
+﻿OFFICIAL VERSION IS NOW ON THE WIKI
+
+-------------------------------------------DELIVERY TRUCK-------------------------------------------
 
 DATA
 List<MyDelivery> mDeliveries;
