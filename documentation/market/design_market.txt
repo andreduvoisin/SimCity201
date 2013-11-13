@@ -1,3 +1,4 @@
+OFFICIAL VERSION IS NOW ON THE WIKI
 
 									  -Design Document: Market-
 
@@ -28,7 +29,7 @@ Order
 	static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, ORDER_READY};
 	EnumOrderEvent mEvent;
 	Map<Item, Integer> mItems;
-	Role mPersonRole; //TODO: Role???????
+	Role mPersonRole;
 
 	Worker mWorker;
 	Cashier mCashier;
