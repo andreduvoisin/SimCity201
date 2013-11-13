@@ -14,7 +14,7 @@ Market
 6a.	FULFILLING				RECEIVED_ORDER		DONE						(action: remove order)										Customer		
 
 5b.	ORDERING				TOLD_TO_SEND		DELIVERING					msgDeliverOrderToCook			Order						Worker			DeliveryTruck			
-6b.	DELIVERING				TOLD_TO_DELIVER		FULFILLING					msgHereIsCookOrder				Order						DeliveryTruck	Cook					
+6b.	DELIVERING				TOLD_TO_DELIVER		FULFILLING					msgHereIsCookOrder				Order						DeliveryTruck	Cook
 7b.	FULFILLING				RECEIVED_ORDER		DONE						(action: remove order)										Cook
 
 
@@ -23,12 +23,13 @@ Item
 	static Map<Item, Integer> sPrices;
 
 Order
-	static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, VALIDATING, VALIDATED, DONE};
+	static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, DONE};
 	EnumOrderStatus mStatus;
 	static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, ORDER_READY};
 	EnumOrderEvent mEvent;
 	Map<Item, Integer> mItems;
-	Person mPerson; //TODO: Role???????
+	Role mPersonRole; //TODO: Role???????
+
 	Worker mWorker;
 	Cashier mCashier;
 	

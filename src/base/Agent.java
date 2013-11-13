@@ -12,9 +12,6 @@ public abstract class Agent {
     Semaphore stateChange = new Semaphore(1, true);//binary semaphore, fair
     private AgentThread agentThread;
     
-    private Semaphore semPaused = new Semaphore(0);
-    private boolean mPaused = false;
-
     protected Agent() {
     }
 
@@ -113,8 +110,6 @@ public abstract class Agent {
 
             while (goOn) {
                 try {
-                	if (mPaused) semPaused.acquire();
-                	
                     // The agent sleeps here until someone calls, stateChanged(),
                     // which causes a call to stateChange.give(), which wakes up agent.
                     stateChange.acquire();
@@ -138,20 +133,5 @@ public abstract class Agent {
         }
     }
     
-    
-    
-
-    public void pause(){
-    	mPaused = true;
-    }
-    
-    public void restart(){
-    	mPaused = false;
-    	semPaused.release();
-    }
-    
-    public boolean isPaused(){
-    	return mPaused;
-    }
 }
 
