@@ -13,13 +13,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-<<<<<<< HEAD:src/restaurant_davidmca/CookAgent.java
-import base.Agent;
-=======
 import restaurant_davidmca.Order;
 import restaurant_davidmca.Stock;
 import restaurant_davidmca.Table;
->>>>>>> 36c838c1de8e75453342c6e0b20f0f3c761988b3:src/restaurant_davidmca/agents/CookAgent.java
 import restaurant_davidmca.gui.CookGui;
 import restaurant_davidmca.interfaces.Market;
 import restaurant_davidmca.interfaces.Waiter;

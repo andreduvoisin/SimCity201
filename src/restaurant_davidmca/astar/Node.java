@@ -1,5 +1,4 @@
-package astar;
-import java.util.*;
+package restaurant_davidmca.astar;
 
 public interface Node {
     public boolean goalTest(Object o);

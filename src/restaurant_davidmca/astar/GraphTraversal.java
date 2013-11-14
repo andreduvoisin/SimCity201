@@ -1,10 +1,7 @@
-package astar;
+package restaurant_davidmca.astar;
 
-import java.util.*;
-import java.lang.String;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
+import java.util.List;
+import java.util.Queue;
 
 public abstract class GraphTraversal
 {

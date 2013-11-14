@@ -5,11 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-<<<<<<< HEAD:src/restaurant_davidmca/HostAgent.java
-import base.Agent;
-=======
 import restaurant_davidmca.Table;
->>>>>>> 36c838c1de8e75453342c6e0b20f0f3c761988b3:src/restaurant_davidmca/agents/HostAgent.java
 import restaurant_davidmca.gui.HostGui;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;

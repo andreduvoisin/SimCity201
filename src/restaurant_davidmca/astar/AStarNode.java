@@ -1,5 +1,6 @@
-package astar;
-import  java.util.*;
+package restaurant_davidmca.astar;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AStarNode implements Node
 {

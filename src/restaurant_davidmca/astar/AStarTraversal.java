@@ -1,6 +1,10 @@
-package astar;
-import java.util.*;
-import java.util.concurrent.*;
+package restaurant_davidmca.astar;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.Semaphore;
 
 public class AStarTraversal extends GraphTraversal
 {

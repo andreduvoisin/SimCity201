@@ -14,8 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant_davidmca.CustomerAgent;
-import restaurant_davidmca.WaiterAgent;
+import restaurant_davidmca.agents.CustomerAgent;
+import restaurant_davidmca.agents.WaiterAgent;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
 
