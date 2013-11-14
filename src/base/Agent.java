@@ -60,8 +60,8 @@ public abstract class Agent {
      */
     protected void print(String msg, Throwable e) {
         StringBuffer sb = new StringBuffer();
-        sb.append(toString());
-        sb.append(" ");
+        sb.append(getName());
+        sb.append(": ");
         sb.append(msg);
         sb.append("\n");
         if (e != null) {
