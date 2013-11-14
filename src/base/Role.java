@@ -19,4 +19,9 @@ public class Role {
 		
 		return false;
 	}
+	
+	public boolean isActive(){
+		return true;
+		//TODO: Fix this
+	}
 }
