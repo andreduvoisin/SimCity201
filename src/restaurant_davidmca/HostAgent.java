@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import restaurant_davidmca.agent.Agent;
+import base.Agent;
 import restaurant_davidmca.gui.HostGui;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;

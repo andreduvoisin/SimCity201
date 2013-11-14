@@ -9,7 +9,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import restaurant_davidmca.agent.Agent;
+import base.Agent;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Market;
 

@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import restaurant_davidmca.agent.Agent;
+import base.Agent;
 import restaurant_davidmca.gui.CookGui;
 import restaurant_davidmca.interfaces.Market;
 import restaurant_davidmca.interfaces.Waiter;
