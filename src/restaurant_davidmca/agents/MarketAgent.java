@@ -9,12 +9,8 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-<<<<<<< HEAD:src/restaurant_davidmca/MarketAgent.java
-import base.Agent;
-=======
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Stock;
->>>>>>> 36c838c1de8e75453342c6e0b20f0f3c761988b3:src/restaurant_davidmca/agents/MarketAgent.java
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Market;
 import base.Agent;

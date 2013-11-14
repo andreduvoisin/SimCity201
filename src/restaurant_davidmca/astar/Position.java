@@ -1,7 +1,5 @@
-package astar;
-import java.util.*;
-import java.lang.Math;
-import java.util.concurrent.*;
+package restaurant_davidmca.astar;
+import java.util.concurrent.Semaphore;
 
 public class Position {
     int x;

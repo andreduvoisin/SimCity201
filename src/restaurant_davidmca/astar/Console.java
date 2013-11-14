@@ -1,4 +1,4 @@
-package astar;
+package restaurant_davidmca.astar;
 /**
  * Console class for keyboard input 
  * Invitation to Computer Science, Java Version, 
