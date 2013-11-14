@@ -1,9 +1,10 @@
-package restaurant_davidmca;
+package restaurant_davidmca.agents;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant_davidmca.Check;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Market;

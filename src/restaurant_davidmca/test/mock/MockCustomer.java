@@ -4,10 +4,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import restaurant_davidmca.Check;
-import restaurant_davidmca.HostAgent;
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Table;
-import restaurant_davidmca.CustomerAgent.AgentEvent;
+import restaurant_davidmca.agents.HostAgent;
 import restaurant_davidmca.gui.CustomerGui;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
@@ -60,11 +59,11 @@ public class MockCustomer extends Mock implements Customer {
 			final Check check = chk;
 			timer.schedule(new TimerTask() {
 				public void run() {
-					cashier.msgDebtPayment(check.getTotal());
+					cashier.msgDebtPayment(check.total);
 				}
 			}, 50);
 		} else {
-			cashier.msgPayment(chk, chk.getTotal());
+			cashier.msgPayment(chk, chk.total);
 		}
 	}
 

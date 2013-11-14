@@ -2,9 +2,9 @@ package restaurant_davidmca.test.mock;
 
 import java.util.Map;
 
-import restaurant_davidmca.CashierAgent;
-import restaurant_davidmca.CookAgent;
 import restaurant_davidmca.Menu;
+import restaurant_davidmca.agents.CashierAgent;
+import restaurant_davidmca.agents.CookAgent;
 import restaurant_davidmca.interfaces.Market;
 
 public class MockMarket implements Market {

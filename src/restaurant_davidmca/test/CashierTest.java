@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
-import restaurant_davidmca.CashierAgent;
 import restaurant_davidmca.Check;
+import restaurant_davidmca.agents.CashierAgent;
 import restaurant_davidmca.test.mock.MockCustomer;
 import restaurant_davidmca.test.mock.MockMarket;
 import restaurant_davidmca.test.mock.MockWaiter;
@@ -133,7 +133,7 @@ public class CashierTest extends TestCase {
 				+ customer.log.toString(),
 				customer.log.containsString("Received msgChange"));
 		assertEquals("Check that cashier cash has been increased correctly",
-				cashier.totalCash, startingCash + newCheck.getTotal());
+				cashier.totalCash, startingCash + newCheck.total);
 	}
 
 	public void testMultipleCustomerPayment() {
@@ -167,8 +167,8 @@ public class CashierTest extends TestCase {
 				+ customer2.log.toString(),
 				customer2.log.containsString("Received msgChange"));
 		assertEquals("Check that cashier cash has been increased correctly",
-				cashier.totalCash, startingCash + newCheck.getTotal()
-						+ newCheck2.getTotal());
+				cashier.totalCash, startingCash + newCheck.total
+						+ newCheck2.total);
 	}
 
 	public void testMultipleRepeatCustomers() {
@@ -207,8 +207,8 @@ public class CashierTest extends TestCase {
 				+ customer2.log.toString(),
 				customer2.log.containsString("Received msgChange"));
 		assertEquals("Check that cashier cash has been increased correctly",
-				cashier.totalCash, startingCash + newCheck.getTotal()
-						+ newCheck2.getTotal());
+				cashier.totalCash, startingCash + newCheck.total
+						+ newCheck2.total);
 	}
 
 	public void testNotEnoughMoneyDebtPayment() {
@@ -235,7 +235,7 @@ public class CashierTest extends TestCase {
 				+ brokecustomer.log.toString(),
 				brokecustomer.log.containsString("Received msgChange"));
 		assertNotSame("Cashier Cash should be lower than expected",
-				cashier.totalCash, startingCash + newCheck.getTotal());
+				cashier.totalCash, startingCash + newCheck.total);
 		double currentCash = cashier.totalCash;
 		try {
 			Thread.sleep(100);
@@ -246,7 +246,7 @@ public class CashierTest extends TestCase {
 				"Cashier should record a debt payment" + cashier.log.toString(),
 				cashier.log.containsString("msgDebtPayment occurred"));
 		assertEquals("Cashier cash should now match", cashier.totalCash,
-				currentCash + newCheck.getTotal());
+				currentCash + newCheck.total);
 	}
 
 }

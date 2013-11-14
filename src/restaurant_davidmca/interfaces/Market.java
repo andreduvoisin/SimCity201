@@ -2,8 +2,8 @@ package restaurant_davidmca.interfaces;
 
 import java.util.Map;
 
-import restaurant_davidmca.CashierAgent;
-import restaurant_davidmca.CookAgent;
+import restaurant_davidmca.agents.CashierAgent;
+import restaurant_davidmca.agents.CookAgent;
 
 public interface Market {
 

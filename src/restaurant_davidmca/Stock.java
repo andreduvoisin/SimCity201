@@ -3,6 +3,8 @@ package restaurant_davidmca;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import restaurant_davidmca.agents.MarketAgent;
+
 public class Stock {
 	private String choice;
 	private int quantity;
