@@ -9,14 +9,13 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant_davidmca.CustomerAgent;
-import restaurant_davidmca.WaiterAgent;
+import restaurant_davidmca.agents.CustomerAgent;
+import restaurant_davidmca.agents.WaiterAgent;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
 
@@ -30,7 +29,6 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	private RestaurantPanel restPanel = new RestaurantPanel(this);
 
 	/* infoPanel holds information about the clicked customer, if there is one */
-	private JButton pauseAll = new JButton("Pause");
 	boolean currentlyPaused = false;
 
 	private JPanel leftPanel;
@@ -96,13 +94,11 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		stateCB = new JCheckBox();
 		stateCB.setVisible(false);
 		stateCB.addActionListener(this);
-		
+
 		breakCB = new JCheckBox();
 		breakCB.setVisible(false);
 		breakCB.addActionListener(this);
-		
-		pauseAll.addActionListener(this);
-		infoPanel.add(pauseAll, BorderLayout.PAGE_START);
+
 		infoPanel.add(infoLabel, BorderLayout.LINE_START);
 		infoPanel.add(stateCB, BorderLayout.LINE_END);
 		infoPanel.add(breakCB, BorderLayout.PAGE_END);
@@ -124,7 +120,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		aboutPanel.setMaximumSize(aboutDim);
 		aboutPanel.setBorder(BorderFactory.createTitledBorder("About"));
 		aboutLabel = new JLabel();
-		aboutLabel.setText("<html>David Carr <br> CSCI 201 Restaurant v2</html>");
+		aboutLabel
+				.setText("<html>David Carr <br> CSCI 201 Restaurant v2</html>");
 		aboutPanel.add(aboutLabel);
 		textBoxes.add(aboutPanel);
 
@@ -208,17 +205,6 @@ public class RestaurantGui extends JFrame implements ActionListener {
 				Waiter w = (Waiter) currentPerson;
 				w.getGui().wantsBreak();
 				breakCB.setEnabled(false);
-			}
-		}
-		if (e.getSource() == pauseAll) {
-			if (currentlyPaused == false) {
-				restPanel.pauseAllAgents();
-				pauseAll.setText("Resume");
-				currentlyPaused = true;
-			} else if (currentlyPaused == true) {
-				restPanel.resumeAllAgents();
-				pauseAll.setText("Pause");
-				currentlyPaused = false;
 			}
 		}
 	}

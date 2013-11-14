@@ -3,8 +3,8 @@ package restaurant_davidmca.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import restaurant_davidmca.CookAgent;
 import restaurant_davidmca.Table;
+import restaurant_davidmca.agents.CookAgent;
 
 public class CookGui implements Gui {
 

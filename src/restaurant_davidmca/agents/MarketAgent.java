@@ -1,4 +1,4 @@
-package restaurant_davidmca;
+package restaurant_davidmca.agents;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,9 +9,11 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import restaurant_davidmca.agent.Agent;
+import restaurant_davidmca.Menu;
+import restaurant_davidmca.Stock;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Market;
+import base.Agent;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.

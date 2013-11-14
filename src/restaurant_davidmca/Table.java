@@ -4,7 +4,7 @@ import restaurant_davidmca.interfaces.Customer;
 
 public class Table {
 	Customer occupiedBy;
-	int tableNumber;
+	public int tableNumber;
 	int xpos;
 	int ypos;
 	int capacity;
@@ -17,12 +17,12 @@ public class Table {
 		this.capacity = seats;
 	}
 
-	void setOccupant(Customer cust) {
+	public void setOccupant(Customer cust) {
 		occupiedBy = cust;
 		current++;
 	}
 
-	void setUnoccupied() {
+	public void setUnoccupied() {
 		occupiedBy = null;
 		current--;
 	}
@@ -31,7 +31,7 @@ public class Table {
 		return occupiedBy;
 	}
 
-	boolean isOccupied() {
+	public boolean isOccupied() {
 		if (current == capacity) {
 			return true;
 		}

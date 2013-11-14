@@ -9,11 +9,11 @@ import restaurant_davidmca.interfaces.Waiter;
 public class Check {
 
 	String choice;
-	Customer cust;
-	Waiter waiter;
+	public Customer cust;
+	public Waiter waiter;
 	Map<String, Double> priceList = new HashMap<String, Double>();
-	double total;
-	double change = 0;
+	public double total;
+	public double change = 0;
 
 	public Check(Waiter w, Customer c, String ch) {
 		priceList.put("Steak", 15.99);
@@ -26,19 +26,4 @@ public class Check {
 		this.total = priceList.get(this.choice);
 	}
 
-	public String getChoice() {
-		return this.choice;
-	}
-
-	public double getChange() {
-		return this.change;
-	}
-
-	public double getTotal() {
-		return this.total;
-	}
-
-	public Customer getCust() {
-		return this.cust;
-	}
 }

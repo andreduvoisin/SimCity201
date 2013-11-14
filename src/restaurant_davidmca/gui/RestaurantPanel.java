@@ -7,13 +7,13 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant_davidmca.CashierAgent;
-import restaurant_davidmca.CookAgent;
-import restaurant_davidmca.CustomerAgent;
-import restaurant_davidmca.HostAgent;
-import restaurant_davidmca.MarketAgent;
 import restaurant_davidmca.Table;
-import restaurant_davidmca.WaiterAgent;
+import restaurant_davidmca.agents.CashierAgent;
+import restaurant_davidmca.agents.CookAgent;
+import restaurant_davidmca.agents.CustomerAgent;
+import restaurant_davidmca.agents.HostAgent;
+import restaurant_davidmca.agents.MarketAgent;
+import restaurant_davidmca.agents.WaiterAgent;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
 
@@ -22,6 +22,10 @@ import restaurant_davidmca.interfaces.Waiter;
  * cook, waiters, and customers.
  */
 public class RestaurantPanel extends JPanel {
+	
+	//animation grid
+	static int gridX = 25;
+	static int gridY = 35;
 
 	// Host, cook, waiters and customers
 	private HostAgent host = new HostAgent("Host");
@@ -116,38 +120,6 @@ public class RestaurantPanel extends JPanel {
 	 * @param name
 	 *            name of person
 	 */
-
-	public void pauseAllAgents() {
-		host.pauseAgent();
-		cook.pauseAgent();
-		cash.pauseAgent();
-		mkt1.pauseAgent();
-		mkt2.pauseAgent();
-		mkt3.pauseAgent();
-		for (CustomerAgent c : customers) {
-			c.pauseAgent();
-		}
-		Collection<WaiterAgent> waitersList = host.getWaitersList();
-		for (WaiterAgent w : waitersList) {
-			w.pauseAgent();
-		}
-		Collection<MarketAgent> marketList = cook.getMarketList();
-		for (MarketAgent m: marketList) {
-			m.pauseAgent();
-		}
-	}
-
-	public void resumeAllAgents() {
-		host.restartAgent();
-		cook.restartAgent();
-		for (CustomerAgent c : customers) {
-			c.restartAgent();
-		}
-		Collection<WaiterAgent> waitersList = host.getWaitersList();
-		for (WaiterAgent w : waitersList) {
-			w.restartAgent();
-		}
-	}
 
 	public void addPerson(String type, String name, boolean isHungry) {
 

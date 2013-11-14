@@ -2,9 +2,9 @@ package restaurant_davidmca.test.mock;
 
 
 import restaurant_davidmca.Check;
-import restaurant_davidmca.HostAgent;
 import restaurant_davidmca.Order;
 import restaurant_davidmca.Table;
+import restaurant_davidmca.agents.HostAgent;
 import restaurant_davidmca.gui.HostGui;
 import restaurant_davidmca.gui.WaiterGui;
 import restaurant_davidmca.interfaces.Cashier;

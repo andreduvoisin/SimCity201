@@ -1,4 +1,4 @@
-package restaurant_davidmca;
+package restaurant_davidmca.agents;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,11 +7,14 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import restaurant_davidmca.agent.Agent;
+import restaurant_davidmca.Check;
+import restaurant_davidmca.Menu;
+import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.CustomerGui;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
+import base.Agent;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.

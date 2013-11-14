@@ -1,14 +1,15 @@
-package restaurant_davidmca;
+package restaurant_davidmca.agents;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import restaurant_davidmca.agent.Agent;
+import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.HostGui;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
+import base.Agent;
 
 /**
  * Restaurant Host Agent
