@@ -9,9 +9,9 @@ import market.interfaces.Worker;
 import market.other.Item.EnumMarketItemType;
 
 public class Order {
-	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, PAYMENT_RECEIVED, ORDERING, DELIVERING, DONE};
+	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, ORDERING, DELIVERING, FULFILLING, DONE};
 	public EnumOrderStatus mStatus;
-	public static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, ORDER_READY, RECEIVED_ORDER};
+	public static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, RECEIVED_ORDER};
 	public EnumOrderEvent mEvent;
 	public Map<EnumMarketItemType, Integer> mItems;
 	public Role mPersonRole;

@@ -1,13 +1,12 @@
 package market.roles;
 
-import java.util.HashMap;
+import interfaces.Person;
+
 import java.util.List;
 import java.util.Map;
 
 import market.interfaces.Cashier;
-import market.interfaces.Cook;
 import market.interfaces.Customer;
-import market.interfaces.Worker;
 import market.other.Invoice;
 import market.other.Item;
 import market.other.Item.EnumMarketItemType;
@@ -17,8 +16,8 @@ import market.other.Order.EnumOrderStatus;
 import base.Role;
 
 public class MarketCustomerRole extends Role implements Customer{
-
 	//DATA
+	Person mPerson;
 	
 	//mCash inherited from Person
 	Map<Item, Integer> mItemInventory; //personal inventory
@@ -32,18 +31,18 @@ public class MarketCustomerRole extends Role implements Customer{
 	int mMarketToOrderFrom = 0; //TODO: use for market switching % Market.getNumMarkets
 	
 	//MESSAGES
-	
-//	void msgInvoiceToPerson(Map<Item, Integer> cannotFulfill, Invoice invoice){
-//		mInvoices.add(invoice);
-//
-//		//not being fulfilled
-//		for (iItem : cannotFulfill){
+	@Override
+	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> cannotFulfill, Invoice invoice) {
+		mInvoices.add(invoice);
+
+		//not being fulfilled
+		for (EnumMarketItemType iItem : cannotFulfill.keySet()){
 //			add int to mItemsDesired
-//		}
-//
-//		invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
-//		stateChanged();
-//	}
+		}
+
+		invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
+		stateChanged();
+	}
 
 
 	void msgHereIsCustomerOrder(Order order){
@@ -95,7 +94,7 @@ public class MarketCustomerRole extends Role implements Customer{
 	}
 
 	private void payForOrder(Order order){
-		Invoice invoice;
+		Invoice invoice = null;
 		for (Invoice iInvoice : mInvoices){
 			if (iInvoice.mOrder == order) invoice = iInvoice;
 			break;
@@ -104,18 +103,20 @@ public class MarketCustomerRole extends Role implements Customer{
 //			throw error
 		}
 
-		if (invoice.mTotal > mCash){
+		if (invoice.mTotal > mPerson.getCash()){
 //			throw error?
 		}
-
-		mCash -= invoice.mTotal;
+		
+//		mCash -= invoice.mTotal;
 		invoice.mPayment += invoice.mTotal;
 
 		mCashier.msgPayingForOrder(invoice);
 	}
 
 	private void removeOrder(Order order){
-		remove from mOrders and mInvoices
+//		remove from mOrders and mInvoices
 	}
+
+
 
 }

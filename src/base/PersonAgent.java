@@ -170,6 +170,22 @@ public class PersonAgent extends Agent implements Person{
 	public void removeRole(Role r) {
 //		roles.remove(r);
 	}
+
+
+
+	@Override
+	public double getCash() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public double setCash() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }
