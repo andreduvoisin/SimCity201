@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import market.MarketCustomerRole;
+import market.roles.MarketCustomerRole;
 
 public class PersonAgent extends Agent implements Person{
 

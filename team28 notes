@@ -1,0 +1,41 @@
+-states
+ -nourishment
+ -location
+ -position
+ -
+ -state of customer = 3 tuple
+ -
+ -
+ -timer
+ -static int mTime = 0;
+ -every second mTime++;
+ -static int getTime(){return mTime;}
+ -
+ -restaurant
+ -if cook is gone, restaurant is closed
+ -
+ -market class
+ -isOpen (return true if cashier is there)
+ -
+ -public class building
+ -getAgent(returns main important agent for this building)
+ -
+ -Bank cash
+ -
+ -
+ -config file
+ -file io create basic scenario
+
+
+
+
+HostRole
+List<Host> mHosts; //each with status active
+messages, etc.
+have all of these created at the beginning :)
+
+
+
+Class theClass = Class.forName(r.customerRole);
+Role c = (Role)theClass.newInstance(); //zero parameter constructor
+catch(Exception E){}
