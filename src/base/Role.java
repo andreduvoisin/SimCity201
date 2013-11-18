@@ -1,7 +1,7 @@
 package base;
 
 public class Role {
-	PersonAgent mPerson;
+	protected PersonAgent mPerson;
 	
 	
 	//NEEDED METHODS

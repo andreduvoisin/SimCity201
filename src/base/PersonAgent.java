@@ -171,20 +171,17 @@ public class PersonAgent extends Agent implements Person{
 //		roles.remove(r);
 	}
 
-
-
-	@Override
-	public double getCash() {
-		// TODO Auto-generated method stub
-		return 0;
+	public double getCredit () {
+		return mCredit;
 	}
 
+	public void setCredit (double credit) {
+		mCredit = credit;
+	}
 
-
-	@Override
-	public double setCash() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void addCredit(double amount) {
+		mCredit += amount;
+		
 	}
 	
 	
