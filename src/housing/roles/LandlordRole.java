@@ -1,4 +1,9 @@
-package housing;
+package housing.roles;
+
+import housing.House;
+import housing.interfaces.Landlord;
+import housing.interfaces.Renter;
+import interfaces.Person;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,10 +11,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import interfaces.Person;
 import base.Role;
 
-public class LandlordRole extends Role {
+public class LandlordRole extends Role implements Landlord {
 
 	/* Data */
 
@@ -20,8 +24,8 @@ public class LandlordRole extends Role {
 			mTimeToCheckRent = true;
 		}
 	};
-	List<Renter> mRenterList = Collections
-			.synchronizedList(new ArrayList<Renter>());
+	List<MyRenter> mRenterList = Collections
+			.synchronizedList(new ArrayList<MyRenter>());
 	List<House> mHousesList = Collections
 			.synchronizedList(new ArrayList<House>());
 	int mMinCreditScoreRequirement;
@@ -32,14 +36,14 @@ public class LandlordRole extends Role {
 
 	boolean mTimeToCheckRent = false;
 
-	private class Renter {
-		Person p;
+	private class MyRenter {
+		Renter mRenter;
 		RenterState mState;
-		int mCreditscore;
+		double mCreditscore;
 		House mHouse;
 
-		public Renter(Person person, int score) {
-			p = person;
+		public MyRenter(Renter renter, double score) {
+			mRenter = renter;
 			mState = RenterState.Initial;
 			mCreditscore = score;
 			mHouse = null;
@@ -48,13 +52,13 @@ public class LandlordRole extends Role {
 
 	/* Messages */
 
-	public void msgIWouldLikeToLiveHere(Person p, int creditScore) {
-		mRenterList.add(new Renter(p, creditScore));
+	public void msgIWouldLikeToLiveHere(Renter r, double creditScore) {
+		mRenterList.add(new MyRenter(r, creditScore));
 		stateChanged();
 	}
 
 	public void msgHereIsBankStatement(int SSN, double paymentAmt) {
-		Renter r = FindRenter(SSN);
+		MyRenter r = FindRenter(SSN);
 		r.mState = RenterState.RentPaid;
 		stateChanged();
 	}
@@ -64,7 +68,7 @@ public class LandlordRole extends Role {
 	public boolean pickAndExecuteAnAction() {
 
 		synchronized (mRenterList) {
-			for (Renter r : mRenterList) {
+			for (MyRenter r : mRenterList) {
 				if (r.mState == RenterState.ApplyingForHousing) {
 					ReviewApplicant(r);
 					return true;
@@ -77,7 +81,7 @@ public class LandlordRole extends Role {
 			mRentTimer.schedule(mRentTimerTask, 1000000); // TODO: establish
 															// schedule for rent
 			synchronized (mRenterList) {
-				for (Renter r : mRenterList) {
+				for (MyRenter r : mRenterList) {
 					if (r.mState == RenterState.RentOverdue) {
 						GiveEvictionNotice(r);
 						return true;
@@ -85,7 +89,7 @@ public class LandlordRole extends Role {
 				}
 			}
 			synchronized (mRenterList) {
-				for (Renter r : mRenterList) {
+				for (MyRenter r : mRenterList) {
 					if (r.mState == RenterState.OwesRent) {
 						GiveRentOverdueNotice(r);
 						return true;
@@ -93,7 +97,7 @@ public class LandlordRole extends Role {
 				}
 			}
 			synchronized (mRenterList) {
-				for (Renter r : mRenterList) {
+				for (MyRenter r : mRenterList) {
 					if (r.mState == RenterState.RentPaid) {
 						GiveRentDueNotice(r);
 						return true;
@@ -106,32 +110,38 @@ public class LandlordRole extends Role {
 
 	/* Actions */
 
-	private void GiveRentDueNotice(Renter r) {
+	private void GiveRentDueNotice(MyRenter r) {
 		r.mState = RenterState.OwesRent;
-		r.p.msgRentDue(this, r.mHouse.mRent);
+		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
-	private void GiveRentOverdueNotice(Renter r) {
+	private void GiveRentOverdueNotice(MyRenter r) {
 		r.mState = RenterState.RentOverdue;
-		r.p.msgRentDue(this, r.mHouse.mRent);
+		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
-	private void GiveEvictionNotice(Renter r) {
-		r.p.msgEviction();
-		mHousesList.get(r.mHouse).mOccupant = null;
+	private void GiveEvictionNotice(MyRenter r) {
+		r.mRenter.msgEviction();
+		synchronized (mHousesList) {
+			for (House h : mHousesList) {
+				if (h.mOccupant == r) {
+					h.mOccupant = null;
+				}
+			}
+		}
 		synchronized (mRenterList) {
 			mRenterList.remove(r);
 		}
 	}
 
-	void ReviewApplicant(Renter r) {
+	void ReviewApplicant(MyRenter r) {
 		if (r.mCreditscore >= mMinCreditScoreRequirement) {
 			r.mHouse = mHousesList.get(0);
-			r.mHouse.mOccupant = r.p;
-			r.p.msgApplicationAccepted(r.mHouse);
+			r.mHouse.mOccupant = r.mRenter;
+			r.mRenter.msgApplicationAccepted(r.mHouse);
 			r.mState = RenterState.RentPaid;
 		} else {
-			r.p.msgApplicationDenied();
+			r.mRenter.msgApplicationDenied();
 			synchronized (mRenterList) {
 				mRenterList.remove(r);
 			}
@@ -140,8 +150,9 @@ public class LandlordRole extends Role {
 
 	/* Utilities */
 
-	Renter FindRenter(int SSN) {
+	MyRenter FindRenter(int SSN) {
 		// TODO: Implement renter lookup
 		return null;
 	}
+
 }

@@ -1,17 +1,17 @@
 package housing;
 
-import interfaces.Person;
+import housing.interfaces.Renter;
 
 public class House {
-    int xLocation, yLocation;
-    double mRent;
-    Person mOccupant; 
-    
-    public House(int x, int y, double rent) {
-    	xLocation = x;
-    	yLocation = y;
-    	mRent = rent;
-    	mOccupant = null;
-    }
-    
-} 
+	int xLocation, yLocation;
+	double mRent;
+	Renter mOccupant;
+
+	public House(int x, int y, double rent) {
+		xLocation = x;
+		yLocation = y;
+		mRent = rent;
+		mOccupant = null;
+	}
+
+}
