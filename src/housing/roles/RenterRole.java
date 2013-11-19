@@ -118,7 +118,7 @@ public class RenterRole extends Role implements Renter {
 
 	void RequestHousing() {
 		print("Action - RequestHousing");
-		myLandLord.msgIWouldLikeToLiveHere(this, me.getCredit(), me.getSSN());
+		myLandLord.msgIWouldLikeToLiveHere(this, me.getCredit());
 	}
 
 	void PayBill(Bill b) {
@@ -148,5 +148,4 @@ public class RenterRole extends Role implements Renter {
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);
 	}
-
 }

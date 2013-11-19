@@ -43,12 +43,15 @@ public class LandlordTest extends TestCase
 		
 	}	
 	
-	public void testOneCashierCalculatesCorrectCheckForWaiter()
+	public void testNormativeScenario()
 	{
 		/**
-		 * Test is set up to check that the cashier properly calculates check and then sends it back to the waiter 
+		 * Tests that the landlord can receive and fulfill housing requests from renters
 		 */
-	
+		
+		
+		
+		
 //		waiter.cashier = cashier;//You can do almost anything in a unit test.	
 //		
 //		cashier.msgPleaseCalculateBill(waiter, customer, "Steak");
