@@ -1,8 +1,9 @@
 package market.interfaces;
 
 import java.util.Map;
+
+import base.Item.EnumMarketItemType;
 import market.*;
-import market.Item.EnumMarketItemType;
 
 public interface Cook {
 	

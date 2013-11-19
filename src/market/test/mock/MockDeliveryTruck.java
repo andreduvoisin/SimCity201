@@ -1,8 +1,8 @@
 package market.test.mock;
 
-import test.mock.*;
-import market.interfaces.*;
-import market.other.*;
+import market.Order;
+import market.interfaces.DeliveryTruck;
+import test.mock.Mock;
 
 public class MockDeliveryTruck extends Mock implements DeliveryTruck {
 

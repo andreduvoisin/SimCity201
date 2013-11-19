@@ -1,6 +1,7 @@
 package housing.roles;
 
 import housing.House;
+import housing.gui.LandlordGui;
 import housing.interfaces.Landlord;
 import housing.interfaces.Renter;
 
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
 
 import base.Role;
 import base.interfaces.Person;
@@ -29,8 +31,10 @@ public class LandlordRole extends Role implements Landlord {
 	List<House> mHousesList = Collections
 			.synchronizedList(new ArrayList<House>());
 	int mMinCreditScoreRequirement;
+	private LandlordGui gui = new LandlordGui();
+	private Semaphore isAnimating = new Semaphore(0, true);
 
-	enum RenterState {
+	enum EnumRenterState {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
 	};
 
@@ -38,19 +42,26 @@ public class LandlordRole extends Role implements Landlord {
 
 	private class MyRenter {
 		Renter mRenter;
-		RenterState mState;
+		EnumRenterState mState;
 		double mCreditscore;
 		House mHouse;
+		int SSN;
 
-		public MyRenter(Renter renter, double score) {
+		public MyRenter(Renter renter, double score, int mySSN) {
 			mRenter = renter;
-			mState = RenterState.Initial;
+			mState = EnumRenterState.Initial;
 			mCreditscore = score;
 			mHouse = null;
+			SSN = mySSN;
 		}
 	}
 
 	/* Messages */
+
+	public void msgDoneAnimating() {
+		isAnimating.release();
+		stateChanged();
+	}
 
 	public void msgIWouldLikeToLiveHere(Renter r, double creditScore) {
 		print("Message - I would like to live here recieved");
@@ -58,10 +69,11 @@ public class LandlordRole extends Role implements Landlord {
 		stateChanged();
 	}
 
-	public void msgHereIsBankStatement(int SSN, double paymentAmt) {
+	public void msgHereIsPayment(int SSN, double paymentAmt) {
 		print("Message - Here is bank statement recieved");
+		me.setCash(me.getCash()+paymentAmt);
 		MyRenter r = FindRenter(SSN);
-		r.mState = RenterState.RentPaid;
+		r.mState = EnumRenterState.RentPaid;
 		stateChanged();
 	}
 
@@ -71,7 +83,7 @@ public class LandlordRole extends Role implements Landlord {
 
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
-				if (r.mState == RenterState.ApplyingForHousing) {
+				if (r.mState == EnumRenterState.ApplyingForHousing) {
 					ReviewApplicant(r);
 					return true;
 				}
@@ -84,7 +96,7 @@ public class LandlordRole extends Role implements Landlord {
 															// schedule for rent
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
-					if (r.mState == RenterState.RentOverdue) {
+					if (r.mState == EnumRenterState.RentOverdue) {
 						GiveEvictionNotice(r);
 						return true;
 					}
@@ -92,7 +104,7 @@ public class LandlordRole extends Role implements Landlord {
 			}
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
-					if (r.mState == RenterState.OwesRent) {
+					if (r.mState == EnumRenterState.OwesRent) {
 						GiveRentOverdueNotice(r);
 						return true;
 					}
@@ -100,7 +112,7 @@ public class LandlordRole extends Role implements Landlord {
 			}
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
-					if (r.mState == RenterState.RentPaid) {
+					if (r.mState == EnumRenterState.RentPaid) {
 						GiveRentDueNotice(r);
 						return true;
 					}
@@ -114,13 +126,13 @@ public class LandlordRole extends Role implements Landlord {
 
 	private void GiveRentDueNotice(MyRenter r) {
 		print("Action - GiveRentDueNotice");
-		r.mState = RenterState.OwesRent;
+		r.mState = EnumRenterState.OwesRent;
 		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
-		r.mState = RenterState.RentOverdue;
+		r.mState = EnumRenterState.RentOverdue;
 		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
@@ -145,7 +157,7 @@ public class LandlordRole extends Role implements Landlord {
 			r.mHouse = mHousesList.get(0);
 			r.mHouse.mOccupant = r.mRenter;
 			r.mRenter.msgApplicationAccepted(r.mHouse);
-			r.mState = RenterState.RentPaid;
+			r.mState = EnumRenterState.RentPaid;
 		} else {
 			r.mRenter.msgApplicationDenied();
 			synchronized (mRenterList) {
@@ -156,13 +168,23 @@ public class LandlordRole extends Role implements Landlord {
 
 	/* Utilities */
 
-	MyRenter FindRenter(int SSN) {
-		// TODO: Implement renter lookup
-		return null;
+	public void setPerson(Person p){
+		me = p; 
 	}
 	
+	MyRenter FindRenter(int SSN) {
+		synchronized (mRenterList) {
+			for (MyRenter r : mRenterList) {
+				if (r.SSN == SSN) {
+					return r;
+				}
+			}
+		}
+		return null;
+	}
+
 	protected void print(String msg) {
-		System.out.println("Landlord - "+msg);
+		System.out.println("Landlord - " + msg);
 	}
 
 }
