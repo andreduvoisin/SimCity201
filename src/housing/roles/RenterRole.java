@@ -49,26 +49,31 @@ public class RenterRole extends Role implements Renter {
 	/* Messages */
 
 	public void msgApplicationAccepted(House newHouse) {
+		print("Message - msgApplicationAccepted");
 		mHouse = newHouse;
 		stateChanged();
 	}
 
 	public void msgApplicationDenied() {
+		print("Message - msgApplicationDenied");
 		mHouse = null;
 		stateChanged();
 	}
 
 	public void msgRentDue(Landlord lord, double total) {
+		print("Message- msgRentDue");
 		mBills.add(new Bill(lord, total));
 		stateChanged();
 	}
 
 	public void msgOverdueNotice(Landlord lord, double total) {
+		print("Message - msgOverdueNotice");
 		mBills.add(new Bill(lord, total));
 		stateChanged();
 	}
 
 	public void msgEviction() {
+		print("Message - msgEviction");
 		mHouse = null;
 		// DoLeaveHouse() //Some eviction animation
 	}
@@ -101,15 +106,24 @@ public class RenterRole extends Role implements Renter {
 	/* Actions */
 	
 	void RequestHousing() {
+		print("Action - RequestHousing");
 		myLandLord.msgIWouldLikeToLiveHere(this, me.getCredit());
 	}
 
 	void PayBill(Bill b) {
+		print("Action - PayBill");
 		//me.bank.msgSendPayment(this, b.mLandLord, b.amt); //TODO: establish payment mechanism
 		mBills.remove(b);
 	}
 	
 	void Maintain() {
+		print("Action - Maintain");
 		//TODO: run timer for some period of time, animate
+	}
+	
+	/* Utilities */
+	
+	protected void print(String msg) {
+		System.out.println("Renter - "+msg);
 	}
 }

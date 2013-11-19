@@ -53,11 +53,13 @@ public class LandlordRole extends Role implements Landlord {
 	/* Messages */
 
 	public void msgIWouldLikeToLiveHere(Renter r, double creditScore) {
+		print("Message - I would like to live here recieved");
 		mRenterList.add(new MyRenter(r, creditScore));
 		stateChanged();
 	}
 
 	public void msgHereIsBankStatement(int SSN, double paymentAmt) {
+		print("Message - Here is bank statement recieved");
 		MyRenter r = FindRenter(SSN);
 		r.mState = RenterState.RentPaid;
 		stateChanged();
@@ -111,16 +113,19 @@ public class LandlordRole extends Role implements Landlord {
 	/* Actions */
 
 	private void GiveRentDueNotice(MyRenter r) {
+		print("Action - GiveRentDueNotice");
 		r.mState = RenterState.OwesRent;
 		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
+		print("Action - GiveRentOverdueNotice");
 		r.mState = RenterState.RentOverdue;
 		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
+		print("Action - GiveEvictionNotice");
 		r.mRenter.msgEviction();
 		synchronized (mHousesList) {
 			for (House h : mHousesList) {
@@ -135,6 +140,7 @@ public class LandlordRole extends Role implements Landlord {
 	}
 
 	void ReviewApplicant(MyRenter r) {
+		print("Action - ReviewApplicant");
 		if (r.mCreditscore >= mMinCreditScoreRequirement) {
 			r.mHouse = mHousesList.get(0);
 			r.mHouse.mOccupant = r.mRenter;
@@ -153,6 +159,10 @@ public class LandlordRole extends Role implements Landlord {
 	MyRenter FindRenter(int SSN) {
 		// TODO: Implement renter lookup
 		return null;
+	}
+	
+	protected void print(String msg) {
+		System.out.println("Landlord - "+msg);
 	}
 
 }
