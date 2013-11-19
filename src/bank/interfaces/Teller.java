@@ -1,6 +1,5 @@
 package bank.interfaces;
 
-import bank.BankDatabase;
 
 public interface Teller {
 
@@ -20,6 +19,6 @@ public interface Teller {
 	//	UTILITIES
 	public abstract void addGuard(Guard guard);
 
-	public abstract void addDatabase(BankDatabase database);
+	public abstract void setMaster(MasterTeller masterTeller);
 
 }
