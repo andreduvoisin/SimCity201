@@ -3,7 +3,6 @@ package transportation;
 import base.interfaces.Person;
 
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * The controller who handles people waiting at bus stops, boarding buses, and
@@ -142,7 +141,7 @@ public class BusDispatch {
 
 		for (Rider iRider : bus.mRiders) {
 			if (iRider.mDestination == bus.mCurrentStop) {
-				// TODO iRider.mPerson.msgAtYourStop();
+				// TODO Implement Person.msgAtYourStop() : iRider.mPerson.msgAtYourStop();
 			}
 		}
 
@@ -157,7 +156,7 @@ public class BusDispatch {
 		bus.state = BusInstance.enumState.boarding;
 
 		for (Person p : mBusStops.get(bus.mCurrentStop).mWaitingPeople) {
-			// TODO p.msgBoardBus(this);
+			// TODO Implement Person.msgBoardBus(BusDispatch) : p.msgBoardBus(this);
 		}
 
 		try { bus.semBusy.acquire(); } catch (Exception e) {}
