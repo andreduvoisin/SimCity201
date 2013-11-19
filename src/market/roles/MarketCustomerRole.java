@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import market.Invoice;
-import market.Item.EnumMarketItemType;
 import market.Order;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
 import market.interfaces.Cashier;
 import market.interfaces.Customer;
 import base.Role;
+import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 
 public class MarketCustomerRole extends Role implements Customer{

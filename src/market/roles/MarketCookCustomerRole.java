@@ -1,13 +1,20 @@
 package market.roles;
 
-import market.interfaces.*;
-import market.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import market.Invoice;
+import market.Order;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
-import base.*;
-import market.Item.EnumMarketItemType;
-
-import java.util.*;
+import market.interfaces.Cashier;
+import market.interfaces.Cook;
+import base.Item.EnumMarketItemType;
+import base.PersonAgent;
+import base.Role;
 
 /** MarketCookCustomer for SimCity Market agents.
  * 

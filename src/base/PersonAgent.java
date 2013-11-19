@@ -2,7 +2,7 @@ package base;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.SortedSet;
 
 import base.interfaces.Person;
 
@@ -12,13 +12,11 @@ public class PersonAgent extends Agent implements Person{
 
 	//Data
 	List<Role> mRoles; //i.e. WaiterRole, BankTellerRole, etc.
-
-	enum EnumPersonAction {TimeToWork, IsHungry, BuyHouse, BuyCar};
-	Set<EnumPersonAction> actions;
-
-	enum EnumPersonState {Eating, Working, Shopping};
-	EnumPersonState state;
-
+	List<Person> mFriends; //best are those with same timeshift
+	SortedSet<Event> mEventsScheduled; //tree set ordered by time of event
+	List<Event> mEventsQueued;
+	List<Item> mItem;
+	
 	// Assigned in Constructor when PersonAgent is initialized.
 	static int sSSN = 0;
 	int mSSN;
@@ -26,11 +24,10 @@ public class PersonAgent extends Agent implements Person{
 	int mTimeSchedule;
 	static int sEatingTime = 0;
 	int mEatingTime;
+	static final int mealsToEat = 2;
 	int mMealsToEat;
 
-	double mCredit;
-	int mCreditScore;
-	static final int mealsToEat = 2;
+	double mCash;
 	int mAge;
 
 	boolean mHasHome;
@@ -52,8 +49,10 @@ public class PersonAgent extends Agent implements Person{
 		mEatingTime = (mTimeSchedule + 2*Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift/2))) % 24; //assign first eating time
 		
 		mRoles = new ArrayList<Role>();
-		mCredit = 0; //TODO: 3 update this val
-		mCreditScore = 0; //TODO: 3 update this val
+		mCash = 0; //TODO: 3 update this val
+		
+		//TODO 1 constructor - add events
+		
 		
 	}
 	
@@ -67,6 +66,14 @@ public class PersonAgent extends Agent implements Person{
 			mMealsToEat = 2;
 		}
 		stateChanged();
+	}
+	
+	public void msgAddEvent(Event a){
+		
+	}
+	
+	public void msgAddEvent(Event a, Event b){
+		
 	}
 	
 	//Scheduler
@@ -115,6 +122,10 @@ public class PersonAgent extends Agent implements Person{
 	
 	
 	//Actions
+	
+	private void processEvent(Event event){
+		//TODO 1 add event
+	}
 	
 	private void GoToWork() {
 //		DoGoTo(work.location);
@@ -169,16 +180,16 @@ public class PersonAgent extends Agent implements Person{
 //		roles.remove(r);
 	}
 
-	public double getCredit () {
-		return mCredit;
+	public double getCash () {
+		return mCash;
 	}
 
-	public void setCredit (double credit) {
-		mCredit = credit;
+	public void setCash (double cash) {
+		mCash = cash;
 	}
 
-	public void addCredit(double amount) {
-		mCredit += amount;
+	public void addCash(double amount) {
+		mCash += amount;
 		
 	}
 	

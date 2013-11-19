@@ -2,7 +2,6 @@ package city.gui;
 
 import javax.swing.*;
 
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -10,8 +9,9 @@ import java.awt.event.*;
 
 
 public class CityGui extends JFrame implements ActionListener{
-	JFrame animationFrame = new JFrame("SimCity Animation");
-	CityPanel animationPanel = new CityPanel();
+	JFrame cityFrame = new JFrame("SimCity Animation");
+	CityPanel cityPanel = new CityPanel(this);
+    private CityPanel CityPanel = new CityPanel(this);
 	
 	static final int hSpacing = 30;
 	static final int vSpacing = 0;
@@ -19,13 +19,21 @@ public class CityGui extends JFrame implements ActionListener{
 	static final int yIndexing = 50;
 	
 	public CityGui() {
-		int WINDOWX = 800;
-        int WINDOWY = 800;
+		int WINDOWX = 1024;
+        int WINDOWY =700;
 
-        animationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        animationFrame.setBounds(100+WINDOWX, yIndexing , WINDOWX+100, WINDOWY+100);
-        animationFrame.setVisible(false);
-    	add(animationPanel);
+        cityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        cityFrame.setBounds(xIndexing, yIndexing , WINDOWX, WINDOWY);
+        cityFrame.setVisible(false);
+    	add(cityPanel);
+    	
+    	setBounds(xIndexing, yIndexing, WINDOWX, WINDOWY);
+    	
+    	setLayout(new BoxLayout((Container) getContentPane(), 
+        		BoxLayout.Y_AXIS));
+    	
+    	Dimension cityDim = new Dimension(WINDOWX, (int) (WINDOWY * .5));
+    	CityPanel.setPreferredSize(cityDim);
     	
     	
     	

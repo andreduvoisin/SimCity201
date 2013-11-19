@@ -5,9 +5,9 @@ public interface Person {
 	
 	void msgTimeShift();
 	
-	public void setCredit(double credit);
+	public void setCash(double credit);
 	
-	public double getCredit();
+	public double getCash();
 	
-	public void addCredit(double amount);
+	public void addCash(double amount);
 }
