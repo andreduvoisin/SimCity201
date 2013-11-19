@@ -1,6 +1,7 @@
 package housing.roles;
 
 import housing.House;
+import housing.gui.LandlordGui;
 import housing.interfaces.Landlord;
 import housing.interfaces.Renter;
 
@@ -9,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
 
 import base.Role;
 import base.interfaces.Person;
@@ -29,6 +31,8 @@ public class LandlordRole extends Role implements Landlord {
 	List<House> mHousesList = Collections
 			.synchronizedList(new ArrayList<House>());
 	int mMinCreditScoreRequirement;
+	private LandlordGui gui = new LandlordGui();
+	private Semaphore isAnimating = new Semaphore(0, true);
 
 	enum RenterState {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
@@ -51,6 +55,11 @@ public class LandlordRole extends Role implements Landlord {
 	}
 
 	/* Messages */
+
+	public void msgDoneAnimating() {
+		isAnimating.release();
+		stateChanged();
+	}
 
 	public void msgIWouldLikeToLiveHere(Renter r, double creditScore) {
 		print("Message - I would like to live here recieved");
@@ -164,9 +173,9 @@ public class LandlordRole extends Role implements Landlord {
 		// TODO: Implement renter lookup
 		return null;
 	}
-	
+
 	protected void print(String msg) {
-		System.out.println("Landlord - "+msg);
+		System.out.println("Landlord - " + msg);
 	}
 
 }

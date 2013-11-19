@@ -5,7 +5,7 @@ import housing.roles.RenterRole;
 import junit.framework.TestCase;
 import base.PersonAgent;
 
-public class ExampleTest extends TestCase{
+public class BasicTest extends TestCase{
 	
 	PersonAgent mPerson;
 	PersonAgent mPerson2;
@@ -29,10 +29,14 @@ public class ExampleTest extends TestCase{
 	public void testInstantiatePeopleAndAssignRoles() {
 		mPerson = new PersonAgent();
 		mPerson2 = new PersonAgent();
+		landlord = new LandlordRole();
+		landlord.setPerson(mPerson);
+		renter = new RenterRole();
+		renter.setPerson(mPerson2);
 		mPerson.addRole(landlord);
 		mPerson2.addRole(renter);
-		mPerson.addCredit(100000);
-		mPerson2.addCredit(200);
+		mPerson.addCash(100000);
+		mPerson2.addCash(200);
 		
 		mPerson.paea(landlord);
 		mPerson2.paea(renter);

@@ -11,8 +11,10 @@ public class Time {
 	static final int cLengthOfDay = 6*60; //seconds
 	static final int cTimeShift = 8;
 	
+	static int sGlobalTimeInt = 0;
 	static int sGlobalHour = 0;
 	static int sGlobalShift = 0;
+	static int sGlobalDay = 0;
 	
 	List<Person> mPersons;
 	
@@ -30,12 +32,16 @@ public class Time {
 			@Override
 			//Broadcast time
 			public void run() {
+				sGlobalTimeInt++;
 				sGlobalHour = (sGlobalHour + 1) % 24;
 				if (sGlobalHour % 8 == 0){
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					for (Person iPerson : mPersons){
 						iPerson.msgTimeShift();
 					}
+				}
+				if (sGlobalHour % 24 == 0){
+					sGlobalDay = sGlobalDay + 1;
 				}
 			}
 		}, 
@@ -49,5 +55,13 @@ public class Time {
 	
 	public static int GetShift(){ //0 to 2
 		return sGlobalShift;
+	}
+	
+	public static int GetDat(){
+		return sGlobalDay;
+	}
+	
+	public static int GetTime(){
+		return sGlobalTimeInt;
 	}
 }
