@@ -37,7 +37,7 @@ public class BasicTest extends TestCase{
 		mPerson2.addRole(renter);
 		mPerson.addCash(100000);
 		mPerson2.addCash(200);
-		
+		//
 		mPerson.paea(landlord);
 		mPerson2.paea(renter);
 	}
