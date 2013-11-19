@@ -78,8 +78,6 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.PARTY, (mTimeSchedule + 16)
 				+ (mSSN + 3) * 24)); // night time, every SSN days
 
-		System.out.println(mEvents.size());
-
 	}
 
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -104,12 +102,20 @@ public class PersonAgent extends Agent implements Person {
 
 		// Process events (calendar)
 
-		for (Event event : mEvents) {
+		Iterator<Event> itr = mEvents.iterator();
+		while (itr.hasNext()) {
+			Event event = itr.next();
 			if (event.mTime > Time.GetTime())
 				break; // don't do future calendar events
 			processEvent(event);
-			mEvents.remove(event);
+			itr.remove();
 		}
+
+		/*
+		 * for (Event event : mEvents) { if (event.mTime > Time.GetTime())
+		 * break; // don't do future calendar events processEvent(event);
+		 * mEvents.remove(event); }
+		 */
 
 		// Do role actions
 		for (Role iRole : mRoles) {
