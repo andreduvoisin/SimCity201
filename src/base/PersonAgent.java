@@ -39,11 +39,10 @@ public class PersonAgent extends Agent implements Person {
 	public BankMasterTellerRole mMasterTeller;
 
 	boolean mHasHome;
-	boolean mHasLoan;
+	boolean mHasLoan; //change to int loan?
 	boolean mHasCar;
 
 	// List<Restaurant> mRestaurants;
-	// Restaurant mRestaurantChoice;
 	//
 	// Home mHome;
 	// Work mWork;
