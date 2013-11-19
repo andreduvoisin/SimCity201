@@ -182,5 +182,9 @@ public class PersonAgent extends Agent implements Person{
 		
 	}
 	
+	public int getSSN(){
+		return mSSN;
+	}
+	
 	
 }

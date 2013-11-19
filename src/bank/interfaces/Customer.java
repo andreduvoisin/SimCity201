@@ -12,5 +12,7 @@ public interface Customer {
 	public abstract void msgHereIsLoan(double loan);
 
 	public abstract boolean pickAndExecuteAnAction();
+	
+	public abstract int getSSN();
 
 }
