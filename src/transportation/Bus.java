@@ -1,22 +1,33 @@
 package transportation;
 
+import base.interfaces.Person;
+
 import java.util.*;
+import java.util.concurrent.Semaphore;
 
 public class Bus {
 
+	// For moving between stops (bus is always running)
+	private Semaphore semAtStop = new Semaphore(0, true);
+
 	// DATA
 
-	ArrayList<BusStop> mBusStops = new ArrayList<BusStop>();
-	ArrayList<Rider> mRiders = new ArrayList<Rider>();
-	int mBusCurrentStop;
+	private ArrayList<BusStop> mBusStops = new ArrayList<BusStop>();
+	private ArrayList<Rider> mRiders = new ArrayList<Rider>();
+	private int mBusCurrentStop;
 
-	class BusStop {
+	private class BusStop {
 		List<Person> mWaitingPeople;
 	}
 
-	class Rider {
+	private class Rider {
 		Person mPerson;
 		int mDestination;
+		
+		public Rider(Person p, int dest) {
+			mPerson = p;
+			mDestination = dest;
+		}
 	}
 
 
@@ -24,13 +35,13 @@ public class Bus {
 
 	// From Person upon arriving at a bus stop
 	public void msgNeedARide(Person p, int riderCurrentStop) {
-		mBusStops.get(riderCurrentStop).waitingPeople.add(p);
+		mBusStops.get(riderCurrentStop).mWaitingPeople.add(p);
 	}
 
 	// From Person upon boarding the bus
 	public void msgGoingTo(Person p, int riderDestination) {
 		mRiders.add(new Rider(p, riderDestination));
-		mBusStops.get(mBusCurrentStop).remove(p);
+		mBusStops.get(mBusCurrentStop).mWaitingPeople.remove(p);
 	}
 
 	// From Person upon getting off the bus
@@ -45,15 +56,23 @@ public class Bus {
 
 	// SCHEDULER
 
-	if (mRiders.size() > 0) {
-		TellRidersToGetOff();
-	}
+	public boolean pickAndExecuteAnAction() {
 
-	if (mBusStops.get(mBusCurrentStop).mWaitingPeople.size() > 0) {
-		TellRidersToBoard();
-	}
-	else {
-		AdvanceToNextStop();
+		// Instruct riders to get off if this is their stop
+		if (mRiders.size() > 0) {
+			TellRidersToGetOff();
+			return true;
+		}
+
+		// Instruct waiting customers at the current stop to board 
+		if (mBusStops.get(mBusCurrentStop).mWaitingPeople.size() > 0) {
+			TellRidersToBoard();
+			return true;
+		}
+		else {
+			AdvanceToNextStop();
+			return true;
+		}
 	}
 
 
@@ -62,7 +81,7 @@ public class Bus {
 	private void TellRidersToGetOff() {
 		for (Rider r : mRiders) {
 			if (r.mDestination == mBusCurrentStop) {
-				r.msgAtYourStop();
+				r.mPerson.msgAtYourStop();
 			}
 		}
 	}
@@ -82,3 +101,4 @@ public class Bus {
 		// gui.DoAdvance()
 		mBusCurrentStop++;
 	}
+}
