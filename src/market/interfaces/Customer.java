@@ -2,8 +2,8 @@ package market.interfaces;
 
 import java.util.Map;
 
+import base.Item.EnumMarketItemType;
 import market.Invoice;
-import market.Item.EnumMarketItemType;
 import restaurant_smileham.test.mock.EventLog;
 
 public interface Customer{
