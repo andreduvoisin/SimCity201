@@ -44,7 +44,7 @@ public class LandlordTest extends TestCase {
 		 */
 		
 		landlordPerson.addRole(landlordRole);
-		renterPerson.addRole(renter); 
+		//renterPerson.addRole(renter); 
 		
 		// waiter.cashier = cashier;//You can do almost anything in a unit test.
 		//

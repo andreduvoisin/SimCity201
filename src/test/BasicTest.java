@@ -36,10 +36,9 @@ public class BasicTest extends TestCase{
 		mPerson.addRole(landlord);
 		mPerson2.addRole(renter);
 		mPerson.addCash(100000);
-		mPerson2.addCash(200);
-		//
-		mPerson.paea(landlord);
-		mPerson2.paea(renter);
+		mPerson2.addCash(200000);
+		landlord.msgIWouldLikeToLiveHere(renter, mPerson2.getCash(), mPerson2.getSSN());
+		mPerson.pickAndExecuteAnAction();
 	}
 
 	private void print(String message){
