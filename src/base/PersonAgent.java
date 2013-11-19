@@ -17,7 +17,7 @@ import base.interfaces.Person;
 public class PersonAgent extends Agent implements Person {
 
 	// Data
-	List<Role> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
+	public List<Role> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
