@@ -1,15 +1,15 @@
 package base;
 
+import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class BaseRole implements Role{
 	
-	protected PersonAgent mPerson;
-	
+	protected Person mPerson;
 	
 	//NEEDED METHODS
 	protected void stateChanged(){
-		mPerson.stateChanged();
+		((PersonAgent)mPerson).stateChanged();
 	}
 	
 	public boolean pickAndExecuteAnAction(){
@@ -23,7 +23,7 @@ public class BaseRole implements Role{
 	}
 	
 	public PersonAgent getPersonAgent(){
-		return mPerson;
+		return ((PersonAgent)mPerson);
 	}
 	
 	public boolean isActive(){

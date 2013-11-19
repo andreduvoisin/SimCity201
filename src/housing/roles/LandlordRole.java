@@ -19,7 +19,6 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 	/* Data */
 
-	Person me;
 	Timer mRentTimer = new Timer();
 	TimerTask mRentTimerTask = new TimerTask() {
 		public void run() {
@@ -74,7 +73,7 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 	public void msgHereIsPayment(int SSN, double paymentAmt) {
 		print("Message - Here is bank statement recieved");
-		me.setCash(me.getCash() + paymentAmt);
+		mPerson.setCash(mPerson.getCash() + paymentAmt);
 		MyRenter r = FindRenter(SSN);
 		r.mState = EnumRenterState.RentPaid;
 		stateChanged();
@@ -129,13 +128,13 @@ public class LandlordRole extends BaseRole implements Landlord {
 	private void GiveRentDueNotice(MyRenter r) {
 		print("Action - GiveRentDueNotice");
 		r.mState = EnumRenterState.OwesRent;
-		r.mRenter.msgRentDue(me.getSSN(), r.mHouse.mRent);
+		r.mRenter.msgRentDue(mPerson.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
-		r.mRenter.msgRentDue(me.getSSN(), r.mHouse.mRent);
+		r.mRenter.msgRentDue(mPerson.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
@@ -170,13 +169,10 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 	/* Utilities */
 
-	// public void setPerson(Person p){
-	// me = p;
-	// }
-
-	public void setPerson(Person p) {
+	/*public void setPerson(Person p) {
+		System.out.println(p.getSSN());
 		me = p;
-	}
+	}*/
 
 	MyRenter FindRenter(int SSN) {
 		synchronized (mRenterList) {

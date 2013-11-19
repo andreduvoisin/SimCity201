@@ -1,29 +1,26 @@
 package base;
 
-import java.util.Comparator;
 
 public class Event implements Comparable<Event> {
-	enum EnumEventType {
-		BUY_HOME, JOB, EAT, GET_CAR, DEPOSIT_CHECK, INVITE1, INVITE2, RSVP1, RSVP2, PARTY
-	};
+	enum EnumEventType {BUY_HOME, JOB, EAT, GET_CAR, DEPOSIT_CHECK, INVITE1, INVITE2, RSVP1, RSVP2, PARTY};
 
-	EnumEventType mEvent;
+	EnumEventType mEventType;
 	int mTime;
 	Location mLocation;
 
 	public Event(EnumEventType type, int time) {
-		mEvent = type;
+		mEventType = type;
 		mTime = time;
 	}
 
-	public Event(EnumEventType event, int time, Location location) {
-		mEvent = event;
+	public Event(EnumEventType type, int time, Location location) {
+		mEventType = type;
 		mTime = time;
 		mLocation = location;
 	}
 
 	public Event(Event event, int timeDelay) {
-		mEvent = event.mEvent;
+		mEventType = event.mEventType;
 		mTime = event.mTime + timeDelay;
 		mLocation = event.mLocation;
 	}

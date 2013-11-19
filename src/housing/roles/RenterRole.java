@@ -18,8 +18,7 @@ import base.interfaces.Person;
 public class RenterRole extends BaseRole implements Renter {
 
 	/* Data */
-
-	Person me;
+	
 	public Landlord myLandLord;
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
@@ -136,12 +135,12 @@ public class RenterRole extends BaseRole implements Renter {
 
 	void RequestHousing() {
 		print("Action - RequestHousing");
-		myLandLord.msgIWouldLikeToLiveHere(this, me.getCash(), me.getSSN());
+		myLandLord.msgIWouldLikeToLiveHere(this, mPerson.getCash(), mPerson.getSSN());
 	}
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		me.getMasterTeller().msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); 
+		//mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(), b.mLandLordSSN, b.mAmt); 
 		mBills.remove(b);
 	}
 
