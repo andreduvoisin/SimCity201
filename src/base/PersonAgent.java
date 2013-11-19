@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.SortedSet;
 
 import bank.interfaces.MasterTeller;
+import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
@@ -31,7 +32,7 @@ public class PersonAgent extends Agent implements Person{
 
 	double mCash;
 	int mAge;
-	public MasterTeller mMasterTeller;
+	public BankMasterTellerRole mMasterTeller;
 
 	boolean mHasHome;
 	boolean mHasLoan;
@@ -133,10 +134,10 @@ public class PersonAgent extends Agent implements Person{
 			depositCheck();
 		}
 		if (event.mEvent == EnumEventType.INVITE1){
-			
+			inviteToParty();
 		}
 		if (event.mEvent == EnumEventType.INVITE2){
-			
+			reinviteDeadbeats();
 		}
 		if (event.mEvent == EnumEventType.PARTY){
 			throwParty();
@@ -179,7 +180,13 @@ public class PersonAgent extends Agent implements Person{
 		
 	}
 	
+	private void inviteToParty(){
+		
+	}
 	
+	private void reinviteDeadbeats(){
+		
+	}
 	
 	
 	
