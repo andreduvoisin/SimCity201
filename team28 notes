@@ -39,3 +39,5 @@ have all of these created at the beginning :)
 Class theClass = Class.forName(r.customerRole);
 Role c = (Role)theClass.newInstance(); //zero parameter constructor
 catch(Exception E){}
+roles.add(c);
+c.active = true;

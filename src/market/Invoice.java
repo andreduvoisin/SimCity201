@@ -1,4 +1,4 @@
-package market.other;
+package market;
 
 public class Invoice {
 	public Order mOrder;

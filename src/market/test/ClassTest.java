@@ -3,7 +3,7 @@ package market.test;
 import junit.framework.TestCase;
 import base.PersonAgent;
 
-public class PersonTest extends TestCase{
+public class ClassTest extends TestCase{
 	
 	PersonAgent mPerson;
 	//needed interfaces

@@ -1,27 +1,25 @@
 package market.roles;
 
-import interfaces.Person;
-
 import java.util.List;
 import java.util.Map;
 
+import market.Invoice;
+import market.Item.EnumMarketItemType;
+import market.Order;
+import market.Order.EnumOrderEvent;
+import market.Order.EnumOrderStatus;
 import market.interfaces.Cashier;
 import market.interfaces.Customer;
-import market.other.Invoice;
-import market.other.Item;
-import market.other.Item.EnumMarketItemType;
-import market.other.Order;
-import market.other.Order.EnumOrderEvent;
-import market.other.Order.EnumOrderStatus;
 import base.Role;
+import base.interfaces.Person;
 
 public class MarketCustomerRole extends Role implements Customer{
 	//DATA
 	Person mPerson;
+		//mCash accessed from Person
 	
-	//mCash inherited from Person
-	Map<Item, Integer> mItemInventory; //personal inventory
-	Map<Item, Integer> mItemsDesired; //not ordered yet
+	Map<EnumMarketItemType, Integer> mItemInventory; //personal inventory
+	Map<EnumMarketItemType, Integer> mItemsDesired; //not ordered yet
 
 	List<Order> mOrders;
 	List<Invoice> mInvoices;
@@ -37,7 +35,7 @@ public class MarketCustomerRole extends Role implements Customer{
 
 		//not being fulfilled
 		for (EnumMarketItemType iItem : cannotFulfill.keySet()){
-//			add int to mItemsDesired
+			mItemsDesired.put(iItem, mItemsDesired.get(iItem) + cannotFulfill.get(iItem));
 		}
 
 		invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
@@ -46,11 +44,13 @@ public class MarketCustomerRole extends Role implements Customer{
 
 
 	void msgHereIsCustomerOrder(Order order){
-
-//		for ecah item in order{
-//			add to mItems
-//		}
-
+		
+		Map<EnumMarketItemType, Integer> items = order.mItems;
+		//for each item in order
+		for (EnumMarketItemType iItem : items.keySet()){
+			mItemInventory.put(iItem, mItemInventory.get(iItem) + items.get(iItem)); //add to inventory
+		}
+		
 		order.mEvent = EnumOrderEvent.RECEIVED_ORDER;
 		stateChanged();
 	}
@@ -94,18 +94,16 @@ public class MarketCustomerRole extends Role implements Customer{
 	}
 
 	private void payForOrder(Order order){
-		Invoice invoice = null;
-		for (Invoice iInvoice : mInvoices){
-			if (iInvoice.mOrder == order) invoice = iInvoice;
-			break;
-		}
+		Invoice invoice = getInvoice(order);
 		if (invoice == null){
-//			throw error
+			//throw error?
 		}
 
-		if (invoice.mTotal > mPerson.getCash()){
-//			throw error?
-		}
+//		if (invoice.mTotal > mPerson.getCash()){
+////			throw error?
+//		}
+		
+		//TODO: 1 Pay by bank transfer?
 		
 //		mCash -= invoice.mTotal;
 		invoice.mPayment += invoice.mTotal;
@@ -117,6 +115,15 @@ public class MarketCustomerRole extends Role implements Customer{
 //		remove from mOrders and mInvoices
 	}
 
-
+	
+	//ACCESSORS
+	private Invoice getInvoice(Order order){
+		Invoice invoice = null;
+		for (Invoice iInvoice : mInvoices){
+			if (iInvoice.mOrder == order) invoice = iInvoice;
+			break;
+		}
+		return invoice;
+	}
 
 }

@@ -1,8 +1,8 @@
 package market.interfaces;
 
 import test.mock.EventLog;
-import market.other.Invoice;
-import market.other.Order;
+import market.Invoice;
+import market.Order;
 
 public interface Cashier {
 	
