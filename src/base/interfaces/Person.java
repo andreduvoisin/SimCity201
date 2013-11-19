@@ -1,4 +1,4 @@
-package interfaces;
+package base.interfaces;
 
 public interface Person {
 	//TODO: add stuff here

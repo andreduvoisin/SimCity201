@@ -1,4 +1,4 @@
-package market.other;
+package market;
 
 import java.util.Map;
 

@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import base.Role;
+import market.Invoice;
+import market.Item;
+import market.Order;
+import market.Item.EnumMarketItemType;
+import market.Order.EnumOrderEvent;
+import market.Order.EnumOrderStatus;
 import market.interfaces.Cashier;
 import market.interfaces.Cook;
 import market.interfaces.Customer;
 import market.interfaces.Worker;
-import market.other.Invoice;
-import market.other.Item;
-import market.other.Item.EnumMarketItemType;
-import market.other.Order;
-import market.other.Order.EnumOrderEvent;
-import market.other.Order.EnumOrderStatus;
+import base.Role;
 
 public class MarketCashierRole extends Role implements Cashier{
 	int mNumWorkers = 0;

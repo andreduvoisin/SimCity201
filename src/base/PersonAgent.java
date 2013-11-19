@@ -1,12 +1,10 @@
 package base;
 
-import interfaces.Person;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import market.roles.MarketCustomerRole;
+import base.interfaces.Person;
 
 public class PersonAgent extends Agent implements Person{
 

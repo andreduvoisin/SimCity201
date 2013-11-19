@@ -1,6 +1,6 @@
 package market.interfaces;
 
-import market.other.Order;
+import market.Order;
 import restaurant_smileham.test.mock.EventLog;
 
 public interface Worker {

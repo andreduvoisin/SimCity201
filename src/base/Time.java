@@ -1,10 +1,10 @@
 package base;
 
-import interfaces.Person;
-
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import base.interfaces.Person;
 
 public class Time {
 	

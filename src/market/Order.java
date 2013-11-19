@@ -1,12 +1,12 @@
-package market.other;
+package market;
 
 import java.util.Map;
 
 import base.Role;
+import market.Item.EnumMarketItemType;
 import market.interfaces.Cashier;
 import market.interfaces.DeliveryTruck;
 import market.interfaces.Worker;
-import market.other.Item.EnumMarketItemType;
 
 public class Order {
 	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, ORDERING, DELIVERING, FULFILLING, DONE};

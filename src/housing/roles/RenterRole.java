@@ -3,7 +3,6 @@ package housing.roles;
 import housing.House;
 import housing.interfaces.Landlord;
 import housing.interfaces.Renter;
-import interfaces.Person;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.Role;
+import base.interfaces.Person;
 
 public class RenterRole extends Role implements Renter {
 

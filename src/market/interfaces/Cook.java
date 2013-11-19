@@ -2,8 +2,8 @@ package market.interfaces;
 
 import java.util.Map;
 
-import market.other.Invoice;
-import market.other.Item.EnumMarketItemType;
+import market.Invoice;
+import market.Item.EnumMarketItemType;
 import restaurant_smileham.Order;
 import restaurant_smileham.Food.EnumFoodOptions;
 import restaurant_smileham.gui.CookGui;
