@@ -20,7 +20,7 @@ public class LandlordRole extends Role implements Landlord {
 	/* Data */
 
 	Person me;
-	Timer mRentTimer;
+	Timer mRentTimer = new Timer();
 	TimerTask mRentTimerTask = new TimerTask() {
 		public void run() {
 			mTimeToCheckRent = true;
@@ -39,7 +39,7 @@ public class LandlordRole extends Role implements Landlord {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
 	};
 
-	boolean mTimeToCheckRent = false;
+	public boolean mTimeToCheckRent = false;
 
 	private class MyRenter {
 		Renter mRenter;
@@ -95,8 +95,7 @@ public class LandlordRole extends Role implements Landlord {
 
 		if (mTimeToCheckRent && mRenterList.size() > 0) {
 			mTimeToCheckRent = false;
-			mRentTimer.schedule(mRentTimerTask, 1000000); // TODO: establish
-															// schedule for rent
+			mRentTimer.schedule(mRentTimerTask, 1000000); // TODO: establish schedule for rent
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
 					if (r.mState == EnumRenterState.RentOverdue) {

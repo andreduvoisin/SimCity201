@@ -46,6 +46,10 @@ public class BasicTest extends TestCase{
 		mPerson2.addCash(200000);
 		landlord.msgIWouldLikeToLiveHere(renter, mPerson2.getCash(), mPerson2.getSSN());
 		mPerson.pickAndExecuteAnAction();
+		landlord.mTimeToCheckRent = true;
+		mPerson2.pickAndExecuteAnAction();
+		mPerson.pickAndExecuteAnAction();
+		
 	}
 
 	private void print(String message){
