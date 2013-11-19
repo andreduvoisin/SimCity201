@@ -34,7 +34,7 @@ public class LandlordRole extends Role implements Landlord {
 	private LandlordGui gui = new LandlordGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
 
-	enum RenterState {
+	enum EnumRenterState {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
 	};
 
@@ -42,13 +42,13 @@ public class LandlordRole extends Role implements Landlord {
 
 	private class MyRenter {
 		Renter mRenter;
-		RenterState mState;
+		EnumRenterState mState;
 		double mCreditscore;
 		House mHouse;
 
 		public MyRenter(Renter renter, double score) {
 			mRenter = renter;
-			mState = RenterState.Initial;
+			mState = EnumRenterState.Initial;
 			mCreditscore = score;
 			mHouse = null;
 		}
@@ -70,7 +70,7 @@ public class LandlordRole extends Role implements Landlord {
 	public void msgHereIsBankStatement(int SSN, double paymentAmt) {
 		print("Message - Here is bank statement recieved");
 		MyRenter r = FindRenter(SSN);
-		r.mState = RenterState.RentPaid;
+		r.mState = EnumRenterState.RentPaid;
 		stateChanged();
 	}
 
@@ -80,7 +80,7 @@ public class LandlordRole extends Role implements Landlord {
 
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
-				if (r.mState == RenterState.ApplyingForHousing) {
+				if (r.mState == EnumRenterState.ApplyingForHousing) {
 					ReviewApplicant(r);
 					return true;
 				}
@@ -93,7 +93,7 @@ public class LandlordRole extends Role implements Landlord {
 															// schedule for rent
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
-					if (r.mState == RenterState.RentOverdue) {
+					if (r.mState == EnumRenterState.RentOverdue) {
 						GiveEvictionNotice(r);
 						return true;
 					}
@@ -101,7 +101,7 @@ public class LandlordRole extends Role implements Landlord {
 			}
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
-					if (r.mState == RenterState.OwesRent) {
+					if (r.mState == EnumRenterState.OwesRent) {
 						GiveRentOverdueNotice(r);
 						return true;
 					}
@@ -109,7 +109,7 @@ public class LandlordRole extends Role implements Landlord {
 			}
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
-					if (r.mState == RenterState.RentPaid) {
+					if (r.mState == EnumRenterState.RentPaid) {
 						GiveRentDueNotice(r);
 						return true;
 					}
@@ -123,13 +123,13 @@ public class LandlordRole extends Role implements Landlord {
 
 	private void GiveRentDueNotice(MyRenter r) {
 		print("Action - GiveRentDueNotice");
-		r.mState = RenterState.OwesRent;
+		r.mState = EnumRenterState.OwesRent;
 		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
-		r.mState = RenterState.RentOverdue;
+		r.mState = EnumRenterState.RentOverdue;
 		r.mRenter.msgRentDue(this, r.mHouse.mRent);
 	}
 
@@ -154,7 +154,7 @@ public class LandlordRole extends Role implements Landlord {
 			r.mHouse = mHousesList.get(0);
 			r.mHouse.mOccupant = r.mRenter;
 			r.mRenter.msgApplicationAccepted(r.mHouse);
-			r.mState = RenterState.RentPaid;
+			r.mState = EnumRenterState.RentPaid;
 		} else {
 			r.mRenter.msgApplicationDenied();
 			synchronized (mRenterList) {
