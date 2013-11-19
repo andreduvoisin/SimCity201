@@ -87,7 +87,7 @@ public class PersonAgent extends Agent implements Person{
 	
 	//----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		
 		//Process events (calendar)
 		for (Event event : mEvents){

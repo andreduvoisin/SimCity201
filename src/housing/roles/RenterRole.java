@@ -53,7 +53,7 @@ public class RenterRole extends Role implements Renter {
 	}
 
 	/* Messages */
-	
+
 	public void msgEatAtHome() {
 		isHungry = true;
 		stateChanged();
@@ -98,7 +98,7 @@ public class RenterRole extends Role implements Renter {
 
 	public boolean pickAndExecuteAnAction() {
 		// TODO: establish what triggers the RequestHousing() action
-		
+
 		if (isHungry) {
 			isHungry = false;
 			EatAtHome();
@@ -129,7 +129,7 @@ public class RenterRole extends Role implements Renter {
 	}
 
 	/* Actions */
-	
+
 	void EatAtHome() {
 		print("Action - Eat at Home");
 		try {
@@ -146,7 +146,9 @@ public class RenterRole extends Role implements Renter {
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		me.getMasterTeller().msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); //TODO: establish
+		me.getMasterTeller()
+				.msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); // TODO:
+																		// establish
 		// payment mechanism
 		mBills.remove(b);
 	}
@@ -162,24 +164,12 @@ public class RenterRole extends Role implements Renter {
 	}
 
 	/* Utilities */
-	
-//	public void setPerson(Person p){
-//		me = p; 
-//	}
+
+	// public void setPerson(Person p){
+	// me = p;
+	// }
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);
-	}
-
-	@Override
-	public void msgRentDue(Landlord lord, double total) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void msgOverdueNotice(Landlord lord, double total) {
-		// TODO Auto-generated method stub
-		
 	}
 }
