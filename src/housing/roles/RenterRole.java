@@ -20,7 +20,7 @@ public class RenterRole extends Role implements Renter {
 	/* Data */
 
 	Person me;
-	Landlord myLandLord;
+	public Landlord myLandLord;
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
 	House mHouse = null;
@@ -162,9 +162,9 @@ public class RenterRole extends Role implements Renter {
 	/* Utilities */
 
 	
-	public void setPerson(Person p){
-		me = p; 
-	}
+//	public void setPerson(Person p){
+//		me = p; 
+//	}
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);

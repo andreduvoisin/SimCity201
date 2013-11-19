@@ -169,9 +169,9 @@ public class LandlordRole extends Role implements Landlord {
 
 	/* Utilities */
 
-	public void setPerson(Person p){
-		me = p; 
-	}
+//	public void setPerson(Person p){
+//		me = p; 
+//	}
 	
 	MyRenter FindRenter(int SSN) {
 		synchronized (mRenterList) {

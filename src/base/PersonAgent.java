@@ -104,9 +104,6 @@ public class PersonAgent extends Agent implements Person{
 		return false;
 	}
 	
-	public void paea(Role role){
-		while(role.pickAndExecuteAnAction());
-	}
 	
 	
 	//----------------------------------------------------------ACTIONS----------------------------------------------------------
@@ -246,11 +243,11 @@ public class PersonAgent extends Agent implements Person{
 	//----------------------------------------------------------ACCESSORS----------------------------------------------------------
 	
 	public void addRole(Role r) {
-//		roles.add(r);
-//		r.setPerson(this);
+		mRoles.add(r);
+		r.setPerson(this);
 	}
 	public void removeRole(Role r) {
-//		roles.remove(r);
+		mRoles.remove(r);
 	}
 
 	public double getCash () {
