@@ -7,8 +7,9 @@ import java.util.Map;
 
 import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
-import base.Role;
+import base.BaseRole;
 import base.interfaces.Person;
+import base.interfaces.Role;
 
 /**
  * MockPerson built to unit test Housing
@@ -54,8 +55,8 @@ public class MockPerson extends Mock implements Person {
 	}
 
 
-	public void addRole(Role renter) {
-		// TODO Auto-generated method stub
+	public void addRole(Role r) {
+
 		
 	}
 	public MasterTeller getMasterTeller() {

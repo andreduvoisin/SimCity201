@@ -13,10 +13,11 @@ import market.interfaces.Cook;
 import market.interfaces.Customer;
 import market.interfaces.Worker;
 import base.Item;
-import base.Role;
+import base.BaseRole;
 import base.Item.EnumMarketItemType;
+import base.interfaces.Role;
 
-public class MarketCashierRole extends Role implements Cashier{
+public class MarketCashierRole extends BaseRole implements Cashier{
 	int mNumWorkers = 0;
 	
 //	Data

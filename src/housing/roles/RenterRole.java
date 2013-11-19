@@ -12,14 +12,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import base.Role;
+import base.BaseRole;
 import base.interfaces.Person;
 
-public class RenterRole extends Role implements Renter {
+public class RenterRole extends BaseRole implements Renter {
 
 	/* Data */
-
-	Person me;
+	
 	public Landlord myLandLord;
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
@@ -39,13 +38,11 @@ public class RenterRole extends Role implements Renter {
 	};
 
 	private class Bill {
-		Landlord mLandLord;
 		int mLandLordSSN;
 		double mAmt;
 		EnumBillState mStatus;
 
-		public Bill(Landlord lord, int lordssn, double rent) {
-			mLandLord = lord;
+		public Bill(int lordssn, double rent) {
 			mLandLordSSN = lordssn;
 			mAmt = rent;
 			mStatus = EnumBillState.Pending;
@@ -76,15 +73,15 @@ public class RenterRole extends Role implements Renter {
 		stateChanged();
 	}
 
-	public void msgRentDue(Landlord lord, int ssn, double total) {
+	public void msgRentDue(int ssn, double total) {
 		print("Message- msgRentDue");
-		mBills.add(new Bill(lord, ssn, total));
+		mBills.add(new Bill(ssn, total));
 		stateChanged();
 	}
 
-	public void msgOverdueNotice(Landlord lord, int ssn, double total) {
+	public void msgOverdueNotice(int ssn, double total) {
 		print("Message - msgOverdueNotice");
-		mBills.add(new Bill(lord, ssn, total));
+		mBills.add(new Bill(ssn, total));
 		stateChanged();
 	}
 
@@ -118,7 +115,7 @@ public class RenterRole extends Role implements Renter {
 
 		if (mTimeToMaintain) {
 			mTimeToMaintain = false;
-			mMintenanceTimer.schedule(mMintenanceTimerTask, 10000000); // TODO: establish maintenance schedule
+			mMintenanceTimer.schedule(mMintenanceTimerTask, 10000);
 			Maintain();
 			return true;
 		}
@@ -138,13 +135,12 @@ public class RenterRole extends Role implements Renter {
 
 	void RequestHousing() {
 		print("Action - RequestHousing");
-		myLandLord.msgIWouldLikeToLiveHere(this, me.getCash(), me.getSSN());
+		myLandLord.msgIWouldLikeToLiveHere(this, mPerson.getCash(), mPerson.getSSN());
 	}
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		me.getMasterTeller().msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); // TODO: establish
-		// payment mechanism
+		//mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(), b.mLandLordSSN, b.mAmt); 
 		mBills.remove(b);
 	}
 
