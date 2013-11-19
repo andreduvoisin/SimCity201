@@ -30,7 +30,8 @@ public class LandlordRole extends Role implements Landlord {
 			.synchronizedList(new ArrayList<MyRenter>());
 	List<House> mHousesList = Collections
 			.synchronizedList(new ArrayList<House>());
-	int mMinCreditScoreRequirement;
+	int mMinCash = 50;
+	int mMinSSN = 5;
 	private LandlordGui gui = new LandlordGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
 
@@ -43,14 +44,14 @@ public class LandlordRole extends Role implements Landlord {
 	private class MyRenter {
 		Renter mRenter;
 		EnumRenterState mState;
-		double mCreditscore;
+		double mCash;
 		House mHouse;
 		int SSN;
 
-		public MyRenter(Renter renter, double score, int mySSN) {
+		public MyRenter(Renter renter, double cash, int mySSN) {
 			mRenter = renter;
 			mState = EnumRenterState.Initial;
-			mCreditscore = score;
+			mCash = cash;
 			mHouse = null;
 			SSN = mySSN;
 		}
@@ -63,15 +64,15 @@ public class LandlordRole extends Role implements Landlord {
 		stateChanged();
 	}
 
-	public void msgIWouldLikeToLiveHere(Renter r, double creditScore, int SSN) {
+	public void msgIWouldLikeToLiveHere(Renter r, double cash, int SSN) {
 		print("Message - I would like to live here recieved");
-		mRenterList.add(new MyRenter(r, creditScore, SSN));
+		mRenterList.add(new MyRenter(r, cash, SSN));
 		stateChanged();
 	}
 
 	public void msgHereIsPayment(int SSN, double paymentAmt) {
 		print("Message - Here is bank statement recieved");
-		me.setCash(me.getCash()+paymentAmt);
+		me.setCash(me.getCash() + paymentAmt);
 		MyRenter r = FindRenter(SSN);
 		r.mState = EnumRenterState.RentPaid;
 		stateChanged();
@@ -127,13 +128,13 @@ public class LandlordRole extends Role implements Landlord {
 	private void GiveRentDueNotice(MyRenter r) {
 		print("Action - GiveRentDueNotice");
 		r.mState = EnumRenterState.OwesRent;
-		r.mRenter.msgRentDue(this, r.mHouse.mRent);
+		r.mRenter.msgRentDue(this, me.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
-		r.mRenter.msgRentDue(this, r.mHouse.mRent);
+		r.mRenter.msgRentDue(this, me.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
@@ -153,7 +154,7 @@ public class LandlordRole extends Role implements Landlord {
 
 	void ReviewApplicant(MyRenter r) {
 		print("Action - ReviewApplicant");
-		if (r.mCreditscore >= mMinCreditScoreRequirement) {
+		if (r.mCash >= mMinCash && r.SSN >= mMinSSN) {
 			r.mHouse = mHousesList.get(0);
 			r.mHouse.mOccupant = r.mRenter;
 			r.mRenter.msgApplicationAccepted(r.mHouse);
@@ -168,10 +169,10 @@ public class LandlordRole extends Role implements Landlord {
 
 	/* Utilities */
 
-	public void setPerson(Person p){
-		me = p; 
+	public void setPerson(Person p) {
+		me = p;
 	}
-	
+
 	MyRenter FindRenter(int SSN) {
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
