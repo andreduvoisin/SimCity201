@@ -18,4 +18,9 @@ public class Order {
 	public Worker mWorker;
 	public Cashier mCashier;
 	public DeliveryTruck mDeliveryTruck;
+	
+	public Order(Map<EnumMarketItemType, Integer> items, Role person) {
+		mItems = items;
+		mPersonRole = person;
+	}
 }

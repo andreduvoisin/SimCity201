@@ -3,9 +3,9 @@ package market.roles;
 import java.util.*;
 
 import market.interfaces.*;
-import market.other.*;
-import market.other.Order.EnumOrderEvent;
-import market.other.Order.EnumOrderStatus;
+import market.*;
+import market.Order.EnumOrderEvent;
+import market.Order.EnumOrderStatus;
 import base.*;
 
 /**
