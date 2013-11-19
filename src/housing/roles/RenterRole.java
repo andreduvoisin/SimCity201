@@ -140,7 +140,7 @@ public class RenterRole extends BaseRole implements Renter {
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(), b.mLandLordSSN, b.mAmt); 
+		//mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(), b.mLandLordSSN, b.mAmt); 
 		mBills.remove(b);
 	}
 
