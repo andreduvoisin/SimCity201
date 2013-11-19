@@ -81,14 +81,14 @@ public class Bus {
 	private void TellRidersToGetOff() {
 		for (Rider r : mRiders) {
 			if (r.mDestination == mBusCurrentStop) {
-				r.mPerson.msgAtYourStop();
+				//r.mPerson.msgAtYourStop();
 			}
 		}
 	}
 
 	private void TellRidersToBoard() {
 		for (Person p : mBusStops.get(mBusCurrentStop).mWaitingPeople) {
-			p.msgBoardBus();
+			//p.msgBoardBus();
 		}
 	}
 
