@@ -54,7 +54,7 @@ public class MockPerson extends Mock implements Person {
 	}
 
 
-	public void addRole(Role renter) {
+	public void addRole(Role r) {
 		// TODO Auto-generated method stub
 		
 	}

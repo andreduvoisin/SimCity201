@@ -1,5 +1,6 @@
 package test;
 
+import housing.House;
 import housing.roles.LandlordRole;
 import housing.roles.RenterRole;
 import junit.framework.TestCase;
@@ -30,16 +31,25 @@ public class BasicTest extends TestCase{
 		mPerson = new PersonAgent();
 		mPerson2 = new PersonAgent();
 		landlord = new LandlordRole();
+		House house1 = new House(5, 5, 50);
+		House house2 = new House(10, 10, 60);
+		landlord.mHousesList.add(house1);
+		landlord.mHousesList.add(house2);
 		landlord.setPerson(mPerson);
 		renter = new RenterRole();
 		renter.setPerson(mPerson2);
 		mPerson.addRole(landlord);
-		System.out.println(mPerson.mRoles.size());
+		assertEquals("mPerson contains one role (the landlord role)", mPerson.mRoles.size(), 1);
 		mPerson2.addRole(renter);
+		assertEquals("mPerson2 contains one role (the renter role)", mPerson2.mRoles.size(), 1);
 		mPerson.addCash(100000);
 		mPerson2.addCash(200000);
 		landlord.msgIWouldLikeToLiveHere(renter, mPerson2.getCash(), mPerson2.getSSN());
 		mPerson.pickAndExecuteAnAction();
+		landlord.mTimeToCheckRent = true;
+		mPerson2.pickAndExecuteAnAction();
+		mPerson.pickAndExecuteAnAction();
+		
 	}
 
 	private void print(String message){
