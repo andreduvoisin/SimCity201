@@ -4,6 +4,7 @@ import housing.House;
 import housing.roles.LandlordRole;
 import housing.roles.RenterRole;
 import junit.framework.TestCase;
+import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;
 
 public class BasicTest extends TestCase{
@@ -12,6 +13,7 @@ public class BasicTest extends TestCase{
 	PersonAgent mPerson2;
 	LandlordRole landlord;
 	RenterRole renter;
+	BankMasterTellerRole master;
 	//needed interfaces
 	
 	
@@ -31,6 +33,9 @@ public class BasicTest extends TestCase{
 		mPerson = new PersonAgent();
 		mPerson2 = new PersonAgent();
 		landlord = new LandlordRole();
+		master = new BankMasterTellerRole();
+		mPerson.mMasterTeller = master;
+		mPerson2.mMasterTeller = master;
 		House house1 = new House(5, 5, 50);
 		House house2 = new House(10, 10, 60);
 		landlord.mHousesList.add(house1);
@@ -47,9 +52,9 @@ public class BasicTest extends TestCase{
 		landlord.msgIWouldLikeToLiveHere(renter, mPerson2.getCash(), mPerson2.getSSN());
 		mPerson.pickAndExecuteAnAction();
 		landlord.mTimeToCheckRent = true;
-		//System.out.println(landlord);
 		mPerson2.pickAndExecuteAnAction();
 		mPerson.pickAndExecuteAnAction();
+		mPerson2.pickAndExecuteAnAction();
 	}
 
 	private void print(String message){
