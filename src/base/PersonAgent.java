@@ -269,6 +269,10 @@ public class PersonAgent extends Agent implements Person{
 	public Map<EnumMarketItemType, Integer> getItemsDesired(){
 		return mItemsDesired;
 	}
+
+	public int getSSN(){
+		return mSSN;
+	}
 	
 	public Map<EnumMarketItemType, Integer> getItemInventory(){
 		return mItemInventory;

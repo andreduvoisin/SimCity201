@@ -1,9 +1,9 @@
 package housing.test.mock;
 
 /**
- * This is the base class for all mocks.
+ * This is the base class for housing mocks.
  *
- * @author Sean Turner
+ * @author Maggi Yang
  *
  */
 public class Mock {

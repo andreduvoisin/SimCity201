@@ -1,4 +1,4 @@
-package bank;
+package bank.roles;
 
 import java.util.HashMap;
 import java.util.List;

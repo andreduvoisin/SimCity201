@@ -1,27 +1,27 @@
 package test.mock;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * This is the base class for all mocks.
+ * This is the base class for test mocks.
  *
- * @author Sean Turner
+ * @author Maggi Yang
  *
  */
 public class Mock {
-	protected String mName;
+	private String name;
 	
+	public EventLog log;
+
 	public Mock(String name) {
-		this.mName = name;
+		this.name = name;
+		log = new EventLog(); 
 	}
 
 	public String getName() {
-		return mName;
+		return name;
 	}
 
 	public String toString() {
-		return this.getClass().getName() + ": " + mName;
+		return this.getClass().getName() + ": " + name;
 	}
 
 }

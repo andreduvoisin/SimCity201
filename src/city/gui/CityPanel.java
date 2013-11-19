@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class CityPanel extends JPanel implements ActionListener{
-	private int WINDOWX = 600;
-	private int WINDOWY = 600;
+	private int WINDOWX = 700;
+	private int WINDOWY = 700;
 	private Image bufferImage;
     private Dimension bufferSize;
 	
@@ -18,9 +18,11 @@ public class CityPanel extends JPanel implements ActionListener{
 	static final int panelYpos = 0;
 	static final int timerCount = 5;
 	
+	private CityGui gui;
 	private List<Gui> guis = new ArrayList<Gui>();
 	
-	public CityPanel() {
+	public CityPanel(CityGui gui) {
+		this.gui = gui;
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 		
@@ -38,10 +40,12 @@ public class CityPanel extends JPanel implements ActionListener{
 		 Graphics2D g2 = (Graphics2D)g;
 		 
 		 //Clear the screen by painting a rectangle the size of the frame
-	     g2.setColor(getBackground());
+	     g2.setColor(Color.green);//getBackground());
 	     g2.fillRect(panelXpos, panelYpos, WINDOWX, WINDOWY ); //This centers the screen on the restaurant scene with the table located in it... if not located at 0,0 then 
 	     //part of the RestaurantPanel would show
 	     
 	     
+	     g2.setColor(Color.BLACK);
+	     g2.fillRect(100, 100, 350, 20);
 	 }
 }
