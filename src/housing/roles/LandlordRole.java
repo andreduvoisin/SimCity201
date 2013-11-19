@@ -63,9 +63,9 @@ public class LandlordRole extends Role implements Landlord {
 		stateChanged();
 	}
 
-	public void msgIWouldLikeToLiveHere(Renter r, double creditScore) {
+	public void msgIWouldLikeToLiveHere(Renter r, double creditScore, int SSN) {
 		print("Message - I would like to live here recieved");
-		mRenterList.add(new MyRenter(r, creditScore));
+		mRenterList.add(new MyRenter(r, creditScore, SSN));
 		stateChanged();
 	}
 
