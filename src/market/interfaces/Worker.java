@@ -1,20 +1,21 @@
 package market.interfaces;
 
+<<<<<<< HEAD
+import market.other.*;
+=======
 import market.Order;
 import restaurant_smileham.test.mock.EventLog;
+>>>>>>> d65a9f4f8f4e36d25ab48e460bae9382495de18b
+
+/**
+ * Worker interface for SimCity Markets.
+ * 
+ * @author Angelica Huyen Tran
+ */
 
 public interface Worker {
 	
-	public EventLog log = new EventLog(); //TODO: 1 is this allowed?
+	public abstract void msgFulfillOrder(Order o);
 	
-	//Messages
-	public abstract void msgFulfillOrder(Order order);
-
-	
-	//Scheduler
-	public abstract boolean pickAndExecuteAnAction();
-
-	
-	//Accessors
-	
+	public abstract void msgOrderFulfilled(Order o);
 }
