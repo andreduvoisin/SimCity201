@@ -9,12 +9,9 @@ import java.awt.event.*;
 
 
 public class CityGui extends JFrame implements ActionListener{
-	JFrame animationFrame = new JFrame("SimCity Animation");
-	CityPanel animationPanel = new CityPanel();
-    private CityPanel CityPanel = new CityPanel();
-
-	
-	
+	JFrame cityFrame = new JFrame("SimCity Animation");
+	CityPanel cityPanel = new CityPanel(this);
+    private CityPanel CityPanel = new CityPanel(this);
 	
 	static final int hSpacing = 30;
 	static final int vSpacing = 0;
@@ -23,19 +20,19 @@ public class CityGui extends JFrame implements ActionListener{
 	
 	public CityGui() {
 		int WINDOWX = 1024;
-        int WINDOWY = 768;
+        int WINDOWY =700;
 
-        animationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        animationFrame.setBounds(WINDOWX, yIndexing , WINDOWX, WINDOWY);
-        animationFrame.setVisible(false);
-    	add(animationPanel);
+        cityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        cityFrame.setBounds(xIndexing, yIndexing , WINDOWX, WINDOWY);
+        cityFrame.setVisible(false);
+    	add(cityPanel);
     	
     	setBounds(xIndexing, yIndexing, WINDOWX, WINDOWY);
     	
     	setLayout(new BoxLayout((Container) getContentPane(), 
         		BoxLayout.Y_AXIS));
     	
-    	Dimension cityDim = new Dimension(WINDOWX, (int) (WINDOWY * .4));
+    	Dimension cityDim = new Dimension(WINDOWX, (int) (WINDOWY * .5));
     	CityPanel.setPreferredSize(cityDim);
     	
     	
