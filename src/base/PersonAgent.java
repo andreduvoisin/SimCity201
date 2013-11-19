@@ -2,7 +2,6 @@ package base;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -103,12 +102,15 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Process events (calendar)
-
-		for (Event event : mEvents) {
-			if (event.mTime > Time.GetTime())
-				break; // don't do future calendar events
+		
+		List<Event> eventsToRemove = new ArrayList<Event>();
+		for (Event event : mEvents){
+			if (event.mTime > Time.GetTime()) break; // don't do future calendar events
 			processEvent(event);
-			mEvents.remove(event);
+			eventsToRemove.add(event);
+		}
+		for (Event iEvent : eventsToRemove){
+			mEvents.remove(iEvent);
 		}
 
 		// Do role actions
