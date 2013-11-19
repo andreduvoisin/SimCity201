@@ -20,7 +20,7 @@ public class RenterRole extends Role implements Renter {
 	/* Data */
 
 	Person me;
-	Landlord myLandLord;
+	public Landlord myLandLord;
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
 	House mHouse = null;
@@ -40,18 +40,20 @@ public class RenterRole extends Role implements Renter {
 
 	private class Bill {
 		Landlord mLandLord;
+		int mLandLordSSN;
 		double mAmt;
 		EnumBillState mStatus;
 
-		public Bill(Landlord lord, double rent) {
+		public Bill(Landlord lord, int lordssn, double rent) {
 			mLandLord = lord;
+			mLandLordSSN = lordssn;
 			mAmt = rent;
 			mStatus = EnumBillState.Pending;
 		}
 	}
 
 	/* Messages */
-	
+
 	public void msgEatAtHome() {
 		isHungry = true;
 		stateChanged();
@@ -74,15 +76,15 @@ public class RenterRole extends Role implements Renter {
 		stateChanged();
 	}
 
-	public void msgRentDue(Landlord lord, double total) {
+	public void msgRentDue(Landlord lord, int ssn, double total) {
 		print("Message- msgRentDue");
-		mBills.add(new Bill(lord, total));
+		mBills.add(new Bill(lord, ssn, total));
 		stateChanged();
 	}
 
-	public void msgOverdueNotice(Landlord lord, double total) {
+	public void msgOverdueNotice(Landlord lord, int ssn, double total) {
 		print("Message - msgOverdueNotice");
-		mBills.add(new Bill(lord, total));
+		mBills.add(new Bill(lord, ssn, total));
 		stateChanged();
 	}
 
@@ -96,7 +98,7 @@ public class RenterRole extends Role implements Renter {
 
 	public boolean pickAndExecuteAnAction() {
 		// TODO: establish what triggers the RequestHousing() action
-		
+
 		if (isHungry) {
 			isHungry = false;
 			EatAtHome();
@@ -127,7 +129,7 @@ public class RenterRole extends Role implements Renter {
 	}
 
 	/* Actions */
-	
+
 	void EatAtHome() {
 		print("Action - Eat at Home");
 		try {
@@ -144,7 +146,9 @@ public class RenterRole extends Role implements Renter {
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		// me.bank.msgSendPayment(this, b.mLandLord, b.amt); //TODO: establish
+		me.getMasterTeller()
+				.msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); // TODO:
+																		// establish
 		// payment mechanism
 		mBills.remove(b);
 	}
@@ -161,10 +165,9 @@ public class RenterRole extends Role implements Renter {
 
 	/* Utilities */
 
-	
-	public void setPerson(Person p){
-		me = p; 
-	}
+	// public void setPerson(Person p){
+	// me = p;
+	// }
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);

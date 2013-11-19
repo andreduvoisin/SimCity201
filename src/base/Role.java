@@ -32,4 +32,8 @@ public class Role {
 	
 	protected void print(String msg) {
 	}
+	
+	public int getSSN(){
+		return mPerson.getSSN();
+	}
 }

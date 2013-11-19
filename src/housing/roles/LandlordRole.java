@@ -72,7 +72,7 @@ public class LandlordRole extends Role implements Landlord {
 
 	public void msgHereIsPayment(int SSN, double paymentAmt) {
 		print("Message - Here is bank statement recieved");
-		me.setCash(me.getCash()+paymentAmt);
+		me.setCash(me.getCash() + paymentAmt);
 		MyRenter r = FindRenter(SSN);
 		r.mState = EnumRenterState.RentPaid;
 		stateChanged();
@@ -128,13 +128,13 @@ public class LandlordRole extends Role implements Landlord {
 	private void GiveRentDueNotice(MyRenter r) {
 		print("Action - GiveRentDueNotice");
 		r.mState = EnumRenterState.OwesRent;
-		r.mRenter.msgRentDue(this, r.mHouse.mRent);
+		r.mRenter.msgRentDue(this, me.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
-		r.mRenter.msgRentDue(this, r.mHouse.mRent);
+		r.mRenter.msgRentDue(this, me.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
@@ -169,10 +169,17 @@ public class LandlordRole extends Role implements Landlord {
 
 	/* Utilities */
 
-	public void setPerson(Person p){
-		me = p; 
-	}
+
+//	public void setPerson(Person p){
+//		me = p; 
+//	}
 	
+
+	public void setPerson(Person p) {
+		me = p;
+	}
+
+
 	MyRenter FindRenter(int SSN) {
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {

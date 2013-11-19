@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
+import bank.interfaces.MasterTeller;
+import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
@@ -30,6 +32,7 @@ public class PersonAgent extends Agent implements Person{
 
 	double mCash;
 	int mAge;
+	public BankMasterTellerRole mMasterTeller;
 
 	boolean mHasHome;
 	boolean mHasLoan;
@@ -84,7 +87,7 @@ public class PersonAgent extends Agent implements Person{
 	
 	//----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		
 		//Process events (calendar)
 		for (Event event : mEvents){
@@ -104,9 +107,6 @@ public class PersonAgent extends Agent implements Person{
 		return false;
 	}
 	
-	public void paea(Role role){
-		while(role.pickAndExecuteAnAction());
-	}
 	
 	
 	//----------------------------------------------------------ACTIONS----------------------------------------------------------
@@ -131,10 +131,10 @@ public class PersonAgent extends Agent implements Person{
 			depositCheck();
 		}
 		if (event.mEvent == EnumEventType.INVITE1){
-			
+			inviteToParty();
 		}
 		if (event.mEvent == EnumEventType.INVITE2){
-			
+			reinviteDeadbeats();
 		}
 		if (event.mEvent == EnumEventType.PARTY){
 			throwParty();
@@ -177,7 +177,13 @@ public class PersonAgent extends Agent implements Person{
 		
 	}
 	
+	private void inviteToParty(){
+		
+	}
 	
+	private void reinviteDeadbeats(){
+		
+	}
 	
 	
 	
@@ -246,11 +252,11 @@ public class PersonAgent extends Agent implements Person{
 	//----------------------------------------------------------ACCESSORS----------------------------------------------------------
 	
 	public void addRole(Role r) {
-//		roles.add(r);
-//		r.setPerson(this);
+		mRoles.add(r);
+		r.setPerson(this);
 	}
 	public void removeRole(Role r) {
-//		roles.remove(r);
+		mRoles.remove(r);
 	}
 
 	public double getCash () {
@@ -272,6 +278,10 @@ public class PersonAgent extends Agent implements Person{
 
 	public int getSSN(){
 		return mSSN;
+	}
+	
+	public MasterTeller getMasterTeller() {
+		return mMasterTeller;
 	}
 	
 	public Map<EnumMarketItemType, Integer> getItemInventory(){

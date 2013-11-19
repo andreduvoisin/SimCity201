@@ -1,6 +1,7 @@
 package housing.test;
 
 import housing.roles.LandlordRole;
+
 import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
 import test.mock.MockPerson;
@@ -28,13 +29,12 @@ public class LandlordTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
+		
 		landlordPerson = new PersonAgent();
 		landlordRole = new LandlordRole();
-		landlordRole.setPerson(landlordPerson);
 		renterPerson = new MockPerson("RenterPerson");
 		renter = new MockRenter("Mockrenter");
-		renter.setPerson(renterPerson);
-
+	
 	}
 
 	public void testOneCashierCalculatesCorrectCheckForWaiter() {
@@ -42,7 +42,10 @@ public class LandlordTest extends TestCase {
 		 * Test is set up to check that the cashier properly calculates check
 		 * and then sends it back to the waiter
 		 */
-
+		
+		landlordPerson.addRole(landlordRole);
+		renterPerson.addRole(renter); 
+		
 		// waiter.cashier = cashier;//You can do almost anything in a unit test.
 		//
 		// cashier.msgPleaseCalculateBill(waiter, customer, "Steak");
