@@ -12,9 +12,12 @@ public interface Person {
 	public void setCash(double credit);
 	
 	public double getCash();
+	public int getSSN();
 	
 	public void addCash(double amount);
 	
 	public Map<EnumMarketItemType, Integer> getItemsDesired();
 	public Map<EnumMarketItemType, Integer> getItemInventory();
+
+	
 }
