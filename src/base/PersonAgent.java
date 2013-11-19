@@ -111,12 +111,6 @@ public class PersonAgent extends Agent implements Person {
 			itr.remove();
 		}
 
-		/*
-		 * for (Event event : mEvents) { if (event.mTime > Time.GetTime())
-		 * break; // don't do future calendar events processEvent(event);
-		 * mEvents.remove(event); }
-		 */
-
 		// Do role actions
 		for (Role iRole : mRoles) {
 			if (iRole.isActive()) {
