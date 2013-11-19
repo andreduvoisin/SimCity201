@@ -5,9 +5,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
-
-
 public class CityGui extends JFrame implements ActionListener{
 	JFrame cityFrame = new JFrame("SimCity Animation");
 	CityPanel cityPanel = new CityPanel(this);
@@ -19,7 +16,7 @@ public class CityGui extends JFrame implements ActionListener{
 	static final int yIndexing = 50;
 	
 	public CityGui() {
-		int WINDOWX = 1024;
+		int WINDOWX = 1000;
         int WINDOWY =700;
 
         cityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
