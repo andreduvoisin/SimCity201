@@ -13,6 +13,7 @@ import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
+import base.interfaces.Role;
 
 public class PersonAgent extends Agent implements Person {
 

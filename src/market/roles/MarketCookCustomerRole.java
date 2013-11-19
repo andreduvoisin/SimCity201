@@ -14,14 +14,14 @@ import market.interfaces.Cashier;
 import market.interfaces.Cook;
 import base.Item.EnumMarketItemType;
 import base.PersonAgent;
-import base.Role;
+import base.BaseRole;
 
 /** MarketCookCustomer for SimCity Market agents.
  * 
  * @author Angelica Huyen Tran
  */
 
-public class MarketCookCustomerRole extends Role implements Cook {
+public class MarketCookCustomerRole extends BaseRole implements Cook {
 	//RestaurantCashierRole mRestaurantCashier;
 
 	Map<EnumMarketItemType, Integer> mItemInventory = new HashMap<EnumMarketItemType, Integer>();

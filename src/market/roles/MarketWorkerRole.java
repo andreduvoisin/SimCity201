@@ -14,7 +14,7 @@ import base.*;
  * @author Angelica Huyen Tran
  */
 
-public class MarketWorkerRole extends Role implements Worker {
+public class MarketWorkerRole extends BaseRole implements Worker {
 	//MarketWorkerGui gui;
 	//Semaphore inTransit = new Semaphore(0,true);
 	

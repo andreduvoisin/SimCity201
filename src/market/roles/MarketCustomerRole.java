@@ -9,11 +9,11 @@ import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
 import market.interfaces.Cashier;
 import market.interfaces.Customer;
-import base.Role;
+import base.BaseRole;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 
-public class MarketCustomerRole extends Role implements Customer{
+public class MarketCustomerRole extends BaseRole implements Customer{
 	//DATA
 	Person mPerson;
 		//mCash accessed from Person

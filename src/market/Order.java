@@ -2,8 +2,8 @@ package market;
 
 import java.util.Map;
 
-import base.Role;
 import base.Item.EnumMarketItemType;
+import base.interfaces.Role;
 import market.interfaces.Cashier;
 import market.interfaces.DeliveryTruck;
 import market.interfaces.Worker;
