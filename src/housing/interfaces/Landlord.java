@@ -7,5 +7,6 @@ public interface Landlord {
 	public abstract void msgHereIsPayment(int SSN, double paymentAmt);
 
 	public abstract boolean pickAndExecuteAnAction();
+	
 
 }

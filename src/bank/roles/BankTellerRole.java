@@ -1,12 +1,12 @@
 package bank.roles;
 
-import base.Role;
+import base.BaseRole;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.MasterTeller;
 import bank.interfaces.Teller;
 
-public class BankTellerRole extends Role implements Teller{
+public class BankTellerRole extends BaseRole implements Teller{
 	
 //	DATA
 	

@@ -12,10 +12,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import base.Role;
+import base.BaseRole;
 import base.interfaces.Person;
 
-public class RenterRole extends Role implements Renter {
+public class RenterRole extends BaseRole implements Renter {
 
 	/* Data */
 

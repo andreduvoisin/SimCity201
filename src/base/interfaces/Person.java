@@ -3,7 +3,7 @@ package base.interfaces;
 import java.util.Map;
 
 import bank.interfaces.MasterTeller;
-import base.Role;
+import base.BaseRole;
 import base.Item.EnumMarketItemType;
 
 public interface Person {
