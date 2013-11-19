@@ -9,9 +9,9 @@ import java.util.Map;
 import bank.Account;
 import bank.Transaction;
 import bank.interfaces.MasterTeller;
-import base.Role;
+import base.BaseRole;
 
-public class BankMasterTellerRole extends Role implements MasterTeller{
+public class BankMasterTellerRole extends BaseRole implements MasterTeller{
 	
 //	DATA
 	protected Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();

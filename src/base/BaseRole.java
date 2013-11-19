@@ -1,6 +1,9 @@
 package base;
 
-public class Role {
+import base.interfaces.Role;
+
+public class BaseRole implements Role{
+	
 	protected PersonAgent mPerson;
 	
 	

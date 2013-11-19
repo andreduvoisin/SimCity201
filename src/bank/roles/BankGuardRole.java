@@ -7,11 +7,11 @@ import java.util.Map;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.Teller;
-import base.Role;
+import base.BaseRole;
 //import interfaces
 
 
-public class BankGuardRole extends Role implements Guard{
+public class BankGuardRole extends BaseRole implements Guard{
 	
 //	DATA
 	

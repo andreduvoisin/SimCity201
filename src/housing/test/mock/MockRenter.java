@@ -1,6 +1,8 @@
 package housing.test.mock;
 
+import base.PersonAgent;
 import base.interfaces.Person;
+import base.interfaces.Role;
 import test.mock.MockPerson;
 import housing.House;
 import housing.interfaces.Landlord;
@@ -12,7 +14,7 @@ import housing.interfaces.Renter;
  * @author Maggi Yang 
  *
  */
-public class MockRenter extends Mock implements Renter {
+public class MockRenter extends Mock implements Role, Renter {
 	
 	public Landlord landlord; 
 
@@ -21,37 +23,31 @@ public class MockRenter extends Mock implements Renter {
 
 	}
 
-	@Override
 	public void msgApplicationAccepted(House newHouse) {
 		log.add(new LoggedEvent("Received msgApplicationAccepted"));
 		
 	}
 
-	@Override
 	public void msgApplicationDenied() {
 		log.add(new LoggedEvent("Received msgApplicationDenied"));
 		
 	}
 
-	@Override
 	public void msgRentDue(int lordssn, double total) {
 		log.add(new LoggedEvent("Received msgRentDue"));
 		
 	}
 
-	@Override
 	public void msgOverdueNotice(int lordssn, double total) {
 		log.add(new LoggedEvent("Received msgOverdueNotice"));
 		
 	}
 
-	@Override
 	public void msgEviction() {
 		log.add(new LoggedEvent("Received msgEviction"));
 		
 	}
 
-	@Override
 	public boolean pickAndExecuteAnAction() {
 		log.add(new LoggedEvent("pickAndExecuteAnAction called"));
 		return false;
@@ -59,6 +55,28 @@ public class MockRenter extends Mock implements Renter {
 
 	public void setPerson(Person renterPerson) {
 		
+	}
+
+	public void setPerson(PersonAgent person) {
+	
+		
+	}
+
+	public PersonAgent getPersonAgent() {
+
+		return null;
+	}
+
+
+	public boolean isActive() {
+	
+		return false;
+	}
+
+	
+	public int getSSN() {
+		
+		return 0;
 	}
 
 
