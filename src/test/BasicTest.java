@@ -34,6 +34,7 @@ public class BasicTest extends TestCase{
 		renter = new RenterRole();
 		renter.setPerson(mPerson2);
 		mPerson.addRole(landlord);
+		System.out.println(mPerson.mRoles.size());
 		mPerson2.addRole(renter);
 		mPerson.addCash(100000);
 		mPerson2.addCash(200000);
