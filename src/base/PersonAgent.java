@@ -131,10 +131,10 @@ public class PersonAgent extends Agent implements Person{
 			depositCheck();
 		}
 		if (event.mEvent == EnumEventType.INVITE1){
-			
+			inviteToParty();
 		}
 		if (event.mEvent == EnumEventType.INVITE2){
-			
+			reinviteDeadbeats();
 		}
 		if (event.mEvent == EnumEventType.PARTY){
 			throwParty();
@@ -177,7 +177,13 @@ public class PersonAgent extends Agent implements Person{
 		
 	}
 	
+	private void inviteToParty(){
+		
+	}
 	
+	private void reinviteDeadbeats(){
+		
+	}
 	
 	
 	
