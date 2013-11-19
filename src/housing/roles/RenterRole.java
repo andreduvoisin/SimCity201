@@ -118,7 +118,7 @@ public class RenterRole extends Role implements Renter {
 
 	void RequestHousing() {
 		print("Action - RequestHousing");
-		myLandLord.msgIWouldLikeToLiveHere(this, me.getCredit(), me.getSSN());
+		myLandLord.msgIWouldLikeToLiveHere(this, me.getCash(), me.getSSN());
 	}
 
 	void PayBill(Bill b) {
