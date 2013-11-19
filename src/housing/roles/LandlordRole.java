@@ -19,7 +19,7 @@ public class LandlordRole extends Role implements Landlord {
 
 	/* Data */
 
-	Person me;
+	public Person me;
 	Timer mRentTimer = new Timer();
 	TimerTask mRentTimerTask = new TimerTask() {
 		public void run() {
@@ -170,13 +170,10 @@ public class LandlordRole extends Role implements Landlord {
 
 	/* Utilities */
 
-	// public void setPerson(Person p){
-	// me = p;
-	// }
-
-	public void setPerson(Person p) {
+	/*public void setPerson(Person p) {
+		System.out.println(p.getSSN());
 		me = p;
-	}
+	}*/
 
 	MyRenter FindRenter(int SSN) {
 		synchronized (mRenterList) {
