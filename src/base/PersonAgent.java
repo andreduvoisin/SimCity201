@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
+import bank.interfaces.MasterTeller;
 import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
@@ -30,6 +31,7 @@ public class PersonAgent extends Agent implements Person{
 
 	double mCash;
 	int mAge;
+	public MasterTeller mMasterTeller;
 
 	boolean mHasHome;
 	boolean mHasLoan;
@@ -272,6 +274,10 @@ public class PersonAgent extends Agent implements Person{
 
 	public int getSSN(){
 		return mSSN;
+	}
+	
+	public MasterTeller getMasterTeller() {
+		return mMasterTeller;
 	}
 	
 	public Map<EnumMarketItemType, Integer> getItemInventory(){

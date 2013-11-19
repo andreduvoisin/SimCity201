@@ -2,6 +2,7 @@ package test.mock;
 
 import java.util.Map;
 
+import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 
@@ -45,6 +46,10 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	public Map<EnumMarketItemType, Integer> getItemInventory() {
+		return null;
+	}
+
+	public MasterTeller getMasterTeller() {
 		return null;
 	}
 
