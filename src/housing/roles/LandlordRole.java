@@ -45,12 +45,14 @@ public class LandlordRole extends Role implements Landlord {
 		EnumRenterState mState;
 		double mCreditscore;
 		House mHouse;
+		int SSN;
 
-		public MyRenter(Renter renter, double score) {
+		public MyRenter(Renter renter, double score, int mySSN) {
 			mRenter = renter;
 			mState = EnumRenterState.Initial;
 			mCreditscore = score;
 			mHouse = null;
+			SSN = mySSN;
 		}
 	}
 
@@ -61,14 +63,15 @@ public class LandlordRole extends Role implements Landlord {
 		stateChanged();
 	}
 
-	public void msgIWouldLikeToLiveHere(Renter r, double creditScore) {
+	public void msgIWouldLikeToLiveHere(Renter r, double creditScore, int SSN) {
 		print("Message - I would like to live here recieved");
-		mRenterList.add(new MyRenter(r, creditScore));
+		mRenterList.add(new MyRenter(r, creditScore, SSN));
 		stateChanged();
 	}
 
-	public void msgHereIsBankStatement(int SSN, double paymentAmt) {
+	public void msgHereIsPayment(int SSN, double paymentAmt) {
 		print("Message - Here is bank statement recieved");
+		me.setCash(me.getCash()+paymentAmt);
 		MyRenter r = FindRenter(SSN);
 		r.mState = EnumRenterState.RentPaid;
 		stateChanged();
@@ -170,7 +173,13 @@ public class LandlordRole extends Role implements Landlord {
 	}
 	
 	MyRenter FindRenter(int SSN) {
-		// TODO: Implement renter lookup
+		synchronized (mRenterList) {
+			for (MyRenter r : mRenterList) {
+				if (r.SSN == SSN) {
+					return r;
+				}
+			}
+		}
 		return null;
 	}
 

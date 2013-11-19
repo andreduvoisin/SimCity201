@@ -1,8 +1,9 @@
-package bank;
+package bank.roles;
 
 import base.Role;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
+import bank.interfaces.MasterTeller;
 import bank.interfaces.Teller;
 
 public class BankTellerRole extends Role implements Teller{
@@ -27,7 +28,7 @@ public class BankTellerRole extends Role implements Teller{
 	Guard mGuard;
 	MyCustomer mCustomer;
 	//Database
-	BankDatabase mDatabase;
+	MasterTeller mMasterTeller;
 	
 //	MESSAGES
 	
@@ -85,26 +86,33 @@ public class BankTellerRole extends Role implements Teller{
 //	ACTIONS
 	
 	private void deposit(){
-		
+		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
+		mMasterTeller.getAccounts().get(accountIndex).balance += mCustomer.amount;
 	}
 	private void loan(){
-		
+		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
+		mMasterTeller.getAccounts().get(accountIndex).loan += mCustomer.amount;
+		mCustomer.customer.msgHereIsLoan(mCustomer.amount);
 	}
 	private void payment(){
-		
+		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
+		mMasterTeller.getAccounts().get(accountIndex).loan -= mCustomer.amount;
+		mCustomer.customer.msgHereIsLoan(0);
 	}
 	private void open(){
-		
+		//mMasterTeller.getAccounts().add(new Account(mCustomer.customer.))
 	}
 	private void robbery(){
-		
+		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
+		mMasterTeller.getAccounts().get(accountIndex).balance += mCustomer.amount;
+		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
 	}
 	
 //	UTILITIES
 	public void addGuard(Guard guard){
 		mGuard = guard;
 	}
-	public void addDatabase(BankDatabase database){
-		mDatabase = database;
+	public void setMaster(MasterTeller masterTeller) {
+		mMasterTeller = masterTeller;
 	}
 }

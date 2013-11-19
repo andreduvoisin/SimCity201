@@ -8,7 +8,7 @@ import base.interfaces.Person;
 
 public class Time {
 	
-	static final int cLengthOfDay = 6*60; //seconds
+	static final int cLengthOfDay = 3*60; //seconds
 	static final int cTimeShift = 8;
 	
 	static int sGlobalTimeInt = 0;
