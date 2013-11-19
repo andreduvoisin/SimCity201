@@ -40,11 +40,13 @@ public class RenterRole extends Role implements Renter {
 
 	private class Bill {
 		Landlord mLandLord;
+		int mLandLordSSN;
 		double mAmt;
 		EnumBillState mStatus;
 
-		public Bill(Landlord lord, double rent) {
+		public Bill(Landlord lord, int lordssn, double rent) {
 			mLandLord = lord;
+			mLandLordSSN = lordssn;
 			mAmt = rent;
 			mStatus = EnumBillState.Pending;
 		}
@@ -74,15 +76,15 @@ public class RenterRole extends Role implements Renter {
 		stateChanged();
 	}
 
-	public void msgRentDue(Landlord lord, double total) {
+	public void msgRentDue(Landlord lord, int ssn, double total) {
 		print("Message- msgRentDue");
-		mBills.add(new Bill(lord, total));
+		mBills.add(new Bill(lord, ssn, total));
 		stateChanged();
 	}
 
-	public void msgOverdueNotice(Landlord lord, double total) {
+	public void msgOverdueNotice(Landlord lord, int ssn, double total) {
 		print("Message - msgOverdueNotice");
-		mBills.add(new Bill(lord, total));
+		mBills.add(new Bill(lord, ssn, total));
 		stateChanged();
 	}
 
@@ -144,7 +146,7 @@ public class RenterRole extends Role implements Renter {
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		// me.bank.msgSendPayment(this, b.mLandLord, b.amt); //TODO: establish
+		me.getMasterTeller().msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); //TODO: establish
 		// payment mechanism
 		mBills.remove(b);
 	}
@@ -160,7 +162,6 @@ public class RenterRole extends Role implements Renter {
 	}
 
 	/* Utilities */
-
 	
 //	public void setPerson(Person p){
 //		me = p; 
@@ -168,5 +169,17 @@ public class RenterRole extends Role implements Renter {
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);
+	}
+
+	@Override
+	public void msgRentDue(Landlord lord, double total) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgOverdueNotice(Landlord lord, double total) {
+		// TODO Auto-generated method stub
+		
 	}
 }

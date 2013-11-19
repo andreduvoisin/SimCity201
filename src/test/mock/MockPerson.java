@@ -5,6 +5,7 @@ import housing.test.mock.MockRenter;
 
 import java.util.Map;
 
+import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
 import base.Role;
 import base.interfaces.Person;
@@ -52,9 +53,14 @@ public class MockPerson extends Mock implements Person {
 		return null;
 	}
 
+
 	public void addRole(Role renter) {
 		// TODO Auto-generated method stub
 		
+	}
+	public MasterTeller getMasterTeller() {
+		return null;
+
 	}
 
 }
