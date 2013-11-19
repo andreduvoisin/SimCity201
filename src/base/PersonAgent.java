@@ -2,20 +2,21 @@ package base;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.SortedSet;
 
+import base.Event.EnumEventType;
+import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 
 public class PersonAgent extends Agent implements Person{
 
-	//final Vars
-
 	//Data
 	List<Role> mRoles; //i.e. WaiterRole, BankTellerRole, etc.
 	List<Person> mFriends; //best are those with same timeshift
-	SortedSet<Event> mEventsScheduled; //tree set ordered by time of event
-	List<Event> mEventsQueued;
-	List<Item> mItem;
+	SortedSet<Event> mEvents; //tree set ordered by time of event
+	Map<EnumMarketItemType, Integer> mItemInventory; //personal inventory
+	Map<EnumMarketItemType, Integer> mItemsDesired; //not ordered yet
 	
 	// Assigned in Constructor when PersonAgent is initialized.
 	static int sSSN = 0;
@@ -42,7 +43,7 @@ public class PersonAgent extends Agent implements Person{
 //	Market mMarket;
 	Role mJob;
 
-
+	//----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	public PersonAgent(){
 		mSSN = sSSN++; //assign SSN
 		mTimeSchedule = (sTimeSchedule++ % Time.cTimeShift); //assign time schedule 
@@ -51,14 +52,20 @@ public class PersonAgent extends Agent implements Person{
 		mRoles = new ArrayList<Role>();
 		mCash = 0; //TODO: 3 update this val
 		
-		//TODO 1 constructor - add events
-		
+
+		//Event Setup
+		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); //TODO Shane: 3 check initial times TODO Rex: 3 check initial times
+		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
+		mEvents.add(new Event(EnumEventType.JOB, mTimeSchedule + 0));
+		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 8 + mSSN%4)%24 )); //personal time
+		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 12 + mSSN%4)%24)); //shift 4
+		mEvents.add(new Event(EnumEventType.PARTY, (mTimeSchedule + 16) + (mSSN+3)*24)); //night time, every SSN days
 		
 	}
 	
 	
 	
-	//Messages
+	//----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift(){
 		if (Time.GetShift() == 0){
 			//resetting of variables
@@ -68,50 +75,31 @@ public class PersonAgent extends Agent implements Person{
 		stateChanged();
 	}
 	
-	public void msgAddEvent(Event a){
-		
+	public void msgAddEvent(Event event){
+		if ((event.mEvent == EnumEventType.RSVP1) && (mSSN%2 == 1)) return; //maybe don't respond
+		mEvents.add(event);
 	}
 	
-	public void msgAddEvent(Event a, Event b){
-		
-	}
 	
-	//Scheduler
+	
+	//----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	protected boolean pickAndExecuteAnAction() {
 		
-		//INITIAL SETUP
-		if (!mHasHome && (mAge < 2)){
-//			arriveAtCity();
-		}
-		if (!mHasHome){
-			BuyHouse();
-		}
-		if (!mHasCar && mAge > 2){
-			BuyCar();
-		}
-		//has loan?
-		
-		
-		// WORK
-		if ((Time.GetShift() + mTimeSchedule) % 3 == 0){	
-			GoToWork();
+		//Process events (calendar)
+		for (Event event : mEvents){
+			if (event.mTime > Time.GetTime()) break; //don't do future calendar events
+			processEvent(event);
 		}
 		
-		// ROLE
+		//Do role actions
 		for (Role iRole : mRoles){
 			if (iRole.isActive()){
 				if (iRole.pickAndExecuteAnAction()) return true;
 			}
 		}
-
-		// PERSONAL
 		
-		//Eating
-		if (	(mMealsToEat == 2) && ((Time.GetHour() >= mEatingTime) && (Time.GetHour() < mEatingTime + Time.cTimeShift))	||
-				(mMealsToEat == 1) && ((Time.GetHour() >= (mEatingTime + Time.cTimeShift/2) % 24) && (Time.GetHour() < mEatingTime + Time.cTimeShift) ) ){
-			EatFood();
-		}
+		//TODO: 1 leave role and add role?
 		
 		return false;
 	}
@@ -121,11 +109,89 @@ public class PersonAgent extends Agent implements Person{
 	}
 	
 	
-	//Actions
+	//----------------------------------------------------------ACTIONS----------------------------------------------------------
 	
 	private void processEvent(Event event){
 		//TODO 1 add event
+		if (event.mEvent == EnumEventType.BUY_HOME){
+			buyHome();
+		}
+		if (event.mEvent == EnumEventType.JOB){
+			goToJob();
+			mEvents.add(new Event(event, 24));
+		}
+		if (event.mEvent == EnumEventType.EAT){
+			eatFood();
+			mEvents.add(new Event(event, 24));
+		}
+		if (event.mEvent == EnumEventType.GET_CAR){
+			getCar();
+		}
+		if (event.mEvent == EnumEventType.DEPOSIT_CHECK){
+			depositCheck();
+		}
+		if (event.mEvent == EnumEventType.INVITE1){
+			
+		}
+		if (event.mEvent == EnumEventType.INVITE2){
+			
+		}
+		if (event.mEvent == EnumEventType.PARTY){
+			throwParty();
+			//recurring?
+		}
+		if (event.mEvent == EnumEventType.RSVP1){
+			
+		}
+		if (event.mEvent == EnumEventType.RSVP2){
+			
+		}
+		//and remove the event
+		mEvents.remove(event);
 	}
+	
+	
+	
+	
+	private void buyHome(){
+		
+	}
+	
+	private void goToJob(){
+		
+	}
+	
+	private void eatFood(){
+		
+	}
+	
+	private void getCar(){
+		
+	}
+	
+	private void depositCheck(){
+		
+	}
+	
+	private void throwParty(){
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//----------------------------------------------------------OLD ACTIONS----------------------------------------------------------
 	
 	private void GoToWork() {
 //		DoGoTo(work.location);
@@ -172,6 +238,13 @@ public class PersonAgent extends Agent implements Person{
 	
 	
 	
+	
+	
+	
+	
+	
+	//----------------------------------------------------------ACCESSORS----------------------------------------------------------
+	
 	public void addRole(Role r) {
 //		roles.add(r);
 //		r.setPerson(this);
@@ -193,5 +266,11 @@ public class PersonAgent extends Agent implements Person{
 		
 	}
 	
+	public Map<EnumMarketItemType, Integer> getItemsDesired(){
+		return mItemsDesired;
+	}
 	
+	public Map<EnumMarketItemType, Integer> getItemInventory(){
+		return mItemInventory;
+	}
 }
