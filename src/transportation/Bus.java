@@ -10,6 +10,9 @@ public class Bus {
 	// For moving between stops (bus is always running)
 	private Semaphore semAtStop = new Semaphore(0, true);
 
+	// For making sure all riders got off/boarded while at stop
+	private Semaphore semRidersDone = new Semaphore(0, true);
+
 	// Reference to the GUI
 	private BusGui mGui;
 
@@ -50,6 +53,10 @@ public class Bus {
 	public void msgGoingTo(Person p, int riderDestination) {
 		mRiders.add(new Rider(p, riderDestination));
 		mBusStops.get(mBusCurrentStop).mWaitingPeople.remove(p);
+		
+		if (mBusStops.get(mBusCurrentStop).mWaitingPeople.size() == 0) {
+			semRidersDone.release();
+		}
 	}
 
 	// From Person who got off the bus
@@ -66,7 +73,10 @@ public class Bus {
 				ridersStoppingHere++;
 			}
 		}
-		
+
+		if (ridersStoppingHere == 0) {
+			semRidersDone.release();
+		}
 	}
 
 
@@ -77,12 +87,12 @@ public class Bus {
 		while (true) {
 			// Instruct riders to get off if this is their stop
 			if (mRiders.size() > 0) {
-				// Pauses this thread until all riders (whose destination is here) are off
 				TellRidersToGetOff();
 			}
 	
 			// Instruct waiting customers at the current stop to board 
 			if (mBusStops.get(mBusCurrentStop).mWaitingPeople.size() > 0) {
+				// Pauses this thread until all people waiting at this stop have boarded
 				TellRidersToBoard();
 			}
 			else {
@@ -95,17 +105,29 @@ public class Bus {
 
 	// ACTIONS
 
+	// Pauses this thread until all riders (whose destination is here) are off
 	private void TellRidersToGetOff() {
+		int ridersStoppingHere = 0;
+
 		for (Rider r : mRiders) {
 			if (r.mDestination == mBusCurrentStop) {
+				ridersStoppingHere++;
 				// TODO r.mPerson.msgAtYourStop();
 			}
+		}
+
+		if (ridersStoppingHere > 0) {
+			try { semRidersDone.acquire(); } catch (Exception e) {}
 		}
 	}
 
 	private void TellRidersToBoard() {
 		for (Person p : mBusStops.get(mBusCurrentStop).mWaitingPeople) {
 			// TODO p.msgBoardBus();
+		}
+
+		if (mBusStops.get(mBusCurrentStop).mWaitingPeople.size() > 0) {
+			try { semRidersDone.acquire(); } catch (Exception e) {}
 		}
 	}
 
