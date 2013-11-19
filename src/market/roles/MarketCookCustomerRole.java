@@ -107,7 +107,9 @@ public class MarketCookCustomerRole extends Role implements Cook {
 	}
 	
 	private void completeOrder(Order o) {
-		for(EnumMarketItemType item : o.mItems.key
+		for(EnumMarketItemType item : o.mItems.keySet()) {
+			mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
+		}
 	}
 	
 /* Utilities */
