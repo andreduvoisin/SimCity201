@@ -169,5 +169,4 @@ public class RenterRole extends Role implements Renter {
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);
 	}
-
 }

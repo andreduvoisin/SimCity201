@@ -64,7 +64,7 @@ public class LandlordRole extends Role implements Landlord {
 		stateChanged();
 	}
 
-	public void msgILikeToLiveHere(Renter r, double cash, int SSN) {
+	public void msgIWouldLikeToLiveHere(Renter r, double cash, int SSN) {
 		print("Message - I would like to live here recieved");
 		mRenterList.add(new MyRenter(r, cash, SSN));
 		stateChanged();
@@ -154,7 +154,7 @@ public class LandlordRole extends Role implements Landlord {
 
 	void ReviewApplicant(MyRenter r) {
 		print("Action - ReviewApplicant");
-		if (r.mCash >= mMinCash and r.SSN >= minSSN) {
+		if (r.mCash >= mMinCash && r.SSN >= mMinSSN) {
 			r.mHouse = mHousesList.get(0);
 			r.mHouse.mOccupant = r.mRenter;
 			r.mRenter.msgApplicationAccepted(r.mHouse);

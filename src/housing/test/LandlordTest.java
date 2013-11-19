@@ -60,6 +60,30 @@ public class LandlordTest extends TestCase {
 		// cashier.getChecksSize(), 1);
 		// assertEquals("MockCustomer should not have received any messages",
 		// customer.log.size(), 0);
+		renter = new MockRenter("Mockrenter"); 
+		renter.setPerson(renterPerson); 
+		
+	}	
+	
+	public void testNormativeScenario()
+	{
+		/**
+		 * Tests that the landlord can receive and fulfill housing requests from renters
+		 */
+		
+		
+		
+		
+//		waiter.cashier = cashier;//You can do almost anything in a unit test.	
+//		
+//		cashier.msgPleaseCalculateBill(waiter, customer, "Steak");
+//		assertEquals("Waiter should not have received any messages", waiter.log.size(), 0); 
+//		assertTrue("Cashier should pickAndExecuteAnAction and call action", cashier.pickAndExecuteAnAction());
+//		assertTrue("Waiter should have received message", waiter.log.containsString("Received msgHereIsBill of: 15.99"));
+//		assertFalse("Cashier should pickAndExecuteAnAction and return false", cashier.pickAndExecuteAnAction());
+//		assertEquals("Waiter should have received message", waiter.log.size(), 1); 
+//		assertEquals("Cashier should have one check waiting to be paid", cashier.getChecksSize(), 1); 
+//		assertEquals("MockCustomer should not have received any messages", customer.log.size(), 0); 
 	}
 
 }
