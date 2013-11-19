@@ -40,8 +40,22 @@ public class LandlordTest extends TestCase {
 		landlordRole = new LandlordRole();
 		renterPerson = new MockPerson("RenterPerson");
 		renter = new MockRenter("Mockrenter");
+
 		house1 = new House(20, 20, 100.00); 
 		house2 = new House(30, 30, 250.00); 
+
+	
+	}
+
+	public void testOneCashierCalculatesCorrectCheckForWaiter() {
+		/**
+		 * Test is set up to check that the cashier properly calculates check
+		 * and then sends it back to the waiter
+		 */
+		
+		//landlordPerson.addRole(landlordRole);
+		//renterPerson.addRole(renter); 
+
 		
 	}
 	

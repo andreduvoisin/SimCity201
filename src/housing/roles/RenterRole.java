@@ -118,10 +118,7 @@ public class RenterRole extends Role implements Renter {
 
 		if (mTimeToMaintain) {
 			mTimeToMaintain = false;
-			mMintenanceTimer.schedule(mMintenanceTimerTask, 10000000); // TODO:
-																		// establish
-																		// maintenance
-																		// schedule
+			mMintenanceTimer.schedule(mMintenanceTimerTask, 10000000); // TODO: establish maintenance schedule
 			Maintain();
 			return true;
 		}
@@ -146,9 +143,7 @@ public class RenterRole extends Role implements Renter {
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		me.getMasterTeller()
-				.msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); // TODO:
-																		// establish
+		me.getMasterTeller().msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); // TODO: establish
 		// payment mechanism
 		mBills.remove(b);
 	}

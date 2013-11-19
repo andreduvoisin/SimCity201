@@ -2,6 +2,8 @@ package city.gui;
 
 import javax.swing.*;
 
+import base.Time;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 
 public class CityPanel extends JPanel implements ActionListener{
 	private int WINDOWX = 700;
-	private int WINDOWY = 700;
+	private int WINDOWY = 600;
 	private Image bufferImage;
     private Dimension bufferSize;
 	
@@ -42,10 +44,10 @@ public class CityPanel extends JPanel implements ActionListener{
 		
 		bufferSize = this.getSize();
 		
-		Timer timer = new Timer(timerCount, this );
-    	timer.start();
-	}
+		Time mTime = new Time();
+   	}
 
+	
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
 	}

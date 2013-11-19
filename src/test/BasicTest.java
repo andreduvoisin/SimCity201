@@ -34,12 +34,12 @@ public class BasicTest extends TestCase{
 		renter = new RenterRole();
 		renter.setPerson(mPerson2);
 		mPerson.addRole(landlord);
+		System.out.println(mPerson.mRoles.size());
 		mPerson2.addRole(renter);
 		mPerson.addCash(100000);
-		mPerson2.addCash(200);
-		//
-		mPerson.paea(landlord);
-		mPerson2.paea(renter);
+		mPerson2.addCash(200000);
+		landlord.msgIWouldLikeToLiveHere(renter, mPerson2.getCash(), mPerson2.getSSN());
+		mPerson.pickAndExecuteAnAction();
 	}
 
 	private void print(String message){
