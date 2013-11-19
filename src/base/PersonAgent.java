@@ -52,23 +52,15 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	public PersonAgent() {
 		mSSN = sSSN++; // assign SSN
-		mTimeSchedule = (sTimeSchedule++ % Time.cTimeShift); // assign time
-																// schedule
-		mEatingTime = (mTimeSchedule + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign
-																											// first
-																											// eating
-																											// time
+		mTimeSchedule = (sTimeSchedule++ % Time.cTimeShift); // assign time schedule
+		mEatingTime = (mTimeSchedule + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new ArrayList<Role>();
 		mCash = 0; // TODO: 3 update this val
 
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
-		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); // TODO Shane: 3
-															// check initial
-															// times TODO Rex: 3
-															// check initial
-															// times
+		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); // TODO Shane: 3 check initial times TODO Rex: 3 check initial times
 		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 		mEvents.add(new Event(EnumEventType.JOB, mTimeSchedule + 0));
 		mEvents.add(new Event(EnumEventType.EAT,
@@ -91,8 +83,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void msgAddEvent(Event event) {
-		if ((event.mEvent == EnumEventType.RSVP1) && (mSSN % 2 == 1))
-			return; // maybe don't respond
+		if ((event.mEvent == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond
 		mEvents.add(event);
 	}
 
@@ -101,7 +92,6 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Process events (calendar)
-
 		Iterator<Event> itr = mEvents.iterator();
 		while (itr.hasNext()) {
 			Event event = itr.next();
