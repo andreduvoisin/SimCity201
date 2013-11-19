@@ -3,6 +3,7 @@ package base.interfaces;
 import java.util.Map;
 
 import bank.interfaces.MasterTeller;
+import base.Role;
 import base.Item.EnumMarketItemType;
 
 public interface Person {
@@ -20,6 +21,7 @@ public interface Person {
 	
 	public Map<EnumMarketItemType, Integer> getItemsDesired();
 	public Map<EnumMarketItemType, Integer> getItemInventory();
-
+	
+	public void addRole(Role r); 
 	
 }

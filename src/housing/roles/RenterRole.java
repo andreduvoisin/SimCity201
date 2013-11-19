@@ -141,8 +141,7 @@ public class RenterRole extends Role implements Renter {
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		me.getMasterTeller()
-				.msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt);
+		me.getMasterTeller().msgSendPayment(me.getSSN(), b.mLandLordSSN, b.mAmt); 
 		mBills.remove(b);
 	}
 
