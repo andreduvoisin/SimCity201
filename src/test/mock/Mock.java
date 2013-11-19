@@ -1,9 +1,9 @@
 package test.mock;
 
 /**
- * This is the base class for all mocks.
+ * This is the base class for test mocks.
  *
- * @author Sean Turner
+ * @author Maggi Yang
  *
  */
 public class Mock {

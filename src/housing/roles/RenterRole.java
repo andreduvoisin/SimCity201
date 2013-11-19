@@ -123,6 +123,10 @@ public class RenterRole extends Role implements Renter {
 	
 	/* Utilities */
 	
+	public void setPerson(Person p){
+		me = p; 
+	}
+	
 	protected void print(String msg) {
 		System.out.println("Renter - "+msg);
 	}

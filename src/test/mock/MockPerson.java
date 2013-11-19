@@ -1,78 +1,45 @@
 package test.mock;
 
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import base.interfaces.Person;
 
 /**
- * A sample MockCustomer built to unit test a CashierAgent.
+ * MockPerson built to unit test Housing
  *
- * @author Monroe Ekilah
+ * @author Maggi Yang 
  *
  */
-public class MockPerson extends Mock implements Waiter {
-	
-	public Cashier cashier;
+public class MockPerson extends Mock implements Person {
 
+	public Person person; 
+	
 	public MockPerson(String name) {
 		super(name);
 
 	}
 
-@Override
-public void msgPleaseSeatCustomer(Customer cust, int table) {
-	log.add(new LoggedEvent("Received PleaseSeatCustomer from host. Customer = "+ cust.getName() + "Table = " + table));
-	
-}
+	@Override
+	public void msgTimeShift() {
+		log.add(new LoggedEvent("Received msgTimeShift")); 
+	}
 
-@Override
-public void msgCantGoOnBreak() {
-	log.add(new LoggedEvent("Received msgCantGoOnBreak")); 
-	
-}
+	@Override
+	public void setCredit(double credit) {
+		log.add(new LoggedEvent("Initial credit set to: " + credit)); 
+		
+	}
 
-@Override
-public void msgGoOnBreak() {
-	log.add(new LoggedEvent("Received msgGoOnBreak")); 
-	
-}
+	@Override
+	public double getCredit() {
+		return 0;
+	}
 
-@Override
-public void msgOutOfChoice(String choice, int tableNum) {
-	log.add(new LoggedEvent("Received msgOutOfChoice. Choice = " + choice + "Table = " + tableNum)); 
-	
-}
+	@Override
+	public void addCredit(double amount) {
+		log.add(new LoggedEvent("Added credit. New credit amount: " + amount)); 
+		
+	}
 
-@Override
-public void msgOrderDone(String choice, int tableNum) {
-	log.add(new LoggedEvent("Received msgOrderDone. Choice = " + choice + ". Table = " + tableNum)); 
-	
-}
 
-@Override
-public void msgHereIsBill(Check check) {
-	log.add(new LoggedEvent("Received msgHereIsBill")); 
-	
-}
-
-@Override
-public void msgReadyToOrder(Customer cust) {
-	log.add(new LoggedEvent("Received msgReadyToOrder. Customer = " + cust.getName())); 
-	
-}
-
-@Override
-public void msgHereIsMyOrder(String choice, Customer c) {
-	log.add(new LoggedEvent("Received msgHereIsMyOrder. Choice = " + choice + ". Customer = " + c.getName())); 
-	
-}
-
-@Override
-public void msgLeavingTable(Customer cust) {
-	log.add(new LoggedEvent("Received msgLeavingTable. Customer = " +cust.getName() )); 
-	
-}
 
 }
