@@ -1,13 +1,13 @@
 package housing.test;
 
+import housing.roles.LandlordRole;
+import housing.test.mock.MockRenter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import restaurant_maggiyan.CashierAgent;
-import restaurant_maggiyan.test.mock.MockCustomer;
-import restaurant_maggiyan.test.mock.MockMarket;
-import restaurant_maggiyan.test.mock.MockWaiter;
+
 
 /**
  * 
@@ -20,21 +20,9 @@ import restaurant_maggiyan.test.mock.MockWaiter;
 public class LandlordTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
-	CashierAgent cashier;
-	MockWaiter waiter;
-	MockWaiter waiter1; 
-	MockWaiter waiter2;
-	MockCustomer customer; 
-	MockCustomer customer1;
-	MockCustomer customer2; 
-	MockCustomer customer3; 
-	MockCustomer customer4;
-	MockCustomer customer5; 
-	MockMarket market;
-	MockMarket market1;
-	MockMarket market2;
-	MockMarket market3; 
-	MockMarket market4; 
+	LandlordRole landlord; 
+	MockRenter renter; 
+
 	
 	
 	/**
@@ -44,6 +32,7 @@ public class LandlordTest extends TestCase
 	
 	public void setUp() throws Exception{
 		super.setUp();		
+		landlord = new LandlordRole("Mocklandlord", true); 
 		cashier = new CashierAgent("Mockcashier", true);	
 		customer = new MockCustomer("Mockcustomer");
 		customer1 = new MockCustomer("Mockcustomer1");
