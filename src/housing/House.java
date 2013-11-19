@@ -4,8 +4,8 @@ import housing.interfaces.Renter;
 
 public class House {
 	int xLocation, yLocation;
-	double mRent;
-	Renter mOccupant;
+	public double mRent;
+	public Renter mOccupant;
 
 	public House(int x, int y, double rent) {
 		xLocation = x;
