@@ -129,13 +129,13 @@ public class LandlordRole extends Role implements Landlord {
 	private void GiveRentDueNotice(MyRenter r) {
 		print("Action - GiveRentDueNotice");
 		r.mState = EnumRenterState.OwesRent;
-		r.mRenter.msgRentDue(this, me.getSSN(), r.mHouse.mRent);
+		r.mRenter.msgRentDue(me.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
-		r.mRenter.msgRentDue(this, me.getSSN(), r.mHouse.mRent);
+		r.mRenter.msgRentDue(me.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {

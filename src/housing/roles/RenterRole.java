@@ -39,13 +39,11 @@ public class RenterRole extends Role implements Renter {
 	};
 
 	private class Bill {
-		Landlord mLandLord;
 		int mLandLordSSN;
 		double mAmt;
 		EnumBillState mStatus;
 
-		public Bill(Landlord lord, int lordssn, double rent) {
-			mLandLord = lord;
+		public Bill(int lordssn, double rent) {
 			mLandLordSSN = lordssn;
 			mAmt = rent;
 			mStatus = EnumBillState.Pending;
@@ -76,15 +74,15 @@ public class RenterRole extends Role implements Renter {
 		stateChanged();
 	}
 
-	public void msgRentDue(Landlord lord, int ssn, double total) {
+	public void msgRentDue(int ssn, double total) {
 		print("Message- msgRentDue");
-		mBills.add(new Bill(lord, ssn, total));
+		mBills.add(new Bill(ssn, total));
 		stateChanged();
 	}
 
-	public void msgOverdueNotice(Landlord lord, int ssn, double total) {
+	public void msgOverdueNotice(int ssn, double total) {
 		print("Message - msgOverdueNotice");
-		mBills.add(new Bill(lord, ssn, total));
+		mBills.add(new Bill(ssn, total));
 		stateChanged();
 	}
 
