@@ -33,19 +33,19 @@ public class RenterRole extends Role implements Renter {
 		}
 	};
 
-	enum BillState {
+	enum EnumBillState {
 		Pending, Paid
 	};
 
 	private class Bill {
 		Landlord mLandLord;
 		double mAmt;
-		BillState mStatus;
+		EnumBillState mStatus;
 
 		public Bill(Landlord lord, double rent) {
 			mLandLord = lord;
 			mAmt = rent;
-			mStatus = BillState.Pending;
+			mStatus = EnumBillState.Pending;
 		}
 	}
 
@@ -94,7 +94,7 @@ public class RenterRole extends Role implements Renter {
 		if (mHouse != null) {
 			synchronized (mBills) {
 				for (Bill b : mBills) {
-					if (b.mStatus == BillState.Pending) {
+					if (b.mStatus == EnumBillState.Pending) {
 						PayBill(b);
 						return true;
 					}
@@ -118,7 +118,7 @@ public class RenterRole extends Role implements Renter {
 
 	void RequestHousing() {
 		print("Action - RequestHousing");
-		myLandLord.msgIWouldLikeToLiveHere(this, me.getCash());
+		myLandLord.msgIWouldLikeToLiveHere(this, me.getCredit());
 	}
 
 	void PayBill(Bill b) {
@@ -130,10 +130,20 @@ public class RenterRole extends Role implements Renter {
 
 	void Maintain() {
 		print("Action - Maintain");
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		// TODO: run timer for some period of time, animate
 	}
 
 	/* Utilities */
+
+	
+	public void setPerson(Person p){
+		me = p; 
+	}
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);

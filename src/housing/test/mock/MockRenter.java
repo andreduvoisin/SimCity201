@@ -1,78 +1,66 @@
 package housing.test.mock;
 
-
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import base.interfaces.Person;
+import test.mock.MockPerson;
+import housing.House;
+import housing.interfaces.Landlord;
+import housing.interfaces.Renter;
 
 /**
- * A sample MockCustomer built to unit test a CashierAgent.
+ * A sample MockRenter built to unit test a LandlordRole.
  *
- * @author Monroe Ekilah
+ * @author Maggi Yang 
  *
  */
-public class MockRenter extends Mock implements Waiter {
+public class MockRenter extends Mock implements Renter {
 	
-	public Cashier cashier;
+	public Landlord landlord; 
 
 	public MockRenter(String name) {
 		super(name);
 
 	}
 
-@Override
-public void msgPleaseSeatCustomer(Customer cust, int table) {
-	log.add(new LoggedEvent("Received PleaseSeatCustomer from host. Customer = "+ cust.getName() + "Table = " + table));
-	
-}
+	@Override
+	public void msgApplicationAccepted(House newHouse) {
+		log.add(new LoggedEvent("Received msgApplicationAccepted"));
+		
+	}
 
-@Override
-public void msgCantGoOnBreak() {
-	log.add(new LoggedEvent("Received msgCantGoOnBreak")); 
-	
-}
+	@Override
+	public void msgApplicationDenied() {
+		log.add(new LoggedEvent("Received msgApplicationDenied"));
+		
+	}
 
-@Override
-public void msgGoOnBreak() {
-	log.add(new LoggedEvent("Received msgGoOnBreak")); 
-	
-}
+	@Override
+	public void msgRentDue(Landlord lord, double total) {
+		log.add(new LoggedEvent("Received msgRentDue"));
+		
+	}
 
-@Override
-public void msgOutOfChoice(String choice, int tableNum) {
-	log.add(new LoggedEvent("Received msgOutOfChoice. Choice = " + choice + "Table = " + tableNum)); 
-	
-}
+	@Override
+	public void msgOverdueNotice(Landlord lord, double total) {
+		log.add(new LoggedEvent("Received msgOverdueNotice"));
+		
+	}
 
-@Override
-public void msgOrderDone(String choice, int tableNum) {
-	log.add(new LoggedEvent("Received msgOrderDone. Choice = " + choice + ". Table = " + tableNum)); 
-	
-}
+	@Override
+	public void msgEviction() {
+		log.add(new LoggedEvent("Received msgEviction"));
+		
+	}
 
-@Override
-public void msgHereIsBill(Check check) {
-	log.add(new LoggedEvent("Received msgHereIsBill")); 
-	
-}
+	@Override
+	public boolean pickAndExecuteAnAction() {
+		log.add(new LoggedEvent("pickAndExecuteAnAction called"));
+		return false;
+	}
 
-@Override
-public void msgReadyToOrder(Customer cust) {
-	log.add(new LoggedEvent("Received msgReadyToOrder. Customer = " + cust.getName())); 
-	
-}
+	public void setPerson(Person renterPerson) {
+		
+	}
 
-@Override
-public void msgHereIsMyOrder(String choice, Customer c) {
-	log.add(new LoggedEvent("Received msgHereIsMyOrder. Choice = " + choice + ". Customer = " + c.getName())); 
-	
-}
 
-@Override
-public void msgLeavingTable(Customer cust) {
-	log.add(new LoggedEvent("Received msgLeavingTable. Customer = " +cust.getName() )); 
-	
-}
 
 }
