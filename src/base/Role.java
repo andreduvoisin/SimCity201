@@ -27,4 +27,9 @@ public class Role {
 		return true;
 		//TODO: Fix this
 	}
+	
+	/* Utilities */
+	
+	protected void print(String msg) {
+	}
 }
