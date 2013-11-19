@@ -3,7 +3,7 @@ package market;
 import java.util.Map;
 
 import base.Role;
-import market.Item.EnumMarketItemType;
+import base.Item.EnumMarketItemType;
 import market.interfaces.Cashier;
 import market.interfaces.DeliveryTruck;
 import market.interfaces.Worker;

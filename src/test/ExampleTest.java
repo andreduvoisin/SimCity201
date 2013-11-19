@@ -31,8 +31,8 @@ public class ExampleTest extends TestCase{
 		mPerson2 = new PersonAgent();
 		mPerson.addRole(landlord);
 		mPerson2.addRole(renter);
-		mPerson.addCredit(100000);
-		mPerson2.addCredit(200);
+		mPerson.addCash(100000);
+		mPerson2.addCash(200);
 		
 		mPerson.paea(landlord);
 		mPerson2.paea(renter);

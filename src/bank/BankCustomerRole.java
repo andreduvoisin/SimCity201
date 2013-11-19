@@ -134,7 +134,7 @@ public class BankCustomerRole extends Role implements Customer{
 		EnumAction action = mActions.get(0).action;
 		mActions.remove(0);
 		if (action == EnumAction.Deposit){
-			mPerson.addCredit(mTransaction);
+			mPerson.addCash(mTransaction);
 		}
 		else if (action == EnumAction.Loan){
 			if (mTransaction == 0){
@@ -142,17 +142,17 @@ public class BankCustomerRole extends Role implements Customer{
 				//Non-normative
 			}
 			else{
-				mPerson.addCredit(mTransaction);
+				mPerson.addCash(mTransaction);
 			}
 		}
 		else if (action == EnumAction.Payment){
 			//TODO Does the base agent keep track of loan?
 		}
 		else if (action == EnumAction.Open){
-			mPerson.setCredit(mTransaction);
+			mPerson.setCash(mTransaction);
 		}
 		else if (action == EnumAction.Robbery){
-			mPerson.addCredit(mTransaction);
+			mPerson.addCash(mTransaction);
 		}
 	}
 }
