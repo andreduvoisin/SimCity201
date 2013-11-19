@@ -165,6 +165,10 @@ public class LandlordRole extends Role implements Landlord {
 
 	/* Utilities */
 
+	public void setPerson(Person p){
+		me = p; 
+	}
+	
 	MyRenter FindRenter(int SSN) {
 		// TODO: Implement renter lookup
 		return null;
