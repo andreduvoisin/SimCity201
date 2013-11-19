@@ -1,11 +1,16 @@
 package test;
 
+import housing.roles.LandlordRole;
+import housing.roles.RenterRole;
 import junit.framework.TestCase;
 import base.PersonAgent;
 
 public class ExampleTest extends TestCase{
 	
 	PersonAgent mPerson;
+	PersonAgent mPerson2;
+	LandlordRole landlord;
+	RenterRole renter;
 	//needed interfaces
 	
 	
@@ -21,35 +26,16 @@ public class ExampleTest extends TestCase{
 	
 	//TESTS
 	
-	public void testOne_OneBillOneMarket(){
-		//setUp()
+	public void testInstantiatePeopleAndAssignRoles() {
+		mPerson = new PersonAgent();
+		mPerson2 = new PersonAgent();
+		mPerson.addRole(landlord);
+		mPerson2.addRole(renter);
+		mPerson.addCredit(100000);
+		mPerson2.addCredit(200);
 		
-//		//1 msgMarketBill
-//		//preconditions
-//		assertEquals("CashierAgent log should be empty: ", 0, Cashier.log.size());
-//		assertEquals("Market log should be empty: ", 0, Market.log.size());
-//		assertEquals("mMarketBills should have nothing in it", 0, cashier.getMarketBills().size());
-//		//msgMarketBill
-//		bill = 10;
-//		cashier.msgMarketBill(market1, bill);
-//		//postconditions
-//		assertEquals("mMarketBills should have 1 market", 1, cashier.getMarketBills().size());
-//		assertTrue("bill amount should be bill", bill == cashier.getMarketBills().get(market1));
-//		
-//		//2 PAEA - Market Payment
-//		//preconditions
-//		assertEquals("market paying should be correct market", market1, cashier.getMarketBills().keySet().toArray()[0]);
-//		assertEquals("Cash should be correct", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
-//		assertEquals("Market log should be 0", 0, Market.log.size());
-//		assertEquals("mMarketBills should have 1 market", 1, cashier.getMarketBills().size());
-//		//payMarket
-//		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
-//		//postconditions
-//		assertTrue("PAEA should return false now", !(cashier.pickAndExecuteAnAction()));
-//		assertEquals("Cash should be 50 now", CashierAgent.cRESTAURANT_CASH - 10, cashier.getCash());
-//		assertEquals("Market log should be 1 now", 1, Market.log.size());
-//		assertEquals("mMarketBills should have no markets", 0, cashier.getMarketBills().size());
-
+		mPerson.paea(landlord);
+		mPerson2.paea(renter);
 	}
 
 	private void print(String message){
