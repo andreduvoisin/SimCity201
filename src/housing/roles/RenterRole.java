@@ -26,6 +26,7 @@ public class RenterRole extends Role implements Renter {
 	House mHouse = null;
 	private RenterGui gui = new RenterGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
+	boolean isHungry = false;
 	Timer mMintenanceTimer;
 	TimerTask mMintenanceTimerTask = new TimerTask() {
 		public void run() {
@@ -50,6 +51,11 @@ public class RenterRole extends Role implements Renter {
 	}
 
 	/* Messages */
+	
+	public void msgEatAtHome() {
+		isHungry = true;
+		stateChanged();
+	}
 
 	public void msgDoneAnimating() {
 		isAnimating.release();
@@ -90,6 +96,12 @@ public class RenterRole extends Role implements Renter {
 
 	public boolean pickAndExecuteAnAction() {
 		// TODO: establish what triggers the RequestHousing() action
+		
+		if (isHungry) {
+			isHungry = false;
+			EatAtHome();
+			return true;
+		}
 
 		if (mHouse != null) {
 			synchronized (mBills) {
@@ -115,6 +127,15 @@ public class RenterRole extends Role implements Renter {
 	}
 
 	/* Actions */
+	
+	void EatAtHome() {
+		print("Action - Eat at Home");
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
 
 	void RequestHousing() {
 		print("Action - RequestHousing");

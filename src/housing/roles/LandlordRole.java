@@ -30,7 +30,8 @@ public class LandlordRole extends Role implements Landlord {
 			.synchronizedList(new ArrayList<MyRenter>());
 	List<House> mHousesList = Collections
 			.synchronizedList(new ArrayList<House>());
-	int mMinCreditScoreRequirement;
+	int mMinCash = 50;
+	int mMinSSN = 5;
 	private LandlordGui gui = new LandlordGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
 
@@ -43,14 +44,14 @@ public class LandlordRole extends Role implements Landlord {
 	private class MyRenter {
 		Renter mRenter;
 		EnumRenterState mState;
-		double mCreditscore;
+		double mCash;
 		House mHouse;
 		int SSN;
 
-		public MyRenter(Renter renter, double score, int mySSN) {
+		public MyRenter(Renter renter, double cash, int mySSN) {
 			mRenter = renter;
 			mState = EnumRenterState.Initial;
-			mCreditscore = score;
+			mCash = cash;
 			mHouse = null;
 			SSN = mySSN;
 		}
@@ -63,9 +64,9 @@ public class LandlordRole extends Role implements Landlord {
 		stateChanged();
 	}
 
-	public void msgIWouldLikeToLiveHere(Renter r, double creditScore, int SSN) {
+	public void msgILikeToLiveHere(Renter r, double cash, int SSN) {
 		print("Message - I would like to live here recieved");
-		mRenterList.add(new MyRenter(r, creditScore, SSN));
+		mRenterList.add(new MyRenter(r, cash, SSN));
 		stateChanged();
 	}
 
@@ -153,7 +154,7 @@ public class LandlordRole extends Role implements Landlord {
 
 	void ReviewApplicant(MyRenter r) {
 		print("Action - ReviewApplicant");
-		if (r.mCreditscore >= mMinCreditScoreRequirement) {
+		if (r.mCash >= mMinCash and r.SSN >= minSSN) {
 			r.mHouse = mHousesList.get(0);
 			r.mHouse.mOccupant = r.mRenter;
 			r.mRenter.msgApplicationAccepted(r.mHouse);
