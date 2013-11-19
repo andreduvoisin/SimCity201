@@ -1,11 +1,6 @@
 package market.interfaces;
 
-<<<<<<< HEAD
-import market.other.*;
-=======
-import market.Order;
-import restaurant_smileham.test.mock.EventLog;
->>>>>>> d65a9f4f8f4e36d25ab48e460bae9382495de18b
+import market.*;
 
 /**
  * Worker interface for SimCity Markets.
