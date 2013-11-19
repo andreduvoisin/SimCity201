@@ -34,13 +34,13 @@ public class MockRenter extends Mock implements Renter {
 	}
 
 	@Override
-	public void msgRentDue(Landlord lord, int lordssn, double total) {
+	public void msgRentDue(int lordssn, double total) {
 		log.add(new LoggedEvent("Received msgRentDue"));
 		
 	}
 
 	@Override
-	public void msgOverdueNotice(Landlord lord, int lordssn, double total) {
+	public void msgOverdueNotice(int lordssn, double total) {
 		log.add(new LoggedEvent("Received msgOverdueNotice"));
 		
 	}
