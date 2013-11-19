@@ -1,4 +1,4 @@
-package restaurant_maggiyan.test;
+package housing.test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import restaurant_maggiyan.test.mock.MockWaiter;
  *
  * @author Monroe Ekilah
  */
-public class CashierTest extends TestCase
+public class LandlordTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
 	CashierAgent cashier;
