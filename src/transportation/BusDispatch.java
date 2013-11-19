@@ -3,10 +3,11 @@ package transportation;
 import base.interfaces.Person;
 
 import java.util.*;
+import java.util.concurrent.Semaphore;
 
 /**
- * The controller who handles people waiting at bus stops,
- * boarding buses, and the buses themselves
+ * The controller who handles people waiting at bus stops, boarding buses, and
+ * the buses themselves
  */
 public class BusDispatch {
 
@@ -14,16 +15,16 @@ public class BusDispatch {
 	private ArrayList<BusInstance> mBuses = new ArrayList<BusInstance>();
 
 
-	//==================================================================================
-	//------------------------------------- DATA ---------------------------------------
-	//==================================================================================
+	// ==================================================================================
+	// ------------------------------------- DATA ---------------------------------------
+	// ==================================================================================
 
 	private ArrayList<BusStop> mBusStops = new ArrayList<BusStop>();
 
 
-	//==================================================================================
-	//----------------------------------- MESSAGES -------------------------------------
-	//==================================================================================
+	// ==================================================================================
+	// ----------------------------------- MESSAGES -------------------------------------
+	// ==================================================================================
 
 	/**
 	 * From GUI - bus arrived at stop
@@ -31,6 +32,7 @@ public class BusDispatch {
 	 */
 	public void msgGuiArrivedAtStop(int busNum) {
 		mBuses.get(busNum).state = BusInstance.enumState.readyToUnload;
+		mBuses.get(busNum).semBusy.release();
 	}
 
 	/**
@@ -53,8 +55,10 @@ public class BusDispatch {
 			if (iBus.mCurrentStop == riderLocation) {
 				iBus.mRiders.add(new Rider(p, riderDestination));
 				mBusStops.get(riderLocation).mWaitingPeople.remove(p);
+				// If nobody waiting at that stop anymore, run the scheduler
 				if (mBusStops.get(riderLocation).mWaitingPeople.size() == 0) {
 					iBus.state = BusInstance.enumState.readyToTravel;
+					iBus.semBusy.release();
 				}
 				return;
 			}
@@ -71,54 +75,66 @@ public class BusDispatch {
 			for (Rider iRider : iBus.mRiders) {
 				if (iRider.mPerson.equals(p)) {
 					iBus.mRiders.remove(iRider);
-					if (iBus.mRiders.size() == 0) {
-						iBus.state = BusInstance.enumState.readyToBoard;
-					}
+					break;
+				}
+			}
+
+			// If more riders need to get off here, don't run scheduler
+			for (Rider iRider : iBus.mRiders) {
+				if (iRider.mDestination == iBus.mCurrentStop) {
 					return;
 				}
 			}
+
+			// Otherwise change state and do it!
+			if (iBus.mRiders.size() == 0) {
+				iBus.state = BusInstance.enumState.readyToBoard;
+				iBus.semBusy.release();
+			}
 		}
 	}
 
-	//==================================================================================
-	//----------------------------------- SCHEDULER ------------------------------------
-	//==================================================================================
+
+	// ==================================================================================
+	// ----------------------------------- SCHEDULER ------------------------------------
+	// ==================================================================================
 
 	public void pickAndExecuteAnAction() {
 
-		// Bus ALWAYS running
+		// Bus always running
 		while (true) {
 			for (BusInstance iBus : mBuses) {
-				// Instruct riders to get off if this is their stop
-				if (iBus.mRiders.size() > 0) {
-					TellRidersToGetOff(iBus);
-					break;
+				if (iBus.state.equals(BusInstance.enumState.readyToUnload)) {
+					if (iBus.mRiders.size() > 0) {
+						TellRidersToGetOff(iBus);
+					}
 				}
 			}
 
 			for (BusInstance iBus : mBuses) {
-				// Instruct waiting customers at the current stop to board 
-				if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
-					// Pauses this thread until all people waiting at this stop have boarded
-					TellRidersToBoard(iBus);
-					break;
+				if (iBus.state.equals(BusInstance.enumState.readyToBoard)) {
+					if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
+						TellRidersToBoard(iBus);
+					}
 				}
 			}
 
 			for (BusInstance iBus : mBuses) {
-				// Pauses this thread until GUI arrives at next stop
-				AdvanceToNextStop(iBus);
+				if (iBus.state.equals(BusInstance.enumState.readyToTravel)) {
+					AdvanceToNextStop(iBus);
+				}
 			}
 		}
 	}
 
 
-	//==================================================================================
-	//----------------------------------- ACTIONS --------------------------------------
-	//==================================================================================
+	// ==================================================================================
+	// ----------------------------------- ACTIONS --------------------------------------
+	// ==================================================================================
 
 	/**
-	 * Instructs all riders (whose destination is their bus's current stop) to get off that bus
+	 * Instructs all riders (whose destination is their bus's current stop) to
+	 * get off that bus
 	 * @param bus BusInstance of which to check rider list
 	 */
 	private void TellRidersToGetOff(BusInstance bus) {
@@ -129,6 +145,8 @@ public class BusDispatch {
 				// TODO iRider.mPerson.msgAtYourStop();
 			}
 		}
+
+		try { bus.semBusy.acquire(); } catch (Exception e) {}
 	}
 
 	/**
@@ -141,6 +159,8 @@ public class BusDispatch {
 		for (Person p : mBusStops.get(bus.mCurrentStop).mWaitingPeople) {
 			// TODO p.msgBoardBus(this);
 		}
+
+		try { bus.semBusy.acquire(); } catch (Exception e) {}
 	}
 
 	/**
@@ -153,10 +173,7 @@ public class BusDispatch {
 		// Gui has a list of bus stop coordinates
 		bus.mGui.DoAdvanceToNextStop();
 		bus.mCurrentStop = (bus.mCurrentStop + 1) % mBusStops.size();
+
+		try { bus.semBusy.acquire(); } catch (Exception e) {}
 	}
-
-
-	//==================================================================================
-	//------------------------------ ACCESSORS/UTILITIES -------------------------------
-	//==================================================================================
 }
