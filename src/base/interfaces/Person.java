@@ -2,6 +2,7 @@ package base.interfaces;
 
 import java.util.Map;
 
+import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
 
 public interface Person {
@@ -13,6 +14,7 @@ public interface Person {
 	
 	public double getCash();
 	public int getSSN();
+	public MasterTeller getMasterTeller();
 	
 	public void addCash(double amount);
 	
