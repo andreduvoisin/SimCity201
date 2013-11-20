@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import base.ConfigParser;
+//import base.ConfigParser;
 import base.Time;
 import base.interfaces.Person;
 
@@ -75,6 +75,9 @@ public class CityPanel extends JPanel implements ActionListener{
 	     g2.fillRect(panelXpos, panelYpos, WINDOWX, WINDOWY ); //This centers the screen on the restaurant scene with the table located in it... if not located at 0,0 then 
 	     //part of the RestaurantPanel would show
 	     
+	     g2.setColor(Color.LIGHT_GRAY);
+	     g2.fillRect(100, 95, 450, 5);
+	     
 	     //top horizontal main street piece 
 	     g2.setColor(Color.BLACK);
 	     g2.fillRect( mainStreetPieceTopXPos,  mainStreetPieceTopYPos, mainStreetLength, mainStreetWidth);
@@ -90,6 +93,7 @@ public class CityPanel extends JPanel implements ActionListener{
 	     //bottom main street piece 
 	     g2.setColor(Color.BLACK);
 	     g2.fillRect(mainStreetPieceBottomXPos, mainStreetPieceBottomYPos, mainStreetLength + 20, mainStreetWidth );
+	     
 
 	}
 
