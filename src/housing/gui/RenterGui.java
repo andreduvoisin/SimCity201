@@ -7,14 +7,18 @@ import java.awt.Graphics2D;
 
 import city.gui.Gui;
 
+/*
+ * @author David Carr
+ */
+
 public class RenterGui implements Gui {
-	
+
 	RenterRole renter;
-	
+
 	private int xPos, yPos = -20;
 	private int xDestination, yDestination = -20;
 	private boolean currentlyAnimating;
-	
+
 	private static int GUISIZE = 20;
 
 	public void updatePosition() {
@@ -35,7 +39,7 @@ public class RenterGui implements Gui {
 
 	public void draw(Graphics2D g) {
 		g.setColor(Color.BLUE);
-		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);		
+		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
 	}
 
 	@Override

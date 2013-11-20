@@ -13,7 +13,10 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
-import base.interfaces.Person;
+
+/*
+ * @author David Carr, Maggi Yang
+ */
 
 public class LandlordRole extends BaseRole implements Landlord {
 
@@ -94,7 +97,8 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 		if (mTimeToCheckRent && mRenterList.size() > 0) {
 			mTimeToCheckRent = false;
-			mRentTimer.schedule(mRentTimerTask, 1000000); // TODO: establish schedule for rent
+			mRentTimer.schedule(mRentTimerTask, 1000000); // TODO: establish
+															// schedule for rent
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
 					if (r.mState == EnumRenterState.RentOverdue) {
@@ -169,10 +173,10 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 	/* Utilities */
 
-	/*public void setPerson(Person p) {
-		System.out.println(p.getSSN());
-		me = p;
-	}*/
+	/*
+	 * public void setPerson(Person p) { System.out.println(p.getSSN()); me = p;
+	 * }
+	 */
 
 	MyRenter FindRenter(int SSN) {
 		synchronized (mRenterList) {

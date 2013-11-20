@@ -1,5 +1,9 @@
 package housing.interfaces;
 
+/*
+ * @author David Carr, Maggi Yang
+ */
+
 public interface Landlord {
 
 	public abstract void msgIWouldLikeToLiveHere(Renter r, double cash, int SSN);

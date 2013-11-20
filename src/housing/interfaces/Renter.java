@@ -2,6 +2,10 @@ package housing.interfaces;
 
 import housing.House;
 
+/*
+ * @author David Carr, Maggi Yang
+ */
+
 public interface Renter {
 
 	public abstract void msgApplicationAccepted(House newHouse);

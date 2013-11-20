@@ -12,6 +12,10 @@ import javax.swing.Timer;
 
 import restaurant_davidmca.gui.Gui;
 
+/*
+ * @author David Carr
+ */
+
 public class HouseGuiPanel extends JPanel implements ActionListener {
 
 	private final int WINDOWX = 600;

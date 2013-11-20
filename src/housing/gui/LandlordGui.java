@@ -7,6 +7,10 @@ import java.awt.Graphics2D;
 
 import city.gui.Gui;
 
+/*
+ * @author David Carr
+ */
+
 public class LandlordGui implements Gui {
 	
 	LandlordRole landlord;
