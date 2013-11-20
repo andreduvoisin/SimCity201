@@ -37,7 +37,6 @@ public class PersonAgent extends Agent implements Person {
 	private String mName = "Average Joe";
 
 	double mCash;
-	int mAge;
 	public BankMasterTellerRole mMasterTeller;
 
 	boolean mHasHome;
@@ -84,7 +83,6 @@ public class PersonAgent extends Agent implements Person {
 	public void msgTimeShift() {
 		if (Time.GetShift() == 0) {
 			// resetting of variables
-			mAge++;
 			mMealsToEat = 2;
 		}
 		stateChanged();
