@@ -58,7 +58,7 @@ public class LandlordTest extends TestCase {
 		landlordPerson.addRole((Role) landlordRole);
 		renterPerson.addRole((Role) renter); 
 		
-		renter.myLandlord = landlord
+		//renter.myLandlord = landlord
 		
 	}
 
