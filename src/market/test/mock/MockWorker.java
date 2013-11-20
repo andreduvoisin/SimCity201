@@ -11,10 +11,10 @@ public class MockWorker extends Mock implements Worker {
 	}
 	
 	public void msgFulfillOrder(Order o) {
-		
+		log.add(new LoggedEvent("Received msgFulfillOrder for " + o.mPersonRole));
 	}
 	
 	public void msgOrderFulfilled(Order o) {
-		
+		log.add(new LoggedEvent("Received msgOrderFulfilled."));
 	}
 }

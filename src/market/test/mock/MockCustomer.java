@@ -14,10 +14,11 @@ public class MockCustomer extends Mock implements Customer {
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> canFulfill, Invoice invoice) {
+		log.add(new LoggedEvent("Received msgInvoiceToPerson"));
+	}
 		
+	public void msgHereIsCustomerOrder(Order order) {
+		log.add(new LoggedEvent("Received msgHereIsCustomerOrder."));
 	}
-	
-	public boolean pickAndExecuteAnAction() {
-		return true;
-	}
+
 }

@@ -14,20 +14,12 @@ public class MockCashier extends Mock implements Cashier {
 	public MockCashier() {
 		super();
 	}
-	public void msgOrderPlacement(Order order) {
 	
+	public void msgOrderPlacement(Order order) {
+		log.add(new LoggedEvent("Received msgOrderPlacement from " + order.mPersonRole));
 	}
 
 	public void msgPayingForOrder(Invoice invoice) {
-
+		log.add(new LoggedEvent("Received msgPayingForOrder " + invoice.mOrder.mPersonRole));
 	}
-
-	public boolean pickAndExecuteAnAction() {
-		return false;
-	}
-
-	public int getNumWorkers() {
-		return 0;
-	}
-
 }
