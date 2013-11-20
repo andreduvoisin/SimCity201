@@ -312,4 +312,9 @@ public class PersonAgent extends Agent implements Person {
 		return mName;
 
 	}
+
+	@Override
+	public void msgHereIsPayment(int senderSSN, int amount) {
+		mCash += amount;
+	}
 }

@@ -82,8 +82,10 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("Person 3 has balance of 30", mMasterTeller.mAccounts.get(mMasterTeller.mAccountIndex.get(3)).balance == 30);
 		
 		//4 : message receiver (usually called from processTransaction) (sender, amount)
-		//mPerson2.msgHereIsPayment(1, 5);
+		mPerson2.msgHereIsPayment(1, 5);
 		
+		//Check
+		assertTrue("Person 2 received payment method", mPerson2.log.containsString("Received 5 from 1"));
 	}
 	
 	public void testTwo_TwoCustomers(){

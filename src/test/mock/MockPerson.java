@@ -81,4 +81,10 @@ public class MockPerson extends Mock implements Person {
 		return 0;
 	}
 
+	@Override
+	public void msgHereIsPayment(int senderSSN, int amount) {
+		log.add(new LoggedEvent("Received "+amount+" from "+senderSSN));
+		
+	}
+
 }
