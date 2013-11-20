@@ -41,7 +41,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	}
 
 
-	void msgHereIsCustomerOrder(Order order){
+	public void msgHereIsCustomerOrder(Order order){
 		
 		Map<EnumMarketItemType, Integer> items = order.mItems;
 		Map<EnumMarketItemType, Integer> mItemInventory = mPerson.getItemInventory();

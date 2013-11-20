@@ -10,7 +10,7 @@ import test.mock.*;
 public class MockCustomer extends Mock implements Customer {
 	
 	public MockCustomer() {
-		
+		super();
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> canFulfill, Invoice invoice) {

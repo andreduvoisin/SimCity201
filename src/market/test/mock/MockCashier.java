@@ -4,29 +4,29 @@ import market.interfaces.Cashier;
 import test.mock.*;
 import market.*;
 
+/**
+ * MockCashier for unit testing.
+ * 
+ * @author Angelica Huyen Tran
+ */
 public class MockCashier extends Mock implements Cashier {
 
-	@Override
+	public MockCashier() {
+		super();
+	}
 	public void msgOrderPlacement(Order order) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
-	@Override
 	public void msgPayingForOrder(Invoice invoice) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
-	@Override
 	public boolean pickAndExecuteAnAction() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public int getNumWorkers() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
