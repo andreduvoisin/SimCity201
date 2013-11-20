@@ -2,6 +2,7 @@ package transportation;
 
 import base.interfaces.Person;
 
+import java.util.concurrent.Semaphore;
 import java.util.*;
 
 /**
@@ -19,6 +20,7 @@ public class BusDispatch {
 	// ==================================================================================
 
 	private ArrayList<BusStop> mBusStops = new ArrayList<BusStop>();
+	private Semaphore semAtLeastOneBusy = new Semaphore(0, true);
 
 
 	// ==================================================================================
@@ -31,7 +33,9 @@ public class BusDispatch {
 	 */
 	public void msgGuiArrivedAtStop(int busNum) {
 		mBuses.get(busNum).state = BusInstance.enumState.readyToUnload;
-		mBuses.get(busNum).semBusy.release();
+
+		// If no buses are busy, run scheduler
+		if (NoBusesBusy()) semAtLeastOneBusy.release();
 	}
 
 	/**
@@ -54,14 +58,15 @@ public class BusDispatch {
 			if (iBus.mCurrentStop == riderLocation) {
 				iBus.mRiders.add(new Rider(p, riderDestination));
 				mBusStops.get(riderLocation).mWaitingPeople.remove(p);
-				// If nobody waiting at that stop anymore, run the scheduler
+
 				if (mBusStops.get(riderLocation).mWaitingPeople.size() == 0) {
 					iBus.state = BusInstance.enumState.readyToTravel;
-					iBus.semBusy.release();
 				}
-				return;
 			}
 		}
+
+		// If all riders everywhere are boarded, run scheduler
+		if (NoBusesBusy()) semAtLeastOneBusy.release();
 	}
 
 	/**
@@ -78,19 +83,19 @@ public class BusDispatch {
 				}
 			}
 
-			// If more riders need to get off here, don't run scheduler
+			// If more riders need to get off here, do nothing (wait for them)
 			for (Rider iRider : iBus.mRiders) {
 				if (iRider.mDestination == iBus.mCurrentStop) {
 					return;
 				}
 			}
 
-			// Otherwise change state and do it!
-			if (iBus.mRiders.size() == 0) {
-				iBus.state = BusInstance.enumState.readyToBoard;
-				iBus.semBusy.release();
-			}
+			// Otherwise change state and run scheduler to board waiting people
+			iBus.state = BusInstance.enumState.readyToBoard;
+			break;
 		}
+
+		if (NoBusesBusy()) semAtLeastOneBusy.release();
 	}
 
 
@@ -102,10 +107,12 @@ public class BusDispatch {
 
 		// Bus always running
 		while (true) {
+
 			for (BusInstance iBus : mBuses) {
 				if (iBus.state.equals(BusInstance.enumState.readyToUnload)) {
 					if (iBus.mRiders.size() > 0) {
-						TellRidersToGetOff(iBus);
+						TellRidersToGetOff();
+						break;
 					}
 				}
 			}
@@ -113,14 +120,16 @@ public class BusDispatch {
 			for (BusInstance iBus : mBuses) {
 				if (iBus.state.equals(BusInstance.enumState.readyToBoard)) {
 					if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
-						TellRidersToBoard(iBus);
+						TellRidersToBoard();
+						break;
 					}
 				}
 			}
 
 			for (BusInstance iBus : mBuses) {
 				if (iBus.state.equals(BusInstance.enumState.readyToTravel)) {
-					AdvanceToNextStop(iBus);
+					AdvanceToNextStop();
+					break;
 				}
 			}
 		}
@@ -136,43 +145,74 @@ public class BusDispatch {
 	 * get off that bus
 	 * @param bus BusInstance of which to check rider list
 	 */
-	private void TellRidersToGetOff(BusInstance bus) {
-		bus.state = BusInstance.enumState.unloading;
-
-		for (Rider iRider : bus.mRiders) {
-			if (iRider.mDestination == bus.mCurrentStop) {
-				// TODO Implement Person.msgAtYourStop() : iRider.mPerson.msgAtYourStop();
+	private void TellRidersToGetOff() {
+		for (BusInstance iBus : mBuses) {
+			iBus.state = BusInstance.enumState.unloading;
+			boolean needToWait = false;
+	
+			for (Rider iRider : iBus.mRiders) {
+				if (iRider.mDestination == iBus.mCurrentStop) {
+					needToWait = true;
+					// TODO Implement Person.msgAtYourStop() : iRider.mPerson.msgAtYourStop();
+				}
 			}
+
+			if (! needToWait) iBus.state = BusInstance.enumState.readyToBoard;
 		}
 
-		try { bus.semBusy.acquire(); } catch (Exception e) {}
+		// If at least one buses has riders unloading wait for messages
+		if (! NoBusesBusy()) {
+			try { semAtLeastOneBusy.acquire(); } catch(Exception e) {}
+		}
 	}
 
 	/**
 	 * Instructs all people waiting at each bus's current stop to get on that bus
 	 * @param bus BusInstance of which to check current stop's waiting list
 	 */
-	private void TellRidersToBoard(BusInstance bus) {
-		bus.state = BusInstance.enumState.boarding;
-
-		for (Person p : mBusStops.get(bus.mCurrentStop).mWaitingPeople) {
-			// TODO Implement Person.msgBoardBus(BusDispatch) : p.msgBoardBus(this);
+	private void TellRidersToBoard() {
+		for (BusInstance iBus : mBuses) {
+			if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
+				iBus.state = BusInstance.enumState.boarding;
+		
+				for (Person p : mBusStops.get(iBus.mCurrentStop).mWaitingPeople) {
+					// TODO Implement Person.msgBoardBus(BusDispatch) : p.msgBoardBus(this);
+				}
+			}
+			else {
+				iBus.state = BusInstance.enumState.readyToTravel;
+			}
 		}
 
-		try { bus.semBusy.acquire(); } catch (Exception e) {}
+		// If at least one buses has riders boarding wait for messages
+		if (! NoBusesBusy()) {
+			try { semAtLeastOneBusy.acquire(); } catch(Exception e) {}
+		}
 	}
 
 	/**
 	 * Instructs a bus to move forward to the next stop
 	 * @param bus BusInstance to advance
 	 */
-	private void AdvanceToNextStop(BusInstance bus) {
-		bus.state = BusInstance.enumState.traveling;
+	private void AdvanceToNextStop() {
+		for (BusInstance iBus : mBuses) {
+			iBus.state = BusInstance.enumState.traveling;
 
-		// Gui has a list of bus stop coordinates
-		bus.mGui.DoAdvanceToNextStop();
-		bus.mCurrentStop = (bus.mCurrentStop + 1) % mBusStops.size();
+			// Gui has a list of bus stop coordinates
+			iBus.mGui.DoAdvanceToNextStop();
+			iBus.mCurrentStop = (iBus.mCurrentStop + 1) % mBusStops.size();
+		}
+		
+		try { semAtLeastOneBusy.acquire(); } catch(Exception e) {}
+	}
 
-		try { bus.semBusy.acquire(); } catch (Exception e) {}
+
+
+	private boolean NoBusesBusy() {
+		for (BusInstance iBus : mBuses) {
+			if (iBus.isBusy()) return false;
+		}
+
+		return true;
 	}
 }
