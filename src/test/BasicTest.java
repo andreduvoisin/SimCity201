@@ -1,10 +1,13 @@
 package test;
 
+import java.io.FileNotFoundException;
+
 import housing.House;
 import housing.roles.LandlordRole;
 import housing.roles.RenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
+import base.ConfigParser;
 import base.PersonAgent;
 
 /*
@@ -27,6 +30,11 @@ public class BasicTest extends TestCase{
 	}
 	
 	//TESTS
+	
+	public void testImportFromConfigFile() throws FileNotFoundException {
+		ConfigParser config = ConfigParser.getInstanceOf();
+		config.readFileCreatePersons();
+	}
 	
 	public void testInstantiatePeopleAndAssignRoles() {
 		mPerson = new PersonAgent("Person1");
