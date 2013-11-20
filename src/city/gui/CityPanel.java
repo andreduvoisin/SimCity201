@@ -1,20 +1,29 @@
 package city.gui;
 
-import javax.swing.*;
-
-import base.Time;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import base.ConfigParser;
+import base.Time;
+import base.interfaces.Person;
 
 public class CityPanel extends JPanel implements ActionListener{
+	private static CityPanel instance = null;
 	private int WINDOWX = 700;
 	private int WINDOWY = 600;
 	private Image bufferImage;
     private Dimension bufferSize;
+    List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	static final int panelXpos = 0;
 	static final int panelYpos = 0;
@@ -47,9 +56,15 @@ public class CityPanel extends JPanel implements ActionListener{
 		Time mTime = new Time();
    	}
 
-	
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
+	}
+	
+	public static CityPanel getInstanceOf() {
+		if (instance == null) {
+			instance = new CityPanel(CityGui.getInstanceOf());
+		}
+		return instance;
 	}
 
 	 public void paintComponent(Graphics g) {
