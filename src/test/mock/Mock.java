@@ -7,21 +7,12 @@ package test.mock;
  *
  */
 public class Mock {
-	private String name;
 	
 	public EventLog log;
 
-	public Mock(String name) {
-		this.name = name;
+	public Mock() {
 		log = new EventLog(); 
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String toString() {
-		return this.getClass().getName() + ": " + name;
-	}
 
 }

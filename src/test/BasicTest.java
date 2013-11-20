@@ -29,8 +29,8 @@ public class BasicTest extends TestCase{
 	//TESTS
 	
 	public void testInstantiatePeopleAndAssignRoles() {
-		mPerson = new PersonAgent();
-		mPerson2 = new PersonAgent();
+		mPerson = new PersonAgent("Person1");
+		mPerson2 = new PersonAgent("Person2");
 		landlord = new LandlordRole();
 		master = new BankMasterTellerRole();
 		mPerson.mMasterTeller = master;
@@ -62,5 +62,7 @@ public class BasicTest extends TestCase{
 	private void print(String message){
 		System.out.println("[PersonTest] " + message);
 	}
+	
+	
 }
 

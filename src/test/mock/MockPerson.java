@@ -18,12 +18,21 @@ import base.interfaces.Role;
  * 
  */
 public class MockPerson extends Mock implements Person {
-
+	private String name;
+	
 	public Person person;
 
 	public MockPerson(String name) {
-		super(name);
+		this.name = name; 
 
+	}
+	
+	public String getName(){
+		return name; 
+	}
+	
+	public String toString(){
+		return this.getClass().getName() + ": " + name; 
 	}
 
 	public void msgTimeShift() {

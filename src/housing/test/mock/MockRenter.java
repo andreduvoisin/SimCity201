@@ -19,7 +19,7 @@ public class MockRenter extends Mock implements Role, Renter {
 	public Landlord landlord; 
 
 	public MockRenter(String name) {
-		super(name);
+		super();
 
 	}
 
