@@ -11,7 +11,7 @@ import city.gui.Gui;
  * @author David Carr
  */
 
-public class RenterGui implements Gui {
+public class ResidentGui implements Gui {
 
 	RenterRole renter;
 

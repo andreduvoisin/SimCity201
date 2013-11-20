@@ -12,5 +12,7 @@ public interface Landlord {
 
 	public abstract boolean pickAndExecuteAnAction();
 	
+	public abstract int getRenterListSize(); 
+	
 
 }

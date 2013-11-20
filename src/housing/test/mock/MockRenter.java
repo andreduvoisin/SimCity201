@@ -52,6 +52,10 @@ public class MockRenter extends Mock implements Role, Renter {
 		log.add(new LoggedEvent("pickAndExecuteAnAction called"));
 		return false;
 	}
+	
+	public void setLandlord(Landlord landlord){
+		
+	}
 
 	public void setPerson(Person renterPerson) {
 		

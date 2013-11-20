@@ -1,5 +1,8 @@
 package housing.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import housing.House;
 import housing.interfaces.Landlord;
 import housing.interfaces.Renter;
@@ -25,7 +28,7 @@ public class LandlordTest extends TestCase {
 	Person landlordPerson;
 	Person renterPerson;
 	Landlord landlordRole;
-	MockRenter renterRole;
+	Renter renterRole;
 	House house1;
 	House house2; 
 
@@ -42,10 +45,6 @@ public class LandlordTest extends TestCase {
 		landlordRole = new LandlordRole();
 	
 		renterRole = new MockRenter("Mockrenter");
-
-		house1 = new House(20, 20, 100.00); 
-		house2 = new House(30, 30, 250.00); 
-		
 	
 	}
 	
@@ -58,11 +57,13 @@ public class LandlordTest extends TestCase {
 		landlordPerson.addRole((Role) landlordRole);
 		renterPerson.addRole((Role) renterRole); 
 		
-		renterRole.landlord = landlordRole; 
+		renterRole.setLandlord(landlordRole); 
 		
 		landlordRole.msgIWouldLikeToLiveHere(renterRole, 500.00, 1); 
-		landlordRole.msgIWouldLikeToLiveHere(renterRole, 250.00, 2); 
+		//landlordRole.msgIWouldLikeToLiveHere(renterRole, 250.00, 2); 
 		
+		assertEquals("Landlord should have one Renter in MyRenter list", landlordRole.getRenterListSize(), 1); 
+		assertTrue("Landlord should pickAndExecuteAnAction and call action", landlordRole.pickAndExecuteAnAction());
 		
 		
 		

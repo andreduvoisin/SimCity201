@@ -20,4 +20,5 @@ public interface Renter {
 
 	public abstract boolean pickAndExecuteAnAction();
 
+	public abstract void setLandlord(Landlord landlord); 
 }

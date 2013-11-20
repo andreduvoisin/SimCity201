@@ -1,7 +1,7 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.RenterGui;
+import housing.gui.ResidentGui;
 import housing.interfaces.Landlord;
 import housing.interfaces.Renter;
 
@@ -26,7 +26,7 @@ public class RenterRole extends BaseRole implements Renter {
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
 	House mHouse = null;
-	private RenterGui gui = new RenterGui();
+	private ResidentGui gui = new ResidentGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
 	boolean isHungry = false;
 	Timer mMintenanceTimer;
@@ -160,10 +160,9 @@ public class RenterRole extends BaseRole implements Renter {
 	}
 
 	/* Utilities */
-
-	// public void setPerson(Person p){
-	// me = p;
-	// }
+	public void setLandlord(Landlord landlord){
+		myLandLord = landlord; 
+	}
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);

@@ -58,6 +58,15 @@ public class LandlordRole extends BaseRole implements Landlord {
 			SSN = mySSN;
 		}
 	}
+	
+	/* Constructor */
+	
+	public LandlordRole(){
+		
+		//TODO remove after finishing config file, for testing purposes only 
+		mHousesList.add(new House(20, 20, 100.00)); 
+		mHousesList.add(new House(30, 30, 250.00));
+	}
 
 	/* Messages */
 
@@ -159,7 +168,11 @@ public class LandlordRole extends BaseRole implements Landlord {
 	void ReviewApplicant(MyRenter r) {
 		print("Action - ReviewApplicant");
 		if (r.mCash >= mMinCash && r.SSN >= mMinSSN) {
-			r.mHouse = mHousesList.get(0);
+			for(House h: mHousesList){
+				if(h.mOccupant == null){
+					r.mHouse = h; 
+				}
+			}
 			r.mHouse.mOccupant = r.mRenter;
 			r.mRenter.msgApplicationAccepted(r.mHouse);
 			r.mState = EnumRenterState.RentPaid;
@@ -182,6 +195,10 @@ public class LandlordRole extends BaseRole implements Landlord {
 			}
 		}
 		return null;
+	}
+	
+	public int getRenterListSize(){
+		return mRenterList.size(); 
 	}
 
 	protected void print(String msg) {
