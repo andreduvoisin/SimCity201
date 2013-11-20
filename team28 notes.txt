@@ -1,3 +1,27 @@
+NEW GRADING CHANGES
+No extra credit (no DB, A*)
+50/50 individual and team scores
+Average individual score must be at least the team score
+	(100 team score --> 100 individual score)
+Not everyone has to do everything
+Every agent in our project needs to be tested (including every restaurant)
+Can request all individual scores to be the same
+(Or can request based on who needs the points...)
+
+
+V2 
+Shift and job changes
+Bus crashing
+Bank Robbery
+
+
+
+
+
+
+
+
+
 -states
  -nourishment
  -location
@@ -41,3 +65,7 @@ Role c = (Role)theClass.newInstance(); //zero parameter constructor
 catch(Exception E){}
 roles.add(c);
 c.active = true;
+
+
+
+
