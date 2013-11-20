@@ -6,8 +6,9 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CityGui extends JFrame implements ActionListener{
+	private static CityGui instance = null;
 	JFrame cityFrame = new JFrame("SimCity Animation");
-	CityPanel cityPanel = new CityPanel(this);
+	private CityPanel cityPanel = new CityPanel(this);
     
     ControlPanel controlPanel = new ControlPanel(this);
 	
@@ -52,6 +53,13 @@ public class CityGui extends JFrame implements ActionListener{
         gui.setResizable(false);
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+	
+	public static CityGui getInstanceOf() {
+		if (instance == null) {
+			instance = new CityGui();
+		}
+		return instance;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {

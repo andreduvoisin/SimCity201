@@ -1,5 +1,6 @@
 package bank.roles;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +16,9 @@ public class BankGuardRole extends BaseRole implements Guard{
 	
 //	DATA
 	
-	Map <Teller, Boolean> mTellers = new HashMap<Teller, Boolean>();
-	List<Customer> mCustomers;
-	List<Customer> mCriminals;
+	public Map <Teller, Boolean> mTellers = new HashMap<Teller, Boolean>();
+	public List<Customer> mCustomers = new ArrayList<Customer>();
+	public List<Customer> mCriminals = new ArrayList<Customer>();
 	
 //	MESSAGES
 	
@@ -29,10 +30,10 @@ public class BankGuardRole extends BaseRole implements Guard{
 		mTellers.put(t, true);
 		stateChanged();
 	}
-	public void msgReadyForNext(Teller t){
+	/*public void msgReadyForNext(Teller t){
 		mTellers.put(t, true);
 		stateChanged();
-	}
+	}*/
 	public void msgRobberAlert(Customer c){
 		mCriminals.add(c);
 		stateChanged();
