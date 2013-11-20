@@ -12,20 +12,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import base.Role;
+import base.BaseRole;
 import base.interfaces.Person;
 
-public class RenterRole extends Role implements Renter {
+public class RenterRole extends BaseRole implements Renter {
 
 	/* Data */
-
-	Person me;
-	Landlord myLandLord;
+	
+	public Landlord myLandLord;
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
 	House mHouse = null;
 	private RenterGui gui = new RenterGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
+	boolean isHungry = false;
 	Timer mMintenanceTimer;
 	TimerTask mMintenanceTimerTask = new TimerTask() {
 		public void run() {
@@ -38,18 +38,23 @@ public class RenterRole extends Role implements Renter {
 	};
 
 	private class Bill {
-		Landlord mLandLord;
+		int mLandLordSSN;
 		double mAmt;
 		EnumBillState mStatus;
 
-		public Bill(Landlord lord, double rent) {
-			mLandLord = lord;
+		public Bill(int lordssn, double rent) {
+			mLandLordSSN = lordssn;
 			mAmt = rent;
 			mStatus = EnumBillState.Pending;
 		}
 	}
 
 	/* Messages */
+
+	public void msgEatAtHome() {
+		isHungry = true;
+		stateChanged();
+	}
 
 	public void msgDoneAnimating() {
 		isAnimating.release();
@@ -68,15 +73,15 @@ public class RenterRole extends Role implements Renter {
 		stateChanged();
 	}
 
-	public void msgRentDue(Landlord lord, double total) {
+	public void msgRentDue(int ssn, double total) {
 		print("Message- msgRentDue");
-		mBills.add(new Bill(lord, total));
+		mBills.add(new Bill(ssn, total));
 		stateChanged();
 	}
 
-	public void msgOverdueNotice(Landlord lord, double total) {
+	public void msgOverdueNotice(int ssn, double total) {
 		print("Message - msgOverdueNotice");
-		mBills.add(new Bill(lord, total));
+		mBills.add(new Bill(ssn, total));
 		stateChanged();
 	}
 
@@ -91,6 +96,12 @@ public class RenterRole extends Role implements Renter {
 	public boolean pickAndExecuteAnAction() {
 		// TODO: establish what triggers the RequestHousing() action
 
+		if (isHungry) {
+			isHungry = false;
+			EatAtHome();
+			return true;
+		}
+
 		if (mHouse != null) {
 			synchronized (mBills) {
 				for (Bill b : mBills) {
@@ -104,10 +115,7 @@ public class RenterRole extends Role implements Renter {
 
 		if (mTimeToMaintain) {
 			mTimeToMaintain = false;
-			mMintenanceTimer.schedule(mMintenanceTimerTask, 10000000); // TODO:
-																		// establish
-																		// maintenance
-																		// schedule
+			mMintenanceTimer.schedule(mMintenanceTimerTask, 10000);
 			Maintain();
 			return true;
 		}
@@ -116,15 +124,23 @@ public class RenterRole extends Role implements Renter {
 
 	/* Actions */
 
+	void EatAtHome() {
+		print("Action - Eat at Home");
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	void RequestHousing() {
 		print("Action - RequestHousing");
-		myLandLord.msgIWouldLikeToLiveHere(this, me.getCredit(), me.getSSN());
+		myLandLord.msgIWouldLikeToLiveHere(this, mPerson.getCash(), mPerson.getSSN());
 	}
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		// me.bank.msgSendPayment(this, b.mLandLord, b.amt); //TODO: establish
-		// payment mechanism
+		//mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(), b.mLandLordSSN, b.mAmt); 
 		mBills.remove(b);
 	}
 
@@ -140,13 +156,11 @@ public class RenterRole extends Role implements Renter {
 
 	/* Utilities */
 
-	
-	public void setPerson(Person p){
-		me = p; 
-	}
+	// public void setPerson(Person p){
+	// me = p;
+	// }
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);
 	}
-
 }

@@ -1,12 +1,15 @@
 package base;
 
-public class Role {
-	protected PersonAgent mPerson;
+import base.interfaces.Person;
+import base.interfaces.Role;
+
+public class BaseRole implements Role{
 	
+	protected Person mPerson;
 	
 	//NEEDED METHODS
 	protected void stateChanged(){
-		mPerson.stateChanged();
+		((PersonAgent)mPerson).stateChanged();
 	}
 	
 	public boolean pickAndExecuteAnAction(){
@@ -20,7 +23,7 @@ public class Role {
 	}
 	
 	public PersonAgent getPersonAgent(){
-		return mPerson;
+		return ((PersonAgent)mPerson);
 	}
 	
 	public boolean isActive(){
@@ -31,5 +34,9 @@ public class Role {
 	/* Utilities */
 	
 	protected void print(String msg) {
+	}
+	
+	public int getSSN(){
+		return mPerson.getSSN();
 	}
 }

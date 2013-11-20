@@ -14,7 +14,7 @@ import base.*;
  * @author Angelica Huyen Tran
  */
 
-public class MarketDeliveryTruckRole extends Role implements DeliveryTruck {
+public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 
 //	DeliveryTruckGui gui;
 	

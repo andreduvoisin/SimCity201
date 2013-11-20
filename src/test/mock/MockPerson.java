@@ -1,45 +1,67 @@
 package test.mock;
 
+import housing.interfaces.Renter;
+import housing.test.mock.MockRenter;
 
+import java.util.Map;
+
+import bank.interfaces.MasterTeller;
+import base.Item.EnumMarketItemType;
+import base.BaseRole;
 import base.interfaces.Person;
+import base.interfaces.Role;
 
 /**
  * MockPerson built to unit test Housing
- *
- * @author Maggi Yang 
- *
+ * 
+ * @author Maggi Yang
+ * 
  */
 public class MockPerson extends Mock implements Person {
 
-	public Person person; 
-	
+	public Person person;
+
 	public MockPerson(String name) {
 		super(name);
 
 	}
 
-	@Override
 	public void msgTimeShift() {
-		log.add(new LoggedEvent("Received msgTimeShift")); 
+		log.add(new LoggedEvent("Received msgTimeShift"));
 	}
 
-	@Override
-	public void setCredit(double credit) {
-		log.add(new LoggedEvent("Initial credit set to: " + credit)); 
-		
+	public void setCash(double credit) {
+		log.add(new LoggedEvent("Set cash to" + credit));
 	}
 
-	@Override
-	public double getCredit() {
+	public double getCash() {
 		return 0;
 	}
 
-	@Override
-	public void addCredit(double amount) {
-		log.add(new LoggedEvent("Added credit. New credit amount: " + amount)); 
-		
+	public int getSSN() {
+		return 0;
+	}
+
+	public void addCash(double amount) {
+		log.add(new LoggedEvent("Added " + amount + " in cash"));
+	}
+
+	public Map<EnumMarketItemType, Integer> getItemsDesired() {
+		return null;
+	}
+
+	public Map<EnumMarketItemType, Integer> getItemInventory() {
+		return null;
 	}
 
 
+	public void addRole(Role r) {
+
+		
+	}
+	public MasterTeller getMasterTeller() {
+		return null;
+
+	}
 
 }

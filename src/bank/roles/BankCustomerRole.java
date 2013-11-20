@@ -2,12 +2,12 @@ package bank.roles;
 
 import java.util.List;
 
-import base.Role;
+import base.BaseRole;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.Teller;
 
-public class BankCustomerRole extends Role implements Customer{
+public class BankCustomerRole extends BaseRole implements Customer{
 	
 //	DATA
 	

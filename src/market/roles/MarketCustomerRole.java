@@ -9,17 +9,14 @@ import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
 import market.interfaces.Cashier;
 import market.interfaces.Customer;
-import base.Role;
+import base.BaseRole;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 
-public class MarketCustomerRole extends Role implements Customer{
+public class MarketCustomerRole extends BaseRole implements Customer{
 	//DATA
 	Person mPerson;
 		//mCash accessed from Person
-	
-	Map<EnumMarketItemType, Integer> mItemInventory; //personal inventory
-	Map<EnumMarketItemType, Integer> mItemsDesired; //not ordered yet
 
 	List<Order> mOrders;
 	List<Invoice> mInvoices;
@@ -32,6 +29,7 @@ public class MarketCustomerRole extends Role implements Customer{
 	@Override
 	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> cannotFulfill, Invoice invoice) {
 		mInvoices.add(invoice);
+		Map<EnumMarketItemType, Integer> mItemsDesired = mPerson.getItemsDesired();
 
 		//not being fulfilled
 		for (EnumMarketItemType iItem : cannotFulfill.keySet()){
@@ -46,6 +44,7 @@ public class MarketCustomerRole extends Role implements Customer{
 	void msgHereIsCustomerOrder(Order order){
 		
 		Map<EnumMarketItemType, Integer> items = order.mItems;
+		Map<EnumMarketItemType, Integer> mItemInventory = mPerson.getItemInventory();
 		//for each item in order
 		for (EnumMarketItemType iItem : items.keySet()){
 			mItemInventory.put(iItem, mItemInventory.get(iItem) + items.get(iItem)); //add to inventory

@@ -1,5 +1,6 @@
 package bank.roles;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,12 +9,19 @@ import java.util.Map;
 
 import base.Role;
 import bank.Account;
+=======
+import base.BaseRole;
+>>>>>>> be5ccd987b6fbd1fd9d75c95611706a6f603aa82
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.MasterTeller;
 import bank.interfaces.Teller;
 
+<<<<<<< HEAD
 public class BankTellerRole extends Role{
+=======
+public class BankTellerRole extends BaseRole implements Teller{
+>>>>>>> be5ccd987b6fbd1fd9d75c95611706a6f603aa82
 	
 //	DATA
 	

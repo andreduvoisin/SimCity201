@@ -8,9 +8,9 @@ public interface Renter {
 
 	public abstract void msgApplicationDenied();
 
-	public abstract void msgRentDue(Landlord lord, double total);
+	public abstract void msgRentDue(int landLordSSN, double total);
 
-	public abstract void msgOverdueNotice(Landlord lord, double total);
+	public abstract void msgOverdueNotice(int landLordSSN, double total);
 
 	public abstract void msgEviction();
 
