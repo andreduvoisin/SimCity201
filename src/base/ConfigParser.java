@@ -16,8 +16,7 @@ public class ConfigParser {
 	private static ConfigParser instance = null;
 
 	public void readFileCreatePersons() throws FileNotFoundException {
-		File config = new File("config.txt");
-		Scanner scanner = new Scanner(config);
+		Scanner scanner = new Scanner(getClass().getResourceAsStream("/config.txt"));
 		CityPanel citypanel = CityPanel.getInstanceOf();
 		while (scanner.hasNext()) {
 			String mName = scanner.next();
@@ -29,6 +28,7 @@ public class ConfigParser {
 				Renter newRenterRole = new RenterRole();
 				newPerson.addRole((Role) newRenterRole);
 			}
+			//TODO: add handling for all the other possible roles
 			synchronized (newPerson) {
 				citypanel.masterPersonList.add(newPerson);
 			}
