@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class CityGui extends JFrame implements ActionListener{
-	JFrame cityFrame = new JFrame("SimCity Animation");
+	JFrame cityFrame = new JFrame("SimCity201 - Team 28");
 	CityPanel cityPanel = new CityPanel(this);
     
     ControlPanel controlPanel = new ControlPanel(this);
@@ -24,7 +24,6 @@ public class CityGui extends JFrame implements ActionListener{
 	static final int CONTROLY = 700;
 	
 	public CityGui() {
-
         cityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cityFrame.setBounds(xIndexing, yIndexing , WINDOWX, WINDOWY);
         cityFrame.setVisible(false);
@@ -47,7 +46,7 @@ public class CityGui extends JFrame implements ActionListener{
 	
 	public static void main(String[] args) {
         CityGui gui = new CityGui();
-        gui.setTitle("Team 28 City");
+        gui.setTitle("SimCity201 - Team 28");
         gui.setVisible(true);
         gui.setResizable(false);
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
