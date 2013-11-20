@@ -1,13 +1,9 @@
 package test.mock;
 
-import housing.interfaces.Renter;
-import housing.test.mock.MockRenter;
-
 import java.util.Map;
 
 import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
-import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
