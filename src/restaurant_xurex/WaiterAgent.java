@@ -1,6 +1,6 @@
 package restaurant_xurex;
 
-import agent.Agent;
+import base.Agent;
 import restaurant_xurex.gui.WaiterGui;
 import restaurant_xurex.interfaces.Cashier;
 import restaurant_xurex.interfaces.Cook;

@@ -6,7 +6,7 @@ import restaurant_xurex.interfaces.Customer;
 import restaurant_xurex.interfaces.Host;
 import restaurant_xurex.interfaces.Waiter;
 //import restaurant.gui.RestaurantGui;
-import agent.Agent;
+import base.Agent;
 
 import java.util.ArrayList;
 import java.util.Map;

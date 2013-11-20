@@ -12,10 +12,10 @@ import restaurant_xurex.interfaces.Waiter;
 
 import javax.swing.*;
 
-import agent.Agent;
+import base.Agent;
 
 import java.awt.*;
-import java.awt.event.*;
+//import java.awt.event.*;
 import java.util.Vector;
 
 /**
@@ -108,6 +108,7 @@ public class RestaurantPanel extends JPanel{
                 + "</td></tr><tr><td>Pizza</td><td>$8.99</td></tr></table><br></html>");
 
         restLabel.setBorder(BorderFactory.createRaisedBevelBorder());
+        /*
         pause.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 		        	if(pause.getText().equalsIgnoreCase("Pause")){
@@ -127,7 +128,7 @@ public class RestaurantPanel extends JPanel{
 		        		}
 		        	}	
 			}
-		});
+		});*/
         restLabel.add(pause, BorderLayout.NORTH);
         restLabel.add(label, BorderLayout.CENTER);
         restLabel.add(new JLabel("               "), BorderLayout.EAST);

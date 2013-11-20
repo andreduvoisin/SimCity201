@@ -1,6 +1,6 @@
 package restaurant_xurex;
 
-import agent.Agent;
+import base.Agent;
 
 import java.util.*;
 
