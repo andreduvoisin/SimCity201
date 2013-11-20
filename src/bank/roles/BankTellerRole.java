@@ -18,12 +18,13 @@ public class BankTellerRole extends BaseRole implements Teller{
 		Customer customer;
 		String mName;
 		int mSSN;
-		double amount = 0;
+		double mLoan = 0;
+		double desiredAmount = 0;
 		EnumTransaction transaction = EnumTransaction.None;
 		MyCustomer (Customer c, int SSN, double a, EnumTransaction t){
 			customer = c;
 			mSSN = SSN;
-			amount = a;
+			desiredAmount = a;
 			transaction = t;
 		}
 	}
@@ -45,8 +46,9 @@ public class BankTellerRole extends BaseRole implements Teller{
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Deposit);
 		stateChanged();
 	}
-	public void msgLoan(Customer c, int SSN, double amount){
+	public void msgLoan(Customer c, int SSN, double amount, double loan){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Loan);
+		mCustomer.mLoan = loan;
 		stateChanged();
 	}
 	public void msgPayment(Customer c, int SSN, double amount){
@@ -97,27 +99,34 @@ public class BankTellerRole extends BaseRole implements Teller{
 	
 	private void deposit(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).balance += mCustomer.amount;
+		mAccounts.get(accountIndex).balance += mCustomer.desiredAmount;
 	}
 	private void loan(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).loan += mCustomer.amount;
-		mCustomer.customer.msgHereIsLoan(mCustomer.amount);
+		double balance = mAccounts.get(accountIndex).balance;
+		if (balance >= mCustomer.desiredAmount/2.0 && mCustomer.mLoan == 0){
+			mAccounts.get(accountIndex).loan += mCustomer.desiredAmount;
+			mCustomer.customer.msgHereIsLoan(mCustomer.desiredAmount);
+		}
+		else {
+			//Non-normative: Loan Rejected
+			mCustomer.customer.msgHereIsLoan(0);
+		}
 	}
 	private void payment(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).loan -= mCustomer.amount;
+		mAccounts.get(accountIndex).loan -= mCustomer.desiredAmount;
 		mCustomer.customer.msgHereIsLoan(0);
 	}
 	private void open(){
-		mMasterTeller.getAccounts().add(new Account(mCustomer.mName, 0, mCustomer.amount));
+		mMasterTeller.getAccounts().add(new Account(mCustomer.mName, 0, mCustomer.desiredAmount));
 		int accountIndex = mMasterTeller.getAccounts().size() - 1;
 		mMasterTeller.getAccountIndex().put(mCustomer.mSSN, accountIndex);
-		mCustomer.customer.msgHereIsBalance(mCustomer.amount);
+		mCustomer.customer.msgHereIsBalance(mCustomer.desiredAmount);
 	}
 	private void robbery(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).balance += mCustomer.amount;
+		mAccounts.get(accountIndex).balance += mCustomer.desiredAmount;
 		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
 	}
 	
