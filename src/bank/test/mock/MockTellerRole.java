@@ -11,8 +11,8 @@ import test.mock.Mock;
 
 public class MockTellerRole extends Mock implements Teller, Role{
 
-	public MockTellerRole(String name) {
-		super(name);
+	public MockTellerRole() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

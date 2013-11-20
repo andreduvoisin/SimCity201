@@ -13,7 +13,7 @@ import test.mock.Mock;
 public class MockMasterTellerRole extends Mock implements MasterTeller, Role{
 
 	public MockMasterTellerRole(String name) {
-		super(name);
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

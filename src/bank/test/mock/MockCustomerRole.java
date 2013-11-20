@@ -9,8 +9,8 @@ import test.mock.Mock;
 
 public class MockCustomerRole extends Mock implements Customer, Role{
 
-	public MockCustomerRole(String name) {
-		super(name);
+	public MockCustomerRole() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

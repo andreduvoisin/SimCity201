@@ -10,8 +10,8 @@ import test.mock.Mock;
 
 public class MockGuardRole extends Mock implements Guard, Role{
 
-	public MockGuardRole(String name) {
-		super(name);
+	public MockGuardRole() {
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

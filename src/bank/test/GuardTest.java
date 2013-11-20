@@ -1,13 +1,17 @@
 package bank.test;
 
 import junit.framework.TestCase;
+import bank.test.mock.MockCustomerRole;
+import bank.test.mock.MockTellerRole;
 import base.PersonAgent;
 
 public class GuardTest extends TestCase{
 	
 	PersonAgent mPerson;
 //	INTERFACES
-	
+	MockCustomerRole mCustomer1;
+	MockCustomerRole mCustomer2;
+	MockTellerRole mTeller1;
 	
 	
 	/**
@@ -27,11 +31,6 @@ public class GuardTest extends TestCase{
 		
 
 
-	}
-
-//	UTILITIES
-	private void print(String message){
-		System.out.println(message);
 	}
 }
 
