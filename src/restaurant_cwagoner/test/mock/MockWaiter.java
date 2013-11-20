@@ -61,7 +61,7 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 	
 	public int numCustomers() {
-		// TODO
+		// TODO return correct number
 		return 1;
 	}
 }

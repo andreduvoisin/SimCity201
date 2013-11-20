@@ -7,6 +7,12 @@ import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;
 
+/*
+ * Basic test to ensure that PersonAgent and Roles are interacting correctly and
+ * firing the appropriate actions, messages, etc.
+ * @author David Carr
+ */
+
 public class BasicTest extends TestCase{
 	
 	PersonAgent mPerson;
@@ -14,32 +20,28 @@ public class BasicTest extends TestCase{
 	LandlordRole landlord;
 	RenterRole renter;
 	BankMasterTellerRole master;
-	//needed interfaces
 	
 	
-	/**
-	 * This method is run before each test. You can use it to instantiate the class variables
-	 * for your agent and mocks, etc.
-	 */
 	public void setUp() throws Exception{
 		super.setUp();
-			
-		//clear logs
 	}
 	
 	//TESTS
 	
 	public void testInstantiatePeopleAndAssignRoles() {
-		mPerson = new PersonAgent();
-		mPerson2 = new PersonAgent();
+		mPerson = new PersonAgent("Person1");
+		mPerson2 = new PersonAgent("Person2");
 		landlord = new LandlordRole();
 		master = new BankMasterTellerRole();
 		mPerson.mMasterTeller = master;
 		mPerson2.mMasterTeller = master;
 		House house1 = new House(5, 5, 50);
+		assertEquals("House1 rent set correctly", 50.00, house1.mRent);
 		House house2 = new House(10, 10, 60);
+		assertEquals("House2 rent set correctly", 60.00, house2.mRent);
 		landlord.mHousesList.add(house1);
 		landlord.mHousesList.add(house2);
+		assertEquals("Landlord housing size correct", landlord.mHousesList.size(), 2);
 		landlord.setPerson(mPerson);
 		renter = new RenterRole();
 		renter.setPerson(mPerson2);
@@ -60,5 +62,7 @@ public class BasicTest extends TestCase{
 	private void print(String message){
 		System.out.println("[PersonTest] " + message);
 	}
+	
+	
 }
 

@@ -25,6 +25,7 @@ public class PersonAgent extends Agent implements Person {
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
 	// Assigned in Constructor when PersonAgent is initialized.
+	private String name; 
 	static int sSSN = 0;
 	int mSSN;
 	static int sTimeSchedule = 0;
@@ -51,6 +52,7 @@ public class PersonAgent extends Agent implements Person {
 	Role mJob;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
+	
 	public PersonAgent() {
 		initializePerson();
 	}
@@ -293,7 +295,13 @@ public class PersonAgent extends Agent implements Person {
 		return mItemInventory;
 	}
 	
+
+	protected void print(String msg) {
+		System.out.println("" + name + ": "  + msg);
+	}
+	
 	public String getName(){
 		return mName;
+
 	}
 }
