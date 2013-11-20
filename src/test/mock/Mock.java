@@ -15,4 +15,8 @@ public class Mock {
 	}
 
 
+//	UTILITIES
+	private void print(String message){
+		System.out.println(message);
+	}
 }
