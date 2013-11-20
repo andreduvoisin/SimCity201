@@ -1,5 +1,9 @@
 package bank.roles;
 
+import java.util.List;
+import java.util.Map;
+
+import bank.Account;
 import base.BaseRole;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
@@ -7,15 +11,18 @@ import bank.interfaces.MasterTeller;
 import bank.interfaces.Teller;
 
 public class BankTellerRole extends BaseRole implements Teller{
-	
+
 //	DATA
 	
 	class MyCustomer{
-		Customer customer = null;
+		Customer customer;
+		String mName;
+		int mSSN;
 		double amount = 0;
 		EnumTransaction transaction = EnumTransaction.None;
-		MyCustomer (Customer c, double a, EnumTransaction t){
+		MyCustomer (Customer c, int SSN, double a, EnumTransaction t){
 			customer = c;
+			mSSN = SSN;
 			amount = a;
 			transaction = t;
 		}
@@ -29,27 +36,30 @@ public class BankTellerRole extends BaseRole implements Teller{
 	MyCustomer mCustomer;
 	//Database
 	MasterTeller mMasterTeller;
+	Map <Integer, Integer> mAccountIndex;
+	List <Account> mAccounts;
 	
 //	MESSAGES
 	
-	public void msgDeposit(Customer c, double amount){
-		mCustomer = new MyCustomer(c, amount, EnumTransaction.Deposit);
+	public void msgDeposit(Customer c, int SSN, double amount){
+		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Deposit);
 		stateChanged();
 	}
-	public void msgLoan(Customer c, double amount){
-		mCustomer = new MyCustomer(c, amount, EnumTransaction.Loan);
+	public void msgLoan(Customer c, int SSN, double amount){
+		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Loan);
 		stateChanged();
 	}
-	public void msgPayment(Customer c, double amount){
-		mCustomer = new MyCustomer(c, amount, EnumTransaction.Payment);
+	public void msgPayment(Customer c, int SSN, double amount){
+		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Payment);
 		stateChanged();
 	}
-	public void msgOpen(Customer c, double amount){
-		mCustomer = new MyCustomer(c, amount, EnumTransaction.Open);
+	public void msgOpen(Customer c, int SSN, double amount, String name){
+		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Open);
+		mCustomer.mName = name;
 		stateChanged();
 	}
-	public void msgRobbery(Customer c, double amount){
-		mCustomer = new MyCustomer(c, amount, EnumTransaction.Robbery);
+	public void msgRobbery(Customer c, int SSN, double amount){
+		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Robbery);
 		stateChanged();
 	}
 
@@ -86,25 +96,28 @@ public class BankTellerRole extends BaseRole implements Teller{
 //	ACTIONS
 	
 	private void deposit(){
-		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
-		mMasterTeller.getAccounts().get(accountIndex).balance += mCustomer.amount;
+		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
+		mAccounts.get(accountIndex).balance += mCustomer.amount;
 	}
 	private void loan(){
-		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
-		mMasterTeller.getAccounts().get(accountIndex).loan += mCustomer.amount;
+		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
+		mAccounts.get(accountIndex).loan += mCustomer.amount;
 		mCustomer.customer.msgHereIsLoan(mCustomer.amount);
 	}
 	private void payment(){
-		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
-		mMasterTeller.getAccounts().get(accountIndex).loan -= mCustomer.amount;
+		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
+		mAccounts.get(accountIndex).loan -= mCustomer.amount;
 		mCustomer.customer.msgHereIsLoan(0);
 	}
 	private void open(){
-		//mMasterTeller.getAccounts().add(new Account(mCustomer.customer.))
+		mMasterTeller.getAccounts().add(new Account(mCustomer.mName, 0, mCustomer.amount));
+		int accountIndex = mMasterTeller.getAccounts().size() - 1;
+		mMasterTeller.getAccountIndex().put(mCustomer.mSSN, accountIndex);
+		mCustomer.customer.msgHereIsBalance(mCustomer.amount);
 	}
 	private void robbery(){
-		int accountIndex = mMasterTeller.getAccountIndex().get(mCustomer.customer.getSSN());
-		mMasterTeller.getAccounts().get(accountIndex).balance += mCustomer.amount;
+		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
+		mAccounts.get(accountIndex).balance += mCustomer.amount;
 		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
 	}
 	
@@ -114,5 +127,11 @@ public class BankTellerRole extends BaseRole implements Teller{
 	}
 	public void setMaster(MasterTeller masterTeller) {
 		mMasterTeller = masterTeller;
+	}
+	public void setAcountIndex(){
+		mAccountIndex = mMasterTeller.getAccountIndex();
+	}
+	public void setAccounts(){
+		mAccounts = mMasterTeller.getAccounts();
 	}
 }

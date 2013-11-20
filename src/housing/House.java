@@ -2,6 +2,11 @@ package housing;
 
 import housing.interfaces.Renter;
 
+/*
+ * House class
+ * @author David Carr
+ */
+
 public class House {
 	public int xLocation, yLocation;
 	public double mRent;

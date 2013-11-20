@@ -111,19 +111,19 @@ public class BankCustomerRole extends BaseRole implements Customer{
 			EnumAction action = mActions.get(0).action;
 			double amount = mActions.get(0).amount;
 			if (action == EnumAction.Deposit){
-				mTeller.msgDeposit(this, amount);
+				mTeller.msgDeposit(this, mPerson.getSSN(), amount);
 			}
 			else if (action == EnumAction.Loan){
-				mTeller.msgLoan(this, amount); 
+				mTeller.msgLoan(this, mPerson.getSSN(), amount); 
 			}
 			else if (action == EnumAction.Payment){
-				mTeller.msgPayment(this, amount);
+				mTeller.msgPayment(this, mPerson.getSSN(), amount);
 			}
 			else if (action == EnumAction.Open){
-				mTeller.msgOpen(this, amount);
+				mTeller.msgOpen(this, mPerson.getSSN(), amount, mPerson.getName());
 			}
 			else if (action == EnumAction.Robbery){
-				mTeller.msgRobbery(this, amount);
+				mTeller.msgRobbery(this, mPerson.getSSN(), amount);
 			}
 		}
 	}

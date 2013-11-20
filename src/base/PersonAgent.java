@@ -34,6 +34,8 @@ public class PersonAgent extends Agent implements Person {
 	int mEatingTime;
 	static final int mealsToEat = 2;
 	int mMealsToEat;
+	
+	private String mName = "Average Joe";
 
 	double mCash;
 	int mAge;
@@ -51,8 +53,17 @@ public class PersonAgent extends Agent implements Person {
 	Role mJob;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
-	public PersonAgent(String name) {
-		name = name; 
+	
+	public PersonAgent() {
+		initializePerson();
+	}
+	
+	public PersonAgent(String name){
+		initializePerson();
+		mName = name;
+	}
+	
+	private void initializePerson(){
 		mSSN = sSSN++; // assign SSN
 		mTimeSchedule = (sTimeSchedule++ % Time.cTimeShift); // assign time schedule
 		mEatingTime = (mTimeSchedule + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
@@ -68,8 +79,8 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 8 + mSSN % 4) % 24)); // personal time
 		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 12 + mSSN % 4) % 24)); // shift 4
 		mEvents.add(new Event(EnumEventType.PARTY, (mTimeSchedule + 16)	+ (mSSN + 3) * 24)); // night time, every SSN days
-
 	}
+	
 
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
@@ -286,7 +297,13 @@ public class PersonAgent extends Agent implements Person {
 		return mItemInventory;
 	}
 	
+
 	protected void print(String msg) {
 		System.out.println("" + name + ": "  + msg);
+	}
+	
+	public String getName(){
+		return mName;
+
 	}
 }
