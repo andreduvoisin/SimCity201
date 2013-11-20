@@ -8,7 +8,7 @@ import java.awt.event.*;
 public class CityGui extends JFrame implements ActionListener{
 	private static CityGui instance = null;
 	JFrame cityFrame = new JFrame("SimCity Animation");
-	CityPanel cityPanel = new CityPanel(this);
+	private CityPanel cityPanel = new CityPanel(this);
     
     ControlPanel controlPanel = new ControlPanel(this);
 	
