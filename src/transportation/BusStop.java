@@ -1,9 +1,9 @@
 package transportation;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import base.interfaces.Person;
 
 public class BusStop {
-	List<Person> mWaitingPeople;
+	ArrayList<Person> mWaitingPeople;
 }
