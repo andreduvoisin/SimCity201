@@ -22,10 +22,10 @@ public class EventLog {
 	/**
 	 * Add a new event to the log.
 	 *
-	 * @param e
+	 * @param loggedEvent
 	 */
-	public void add(LoggedEvent e) {
-		events.add(e);
+	public void add(LoggedEvent loggedEvent) {
+		events.add(loggedEvent);
 	}
 
 	/**

@@ -52,12 +52,6 @@ public class MockGuardRole extends Mock implements Guard, Role{
 	}
 
 	@Override
-	public void msgReadyForNext(Teller t) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void msgRobberAlert(Customer c) {
 		// TODO Auto-generated method stub
 		
