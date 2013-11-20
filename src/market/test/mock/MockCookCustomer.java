@@ -12,7 +12,7 @@ import base.Item.EnumMarketItemType;
 public class MockCookCustomer extends Mock implements Cook {
 
 	public MockCookCustomer(String name) {
-		super(name);
+		super();
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumMarketItemType,Integer> cannotFulfill, Invoice invoice) {

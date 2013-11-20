@@ -1,7 +1,7 @@
 NEW GRADING CHANGES
 No extra credit (no DB, A*)
 50/50 individual and team scores
-Average individual score must be at least the team score
+Average individual score must be at least the team score (Team is scored first)
 	(100 team score --> 100 individual score)
 Not everyone has to do everything
 Every agent in our project needs to be tested (including every restaurant)
