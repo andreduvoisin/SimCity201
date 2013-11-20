@@ -7,7 +7,7 @@ import test.mock.Mock;
 public class MockWorker extends Mock implements Worker {
 
 	public MockWorker(String name) {
-		super(name);
+		super();
 	}
 	
 	public void msgFulfillOrder(Order o) {

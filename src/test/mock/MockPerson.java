@@ -73,4 +73,16 @@ public class MockPerson extends Mock implements Person {
 
 	}
 
+	@Override
+	public void setLoan(double loan) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getLoan() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

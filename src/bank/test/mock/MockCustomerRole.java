@@ -1,10 +1,11 @@
 package bank.test.mock;
 
+import test.mock.LoggedEvent;
+import test.mock.Mock;
 import bank.interfaces.Customer;
 import bank.interfaces.Teller;
 import base.PersonAgent;
 import base.interfaces.Role;
-import test.mock.Mock;
 
 
 public class MockCustomerRole extends Mock implements Customer, Role{
@@ -15,7 +16,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	}
 
 	public void msgGoToTeller(Teller t){
-		
+		log.add(new LoggedEvent("msgGoToTeller"));
 	}
 
 	public void msgAtLocation(){

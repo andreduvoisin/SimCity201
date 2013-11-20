@@ -9,8 +9,6 @@ package transportation;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import transportation.BusDispatch;
-
 public class BusGui {
 	
 	private int mBusNumber;

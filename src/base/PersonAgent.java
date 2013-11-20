@@ -38,10 +38,10 @@ public class PersonAgent extends Agent implements Person {
 	private String mName = "Average Joe";
 
 	double mCash;
+	double mLoan;
 	public BankMasterTellerRole mMasterTeller;
 
 	boolean mHasHome;
-	boolean mHasLoan; //change to int loan?
 	boolean mHasCar;
 
 	// List<Restaurant> mRestaurants;
@@ -69,7 +69,7 @@ public class PersonAgent extends Agent implements Person {
 
 		mRoles = new ArrayList<Role>();
 		mCash = 0; // TODO: 3 update this val
-
+		mLoan = 0;
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
 		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); // TODO Shane: 3 check initial times TODO Rex: 3 check initial times
@@ -277,6 +277,14 @@ public class PersonAgent extends Agent implements Person {
 	public void addCash(double amount) {
 		mCash += amount;
 
+	}
+	
+	public void setLoan(double loan) {
+		mLoan = loan;
+	}
+	
+	public double getLoan() {
+		return mLoan;
 	}
 
 	public Map<EnumMarketItemType, Integer> getItemsDesired() {
