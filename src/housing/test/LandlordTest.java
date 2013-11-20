@@ -38,8 +38,9 @@ public class LandlordTest extends TestCase {
 		super.setUp();
 		
 		landlordPerson = new PersonAgent();
-		landlordRole = new LandlordRole();
 		renterPerson = new MockPerson("RenterPerson");
+		landlordRole = new LandlordRole();
+	
 		renter = new MockRenter("Mockrenter");
 
 		house1 = new House(20, 20, 100.00); 
@@ -56,6 +57,8 @@ public class LandlordTest extends TestCase {
 		
 		landlordPerson.addRole((Role) landlordRole);
 		renterPerson.addRole((Role) renter); 
+		
+		//renter.myLandlord = landlord
 		
 	}
 

@@ -33,17 +33,18 @@ public class PersonAgent extends Agent implements Person {
 	int mEatingTime;
 	static final int mealsToEat = 2;
 	int mMealsToEat;
+	
+	private String mName = "Average Joe";
 
 	double mCash;
 	int mAge;
 	public BankMasterTellerRole mMasterTeller;
 
 	boolean mHasHome;
-	boolean mHasLoan;
+	boolean mHasLoan; //change to int loan?
 	boolean mHasCar;
 
 	// List<Restaurant> mRestaurants;
-	// Restaurant mRestaurantChoice;
 	//
 	// Home mHome;
 	// Work mWork;
@@ -52,6 +53,15 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	public PersonAgent() {
+		initializePerson();
+	}
+	
+	public PersonAgent(String name){
+		initializePerson();
+		mName = name;
+	}
+	
+	private void initializePerson(){
 		mSSN = sSSN++; // assign SSN
 		mTimeSchedule = (sTimeSchedule++ % Time.cTimeShift); // assign time schedule
 		mEatingTime = (mTimeSchedule + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
@@ -64,14 +74,11 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); // TODO Shane: 3 check initial times TODO Rex: 3 check initial times
 		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 		mEvents.add(new Event(EnumEventType.JOB, mTimeSchedule + 0));
-		mEvents.add(new Event(EnumEventType.EAT,
-				(mTimeSchedule + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT,
-				(mTimeSchedule + 12 + mSSN % 4) % 24)); // shift 4
-		mEvents.add(new Event(EnumEventType.PARTY, (mTimeSchedule + 16)
-				+ (mSSN + 3) * 24)); // night time, every SSN days
-
+		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 8 + mSSN % 4) % 24)); // personal time
+		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 12 + mSSN % 4) % 24)); // shift 4
+		mEvents.add(new Event(EnumEventType.PARTY, (mTimeSchedule + 16)	+ (mSSN + 3) * 24)); // night time, every SSN days
 	}
+	
 
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
@@ -84,7 +91,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void msgAddEvent(Event event) {
-		if ((event.mEvent == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond
+		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond
 		mEvents.add(event);
 	}
 
@@ -118,39 +125,43 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		// TODO 1 add event
-		if (event.mEvent == EnumEventType.BUY_HOME) {
+		if (event.mEventType == EnumEventType.BUY_HOME) {
 			buyHome();
 		}
-		if (event.mEvent == EnumEventType.JOB) {
+		if (event.mEventType == EnumEventType.JOB) {
 			goToJob();
 			mEvents.add(new Event(event, 24));
 		}
-		if (event.mEvent == EnumEventType.EAT) {
+		if (event.mEventType == EnumEventType.EAT) {
 			eatFood();
 			mEvents.add(new Event(event, 24));
 		}
-		if (event.mEvent == EnumEventType.GET_CAR) {
+		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
 		}
-		if (event.mEvent == EnumEventType.DEPOSIT_CHECK) {
+		if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
 			depositCheck();
 		}
-		if (event.mEvent == EnumEventType.INVITE1) {
+		if (event.mEventType == EnumEventType.INVITE1) {
 			inviteToParty();
 		}
-		if (event.mEvent == EnumEventType.INVITE2) {
+		if (event.mEventType == EnumEventType.INVITE2) {
 			reinviteDeadbeats();
 		}
-		if (event.mEvent == EnumEventType.PARTY) {
+		if (event.mEventType == EnumEventType.RSVP1) {
+			respondToRSVP();
+		}
+		if (event.mEventType == EnumEventType.RSVP2) {
+			respondToRSVP();
+		}
+		if (event.mEventType == EnumEventType.PARTY) {
 			throwParty();
-			// recurring?
-		}
-		if (event.mEvent == EnumEventType.RSVP1) {
-
-		}
-		if (event.mEvent == EnumEventType.RSVP2) {
-
+			int inviteNextDelay = 24*mSSN;
+			EventParty party = (EventParty) event;
+			mEvents.add(new EventParty(party, inviteNextDelay + 2));
+			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
+			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
+			//TODO Shane: check event classes
 		}
 	}
 
@@ -185,9 +196,20 @@ public class PersonAgent extends Agent implements Person {
 	private void reinviteDeadbeats() {
 
 	}
+	
+	private void respondToRSVP(){
+		
+	}
 
-	// ----------------------------------------------------------OLD
-	// ACTIONS----------------------------------------------------------
+	
+	
+	private List<Person> getBestFriends(){
+		//TODO: get best friends
+		return mFriends; //just a placeholder
+	}
+	
+	
+	// ----------------------------------------------------------OLD ACTIONS----------------------------------------------------------
 
 	private void GoToWork() {
 		// DoGoTo(work.location);
@@ -271,5 +293,9 @@ public class PersonAgent extends Agent implements Person {
 
 	public Map<EnumMarketItemType, Integer> getItemInventory() {
 		return mItemInventory;
+	}
+	
+	public String getName(){
+		return mName;
 	}
 }

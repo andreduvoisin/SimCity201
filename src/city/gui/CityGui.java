@@ -8,32 +8,41 @@ import java.awt.event.*;
 public class CityGui extends JFrame implements ActionListener{
 	JFrame cityFrame = new JFrame("SimCity Animation");
 	CityPanel cityPanel = new CityPanel(this);
-    private CityPanel CityPanel = new CityPanel(this);
+    
+    ControlPanel controlPanel = new ControlPanel(this);
 	
 	static final int hSpacing = 30;
 	static final int vSpacing = 0;
 	static final int xIndexing = 50;
 	static final int yIndexing = 50;
 	
+	static final int WINDOWX = 1020;
+	static final int WINDOWY = 700;
+	static final int CITYX = 700;
+	static final int CITYY = 700;
+	static final int CONTROLX = 300;
+	static final int CONTROLY = 700;
+	
 	public CityGui() {
-		int WINDOWX = 1000;
-        int WINDOWY =700;
 
         cityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         cityFrame.setBounds(xIndexing, yIndexing , WINDOWX, WINDOWY);
         cityFrame.setVisible(false);
-    	add(cityPanel);
     	
     	setBounds(xIndexing, yIndexing, WINDOWX, WINDOWY);
+    	setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
     	
-    	setLayout(new BoxLayout((Container) getContentPane(), 
-        		BoxLayout.Y_AXIS));
+    	Dimension cityDim = new Dimension(CITYX, CITYY);
+    	cityPanel.setPreferredSize(cityDim);
+    	cityPanel.setMinimumSize(cityDim);
+    	cityPanel.setMaximumSize(cityDim);
+        add(cityPanel);
     	
-    	Dimension cityDim = new Dimension(WINDOWX, (int) (WINDOWY * .5));
-    	CityPanel.setPreferredSize(cityDim);
-    	
-    	
-    	
+    	Dimension controlDim = new Dimension(CONTROLX, CONTROLY);
+    	controlPanel.setPreferredSize(controlDim);
+    	controlPanel.setMinimumSize(controlDim);
+        controlPanel.setMaximumSize(controlDim);
+    	add(controlPanel);
 	}
 	
 	public static void main(String[] args) {

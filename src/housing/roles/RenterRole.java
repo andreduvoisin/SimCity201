@@ -13,12 +13,15 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
-import base.interfaces.Person;
+
+/*
+ * @author David Carr, Maggi Yang
+ */
 
 public class RenterRole extends BaseRole implements Renter {
 
 	/* Data */
-	
+
 	public Landlord myLandLord;
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
@@ -135,12 +138,14 @@ public class RenterRole extends BaseRole implements Renter {
 
 	void RequestHousing() {
 		print("Action - RequestHousing");
-		myLandLord.msgIWouldLikeToLiveHere(this, mPerson.getCash(), mPerson.getSSN());
+		myLandLord.msgIWouldLikeToLiveHere(this, mPerson.getCash(),
+				mPerson.getSSN());
 	}
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		//mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(), b.mLandLordSSN, b.mAmt); 
+		// mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(),
+		// b.mLandLordSSN, b.mAmt);
 		mBills.remove(b);
 	}
 
