@@ -173,11 +173,6 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 	/* Utilities */
 
-	/*
-	 * public void setPerson(Person p) { System.out.println(p.getSSN()); me = p;
-	 * }
-	 */
-
 	MyRenter FindRenter(int SSN) {
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
