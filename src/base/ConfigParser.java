@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import city.gui.CityPanel;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -17,6 +18,7 @@ public class ConfigParser {
 	public void readFileCreatePersons() throws FileNotFoundException {
 		File config = new File("config.txt");
 		Scanner scanner = new Scanner(config);
+		CityPanel citypanel = CityPanel.getInstanceOf();
 		while (scanner.hasNext()) {
 			String mName = scanner.next();
 			Person newPerson = new PersonAgent("mName");
@@ -26,6 +28,9 @@ public class ConfigParser {
 			if (mStartingRole.equals("Renter")) {
 				Renter newRenterRole = new RenterRole();
 				newPerson.addRole((Role) newRenterRole);
+			}
+			synchronized (newPerson) {
+				citypanel.masterPersonList.add(newPerson);
 			}
 		}
 

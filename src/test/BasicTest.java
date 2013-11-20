@@ -2,6 +2,7 @@ package test;
 
 import java.io.FileNotFoundException;
 
+import city.gui.CityPanel;
 import housing.House;
 import housing.roles.LandlordRole;
 import housing.roles.RenterRole;
@@ -34,6 +35,8 @@ public class BasicTest extends TestCase{
 	public void testImportFromConfigFile() throws FileNotFoundException {
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons();
+		CityPanel citypanel = CityPanel.getInstanceOf();
+		assertEquals("8 people added", citypanel.masterPersonList.size(), 8);
 	}
 	
 	public void testInstantiatePeopleAndAssignRoles() {

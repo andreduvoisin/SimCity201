@@ -23,7 +23,7 @@ public class CityPanel extends JPanel implements ActionListener{
 	private int WINDOWY = 600;
 	private Image bufferImage;
     private Dimension bufferSize;
-    List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
+    public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	static final int panelXpos = 0;
 	static final int panelYpos = 0;
@@ -90,10 +90,7 @@ public class CityPanel extends JPanel implements ActionListener{
 	     //bottom main street piece 
 	     g2.setColor(Color.BLACK);
 	     g2.fillRect(mainStreetPieceBottomXPos, mainStreetPieceBottomYPos, mainStreetLength + 20, mainStreetWidth );
-	     
-	     
-	     
-	     
-	     
-	 }
+
+	}
+
 }
