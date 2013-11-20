@@ -25,7 +25,7 @@ public class LandlordTest extends TestCase {
 	Person landlordPerson;
 	Person renterPerson;
 	Landlord landlordRole;
-	Renter renter;
+	MockRenter renterRole;
 	House house1;
 	House house2; 
 
@@ -41,11 +41,11 @@ public class LandlordTest extends TestCase {
 		renterPerson = new MockPerson("RenterPerson");
 		landlordRole = new LandlordRole();
 	
-		renter = new MockRenter("Mockrenter");
+		renterRole = new MockRenter("Mockrenter");
 
 		house1 = new House(20, 20, 100.00); 
 		house2 = new House(30, 30, 250.00); 
-
+		
 	
 	}
 	
@@ -56,7 +56,17 @@ public class LandlordTest extends TestCase {
 		 */
 		
 		landlordPerson.addRole((Role) landlordRole);
-		renterPerson.addRole((Role) renter); 
+		renterPerson.addRole((Role) renterRole); 
+		
+		renterRole.landlord = landlordRole; 
+		
+		landlordRole.msgIWouldLikeToLiveHere(renterRole, 500.00, 1); 
+		landlordRole.msgIWouldLikeToLiveHere(renterRole, 250.00, 2); 
+		
+		
+		
+		
+		
 		
 
 		
