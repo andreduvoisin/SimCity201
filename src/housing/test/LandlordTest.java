@@ -54,8 +54,8 @@ public class LandlordTest extends TestCase {
 		 * Tests that the landlord can receive and fulfill housing requests from renters
 		 */
 		
-		landlordPerson.addRole((Role) landlordRole);
-		renterPerson.addRole((Role) renterRole); 
+		landlordPerson.addRole((Role) landlordRole, true);
+		renterPerson.addRole((Role) renterRole, true); 
 		
 		renterRole.setLandlord(landlordRole); 
 		

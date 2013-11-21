@@ -63,11 +63,6 @@ public class MockPerson extends Mock implements Person {
 		return null;
 	}
 
-
-	public void addRole(Role r) {
-
-		
-	}
 	public MasterTeller getMasterTeller() {
 		return null;
 
@@ -83,6 +78,12 @@ public class MockPerson extends Mock implements Person {
 	public double getLoan() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void addRole(Role role, boolean active) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
