@@ -110,9 +110,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
         //Add Buttons
 		addRestaurant = new JButton("Add Restaurant");
 		addRestaurant.addActionListener(this);
+		addRestaurant.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(addRestaurant);
 		addBank = new JButton("Add Bank");
 		addBank.addActionListener(this);
+		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(addBank);
 	}
 	
