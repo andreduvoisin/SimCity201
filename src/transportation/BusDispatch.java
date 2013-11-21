@@ -1,9 +1,9 @@
 package transportation;
 
-import base.interfaces.Person;
-
 import java.util.concurrent.Semaphore;
 import java.util.*;
+
+import transportation.interfaces.Rider;
 
 /**
  * The controller who handles people waiting at bus stops, boarding buses, and
@@ -43,8 +43,8 @@ public class BusDispatch {
 	 * @param p The Person who arrived at the stop
 	 * @param riderCurrentStop The stop number the Person is at
 	 */
-	public void msgNeedARide(Person p, int riderCurrentStop) {
-		mBusStops.get(riderCurrentStop).mWaitingPeople.add(p);
+	public void msgNeedARide(Rider r, int riderCurrentStop) {
+		mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class BusDispatch {
 	 * @param riderLocation The stop number the Person is at
 	 * @param riderDestination The stop number the Person is going to
 	 */
-	public void msgGoingTo(Person p, int riderLocation, int riderDestination) {
+	public void msgGoingTo(Rider r, int riderLocation, int riderDestination) {
 		for (BusInstance iBus : mBuses) {
 			if (iBus.mCurrentStop == riderLocation) {
-				iBus.mRiders.add(new Rider(p, riderDestination));
-				mBusStops.get(riderLocation).mWaitingPeople.remove(p);
+				iBus.mRiders.add(r);
+				mBusStops.get(riderLocation).mWaitingPeople.remove(r);
 
 				if (mBusStops.get(riderLocation).mWaitingPeople.size() == 0) {
 					iBus.state = BusInstance.enumState.readyToTravel;
@@ -73,11 +73,11 @@ public class BusDispatch {
 	 * From Person who got off the bus
 	 * @param p The Person who got off
 	 */
-	public void msgImOff(Person p) {
+	public void msgImOff(Rider r) {
 		// Remove rider from correct bus's rider list
 		for (BusInstance iBus : mBuses) {
 			for (Rider iRider : iBus.mRiders) {
-				if (iRider.mPerson.equals(p)) {
+				if (iRider.equals(r)) {
 					iBus.mRiders.remove(iRider);
 					break;
 				}
@@ -85,7 +85,7 @@ public class BusDispatch {
 
 			// If more riders need to get off here, do nothing (wait for them)
 			for (Rider iRider : iBus.mRiders) {
-				if (iRider.mDestination == iBus.mCurrentStop) {
+				if (iRider.getDestination() == iBus.mCurrentStop) {
 					return;
 				}
 			}
@@ -151,9 +151,9 @@ public class BusDispatch {
 			boolean needToWait = false;
 	
 			for (Rider iRider : iBus.mRiders) {
-				if (iRider.mDestination == iBus.mCurrentStop) {
+				if (iRider.getDestination() == iBus.mCurrentStop) {
 					needToWait = true;
-					// TODO Implement Person.msgAtYourStop() : iRider.mPerson.msgAtYourStop();
+					// TODO Chase: Implement Rider.msgAtYourStop() : iRider.msgAtYourStop();
 				}
 			}
 
@@ -175,8 +175,8 @@ public class BusDispatch {
 			if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
 				iBus.state = BusInstance.enumState.boarding;
 		
-				for (Person p : mBusStops.get(iBus.mCurrentStop).mWaitingPeople) {
-					// TODO Implement Person.msgBoardBus(BusDispatch) : p.msgBoardBus(this);
+				for (Rider r : mBusStops.get(iBus.mCurrentStop).mWaitingPeople) {
+					r.msgBoardBus();
 				}
 			}
 			else {

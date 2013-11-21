@@ -2,8 +2,18 @@ package transportation;
 
 import java.util.ArrayList;
 
-import base.interfaces.Person;
+import transportation.interfaces.Rider;
 
 public class BusStop {
-	ArrayList<Person> mWaitingPeople;
+	static int sStopNumber = 0;
+	final int mStopNumber;
+	ArrayList<Rider> mWaitingPeople = new ArrayList<Rider>();
+	
+	public BusStop() {
+		mStopNumber = sStopNumber++;
+	}
+
+	public int getStopNumber() {
+		return mStopNumber;
+	}
 }
