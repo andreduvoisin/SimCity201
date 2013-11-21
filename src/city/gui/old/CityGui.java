@@ -1,4 +1,4 @@
-package city.gui;
+package city.gui.old;
 
 import javax.swing.*;
 

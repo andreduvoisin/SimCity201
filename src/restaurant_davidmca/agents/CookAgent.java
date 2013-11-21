@@ -3,6 +3,7 @@ package restaurant_davidmca.agents;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -44,7 +45,9 @@ public class CookAgent extends Agent {
 		}
 	}
 
-	List<Order> pendingOrders = Collections
+	public List<Order> pendingOrders = Collections
+			.synchronizedList(new ArrayList<Order>());
+	public List<Order> revolvingStand = Collections
 			.synchronizedList(new ArrayList<Order>());
 	List<MarketAgent> marketList = Collections
 			.synchronizedList(new ArrayList<MarketAgent>());
@@ -60,7 +63,14 @@ public class CookAgent extends Agent {
 
 	private String name;
 
-	Timer timer = new Timer();
+	Timer cookTimer = new Timer();
+	Timer standTimer = new Timer();
+	boolean timeToCheckRevolvingStand = false;
+	TimerTask standTimerTask = new TimerTask() {
+		public void run() {
+			CheckStand();
+		}
+	};
 
 	// restaurant_davidmca.agent correspondents
 	/**
@@ -78,6 +88,7 @@ public class CookAgent extends Agent {
 		foodList.put("Salad", new Stock("Salad", 0));
 		foodList.put("Chicken", new Stock("Chicken", 0));
 		foodList.put("Pizza", new Stock("Pizza", 0));
+		standTimer.scheduleAtFixedRate(standTimerTask, new Date( System.currentTimeMillis() + 10000), 10000);
 	}
 
 	public String getName() {
@@ -218,7 +229,7 @@ public class CookAgent extends Agent {
 			return;
 		}
 		cookGui.setLabelText("Cooking");
-		timer.schedule(new TimerTask() {
+		cookTimer.schedule(new TimerTask() {
 			public void run() {
 				try {
 					isAnimating.acquire();
@@ -254,6 +265,34 @@ public class CookAgent extends Agent {
 		print("Notifying");
 		order.waiter.msgOrderIsReady(order);
 		pendingOrders.remove(order);
+	}
+
+	private void CheckStand() {
+		print("Checking Revolving Stand");
+		cookGui.setLabelText("Checking Revolving Stand");
+		cookGui.DoGoToPlating();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		synchronized (revolvingStand) {
+			synchronized (pendingOrders) {
+				Iterator<Order> itr = revolvingStand.iterator();
+				while (itr.hasNext()) {
+					Order order = itr.next();
+					pendingOrders.add(order);
+					itr.remove();
+				}
+			}
+		}
+		cookGui.setLabelText("");
+		cookGui.DoGoToHome();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Collection<MarketAgent> getMarketList() {

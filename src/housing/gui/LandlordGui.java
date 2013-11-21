@@ -5,12 +5,13 @@ import housing.roles.LandlordRole;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import city.gui.Gui;
+import city.gui.old.Gui;
 
 /*
  * @author David Carr
  */
 
+// Need to change Gui, part of old Gui? Not sure yet.
 public class LandlordGui implements Gui {
 	
 	LandlordRole landlord;

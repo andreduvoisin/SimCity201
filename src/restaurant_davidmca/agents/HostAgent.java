@@ -40,11 +40,11 @@ public class HostAgent extends Agent {
 	public HostGui hostGui = null;
 
 	private class MyWaiter {
-		WaiterAgent w;
+		Waiter w;
 		int numCustomers;
 		WaiterState state;
 
-		private MyWaiter(WaiterAgent waiter) {
+		private MyWaiter(Waiter waiter) {
 			this.w = waiter;
 			numCustomers = 0;
 			state = WaiterState.Normal;
@@ -71,7 +71,7 @@ public class HostAgent extends Agent {
 		return name;
 	}
 
-	public void addWaiter(WaiterAgent newWaiter) {
+	public void addWaiter(Waiter newWaiter) {
 		waiters.add(new MyWaiter(newWaiter));
 		workingWaiters++;
 		stateChanged();
@@ -81,9 +81,9 @@ public class HostAgent extends Agent {
 		return waitingCustomers;
 	}
 
-	public Collection<WaiterAgent> getWaitersList() {
-		List<WaiterAgent> returnWaiters = Collections
-				.synchronizedList(new ArrayList<WaiterAgent>());
+	public Collection<Waiter> getWaitersList() {
+		List<Waiter> returnWaiters = Collections
+				.synchronizedList(new ArrayList<Waiter>());
 		synchronized (waiters) {
 			for (MyWaiter myw : waiters) {
 				returnWaiters.add(myw.w);
@@ -157,7 +157,7 @@ public class HostAgent extends Agent {
 		stateChanged();
 	}
 
-	public void msgGoOnBreak(WaiterAgent waiter) {
+	public void msgGoOnBreak(Waiter waiter) {
 		print("Go on Break Request Received");
 		synchronized (waiters) {
 			for (MyWaiter myw : waiters) {

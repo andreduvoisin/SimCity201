@@ -114,6 +114,10 @@ public class MockWaiter extends Mock implements Waiter {
 		return null;
 	}
 
+	@Override
+	public void startThread() {
+	}
+
 	
 
 }
