@@ -7,4 +7,5 @@ import base.interfaces.Person;
 public class ContactList {
 	Map<Person, Location> sRestaurants;
 	Map<Person, Location> sMarkets;
+	//REX: What else do we need here?
 }

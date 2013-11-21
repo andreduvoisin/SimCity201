@@ -46,7 +46,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	private boolean mWantBreak;
 //	private boolean mMenuOutdated;
 	
-	//Semaphores //TODO: 5 public private
+	//Semaphores //SHANE: 5 public private
 	public Semaphore semAtTable = new Semaphore(0);
 	private Semaphore semAtPickupArea = new Semaphore(0);
 	public Semaphore semAtCook = new Semaphore(0);
@@ -169,15 +169,9 @@ public class WaiterAgent extends Agent implements Waiter {
 				},
 				cBREAK_LENGTH * 1000);
 			}
-			//TODO: 5 the timer starts from the reply (the waiter has to be back by a certain time)
 		}
 	
 	//Market situation
-//		public void msgFoodArrived(){
-//			print("Message: msgFoodArrived()");
-//			mMenuOutdated = true; //TODO: 5 make waiters move to get new menu
-//			stateChanged();
-//		}
 		
 		public void msgNewMenu(List<EnumFoodOptions> foods){
 			print("Message: msgNewMenu");

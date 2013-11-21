@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 
 import base.Time;
 import base.interfaces.Person;
-import city.gui.CityGui;
+import city.gui.SimCityGui;
 import city.gui.CityPanel;
-import city.gui.Gui;
+import city.gui.old.Gui;
 import bank.BankGui;
 
 
@@ -32,6 +32,8 @@ public class BankPanel extends JPanel implements ActionListener{
 	static final int timerCount = 5;
 	
 	private BankGui gui;
+	
+	// Need to change Gui, part of old Gui? Not sure yet.
 	private List<Gui> guis = new ArrayList<Gui>();
 	
 		

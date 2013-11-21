@@ -1,5 +1,6 @@
 package base;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,10 +18,16 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class PersonAgent extends Agent implements Person {
-
 	//----------------------------------------------------------DATA----------------------------------------------------------
-	enum EnumJob {WAITER, HOST, BANK_TELLER}; //TODO: add all jobs
-	private EnumJob mJob;
+	//Static data
+	static int sSSN = 0;
+	static int sTimeSchedule = 0; //0,1,2
+	static int sEatingTime = 0;
+	static final int mealsToEat = 2;
+
+	//Roles and Job
+	enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
+	private EnumJobPlaces mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	
 	//Lists
@@ -29,27 +36,22 @@ public class PersonAgent extends Agent implements Person {
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
-	// Assigned in Constructor when PersonAgent is initialized.
+	//Personal Variables
 	private String mName; 
-	static int sSSN = 0;
 	int mSSN;
-	static int sTimeSchedule = 0;
-	int mTimeSchedule;
-	static int sEatingTime = 0;
+	int mTimeShift;
 	int mEatingTime;
-	static final int mealsToEat = 2;
 	int mMealsToEat;
-
 	double mCash;
 	double mLoan;
-	public BankMasterTellerRole mMasterTeller;
-
 	boolean mHasHome;
 	Set<Location> mHomeLocations;
 	boolean mHasCar;
 	Location mWorkLocation;
-	// Market mMarket;
 	
+	//Role References
+	public BankMasterTellerRole mMasterTeller;
+
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -63,21 +65,23 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void initializePerson(){
+		//DAVID: Check the initialization to make sure it meshes with the config file
+		
 		mSSN = sSSN++; // assign SSN
-		mTimeSchedule = (sTimeSchedule++ % Time.cTimeShift); // assign time schedule
-		mEatingTime = (mTimeSchedule + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
+		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
+		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
-		mCash = 0; // TODO: 3 update this val - randomize
+		mCash = 0; //REX: 3 update this val - randomize
 		mLoan = 0;
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
-		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); // TODO Shane: 3 check initial times TODO Rex: 3 check initial times
+		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); //SHANE REX: 3 check initial times
 		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-		mEvents.add(new Event(EnumEventType.JOB, mTimeSchedule + 0));
-		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, (mTimeSchedule + 12 + mSSN % 4) % 24)); // shift 4
-		mEvents.add(new Event(EnumEventType.PARTY, (mTimeSchedule + 16)	+ (mSSN + 3) * 24)); // night time, every SSN days
+		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
+		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
+		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN days
 	}
 	
 
@@ -117,7 +121,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 
-		// TODO: 1 leave role and add role?
+		// SHANE: 1 leave role and add role?
 
 		return false;
 	}
@@ -135,7 +139,10 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Daily Recurring Events (Job, Eat)
 		if (event.mEventType == EnumEventType.JOB) {
-			goToJob();
+			//bank is closed on weekends
+			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobPlaces.BANK)){
+				goToJob();
+			}
 			mEvents.add(new Event(event, 24));
 		}
 		if (event.mEventType == EnumEventType.EAT) {
@@ -168,7 +175,7 @@ public class PersonAgent extends Agent implements Person {
 			mEvents.add(new EventParty(party, inviteNextDelay + 2));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
-			//TODO Shane: check event classes
+			//SHANE: check event classes
 		}
 	}
 
@@ -211,8 +218,11 @@ public class PersonAgent extends Agent implements Person {
 	
 	
 	private List<Person> getBestFriends(){
-		//TODO: get best friends
-		return mFriends; //just a placeholder
+		List<Person> bestFriends = new ArrayList<Person>();
+		for (Person iPerson : mFriends){
+			if (iPerson.getTimeShift() == mTimeShift) bestFriends.add(iPerson);
+		}
+		return bestFriends;
 	}
 	
 	
@@ -264,6 +274,7 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
+	//SHANE: Organize PersonAgent Accessors
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);
 		role.setPerson(this);
@@ -317,11 +328,15 @@ public class PersonAgent extends Agent implements Person {
 	
 	public String getName(){
 		return mName;
-
+	}
+	
+	public int getTimeShift(){
+		return mTimeShift;
 	}
 
 	@Override
 	public void msgHereIsPayment(int senderSSN, int amount) {
 		mCash += amount;
+		//REX: What is this? -Shane
 	}
 }

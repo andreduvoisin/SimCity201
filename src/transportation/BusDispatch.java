@@ -153,7 +153,7 @@ public class BusDispatch {
 			for (Rider iRider : iBus.mRiders) {
 				if (iRider.mDestination == iBus.mCurrentStop) {
 					needToWait = true;
-					// TODO Implement Person.msgAtYourStop() : iRider.mPerson.msgAtYourStop();
+					// CHASE: Implement Person.msgAtYourStop() : iRider.mPerson.msgAtYourStop();
 				}
 			}
 
@@ -176,7 +176,7 @@ public class BusDispatch {
 				iBus.state = BusInstance.enumState.boarding;
 		
 				for (Person p : mBusStops.get(iBus.mCurrentStop).mWaitingPeople) {
-					// TODO Implement Person.msgBoardBus(BusDispatch) : p.msgBoardBus(this);
+					// CHASE: Implement Person.msgBoardBus(BusDispatch) : p.msgBoardBus(this);
 				}
 			}
 			else {

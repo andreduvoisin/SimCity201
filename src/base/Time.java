@@ -8,7 +8,7 @@ import base.interfaces.Person;
 
 public class Time {
 	
-	//TODO: add clock (analog or digital) in corner of screen which will tell day/time in sim city
+	//TODO Andre: add clock (analog or digital) in corner of screen which will tell day/time in sim city
 	
 	static final int cLengthOfDay = 3*60; //seconds
 	static final int cTimeShift = 8;
@@ -77,11 +77,11 @@ public class Time {
 		return sGlobalTimeInt;
 	}
 	
-	public static void FlipFastForward(){
+	public static void FlipFastForward(){ //turn FF on or off
 		sFastForward = !sFastForward;
 	}
 	
-	public boolean IsWeekend(){
+	public static boolean IsWeekend(){ //sat and sun = 5 and 6
 		return ((sGlobalDate%7 == 5) || (sGlobalDate%7 == 6));
 	}
 }

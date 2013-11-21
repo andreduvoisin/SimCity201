@@ -376,10 +376,10 @@ public class CustomerAgent extends Agent implements Customer{
 	private void payCheck(){
 		print("Action: payCheck()");
 		if (mCash < mCheck.mCash){
-			//TODO: 5 Dine and dash - other actions?
+			//SHANE: 5 Dine and dash - other actions?
 			//This won't happen because of preconditions...
 		}
-		int cash = mCash; //TODO: 4 temp?
+		int cash = mCash;
 		mCash -= cash;
 		mCashier.msgPayingCheck(mCheck);
 //		mWaiter.msgDoneAndPaying(cash, (Customer)this);

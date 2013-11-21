@@ -96,7 +96,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	}
 
 	void fulfillOrder(Order order){
-		order.mWorker = mWorkers.get(mWorkerIndex++ % mNumWorkers); //TODO: here or in worker?
+		order.mWorker = mWorkers.get(mWorkerIndex++ % mNumWorkers);
 		order.mWorker.msgFulfillOrder(order);
 	}
 	
