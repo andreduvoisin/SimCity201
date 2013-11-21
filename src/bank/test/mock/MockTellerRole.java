@@ -89,7 +89,7 @@ public class MockTellerRole extends Mock implements Teller, Role{
 	}
 
 	@Override
-	public void setAcountIndex() {
+	public void setAccountIndex() {
 		// TODO Auto-generated method stub
 		
 	}

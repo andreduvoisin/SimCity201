@@ -14,8 +14,8 @@ public class BankTellerRole extends BaseRole implements Teller{
 
 //	DATA
 	
-	class MyCustomer{
-		Customer customer;
+	public class MyCustomer{
+		public Customer customer;
 		String mName;
 		int mSSN;
 		double mLoan = 0;
@@ -34,11 +34,11 @@ public class BankTellerRole extends BaseRole implements Teller{
 	int mLocation;
 	//Agent Correspodents
 	Guard mGuard;
-	MyCustomer mCustomer;
+	public MyCustomer mCustomer;
 	//Database
 	MasterTeller mMasterTeller;
-	Map <Integer, Integer> mAccountIndex;
-	List <Account> mAccounts;
+	public Map <Integer, Integer> mAccountIndex;
+	public List <Account> mAccounts;
 	
 //	MESSAGES
 	
@@ -137,7 +137,7 @@ public class BankTellerRole extends BaseRole implements Teller{
 	public void setMaster(MasterTeller masterTeller) {
 		mMasterTeller = masterTeller;
 	}
-	public void setAcountIndex(){
+	public void setAccountIndex(){
 		mAccountIndex = mMasterTeller.getAccountIndex();
 	}
 	public void setAccounts(){
