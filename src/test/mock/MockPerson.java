@@ -86,4 +86,10 @@ public class MockPerson extends Mock implements Person {
 		
 	}
 
+	@Override
+	public int getTimeShift() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -6,10 +6,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import city.gui.SimCityGui;
-import city.gui.CityPanel;
-import bank.BankPanel;
-
 public class BankGui extends JFrame implements ActionListener{
 	private static BankGui instance = null;
 	JFrame BankFrame = new JFrame("SimCity Animation");
