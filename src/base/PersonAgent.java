@@ -21,13 +21,13 @@ public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
 	static int sSSN = 0;
-	static int sTimeSchedule = 0;
+	static int sTimeSchedule = 0; //0,1,2
 	static int sEatingTime = 0;
 	static final int mealsToEat = 2;
 
 	//Roles and Job
 	enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
-	private EnumJobPlaces mJob;
+	private EnumJobPlaces mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	
 	//Lists
@@ -66,7 +66,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void initializePerson(){
 		mSSN = sSSN++; // assign SSN
-		mTimeShift = (sTimeSchedule++ % Time.cTimeShift); // assign time schedule
+		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
 		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
