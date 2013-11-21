@@ -28,7 +28,7 @@ public class TellerTest extends TestCase{
 		//Testee
 		mTeller = new BankTellerRole();
 		mPerson = new PersonAgent("Person");
-		mPerson.addRole((Role)mTeller);
+		mPerson.addRole((Role)mTeller, true);
 		
 		//Interfaces
 		mCustomer1 = new MockCustomerRole();
