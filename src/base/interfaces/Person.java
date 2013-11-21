@@ -6,8 +6,6 @@ import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
 
 public interface Person {
-	//TODO: add stuff here
-	
 	void msgTimeShift();
 	
 	public void setCash(double credit);

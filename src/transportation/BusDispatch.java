@@ -175,7 +175,7 @@ public class BusDispatch {
 		for (BusInstance iBus : mBuses) {
 			if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
 				iBus.state = BusInstance.enumState.boarding;
-		
+
 				for (Rider r : mBusStops.get(iBus.mCurrentStop).mWaitingPeople) {
 					r.msgBoardBus();
 				}

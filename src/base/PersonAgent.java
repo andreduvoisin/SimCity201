@@ -65,16 +65,18 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void initializePerson(){
+		//DAVID: Check the initialization to make sure it meshes with the config file
+		
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
 		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
-		mCash = 0; // TODO: 3 update this val - randomize
+		mCash = 0; //REX: 3 update this val - randomize
 		mLoan = 0;
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
-		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); // TODO Shane: 3 check initial times TODO Rex: 3 check initial times
+		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); //SHANE REX: 3 check initial times
 		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
@@ -119,7 +121,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 
-		// TODO Shane: 1 leave role and add role?
+		// SHANE: 1 leave role and add role?
 
 		return false;
 	}
@@ -137,10 +139,10 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Daily Recurring Events (Job, Eat)
 		if (event.mEventType == EnumEventType.JOB) {
-			//bank is closed
-			
-			
-			goToJob();
+			//bank is closed on weekends
+			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobPlaces.BANK)){
+				goToJob();
+			}
 			mEvents.add(new Event(event, 24));
 		}
 		if (event.mEventType == EnumEventType.EAT) {
@@ -173,7 +175,7 @@ public class PersonAgent extends Agent implements Person {
 			mEvents.add(new EventParty(party, inviteNextDelay + 2));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
-			//TODO Shane: check event classes
+			//SHANE: check event classes
 		}
 	}
 
@@ -272,6 +274,7 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
+	//SHANE: Organize PersonAgent Accessors
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);
 		role.setPerson(this);
@@ -334,5 +337,6 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void msgHereIsPayment(int senderSSN, int amount) {
 		mCash += amount;
+		//REX: What is this? -Shane
 	}
 }

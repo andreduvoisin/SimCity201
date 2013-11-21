@@ -12,7 +12,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 
 	public MockCustomerRole() {
 		super();
-		// TODO Auto-generated constructor stub
+		// JERRY: Auto-generated constructor stub
 	}
 
 	public void msgGoToTeller(Teller t){
@@ -28,7 +28,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	}
 
 	public void msgHereIsLoan(double loan){
-		
+		log.add(new LoggedEvent("msgHereIsLoan: "+loan));
 	}
 
 	public boolean pickAndExecuteAnAction(){

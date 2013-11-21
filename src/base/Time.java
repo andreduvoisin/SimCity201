@@ -77,11 +77,11 @@ public class Time {
 		return sGlobalTimeInt;
 	}
 	
-	public static void FlipFastForward(){
+	public static void FlipFastForward(){ //turn FF on or off
 		sFastForward = !sFastForward;
 	}
 	
-	public boolean IsWeekend(){
+	public static boolean IsWeekend(){ //sat and sun = 5 and 6
 		return ((sGlobalDate%7 == 5) || (sGlobalDate%7 == 6));
 	}
 }

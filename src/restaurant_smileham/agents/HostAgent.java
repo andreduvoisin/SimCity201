@@ -34,8 +34,6 @@ public class HostAgent extends Agent implements Host{
 	private HostGui mHostGui;
 	private RestaurantGui mGUI;
 	
-	//TODO: 5 Fix images
-	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	public HostAgent(String name, RestaurantGui gui) {
@@ -96,7 +94,7 @@ public class HostAgent extends Agent implements Host{
 		//no state changed
 	}
 	
-	//TODO: 4 Waiter Break deprecated
+	//SHANE: 3 Waiter Break deprecated
 	//Want to go on break
 	public void msgWantToGoOnBreak(Waiter waiter){
 		print("Message: msgWantToGoOnBreak");

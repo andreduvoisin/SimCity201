@@ -136,7 +136,7 @@ public class GuardTest extends TestCase{
 		assertTrue("Guard has one criminal.", mGuard.mCriminals.size() == 1);
 		
 		//2 : p.a.e.a. ()
-		//TODO fill in this non-norm of killRobber
+		//REX: fill in this non-norm of killRobber
 	}
 }
 

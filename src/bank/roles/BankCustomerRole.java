@@ -114,7 +114,7 @@ public class BankCustomerRole extends BaseRole implements Customer{
 				mTeller.msgDeposit(this, mPerson.getSSN(), amount);
 			}
 			else if (action == EnumAction.Loan){
-				mTeller.msgLoan(this, mPerson.getSSN(), amount, mPerson.getLoan()); 
+				mTeller.msgLoan(this, mPerson.getSSN(), amount); 
 			}
 			else if (action == EnumAction.Payment){
 				mTeller.msgPayment(this, mPerson.getSSN(), amount);
@@ -147,7 +147,8 @@ public class BankCustomerRole extends BaseRole implements Customer{
 			}
 		}
 		else if (action == EnumAction.Payment){
-			//TODO Does the base agent keep track of loan?
+			//REX: Does the base agent keep track of loan?
+				//yes, personagent has an int loan
 		}
 		else if (action == EnumAction.Open){
 			mPerson.setCash(mTransaction);

@@ -40,7 +40,7 @@ public class ConfigParser {
 				RenterRole newRenterRole = new RenterRole();
 				newPerson.addRole((Role) newRenterRole, true);
 			}
-			//TODO: add handling for all the other possible roles
+			//DAVID MAGGI: add handling for all the other possible roles
 			synchronized (newPerson) {
 				citypanel.masterPersonList.add(newPerson);
 			}
