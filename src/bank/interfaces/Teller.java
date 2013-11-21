@@ -21,7 +21,7 @@ public interface Teller {
 
 	public abstract void setMaster(MasterTeller masterTeller);
 
-	public abstract void setAcountIndex();
+	public abstract void setAccountIndex();
 
 	public abstract void setAccounts();
 

@@ -29,12 +29,6 @@ public class MockTellerRole extends Mock implements Teller, Role{
 	}
 
 	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public int getSSN() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -89,7 +83,7 @@ public class MockTellerRole extends Mock implements Teller, Role{
 	}
 
 	@Override
-	public void setAcountIndex() {
+	public void setAccountIndex() {
 		// TODO Auto-generated method stub
 		
 	}

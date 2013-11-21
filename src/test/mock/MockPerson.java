@@ -59,11 +59,6 @@ public class MockPerson extends Mock implements Person {
 		return null;
 	}
 
-
-	public void addRole(Role r) {
-
-		
-	}
 	public MasterTeller getMasterTeller() {
 		return null;
 
@@ -82,6 +77,10 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	@Override
+	public void addRole(Role role, boolean active) {
+		// TODO Auto-generated method stub
+	}
+	
 	public void msgHereIsPayment(int senderSSN, int amount) {
 		log.add(new LoggedEvent("Received "+amount+" from "+senderSSN));
 		

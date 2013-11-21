@@ -11,8 +11,6 @@ public interface Role {
 
 	public abstract PersonAgent getPersonAgent();
 
-	public abstract boolean isActive();
-
 	public abstract int getSSN();
 
 }

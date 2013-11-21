@@ -30,12 +30,6 @@ public class MockMasterTellerRole extends Mock implements MasterTeller, Role{
 	}
 
 	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public int getSSN() {
 		// TODO Auto-generated method stub
 		return 0;

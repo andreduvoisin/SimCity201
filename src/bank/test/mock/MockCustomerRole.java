@@ -20,11 +20,11 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	}
 
 	public void msgAtLocation(){
-		
+		log.add(new LoggedEvent("msgAtLocation"));
 	}
 
 	public void msgHereIsBalance(double balance){
-		
+		log.add(new LoggedEvent("msgHereIsBalance: "+balance));
 	}
 
 	public void msgHereIsLoan(double loan){
@@ -49,12 +49,6 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	public PersonAgent getPersonAgent() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }
