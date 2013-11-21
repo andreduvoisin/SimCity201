@@ -56,9 +56,9 @@ public class BasicTest extends TestCase{
 		landlord.setPerson(mPerson);
 		renter = new RenterRole();
 		renter.setPerson(mPerson2);
-		mPerson.addRole(landlord);
+		mPerson.addRole(landlord, true);
 		assertEquals("mPerson contains one role (the landlord role)", mPerson.mRoles.size(), 1);
-		mPerson2.addRole(renter);
+		mPerson2.addRole(renter, true);
 		assertEquals("mPerson2 contains one role (the renter role)", mPerson2.mRoles.size(), 1);
 		mPerson.addCash(100000);
 		mPerson2.addCash(200000);

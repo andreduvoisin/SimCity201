@@ -1,7 +1,7 @@
 package base;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +18,10 @@ import base.interfaces.Role;
 public class PersonAgent extends Agent implements Person {
 
 	// Data
-	public List<Role> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
+	enum EnumJob {WAITER, HOST, BANK_TELLER}; //TODO: add all jobs
+	private EnumJob mJob;
+	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
+	
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
@@ -49,7 +52,7 @@ public class PersonAgent extends Agent implements Person {
 	// Home mHome;
 	// Work mWork;
 	// Market mMarket;
-	Role mJob;
+	
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -67,8 +70,8 @@ public class PersonAgent extends Agent implements Person {
 		mTimeSchedule = (sTimeSchedule++ % Time.cTimeShift); // assign time schedule
 		mEatingTime = (mTimeSchedule + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
-		mRoles = new ArrayList<Role>();
-		mCash = 0; // TODO: 3 update this val
+		mRoles = new HashMap<Role, Boolean>();
+		mCash = 0; // TODO: 3 update this val - randomize
 		mLoan = 0;
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
@@ -91,7 +94,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void msgAddEvent(Event event) {
-		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond
+		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond (half are deadbeats)
 		mEvents.add(event);
 	}
 
@@ -110,8 +113,8 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		// Do role actions
-		for (Role iRole : mRoles) {
-			if (iRole.isActive()) {
+		for (Role iRole : mRoles.keySet()) {
+			if (mRoles.get(iRole)) {
 				if (iRole.pickAndExecuteAnAction())
 					return true;
 			}
@@ -125,9 +128,15 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
+		//One time events (Home, Car)
 		if (event.mEventType == EnumEventType.BUY_HOME) {
 			buyHome();
 		}
+		else if (event.mEventType == EnumEventType.GET_CAR) {
+			getCar();
+		}
+		
+		//Daily Recurring Events (Job, Eat)
 		if (event.mEventType == EnumEventType.JOB) {
 			goToJob();
 			mEvents.add(new Event(event, 24));
@@ -136,12 +145,13 @@ public class PersonAgent extends Agent implements Person {
 			eatFood();
 			mEvents.add(new Event(event, 24));
 		}
-		if (event.mEventType == EnumEventType.GET_CAR) {
-			getCar();
-		}
+
+		//Intermittent Events (Deposit Check)
 		if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
 			depositCheck();
 		}
+		
+		//Party Events
 		if (event.mEventType == EnumEventType.INVITE1) {
 			inviteToParty();
 		}
@@ -257,9 +267,9 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
-	public void addRole(Role r) {
-		mRoles.add(r);
-		r.setPerson(this);
+	public void addRole(Role role, boolean active) {
+		mRoles.put(role, active);
+		role.setPerson(this);
 	}
 
 	public void removeRole(Role r) {

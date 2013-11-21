@@ -38,7 +38,7 @@ public class ConfigParser {
 			}
 			if (mStartingRole.equals("Renter")) {
 				RenterRole newRenterRole = new RenterRole();
-				newPerson.addRole((Role) newRenterRole);
+				newPerson.addRole((Role) newRenterRole, true);
 			}
 			//TODO: add handling for all the other possible roles
 			synchronized (newPerson) {
