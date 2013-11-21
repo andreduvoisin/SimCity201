@@ -3,19 +3,16 @@ package market.roles;
 import java.util.List;
 import java.util.Map;
 
-import market.Invoice;
-import market.Order;
+import market.*;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
-import market.interfaces.Cashier;
-import market.interfaces.Customer;
-import base.BaseRole;
+import market.interfaces.*;
 import base.Item.EnumMarketItemType;
-import base.interfaces.Person;
+import base.*;
 
 public class MarketCustomerRole extends BaseRole implements Customer{
 	//DATA
-	Person mPerson;
+	PersonAgent mPerson;
 		//mCash accessed from Person
 
 	List<Order> mOrders;
@@ -25,6 +22,9 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 
 	int mMarketToOrderFrom = 0; //TODO: use for market switching % Market.getNumMarkets
 	
+	public MarketCustomerRole(PersonAgent person) {
+		mPerson = person;
+	}
 	//MESSAGES
 	@Override
 	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> cannotFulfill, Invoice invoice) {

@@ -22,4 +22,25 @@ public class DeliveryTruckTest extends TestCase {
 	
  	Map<EnumMarketItemType, Integer> mItems = new HashMap<EnumMarketItemType, Integer>();
  	Order mOrder;
+ 	
+ 	public void setUp() throws Exception {
+ 		super.setUp();
+ 		
+ 		mPerson = new PersonAgent("Role");
+ 		mDeliveryTruck = new MarketDeliveryTruckRole(mPerson);
+ 		
+ 		mMockCashier = new MockCashier();
+ 		mMockCookCustomer = new MockCookCustomer();
+ 		mMockWorker = new MockWorker();
+ 		
+ 		mItems.put(EnumMarketItemType.CHICKEN, 3);
+ 		mItems.put(EnumMarketItemType.STEAK, 1);
+ 	}
+ 	
+ 	/**
+ 	 * Test delivery truck functionality.
+ 	 */
+ 	public void testDeliveryTruck() {
+ 		
+ 	}
 }

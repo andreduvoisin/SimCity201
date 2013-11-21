@@ -4,20 +4,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import market.Invoice;
-import market.Order;
+import market.*;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
-import market.interfaces.Cashier;
-import market.interfaces.Cook;
-import market.interfaces.Customer;
-import market.interfaces.Worker;
-import base.Item;
-import base.BaseRole;
+import market.interfaces.*;
+import base.*;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Role;
 
 public class MarketCashierRole extends BaseRole implements Cashier{
+	PersonAgent mPerson;
 	int mNumWorkers = 0;
 	
 //	Data
@@ -29,6 +25,9 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	List<Order> mOrders;
 	List<Invoice> mInvoices;
 	
+	public MarketCashierRole(PersonAgent person) {
+		mPerson = person;
+	}
 //	Messages
 	public void msgOrderPlacement(Order order){
 		mOrders.add(order);

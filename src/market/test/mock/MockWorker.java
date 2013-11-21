@@ -6,7 +6,7 @@ import test.mock.*;
 
 public class MockWorker extends Mock implements Worker {
 
-	public MockWorker(String name) {
+	public MockWorker() {
 		super();
 	}
 	

@@ -22,4 +22,39 @@ public class CookCustomerTest extends TestCase {
 	
  	Map<EnumMarketItemType, Integer> mItems = new HashMap<EnumMarketItemType, Integer>();
  	Order mOrder;
+ 	
+ 	public void setUp() throws Exception {
+ 		super.setUp();
+ 		
+ 		mPerson = new PersonAgent("Role");
+ 		mCookCustomer = new MarketCookCustomerRole(mPerson);
+ 		
+ 		mMockCashier = new MockCashier();
+ 		mMockWorker = new MockWorker();
+ 		mMockDeliveryTruck = new MockDeliveryTruck();
+ 		
+ 		mItems.put(EnumMarketItemType.CHICKEN, 3);
+ 		mItems.put(EnumMarketItemType.STEAK, 1);
+ 	}
+ 	
+ 	/**
+ 	 * Test cook customer for a completed order.
+ 	 */
+ 	public void testCompletedOrder() {
+ 		
+ 	}
+ 	
+ 	/**
+ 	 * Test cook customer for a partial order.
+ 	 */
+ 	public void testPartialOrder() {
+ 		
+ 	}
+ 	
+ 	/**
+ 	 * Test cook customer for an unfulfilled order.
+ 	 */
+ 	public void testUnfulfilledOrder() {
+ 		
+ 	}
 }
