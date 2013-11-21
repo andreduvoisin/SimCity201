@@ -2,6 +2,8 @@ package transportation;
 
 import java.util.ArrayList;
 
+import transportation.interfaces.Rider;
+
 public class BusInstance {
 	static int sBusNumber = 0;
 	int mBusNumber;
@@ -11,7 +13,7 @@ public class BusInstance {
 	
 	enum enumState { readyToTravel, traveling, readyToUnload, unloading, readyToBoard, boarding }
 	enumState state;
-	
+
 	public BusInstance(BusDispatch bd, int numStops) {
 		mBusNumber = sBusNumber++;
 		mCurrentStop = mBusNumber * numStops / 2;

@@ -114,7 +114,7 @@ public class BankCustomerRole extends BaseRole implements Customer{
 				mTeller.msgDeposit(this, mPerson.getSSN(), amount);
 			}
 			else if (action == EnumAction.Loan){
-				mTeller.msgLoan(this, mPerson.getSSN(), amount, mPerson.getLoan()); 
+				mTeller.msgLoan(this, mPerson.getSSN(), amount); 
 			}
 			else if (action == EnumAction.Payment){
 				mTeller.msgPayment(this, mPerson.getSSN(), amount);
