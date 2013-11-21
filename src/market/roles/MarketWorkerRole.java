@@ -28,6 +28,7 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	public void msgFulfillOrder(Order o) {
 		mOrders.add(o);
 		o.mEvent = EnumOrderEvent.ORDER_PAID;
+		stateChanged();
 	}
 	
 	public void msgOrderFulfilled(Order o) {

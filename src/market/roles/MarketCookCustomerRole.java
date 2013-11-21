@@ -35,7 +35,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	Cashier mMarketCashier;
 	
 	public MarketCookCustomerRole(PersonAgent person) {
-		setPerson(person);
+		mPerson = person;
 	}
 	
 /* Messages */
@@ -48,6 +48,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	
 	public void msgHereIsCookOrder(Order o) {
 		o.mEvent = EnumOrderEvent.RECEIVED_ORDER;
+		stateChanged();
 	}
 	
 	
@@ -102,6 +103,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	
 	private void payAndProcessOrder(Invoice i) {
 		i.mPayment = i.mTotal;
+		//check if cannot afford invoice
 		//check how to get payment from restaurant cashier
 		
 		for(EnumMarketItemType item : mCannotFulfill.keySet()) {

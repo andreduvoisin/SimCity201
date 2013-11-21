@@ -75,7 +75,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		for (EnumMarketItemType iItemType : order.mItems.keySet()){
 			int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
 			canFulfill.put(iItemType, amountCanFulfill);
-//			cost += cost of item * amountCanFulfill;
+			cost += Item.sPrices.get(iItemType) * amountCanFulfill;
 		}
 
 		Role personRole = order.mPersonRole;
