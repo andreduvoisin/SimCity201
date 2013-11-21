@@ -3,6 +3,7 @@ package bank.test.mock;
 import test.mock.LoggedEvent;
 import test.mock.Mock;
 import bank.interfaces.Customer;
+import bank.interfaces.Guard;
 import bank.interfaces.Teller;
 import base.PersonAgent;
 import base.interfaces.Role;
@@ -30,6 +31,10 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	public void msgHereIsLoan(double loan){
 		log.add(new LoggedEvent("msgHereIsLoan: "+loan));
 	}
+	
+	public void msgStopRobber(){
+		log.add(new LoggedEvent("msgStopRobber"));
+	}
 
 	public boolean pickAndExecuteAnAction(){
 		return false;
@@ -49,6 +54,12 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	public PersonAgent getPersonAgent() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setGuard(Guard guard) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

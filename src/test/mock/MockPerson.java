@@ -92,4 +92,16 @@ public class MockPerson extends Mock implements Person {
 		return 0;
 	}
 
+	@Override
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSSN(int SSN) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

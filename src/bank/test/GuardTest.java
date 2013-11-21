@@ -135,8 +135,12 @@ public class GuardTest extends TestCase{
 		//Check
 		assertTrue("Guard has one criminal.", mGuard.mCriminals.size() == 1);
 		
-		//2 : p.a.e.a. ()
-		//REX: fill in this non-norm of killRobber
+		//2 : p.a.e.a. (killRobber())
+		assertTrue("PAEA: killRobber()", mGuard.pickAndExecuteAnAction());
+		
+		//Check
+		assertTrue("Guard has no criminals.", mGuard.mCriminals.isEmpty());
+		assertTrue("Criminal received msgStopRobber.", mCustomer1.log.containsString("msgStopRobber"));
 	}
 }
 

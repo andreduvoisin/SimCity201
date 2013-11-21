@@ -6,6 +6,7 @@ import bank.interfaces.MasterTeller;
 import bank.interfaces.Teller;
 import base.PersonAgent;
 import base.interfaces.Role;
+import test.mock.LoggedEvent;
 import test.mock.Mock;
 
 
@@ -54,8 +55,7 @@ public class MockTellerRole extends Mock implements Teller, Role{
 
 	@Override
 	public void msgOpen(Customer c, int SSN, double amount, String name) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("msgOpen: "+SSN+" "+amount+" "+name));
 	}
 
 	@Override
