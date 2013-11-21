@@ -5,6 +5,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class SimCityGui extends JFrame {
+	private static SimCityGui instance = null;
 	
 	CityPanel city;
 	InfoPanel info;
@@ -51,5 +52,11 @@ public class SimCityGui extends JFrame {
 		test.setVisible(true);
 
 	}
-
+	
+	public static SimCityGui getInstanceOf() {
+		if (instance == null) {
+			instance = new SimCityGui();
+		}
+		return instance;
+	}
 }
