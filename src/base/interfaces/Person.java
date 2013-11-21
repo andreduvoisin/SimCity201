@@ -20,6 +20,7 @@ public interface Person {
 	public double getLoan();
 	
 	public Map<EnumMarketItemType, Integer> getItemsDesired();
+	public void setItemsDesired(Map<EnumMarketItemType, Integer> map);
 	public Map<EnumMarketItemType, Integer> getItemInventory();
 	
 	public void addRole(Role role, boolean active);

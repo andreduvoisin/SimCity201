@@ -34,6 +34,7 @@ public class PersonAgent extends Agent implements Person {
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
+		//SHANE: Make synchronized?
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
 	//Personal Variables
@@ -338,5 +339,10 @@ public class PersonAgent extends Agent implements Person {
 	public void msgHereIsPayment(int senderSSN, int amount) {
 		mCash += amount;
 		//REX: What is this? -Shane
+	}
+
+	@Override
+	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
+		mItemsDesired = map;
 	}
 }
