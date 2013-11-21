@@ -137,10 +137,10 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Daily Recurring Events (Job, Eat)
 		if (event.mEventType == EnumEventType.JOB) {
-			//bank is closed
-			
-			
-			goToJob();
+			//bank is closed on weekends
+			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobPlaces.BANK)){
+				goToJob();
+			}
 			mEvents.add(new Event(event, 24));
 		}
 		if (event.mEventType == EnumEventType.EAT) {

@@ -81,7 +81,7 @@ public class Time {
 		sFastForward = !sFastForward;
 	}
 	
-	public boolean IsWeekend(){
+	public static boolean IsWeekend(){
 		return ((sGlobalDate%7 == 5) || (sGlobalDate%7 == 6));
 	}
 }
