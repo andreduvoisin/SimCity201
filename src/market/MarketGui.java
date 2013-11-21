@@ -8,12 +8,12 @@ import javax.swing.JFrame;
 public class MarketGui extends JFrame implements ActionListener {
 
 	public MarketGui() {
-		// TODO Auto-generated constructor stub
+		// TODO Angelica: Auto-generated constructor stub
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		// TODO Angelica: Auto-generated method stub
 		
 	}
 

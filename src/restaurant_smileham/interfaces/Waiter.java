@@ -11,7 +11,7 @@ import restaurant_smileham.test.mock.EventLog;
 
 public interface Waiter {
 	
-	public EventLog log = new EventLog(); //TODO: 1 is this allowed?
+	public EventLog log = new EventLog(); //TODO Shane: 1 is this allowed?
 	
 	//Messages
 	public abstract void msgSeatCustomer(Table table, Customer customer);

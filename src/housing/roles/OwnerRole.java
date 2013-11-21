@@ -82,7 +82,7 @@ public class OwnerRole extends BaseRole implements Owner {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// TODO: run timer for some period of time, animate
+		// TODO David: run timer for some period of time, animate //TODO Maggi: run timer
 	}
 
 	/* Utilities */

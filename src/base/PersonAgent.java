@@ -65,12 +65,14 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void initializePerson(){
+		//TODO David: Check the initialization to make sure it meshes with the config file
+		
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
 		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
-		mCash = 0; // TODO: 3 update this val - randomize
+		mCash = 0; // TODO Rex: 3 update this val - randomize
 		mLoan = 0;
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
@@ -272,6 +274,7 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
+	//TODO Shane: Organize PersonAgent Accessors
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);
 		role.setPerson(this);
@@ -334,5 +337,6 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void msgHereIsPayment(int senderSSN, int amount) {
 		mCash += amount;
+		//TODO Rex: What is this? -Shane
 	}
 }

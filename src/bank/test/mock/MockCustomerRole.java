@@ -12,7 +12,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 
 	public MockCustomerRole() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Jerry: Auto-generated constructor stub
 	}
 
 	public void msgGoToTeller(Teller t){

@@ -23,7 +23,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 
 	Cashier mCashier;
 
-	int mMarketToOrderFrom = 0; //TODO: use for market switching % Market.getNumMarkets
+	int mMarketToOrderFrom = 0; //TODO Shane: 4use for market switching % Market.getNumMarkets
 	
 	//MESSAGES
 	@Override
@@ -85,7 +85,8 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	
 	//ACTIONS
 	private void formOrder(){
-		//TODO: form order
+		//TODO Shane: form order
+		//TODO Angelica: form order
 	}
 
 	private void placeOrder(Order order){
@@ -102,7 +103,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 ////			throw error?
 //		}
 		
-		//TODO: 1 Pay by bank transfer?
+		//TODO Shane: 1 Pay by bank transfer?
 		
 //		mCash -= invoice.mTotal;
 		invoice.mPayment += invoice.mTotal;
