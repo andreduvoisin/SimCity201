@@ -275,7 +275,6 @@ public class AgentPanel extends JPanel implements ActionListener {
             mWaiterView.add(wrb);
     	}
     	else{
-    		//TODO: 5
     	}
     	validate();
     }
@@ -317,7 +316,6 @@ public class AgentPanel extends JPanel implements ActionListener {
 			return mCustomer;
 		}
 		
-		//TODO: Add checkbox methods
     }
     
     public class WaiterRowButton extends JButton{
