@@ -7,7 +7,7 @@ import java.awt.event.*;
 
 public class CityGui extends JFrame implements ActionListener{
 	JFrame cityFrame = new JFrame("SimCity201 - Team 28");
-	CityPanel cityPanel = new CityPanel(this);
+	OldCityPanel cityPanel = new OldCityPanel(this);
     
     ControlPanel controlPanel = new ControlPanel(this);
 	
@@ -43,7 +43,7 @@ public class CityGui extends JFrame implements ActionListener{
         controlPanel.setMaximumSize(controlDim);
     	add(controlPanel);
 	}
-	
+	/*
 	public static void main(String[] args) {
         CityGui gui = new CityGui();
         gui.setTitle("SimCity201 - Team 28");
@@ -51,7 +51,7 @@ public class CityGui extends JFrame implements ActionListener{
         gui.setResizable(false);
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-	
+	*/
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
