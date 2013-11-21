@@ -5,6 +5,7 @@ import bank.interfaces.Guard;
 import bank.interfaces.Teller;
 import base.PersonAgent;
 import base.interfaces.Role;
+import test.mock.LoggedEvent;
 import test.mock.Mock;
 
 
@@ -33,13 +34,9 @@ public class MockGuardRole extends Mock implements Guard, Role{
 		return 0;
 	}
 
-	@Override
 	public void msgNeedService(Customer c) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("msgNeedService"));
 	}
-
-	@Override
 	public void msgReadyToWork(Teller t) {
 		// TODO Auto-generated method stub
 		

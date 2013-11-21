@@ -29,5 +29,8 @@ public interface Person {
 	
 	public String getName(); 
 	public int getTimeShift();
+	
+	public void setName(String name);
+	public void setSSN(int SSN);
 
 }

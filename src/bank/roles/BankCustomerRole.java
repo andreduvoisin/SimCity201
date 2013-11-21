@@ -1,8 +1,10 @@
 package bank.roles;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import base.BaseRole;
+import bank.Action;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.Teller;
@@ -19,27 +21,19 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	
 	double mTransaction;
 
-	class Action{
-		EnumAction action;
-		double amount = 0;
-		public Action(EnumAction act, double amt){
-			action = act;
-			amount = amt;
-		}
-	}
-	List<Action> mActions;
+	public List<Action> mActions = new ArrayList<Action>();
 	/*Example: (Deposit, 34.23), (Loan, 3000.23)*/
 	
 	public enum EnumAction {Deposit, Loan, Payment, Open, Robbery};
 
-	EnumState mState = EnumState.None;
+	public EnumState mState = EnumState.None;
 	public enum EnumState {None, Waiting, Moving, Teller};
-	EnumEvent mEvent = EnumEvent.None;
+	public EnumEvent mEvent = EnumEvent.None;
 	public enum EnumEvent {None, Assigned, Arrived, Received};
 
 	//Agent Correspondents//
-	Guard mGuard;
-	Teller mTeller;
+	public Guard mGuard;
+	public Teller mTeller;
 	
 //	MESSAGES
 	
@@ -62,6 +56,9 @@ public class BankCustomerRole extends BaseRole implements Customer{
 		mTransaction = loan;
 		mEvent = EnumEvent.Received;
 		stateChanged();
+	}
+	public void msgStopRobber() {
+		// REX: robber gui interactions	
 	}
 	
 //	SCHEDULER
@@ -159,5 +156,8 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	}
 	public int getSSN() {
 		return mPerson.getSSN();
+	}
+	public void setGuard(Guard guard){
+		mGuard = guard;
 	}
 }

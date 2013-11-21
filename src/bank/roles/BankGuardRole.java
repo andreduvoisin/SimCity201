@@ -65,6 +65,7 @@ public class BankGuardRole extends BaseRole implements Guard{
 	
 	private void killRobber(Customer c){
 		//GUI Interactions
+		c.msgStopRobber();
 	}
 	private void provideService(Customer c, Teller t){
 		c.msgGoToTeller(t);
