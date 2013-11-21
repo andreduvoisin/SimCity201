@@ -16,7 +16,7 @@ public class Time {
 	static int sGlobalTimeInt = 0;
 	static int sGlobalHour = 0;
 	static int sGlobalShift = 0;
-	static int sGlobalDay = 0;
+	static int sGlobalDate = 0;
 	
 	static boolean sFastForward = false;
 	
@@ -52,7 +52,7 @@ public class Time {
 					}
 				}
 				if (sGlobalHour % 24 == 0){
-					sGlobalDay = sGlobalDay + 1;
+					sGlobalDate = sGlobalDate + 1;
 				}
 				runTimer();
 			}
@@ -69,8 +69,8 @@ public class Time {
 		return sGlobalShift;
 	}
 	
-	public static int GetDat(){
-		return sGlobalDay;
+	public static int GetDate(){
+		return sGlobalDate;
 	}
 	
 	public static int GetTime(){
@@ -79,5 +79,9 @@ public class Time {
 	
 	public static void FlipFastForward(){
 		sFastForward = !sFastForward;
+	}
+	
+	public boolean IsWeekend(){
+		return ((sGlobalDate%7 == 5) || (sGlobalDate%7 == 6));
 	}
 }

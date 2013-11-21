@@ -30,7 +30,7 @@ public class GuardTest extends TestCase{
 		//Testee
 		mGuard = new BankGuardRole();
 		mPerson = new PersonAgent("Person");
-		mPerson.addRole((Role)mGuard);
+		mPerson.addRole((Role)mGuard, true);
 		
 		//Interfaces
 		mCustomer1 = new MockCustomerRole();

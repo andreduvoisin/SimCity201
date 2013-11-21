@@ -28,12 +28,6 @@ public class MockGuardRole extends Mock implements Guard, Role{
 	}
 
 	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public int getSSN() {
 		// TODO Auto-generated method stub
 		return 0;

@@ -26,11 +26,6 @@ public class BaseRole implements Role{
 		return ((PersonAgent)mPerson);
 	}
 	
-	public boolean isActive(){
-		return true;
-		//TODO: Fix this
-	}
-	
 	/* Utilities */
 	
 	protected void print(String msg) {

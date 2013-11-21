@@ -51,10 +51,4 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 		return null;
 	}
 
-	@Override
-	public boolean isActive() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 }
