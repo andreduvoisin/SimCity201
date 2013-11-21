@@ -7,7 +7,7 @@ import test.mock.Mock;
 
 public class MockDeliveryTruck extends Mock implements DeliveryTruck {
 
-	public MockDeliveryTruck(String name) {
+	public MockDeliveryTruck() {
 		super();
 	}
 	

@@ -18,7 +18,7 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	//MarketWorkerGui gui;
 	//Semaphore inTransit = new Semaphore(0,true);
 	
-	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
+	private List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
 	public MarketWorkerRole(PersonAgent person) {
 		setPerson(person);
@@ -31,7 +31,7 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	}
 	
 	public void msgOrderFulfilled(Order o) {
-		if(o.mPersonRole instanceof MarketCustomerRole)
+		if(o.mPersonRole instanceof Customer)
 			o.mEvent = EnumOrderEvent.TOLD_TO_FULFILL;
 		else
 			o.mEvent = EnumOrderEvent.TOLD_TO_SEND;
@@ -73,7 +73,7 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	
 	private void fulfillOrder(Order o) {
 		DoGoToFront();
-		((MarketCustomerRole)(o.mPersonRole)).msgHereIsCustomerOrder(o);
+		((Customer)(o.mPersonRole)).msgHereIsCustomerOrder(o);
 		mOrders.remove(o);
 	}
 	
@@ -101,5 +101,11 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	}
 	
 /* Utilities */
+	public int getNumOrders() {
+		return mOrders.size();
+	}
 	
+	public Order getOrder(int n) {
+		return mOrders.get(n);
+	}
 }
