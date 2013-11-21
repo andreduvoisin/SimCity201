@@ -53,13 +53,14 @@ public class BusDispatch {
 	 * @param riderLocation The stop number the Person is at
 	 * @param riderDestination The stop number the Person is going to
 	 */
-	public void msgGoingTo(Rider r, int riderLocation, int riderDestination) {
-		for (BusInstance iBus : mBuses) {
-			if (iBus.mCurrentStop == riderLocation) {
-				iBus.mRiders.add(r);
-				mBusStops.get(riderLocation).mWaitingPeople.remove(r);
+	public void msgImOn(Rider r) {
+		mBusStops.get(r.getLocation()).mWaitingPeople.remove(r);
 
-				if (mBusStops.get(riderLocation).mWaitingPeople.size() == 0) {
+		for (BusInstance iBus : mBuses) {
+			if (iBus.mCurrentStop == r.getLocation()) {
+				iBus.mRiders.add(r);
+
+				if (mBusStops.get(r.getLocation()).mWaitingPeople.size() == 0) {
 					iBus.state = BusInstance.enumState.readyToTravel;
 				}
 			}
@@ -153,7 +154,7 @@ public class BusDispatch {
 			for (Rider iRider : iBus.mRiders) {
 				if (iRider.getDestination() == iBus.mCurrentStop) {
 					needToWait = true;
-					// TODO Chase: Implement Rider.msgAtYourStop() : iRider.msgAtYourStop();
+					iRider.msgAtYourStop();
 				}
 			}
 

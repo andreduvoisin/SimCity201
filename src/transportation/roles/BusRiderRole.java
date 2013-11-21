@@ -22,7 +22,7 @@ public class BusRiderRole extends BaseRole implements Rider {
 	private int mCurrentLocation;
 	private int mDestination;
 	
-	private enum enumState { none, askForRide, waiting, toldToBoard, boarding,
+	private enum enumState { none, askForRide, waiting, toldToBoard, boarding, boarded,
 								riding, atDestination, exiting }
 	private enumState state;
 	
@@ -33,11 +33,19 @@ public class BusRiderRole extends BaseRole implements Rider {
 	// ----------------------------------- MESSAGES -------------------------------------
 	// ==================================================================================
 
+	/**
+	 * From BusDispatch
+	 * Sent when a BusInstance is at this Rider's current stop
+	 */
 	public void msgBoardBus() {
 		state = enumState.toldToBoard;
 		stateChanged();
 	}
 
+	/**
+	 * From BusDispatch
+	 * Sent when this Rider's BusInstance has reached this Rider's destination
+	 */
 	public void msgAtYourStop() {
 		state = enumState.atDestination;
 		stateChanged();
@@ -59,7 +67,10 @@ public class BusRiderRole extends BaseRole implements Rider {
 			return true;
 		}
 
-		// TODO Chase: message BusDispatch msgGoingTo
+		if (state.equals(enumState.boarded)) {
+			TellBusBoarded();
+			return true;
+		}
 
 		if (state.equals(enumState.atDestination)) {
 			ExitBus();
@@ -84,7 +95,11 @@ public class BusRiderRole extends BaseRole implements Rider {
 		state = enumState.boarding;
 	}
 
-	public void ExitBus() {
+	private void TellBusBoarded() {
+		mBusDispatch.msgImOn(this);
+	}
+
+	private void ExitBus() {
 		mGui.DoExitBus();
 		state = enumState.exiting;
 	}
@@ -93,6 +108,14 @@ public class BusRiderRole extends BaseRole implements Rider {
 	// ==================================================================================
 	// ---------------------------------- ACCESSORS -------------------------------------
 	// ==================================================================================
+
+	public void setLocation(int loc) {
+		mCurrentLocation = loc;
+	}
+
+	public int getLocation() {
+		return mCurrentLocation;
+	}
 
 	public void setDestination(int dest) {
 		mDestination = dest;
