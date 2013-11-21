@@ -105,23 +105,28 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	private void payForOrder(Order order){
 		Invoice invoice = getInvoice(order);
 		if (invoice == null){
-			//throw error?
+			//ANGELICA: throw error?
 		}
 
-//		if (invoice.mTotal > mPerson.getCash()){
-////			throw error?
-//		}
+		if (invoice.mTotal > mPerson.getCash()){
+			//ANGELICA: throw error?
+		}
 		
-		//SHANE: 1 Pay by bank transfer?
+
 		
-//		mCash -= invoice.mTotal;
+		mPerson.setCash(mPerson.getCash() - invoice.mTotal);
 		invoice.mPayment += invoice.mTotal;
 
+		//SHANE: 1 Pay by bank transfer?
+		//REX: How do you do this?^^
 		mCashier.msgPayingForOrder(invoice);
 	}
 
 	private void removeOrder(Order order){
-//		remove from mOrders and mInvoices
+		//remove from mOrders and mInvoices
+		mOrders.remove(order);
+		Invoice invoice = getInvoice(order);
+		mInvoices.remove(invoice);
 	}
 
 	
