@@ -333,10 +333,15 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-
-	@Override
 	public void msgHereIsPayment(int senderSSN, int amount) {
 		mCash += amount;
 		//REX: What is this? -Shane
+		//SHANE: notification of successful transaction from MasterTeller
+	}
+	public void setName(String name) {
+		mName = name;
+	}
+	public void setSSN(int SSN) {
+		mSSN = SSN;
 	}
 }
