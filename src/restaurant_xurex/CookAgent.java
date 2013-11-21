@@ -349,7 +349,6 @@ public class CookAgent extends Agent implements Cook {
 			}
 		}, 25000);
 	}
-	@Override
 	public void addToStand(Waiter w, String choice, int table) {
 		revolvingStand.add(new CookOrder(w, choice, table));
 	}
