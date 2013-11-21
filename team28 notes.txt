@@ -7,6 +7,12 @@ Not everyone has to do everything
 Every agent in our project needs to be tested (including every restaurant)
 Can request all individual scores to be the same
 (Or can request based on who needs the points...)
+A* is optional - even in restaurants
+Agent tests for restaurants only needed for shared data waiter (check on GitHub #56)
+Cross-Test
+Can have logs for test in the GUI
+Write to Global Log? --> Sent out via email
+
 
 
 V2 
