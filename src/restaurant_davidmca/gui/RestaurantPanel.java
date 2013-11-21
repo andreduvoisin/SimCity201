@@ -2,6 +2,7 @@ package restaurant_davidmca.gui;
 
 import java.awt.BorderLayout;
 import java.util.Collection;
+import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -14,16 +15,17 @@ import restaurant_davidmca.agents.CustomerAgent;
 import restaurant_davidmca.agents.HostAgent;
 import restaurant_davidmca.agents.MarketAgent;
 import restaurant_davidmca.agents.WaiterAgent;
+import restaurant_davidmca.agents.WaiterAgentSharedData;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
 
 /**
- * Panel in frame that contains all the restaurant_davidmca information, including host,
- * cook, waiters, and customers.
+ * Panel in frame that contains all the restaurant_davidmca information,
+ * including host, cook, waiters, and customers.
  */
 public class RestaurantPanel extends JPanel {
-	
-	//animation grid
+
+	// animation grid
 	static int gridX = 25;
 	static int gridY = 35;
 
@@ -70,8 +72,8 @@ public class RestaurantPanel extends JPanel {
 	}
 
 	/**
-	 * Sets up the restaurant_davidmca label that includes the menu, and host and cook
-	 * information
+	 * Sets up the restaurant_davidmca label that includes the menu, and host
+	 * and cook information
 	 */
 	private void initRestLabel() {
 		JLabel label = new JLabel();
@@ -94,7 +96,7 @@ public class RestaurantPanel extends JPanel {
 	 */
 	public void showInfo(String type, String name) {
 		if (type.equals("Waiters")) {
-			Collection<WaiterAgent> waitersList = host.getWaitersList();
+			Collection<Waiter> waitersList = host.getWaitersList();
 			for (Waiter temp : waitersList) {
 				if (temp.getName() == name) {
 					gui.updateInfoPanel(temp);
@@ -139,9 +141,16 @@ public class RestaurantPanel extends JPanel {
 		}
 
 		if (type.equals("Waiters")) {
-			WaiterAgent w = new WaiterAgent(name);
+			int rn = new Random().nextInt();
+			Waiter w;
+			/*if (rn % 2 == 0) {
+				w = new WaiterAgent(name);
+				System.out.println("Made regular waiter");
+			} else {*/
+				w = new WaiterAgentSharedData(name);
+				System.out.println("Made shared data waiter");
+			//}
 			WaiterGui g = new WaiterGui(w, host.getWaitersList().size());
-
 			gui.animationPanel.addGui(g);
 			w.setHost(host);
 			w.setGui(g);
