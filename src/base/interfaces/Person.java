@@ -25,7 +25,9 @@ public interface Person {
 	public Map<EnumMarketItemType, Integer> getItemInventory();
 	
 	public void addRole(Role role, boolean active);
-
+	
+	public void msgHereIsPayment(int senderSSN, int amount);
+	
 	public String getName(); 
 	
 }

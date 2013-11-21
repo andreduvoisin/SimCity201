@@ -14,9 +14,9 @@ import base.BaseRole;
 public class BankMasterTellerRole extends BaseRole implements MasterTeller{
 	
 //	DATA
-	protected Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();
-	protected List <Account> mAccounts = Collections.synchronizedList(new ArrayList<Account>());
-	private List<Transaction> mTransactions = Collections.synchronizedList(new ArrayList<Transaction>());
+	public Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();
+	public List <Account> mAccounts = Collections.synchronizedList(new ArrayList<Account>());
+	public List<Transaction> mTransactions = Collections.synchronizedList(new ArrayList<Transaction>());
 	
 	//List <PersonAgent> totalPopulation;
 	

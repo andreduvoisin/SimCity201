@@ -1,13 +1,9 @@
 package test.mock;
 
-import housing.interfaces.Renter;
-import housing.test.mock.MockRenter;
-
 import java.util.Map;
 
 import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
-import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -83,6 +79,10 @@ public class MockPerson extends Mock implements Person {
 	@Override
 	public void addRole(Role role, boolean active) {
 		// TODO Auto-generated method stub
+	}
+	
+	public void msgHereIsPayment(int senderSSN, int amount) {
+		log.add(new LoggedEvent("Received "+amount+" from "+senderSSN));
 		
 	}
 
