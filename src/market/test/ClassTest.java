@@ -21,7 +21,7 @@ public class ClassTest extends TestCase{
 	
 	//TESTS
 	
-	public void testOne_OneBillOneMarket(){
+	public void testOne_EXAMPLEOneBillOneMarket(){
 		//setUp()
 		
 //		//1 msgMarketBill

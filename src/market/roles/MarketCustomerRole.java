@@ -105,7 +105,9 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	private void payForOrder(Order order){
 		Invoice invoice = getInvoice(order);
 		if (invoice == null){
-			//ANGELICA: throw error?
+			//ANGELICA: throw error? or does this work?
+			removeOrder(order);
+			return;
 		}
 
 		if (invoice.mTotal > mPerson.getCash()){
