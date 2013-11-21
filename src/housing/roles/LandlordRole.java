@@ -63,7 +63,7 @@ public class LandlordRole extends BaseRole implements Landlord {
 	
 	public LandlordRole(){
 		
-		//TODO David: remove after finishing config file, for testing purposes only 
+		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
 		mHousesList.add(new House(20, 20, 100.00)); 
 		mHousesList.add(new House(30, 30, 250.00));
 	}
@@ -106,7 +106,7 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 		if (mTimeToCheckRent && mRenterList.size() > 0) {
 			mTimeToCheckRent = false;
-			mRentTimer.schedule(mRentTimerTask, 1000000); // TODO David: establish schedule for rent TODO Maggi
+			mRentTimer.schedule(mRentTimerTask, 1000000); //DAVID MAGGI: establish schedule for rent
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
 					if (r.mState == EnumRenterState.RentOverdue) {

@@ -46,7 +46,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	private boolean mWantBreak;
 //	private boolean mMenuOutdated;
 	
-	//Semaphores //TODO Shane: 5 public private
+	//Semaphores //SHANE: 5 public private
 	public Semaphore semAtTable = new Semaphore(0);
 	private Semaphore semAtPickupArea = new Semaphore(0);
 	public Semaphore semAtCook = new Semaphore(0);

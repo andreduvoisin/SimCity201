@@ -94,7 +94,7 @@ public class HostAgent extends Agent implements Host{
 		//no state changed
 	}
 	
-	//TODO Shane: 3 Waiter Break deprecated
+	//SHANE: 3 Waiter Break deprecated
 	//Want to go on break
 	public void msgWantToGoOnBreak(Waiter waiter){
 		print("Message: msgWantToGoOnBreak");

@@ -15,7 +15,7 @@ public class BusGui {
 	private int mStopNumber, xPos, yPos, xDest, yDest;
 	private boolean mTraveling;
 	
-	// TODO Chase: create array of bus stop coordinates
+	//CHASE: create array of bus stop coordinates
 	ArrayList<Dimension> mStopCoords = new ArrayList<Dimension>();
 
 	private BusDispatch mBusDispatch;

@@ -5,7 +5,7 @@ import java.util.Map;
 public class Item {
 	public static enum EnumMarketItemType {CHICKEN, PIZZA, SALAD, STEAK};
 	public static Map<EnumMarketItemType, Integer> sPrices;
-	//TODO Rex: 2 make static map for prices
+	//REX: 2 make static map for prices
 	
 	EnumMarketItemType mItemType;
 	

@@ -376,7 +376,7 @@ public class CustomerAgent extends Agent implements Customer{
 	private void payCheck(){
 		print("Action: payCheck()");
 		if (mCash < mCheck.mCash){
-			//TODO Shane: 5 Dine and dash - other actions?
+			//SHANE: 5 Dine and dash - other actions?
 			//This won't happen because of preconditions...
 		}
 		int cash = mCash;

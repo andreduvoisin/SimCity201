@@ -97,7 +97,7 @@ public class RenterRole extends BaseRole implements Renter {
 	/* Scheduler */
 
 	public boolean pickAndExecuteAnAction() {
-		// TODO: establish what triggers the RequestHousing() action
+		// DAVID MAGGI: establish what triggers the RequestHousing() action
 
 		if (isHungry) {
 			isHungry = false;
@@ -156,7 +156,7 @@ public class RenterRole extends BaseRole implements Renter {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		// TODO: run timer for some period of time, animate
+		// DAVID MAGGI: run timer for some period of time, animate
 	}
 
 	/* Utilities */
