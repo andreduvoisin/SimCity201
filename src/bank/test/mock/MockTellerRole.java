@@ -41,7 +41,7 @@ public class MockTellerRole extends Mock implements Teller, Role{
 	}
 
 	@Override
-	public void msgLoan(Customer c, int SSN, double amount, double loan) {
+	public void msgLoan(Customer c, int SSN, double amount) {
 		// TODO Auto-generated method stub
 		
 	}

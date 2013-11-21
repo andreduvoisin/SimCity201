@@ -28,7 +28,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	}
 
 	public void msgHereIsLoan(double loan){
-		
+		log.add(new LoggedEvent("msgHereIsLoan: "+loan));
 	}
 
 	public boolean pickAndExecuteAnAction(){

@@ -5,7 +5,7 @@ public interface Teller {
 
 	public abstract void msgDeposit(Customer c, int SSN, double amount);
 
-	public abstract void msgLoan(Customer c, int SSN, double amount, double loan);
+	public abstract void msgLoan(Customer c, int SSN, double amount);
 
 	public abstract void msgPayment(Customer c, int SSN, double amount);
 

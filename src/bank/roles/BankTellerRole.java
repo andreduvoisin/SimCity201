@@ -18,7 +18,6 @@ public class BankTellerRole extends BaseRole implements Teller{
 		public Customer customer;
 		String mName;
 		int mSSN;
-		double mLoan = 0;
 		double desiredAmount = 0;
 		EnumTransaction transaction = EnumTransaction.None;
 		MyCustomer (Customer c, int SSN, double a, EnumTransaction t){
@@ -46,9 +45,8 @@ public class BankTellerRole extends BaseRole implements Teller{
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Deposit);
 		stateChanged();
 	}
-	public void msgLoan(Customer c, int SSN, double amount, double loan){
+	public void msgLoan(Customer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Loan);
-		mCustomer.mLoan = loan;
 		stateChanged();
 	}
 	public void msgPayment(Customer c, int SSN, double amount){
@@ -100,11 +98,12 @@ public class BankTellerRole extends BaseRole implements Teller{
 	private void deposit(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
 		mAccounts.get(accountIndex).balance += mCustomer.desiredAmount;
+		mCustomer.customer.msgHereIsBalance(mAccounts.get(accountIndex).balance);
 	}
 	private void loan(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
 		double balance = mAccounts.get(accountIndex).balance;
-		if (balance >= mCustomer.desiredAmount/2.0 && mCustomer.mLoan == 0){
+		if (balance >= (mCustomer.desiredAmount+mAccounts.get(accountIndex).loan)*2.0){
 			mAccounts.get(accountIndex).loan += mCustomer.desiredAmount;
 			mCustomer.customer.msgHereIsLoan(mCustomer.desiredAmount);
 		}
