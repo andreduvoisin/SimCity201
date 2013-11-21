@@ -53,4 +53,6 @@ public interface Waiter {
 
 	public abstract WaiterGui getGui();
 
+	public abstract void startThread();
+
 }
