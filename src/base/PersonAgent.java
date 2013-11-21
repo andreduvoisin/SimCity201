@@ -17,8 +17,14 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class PersonAgent extends Agent implements Person {
-
 	//----------------------------------------------------------DATA----------------------------------------------------------
+	//Static data
+	static int sSSN = 0;
+	static int sTimeSchedule = 0;
+	static int sEatingTime = 0;
+	static final int mealsToEat = 2;
+
+	//Roles and Job
 	enum EnumJob {WAITER, HOST, BANK_TELLER}; //TODO: add all jobs
 	private EnumJob mJob;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
@@ -29,27 +35,22 @@ public class PersonAgent extends Agent implements Person {
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
-	// Assigned in Constructor when PersonAgent is initialized.
+	//Personal Variables
 	private String mName; 
-	static int sSSN = 0;
 	int mSSN;
-	static int sTimeSchedule = 0;
 	int mTimeSchedule;
-	static int sEatingTime = 0;
 	int mEatingTime;
-	static final int mealsToEat = 2;
 	int mMealsToEat;
-
 	double mCash;
 	double mLoan;
-	public BankMasterTellerRole mMasterTeller;
-
 	boolean mHasHome;
 	Set<Location> mHomeLocations;
 	boolean mHasCar;
 	Location mWorkLocation;
-	// Market mMarket;
 	
+	//Role References
+	public BankMasterTellerRole mMasterTeller;
+
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
