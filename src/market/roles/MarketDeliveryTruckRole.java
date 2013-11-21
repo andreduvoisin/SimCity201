@@ -19,7 +19,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 //	DeliveryTruckGui gui;
 	
 	List<Order> mDeliveries = Collections.synchronizedList(new ArrayList<Order>());
-	//FIX THIS MAP!!!
+	//ANGELICA: FIX THIS MAP!!!
 	Map<MarketCookCustomerRole, String>	mRestaurants = new HashMap<MarketCookCustomerRole, String>();
 	
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
@@ -82,7 +82,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	}
 	
 	private void notifyCashier() {
-		//message cashier that deliveryTruck is active
+		//ANGELICA: message cashier that deliveryTruck is active
 	}
 	
 /* Animation Actions */

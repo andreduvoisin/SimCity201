@@ -17,6 +17,13 @@ import base.BaseRole;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Role;
 
+/*
+ 	SHANE ANGELICA: Check to make sure all of these apply
+ 	1) Each market has its own owner/cashier who handles money.
+	2) Each market can have any restaurant/person as a client. 
+	3) Restaurants are delivered to, persons must go to the market.
+	4) Markets can run out of inventory. They can be resupplied from the gui.
+ */
 public class MarketCashierRole extends BaseRole implements Cashier{
 	int mNumWorkers = 0;
 	
@@ -41,16 +48,16 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 			invoice.mOrder.mEvent = EnumOrderEvent.ORDER_PAID;
 		}
 		else{
-//			throw error?
+			//SHANE ANGELICA: What do we do if they can't pay? throw error?
 		}
 		stateChanged();
 	}
 	
 //	Scheduler
 	public boolean pickAndExecuteAnAction(){
-		//notify customer if an order has been placed
 		if (mOrders.size() > 0){
 			for (Order iOrder : mOrders){
+				//notify customer if an order has been placed
 				if ((iOrder.mStatus == EnumOrderStatus.PLACED) && (iOrder.mEvent == EnumOrderEvent.ORDER_PLACED)){
 					iOrder.mStatus = EnumOrderStatus.PAYING;
 					notifyPerson(iOrder);
@@ -76,7 +83,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		for (EnumMarketItemType iItemType : order.mItems.keySet()){
 			int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
 			canFulfill.put(iItemType, amountCanFulfill);
-//			cost += cost of item * amountCanFulfill;
+			cost += amountCanFulfill*(Item.cMARKET_PRICES.get(iItemType));
 		}
 
 		Role personRole = order.mPersonRole;

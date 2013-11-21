@@ -59,6 +59,9 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	public boolean pickAndExecuteAnAction(){
 
 		//form order
+		if (mPerson.getItemsDesired().size() > 0){
+			formOrder();
+		}
 
 		for (Order iOrder : mOrders){
 			if ((iOrder.mStatus == EnumOrderStatus.CARTED) && (true)){
@@ -85,7 +88,8 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	
 	//ACTIONS
 	private void formOrder(){
-		//SHANE ANGELICA: form order
+		//SHANE: form order
+		
 	}
 
 	private void placeOrder(Order order){
