@@ -143,13 +143,13 @@ public class RestaurantPanel extends JPanel {
 		if (type.equals("Waiters")) {
 			int rn = new Random().nextInt();
 			Waiter w;
-			/*if (rn % 2 == 0) {
+			if (rn % 2 == 0) {
 				w = new WaiterAgent(name);
 				System.out.println("Made regular waiter");
-			} else {*/
+			} else {
 				w = new WaiterAgentSharedData(name);
 				System.out.println("Made shared data waiter");
-			//}
+			}
 			WaiterGui g = new WaiterGui(w, host.getWaitersList().size());
 			gui.animationPanel.addGui(g);
 			w.setHost(host);
