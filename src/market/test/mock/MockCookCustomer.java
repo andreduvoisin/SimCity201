@@ -4,7 +4,7 @@ import java.util.Map;
 
 import market.*;
 import market.interfaces.Cook;
-import test.mock.Mock;
+import test.mock.*;
 import base.Item.EnumMarketItemType;
 import base.PersonAgent;
 import base.interfaces.Role;
@@ -16,11 +16,11 @@ public class MockCookCustomer extends Mock implements Cook, Role {
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumMarketItemType,Integer> cannotFulfill, Invoice invoice) {
-		
+		log.add(new LoggedEvent("Received msgInvoiceToPerson."));
 	}
 	
 	public void msgHereIsCookOrder(Order o) {
-		
+		log.add(new LoggedEvent("Received msgHereIsCookOrder."));
 	}
 
 /*Role Actions*/
