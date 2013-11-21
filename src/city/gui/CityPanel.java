@@ -4,12 +4,20 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import base.interfaces.Person;
 
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
-
+	private static CityPanel instance = null;
+	
 	public static final int CITY_WIDTH = 600, CITY_HEIGHT = 600;
 	boolean addingObject = false;
 	CityComponent temp;
+	
+	public List<Person> masterPersonList = new ArrayList<Person>();
+	
 	public CityPanel(SimCityGui city) {
 		super(city);
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
@@ -84,4 +92,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		}
 	}
 	
+	public static CityPanel getInstanceOf() {
+		if (instance == null) {
+			instance = new CityPanel(SimCityGui.getInstanceOf());
+		}
+		return instance;
+	}
 }
