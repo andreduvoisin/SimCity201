@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -17,18 +18,19 @@ import base.interfaces.Role;
 
 public class PersonAgent extends Agent implements Person {
 
-	// Data
+	//----------------------------------------------------------DATA----------------------------------------------------------
 	enum EnumJob {WAITER, HOST, BANK_TELLER}; //TODO: add all jobs
 	private EnumJob mJob;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	
+	//Lists
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
 	// Assigned in Constructor when PersonAgent is initialized.
-	private String name; 
+	private String mName; 
 	static int sSSN = 0;
 	int mSSN;
 	static int sTimeSchedule = 0;
@@ -37,20 +39,15 @@ public class PersonAgent extends Agent implements Person {
 	int mEatingTime;
 	static final int mealsToEat = 2;
 	int mMealsToEat;
-	
-	private String mName = "Average Joe";
 
 	double mCash;
 	double mLoan;
 	public BankMasterTellerRole mMasterTeller;
 
 	boolean mHasHome;
+	Set<Location> mHomeLocations;
 	boolean mHasCar;
-
-	// List<Restaurant> mRestaurants;
-	//
-	// Home mHome;
-	// Work mWork;
+	Location mWorkLocation;
 	// Market mMarket;
 	
 
@@ -315,7 +312,7 @@ public class PersonAgent extends Agent implements Person {
 	
 
 	protected void print(String msg) {
-		System.out.println("" + name + ": "  + msg);
+		System.out.println("" + mName + ": "  + msg);
 	}
 	
 	public String getName(){
