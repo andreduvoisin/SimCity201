@@ -56,7 +56,7 @@ public class WaiterGui implements Gui {
         if (mPosX == mDestinationX && mPosY == mDestinationY) {
         	//if at door
         	if (mDestinationX == cPOS_DOOR_X && mDestinationY == cPOS_DOOR_Y){
-        		 //TODO: 4 change these to messages
+        		 //TODO Shane: 5 change these to messages
         	}
         	
         	//if at pickup area

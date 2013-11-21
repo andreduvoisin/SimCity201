@@ -8,7 +8,7 @@ import base.interfaces.Person;
 
 public class Time {
 	
-	//TODO: add clock (analog or digital) in corner of screen which will tell day/time in sim city
+	//TODO Andre: add clock (analog or digital) in corner of screen which will tell day/time in sim city
 	
 	static final int cLengthOfDay = 3*60; //seconds
 	static final int cTimeShift = 8;

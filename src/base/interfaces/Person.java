@@ -29,5 +29,6 @@ public interface Person {
 	public void msgHereIsPayment(int senderSSN, int amount);
 	
 	public String getName(); 
-	
+	public int getTimeShift();
+
 }
