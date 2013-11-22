@@ -6,9 +6,15 @@ import market.roles.MarketCashierRole;
 public class CashierGui implements Gui {
 	private MarketCashierRole mAgent;
 	
+	private static final int xStart = -20, yStart = -20;
+	private static final int xHome = 200, yHome = 200;
+	
 	private int xPos = 50, yPos = 50;
-	private int xDestination = 200, yDestination = 200;
+	private int xDestination = xHome, yDestination = yHome;
 	private static final int SIZE = 20;
+	
+	private enum EnumCommand {noCommand, goToPosition, leaveMarket};
+	private EnumCommand mCommand = EnumCommand.noCommand;
 	
 	public CashierGui(MarketCashierRole agent) {
 		mAgent = agent;
@@ -24,6 +30,22 @@ public class CashierGui implements Gui {
             yPos++;
         else if (yPos > yDestination)
             yPos--;
+        
+        if(xPos == xDestination && yPos == yDestination) {
+        	switch(mCommand) {
+        	case goToPosition: {
+        		//mAgent.msgAnimationAtPosition();
+        		mCommand = EnumCommand.noCommand;
+        		break;
+        	}
+        	case leaveMarket: {
+        		//mAgent.msgAnimationLeftRestaurant();
+        		mCommand = EnumCommand.noCommand;
+        	}
+        	default:
+        		break;
+        	}
+        }
 	}
 	
 	public void draw(Graphics2D g) {
@@ -31,7 +53,27 @@ public class CashierGui implements Gui {
 		g.fillRect(xPos, yPos, SIZE, SIZE);
 	}
 	
+/* Action Calls */
+	public void DoGoToPosition() {
+		xDestination = xHome;
+		yDestination = yHome;
+	}
+	
+	public void DoLeaveMarket() {
+		xDestination = xStart;
+		yDestination = yStart;
+	}
+	
+/* Utilities */
 	public boolean isPresent() {
 		return true;
+	}
+	
+	public int getXPos() {
+		return xPos;
+	}
+	
+	public int getYPos() {
+		return yPos;
 	}
 }

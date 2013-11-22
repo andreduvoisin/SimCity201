@@ -1,12 +1,11 @@
 package market.roles;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import market.*;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
+import market.gui.CashierGui;
 import market.interfaces.*;
 import base.*;
 import base.Item.EnumMarketItemType;
@@ -14,20 +13,21 @@ import base.interfaces.Role;
 
 public class MarketCashierRole extends BaseRole implements Cashier{
 	PersonAgent mPerson;
+	CashierGui mGui;
 	int mNumWorkers = 0;
 	
-//	Data
 	Map<EnumMarketItemType, Integer> mInventory;
-	List<Worker> mWorkers;
+	List<Worker> mWorkers = Collections.synchronizedList(new ArrayList<Worker>());
 	static int mWorkerIndex;
 	int mCash;
 
-	List<Order> mOrders;
-	List<Invoice> mInvoices;
+	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
+	List<Invoice> mInvoices = Collections.synchronizedList(new ArrayList<Invoice>());
 	
 	public MarketCashierRole(PersonAgent person) {
 		mPerson = person;
 	}
+	
 //	Messages
 	public void msgOrderPlacement(Order order){
 		mOrders.add(order);
@@ -55,14 +55,19 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 					notifyPerson(iOrder);
 					return true;
 				}
-
+			}
+			for (Order iOrder : mOrders){
 				if ((iOrder.mStatus == EnumOrderStatus.PAID) && (iOrder.mEvent == EnumOrderEvent.ORDER_PAID)){
 					iOrder.mStatus = EnumOrderStatus.ORDERING;
 					fulfillOrder(iOrder);
 					return true;
 				}
 			}
-		}	
+		}
+		/*
+		 * if time for role change
+		 * 	DoLeaveMarket();
+		 */
 		return false;
 	}
 	
@@ -99,11 +104,25 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		order.mWorker.msgFulfillOrder(order);
 	}
 	
+/* Animation Actions */
+	private void DoLeaveMarket() {
+		
+	}
 	
-	//ACCESSORS
+	private void DoGoToPosition() {
+		
+	}
+	
+/* Utilities */
+	public void setGui(CashierGui gui) {
+		mGui = gui;
+	}
+	
 	public int getNumWorkers(){
 		return mNumWorkers;
 	}
-
 	
+	public void addWorker(Worker w) {
+		mWorkers.add(w);
+	}
 }
