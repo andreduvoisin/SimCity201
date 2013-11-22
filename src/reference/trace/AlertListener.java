@@ -1,4 +1,4 @@
-package simcity.gui.trace;
+package reference.trace;
 /**
  * An interface for being notified when an {@link Alert} occurs.
  * @author Keith DeRuiter

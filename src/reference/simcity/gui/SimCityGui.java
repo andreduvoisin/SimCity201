@@ -1,4 +1,4 @@
-package simcity.gui;
+package reference.simcity.gui;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;

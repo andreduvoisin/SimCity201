@@ -1,4 +1,4 @@
-package simcity.gui;
+package reference.simcity.gui;
 
 import java.awt.CardLayout;
 import java.awt.Color;

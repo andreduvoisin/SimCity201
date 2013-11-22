@@ -1,4 +1,4 @@
-package simcity.gui.trace;
+package reference.trace;
 
 /**
  * These enums represent tags that group alerts together.  <br><br>
