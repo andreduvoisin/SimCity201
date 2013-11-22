@@ -44,12 +44,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	public int getSSN(){
 		return 0;
 	}
-
-	public void setPerson(PersonAgent person) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public PersonAgent getPersonAgent() {
 		// TODO Auto-generated method stub
