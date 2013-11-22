@@ -1,6 +1,6 @@
 package transportation.gui;
 
-// TODO Chase: gui
+// CHASE: gui
 public class BusRiderGui {
 
 	public void DoBoardBus() {
