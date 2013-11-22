@@ -3,11 +3,9 @@ package market.gui;
 import java.awt.*;
 
 import market.Market;
-import market.MarketItem;
 
 import java.util.*;
 
-import base.Item;
 
 /**
  * This class paints the market inventory on the screen.

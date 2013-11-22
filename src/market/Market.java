@@ -6,18 +6,17 @@ import java.util.*;
 public class Market {
 	private Cashier mCashier;
 	private List<MarketItem> mInventory = Collections.synchronizedList(new ArrayList<MarketItem>());
-	private double mCash;
+	private double mCash = 5000;
 	
 	private static final double steakPrice = 15.99;
 	private static final double chickenPrice = 10.99;
 	private static final double saladPrice = 5.99;
 	private static final double pizzaPrice = 8.99;
 	private static final double carPrice = 100.00;
-	private static final int mBaseInventory = 30;
+	private static final int mBaseInventory = 3;
 
 	public Market() {
 		//populate inventory
-		
 		mInventory.add(new MarketItem("Steak", mBaseInventory, steakPrice));
 		mInventory.add(new MarketItem("Chicken", mBaseInventory, chickenPrice));
 		mInventory.add(new MarketItem("Salad", mBaseInventory, saladPrice));
