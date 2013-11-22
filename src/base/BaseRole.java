@@ -5,7 +5,7 @@ import base.interfaces.Role;
 
 public class BaseRole implements Role{
 	
-	protected Person mPerson;
+	public Person mPerson;
 	
 	//NEEDED METHODS
 	protected void stateChanged(){

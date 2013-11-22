@@ -19,7 +19,7 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	 * boolean hasLoan;
 	 */
 	
-	double mTransaction;
+	public double mTransaction;
 
 	public List<Action> mActions = new ArrayList<Action>();
 	/*Example: (Deposit, 34.23), (Loan, 3000.23)*/
@@ -126,6 +126,7 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	}
 	private void leave(){
 		//GUI Interaction
+		mTransaction = -1;
 	}
 	private void processTransaction(){
 		EnumAction action = mActions.get(0).action;

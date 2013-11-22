@@ -102,10 +102,30 @@ public class CustomerTest extends TestCase{
 		
 		//Check
 		assertTrue("Teller received msgOpen. Instead: "+
-		mTeller.log.getLastLoggedEvent().toString(), mTeller.log.containsString("msgOpen: 1 100 Joe"));
-		//REX JERRY: get time is called and logged in mock teller. ???.
+		mTeller.log.getLastLoggedEvent().toString(), mTeller.log.containsString("msgOpen: 1 100.0 Joe"));
+		assertTrue("PAEA: return false", !mCustomer.pickAndExecuteAnAction());
 		
+		//8 : response from teller
+		mCustomer.msgHereIsBalance(100);
 		
+		//Check
+		assertTrue("Customer even is received", mCustomer.mEvent == EnumEvent.Received);
+		assertTrue("Customer mTransation is balance", mCustomer.mTransaction == 100);
+		
+		//9 : p.a.e.a. (processTransaction())
+		assertTrue("PAEA: processTransaction()", mCustomer.pickAndExecuteAnAction());
+		
+		//Check
+		assertTrue("Customer event is arrived", mCustomer.mEvent == EnumEvent.Arrived);
+		assertTrue("Person cash is set to 100", mCustomer.mPerson.getCash() == 100);
+		assertTrue("Customer has no actions", mCustomer.mActions.isEmpty());
+		
+		//10 : p.a.e.a. (leave())
+		assertTrue("PAEA: leave()", mCustomer.pickAndExecuteAnAction());
+		
+		//Check
+		assertTrue("Customer event is none", mCustomer.mEvent == EnumEvent.None);
+		assertTrue("Customer transaction is -1", mCustomer.mTransaction == -1);
 	}
 	
 	public void testTwo_TwoCustomers(){
