@@ -103,7 +103,7 @@ public class CustomerTest extends TestCase{
 		//Check
 		assertTrue("Teller received msgOpen. Instead: "+
 		mTeller.log.getLastLoggedEvent().toString(), mTeller.log.containsString("msgOpen: 1 100 Joe"));
-		//FIXME: get time is called and logged in mock teller. ???.
+		//REX JERRY: get time is called and logged in mock teller. ???.
 		
 		
 	}

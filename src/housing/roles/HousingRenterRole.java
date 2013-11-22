@@ -18,7 +18,7 @@ import base.BaseRole;
  * @author David Carr, Maggi Yang
  */
 
-public class RenterRole extends BaseRole implements Renter {
+public class HousingRenterRole extends BaseRole implements Renter {
 
 	/* Data */
 

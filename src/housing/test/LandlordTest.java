@@ -6,7 +6,7 @@ import java.util.List;
 import housing.House;
 import housing.interfaces.Landlord;
 import housing.interfaces.Renter;
-import housing.roles.LandlordRole;
+import housing.roles.HousingLandlordRole;
 import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
 import test.mock.MockPerson;
@@ -42,7 +42,7 @@ public class LandlordTest extends TestCase {
 		
 		landlordPerson = new PersonAgent("LandlordPerson");
 		renterPerson = new MockPerson("RenterPerson");
-		landlordRole = new LandlordRole();
+		landlordRole = new HousingLandlordRole();
 	
 		renterRole = new MockRenter("Mockrenter");
 	

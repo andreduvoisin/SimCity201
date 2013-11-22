@@ -1,5 +1,7 @@
 package base;
 
+import housing.roles.HousingLandlordRole;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import market.roles.MarketCashierRole;
 import bank.interfaces.MasterTeller;
 import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
@@ -24,9 +27,10 @@ public class PersonAgent extends Agent implements Person {
 	static int sTimeSchedule = 0; //0,1,2
 	static int sEatingTime = 0;
 	static final int mealsToEat = 2;
+	static int sRestaurantAssignment = 0; //list of 8 restaurants
 
 	//Roles and Job
-	enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
+	static enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
 	private EnumJobPlaces mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	
@@ -46,7 +50,7 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasHome;
-	Set<Location> mHomeLocations;
+	Set<Location> mHomeLocations; //multiple for landlord
 	boolean mHasCar;
 	Location mWorkLocation;
 	
@@ -60,9 +64,43 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(String name){
+	public PersonAgent(EnumJobPlaces job, double cash, String name){
 		initializePerson();
+		mJobPlace = job;
+		mCash = cash;
 		mName = name;
+		
+		//SHANE: 1 Make role after asking correct roles
+		
+		//SHANE: Add try/catch here
+		switch (job){
+			case BANK:
+				mRoles.put(BankMasterTellerRole.getNextRole(), true); //initially active
+				break;
+			case HOUSING:
+				mRoles.put(HousingLandlordRole.getNextRole(), true);
+				break;
+			case MARKET:
+				//Ask market cashier for role
+				mRoles.put(MarketCashierRole.getNextRole(), true);
+				break;
+			case RESTAURANT:
+				//SHANE: MAKE A STATIC METHOD FOR RESTAURANT INTERFACE FOR ADDING PEOPLE
+				Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
+				sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
+				//SHANE: Create 
+				//RestaurantHost host = (RestaurantHost) hostPerson;
+				break;
+			case TRANSPORTATION:
+				//never will happen...
+				break;
+		}
+//		if (mStartingRole.equals("Landlord")) {
+//			LandlordRole newLandlordRole = new LandlordRole();
+//			for (int i=0; i<4; i++) {
+//				newLandlordRole.mHousesList.add(new House(5, 5, 60));				
+//			}
+//		}
 	}
 	
 	private void initializePerson(){
@@ -73,8 +111,9 @@ public class PersonAgent extends Agent implements Person {
 		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
-		mCash = 0; //REX: 3 update this val - randomize
+		mCash = 100;
 		mLoan = 0;
+		
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
 		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); //SHANE REX: 3 check initial times
@@ -181,11 +220,13 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void buyHome() {
-
+		
 	}
 
 	private void goToJob() {
-
+//		gui.DoGoTo(Location Job);
+//		semAnimation.acquire();
+		//add job role
 	}
 
 	private void eatFood() {

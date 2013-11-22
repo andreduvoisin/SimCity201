@@ -104,4 +104,10 @@ public class MockPerson extends Mock implements Person {
 		
 	}
 
+	@Override
+	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
