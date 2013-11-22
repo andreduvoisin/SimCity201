@@ -3,11 +3,11 @@ package restaurant_davidmca.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import restaurant_davidmca.agents.CookAgent;
+import restaurant_davidmca.interfaces.Cook;
 
 public class CookGui implements Gui {
 
-	private CookAgent agent = null;
+	private Cook agent = null;
 
 	private int xPos, yPos = -20;
 	private int xHome = 300, yHome = 600;
@@ -18,7 +18,7 @@ public class CookGui implements Gui {
 
 	private boolean currentlyAnimating;
 
-	public CookGui(CookAgent agent) {
+	public CookGui(Cook agent) {
 		currentlyAnimating = false;
 		this.agent = agent;
 		xPos = xHome;
