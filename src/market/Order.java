@@ -13,13 +13,13 @@ public class Order {
 	public EnumOrderStatus mStatus;
 	public static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, RECEIVED_ORDER, NONE};
 	public EnumOrderEvent mEvent;
-	public Map<EnumMarketItemType, Integer> mItems;
+	public Map<String, Integer> mItems;
 	public Role mPersonRole;
 	public Worker mWorker;
 	public Cashier mCashier;
 	public DeliveryTruck mDeliveryTruck;
 	
-	public Order(Map<EnumMarketItemType, Integer> items, Role person) {
+	public Order(Map<String, Integer> items, Role person) {
 		mItems = items;
 		mPersonRole = person;
 		mStatus = EnumOrderStatus.CARTED;

@@ -8,7 +8,6 @@ import market.Order.EnumOrderStatus;
 import market.gui.CashierGui;
 import market.interfaces.*;
 import base.*;
-import base.Item.EnumMarketItemType;
 import base.interfaces.Role;
 
 public class MarketCashierRole extends BaseRole implements Cashier{
@@ -18,7 +17,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	CashierGui mGui;
 	int mNumWorkers = 0;
 	
-	Map<EnumMarketItemType, Integer> mInventory;
+	Map<String, Integer> mInventory;
 	
 	List<Worker> mWorkers = Collections.synchronizedList(new ArrayList<Worker>());
 	static int mWorkerIndex;
@@ -81,7 +80,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	
 //	Actions
 	private void processOrderAndNotifyPerson(Order order){
-		Map<EnumMarketItemType, Integer> canFulfill = new HashMap<Item.EnumMarketItemType, Integer>();
+		Map<String, Integer> cannotFulfill = new HashMap<String, Integer>();
 		int cost = 0;
 
 /*		//set cost
@@ -92,6 +91,17 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		}
 */
 		List<MarketItem> mInventory = mMarket.getInventory();
+		for(String item : order.mItems.keySet()) {
+			if(mMarket.getInventory(item) < order.mItems.get(item)) {
+				cannotFulfill.put(item,order.mItems.get(item)-mMarket.getInventory(item));
+				mMarket.setInventory(item,0);
+				cost += mMarket.getCost(item) * mMarket.getInventory(item);
+			}
+			else {
+				mMarket.setInventory(item, mMarket.getInventory(item)-order.mItems.get(item));
+				cost += mMarket.getCost(item) * order.mItems.get(item);
+			}
+		}
 		
 		Role personRole = order.mPersonRole;
 		Invoice invoice = new Invoice(order, cost);
@@ -99,13 +109,13 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		//if a cook
 		if (personRole instanceof Cook){
 			Cook cook = (Cook) order.mPersonRole;
-			cook.msgInvoiceToPerson(canFulfill, invoice);
+			cook.msgInvoiceToPerson(cannotFulfill, invoice);
 		}
 
 		//if a customer
 		else if (personRole instanceof Customer){
 			Customer customer = (Customer) order.mPersonRole;
-			customer.msgInvoiceToPerson(canFulfill, invoice);
+			customer.msgInvoiceToPerson(cannotFulfill, invoice);
 		}
 	}
 

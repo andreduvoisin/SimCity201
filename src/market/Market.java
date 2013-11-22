@@ -12,6 +12,7 @@ public class Market {
 	private static final double chickenPrice = 10.99;
 	private static final double saladPrice = 5.99;
 	private static final double pizzaPrice = 8.99;
+	private static final double carPrice = 100.00;
 	private static final int mBaseInventory = 30;
 
 	public Market() {
@@ -21,6 +22,7 @@ public class Market {
 		mInventory.add(new MarketItem("Chicken", mBaseInventory, chickenPrice));
 		mInventory.add(new MarketItem("Salad", mBaseInventory, saladPrice));
 		mInventory.add(new MarketItem("Pizza", mBaseInventory, pizzaPrice));
+		mInventory.add(new MarketItem("Car", mBaseInventory, carPrice));
 	}
 	
 	public void setCashier(Cashier c) {
@@ -35,11 +37,28 @@ public class Market {
 		return mInventory;
 	}
 	
-	public void setInventory(MarketItem i, int n) {
+	public int getInventory(String i) {
 		for(MarketItem item : mInventory) {
-			if(item.mName.equals(i.mName)) {
+			if(item.mName.equals(i))
+				return item.mInventory;
+		}
+		return 0;
+	}
+	
+	public void setInventory(String i, int n) {
+		for(MarketItem item : mInventory) {
+			if(item.mName.equals(i)) {
 				item.mInventory = n;
 			}
 		}
+	}
+	
+	public double getCost(String i) {
+		for(MarketItem item : mInventory) {
+			if(item.mName.equals(i)) {
+				return item.mPrice;
+			}
+		}
+		return 0;
 	}
 }

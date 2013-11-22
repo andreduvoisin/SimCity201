@@ -10,7 +10,6 @@ import market.*;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
 import market.interfaces.*;
-import base.Item.EnumMarketItemType;
 import base.*;
 
 public class MarketCustomerRole extends BaseRole implements Customer{
@@ -20,10 +19,10 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
 	List<Invoice> mInvoices	= Collections.synchronizedList(new ArrayList<Invoice>());
 
-	Map<EnumMarketItemType, Integer> mItemInventory = new HashMap<EnumMarketItemType, Integer>();
-	Map<EnumMarketItemType, Integer> mItemsDesired = new HashMap<EnumMarketItemType, Integer>();
+	Map<String, Integer> mItemInventory = new HashMap<String, Integer>();
+	Map<String, Integer> mItemsDesired = new HashMap<String, Integer>();
 	
-	Map<EnumMarketItemType, Integer> mCannotFulfill = new HashMap<EnumMarketItemType, Integer>();
+	Map<String, Integer> mCannotFulfill = new HashMap<String, Integer>();
 
 	Cashier mCashier;
 
@@ -34,8 +33,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	}
 	
 	//MESSAGES
-	@Override
-	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> cannotFulfill, Invoice invoice) {
+	public void msgInvoiceToPerson(Map<String, Integer> cannotFulfill, Invoice invoice) {
 		mInvoices.add(invoice);
 		mCannotFulfill = cannotFulfill;
 		invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
@@ -74,7 +72,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 			}
 		}
 		//check efficiency of method
-		for(EnumMarketItemType i : mItemsDesired.keySet()) {
+		for(String i : mItemsDesired.keySet()) {
 			if(mItemsDesired.get(i) != 0) {
 				createOrder();
 				return true;
@@ -89,7 +87,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	private void createOrder(){
 		Order o = new Order(mItemsDesired, this);
 		
-		for(EnumMarketItemType item : mItemsDesired.keySet()) {
+		for(String item : mItemsDesired.keySet()) {
 			mItemsDesired.put(item,0);
 		}
 		
@@ -106,7 +104,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 		//TODO: 1 How to write to bank / bank interactions
 		//subtract money from cash
 		
-		for(EnumMarketItemType item : mCannotFulfill.keySet()) {
+		for(String item : mCannotFulfill.keySet()) {
 			mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
 		}
 		
@@ -115,20 +113,8 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	}
 
 	private void completeOrder(Order o) {
-		for(EnumMarketItemType item : o.mItems.keySet()) {
+		for(String item : o.mItems.keySet()) {
 			mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
 		}
 	}
-
-	
-	//ACCESSORS
-	private Invoice getInvoice(Order order){
-		Invoice invoice = null;
-		for (Invoice iInvoice : mInvoices){
-			if (iInvoice.mOrder == order) invoice = iInvoice;
-			break;
-		}
-		return invoice;
-	}
-
 }

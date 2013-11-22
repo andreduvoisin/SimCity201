@@ -8,7 +8,7 @@ import market.*;
 public interface Customer{
 		
 	//Messages
-	public abstract void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> cannotFulfill, Invoice invoice);
+	public abstract void msgInvoiceToPerson(Map<String, Integer> cannotFulfill, Invoice invoice);
 	
 	public abstract void msgHereIsCustomerOrder(Order order);
 	
