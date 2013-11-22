@@ -26,7 +26,7 @@ public class PersonAgent extends Agent implements Person {
 	static final int mealsToEat = 2;
 
 	//Roles and Job
-	enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
+	static enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
 	private EnumJobPlaces mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	
@@ -60,8 +60,10 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(String name){
+	public PersonAgent(EnumJobPlaces job, int cash, String name){
 		initializePerson();
+		mJobPlace = job;
+		mCash = cash;
 		mName = name;
 	}
 	
@@ -73,8 +75,9 @@ public class PersonAgent extends Agent implements Person {
 		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
-		mCash = 0; //REX: 3 update this val - randomize
+		mCash = 100;
 		mLoan = 0;
+		
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
 		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); //SHANE REX: 3 check initial times
@@ -181,11 +184,13 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void buyHome() {
-
+		
 	}
 
 	private void goToJob() {
-
+//		gui.DoGoTo(Location Job);
+//		semAnimation.acquire();
+		//add job role
 	}
 
 	private void eatFood() {
