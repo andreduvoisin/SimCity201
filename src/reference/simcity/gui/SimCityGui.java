@@ -7,8 +7,8 @@ import java.awt.HeadlessException;
 
 import javax.swing.JFrame;
 
-import simcity.gui.trace.AlertLog;
-import simcity.gui.trace.TracePanel;
+import reference.trace.AlertLog;
+import reference.trace.TracePanel;
 
 public class SimCityGui extends JFrame {
 	

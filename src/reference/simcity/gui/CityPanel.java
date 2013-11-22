@@ -5,8 +5,8 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-import simcity.gui.trace.AlertLog;
-import simcity.gui.trace.AlertTag;
+import reference.trace.AlertLog;
+import reference.trace.AlertTag;
 
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
 

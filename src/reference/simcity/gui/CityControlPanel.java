@@ -9,9 +9,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import simcity.gui.trace.AlertLevel;
-import simcity.gui.trace.AlertLog;
-import simcity.gui.trace.AlertTag;
+import reference.trace.AlertLevel;
+import reference.trace.AlertLog;
+import reference.trace.AlertTag;
 
 public class CityControlPanel extends JPanel implements ActionListener{
 

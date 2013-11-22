@@ -17,7 +17,7 @@ public class MockTellerRole extends Mock implements Teller, Role{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public PersonAgent getPersonAgent() {
 		// TODO Auto-generated method stub

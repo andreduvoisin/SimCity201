@@ -16,7 +16,7 @@ public class MockGuardRole extends Mock implements Guard, Role{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public PersonAgent getPersonAgent() {
 		// TODO Auto-generated method stub

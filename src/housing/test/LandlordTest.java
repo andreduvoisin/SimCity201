@@ -40,7 +40,7 @@ public class LandlordTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		
-		landlordPerson = new PersonAgent("LandlordPerson");
+		landlordPerson = new PersonAgent();
 		renterPerson = new MockPerson("RenterPerson");
 		landlordRole = new HousingLandlordRole();
 	

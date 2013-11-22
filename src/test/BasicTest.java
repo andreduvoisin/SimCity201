@@ -40,8 +40,8 @@ public class BasicTest extends TestCase{
 	}
 	
 	public void testInstantiatePeopleAndAssignRoles() {
-		mPerson = new PersonAgent("Person1");
-		mPerson2 = new PersonAgent("Person2");
+		mPerson = new PersonAgent();
+		mPerson2 = new PersonAgent();
 		landlord = new HousingLandlordRole();
 		master = new BankMasterTellerRole();
 		mPerson.mMasterTeller = master;
