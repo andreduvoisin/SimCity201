@@ -66,17 +66,20 @@ public class CustomerGui implements Gui {
 		//change to a waiting line
 		xDestination = xCashier;
 		yDestination = yCashier;
+		mCommand = EnumCommand.goToMarket;
 	}
 	
 	public void DoWaitForOrder() {
 		//change to a waiting area
 		xDestination = xWaitingArea;
 		yDestination = yWaitingArea;
+		mCommand = EnumCommand.goToWaitingArea;
 	}
 	
 	public void DoLeaveMarket() {
 		xDestination = xStart;
 		yDestination = yStart;
+		mCommand = EnumCommand.leaveMarket;
 	}
 	
 /* Utilities */

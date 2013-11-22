@@ -57,11 +57,13 @@ public class CashierGui implements Gui {
 	public void DoGoToPosition() {
 		xDestination = xHome;
 		yDestination = yHome;
+		mCommand = EnumCommand.goToPosition;
 	}
 	
 	public void DoLeaveMarket() {
 		xDestination = xStart;
 		yDestination = yStart;
+		mCommand = EnumCommand.leaveMarket;
 	}
 	
 /* Utilities */
