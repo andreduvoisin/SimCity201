@@ -83,14 +83,6 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		Map<String, Integer> cannotFulfill = new HashMap<String, Integer>();
 		int cost = 0;
 
-/*		//set cost
-		for (EnumMarketItemType iItemType : order.mItems.keySet()){
-			int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
-			canFulfill.put(iItemType, amountCanFulfill);
-			cost += Item.sPrices.get(iItemType) * amountCanFulfill;
-		}
-*/
-		List<MarketItem> mInventory = mMarket.getInventory();
 		for(String item : order.mItems.keySet()) {
 			if(mMarket.getInventory(item) < order.mItems.get(item)) {
 				cannotFulfill.put(item,order.mItems.get(item)-mMarket.getInventory(item));
