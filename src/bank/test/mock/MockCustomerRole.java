@@ -6,6 +6,7 @@ import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.Teller;
 import base.PersonAgent;
+import base.interfaces.Person;
 import base.interfaces.Role;
 
 
@@ -44,7 +45,6 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 		return 0;
 	}
 
-	@Override
 	public void setPerson(PersonAgent person) {
 		// TODO Auto-generated method stub
 		
@@ -58,6 +58,12 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 
 	@Override
 	public void setGuard(Guard guard) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPerson(Person person) {
 		// TODO Auto-generated method stub
 		
 	}

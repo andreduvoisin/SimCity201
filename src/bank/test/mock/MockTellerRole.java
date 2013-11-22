@@ -5,6 +5,7 @@ import bank.interfaces.Guard;
 import bank.interfaces.MasterTeller;
 import bank.interfaces.Teller;
 import base.PersonAgent;
+import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.LoggedEvent;
 import test.mock.Mock;
@@ -17,7 +18,6 @@ public class MockTellerRole extends Mock implements Teller, Role{
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
 	public void setPerson(PersonAgent person) {
 		// TODO Auto-generated method stub
 		
@@ -90,6 +90,12 @@ public class MockTellerRole extends Mock implements Teller, Role{
 
 	@Override
 	public void setAccounts() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setPerson(Person person) {
 		// TODO Auto-generated method stub
 		
 	}

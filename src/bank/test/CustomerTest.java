@@ -30,7 +30,7 @@ public class CustomerTest extends TestCase{
 		
 		//Testee
 		mCustomer = new BankCustomerRole();
-		mPerson = new PersonAgent("Person");
+		mPerson = new PersonAgent();
 		mPerson.addRole((Role)mCustomer, true);
 		mPerson.setSSN(1);
 		mPerson.setName("Joe");
