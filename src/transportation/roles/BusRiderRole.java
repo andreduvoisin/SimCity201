@@ -27,11 +27,23 @@ public class BusRiderRole extends BaseRole implements Rider {
 	private enumState state;
 	
 
-
-
 	// ==================================================================================
 	// ----------------------------------- MESSAGES -------------------------------------
 	// ==================================================================================
+
+	/**
+	 * From GUI
+	 * Sent when rider has completed boarding or exiting the bus
+	 */
+	public void msgGuiDone() {
+		if (state.equals(enumState.boarding)) {
+			state = enumState.boarded;
+		}
+		else if (state.equals(enumState.exiting)) {
+			state = enumState.none;
+		}
+		stateChanged();
+	}
 
 	/**
 	 * From BusDispatch
@@ -50,6 +62,7 @@ public class BusRiderRole extends BaseRole implements Rider {
 		state = enumState.atDestination;
 		stateChanged();
 	}
+
 
 	// ==================================================================================
 	// ----------------------------------- SCHEDULER ------------------------------------

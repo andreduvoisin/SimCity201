@@ -60,7 +60,7 @@ public class BusDispatch {
 			if (iBus.mCurrentStop == r.getLocation()) {
 				iBus.mRiders.add(r);
 
-				if (mBusStops.get(r.getLocation()).mWaitingPeople.size() == 0) {
+				if (mBusStops.get(r.getLocation()).mWaitingPeople.isEmpty()) {
 					iBus.state = BusInstance.enumState.readyToTravel;
 				}
 			}
@@ -111,7 +111,7 @@ public class BusDispatch {
 
 			for (BusInstance iBus : mBuses) {
 				if (iBus.state.equals(BusInstance.enumState.readyToUnload)) {
-					if (iBus.mRiders.size() > 0) {
+					if (! iBus.mRiders.isEmpty()) {
 						TellRidersToGetOff();
 						break;
 					}
@@ -120,7 +120,7 @@ public class BusDispatch {
 
 			for (BusInstance iBus : mBuses) {
 				if (iBus.state.equals(BusInstance.enumState.readyToBoard)) {
-					if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
+					if (! mBusStops.get(iBus.mCurrentStop).mWaitingPeople.isEmpty()) {
 						TellRidersToBoard();
 						break;
 					}
@@ -173,15 +173,15 @@ public class BusDispatch {
 	 */
 	private void TellRidersToBoard() {
 		for (BusInstance iBus : mBuses) {
-			if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.size() > 0) {
+			if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.isEmpty()) {
+				iBus.state = BusInstance.enumState.readyToTravel;
+			}
+			else {
 				iBus.state = BusInstance.enumState.boarding;
 
 				for (Rider r : mBusStops.get(iBus.mCurrentStop).mWaitingPeople) {
 					r.msgBoardBus();
 				}
-			}
-			else {
-				iBus.state = BusInstance.enumState.readyToTravel;
 			}
 		}
 

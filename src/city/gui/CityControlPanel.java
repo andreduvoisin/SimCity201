@@ -19,11 +19,13 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	JLabel title = new JLabel("Control Panel");
 	JButton pauseButton = new JButton("Start SimCity201");
 	
+	/* ANDRE JERRY No days of week - discuss w/Shane
 	// Select Day
 	JLabel dayTitle = new JLabel("Day of Week:");
 	String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	JComboBox currentDay = new JComboBox(days);
-	
+	*/
+
 	// Scenarios
 	JLabel scenarioTitle = new JLabel("Load Selected Scenario:");
 	JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -58,15 +60,15 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		pauseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(pauseButton);
 		
-		// Select Day
-		dayTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(dayTitle);
-		
-		Dimension dayCBDim = new Dimension(CP_WIDTH - 10, 25);
-		currentDay.setPreferredSize(dayCBDim);
-		currentDay.setMinimumSize(dayCBDim);
-		currentDay.setMaximumSize(dayCBDim);
-		add(currentDay);
+//		// Select Day
+//		dayTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		add(dayTitle);
+//		
+//		Dimension dayCBDim = new Dimension(CP_WIDTH - 10, 25);
+//		currentDay.setPreferredSize(dayCBDim);
+//		currentDay.setMinimumSize(dayCBDim);
+//		currentDay.setMaximumSize(dayCBDim);
+//		add(currentDay);
 		
 		scenarioTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(scenarioTitle);
