@@ -18,7 +18,7 @@ public class BaseRole implements Role{
 	}
 	
 	//ACCESSORS
-	public void setPerson(PersonAgent person){
+	public void setPerson(Person person){
 		mPerson = person;
 	}
 	

@@ -7,7 +7,7 @@ public interface Role {
 	public abstract boolean pickAndExecuteAnAction();
 
 	//ACCESSORS
-	public abstract void setPerson(PersonAgent person);
+	public abstract void setPerson(Person person);
 
 	public abstract PersonAgent getPersonAgent();
 

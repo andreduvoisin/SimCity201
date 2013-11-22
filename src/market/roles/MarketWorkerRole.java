@@ -1,12 +1,16 @@
 package market.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import market.interfaces.*;
-import market.*;
+import market.Order;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
-import base.*;
+import market.interfaces.DeliveryTruck;
+import market.interfaces.Worker;
+import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * MarketWorkerRole for SimCity Market agents.
@@ -20,7 +24,10 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	
 	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
-	public MarketWorkerRole(PersonAgent person) {
+	public MarketWorkerRole() {
+	}
+	
+	public MarketWorkerRole(Person person){
 		setPerson(person);
 	}
 	

@@ -1,6 +1,6 @@
 package housing.gui;
 
-import housing.roles.LandlordRole;
+import housing.roles.HousingLandlordRole;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -14,7 +14,7 @@ import city.gui.old.Gui;
 // Need to change Gui, part of old Gui? Not sure yet.
 public class LandlordGui implements Gui {
 	
-	LandlordRole landlord;
+	HousingLandlordRole landlord;
 	
 	private int xPos, yPos = -20;
 	private int xDestination, yDestination = -20;

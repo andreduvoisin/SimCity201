@@ -113,5 +113,11 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		return mNumWorkers;
 	}
 
+	public static Role getNextRole() {
+		// SHANE: ADD GETNEXTROLE METHODS
+		Role worker = new MarketWorkerRole();
+		return worker;
+	}
+
 	
 }

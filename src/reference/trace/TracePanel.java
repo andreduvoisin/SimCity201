@@ -21,7 +21,7 @@ import javax.swing.text.StyledDocument;
 
 /**
  * The class for managing and displaying the message traces from the factory/simcity. To be used as an 
- * {@link AlertListener} with {@link AlertLog}.  By default, ALL LEVELS AN NO TAGS ARE ENABLED!  <br><br>
+ * {@link AlertListener} with {@link AlertLog}.  By default, All LEVELS AN NO TAGS ARE ENABLED!  <br><br>
  * 
  * When printing, the {@link AlertLevel} AND the {@link AlertTag} must be enabled to see a message.  This means that 
  * if only ERROR and INFO levels are enabled, and someone with a tag BANK_TELLER 

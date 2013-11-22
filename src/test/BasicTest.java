@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 
 import city.gui.CityPanel;
 import housing.House;
-import housing.roles.LandlordRole;
-import housing.roles.RenterRole;
+import housing.roles.HousingLandlordRole;
+import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
 import base.ConfigParser;
@@ -21,8 +21,8 @@ public class BasicTest extends TestCase{
 	
 	PersonAgent mPerson;
 	PersonAgent mPerson2;
-	LandlordRole landlord;
-	RenterRole renter;
+	HousingLandlordRole landlord;
+	HousingRenterRole renter;
 	BankMasterTellerRole master;
 	
 	
@@ -42,7 +42,7 @@ public class BasicTest extends TestCase{
 	public void testInstantiatePeopleAndAssignRoles() {
 		mPerson = new PersonAgent("Person1");
 		mPerson2 = new PersonAgent("Person2");
-		landlord = new LandlordRole();
+		landlord = new HousingLandlordRole();
 		master = new BankMasterTellerRole();
 		mPerson.mMasterTeller = master;
 		mPerson2.mMasterTeller = master;
@@ -54,7 +54,7 @@ public class BasicTest extends TestCase{
 		landlord.mHousesList.add(house2);
 		assertEquals("Landlord housing size correct", landlord.mHousesList.size(), 2);
 		landlord.setPerson(mPerson);
-		renter = new RenterRole();
+		renter = new HousingRenterRole();
 		renter.setPerson(mPerson2);
 		mPerson.addRole(landlord, true);
 		assertEquals("mPerson contains one role (the landlord role)", mPerson.mRoles.size(), 1);

@@ -13,12 +13,13 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Role;
 
 /*
  * @author David Carr, Maggi Yang
  */
 
-public class LandlordRole extends BaseRole implements Landlord {
+public class HousingLandlordRole extends BaseRole implements Landlord {
 
 	/* Data */
 
@@ -61,7 +62,7 @@ public class LandlordRole extends BaseRole implements Landlord {
 	
 	/* Constructor */
 	
-	public LandlordRole(){
+	public HousingLandlordRole(){
 		
 		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
 		mHousesList.add(new House(20, 20, 100.00)); 
@@ -202,6 +203,12 @@ public class LandlordRole extends BaseRole implements Landlord {
 
 	protected void print(String msg) {
 		System.out.println("Landlord - " + msg);
+	}
+
+	public static Role getNextRole() {
+		// SHANE: ADD GETNEXTROLE METHODS
+		Role landlord = new HousingLandlordRole();
+		return landlord;
 	}
 
 }
