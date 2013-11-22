@@ -92,7 +92,6 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 		//Deep copy items desired...
 		Map<EnumMarketItemType, Integer> desired = mPerson.getItemsDesired();
 		mPerson.setItemsDesired(new HashMap<EnumMarketItemType, Integer>()); //clear desired items
-			//ANGELICA: Hey does this work as a deep copy for clearing the item and still using it in desired?
 		
 		Order order = new Order(desired, this);
 		mOrders.add(order);
