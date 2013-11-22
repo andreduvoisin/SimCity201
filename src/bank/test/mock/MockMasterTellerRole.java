@@ -6,6 +6,7 @@ import java.util.Map;
 import bank.Account;
 import bank.interfaces.MasterTeller;
 import base.PersonAgent;
+import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.Mock;
 
@@ -15,12 +16,6 @@ public class MockMasterTellerRole extends Mock implements MasterTeller, Role{
 	public MockMasterTellerRole(String name) {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void setPerson(PersonAgent person) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -57,6 +52,12 @@ public class MockMasterTellerRole extends Mock implements MasterTeller, Role{
 	public List<Account> getAccounts() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void setPerson(Person person) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
