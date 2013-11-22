@@ -13,19 +13,25 @@ import base.interfaces.Role;
 
 public class MarketCashierRole extends BaseRole implements Cashier{
 	PersonAgent mPerson;
+	Market mMarket;
+	
 	CashierGui mGui;
 	int mNumWorkers = 0;
 	
 	Map<EnumMarketItemType, Integer> mInventory;
+	
 	List<Worker> mWorkers = Collections.synchronizedList(new ArrayList<Worker>());
 	static int mWorkerIndex;
+	
+	
 	int mCash;
 
 	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
 	List<Invoice> mInvoices = Collections.synchronizedList(new ArrayList<Invoice>());
 	
-	public MarketCashierRole(PersonAgent person) {
+	public MarketCashierRole(PersonAgent person, Market m) {
 		mPerson = person;
+		mMarket = m;
 	}
 	
 //	Messages
@@ -47,7 +53,9 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	
 //	Scheduler
 	public boolean pickAndExecuteAnAction(){
-		//notify customer if an order has been placed
+		/*
+		 * if cashier has just started, go to position
+		 */
 		if (mOrders.size() > 0){
 			for (Order iOrder : mOrders){
 				if ((iOrder.mStatus == EnumOrderStatus.PLACED) && (iOrder.mEvent == EnumOrderEvent.ORDER_PLACED)){
@@ -106,11 +114,11 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	
 /* Animation Actions */
 	private void DoLeaveMarket() {
-		
+		mGui.DoLeaveMarket();
 	}
 	
 	private void DoGoToPosition() {
-		
+		mGui.DoGoToPosition();
 	}
 	
 /* Utilities */
