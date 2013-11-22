@@ -60,7 +60,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 			for (Order iOrder : mOrders){
 				if ((iOrder.mStatus == EnumOrderStatus.PLACED) && (iOrder.mEvent == EnumOrderEvent.ORDER_PLACED)){
 					iOrder.mStatus = EnumOrderStatus.PAYING;
-					notifyPerson(iOrder);
+					processOrderAndNotifyPerson(iOrder);
 					return true;
 				}
 			}
@@ -80,17 +80,19 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	}
 	
 //	Actions
-	private void notifyPerson(Order order){
+	private void processOrderAndNotifyPerson(Order order){
 		Map<EnumMarketItemType, Integer> canFulfill = new HashMap<Item.EnumMarketItemType, Integer>();
 		int cost = 0;
 
-		//set cost
+/*		//set cost
 		for (EnumMarketItemType iItemType : order.mItems.keySet()){
 			int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
 			canFulfill.put(iItemType, amountCanFulfill);
 			cost += Item.sPrices.get(iItemType) * amountCanFulfill;
 		}
-
+*/
+		List<MarketItem> mInventory = mMarket.getInventory();
+		
 		Role personRole = order.mPersonRole;
 		Invoice invoice = new Invoice(order, cost);
 
