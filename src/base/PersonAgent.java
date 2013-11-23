@@ -14,7 +14,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import market.roles.MarketCustomerRole;
-import restaurant_all.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
@@ -36,6 +35,7 @@ public class PersonAgent extends Agent implements Person {
 	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
+	//SHANE make sure mHouseRole gets set when the roles are instantiated
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
