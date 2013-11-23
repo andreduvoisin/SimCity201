@@ -1,5 +1,6 @@
 package housing.test;
 
+import housing.House;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import housing.test.mock.MockLandlord;
@@ -23,6 +24,7 @@ public class RenterTest extends TestCase {
 	Person mPerson;
 	HousingRenterRole mHousingRenter;
 	MockLandlord mHousingLandlord;
+	House mHouse; 
 
 
 	/**
@@ -41,6 +43,9 @@ public class RenterTest extends TestCase {
 		//Mock Interfaces 
 		mHousingLandlord = new MockLandlord("Mocklandlord"); 
 		mHousingRenter.setLandlord(mHousingLandlord);
+		
+		//Houses
+		mHouse = new House(10, 10, 300.00); 
 	}
 	
 	public void testNormativeScenario1()
@@ -54,7 +59,7 @@ public class RenterTest extends TestCase {
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
 		
 		//HousingLandlord accepts housing application from HousingRenter 
-		//mHousingRenter.msgApplicationAccepted(newHouse);
+		mHousingRenter.msgApplicationAccepted(mHouse);
 //		
 //		//HousingRenter1 messages HousingLandlord to apply for housing
 //		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter1, 500.00, 1);
