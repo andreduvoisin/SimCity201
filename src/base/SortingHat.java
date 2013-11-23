@@ -20,7 +20,7 @@ import base.interfaces.Role;
 public class SortingHat {
 	
 	//list of all (non-ubiquitous) roles, accessed and instantiated 
-	static List<List<Role>> sRoles;
+	static List<List<Role>> sRoles; //list for each timeshift (0-2)
 	
 	public static void InstantiateBaseRoles(){
 		sRoles = new ArrayList<List<Role>>();
@@ -53,11 +53,28 @@ public class SortingHat {
 	
 	//BANK
 	public static Role getBankRole(int shift) {
+		List<Role> shiftRoles = sRoles.get(shift);
 		
+		//Master Teller (1) - first priority
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof BankMasterTellerRole){
+				if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
+			}
+		}
+		//Guard (1) - second priority
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof BankGuardRole){
+				if (iRole.getPerson() == null) return (BankGuardRole) iRole;
+			}
+		}
+		//Teller (unlimited) - third priority
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof BankTellerRole){
+				if (iRole.getPerson() == null) return (BankTellerRole) iRole;
+			}
+		}//SHANE: Do I need to have this in the premade roles?
 		
-		//SHANE: 1 do this
-		//loop through roles and assign them in priority order
-		return role;
+		return new BankTellerRole();
 	}
 	
 	

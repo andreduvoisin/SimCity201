@@ -71,16 +71,16 @@ public class PersonAgent extends Agent implements Person {
 		
 		switch (job){
 			case BANK:
-				mRoles.put(SortingHat.getBankRole(), true); //true = initially active
+				mRoles.put(SortingHat.getBankRole(mTimeShift), true); //true = initially active
 				break;
 			case HOUSING:
-				mRoles.put(SortingHat.getHousingRole(), true);
+				mRoles.put(SortingHat.getHousingRole(mTimeShift), true);
 				break;
 			case MARKET:
-				mRoles.put(SortingHat.getMarketRole(), true);
+				mRoles.put(SortingHat.getMarketRole(mTimeShift), true);
 				break;
 			case RESTAURANT:
-				mRoles.put(SortingHat.getRestaurantRole(), true);
+				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), true);
 				break;
 			case NONE:
 				//wealthy people - no role
