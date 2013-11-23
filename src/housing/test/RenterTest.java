@@ -24,7 +24,7 @@ public class RenterTest extends TestCase {
 	Person mPerson;
 	HousingRenterRole mHousingRenter;
 	MockLandlord mHousingLandlord;
-	House mHouse; 
+	House mHouse1; 
 
 
 	/**
@@ -45,7 +45,7 @@ public class RenterTest extends TestCase {
 		mHousingRenter.setLandlord(mHousingLandlord);
 		
 		//Houses
-		mHouse = new House(10, 10, 300.00); 
+		mHouse1 = new House(10, 10, 300.00); 
 	}
 	
 	public void testNormativeScenario1()
@@ -57,9 +57,14 @@ public class RenterTest extends TestCase {
 		//Preconditions 
 		assertTrue("HousingLandlord has an empty log", mHousingLandlord.log.size() == 0); 
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
+		assertTrue("HousingRenter should have no House", mHousingRenter.mHouse == null); 
 		
 		//HousingLandlord accepts housing application from HousingRenter 
-		mHousingRenter.msgApplicationAccepted(mHouse);
+		mHousingRenter.msgApplicationAccepted(mHouse1);
+		
+		//Check 1
+		assertEquals("HousingRenter has appropriate house", mHousingRenter.mHouse, mHouse1); 
+		
 //		
 //		//HousingRenter1 messages HousingLandlord to apply for housing
 //		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter1, 500.00, 1);

@@ -78,7 +78,7 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public void addRole(Role role, boolean active) {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("Role: " + role)); 
 	}
 	
 	public void msgHereIsPayment(int senderSSN, int amount) {
@@ -88,25 +88,25 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public int getTimeShift() {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
 	@Override
 	public void setName(String name) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void setSSN(int SSN) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -116,14 +116,25 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public void msgHereIsPayment(int senderSSN, double amount) {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("SenderSSN: " + senderSSN + ". Amount received: " + amount)); 
 		
 	}
 
 	@Override
 	public void msgOverdrawnAccount(double loan) {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("Loan amount: " + loan)); 
+	}
+
+	@Override
+	public Map<Role, Boolean> getRoles() {
 		
+		return null;
+	}
+
+	@Override
+	public Role getHousingRole() {
+		
+		return null;
 	}
 
 }
