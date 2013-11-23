@@ -5,6 +5,7 @@ import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
 import bank.roles.BankTellerRole;
+import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class SortingHat {
@@ -48,5 +49,16 @@ public class SortingHat {
 		Role worker = new MarketWorkerRole();
 		return worker;
 	}
+	
+	//RESTAURANTS
+	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
+	
+	public static Role getRestaurantRole(){
+		Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
+		sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
+		
+		return new MarketWorkerRole(); //holding place
+	}
 
+	
 }
