@@ -109,7 +109,6 @@ public class PersonAgent extends Agent implements Person {
 		
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
-		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); //SHANE REX: 3 check initial times
 		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
@@ -153,7 +152,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 
-		// SHANE: 1 leave role and add role?
+		// SHANE: 2 leave role and add role?
 
 		return false;
 	}
@@ -161,69 +160,66 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		//One time events (Home, Car)
-		if (event.mEventType == EnumEventType.BUY_HOME) {
-			buyHome();
-		}
-		else if (event.mEventType == EnumEventType.GET_CAR) {
-			getCar();
+		//One time events (Car)
+		if (event.mEventType == EnumEventType.GET_CAR) {
+			getCar(); //SHANE: 1 get car
 		}
 		
 		//Daily Recurring Events (Job, Eat)
-		if (event.mEventType == EnumEventType.JOB) {
+		else if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobType.BANK)){
-				goToJob();
+				goToJob(); //SHANE: 1 go to job
 			}
 			mEvents.add(new Event(event, 24));
 		}
-		if (event.mEventType == EnumEventType.EAT) {
-			eatFood();
+		else if (event.mEventType == EnumEventType.EAT) {
+			eatFood(); //SHANE: 1 eat food
 			mEvents.add(new Event(event, 24));
 		}
 
 		//Intermittent Events (Deposit Check)
-		if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
-			depositCheck();
+		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
+			depositCheck(); //SHANE: 1 deposit check
 		}
 		
-		if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
-			invokeRent();
+		else if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
+			invokeRent(); //SHANE: 1 invoke rent
 		}
 		
-		if (event.mEventType == EnumEventType.MAINTAIN_HOUSE) {
-			invokeMaintenance();
+		else if (event.mEventType == EnumEventType.MAINTAIN_HOUSE) {
+			invokeMaintenance(); //SHANE: 1 invoke maintenance
 		}
 		
 		//Party Events
-		if (event.mEventType == EnumEventType.INVITE1) {
-			inviteToParty();
+		else if (event.mEventType == EnumEventType.INVITE1) {
+			inviteToParty(); //SHANE: 1 invite to party
 		}
-		if (event.mEventType == EnumEventType.INVITE2) {
-			reinviteDeadbeats();
+		else if (event.mEventType == EnumEventType.INVITE2) {
+			reinviteDeadbeats(); //SHANE: 1 reinvite deadbeats
 		}
-		if (event.mEventType == EnumEventType.RSVP1) {
-			respondToRSVP();
+		else if (event.mEventType == EnumEventType.RSVP1) {
+			respondToRSVP(); //SHANE: 1 respond to rsvp
 		}
-		if (event.mEventType == EnumEventType.RSVP2) {
-			respondToRSVP();
+		else if (event.mEventType == EnumEventType.RSVP2) {
+			respondToRSVP(); //SHANE: 1 respond to rsvp (same)
 		}
-		if (event.mEventType == EnumEventType.PARTY) {
-			throwParty();
+		else if (event.mEventType == EnumEventType.PARTY) {
+			throwParty(); //SHANE: 1 throw party
 			int inviteNextDelay = 24*mSSN;
 			EventParty party = (EventParty) event;
 			mEvents.add(new EventParty(party, inviteNextDelay + 2));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
-			//SHANE: check event classes
+			//SHANE: 3 check event classes
 		}
 	}
-
-	private void buyHome() {
-		
-	}
-
+	
 	private void goToJob() {
+		
+		
+		
+		
 //		gui.DoGoTo(Location Job);
 //		semAnimation.acquire();
 		//add job role
