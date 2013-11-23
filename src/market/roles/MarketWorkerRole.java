@@ -1,19 +1,11 @@
 package market.roles;
 
-<<<<<<< HEAD
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import market.Order;
-=======
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import market.gui.WorkerGui;
 import market.interfaces.*;
 import market.*;
->>>>>>> market
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
 import market.interfaces.DeliveryTruck;

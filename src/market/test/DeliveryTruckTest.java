@@ -26,7 +26,7 @@ public class DeliveryTruckTest extends TestCase {
  	public void setUp() throws Exception {
  		super.setUp();
  		
- 		mPerson = new PersonAgent("Role");
+ 		mPerson = new PersonAgent();
  		mDeliveryTruck = new MarketDeliveryTruckRole(mPerson);
  		
  		mMockCashier = new MockCashier();

@@ -72,12 +72,9 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	
 //	Scheduler
 	public boolean pickAndExecuteAnAction(){
-<<<<<<< HEAD
-=======
 		/*
 		 * if cashier has just started, go to position
 		 */
->>>>>>> market
 		if (mOrders.size() > 0){
 			for (Order iOrder : mOrders){
 				//notify customer if an order has been placed
@@ -107,13 +104,6 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		Map<String, Integer> cannotFulfill = new HashMap<String, Integer>();
 		int cost = 0;
 
-<<<<<<< HEAD
-		//set cost
-		for (EnumMarketItemType iItemType : order.mItems.keySet()){
-			int amountCanFulfill = Math.max(order.mItems.get(iItemType), mInventory.get(iItemType));
-			canFulfill.put(iItemType, amountCanFulfill);
-			cost += amountCanFulfill*(Item.cMARKET_PRICES.get(iItemType));
-=======
 		for(String item : order.mItems.keySet()) {
 			if(mMarket.getInventory(item) < order.mItems.get(item)) {
 				cannotFulfill.put(item,order.mItems.get(item)-mMarket.getInventory(item));
@@ -124,7 +114,6 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 				mMarket.setInventory(item, mMarket.getInventory(item)-order.mItems.get(item));
 				cost += mMarket.getCost(item) * order.mItems.get(item);
 			}
->>>>>>> market
 		}
 		
 		Role personRole = order.mPersonRole;
@@ -177,16 +166,12 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	public int getNumWorkers(){
 		return mNumWorkers;
 	}
-<<<<<<< HEAD
 
 	public static Role getNextRole() {
 		// SHANE: ADD GETNEXTROLE METHODS
 		Role worker = new MarketWorkerRole();
 		return worker;
 	}
-
-=======
->>>>>>> market
 	
 	public void addWorker(Worker w) {
 		mWorkers.add(w);

@@ -3,6 +3,7 @@ package market.test.mock;
 import java.util.Map;
 
 import base.PersonAgent;
+import base.interfaces.Person;
 import base.interfaces.Role;
 import market.*;
 import market.interfaces.Customer;
@@ -27,7 +28,7 @@ public class MockCustomer extends Mock implements Customer, Role {
 		return false;
 	}
 
-	public void setPerson(PersonAgent person) {
+	public void setPerson(Person person) {
 	}
 
 	public PersonAgent getPersonAgent() {
