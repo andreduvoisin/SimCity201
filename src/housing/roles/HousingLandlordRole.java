@@ -14,7 +14,6 @@ import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
 import base.interfaces.Person;
-import base.interfaces.Role;
 
 /*
  * @author David Carr, Maggi Yang
