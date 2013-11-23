@@ -33,6 +33,7 @@ public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
 	MarketCashier mMarketCashier;
+	int mMarketSSN;			///for paying
 	
 	public MarketCookCustomerRole(PersonAgent person) {
 		mPerson = person;
@@ -104,13 +105,12 @@ public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 	private void payAndProcessOrder(MarketInvoice i) {
 		i.mPayment = i.mTotal;
 		//check if cannot afford invoice
-		//check how to get payment from restaurant cashier
 		
 		for(EnumMarketItemType item : mCannotFulfill.keySet()) {
 			mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
 		}
 		
-//		mRestaurantCashier.msgHereIsInvoice(i);
+		//ANGELICA REX: bank interactions?
 		mMarketCashier.msgPayingForOrder(i);
 		mInvoices.remove(i);
 	}
