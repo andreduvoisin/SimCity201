@@ -124,7 +124,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Actions */
 	private void CollectRent(){
 		synchronized (mRenterList) {
-			//change to iterator 
 			Iterator<MyRenter> itr = mRenterList.iterator();
 			while (itr.hasNext()) {
 				MyRenter renter = itr.next();
@@ -133,12 +132,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 					itr.remove();
 				}
 			}
-//			for (MyRenter r : mRenterList) {
-//				if (r.mState == EnumRenterState.RentOverdue) {
-//					GiveEvictionNotice(r);
-//				}
-//				
-//			}
 		}
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
@@ -177,9 +170,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 					h.mOccupant = null;
 				}
 			}
-		}
-		synchronized (mRenterList) {
-//			mRenterList.remove(r);
 		}
 	}
 
