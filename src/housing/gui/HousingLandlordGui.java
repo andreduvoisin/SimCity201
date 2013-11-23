@@ -5,19 +5,17 @@ import housing.roles.HousingLandlordRole;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import city.gui.old.Gui;
-
+import base.Gui;
 /*
  * @author David Carr
  */
 
-// Need to change Gui, part of old Gui? Not sure yet.
 public class HousingLandlordGui implements Gui {
 	
 	HousingLandlordRole landlord;
 	
-	private int xPos, yPos = -20;
-	private int xDestination, yDestination = -20;
+	private int xPos, yPos = 20;
+	private int xDestination, yDestination = 20;
 	private boolean currentlyAnimating;
 	
 	private static int GUISIZE = 20;
@@ -45,8 +43,7 @@ public class HousingLandlordGui implements Gui {
 
 	@Override
 	public boolean isPresent() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 }

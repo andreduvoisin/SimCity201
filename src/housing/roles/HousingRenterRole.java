@@ -175,4 +175,8 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);
 	}
+
+	public void setGui(HousingResidentGui g) {
+		gui = g;
+	}
 }

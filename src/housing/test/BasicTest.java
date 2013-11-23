@@ -1,10 +1,12 @@
-package test;
+package housing.test;
 
-import housing.House;
+import housing.gui.HousingHouseGuiPanel;
+import housing.gui.HousingResidentGui;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
+import base.Gui;
 import base.PersonAgent;
 
 /*
@@ -34,6 +36,20 @@ public class BasicTest extends TestCase {
 	 * CityPanel.getInstanceOf(); assertEquals("8 people added",
 	 * citypanel.masterPersonList.size(), 8); }
 	 */
+	
+	public void testHousingGui() {
+		mPerson = new PersonAgent();
+		mPerson2 = new PersonAgent();
+		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
+		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
+		HousingResidentGui gui1 = new HousingResidentGui();
+		HousingResidentGui gui2 = new HousingResidentGui();
+		renter1.setGui(gui1);
+		renter2.setGui(gui2);
+		HousingHouseGuiPanel housepanel = HousingHouseGuiPanel.getInstance();
+		housepanel.addGui(gui1);
+		housepanel.addGui(gui2);
+	}
 
 	public void testInstantiatePeopleAndAssignRoles() {
 		mPerson = new PersonAgent();

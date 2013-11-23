@@ -137,7 +137,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		else if (e.getSource().equals(housingGUIButton)) {
 			JFrame HousingGUITest = new JFrame("HousingGUITest");
 			HousingGUITest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			HousingGUITest.getContentPane().add(new HousingHouseGuiPanel(), BorderLayout.CENTER);
+			HousingGUITest.getContentPane().add(HousingHouseGuiPanel.getInstance(), BorderLayout.CENTER);
 			HousingGUITest.setLayout(new GridLayout(1, 1));
 			HousingGUITest.setSize(300,400);
 			HousingGUITest.setVisible(true);
