@@ -14,6 +14,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
+import city.gui.CityPerson;
 import market.interfaces.MarketCashier;
 import market.roles.MarketCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
@@ -24,6 +25,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+//import city.gui.PersonGui;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -34,7 +36,7 @@ public class PersonAgent extends Agent implements Person {
 	static int sEatingTime = 0;
 	
 	//Roles and Job
-	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
 	private EnumJobType mJobPlace;
 	private Location mJobLocation;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
@@ -57,13 +59,14 @@ public class PersonAgent extends Agent implements Person {
 	Set<Location> mHomeLocations; //multiple for landlord
 	boolean mHasCar;
 	Location mWorkLocation;
+	CityPerson personGui = null;
 	
 	public Semaphore semAnimationDone = new Semaphore(0);
 	private boolean mRoleFinished;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	private Object mGui; //SHANE JERRY: 2 put PersonAgentGui here
+	//private PersonGui mGui; //SHANE JERRY: 2 put PersonGui here
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -296,6 +299,17 @@ public class PersonAgent extends Agent implements Person {
 		// state = PersonState.Eating;
 		// break;
 		// }
+	}
+
+	private void getCar() {
+		// DoGoTo(market.location);
+		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
+		// roles.find(MarketCustomerRole).active = T;
+		// state = PersonState.Shopping;
+	}
+	
+	public void SetGui(CityPerson pGui){
+		personGui = pGui;
 	}
 
 	private void depositCheck() {
