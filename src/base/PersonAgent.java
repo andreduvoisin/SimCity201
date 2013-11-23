@@ -78,7 +78,7 @@ public class PersonAgent extends Agent implements Person {
 				mRoles.put(BankMasterTellerRole.getNextRole(), true); //initially active
 				break;
 			case HOUSING:
-				mRoles.put(HousingLandlordRole.getNextRole(), true);
+				mRoles.put(SortingHat.getNextRole(), true);
 				break;
 			case MARKET:
 				//Ask market cashier for role
