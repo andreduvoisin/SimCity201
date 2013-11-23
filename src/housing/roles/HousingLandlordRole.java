@@ -85,7 +85,7 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 	}
 
 	public void msgIWouldLikeToLiveHere(HousingRenter r, double cash, int SSN) {
-		print("Message - I would like to live here recieved");
+		print("Message - I would like to live here received");
 		MyRenter newRenter = new MyRenter(r, cash, SSN);
 		newRenter.mState = EnumRenterState.ApplyingForHousing;
 		mRenterList.add(newRenter);
