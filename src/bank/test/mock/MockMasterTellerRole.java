@@ -60,5 +60,11 @@ public class MockMasterTellerRole extends Mock implements BankMasterTeller, Role
 		
 	}
 
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

@@ -1,8 +1,8 @@
 package restaurant_tranac.gui;
 
 import base.Agent;
-import restaurant_tranac.agents.CustomerAgent;
-import restaurant_tranac.agents.WaiterAgent;
+import restaurant_tranac.roles.RestaurantCustomerRole_at;
+import restaurant_tranac.roles.RestaurantWaiterRole_at;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,8 +24,8 @@ import java.util.Vector;
  * Main GUI class.
  * Contains the main frame and subsequent panels
  */
-public class RestaurantGui extends JFrame{
-	AnimationPanel animationPanel = new AnimationPanel();
+public class RestaurantGui_at extends JFrame{
+	RestaurantPanel_at animationPanel = new RestaurantPanel_at();
 	JPanel panel = new JPanel();
 	
 	private final int WINDOWX = 1100;
@@ -41,13 +41,13 @@ public class RestaurantGui extends JFrame{
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */    
-    private RestaurantPanel restPanel = new RestaurantPanel(this);
+    private RestaurantSidePanel_at restPanel = new RestaurantSidePanel_at(this);
 
     /**
      * Constructor for RestaurantGui class.
      * Sets up all the gui components.
      */
-    public RestaurantGui() {
+    public RestaurantGui_at() {
 
     	setBounds(GAP, GAP, WINDOWX, WINDOWY);
     	setLayout(new FlowLayout());
@@ -74,11 +74,11 @@ public class RestaurantGui extends JFrame{
      *
      * @param c reference to the customer
      */
-    public void setEnabled(WaiterAgent w) {
+    public void setEnabled(RestaurantWaiterRole_at w) {
     	restPanel.setEnabled(w);
     }
     
-    public void setEnabled(CustomerAgent c) {
+    public void setEnabled(RestaurantCustomerRole_at c) {
     	restPanel.setEnabled(c);
     }
     
@@ -86,7 +86,7 @@ public class RestaurantGui extends JFrame{
      * Main routine to get gui started
      */
     public static void main(String[] args) {
-        RestaurantGui gui = new RestaurantGui();
+        RestaurantGui_at gui = new RestaurantGui_at();
         gui.setTitle("The Kingdom Hearts Restaurant");
         gui.setVisible(true);
         gui.setResizable(false);

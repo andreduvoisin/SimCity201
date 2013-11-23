@@ -1,4 +1,4 @@
-package restaurant_all.roles;
+package restaurant_tranac.roles;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
@@ -15,8 +15,7 @@ import java.util.TimerTask;
 /**
  * Restaurant customer agent.
  */
-public class CustomerRole_at extends BaseRole implements Customer{
-	private String name;
+public class RestaurantCustomerRole_at extends BaseRole implements Customer{
 	private CustomerGui_at customerGui;
 	private int hungerLevel = 10;        		//determines length of meal
 	private final int baseMoney = 30;
@@ -56,10 +55,9 @@ public class CustomerRole_at extends BaseRole implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customerGui so the customer can send it messages
 	 */
-	public CustomerRole_at(String name){
+	public RestaurantCustomerRole_at(){
 		super();
-		this.name = name;
-		money = baseMoney;
+		money = baseMoney;	//ANGELICA: no longer necessary; will get from person
 		num = 0;
 		
 		//randomly chooses waiting unless set later
@@ -440,7 +438,7 @@ public class CustomerRole_at extends BaseRole implements Customer{
 	/** Utilities */
 
 	public String getName() {
-		return name;
+		return mPerson.getName();
 	}
 	
 	public void setHost(Host h) {
@@ -454,11 +452,7 @@ public class CustomerRole_at extends BaseRole implements Customer{
 	public void setCashier(Cashier c) {
 		cashier = c;
 	}
-	
-	public String getCustomerName() {
-		return name;
-	}
-	
+
 	public int getHungerLevel() {
 		return hungerLevel;
 	}

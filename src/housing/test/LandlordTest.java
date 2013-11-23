@@ -53,7 +53,7 @@ public class LandlordTest extends TestCase {
 		
 		//Preconditions 
 		assertTrue("HousingLandlord has no potential renters", mHousingLandlord.mRenterList.size() == 0);
-		assertTrue("HousingLandlord has 2 available houses for rent", mHousingLandlord.mHousesList.size() == 2);
+		assertTrue("HousingLandlord has 2 potential houses for rent", mHousingLandlord.mHousesList.size() == 2);
 		assertTrue("HousingRenter1 has an empty log", mHousingRenter1.log.size() == 0); 
 		
 		//HousingRenter1 messages HousingLandlord to apply for housing
@@ -72,7 +72,7 @@ public class LandlordTest extends TestCase {
 		assertTrue("HousingLandlord has two renters", mHousingLandlord.mRenterList.size() == 2); 
 		assertTrue("PAEA: return true and does action", mHousingLandlord.pickAndExecuteAnAction());
 		assertTrue("HousingRenter2 should have received acceptance message", mHousingRenter2.log.containsString("Received msgApplicationAccepted"));
-		assertTrue("HousingRenter1 shoud not have received any message", mHousingRenter1.log.size() == 1); 
+		assertTrue("HousingRenter1 should not have received any additional messages", mHousingRenter1.log.size() == 1); 
 		assertTrue("PAEA: return false", !mHousingLandlord.pickAndExecuteAnAction());
 		
 		//HousingRenter3 messages HousingLandlord to apply for housing
@@ -82,8 +82,8 @@ public class LandlordTest extends TestCase {
 		assertTrue("HousingLandlord has three renters", mHousingLandlord.mRenterList.size() == 3); 
 		assertTrue("PAEA: return true and does action", mHousingLandlord.pickAndExecuteAnAction());
 		assertTrue("HousingRenter3 should have been declined housing", mHousingRenter3.log.containsString("Received msgApplicationDenied"));
-		assertTrue("HousingRenter1 shoud not have received any message", mHousingRenter1.log.size() == 1); 
-		assertTrue("HousingRenter2 shoud not have received any message", mHousingRenter2.log.size() == 1); 
+		assertTrue("HousingRenter1 should not have received any additional messages", mHousingRenter1.log.size() == 1); 
+		assertTrue("HousingRenter2 should not have received any additional messages", mHousingRenter2.log.size() == 1); 
 		assertTrue("HousingLandlord should remove HousingRenter3 from RenterList", mHousingLandlord.mRenterList.size() == 2); 
 		assertTrue("PAEA: return false", !mHousingLandlord.pickAndExecuteAnAction());
 	
@@ -95,9 +95,30 @@ public class LandlordTest extends TestCase {
 		 */
 		
 		
+		//Preconditions
+		assertTrue("HousingRenter1 has an empty log", mHousingRenter1.log.size() == 0); 
+		assertTrue("HousingRenter2 has an empty log", mHousingRenter1.log.size() == 0); 
+		assertTrue("HousingLandlord has no renters", mHousingLandlord.mRenterList.size() == 0);
 		
+		//Add renters
+		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter1, 500.00, 1);
+		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter2, 700.00, 2);
+		assertTrue("PAEA: return true and accept renter", mHousingLandlord.pickAndExecuteAnAction());
+		assertTrue("PAEA: return true and accept renter", mHousingLandlord.pickAndExecuteAnAction());
 		
-	
+		//Check 1: Renters have been successfully added
+		assertTrue("HousingLandlord has 2 renters", mHousingLandlord.mRenterList.size() == 2);
+		assertTrue("HousingRenter1 has received only one message", mHousingRenter1.log.size() == 1); 
+		assertTrue("HousingRenter2 has received only one message", mHousingRenter2.log.size() == 1); 
+		
+		//Set time for rent collection
+		mHousingLandlord.mTimeToCheckRent = true; 
+		
+		//Check 2: HousingLandlord sends appropriate rent collection messages to all renters
+		assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
+		assertTrue("HousingRenter1 should receive rent due message", mHousingRenter1.log.containsString("Received msgRentDue"));
+		assertTrue("HousingRenter2 should receive rent due message", mHousingRenter2.log.containsString("Received msgRentDue"));
+		assertTrue("PAEA: should return false", !mHousingLandlord.pickAndExecuteAnAction());
 	}
 
 }

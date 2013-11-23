@@ -1,7 +1,7 @@
-package restaurant_tranac.agents;
+package restaurant_tranac.roles;
 
-import base.Agent;
-import restaurant_tranac.gui.HostGui;
+import base.BaseRole;
+import restaurant_tranac.gui.HostGui_at;
 import restaurant_tranac.interfaces.*;
 
 import java.util.*;
@@ -11,9 +11,8 @@ import java.util.*;
  * Restaurant Host Agent
  */
 
-public class HostAgent extends Agent implements Host{
-	private String name;
-	private HostGui hostGui;
+public class RestaurantHostRole_at extends BaseRole implements Host{
+	private HostGui_at hostGui;
 	
 	static final int NTABLES = 4;		//number of tables in rest
 	static final int NWAITINGAREA = 20;
@@ -30,10 +29,8 @@ public class HostAgent extends Agent implements Host{
 	//MyWaiterState
 	enum WaiterState {Active, WantToGoOnBreak, OnBreak};
 	
-	public HostAgent(String name) {
+	public RestaurantHostRole_at() {
 		super();
-
-		this.name = name;
 
 		//create the list of tables
 		tables = new ArrayList<Table>(NTABLES);
@@ -142,7 +139,7 @@ public class HostAgent extends Agent implements Host{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		synchronized(customers) {
 			for(MyCustomer customer : customers) {
 				if(customer.s == CustomerState.Leaving) {
@@ -307,9 +304,8 @@ public class HostAgent extends Agent implements Host{
 	}
 	
 	/** Utilities */
-
 	public String getName() {
-		return name;
+		return mPerson.getName();
 	}
 
 	public List<MyCustomer> getCustomers() {
@@ -335,11 +331,11 @@ public class HostAgent extends Agent implements Host{
 		return true;
 	}
 	
-	public HostGui getGui() {
+	public HostGui_at getGui() {
 		return hostGui;
 	}
 	
-	public void setGui(HostGui g) {
+	public void setGui(HostGui_at g) {
 		hostGui = g;
 	}
 	

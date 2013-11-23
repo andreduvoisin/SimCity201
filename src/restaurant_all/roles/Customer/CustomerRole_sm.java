@@ -1,4 +1,4 @@
-package restaurant_all.roles;
+package restaurant_all.roles.Customer;
 
 import java.util.ArrayList;
 import java.util.List;

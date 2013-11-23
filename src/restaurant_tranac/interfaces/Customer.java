@@ -2,7 +2,7 @@ package restaurant_tranac.interfaces;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
-import restaurant_tranac.gui.CustomerGui;
+import restaurant_tranac.gui.CustomerGui_at;
 
 /**
  * Customer interface built for unit testing.
@@ -13,7 +13,7 @@ import restaurant_tranac.gui.CustomerGui;
 public interface Customer {
 	public abstract String getName();				//necessary for hostAgent
 	
-	public abstract CustomerGui getGui();			//necessary for waiterAgent
+	public abstract CustomerGui_at getGui();			//necessary for waiterAgent
 	
 	public abstract void msgGotHungry();
 	

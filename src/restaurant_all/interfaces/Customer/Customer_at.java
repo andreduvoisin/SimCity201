@@ -1,8 +1,8 @@
-package restaurant_all.interfaces;
+package restaurant_all.interfaces.Customer;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
-import restaurant_tranac.gui.CustomerGui_at;
+import restaurant_tranac.gui.CustomerGui;
 import restaurant_tranac.interfaces.Waiter;
 
 /**
@@ -14,7 +14,7 @@ import restaurant_tranac.interfaces.Waiter;
 public interface Customer_at {
 	public abstract String getName();				//necessary for hostAgent
 	
-	public abstract CustomerGui_at getGui();			//necessary for waiterAgent
+	public abstract CustomerGui getGui();			//necessary for waiterAgent
 	
 	public abstract void msgGotHungry();
 	

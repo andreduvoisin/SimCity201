@@ -83,6 +83,12 @@ public class MockRenter extends Mock implements Role, HousingRenter {
 		return 0;
 	}
 
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

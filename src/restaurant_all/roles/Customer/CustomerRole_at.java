@@ -1,8 +1,8 @@
-package restaurant_tranac.agents;
+package restaurant_all.roles.Customer;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
-import base.Agent;
+import base.BaseRole;
 import restaurant_tranac.gui.CustomerGui;
 import restaurant_tranac.interfaces.*;
 
@@ -15,7 +15,7 @@ import java.util.TimerTask;
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer{
+public class CustomerRole_at extends BaseRole implements Customer{
 	private String name;
 	private CustomerGui customerGui;
 	private int hungerLevel = 10;        		//determines length of meal
@@ -56,7 +56,7 @@ public class CustomerAgent extends Agent implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customerGui so the customer can send it messages
 	 */
-	public CustomerAgent(String name){
+	public CustomerRole_at(String name){
 		super();
 		this.name = name;
 		money = baseMoney;
@@ -161,7 +161,7 @@ public class CustomerAgent extends Agent implements Customer{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry){
 			state = AgentState.GoingToRestaurant;

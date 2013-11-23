@@ -1,9 +1,9 @@
-package restaurant_tranac.agents;
+package restaurant_tranac.roles;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
-import base.Agent;
-import restaurant_tranac.gui.CashierGui;
+import base.BaseRole;
+import restaurant_tranac.gui.CashierGui_at;
 import restaurant_tranac.interfaces.*;
 
 import java.util.*;
@@ -11,22 +11,19 @@ import java.util.*;
 /**
  * Restaurant Cook Agent
  */
-public class CashierAgent extends Agent implements Cashier {
-	
-	private String name;
-	private CashierGui cashierGui;
+public class RestaurantCashierRole_at extends BaseRole implements Cashier {
+	private CashierGui_at cashierGui;
 	private Menu menu = new Menu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
 	public List<Bill> bills = Collections.synchronizedList(new ArrayList<Bill>());
-	public double money;
+	public double money;	//ANGELICA: switch to bank ssn?
 	
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
-	public CashierAgent(String n) {
+	public RestaurantCashierRole_at() {
 		super();
-		name = n;
-		money = 5000;
+		money = 5000;	//ANGELICA: no longer initialize
 	}
 
 	/** Messages */
@@ -171,14 +168,14 @@ public class CashierAgent extends Agent implements Cashier {
 	/** Utilities */
 
 	public String getName() {
-		return name;
+		return mPerson.getName();
 	}
-
-	public void setGui(CashierGui c) {
+	
+	public void setGui(CashierGui_at c) {
 		this.cashierGui = c;
 	}
 	
-	public CashierGui getCashierGui() {
+	public CashierGui_at getCashierGui() {
 		return cashierGui;
 	}
 	

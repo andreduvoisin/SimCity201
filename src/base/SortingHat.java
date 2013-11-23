@@ -34,16 +34,11 @@ public class SortingHat {
 			shift.add(new BankMasterTellerRole(null));
 			shift.add(new BankTellerRole(null)); //REX: How many tellers do we need? -SHANE
 			
-			//Housing
-//			shift.add(new HousingLandlordRole(null));
-//			shift.add(new HousingOwnerRole(null));
-			
-			
 			//Market
-			shift.add(new MarketCashierRole(null, new Market())); //ANGELICA: Is this how it's created? New market()?
-			shift.add(new MarketCookCustomerRole(null));
-			shift.add(new MarketDeliveryTruckRole(null));
-			shift.add(new MarketWorkerRole(null));
+			shift.add(new MarketCashierRole(null, new Market())); 	//1 //ANGELICA: Is this how it's created? New market()?
+			shift.add(new MarketCookCustomerRole(null));			//1
+			shift.add(new MarketDeliveryTruckRole(null));			//1?
+			shift.add(new MarketWorkerRole(null));					//? ANGELICA: How many do we need?
 			
 			//Restaurants
 			//REX - ADD RESTAURANT STUFF HERE WHEN DONE
@@ -80,6 +75,67 @@ public class SortingHat {
 	}
 	
 	
+	//MARKET
+	public static Role getMarketRole(int shift){
+		List<Role> shiftRoles = sRoles.get(shift);
+		
+		//MarketCashierRole (1) - first priority
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof MarketCashierRole){
+				if (iRole.getPerson() == null) return (MarketCashierRole) iRole;
+			}
+		}
+		//MarketCookCustomerRole (1)
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof MarketCookCustomerRole){
+				if (iRole.getPerson() == null) return (MarketCookCustomerRole) iRole;
+			}
+		}
+		//MarketDeliveryTruckRole
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof MarketDeliveryTruckRole){
+				if (iRole.getPerson() == null) return (MarketDeliveryTruckRole) iRole;
+			}
+		}
+		//MarketWorkerRole
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof MarketWorkerRole){
+				if (iRole.getPerson() == null) return (MarketWorkerRole) iRole;
+			}
+		}
+		
+		return null;
+	}
+	
+	//RESTAURANTS
+	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
+	
+	public static Role getRestaurantRole(int shift){
+		List<Role> shiftRoles = sRoles.get(shift);
+		
+		//SHANE REX: 1 DO THIS WHEN YOU FINISH THE RESTAURANT ROLES
+		
+		
+		
+		
+		
+		//Master Teller (1) - first priority
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof BankMasterTellerRole){
+				if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
+			}
+		}
+		
+		Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
+		sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
+		
+		return new MarketWorkerRole(); //holding place
+	}
+	
+	
+	
+	
+
 	//HOUSING
 	static int sLandlordCount = 0;
 	static int sRenterCount = 0;
@@ -100,47 +156,6 @@ public class SortingHat {
 			return new HousingRenterRole(person);
 		}
 		return new HousingOwnerRole(person);
-	}
-	
-	
-	//MARKET
-	
-	public static Role getMarketRole(int shift){
-		List<Role> shiftRoles = sRoles.get(shift);
-		
-		//Master Teller (1) - first priority
-				for (Role iRole : shiftRoles){
-					if (iRole instanceof BankMasterTellerRole){
-						if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
-					}
-				}
-				
-				
-		
-		// SHANE: ADD GETNEXTROLE METHODS
-		Role worker = new MarketWorkerRole();
-		return worker;
-	}
-	
-	//RESTAURANTS
-	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
-	
-	public static Role getRestaurantRole(int shift){
-		List<Role> shiftRoles = sRoles.get(shift);
-		
-		//Master Teller (1) - first priority
-				for (Role iRole : shiftRoles){
-					if (iRole instanceof BankMasterTellerRole){
-						if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
-					}
-				}
-				
-				
-		
-		Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
-		sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
-		
-		return new MarketWorkerRole(); //holding place
 	}
 
 	

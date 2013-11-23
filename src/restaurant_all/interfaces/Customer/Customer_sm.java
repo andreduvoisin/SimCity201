@@ -1,4 +1,4 @@
-package restaurant_all.interfaces;
+package restaurant_all.interfaces.Customer;
 
 import restaurant_smileham.Menu;
 import restaurant_smileham.Food.EnumFoodOptions;
