@@ -8,34 +8,20 @@ import housing.interfaces.HousingRenter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Semaphore;
 
-import base.BaseRole;
 import base.interfaces.Person;
 
 /*
  * @author David Carr, Maggi Yang
  */
 
-public class HousingRenterRole extends BaseRole implements HousingRenter {
+public class HousingRenterRole extends HousingBaseRole implements HousingRenter {
 
 	/* Data */
 
 	public HousingLandlord myLandLord;
-	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
-	House mHouse = null;
 	private HousingResidentGui gui = new HousingResidentGui();
-	private Semaphore isAnimating = new Semaphore(0, true);
-	boolean isHungry = false;
-	Timer mMintenanceTimer;
-	TimerTask mMintenanceTimerTask = new TimerTask() {
-		public void run() {
-			mTimeToMaintain = true;
-		}
-	};
 
 	enum EnumBillState {
 		Pending, Paid
@@ -61,16 +47,6 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 	}
 
 	/* Messages */
-
-	public void msgEatAtHome() {
-		isHungry = true;
-		stateChanged();
-	}
-
-	public void msgDoneAnimating() {
-		isAnimating.release();
-		stateChanged();
-	}
 
 	public void msgApplicationAccepted(House newHouse) {
 		print("Message - msgApplicationAccepted");
@@ -107,8 +83,8 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 	public boolean pickAndExecuteAnAction() {
 		// DAVID MAGGI: establish what triggers the RequestHousing() action
 
-		if (isHungry) {
-			isHungry = false;
+		if (mHungry) {
+			mHungry = false;
 			EatAtHome();
 			return true;
 		}
@@ -126,7 +102,6 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 
 		if (mTimeToMaintain) {
 			mTimeToMaintain = false;
-			mMintenanceTimer.schedule(mMintenanceTimerTask, 10000);
 			Maintain();
 			return true;
 		}
