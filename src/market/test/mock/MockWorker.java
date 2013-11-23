@@ -6,11 +6,7 @@ import test.mock.*;
 
 public class MockWorker extends Mock implements Worker {
 
-<<<<<<< HEAD
-	public MockWorker(String name) {
-=======
 	public MockWorker() {
->>>>>>> market
 		super();
 	}
 	
