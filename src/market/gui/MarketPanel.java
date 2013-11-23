@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.Timer;
 
-import restaurant_tranac.gui.Gui;
+import restaurant.restaurant_tranac.gui.Gui;
 
 import java.awt.*;
 import java.awt.event.*;

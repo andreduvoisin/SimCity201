@@ -3,6 +3,7 @@ package city.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import base.Location;
 import base.PersonAgent;
 
 public class CityPerson implements Gui{
@@ -56,6 +57,12 @@ public class CityPerson implements Gui{
 		atDestination = false;
 		xDestination = x;
 		yDestination = y;
+	}
+	
+	public void DoGoToDestination(Location location){
+		atDestination = false;
+		xDestination = location.mX;
+		yDestination = location.mY;
 	}
 	
 

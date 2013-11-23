@@ -1,5 +1,6 @@
 package housing.test;
 
+import housing.House;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import housing.test.mock.MockLandlord;
@@ -23,6 +24,7 @@ public class RenterTest extends TestCase {
 	Person mPerson;
 	HousingRenterRole mHousingRenter;
 	MockLandlord mHousingLandlord;
+	House mHouse1; 
 
 
 	/**
@@ -41,52 +43,52 @@ public class RenterTest extends TestCase {
 		//Mock Interfaces 
 		mHousingLandlord = new MockLandlord("Mocklandlord"); 
 		mHousingRenter.setLandlord(mHousingLandlord);
+		
+		//Houses
+		mHouse1 = new House(10, 10, 300.00); 
 	}
 	
-	public void testNormativeScenario1()
+	public void testRenterObtainsHousing()
 	{
 		/**
-		 * Tests that the renter apply and successfully obtains housing from landlord (accepted)
+		 * Tests that renter can receive housing from landlord (accepted)
 		 */
 		
 		//Preconditions 
 		assertTrue("HousingLandlord has an empty log", mHousingLandlord.log.size() == 0); 
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
+		assertTrue("HousingRenter should have no House", mHousingRenter.mHouse == null); 
 		
-		//HousingLandlord accepts housing application from HousingRenter 
-		//mHousingRenter.msgApplicationAccepted(newHouse);
-//		
-//		//HousingRenter1 messages HousingLandlord to apply for housing
-//		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter1, 500.00, 1);
-//		
-//		//Check 1
-//		assertTrue("HousingLandlord has one renter", mHousingLandlord.mRenterList.size() == 1); 
-//		assertTrue("PAEA: return true and does action", mHousingLandlord.pickAndExecuteAnAction());
-//		assertTrue("HousingRenter1 should have received acceptance message", mHousingRenter1.log.containsString("Received msgApplicationAccepted"));
-//		assertTrue("PAEA: return false", !mHousingLandlord.pickAndExecuteAnAction());
-//		
-//		//HousingRenter2 messages HousingLandlord to apply for housing
-//		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter2, 200.00, 2);
-//		
-//		//Check 2
-//		assertTrue("HousingLandlord has two renters", mHousingLandlord.mRenterList.size() == 2); 
-//		assertTrue("PAEA: return true and does action", mHousingLandlord.pickAndExecuteAnAction());
-//		assertTrue("HousingRenter2 should have received acceptance message", mHousingRenter2.log.containsString("Received msgApplicationAccepted"));
-//		assertTrue("HousingRenter1 should not have received any additional messages", mHousingRenter1.log.size() == 1); 
-//		assertTrue("PAEA: return false", !mHousingLandlord.pickAndExecuteAnAction());
-//		
-//		//HousingRenter3 messages HousingLandlord to apply for housing
-//		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter3, 300.00, 3);		
-//		
-//		//Check 3
-//		assertTrue("HousingLandlord has three renters", mHousingLandlord.mRenterList.size() == 3); 
-//		assertTrue("PAEA: return true and does action", mHousingLandlord.pickAndExecuteAnAction());
-//		assertTrue("HousingRenter3 should have been declined housing", mHousingRenter3.log.containsString("Received msgApplicationDenied"));
-//		assertTrue("HousingRenter1 should not have received any additional messages", mHousingRenter1.log.size() == 1); 
-//		assertTrue("HousingRenter2 should not have received any additional messages", mHousingRenter2.log.size() == 1); 
-//		assertTrue("HousingLandlord should remove HousingRenter3 from RenterList", mHousingLandlord.mRenterList.size() == 2); 
-//		assertTrue("PAEA: return false", !mHousingLandlord.pickAndExecuteAnAction());
-//	
+		//HousingLandlord sends housing accepted message 
+		mHousingRenter.msgApplicationAccepted(mHouse1);
+		
+		//Check
+		assertEquals("HousingRenter has appropriate house", mHousingRenter.mHouse, mHouse1); 
+		assertTrue("PAEA: return false", !mHousingRenter.pickAndExecuteAnAction());
+		assertTrue("mHousingLandlord should not have received any messages", mHousingLandlord.log.size() == 0); 
+
+	}
+	
+	public void testRenterIsDeniedHousing(){
+		
+		/**
+		 * Tests renter being denied housing from landlord
+		 */
+
+		//Preconditions 
+		assertTrue("HousingLandlord has an empty log", mHousingLandlord.log.size() == 0); 
+		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
+		assertTrue("HousingRenter should have no House", mHousingRenter.mHouse == null); 
+		
+		//HousingLandlord sends housing application denied message 
+		mHousingRenter.msgApplicationDenied();
+		
+		//Check
+		assertTrue("HousingRenter should still have no house", mHousingRenter.mHouse == null); 
+		assertTrue("PAEA: return false", !mHousingRenter.pickAndExecuteAnAction());
+		assertTrue("mHousingLandlord should not have received any messages", mHousingLandlord.log.size() == 0); 
+
+		
 	}
 	
 

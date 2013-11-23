@@ -1,15 +1,26 @@
 package market.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import market.*;
+import market.MarketInvoice;
+import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCashierGui;
-import market.interfaces.*;
-import base.*;
+import market.interfaces.MarketCashier;
+import market.interfaces.MarketCook;
+import market.interfaces.MarketCustomer;
+import market.interfaces.MarketDeliveryTruck;
+import market.interfaces.MarketWorker;
+import base.BaseRole;
+import base.Item;
 import base.Item.EnumMarketItemType;
+import base.interfaces.Person;
 import base.interfaces.Role;
 
 /*
@@ -20,7 +31,6 @@ import base.interfaces.Role;
 	4) Markets can run out of inventory. They can be resupplied from the gui.
  */
 public class MarketCashierRole extends BaseRole implements MarketCashier{
-	PersonAgent mPerson;
 	
 	MarketCashierGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
@@ -41,7 +51,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
-	public MarketCashierRole(PersonAgent person) {
+	public MarketCashierRole(Person person) {
 		mPerson = person;
 		
 		//populate inventory
@@ -49,7 +59,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		mInventory.put(EnumMarketItemType.SALAD, mBaseInventory);
 		mInventory.put(EnumMarketItemType.CHICKEN, mBaseInventory);
 		mInventory.put(EnumMarketItemType.PIZZA, mBaseInventory);
-		//ANEGLICA: add car
+		//ANGELICA: add car
 	}
 	
 //	Messages

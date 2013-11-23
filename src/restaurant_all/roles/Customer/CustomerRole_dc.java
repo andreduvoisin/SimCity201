@@ -8,14 +8,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.BaseRole;
-import restaurant_davidmca.Check;
-import restaurant_davidmca.Menu;
-import restaurant_davidmca.Table;
-import restaurant_davidmca.gui.CustomerGui;
-import restaurant_davidmca.interfaces.Cashier;
-import restaurant_davidmca.interfaces.Customer;
-import restaurant_davidmca.interfaces.Host;
-import restaurant_davidmca.interfaces.Waiter;
+import restaurant.restaurant_davidmca.Check;
+import restaurant.restaurant_davidmca.Menu;
+import restaurant.restaurant_davidmca.Table;
+import restaurant.restaurant_davidmca.gui.CustomerGui;
+import restaurant.restaurant_davidmca.interfaces.Cashier;
+import restaurant.restaurant_davidmca.interfaces.Customer;
+import restaurant.restaurant_davidmca.interfaces.Host;
+import restaurant.restaurant_davidmca.interfaces.Waiter;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.

@@ -14,8 +14,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
-import city.gui.CityPerson;
-import market.interfaces.MarketCashier;
 import market.roles.MarketCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
@@ -26,6 +24,7 @@ import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 //import city.gui.PersonGui;
+import city.gui.CityPerson;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -65,7 +64,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	//private PersonGui mGui; //SHANE JERRY: 2 put PersonGui here
+	private CityPerson mGui; //SHANE JERRY: 2 instantiate this
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -241,9 +240,8 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void getCar(){
-		MarketCashier marketCashier = (MarketCashier) ContactList.sMarketCashiers.keySet().toArray()[0];
-		Location location = ContactList.sMarketCashiers.get(marketCashier);
-//		mGui.DoGoTo(location);
+		Location location = ContactList.cMARKET_LOCATION;
+		mGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		
 		//remove current gui (isPresent = false)
@@ -279,6 +277,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void eatFood() {
+		
+		
+		
 		// // What will be our algorithm to figure out which to do?
 		// switch(random(2)) {
 		// case 0:
@@ -299,13 +300,6 @@ public class PersonAgent extends Agent implements Person {
 		// state = PersonState.Eating;
 		// break;
 		// }
-	}
-
-	private void getCar() {
-		// DoGoTo(market.location);
-		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
 	}
 	
 	public void SetGui(CityPerson pGui){
