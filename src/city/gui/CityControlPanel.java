@@ -1,5 +1,7 @@
 package city.gui;
 
+import housing.gui.HouseGuiPanel;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.TextAttribute;
@@ -13,7 +15,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	SimCityGui city;
 	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
-	JButton addRestaurant, addBank;
+	JButton addRestaurant, addBank, housingGUIButton;
 	
 	// Title & Pause Button
 	JLabel title = new JLabel("Control Panel");
@@ -118,6 +120,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		addBank.addActionListener(this);
 		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(addBank);
+		//Hack for Testing: DAVID 
+		housingGUIButton = new JButton("Start Housing GUI");
+		housingGUIButton.addActionListener(this);
+		housingGUIButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		add(housingGUIButton);		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -126,6 +133,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		}
 		else if (e.getSource().equals(addBank)) {
 			city.city.addObject(CityComponents.BANK);
+		}
+		else if (e.getSource().equals(housingGUIButton)) {
+			JFrame HousingGUITest = new JFrame("HousingGUITest");
+			HousingGUITest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			HousingGUITest.getContentPane().add(new HouseGuiPanel(), BorderLayout.CENTER);
+			HousingGUITest.setLayout(new GridLayout(1, 1));
+			HousingGUITest.setSize(300,400);
+			HousingGUITest.setVisible(true);
 		}
 	}
 }
