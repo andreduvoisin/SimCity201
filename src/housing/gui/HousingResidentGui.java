@@ -1,11 +1,12 @@
 package housing.gui;
 
+import housing.House;
 import housing.roles.HousingRenterRole;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import city.gui.old.Gui;
+import base.Gui;
 
 /*
  * @author David Carr
@@ -16,8 +17,8 @@ public class HousingResidentGui implements Gui {
 
 	HousingRenterRole renter;
 
-	private int xPos, yPos = -20;
-	private int xDestination, yDestination = -20;
+	private int xPos, yPos = 20;
+	private int xDestination, yDestination = 20;
 	private boolean currentlyAnimating;
 
 	private static int GUISIZE = 20;
@@ -45,8 +46,29 @@ public class HousingResidentGui implements Gui {
 
 	@Override
 	public boolean isPresent() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+	
+	public void DoGoToHouse(House h) {
+		xDestination = h.xLocation;
+		yDestination = h.yLocation;
+		currentlyAnimating = true;
+	}
+	
+	public void DoLeaveHouse(House h) {
+		xDestination = -20;
+		yDestination = -20;
+		currentlyAnimating = true;
+	}
+	
+	public void DoCookAndEatFood() {
+		
+		currentlyAnimating = true;
+	}
+	
+	public void DoMaintainHouse() {
+		
+		currentlyAnimating = true;
 	}
 
 }
