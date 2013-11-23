@@ -28,10 +28,36 @@ public class BaseRole implements Role{
 	
 	/* Utilities */
 	
-	protected void print(String msg) {
-	}
-	
 	public int getSSN(){
 		return mPerson.getSSN();
 	}
+	
+	/**
+     * The simulated action code
+     */
+    protected void Do(String msg) {
+        print(msg, null);
+    }
+
+    /**
+     * Print message
+     */
+    protected void print(String msg) {
+        print(msg, null);
+    }
+
+    /**
+     * Print message with exception stack trace
+     */
+    protected void print(String msg, Throwable e) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(mPerson.getName());
+        sb.append(": ");
+        sb.append(msg);
+        sb.append("\n");
+        if (e != null) {
+            sb.append(StringUtil.stackTraceString(e));
+        }
+        System.out.print(sb.toString());
+    }
 }

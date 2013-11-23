@@ -1,7 +1,8 @@
-package restaurant_maggiyan.interfaces;
+package restaurant_all.interfaces;
 
 import restaurant_maggiyan.Check;
 import restaurant_maggiyan.Menu;
+import restaurant_maggiyan.interfaces.Waiter;
 
 /**
  * A sample Customer interface built to unit test a CashierAgent.
@@ -9,7 +10,7 @@ import restaurant_maggiyan.Menu;
  * @author Monroe Ekilah
  *
  */
-public interface Customer {
+public interface Customer_my {
 	
 	public void msgRestaurantFull();
 	

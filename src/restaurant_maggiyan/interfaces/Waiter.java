@@ -33,4 +33,6 @@ public void msgPleaseSeatCustomer(Customer cust, int table);
 	public void msgHereIsMyOrder(String choice, Customer c);
 	
 	public void msgLeavingTable(Customer cust);
+
+	public void msgReadyToBeSeated();
 }
