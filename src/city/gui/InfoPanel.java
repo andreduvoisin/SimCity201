@@ -16,7 +16,7 @@ public class InfoPanel extends JPanel {
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setVisible(true);
 		
-		text = new JLabel("null");
+		text = new JLabel("Info Panel");
 		text.setForeground(Color.black);
 		text.setFont(new Font("Sans Serif", Font.PLAIN, 60));
 		add(text);

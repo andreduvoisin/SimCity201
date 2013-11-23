@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Stock;
 import restaurant_davidmca.interfaces.Cashier;
+import restaurant_davidmca.interfaces.Cook;
 import restaurant_davidmca.interfaces.Market;
 import base.Agent;
 
@@ -30,10 +31,10 @@ public class MarketAgent extends Agent implements Market {
 	private Semaphore processingOrder = new Semaphore(1, true);
 
 	private class MyOrder {
-		CookAgent cook;
+		Cook cook;
 		List<Stock> stock;
 
-		public MyOrder(CookAgent c) {
+		public MyOrder(Cook c) {
 			this.cook = c;
 			stock = Collections.synchronizedList(new ArrayList<Stock>());
 		}
@@ -74,7 +75,7 @@ public class MarketAgent extends Agent implements Market {
 	// Messages
 
 	@Override
-	public void msgWantToBuy(CookAgent c, Map<String, Integer> stuffToBuy) {
+	public void msgWantToBuy(Cook c, Map<String, Integer> stuffToBuy) {
 		MyOrder newOrder = new MyOrder(c);
 		synchronized (stuffToBuy) {
 			for (Map.Entry<String, Integer> foodToBuy : stuffToBuy.entrySet()) {

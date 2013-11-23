@@ -18,6 +18,7 @@ import restaurant_davidmca.Order;
 import restaurant_davidmca.Stock;
 import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.CookGui;
+import restaurant_davidmca.interfaces.Cook;
 import restaurant_davidmca.interfaces.Market;
 import restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
@@ -25,7 +26,7 @@ import base.Agent;
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CookAgent extends Agent {
+public class CookAgent extends Agent implements Cook {
 
 	private CookGui cookGui;
 	private Semaphore isAnimating = new Semaphore(0, true);

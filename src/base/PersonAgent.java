@@ -370,10 +370,8 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-	public void msgHereIsPayment(int senderSSN, int amount) {
+	public void msgHereIsPayment(int senderSSN, double amount) {
 		mCash += amount;
-		//REX: What is this? -Shane
-		//SHANE: notification of successful transaction from MasterTeller
 	}
 	public void setName(String name) {
 		mName = name;
@@ -385,5 +383,10 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
 		mItemsDesired = map;
+	}
+
+	@Override
+	public void msgOverdrawnAccount(double loan) {
+		mLoan += loan;
 	}
 }

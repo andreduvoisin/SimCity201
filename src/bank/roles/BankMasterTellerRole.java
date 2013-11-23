@@ -39,16 +39,18 @@ public class BankMasterTellerRole extends BaseRole implements MasterTeller{
 	
 //	ACTIONS
 	private void processTransaction(Transaction t){
-		int senderIndex = mAccountIndex.get(t.sender);
-		int receiverIndex = mAccountIndex.get(t.receiver);
-		/*
-		 * Overdrawn Account Non-normative
-		 * if (senderBalance < t.amount)
-		 *
-		 */
-		mAccounts.get(senderIndex).balance -= t.amount;
-		mAccounts.get(receiverIndex).balance += t.amount;
-		//msgHereIsPayment(senderSSN, double amount);
+		Account sender = mAccounts.get(mAccountIndex.get(t.sender));
+		Account receiver = mAccounts.get(mAccountIndex.get(t.receiver));
+		if (sender.balance < t.amount){
+			sender.balance = 0;
+			double excess = t.amount - sender.balance;
+			sender.person.msgOverdrawnAccount(excess);
+		}
+		else{
+			sender.balance -= t.amount;
+		}
+		receiver.balance += t.amount;
+		receiver.person.msgHereIsPayment(t.sender, t.amount);
 	}
 
 //	UTILITIES

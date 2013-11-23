@@ -7,6 +7,7 @@ import java.util.List;
 
 import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.HostGui;
+import restaurant_davidmca.interfaces.Cook;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
@@ -226,7 +227,7 @@ public class HostAgent extends Agent {
 
 	private void seatCustomer(Customer customer, Table table, Waiter waiter) {
 		print("seat customer");
-		waiter.msgSeatAtTable(customer, table);
+		waiter.msgSeatAtTable(customer, table, customer.getGui().getHomeLocation());
 		table.setOccupant(customer);
 		waitingCustomers.remove(customer);
 	}

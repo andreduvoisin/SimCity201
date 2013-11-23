@@ -17,6 +17,9 @@ public class MasterTellerTest extends TestCase{
 	MockPerson mPerson1;
 	MockPerson mPerson2;
 	MockPerson mPerson3;
+	PersonAgent mp1;
+	PersonAgent mp2;
+	PersonAgent mp3;
 	
 	/**
 	 * This method is run before each test. You can use it to instantiate the class variables
@@ -35,6 +38,14 @@ public class MasterTellerTest extends TestCase{
 		mPerson2 = new MockPerson("Person 2");
 		mPerson3 = new MockPerson("Person 3");
 		
+		mp1 = new PersonAgent();
+		mp2 = new PersonAgent();
+		mp3 = new PersonAgent();
+		
+		mPerson1.setPerson(mp1);
+		mPerson2.setPerson(mp2);
+		mPerson3.setPerson(mp3);
+		
 		//clear logs
 	}
 	
@@ -49,11 +60,11 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("MT has no account indices", mMasterTeller.mAccountIndex.isEmpty());
 		
 		//1 : add accounts (name, loan, balance)
-		mMasterTeller.mAccounts.add(new Account("Person 1", 0, 10)); 
+		mMasterTeller.mAccounts.add(new Account(0, 10, (PersonAgent)mPerson1.person)); 
 		mMasterTeller.mAccountIndex.put(1, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account("Person 2", 0, 20));
+		mMasterTeller.mAccounts.add(new Account(0, 20, (PersonAgent)mPerson2.person));
 		mMasterTeller.mAccountIndex.put(2, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account("Person 3", 0, 30));
+		mMasterTeller.mAccounts.add(new Account(0, 30, (PersonAgent)mPerson3.person));
 		mMasterTeller.mAccountIndex.put(3, mMasterTeller.mAccounts.size()-1);
 		
 		//Check
@@ -64,6 +75,10 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("Person 1 has balance of 10", mMasterTeller.mAccounts.get(0).balance == 10);
 		assertTrue("Person 2 has balance of 20", mMasterTeller.mAccounts.get(1).balance == 20);
 		assertTrue("Person 3 has balance of 30", mMasterTeller.mAccounts.get(2).balance == 30);
+		assertTrue("Account 1 has a person agent", mMasterTeller.mAccounts.get(0).person == mPerson1.person);
+		assertTrue("Account 2 has a person agent", mMasterTeller.mAccounts.get(1).person == mPerson2.person);
+		assertTrue("Account 3 has a person agent", mMasterTeller.mAccounts.get(2).person == mPerson3.person);
+		
 		
 		//2 : add one transaction (sender, receiver, amount)
 		mMasterTeller.msgSendPayment(1, 2, 5);
@@ -97,11 +112,11 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("MT has no account indices", mMasterTeller.mAccountIndex.isEmpty());
 		
 		//1 : add accounts (name, loan, balance)
-		mMasterTeller.mAccounts.add(new Account("Person 1", 0, 10)); 
+		mMasterTeller.mAccounts.add(new Account(0, 10, (PersonAgent)mPerson1.person)); 
 		mMasterTeller.mAccountIndex.put(1, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account("Person 2", 0, 20));
+		mMasterTeller.mAccounts.add(new Account(0, 20, (PersonAgent)mPerson2.person));
 		mMasterTeller.mAccountIndex.put(2, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account("Person 3", 0, 30));
+		mMasterTeller.mAccounts.add(new Account(0, 30, (PersonAgent)mPerson3.person));
 		mMasterTeller.mAccountIndex.put(3, mMasterTeller.mAccounts.size()-1);
 		
 		//Check
@@ -154,7 +169,7 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("MT has no account indices", mMasterTeller.mAccountIndex.isEmpty());
 		
 		//1 : add accounts (name, loan, balance)
-		mMasterTeller.mAccounts.add(new Account("Person 1", 0, 10)); 
+		mMasterTeller.mAccounts.add(new Account(0, 10, (PersonAgent)mPerson1.person)); 
 		mMasterTeller.mAccountIndex.put(1, mMasterTeller.mAccounts.size()-1);
 		
 		//Check
@@ -169,11 +184,15 @@ public class MasterTellerTest extends TestCase{
 		
 		//Check
 		assertTrue("MT has one transaction", mMasterTeller.mTransactions.size() == 1);
+		assertTrue("MT transaction is valid", mMasterTeller.mTransactions.get(0).sender == 1);
+		assertTrue("MT transaction is valid", mMasterTeller.mTransactions.get(0).receiver == 2);
+		assertTrue("MT transaction is valid", mMasterTeller.mTransactions.get(0).amount == 5);
+		
 		
 		//3 : add new accounts
-		mMasterTeller.mAccounts.add(new Account("Person 2", 0, 20));
+		mMasterTeller.mAccounts.add(new Account(0, 20, (PersonAgent) mPerson2.person));
 		mMasterTeller.mAccountIndex.put(2, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account("Person 3", 0, 30));
+		mMasterTeller.mAccounts.add(new Account(0, 30, (PersonAgent) mPerson3.person));
 		mMasterTeller.mAccountIndex.put(3, mMasterTeller.mAccounts.size()-1);
 		
 		//Check
@@ -183,6 +202,9 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("Person 1 has balance of 10", mMasterTeller.mAccounts.get(0).balance == 10);
 		assertTrue("Person 2 has balance of 20", mMasterTeller.mAccounts.get(1).balance == 20);
 		assertTrue("Person 3 has balance of 30", mMasterTeller.mAccounts.get(2).balance == 30);
+		assertTrue("MT transaction is valid", mMasterTeller.mTransactions.get(0).sender == 1);
+		assertTrue("MT transaction is valid", mMasterTeller.mTransactions.get(0).receiver == 2);
+		assertTrue("MT transaction is valid", mMasterTeller.mTransactions.get(0).amount == 5);
 		
 		//4 : p.a.e.a. (processTransaction(t))
 		assertTrue("PAEA: processTransaction(t)", mMasterTeller.pickAndExecuteAnAction());
@@ -190,7 +212,9 @@ public class MasterTellerTest extends TestCase{
 		//Check
 		assertTrue("MT has no transactions", mMasterTeller.mTransactions.isEmpty());
 		assertTrue("PAEA: return false", !mMasterTeller.pickAndExecuteAnAction());
-		assertTrue("Person 1 has balance of 5", mMasterTeller.mAccounts.get(mMasterTeller.mAccountIndex.get(1)).balance == 5);
+		assertTrue("Person 1 has balance of 5. Instead: "+
+				mMasterTeller.mAccounts.get(mMasterTeller.mAccountIndex.get(1)).balance,
+				mMasterTeller.mAccounts.get(mMasterTeller.mAccountIndex.get(1)).balance == 5);
 		assertTrue("Person 2 has balance of 25", mMasterTeller.mAccounts.get(mMasterTeller.mAccountIndex.get(2)).balance == 25);
 		assertTrue("Person 3 has balance of 30", mMasterTeller.mAccounts.get(mMasterTeller.mAccountIndex.get(3)).balance == 30);
 		

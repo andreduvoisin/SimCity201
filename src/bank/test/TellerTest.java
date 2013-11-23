@@ -1,6 +1,7 @@
 package bank.test;
 
 import junit.framework.TestCase;
+import bank.interfaces.Customer;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import bank.test.mock.MockCustomerRole;
@@ -13,6 +14,8 @@ public class TellerTest extends TestCase{
 	
 //	INTERFACES
 	Person mPerson;
+	Person mCP1;
+	Person mCP2;
 	BankTellerRole mTeller;
 	MockCustomerRole mCustomer1;
 	MockCustomerRole mCustomer2;
@@ -31,8 +34,12 @@ public class TellerTest extends TestCase{
 		mPerson.addRole((Role)mTeller, true);
 		
 		//Interfaces
+		mCP1 = new PersonAgent();
+		mCP2 = new PersonAgent();
 		mCustomer1 = new MockCustomerRole();
+		mCustomer1.setPerson(mCP1);
 		mCustomer2 = new MockCustomerRole();
+		mCustomer2.setPerson(mCP2);
 		mMasterTeller = new BankMasterTellerRole();
 		
 		//clear logs
@@ -58,7 +65,7 @@ public class TellerTest extends TestCase{
 		assertTrue("Teller has no account indices", mTeller.mAccountIndex.isEmpty());
 		
 		//2 : add customer - open
-		mTeller.msgOpen(mCustomer1, 1, 100, "Joe");
+		mTeller.msgOpen((Customer)mCustomer1, 1, 100.00, (PersonAgent)mCustomer1.mPerson);
 		
 		//Check
 		assertTrue("Teller has customer", mTeller.mCustomer.customer == mCustomer1);
@@ -91,7 +98,7 @@ public class TellerTest extends TestCase{
 		assertTrue("Teller has no account indices", mTeller.mAccountIndex.isEmpty());
 		
 		//2 : add customer1 - open
-		mTeller.msgOpen(mCustomer1, 1, 100, "Joe");
+		mTeller.msgOpen(mCustomer1, 1, 100, mCustomer1.mPerson);
 		
 		//Check
 		assertTrue("Teller has customer", mTeller.mCustomer.customer == mCustomer1);
@@ -102,11 +109,12 @@ public class TellerTest extends TestCase{
 		//Check
 		assertTrue("Teller has one account", mTeller.mAccounts.size() == 1);
 		assertTrue("Teller has one account index", mTeller.mAccountIndex.size() == 1);
+		assertTrue("Teller account has person", mTeller.mAccounts.get(0).person == mCustomer1.mPerson);
 		assertTrue("Customer has balance of 100", mTeller.mAccounts.get(mTeller.mAccountIndex.get(1)).balance == 100);
 		assertTrue("Customer received msgHereIsBalance", mCustomer1.log.containsString("msgHereIsBalance: 100"));
 		
 		//4 : add customer2 - open
-		mTeller.msgOpen(mCustomer2, 2, 200, "Jane");
+		mTeller.msgOpen(mCustomer2, 2, 200, mCustomer2.mPerson);
 		
 		//Check
 		assertTrue("Teller has customer", mTeller.mCustomer.customer == mCustomer2);

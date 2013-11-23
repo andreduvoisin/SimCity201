@@ -5,6 +5,7 @@ import java.util.Map;
 
 import bank.Account;
 import base.BaseRole;
+import base.PersonAgent;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.MasterTeller;
@@ -16,7 +17,7 @@ public class BankTellerRole extends BaseRole implements Teller{
 	
 	public class MyCustomer{
 		public Customer customer;
-		String mName;
+		public PersonAgent mPerson;
 		int mSSN;
 		double desiredAmount = 0;
 		EnumTransaction transaction = EnumTransaction.None;
@@ -53,9 +54,9 @@ public class BankTellerRole extends BaseRole implements Teller{
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Payment);
 		stateChanged();
 	}
-	public void msgOpen(Customer c, int SSN, double amount, String name){
+	public void msgOpen(Customer c, int SSN, double amount, PersonAgent person){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Open);
-		mCustomer.mName = name;
+		mCustomer.mPerson = person;
 		stateChanged();
 	}
 	public void msgRobbery(Customer c, int SSN, double amount){
@@ -118,7 +119,7 @@ public class BankTellerRole extends BaseRole implements Teller{
 		mCustomer.customer.msgHereIsLoan(0);
 	}
 	private void open(){
-		mMasterTeller.getAccounts().add(new Account(mCustomer.mName, 0, mCustomer.desiredAmount));
+		mMasterTeller.getAccounts().add(new Account(0, mCustomer.desiredAmount, mCustomer.mPerson));
 		int accountIndex = mMasterTeller.getAccounts().size() - 1;
 		mMasterTeller.getAccountIndex().put(mCustomer.mSSN, accountIndex);
 		mCustomer.customer.msgHereIsBalance(mCustomer.desiredAmount);
