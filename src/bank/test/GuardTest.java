@@ -2,7 +2,7 @@ package bank.test;
 
 import junit.framework.TestCase;
 //	INTERFACES
-import bank.interfaces.Teller;
+import bank.interfaces.BankTeller;
 import bank.roles.BankGuardRole;
 import bank.test.mock.MockCustomerRole;
 import bank.test.mock.MockTellerRole;
@@ -18,7 +18,7 @@ public class GuardTest extends TestCase{
 	Person mPerson;
 	MockCustomerRole mCustomer1;
 	MockCustomerRole mCustomer2;
-	Teller mTeller1;
+	BankTeller mTeller1;
 	
 	/**
 	 * This method is run before each test. You can use it to instantiate the class variables

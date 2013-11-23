@@ -1,8 +1,8 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.ResidentGui;
-import housing.interfaces.Owner;
+import housing.gui.HousingResidentGui;
+import housing.interfaces.HousingOwner;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,13 +14,13 @@ import base.BaseRole;
  * @author David Carr, Maggi Yang
  */
 
-public class HousingOwnerRole extends BaseRole implements Owner {
+public class HousingOwnerRole extends BaseRole implements HousingOwner {
 
 	/* Data */
 
 	Boolean mTimeToMaintain = false;
 	House mHouse = null;
-	private ResidentGui gui = new ResidentGui();
+	private HousingResidentGui gui = new HousingResidentGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
 	boolean isHungry = false;
 	Timer mMintenanceTimer;

@@ -4,9 +4,9 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import market.*;
-import market.Order.EnumOrderEvent;
-import market.Order.EnumOrderStatus;
-import market.gui.CashierGui;
+import market.MarketOrder.EnumOrderEvent;
+import market.MarketOrder.EnumOrderStatus;
+import market.gui.MarketCashierGui;
 import market.interfaces.*;
 import base.*;
 import base.interfaces.Role;
@@ -18,26 +18,26 @@ import base.interfaces.Role;
 	3) Restaurants are delivered to, persons must go to the market.
 	4) Markets can run out of inventory. They can be resupplied from the gui.
  */
-public class MarketCashierRole extends BaseRole implements Cashier{
+public class MarketCashierRole extends BaseRole implements MarketCashier{
 	PersonAgent mPerson;
 	Market mMarket;
 	
-	CashierGui mGui;
+	MarketCashierGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
 	
 	int mNumWorkers = 0;
 	
 	Map<String, Integer> mInventory;
 	
-	List<Worker> mWorkers = Collections.synchronizedList(new ArrayList<Worker>());
+	List<MarketWorker> mWorkers = Collections.synchronizedList(new ArrayList<MarketWorker>());
 	static int mWorkerIndex;
 	
-	List<DeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<DeliveryTruck>());
+	List<MarketDeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<MarketDeliveryTruck>());
 	
 	int mCash;
 
-	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
-	List<Invoice> mInvoices = Collections.synchronizedList(new ArrayList<Invoice>());
+	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
 	public MarketCashierRole(PersonAgent person, Market m) {
 		mPerson = person;
@@ -45,13 +45,13 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	}
 	
 //	Messages
-	public void msgOrderPlacement(Order order){
+	public void msgOrderPlacement(MarketOrder order){
 		mOrders.add(order);
 		order.mEvent = EnumOrderEvent.ORDER_PLACED;
 		stateChanged();
 	}
 
-	public void msgPayingForOrder(Invoice invoice){
+	public void msgPayingForOrder(MarketInvoice invoice){
 		if (invoice.mTotal == invoice.mPayment){
 			invoice.mOrder.mEvent = EnumOrderEvent.ORDER_PAID;
 		}
@@ -76,7 +76,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		 * if cashier has just started, go to position
 		 */
 		if (mOrders.size() > 0){
-			for (Order iOrder : mOrders){
+			for (MarketOrder iOrder : mOrders){
 				//notify customer if an order has been placed
 				if ((iOrder.mStatus == EnumOrderStatus.PLACED) && (iOrder.mEvent == EnumOrderEvent.ORDER_PLACED)){
 					iOrder.mStatus = EnumOrderStatus.PAYING;
@@ -84,7 +84,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 					return true;
 				}
 			}
-			for (Order iOrder : mOrders){
+			for (MarketOrder iOrder : mOrders){
 				if ((iOrder.mStatus == EnumOrderStatus.PAID) && (iOrder.mEvent == EnumOrderEvent.ORDER_PAID)){
 					iOrder.mStatus = EnumOrderStatus.ORDERING;
 					fulfillOrder(iOrder);
@@ -100,7 +100,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	}
 	
 //	Actions
-	private void processOrderAndNotifyPerson(Order order){
+	private void processOrderAndNotifyPerson(MarketOrder order){
 		Map<String, Integer> cannotFulfill = new HashMap<String, Integer>();
 		int cost = 0;
 
@@ -117,22 +117,22 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		}
 		
 		Role personRole = order.mPersonRole;
-		Invoice invoice = new Invoice(order, cost);
+		MarketInvoice invoice = new MarketInvoice(order, cost);
 
 		//if a cook
-		if (personRole instanceof Cook){
-			Cook cook = (Cook) order.mPersonRole;
+		if (personRole instanceof MarketCook){
+			MarketCook cook = (MarketCook) order.mPersonRole;
 			cook.msgInvoiceToPerson(cannotFulfill, invoice);
 		}
 
 		//if a customer
-		else if (personRole instanceof Customer){
-			Customer customer = (Customer) order.mPersonRole;
+		else if (personRole instanceof MarketCustomer){
+			MarketCustomer customer = (MarketCustomer) order.mPersonRole;
 			customer.msgInvoiceToPerson(cannotFulfill, invoice);
 		}
 	}
 
-	void fulfillOrder(Order order){
+	void fulfillOrder(MarketOrder order){
 		order.mWorker = mWorkers.get(mWorkerIndex++ % mNumWorkers);
 		order.mWorker.msgFulfillOrder(order);
 	}
@@ -159,7 +159,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	}
 	
 /* Utilities */
-	public void setGui(CashierGui gui) {
+	public void setGui(MarketCashierGui gui) {
 		mGui = gui;
 	}
 	
@@ -167,7 +167,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 		return mNumWorkers;
 	}
 	
-	public void addWorker(Worker w) {
+	public void addWorker(MarketWorker w) {
 		mWorkers.add(w);
 	}
 }

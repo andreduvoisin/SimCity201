@@ -13,7 +13,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import market.roles.MarketCustomerRole;
-import bank.interfaces.MasterTeller;
+import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
@@ -325,7 +325,7 @@ public class PersonAgent extends Agent implements Person {
 		return mSSN;
 	}
 
-	public MasterTeller getMasterTeller() {
+	public BankMasterTeller getMasterTeller() {
 		return mMasterTeller;
 	}
 

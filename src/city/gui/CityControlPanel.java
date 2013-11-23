@@ -1,6 +1,6 @@
 package city.gui;
 
-import housing.gui.HouseGuiPanel;
+import housing.gui.HousingHouseGuiPanel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -137,7 +137,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		else if (e.getSource().equals(housingGUIButton)) {
 			JFrame HousingGUITest = new JFrame("HousingGUITest");
 			HousingGUITest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			HousingGUITest.getContentPane().add(new HouseGuiPanel(), BorderLayout.CENTER);
+			HousingGUITest.getContentPane().add(new HousingHouseGuiPanel(), BorderLayout.CENTER);
 			HousingGUITest.setLayout(new GridLayout(1, 1));
 			HousingGUITest.setSize(300,400);
 			HousingGUITest.setVisible(true);
