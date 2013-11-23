@@ -13,6 +13,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import base.interfaces.Role;
 
 /*
@@ -62,7 +63,8 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 	
 	/* Constructor */
 	
-	public HousingLandlordRole(){
+	public HousingLandlordRole(Person person){
+		mPerson = person;
 		
 		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
 		mHousesList.add(new House(20, 20, 100.00)); 

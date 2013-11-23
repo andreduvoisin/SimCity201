@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import bank.BankAccount;
-import base.BaseRole;
-import base.PersonAgent;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
+import base.BaseRole;
+import base.PersonAgent;
+import base.interfaces.Person;
 
 public class BankTellerRole extends BaseRole implements BankTeller{
 
@@ -40,7 +41,14 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public Map <Integer, Integer> mAccountIndex;
 	public List <BankAccount> mAccounts;
 	
-//	MESSAGES
+	
+	//CONSTRUCTOR
+	public BankTellerRole(Person person) {
+		mPerson = person;
+	}
+
+	
+	//	MESSAGES
 	
 	public void msgDeposit(BankCustomer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Deposit);

@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import transportation.roles.TransportationBusRiderRole;
 import market.roles.MarketCustomerRole;
 import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
@@ -85,12 +86,12 @@ public class PersonAgent extends Agent implements Person {
 				break;
 		}
 		
-		//SHANE: 1 add other roles like customer roles here
 		mRoles.put(new BankCustomerRole(this), false);
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
-		//RestaurantCustomerRole
-		//TransportationBusRiderRole
+		mRoles.put(new TransportationBusRiderRole(this), false);
+//		mRoles.put(new RestaurantCustomerRole, false);
+		//REX: Create RestaurantCustomerRole
 		
 	}
 	
@@ -118,7 +119,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
 		if (Time.GetShift() == 0) {
-			// resetting of variables
+			// resetting of variables?
 		}
 		stateChanged();
 	}

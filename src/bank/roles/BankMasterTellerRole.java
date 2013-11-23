@@ -10,7 +10,7 @@ import bank.BankAccount;
 import bank.BankTransaction;
 import bank.interfaces.BankMasterTeller;
 import base.BaseRole;
-import base.interfaces.Role;
+import base.interfaces.Person;
 
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	
@@ -18,10 +18,12 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	public Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();
 	public List <BankAccount> mAccounts = Collections.synchronizedList(new ArrayList<BankAccount>());
 	public List<BankTransaction> mTransactions = Collections.synchronizedList(new ArrayList<BankTransaction>());
-	
-	//List <PersonAgent> totalPopulation;
-	
-//	MESSAGES
+		
+	public BankMasterTellerRole(Person person) {
+		mPerson = person;
+	}
+
+	//	MESSAGES
 	public void msgSendPayment(int senderSSN, int receiverSSN, double amount){
 		mTransactions.add(new BankTransaction(senderSSN, receiverSSN, amount));
 		stateChanged();
