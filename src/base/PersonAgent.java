@@ -45,8 +45,6 @@ public class PersonAgent extends Agent implements Person {
 	private String mName; 
 	int mSSN;
 	int mTimeShift;
-	int mEatingTime;
-	int mMealsToEat;
 	double mCash;
 	double mLoan;
 	boolean mHasHome;
@@ -103,7 +101,6 @@ public class PersonAgent extends Agent implements Person {
 		
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
-		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
 		mCash = 100;
@@ -124,7 +121,6 @@ public class PersonAgent extends Agent implements Person {
 	public void msgTimeShift() {
 		if (Time.GetShift() == 0) {
 			// resetting of variables
-			mMealsToEat = 2;
 		}
 		stateChanged();
 	}
