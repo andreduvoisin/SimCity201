@@ -1,7 +1,7 @@
 package housing.gui;
 
 import housing.House;
-import housing.roles.HousingRenterRole;
+import housing.roles.HousingBaseRole;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -12,10 +12,9 @@ import base.Gui;
  * @author David Carr
  */
 
-//Need to change Gui, part of old Gui? Not sure yet.
-public class HousingResidentGui implements Gui {
+public class HousingPersonGui implements Gui {
 
-	HousingRenterRole renter;
+	HousingBaseRole housingrole;
 
 	private int xPos, yPos = 20;
 	private int xDestination, yDestination = 20;
@@ -35,7 +34,7 @@ public class HousingResidentGui implements Gui {
 			yPos -= 1;
 		if (xPos == xDestination && yPos == yDestination && currentlyAnimating) {
 			currentlyAnimating = false;
-			renter.msgDoneAnimating();
+			housingrole.msgDoneAnimating();
 		}
 	}
 
@@ -48,26 +47,26 @@ public class HousingResidentGui implements Gui {
 	public boolean isPresent() {
 		return true;
 	}
-	
+
 	public void DoGoToHouse(House h) {
 		xDestination = h.xLocation;
 		yDestination = h.yLocation;
 		currentlyAnimating = true;
 	}
-	
+
 	public void DoLeaveHouse(House h) {
 		xDestination = -20;
 		yDestination = -20;
 		currentlyAnimating = true;
 	}
-	
+
 	public void DoCookAndEatFood() {
-		
+
 		currentlyAnimating = true;
 	}
-	
+
 	public void DoMaintainHouse() {
-		
+
 		currentlyAnimating = true;
 	}
 

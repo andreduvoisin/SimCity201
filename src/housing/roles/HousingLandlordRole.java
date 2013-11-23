@@ -1,7 +1,6 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.HousingLandlordGui;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -10,8 +9,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import base.Event;
-import base.Time;
 import base.interfaces.Person;
 
 /*
@@ -29,8 +26,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	int mMinCash = 50;
 	int mMinSSN = 0;
 	public boolean mTimeToCheckRent = false;
-	private HousingLandlordGui gui = new HousingLandlordGui();
-
+	
 	enum EnumRenterState {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
 	};
@@ -198,26 +194,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			}
 			return;
 		}
-	}
-	
-	void EatAtHome() {
-		/*gui.DoCookAndEatFood();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Eat at Home");
-	}
-
-	void Maintain() {
-		/*gui.DoMaintainHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Maintain");
 	}
 
 	/* Utilities */

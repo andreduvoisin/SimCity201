@@ -1,7 +1,6 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.HousingResidentGui;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -20,8 +19,8 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	/* Data */
 
 	public HousingLandlord myLandLord;
-	public List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
-	private HousingResidentGui gui = new HousingResidentGui();
+	public List<Bill> mBills = Collections
+			.synchronizedList(new ArrayList<Bill>());
 
 	enum EnumBillState {
 		Pending, Paid
@@ -110,16 +109,6 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 
 	/* Actions */
 
-	void EatAtHome() {
-		/*gui.DoCookAndEatFood();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Eat at Home");
-	}
-
 	void RequestHousing() {
 		print("Action - RequestHousing");
 		myLandLord.msgIWouldLikeToLiveHere(this, mPerson.getCash(),
@@ -133,17 +122,6 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 		mBills.remove(b);
 	}
 
-	void Maintain() {
-		/*gui.DoMaintainHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Maintain");
-		// DAVID MAGGI: run timer for some period of time, animate
-	}
-
 	/* Utilities */
 	public void setLandlord(HousingLandlord landlord) {
 		myLandLord = landlord;
@@ -153,7 +131,4 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 		System.out.println("Renter - " + msg);
 	}
 
-	public void setGui(HousingResidentGui g) {
-		gui = g;
-	}
 }
