@@ -1,8 +1,11 @@
 package restaurant_davidmca.test.mock;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import restaurant_davidmca.Order;
 import restaurant_davidmca.Stock;
 import restaurant_davidmca.Table;
 import restaurant_davidmca.agents.MarketAgent;
@@ -12,6 +15,9 @@ import restaurant_davidmca.interfaces.Market;
 import restaurant_davidmca.interfaces.Waiter;
 
 public class MockCook extends Mock implements Cook {
+	
+	public List<Order> revolvingStand = Collections
+			.synchronizedList(new ArrayList<Order>());
 
 	public MockCook(String name) {
 		super(name);
@@ -52,6 +58,11 @@ public class MockCook extends Mock implements Cook {
 	public Collection<MarketAgent> getMarketList() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Order> getRevolvingStand() {
+		return revolvingStand;
 	}
 
 }

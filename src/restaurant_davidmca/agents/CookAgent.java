@@ -300,4 +300,9 @@ public class CookAgent extends Agent implements Cook {
 		return marketList;
 	}
 
+	@Override
+	public List<Order> getRevolvingStand() {
+		return revolvingStand;
+	}
+
 }
