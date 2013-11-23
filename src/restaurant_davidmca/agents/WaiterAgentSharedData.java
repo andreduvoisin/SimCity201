@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
+
 import restaurant_davidmca.Check;
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Order;
@@ -220,6 +221,7 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Ready) {
+					print("triggering action WhatWouldYouLike");
 					WhatWouldYouLike(myc);
 					return true;
 				}
@@ -279,10 +281,10 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 			TakeABreak();
 			return true;
 		}
-		/*try {
+		try {
 			waiterGui.DoGoToFront();
 		} catch (Exception e) {
-		}*/
+		}
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -330,10 +332,13 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 		}
 		try {
 			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
 		}
-		waiterGui.DoGoToTable(myc.t);
+		try {
+			waiterGui.DoGoToTable(myc.t);
+		} catch (Exception e) {
+		}
 		myc.c.msgFollowMe(this, myc.t);
 		try {
 			isAnimating.acquire();

@@ -27,9 +27,9 @@ public class SharedWaiterTest extends TestCase {
 				waiter.myCustomers.size(), 0);
 		Table t = new Table(1, 1, 1, 1);
 		waiter.msgSeatAtTable(customer, t, 0);
-		waiter.pickAndExecuteAnAction();
 		assertEquals("Check that waiter now has one customer",
 				waiter.myCustomers.size(), 1);
+		waiter.pickAndExecuteAnAction();
 		assertTrue(
 				"Check that customer got msgFollowMe" + customer.log.toString(),
 				customer.log.containsString("msgFollowMe"));

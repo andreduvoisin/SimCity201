@@ -124,8 +124,8 @@ public class WaiterAgent extends Agent implements Waiter {
 	}
 
 	@Override
-	public void msgSeatAtTable(Customer c, Table t) {
-		myCustomers.add(new MyCustomer(c, t, c.getGui().getHomeLocation()));
+	public void msgSeatAtTable(Customer c, Table t, int home) {
+		myCustomers.add(new MyCustomer(c, t, home));
 		stateChanged();
 	}
 

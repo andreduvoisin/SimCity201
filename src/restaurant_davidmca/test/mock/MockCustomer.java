@@ -84,6 +84,7 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void msgFollowMe(Waiter w, Table t) {
+		System.out.println("Recieved msgFollowMe");
 		log.add(new LoggedEvent("Recieved msgFollowMe"));
 
 	}
