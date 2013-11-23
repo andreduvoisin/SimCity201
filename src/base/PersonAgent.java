@@ -12,7 +12,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.Semaphore;
 
+import market.interfaces.MarketCashier;
 import market.roles.MarketCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
@@ -41,7 +43,7 @@ public class PersonAgent extends Agent implements Person {
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
-		//ALL: Does this need to be synchronized? -SHANE
+		//ALL: Does this need to be synchronized? -Shane
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
 	//Personal Variables
@@ -55,8 +57,12 @@ public class PersonAgent extends Agent implements Person {
 	boolean mHasCar;
 	Location mWorkLocation;
 	
+	public Semaphore semAnimationDone = new Semaphore(0);
+	private boolean mRoleFinished;
+	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
+	private Object mGui; //SHANE JERRY: 2 put PersonAgentGui here
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -128,21 +134,32 @@ public class PersonAgent extends Agent implements Person {
 		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond (half are deadbeats)
 		mEvents.add(event);
 	}
+	
+	public void msgAnimationDone(){
+		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
+	}
+	
+	public void msgRoleFinished(){
+		mRoleFinished = true;
+	}
 
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
 
-		// Process events (calendar)
-		Iterator<Event> itr = mEvents.iterator();
-		while (itr.hasNext()) {
-			Event event = itr.next();
-			if (event.mTime > Time.GetTime())
-				break; // don't do future calendar events
-			processEvent(event);
-			itr.remove();
+		//if not during job shift
+		if ((mRoleFinished) && (Time.GetShift() != mTimeShift)){
+			// Process events (calendar)
+			Iterator<Event> itr = mEvents.iterator();
+			while (itr.hasNext()) {
+				Event event = itr.next();
+				if (event.mTime > Time.GetTime())
+					break; // don't do future calendar events
+				processEvent(event);
+				itr.remove();
+			}
 		}
-
+		
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
@@ -150,9 +167,7 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 			}
 		}
-
-		// SHANE: 2 leave role and add role?
-
+		
 		return false;
 	}
 
@@ -214,6 +229,37 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 	
+	private void acquireSemaphore(Semaphore semaphore){
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void getCar(){
+		MarketCashier marketCashier = (MarketCashier) ContactList.sMarketCashiers.keySet().toArray()[0];
+		Location location = ContactList.sMarketCashiers.get(marketCashier);
+//		mGui.DoGoTo(location);
+		acquireSemaphore(semAnimationDone);
+		
+		//remove current gui (isPresent = false)
+		//create new market gui
+		
+		//lock person until role is finished
+		mRoleFinished = false;
+		//activate marketcustomer role
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof MarketCustomerRole){
+				mRoles.put(iRole, true); //set active
+			}
+		}
+		
+		//add desired item
+		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
+		//message market cashier to start transaction
+	}
+	
 	private void goToJob() {
 		
 		
@@ -250,13 +296,6 @@ public class PersonAgent extends Agent implements Person {
 		// state = PersonState.Eating;
 		// break;
 		// }
-	}
-
-	private void getCar() {
-		// DoGoTo(market.location);
-		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
 	}
 
 	private void depositCheck() {
