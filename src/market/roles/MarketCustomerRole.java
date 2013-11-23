@@ -1,63 +1,77 @@
 package market.roles;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+>>>>>>> market
 
-import market.Invoice;
-import market.Order;
+import java.util.*;
+import java.util.concurrent.Semaphore;
+
+import market.*;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
-import market.interfaces.Cashier;
-import market.interfaces.Customer;
-import base.BaseRole;
-import base.Item.EnumMarketItemType;
-import base.interfaces.Person;
+import market.interfaces.*;
+import market.gui.CustomerGui;
+import base.*;
 
 public class MarketCustomerRole extends BaseRole implements Customer{
 	//DATA
-	Person mPerson;
-		//mCash accessed from Person
+	//mCash accessed from Person
+	private CustomerGui mGui;
+	private Semaphore inTransit = new Semaphore(0,true);
+	
+	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
+	List<Invoice> mInvoices	= Collections.synchronizedList(new ArrayList<Invoice>());
 
-	List<Order> mOrders;
-	List<Invoice> mInvoices;
+	Map<String, Integer> mItemInventory = new HashMap<String, Integer>();
+	Map<String, Integer> mItemsDesired = new HashMap<String, Integer>();
+	
+	Map<String, Integer> mCannotFulfill = new HashMap<String, Integer>();
 
 	Cashier mCashier;
+<<<<<<< HEAD
 
 	int mMarketToOrderFrom = 0; //SHANE: 4 use for market switching % Market.getNumMarkets
+=======
+	
+	public MarketCustomerRole(PersonAgent person) {
+		mPerson = person;
+	}
+>>>>>>> market
 	
 	//MESSAGES
-	@Override
-	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> cannotFulfill, Invoice invoice) {
+	public void msgInvoiceToPerson(Map<String, Integer> cannotFulfill, Invoice invoice) {
 		mInvoices.add(invoice);
-		Map<EnumMarketItemType, Integer> mItemsDesired = mPerson.getItemsDesired();
-
-		//not being fulfilled
-		for (EnumMarketItemType iItem : cannotFulfill.keySet()){
-			mItemsDesired.put(iItem, mItemsDesired.get(iItem) + cannotFulfill.get(iItem));
-		}
-
+		mCannotFulfill = cannotFulfill;
 		invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
 		stateChanged();
 	}
 
 
-	void msgHereIsCustomerOrder(Order order){
-		
-		Map<EnumMarketItemType, Integer> items = order.mItems;
-		Map<EnumMarketItemType, Integer> mItemInventory = mPerson.getItemInventory();
-		//for each item in order
-		for (EnumMarketItemType iItem : items.keySet()){
-			mItemInventory.put(iItem, mItemInventory.get(iItem) + items.get(iItem)); //add to inventory
-		}
-		
+	public void msgHereIsCustomerOrder(Order order){
 		order.mEvent = EnumOrderEvent.RECEIVED_ORDER;
 		stateChanged();
 	}
 	
+/* Animation Messages */
+	public void msgAnimationAtMarket() {
+		inTransit.release();
+	}
+	
+	public void msgAnimationAtWaitingArea() {
+		inTransit.release();
+	}
+	
+	public void msgAnimationLeftRestaurant() {
+		inTransit.release();
+	}
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction(){
+<<<<<<< HEAD
 
 		//form order
 		if (mPerson.getItemsDesired().size() > 0){
@@ -68,17 +82,34 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 			if ((iOrder.mStatus == EnumOrderStatus.CARTED) && (true)){
 				iOrder.mStatus = EnumOrderStatus.PLACED;
 				placeOrder(iOrder);
+=======
+		for(Invoice invoice : mInvoices) {
+			Order order = invoice.mOrder;
+			if(order.mStatus == EnumOrderStatus.PAYING && order.mEvent == EnumOrderEvent.RECEIVED_INVOICE) {
+				order.mStatus = EnumOrderStatus.PAID;
+				payAndProcessOrder(invoice);
+>>>>>>> market
 				return true;
 			}
-			if ((iOrder.mStatus == EnumOrderStatus.PAYING) && (iOrder.mEvent == EnumOrderEvent.RECEIVED_INVOICE)){
-				iOrder.mStatus = EnumOrderStatus.PAID;
-				payForOrder(iOrder);
+		}
+		for(Order order : mOrders) {
+			if(order.mStatus == EnumOrderStatus.FULFILLING && order.mEvent == EnumOrderEvent.RECEIVED_ORDER) {
+				order.mStatus = EnumOrderStatus.DONE;
+				completeOrder(order);
 				return true;
 			}
-
-			if ((iOrder.mStatus == EnumOrderStatus.FULFILLING) && (iOrder.mEvent == EnumOrderEvent.RECEIVED_ORDER)){
-				iOrder.mStatus = EnumOrderStatus.DONE;
-				removeOrder(iOrder);
+		}
+		for(Order order : mOrders) {
+			if(order.mStatus == EnumOrderStatus.CARTED) {
+				order.mStatus = EnumOrderStatus.PLACED;
+				placeOrder(order);
+				return true;
+			}
+		}
+		//check efficiency of method
+		for(String i : mItemsDesired.keySet()) {
+			if(mItemsDesired.get(i) != 0) {
+				createOrder();
 				return true;
 			}
 		}
@@ -88,6 +119,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	
 	
 	//ACTIONS
+<<<<<<< HEAD
 	private void formOrder(){
 		//Deep copy items desired...
 		Map<EnumMarketItemType, Integer> desired = mPerson.getItemsDesired();
@@ -95,12 +127,24 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 		
 		Order order = new Order(desired, this);
 		mOrders.add(order);
+=======
+	private void createOrder(){
+		Order o = new Order(mItemsDesired, this);
+		
+		for(String item : mItemsDesired.keySet()) {
+			mItemsDesired.put(item,0);
+		}
+		
+		mOrders.add(o);
+>>>>>>> market
 	}
 
 	private void placeOrder(Order order){
+		DoGoToMarket();
 		mCashier.msgOrderPlacement(order);
 	}
 
+<<<<<<< HEAD
 	private void payForOrder(Order order){
 		Invoice invoice = getInvoice(order);
 		if (invoice == null){
@@ -120,25 +164,71 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 
 		//SHANE: 1 Pay by bank transfer?
 		//REX: How do you do this?^^
+=======
+	private void payAndProcessOrder(Invoice invoice) {
+		invoice.mPayment += invoice.mTotal;
+		//check if cannot afford invoice
+		//TODO: 1 How to write to bank / bank interactions
+		//subtract money from cash
+		
+		for(String item : mCannotFulfill.keySet()) {
+			mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
+		}
+		
+>>>>>>> market
 		mCashier.msgPayingForOrder(invoice);
+		mInvoices.remove(invoice);
+		DoWaitForOrder();
 	}
 
+<<<<<<< HEAD
 	private void removeOrder(Order order){
 		//remove from mOrders and mInvoices
 		mOrders.remove(order);
 		Invoice invoice = getInvoice(order);
 		mInvoices.remove(invoice);
-	}
-
-	
-	//ACCESSORS
-	private Invoice getInvoice(Order order){
-		Invoice invoice = null;
-		for (Invoice iInvoice : mInvoices){
-			if (iInvoice.mOrder == order) invoice = iInvoice;
-			break;
+=======
+	private void completeOrder(Order o) {
+		for(String item : o.mItems.keySet()) {
+			mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
 		}
-		return invoice;
+		DoLeaveMarket();
+>>>>>>> market
 	}
-
+	
+/* Animation Actions */
+	private void DoGoToMarket() {
+		mGui.DoGoToMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void DoWaitForOrder() {
+		mGui.DoWaitForOrder();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void DoLeaveMarket() {
+		mGui.DoLeaveMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+/* Utilities */
+	public void setGui(CustomerGui g) {
+		mGui = g;
+	}
 }
