@@ -2,6 +2,7 @@ package base;
 
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,14 +69,14 @@ public class SortingHat {
 				if (iRole.getPerson() == null) return (BankGuardRole) iRole;
 			}
 		}
-		//Teller (unlimited) - third priority
+		//Teller (limited) - third priority
 		for (Role iRole : shiftRoles){
 			if (iRole instanceof BankTellerRole){
 				if (iRole.getPerson() == null) return (BankTellerRole) iRole;
 			}
-		}//SHANE: Do I need to have this in the premade roles?
+		}
 		
-		return new BankTellerRole();
+		return null;
 	}
 	
 	
@@ -83,23 +84,22 @@ public class SortingHat {
 	static int sLandlordCount = 0;
 	static int sRenterCount = 0;
 	static final int sHouseSize = 5;
-	final static int max_landlords = 5;
-	final static int max_renters = 5;
+	static final int sMaxLandlords = 5;
+	static final int sMaxRenters = sMaxLandlords*sHouseSize;
 
-	public static Role getHousingRole(int shift) {
+	public static Role getHousingRole(Person person) {
 		//landlord, renter, owner (in that order)
 		
+		if (sLandlordCount < sMaxLandlords){
+			sLandlordCount++;
+			return new HousingLandlordRole(person);
+		}
 		
-		Role newRole = null;
-		if (landlord_count < max_landlords) {
-			newRole = new HousingLandlordRole();
+		if (sRenterCount < sMaxRenters){
+			sRenterCount++;
+			return new HousingRenterRole(person);
 		}
-		if (renter_count < max_renters) {
-//			newRole = new HousingRenterRole();
-		} else {
-			newRole = new HousingOwnerRole();
-		}
-		return newRole;
+		return new HousingOwnerRole(person);
 	}
 	
 	
