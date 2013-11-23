@@ -182,4 +182,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	public double getPrice(EnumMarketItemType item) {
 		return Item.cMARKET_PRICES.get(item);
 	}
+	
+	public int getInventory(EnumMarketItemType item) {
+		return mInventory.get(item);
+	}
 }
