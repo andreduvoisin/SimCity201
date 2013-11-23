@@ -1,6 +1,6 @@
 package restaurant_tranac.gui;
 
-import restaurant_tranac.agents.HostAgent;
+import restaurant_tranac.roles.RestaurantHostRole_at;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,14 +10,14 @@ import javax.imageio.ImageIO;
 
 public class HostGui implements Gui {
 
-    private HostAgent agent = null;
+    private RestaurantHostRole_at agent = null;
 
     private int xPos = 50, yPos = 20;					//static host position
     private int xDestination = 50, yDestination = 20;	//static host position
 
     private BufferedImage image;
     
-    public HostGui(HostAgent agent) {
+    public HostGui(RestaurantHostRole_at agent) {
         this.agent = agent;
         
     	image = null;

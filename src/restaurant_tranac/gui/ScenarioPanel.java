@@ -2,8 +2,8 @@ package restaurant_tranac.gui;
 
 import restaurant_tranac.*;
 import base.Agent;
-import restaurant_tranac.agents.CashierAgent;
-import restaurant_tranac.agents.CookAgent;
+import restaurant_tranac.roles.RestaurantCashierRole_at;
+import restaurant_tranac.roles.RestaurantCookRole_at;
 
 import javax.swing.*;
 
@@ -30,8 +30,8 @@ public class ScenarioPanel extends JPanel implements ActionListener {
     private final int bHeight = 25;
     private final int lowInventory = 1;
     
-    private CookAgent cook;
-    private CashierAgent cashier;
+    private RestaurantCookRole_at cook;
+    private RestaurantCashierRole_at cashier;
     
     private RestaurantPanel restPanel;
     private String type;

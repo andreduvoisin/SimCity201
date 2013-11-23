@@ -1,6 +1,6 @@
 package restaurant_tranac.gui;
 
-import restaurant_tranac.agents.CustomerAgent;
+import restaurant_tranac.roles.RestaurantCustomerRole_at;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 
 public class CustomerGui implements Gui{
 
-	private CustomerAgent agent = null;
+	private RestaurantCustomerRole_at agent = null;
 	private boolean isPresent = false;
 	private String food;
 
@@ -33,7 +33,7 @@ public class CustomerGui implements Gui{
     BufferedImage alertBubble;
     BufferedImage askingBubble;
 
-	public CustomerGui(CustomerAgent c, RestaurantGui gui){
+	public CustomerGui(RestaurantCustomerRole_at c, RestaurantGui gui){
 		agent = c;
 		xPos = -40;
 		yPos = -40;

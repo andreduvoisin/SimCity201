@@ -1,6 +1,7 @@
 package restaurant_tranac.test.mock;
 
 import restaurant_tranac.interfaces.*;
+import test.mock.*;
 
 /**
  * MockMarket built for unit testing.
@@ -10,8 +11,8 @@ import restaurant_tranac.interfaces.*;
 
 public class MockMarket extends Mock implements Market {
 	
-	public MockMarket(String name) {
-		super(name);
+	public MockMarket() {
+		super();
 	}
 
 	public void msgHereIsPayment(String i, double p) {

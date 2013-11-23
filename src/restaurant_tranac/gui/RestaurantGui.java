@@ -1,8 +1,8 @@
 package restaurant_tranac.gui;
 
 import base.Agent;
-import restaurant_tranac.agents.CustomerAgent;
-import restaurant_tranac.agents.WaiterAgent;
+import restaurant_tranac.roles.RestaurantCustomerRole_at;
+import restaurant_tranac.roles.RestaurantWaiterRole_at;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -74,11 +74,11 @@ public class RestaurantGui extends JFrame{
      *
      * @param c reference to the customer
      */
-    public void setEnabled(WaiterAgent w) {
+    public void setEnabled(RestaurantWaiterRole_at w) {
     	restPanel.setEnabled(w);
     }
     
-    public void setEnabled(CustomerAgent c) {
+    public void setEnabled(RestaurantCustomerRole_at c) {
     	restPanel.setEnabled(c);
     }
     

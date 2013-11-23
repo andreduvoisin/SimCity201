@@ -1,8 +1,8 @@
 package restaurant_tranac.gui;
 
-import restaurant_tranac.agents.CookAgent;
-import restaurant_tranac.agents.WaiterAgent;
 import restaurant_tranac.interfaces.Customer;
+import restaurant_tranac.roles.RestaurantCookRole_at;
+import restaurant_tranac.roles.RestaurantWaiterRole_at;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,10 +14,10 @@ import java.util.*;
 
 public class WaiterGui implements Gui {
 
-    private WaiterAgent agent = null;
+    private RestaurantWaiterRole_at agent = null;
     private RestaurantGui gui = null;
     
-    private CookAgent cook = null;
+    private RestaurantCookRole_at cook = null;
     
     private int xPos = -20, yPos = -20;						//default waiter position
     private int xDestination = -20, yDestination = -20;		//default start position
@@ -43,7 +43,7 @@ public class WaiterGui implements Gui {
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
     
-    public WaiterGui(WaiterAgent agent, RestaurantGui gui, int i) {
+    public WaiterGui(RestaurantWaiterRole_at agent, RestaurantGui gui, int i) {
         this.agent = agent;
         this.gui = gui;
         

@@ -1,9 +1,9 @@
 package restaurant_tranac.gui;
 
 import base.Agent;
-import restaurant_tranac.agents.CustomerAgent;
-import restaurant_tranac.agents.MarketAgent;
-import restaurant_tranac.agents.WaiterAgent;
+import restaurant_tranac.roles.RestaurantCustomerRole_at;
+import restaurant_tranac.roles.MarketAgent;
+import restaurant_tranac.roles.RestaurantWaiterRole_at;
 
 import javax.swing.*;
 
@@ -34,8 +34,8 @@ public class ListPanel extends JPanel implements ActionListener {
     private final int paneX = 180;
     private final int paneY = 380;
     
-    private Vector<CustomerAgent> customers;
-    private Vector<WaiterAgent> waiters;
+    private Vector<RestaurantCustomerRole_at> customers;
+    private Vector<RestaurantWaiterRole_at> waiters;
     private Vector<MarketAgent> markets;
     private RestaurantPanel restPanel;
     private String type;
@@ -90,7 +90,7 @@ public class ListPanel extends JPanel implements ActionListener {
                 if (e.getSource() == temp)
                 {
                 	if(type == "Customers") {
-                	for(CustomerAgent i:customers){
+                	for(RestaurantCustomerRole_at i:customers){
                 		if(temp.getText() == i.getName()) {
                 			i.getGui().setHungry();
                 			temp.setEnabled(false);
@@ -98,7 +98,7 @@ public class ListPanel extends JPanel implements ActionListener {
                 	}
                 	}
                 	else if(type == "Waiters") {
-                    	for(WaiterAgent i:waiters){
+                    	for(RestaurantWaiterRole_at i:waiters){
                     		if(temp.getText() == i.getName()) {
                     			i.getGui().setWantToGoOnBreak();
                     			temp.setEnabled(false);
@@ -147,7 +147,7 @@ public class ListPanel extends JPanel implements ActionListener {
         }
     }
     
-    public void setEnabled(CustomerAgent c) {		//used to set customer hungry enable once they leave the restaurant
+    public void setEnabled(RestaurantCustomerRole_at c) {		//used to set customer hungry enable once they leave the restaurant
     	for(JCheckBox i : list) {
     		if(i.getText() == c.getName()) {
     			i.setEnabled(true);
@@ -156,7 +156,7 @@ public class ListPanel extends JPanel implements ActionListener {
     	}
     }
     
-    public void setEnabled(WaiterAgent w) {		//used to set customer hungry enable once they leave the restaurant
+    public void setEnabled(RestaurantWaiterRole_at w) {		//used to set customer hungry enable once they leave the restaurant
     	for(JCheckBox i : list) {
     		if(i.getText() == w.getName()) {
     			i.setEnabled(true);
