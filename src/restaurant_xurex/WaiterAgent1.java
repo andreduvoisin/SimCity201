@@ -7,6 +7,7 @@ import restaurant_xurex.interfaces.Cook;
 import restaurant_xurex.interfaces.Customer;
 import restaurant_xurex.interfaces.Host;
 import restaurant_xurex.interfaces.Waiter;
+import restaurant_xurex.utilities.*;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -19,7 +20,7 @@ import java.util.concurrent.Semaphore;
 //Waiter Agent also serves food once notified by cook that order is ready.
 
 
-public class WaiterAgent extends Agent implements Waiter{
+public class WaiterAgent1 extends Agent implements Waiter{
 	private Semaphore atLocation = new Semaphore(0,true);
 	private String name;
 	private int number = -1;
@@ -33,38 +34,11 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	static Map<String, Integer> menu = new HashMap<String, Integer>();
 	
-	public enum WaiterState {good, working, wantBreak, okForBreak, onBreak};
 	WaiterState state = WaiterState.good;
 	
 	private WaiterGui waiterGui = null;
-	
-	public enum CustomerState
-	{ignore, waiting, readyToOrder, askedToOrder, ordered, done};
-	
-	public enum OrderState
-	{sentToCook,denied, readyToServe,served};
-	
-	public class MyCustomer{
-		Customer c;
-		int table;
-		float bill;
-		String choice;
-		CustomerState s;
-		//Constructor
-		public MyCustomer(Customer c, int table){
-			this.c=c; this.table=table; s=CustomerState.waiting;
-		}
-	};
-	public class Order{
-		String choice;
-		int table;
-		int kitchen;
-		OrderState s;
-		Order(String choice, int table){
-			this.choice=choice; this.table=table; s=OrderState.sentToCook;
-		}
-	};
-	public WaiterAgent(String name) {
+
+	public WaiterAgent1(String name) {
 		super();
 		this.name = name;
 		menu.put("Steak", new Integer(16));
@@ -72,7 +46,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	public WaiterAgent(String name, Host host, Cook cook){
+	public WaiterAgent1(String name, Host host, Cook cook){
 		super();
 		this.name = name;
 		this.cook = cook;
@@ -290,10 +264,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		while(!waiterGui.atTable(5)){
 			//Busy Wait//
 		}
-		if (number % 2 == 0)
-			cook.HereIsOrder(this, c.choice, c.table);
-		else
-			cook.addToStand(this, c.choice, c.table);
+		cook.HereIsOrder(this, c.choice, c.table);
 		GetBill(c);
 	}
 	private void GetBill(MyCustomer c){
@@ -336,10 +307,6 @@ public class WaiterAgent extends Agent implements Waiter{
 			}
 		}, breakDuration);
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#AskToReorder(restaurant.WaiterAgent.Order)
-	 */
-	@Override
 	public void AskToReorder(Order o){
 		while(!waiterGui.atTable(o.table)){
 			waiterGui.DoGoToTable(o.table); return;

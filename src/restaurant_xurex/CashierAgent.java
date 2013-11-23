@@ -1,13 +1,12 @@
 package restaurant_xurex;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import base.Agent;
 import restaurant_xurex.interfaces.Cashier;
 import restaurant_xurex.interfaces.Customer;
 import restaurant_xurex.interfaces.Market;
 import restaurant_xurex.interfaces.Waiter;
-import base.Agent;
+
+import java.util.*;
 
 /**
  * Restaurant Cashier Agent

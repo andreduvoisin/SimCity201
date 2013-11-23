@@ -5,7 +5,8 @@ import restaurant_xurex.CookAgent;
 import restaurant_xurex.CustomerAgent;
 import restaurant_xurex.HostAgent;
 import restaurant_xurex.MarketAgent;
-import restaurant_xurex.WaiterAgent;
+import restaurant_xurex.WaiterAgent1;
+import restaurant_xurex.WaiterAgent2;
 import restaurant_xurex.interfaces.Cook;
 import restaurant_xurex.interfaces.Market;
 import restaurant_xurex.interfaces.Waiter;
@@ -40,7 +41,7 @@ public class RestaurantPanel extends JPanel{
     private MarketAgent market3 = new MarketAgent("Market3", cook, cashier, 4, 4, 9, 4);
 
     private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
-    private Vector<WaiterAgent> waiters = new Vector<WaiterAgent>();
+    private Vector<Waiter> waiters = new Vector<Waiter>();
     
     private Vector<Agent> allAgents = new Vector<Agent>();
 
@@ -177,20 +178,38 @@ public class RestaurantPanel extends JPanel{
     	}
     	
     	if (type.equals("Waiters")) {
-    		WaiterAgent w = new WaiterAgent (name, host, cook);
-    		w.setNumber(host.getWaiterNumber());
-    		
-    		WaiterGui g = new WaiterGui(w, gui);
-    		
-    		gui.animationPanel.addGui(g);
-    		w.setGui(g);
-    		
-    		waiters.add(w);
-    		w.startThread();
-    		w.setHost(host); 
-    		w.setCashier(cashier);
-    		host.addWaiter(w); //creates connection between Waiter and Host
-    		allAgents.add(w);
+    		if(waiters.size()%2==0){
+    			WaiterAgent1 w = new WaiterAgent1 (name, host, cook);
+        		w.setNumber(host.getWaiterNumber());
+        		
+        		WaiterGui g = new WaiterGui(w, gui);
+        		
+        		gui.animationPanel.addGui(g);
+        		w.setGui(g);
+        		
+        		waiters.add(w);
+        		w.startThread();
+        		w.setHost(host); 
+        		w.setCashier(cashier);
+        		host.addWaiter(w); //creates connection between Waiter and Host
+        		allAgents.add(w);
+    		}
+    		else{
+    			WaiterAgent2 w = new WaiterAgent2 (name, host, cook);
+        		w.setNumber(host.getWaiterNumber());
+        		
+        		WaiterGui g = new WaiterGui(w, gui);
+        		
+        		gui.animationPanel.addGui(g);
+        		w.setGui(g);
+        		
+        		waiters.add(w);
+        		w.startThread();
+        		w.setHost(host); 
+        		w.setCashier(cashier);
+        		host.addWaiter(w); //creates connection between Waiter and Host
+        		allAgents.add(w);
+    		}
     	}
     }
     /**
