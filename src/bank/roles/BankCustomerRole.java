@@ -42,7 +42,9 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mPerson = person;
 	}
 	
-	
+	public BankCustomerRole(){
+		
+	}
 	
 //	MESSAGES
 	
