@@ -1,5 +1,6 @@
 package base;
 
+import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class PersonAgent extends Agent implements Person {
 	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, NONE};
 	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
-	public Role mHouseRole;
+	public HousingBaseRole mHouseRole;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -283,11 +284,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void invokeRent() {
-		mHouseRole.
+		mHouseRole.msgTimeToCheckRent();
 	}
 	
 	private void invokeMaintenance() {
-		
+		mHouseRole.msgTimeToMaintain();
 	}
 
 	
