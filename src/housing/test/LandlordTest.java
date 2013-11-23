@@ -44,10 +44,11 @@ public class LandlordTest extends TestCase {
 			
 	}
 	
-	public void testNormativeScenario()
+	public void testNormativeScenario1()
 	{
 		/**
-		 * Tests that the landlord can receive and fulfill housing requests from renters and decline when there are no available houses 
+		 * Tests that the landlord can receive and fulfill housing requests from renters and 
+		 * decline applicants when there are no more available houses 
 		 */
 		
 		//Preconditions 
@@ -85,6 +86,17 @@ public class LandlordTest extends TestCase {
 		assertTrue("HousingRenter2 shoud not have received any message", mHousingRenter2.log.size() == 1); 
 		assertTrue("HousingLandlord should remove HousingRenter3 from RenterList", mHousingLandlord.mRenterList.size() == 2); 
 		assertTrue("PAEA: return false", !mHousingLandlord.pickAndExecuteAnAction());
+	
+	}
+	
+	public void testNormativeScenario2(){
+		/**
+		 * Tests that the landlord prompts renters for rent and renters are able to pay in full and on time
+		 */
+		
+		
+		
+		
 	
 	}
 
