@@ -24,6 +24,7 @@ import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
+
 public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
@@ -71,24 +72,26 @@ public class PersonAgent extends Agent implements Person {
 		mCash = cash;
 		mName = name;
 		
+		boolean active = (mTimeShift == 0);
 		switch (job){
 			case BANK:
-				mRoles.put(SortingHat.getBankRole(mTimeShift), true); //true = initially active
+				mRoles.put(SortingHat.getBankRole(mTimeShift), active);
 				break;
 			case MARKET:
-				mRoles.put(SortingHat.getMarketRole(mTimeShift), true);
+				mRoles.put(SortingHat.getMarketRole(mTimeShift), active);
 				break;
 			case RESTAURANT:
-				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), true);
+				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), active);
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
 			case NONE: break;
 		}
-		//SHANE: 1 assign role based on time shift (if me or other person with same role)
 		
 		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 		mRoles.put(mHouseRole, true);
+		
+		//Add customer/rider role possibilities
 		mRoles.put(new BankCustomerRole(this), false);
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
@@ -97,8 +100,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void initializePerson(){
-		//DAVID: Check the initialization to make sure it meshes with the config file
-		
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
 

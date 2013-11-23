@@ -19,20 +19,26 @@ public class ConfigParser {
 		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/config.txt"));
 		CityPanel citypanel = CityPanel.getInstanceOf();
 		
+		//Instantiate the base roles before creating the people
+		SortingHat.InstantiateBaseRoles();
+		
 		while (scanFile.hasNext()) {
-			//Order of Inputs: Job Place, Cash, Name
+			//Order of Inputs: Job Type (BANK, MARKET, RESTAURANT), Cash, Name
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
 			
+			//Job
 			String jobString = scanPerson.next();
 			EnumJobType jobType = EnumJobType.valueOf(jobString);
 			
+			//Cash
 			String cashString = scanPerson.next();
 			double cash = Double.valueOf(cashString);
 			
+			//Name
 			String name = scanPerson.next();
 			
+			//Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
-			
 			synchronized (person) {
 				citypanel.masterPersonList.add(person);
 			}
