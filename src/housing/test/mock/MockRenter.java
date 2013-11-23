@@ -5,8 +5,8 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.MockPerson;
 import housing.House;
-import housing.interfaces.Landlord;
-import housing.interfaces.Renter;
+import housing.interfaces.HousingLandlord;
+import housing.interfaces.HousingRenter;
 
 /**
  * A sample MockRenter built to unit test a LandlordRole.
@@ -14,9 +14,9 @@ import housing.interfaces.Renter;
  * @author Maggi Yang 
  *
  */
-public class MockRenter extends Mock implements Role, Renter {
+public class MockRenter extends Mock implements Role, HousingRenter {
 	
-	public Landlord landlord; 
+	public HousingLandlord landlord; 
 
 	public MockRenter(String name) {
 		super();
@@ -53,7 +53,7 @@ public class MockRenter extends Mock implements Role, Renter {
 		return false;
 	}
 	
-	public void setLandlord(Landlord landlord){
+	public void setLandlord(HousingLandlord landlord){
 		
 	}
 

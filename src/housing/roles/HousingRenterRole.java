@@ -1,9 +1,9 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.ResidentGui;
-import housing.interfaces.Landlord;
-import housing.interfaces.Renter;
+import housing.gui.HousingResidentGui;
+import housing.interfaces.HousingLandlord;
+import housing.interfaces.HousingRenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,15 +19,15 @@ import base.interfaces.Person;
  * @author David Carr, Maggi Yang
  */
 
-public class HousingRenterRole extends BaseRole implements Renter {
+public class HousingRenterRole extends BaseRole implements HousingRenter {
 
 	/* Data */
 
-	public Landlord myLandLord;
+	public HousingLandlord myLandLord;
 	Boolean mTimeToMaintain = false;
 	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
 	House mHouse = null;
-	private ResidentGui gui = new ResidentGui();
+	private HousingResidentGui gui = new HousingResidentGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
 	boolean isHungry = false;
 	Timer mMintenanceTimer;
@@ -166,7 +166,7 @@ public class HousingRenterRole extends BaseRole implements Renter {
 	}
 
 	/* Utilities */
-	public void setLandlord(Landlord landlord){
+	public void setLandlord(HousingLandlord landlord){
 		myLandLord = landlord; 
 	}
 

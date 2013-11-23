@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import housing.House;
-import housing.interfaces.Landlord;
-import housing.interfaces.Renter;
+import housing.interfaces.HousingLandlord;
+import housing.interfaces.HousingRenter;
 import housing.roles.HousingLandlordRole;
 import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
@@ -27,8 +27,8 @@ public class LandlordTest extends TestCase {
 	// these are instantiated for each test separately via the setUp() method.
 	Person landlordPerson;
 	Person renterPerson;
-	Landlord landlordRole;
-	Renter renterRole;
+	HousingLandlord landlordRole;
+	HousingRenter renterRole;
 	House house1;
 	House house2; 
 

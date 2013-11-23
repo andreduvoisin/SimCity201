@@ -3,15 +3,15 @@ package bank.test.mock;
 import java.util.List;
 import java.util.Map;
 
-import bank.Account;
-import bank.interfaces.MasterTeller;
+import bank.BankAccount;
+import bank.interfaces.BankMasterTeller;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.Mock;
 
 
-public class MockMasterTellerRole extends Mock implements MasterTeller, Role{
+public class MockMasterTellerRole extends Mock implements BankMasterTeller, Role{
 
 	public MockMasterTellerRole(String name) {
 		super();
@@ -49,7 +49,7 @@ public class MockMasterTellerRole extends Mock implements MasterTeller, Role{
 	}
 
 	@Override
-	public List<Account> getAccounts() {
+	public List<BankAccount> getAccounts() {
 		// TODO Auto-generated method stub
 		return null;
 	}

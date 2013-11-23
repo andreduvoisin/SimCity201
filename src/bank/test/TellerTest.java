@@ -1,7 +1,7 @@
 package bank.test;
 
 import junit.framework.TestCase;
-import bank.interfaces.Customer;
+import bank.interfaces.BankCustomer;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import bank.test.mock.MockCustomerRole;
@@ -65,7 +65,7 @@ public class TellerTest extends TestCase{
 		assertTrue("Teller has no account indices", mTeller.mAccountIndex.isEmpty());
 		
 		//2 : add customer - open
-		mTeller.msgOpen((Customer)mCustomer1, 1, 100.00, (PersonAgent)mCustomer1.mPerson);
+		mTeller.msgOpen((BankCustomer)mCustomer1, 1, 100.00, (PersonAgent)mCustomer1.mPerson);
 		
 		//Check
 		assertTrue("Teller has customer", mTeller.mCustomer.customer == mCustomer1);

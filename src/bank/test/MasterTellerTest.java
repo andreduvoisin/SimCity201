@@ -2,7 +2,7 @@ package bank.test;
 
 import test.mock.MockPerson;
 import junit.framework.TestCase;
-import bank.Account;
+import bank.BankAccount;
 import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;
 import base.interfaces.Person;
@@ -60,11 +60,11 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("MT has no account indices", mMasterTeller.mAccountIndex.isEmpty());
 		
 		//1 : add accounts (name, loan, balance)
-		mMasterTeller.mAccounts.add(new Account(0, 10, (PersonAgent)mPerson1.person)); 
+		mMasterTeller.mAccounts.add(new BankAccount(0, 10, (PersonAgent)mPerson1.person)); 
 		mMasterTeller.mAccountIndex.put(1, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account(0, 20, (PersonAgent)mPerson2.person));
+		mMasterTeller.mAccounts.add(new BankAccount(0, 20, (PersonAgent)mPerson2.person));
 		mMasterTeller.mAccountIndex.put(2, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account(0, 30, (PersonAgent)mPerson3.person));
+		mMasterTeller.mAccounts.add(new BankAccount(0, 30, (PersonAgent)mPerson3.person));
 		mMasterTeller.mAccountIndex.put(3, mMasterTeller.mAccounts.size()-1);
 		
 		//Check
@@ -112,11 +112,11 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("MT has no account indices", mMasterTeller.mAccountIndex.isEmpty());
 		
 		//1 : add accounts (name, loan, balance)
-		mMasterTeller.mAccounts.add(new Account(0, 10, (PersonAgent)mPerson1.person)); 
+		mMasterTeller.mAccounts.add(new BankAccount(0, 10, (PersonAgent)mPerson1.person)); 
 		mMasterTeller.mAccountIndex.put(1, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account(0, 20, (PersonAgent)mPerson2.person));
+		mMasterTeller.mAccounts.add(new BankAccount(0, 20, (PersonAgent)mPerson2.person));
 		mMasterTeller.mAccountIndex.put(2, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account(0, 30, (PersonAgent)mPerson3.person));
+		mMasterTeller.mAccounts.add(new BankAccount(0, 30, (PersonAgent)mPerson3.person));
 		mMasterTeller.mAccountIndex.put(3, mMasterTeller.mAccounts.size()-1);
 		
 		//Check
@@ -169,7 +169,7 @@ public class MasterTellerTest extends TestCase{
 		assertTrue("MT has no account indices", mMasterTeller.mAccountIndex.isEmpty());
 		
 		//1 : add accounts (name, loan, balance)
-		mMasterTeller.mAccounts.add(new Account(0, 10, (PersonAgent)mPerson1.person)); 
+		mMasterTeller.mAccounts.add(new BankAccount(0, 10, (PersonAgent)mPerson1.person)); 
 		mMasterTeller.mAccountIndex.put(1, mMasterTeller.mAccounts.size()-1);
 		
 		//Check
@@ -190,9 +190,9 @@ public class MasterTellerTest extends TestCase{
 		
 		
 		//3 : add new accounts
-		mMasterTeller.mAccounts.add(new Account(0, 20, (PersonAgent) mPerson2.person));
+		mMasterTeller.mAccounts.add(new BankAccount(0, 20, (PersonAgent) mPerson2.person));
 		mMasterTeller.mAccountIndex.put(2, mMasterTeller.mAccounts.size()-1);
-		mMasterTeller.mAccounts.add(new Account(0, 30, (PersonAgent) mPerson3.person));
+		mMasterTeller.mAccounts.add(new BankAccount(0, 30, (PersonAgent) mPerson3.person));
 		mMasterTeller.mAccountIndex.put(3, mMasterTeller.mAccounts.size()-1);
 		
 		//Check

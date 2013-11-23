@@ -3,25 +3,25 @@ package bank.roles;
 import java.util.List;
 import java.util.Map;
 
-import bank.Account;
+import bank.BankAccount;
 import base.BaseRole;
 import base.PersonAgent;
-import bank.interfaces.Customer;
-import bank.interfaces.Guard;
-import bank.interfaces.MasterTeller;
-import bank.interfaces.Teller;
+import bank.interfaces.BankCustomer;
+import bank.interfaces.BankGuard;
+import bank.interfaces.BankMasterTeller;
+import bank.interfaces.BankTeller;
 
-public class BankTellerRole extends BaseRole implements Teller{
+public class BankTellerRole extends BaseRole implements BankTeller{
 
 //	DATA
 	
 	public class MyCustomer{
-		public Customer customer;
+		public BankCustomer customer;
 		public PersonAgent mPerson;
 		int mSSN;
 		double desiredAmount = 0;
 		EnumTransaction transaction = EnumTransaction.None;
-		MyCustomer (Customer c, int SSN, double a, EnumTransaction t){
+		MyCustomer (BankCustomer c, int SSN, double a, EnumTransaction t){
 			customer = c;
 			mSSN = SSN;
 			desiredAmount = a;
@@ -33,33 +33,33 @@ public class BankTellerRole extends BaseRole implements Teller{
 	//GUI Coordinate
 	int mLocation;
 	//Agent Correspodents
-	Guard mGuard;
+	BankGuard mGuard;
 	public MyCustomer mCustomer;
 	//Database
-	MasterTeller mMasterTeller;
+	BankMasterTeller mMasterTeller;
 	public Map <Integer, Integer> mAccountIndex;
-	public List <Account> mAccounts;
+	public List <BankAccount> mAccounts;
 	
 //	MESSAGES
 	
-	public void msgDeposit(Customer c, int SSN, double amount){
+	public void msgDeposit(BankCustomer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Deposit);
 		stateChanged();
 	}
-	public void msgLoan(Customer c, int SSN, double amount){
+	public void msgLoan(BankCustomer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Loan);
 		stateChanged();
 	}
-	public void msgPayment(Customer c, int SSN, double amount){
+	public void msgPayment(BankCustomer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Payment);
 		stateChanged();
 	}
-	public void msgOpen(Customer c, int SSN, double amount, PersonAgent person){
+	public void msgOpen(BankCustomer c, int SSN, double amount, PersonAgent person){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Open);
 		mCustomer.mPerson = person;
 		stateChanged();
 	}
-	public void msgRobbery(Customer c, int SSN, double amount){
+	public void msgRobbery(BankCustomer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Robbery);
 		stateChanged();
 	}
@@ -119,7 +119,7 @@ public class BankTellerRole extends BaseRole implements Teller{
 		mCustomer.customer.msgHereIsLoan(0);
 	}
 	private void open(){
-		mMasterTeller.getAccounts().add(new Account(0, mCustomer.desiredAmount, mCustomer.mPerson));
+		mMasterTeller.getAccounts().add(new BankAccount(0, mCustomer.desiredAmount, mCustomer.mPerson));
 		int accountIndex = mMasterTeller.getAccounts().size() - 1;
 		mMasterTeller.getAccountIndex().put(mCustomer.mSSN, accountIndex);
 		mCustomer.customer.msgHereIsBalance(mCustomer.desiredAmount);
@@ -131,10 +131,10 @@ public class BankTellerRole extends BaseRole implements Teller{
 	}
 	
 //	UTILITIES
-	public void addGuard(Guard guard){
+	public void addGuard(BankGuard guard){
 		mGuard = guard;
 	}
-	public void setMaster(MasterTeller masterTeller) {
+	public void setMaster(BankMasterTeller masterTeller) {
 		mMasterTeller = masterTeller;
 	}
 	public void setAccountIndex(){

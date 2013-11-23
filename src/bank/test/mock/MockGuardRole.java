@@ -1,8 +1,8 @@
 package bank.test.mock;
 
-import bank.interfaces.Customer;
-import bank.interfaces.Guard;
-import bank.interfaces.Teller;
+import bank.interfaces.BankCustomer;
+import bank.interfaces.BankGuard;
+import bank.interfaces.BankTeller;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -10,7 +10,7 @@ import test.mock.LoggedEvent;
 import test.mock.Mock;
 
 
-public class MockGuardRole extends Mock implements Guard, Role{
+public class MockGuardRole extends Mock implements BankGuard, Role{
 
 	public MockGuardRole() {
 		super();
@@ -29,16 +29,16 @@ public class MockGuardRole extends Mock implements Guard, Role{
 		return 0;
 	}
 
-	public void msgNeedService(Customer c) {
+	public void msgNeedService(BankCustomer c) {
 		log.add(new LoggedEvent("msgNeedService"));
 	}
-	public void msgReadyToWork(Teller t) {
+	public void msgReadyToWork(BankTeller t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void msgRobberAlert(Customer c) {
+	public void msgRobberAlert(BankCustomer c) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -50,7 +50,7 @@ public class MockGuardRole extends Mock implements Guard, Role{
 	}
 
 	@Override
-	public void msgOffWork(Teller t) {
+	public void msgOffWork(BankTeller t) {
 		// TODO Auto-generated method stub
 		
 	}

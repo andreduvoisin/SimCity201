@@ -5,9 +5,9 @@ import java.util.concurrent.Semaphore;
 
 import market.interfaces.*;
 import market.*;
-import market.Order.EnumOrderEvent;
-import market.Order.EnumOrderStatus;
-import market.gui.DeliveryTruckGui;
+import market.MarketOrder.EnumOrderEvent;
+import market.MarketOrder.EnumOrderStatus;
+import market.gui.MarketDeliveryTruckGui;
 import base.*;
 
 /**
@@ -16,12 +16,12 @@ import base.*;
  * @author Angelica Huyen Tran
  */
 
-public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
+public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
 
-	DeliveryTruckGui mGui;
+	MarketDeliveryTruckGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
 	
-	List<Order> mDeliveries = Collections.synchronizedList(new ArrayList<Order>());
+	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 
 	//ANGELICA: FIX THIS MAP!!!
 	Map<String, MarketCookCustomerRole>	mRestaurants = new HashMap<String, MarketCookCustomerRole>();
@@ -34,13 +34,13 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	}
 
 /* Messages */
-	public void msgDeliverOrderToCook(Order o) {
+	public void msgDeliverOrderToCook(MarketOrder o) {
 		mDeliveries.add(o);
 		o.mEvent = EnumOrderEvent.TOLD_TO_DELIVER;
 	}
 	
 	public void msgAnimationAtRestaurant(String r) {
-		for(Order d : mDeliveries) {
+		for(MarketOrder d : mDeliveries) {
 			if(d.mPersonRole == mRestaurants.get(r))
 			d.mEvent = EnumOrderEvent.READY_TO_DELIVER;
 		}
@@ -59,14 +59,14 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
-		for(Order delivery : mDeliveries) {
+		for(MarketOrder delivery : mDeliveries) {
 			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
 				delivery.mStatus = EnumOrderStatus.BEING_DELIVERED;
 				goToDeliverOrder(delivery);
 				return true;
 			}
 		}
-		for(Order delivery : mDeliveries) {
+		for(MarketOrder delivery : mDeliveries) {
 			if(delivery.mStatus == EnumOrderStatus.BEING_DELIVERED && delivery.mEvent == EnumOrderEvent.READY_TO_DELIVER) {
 				delivery.mStatus = EnumOrderStatus.FULFILLING;
 				deliverOrder(delivery);
@@ -87,7 +87,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	}
 
 /* Actions */
-	private void goToDeliverOrder(Order o) {
+	private void goToDeliverOrder(MarketOrder o) {
 		String r = null;;
 		for(String iR : mRestaurants.keySet()) {
 			if(mRestaurants.get(iR) == o.mPersonRole) {
@@ -98,7 +98,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 		DoGoToRestaurant(r);
 	}
 	
-	private void deliverOrder(Order o) {
+	private void deliverOrder(MarketOrder o) {
 		((MarketCookCustomerRole)o.mPersonRole).msgHereIsCookOrder(o);
 		mDeliveries.remove(o);
 	}
@@ -139,7 +139,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	}
 	
 /* Utilities */
-	public void setGui(DeliveryTruckGui g) {
+	public void setGui(MarketDeliveryTruckGui g) {
 		mGui = g;
 	}
 }

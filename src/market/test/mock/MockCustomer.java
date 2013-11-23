@@ -6,20 +6,20 @@ import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import market.*;
-import market.interfaces.Customer;
+import market.interfaces.MarketCustomer;
 import test.mock.*;
 
-public class MockCustomer extends Mock implements Customer, Role {
+public class MockCustomer extends Mock implements MarketCustomer, Role {
 	
 	public MockCustomer() {
 		super();
 	}
 	
-	public void msgInvoiceToPerson(Map<String, Integer> canFulfill, Invoice invoice) {
+	public void msgInvoiceToPerson(Map<String, Integer> canFulfill, MarketInvoice invoice) {
 		log.add(new LoggedEvent("Received msgInvoiceToPerson"));
 	}
 		
-	public void msgHereIsCustomerOrder(Order order) {
+	public void msgHereIsCustomerOrder(MarketOrder order) {
 		log.add(new LoggedEvent("Received msgHereIsCustomerOrder."));
 	}
 	

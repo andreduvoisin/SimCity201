@@ -4,8 +4,8 @@ import junit.framework.TestCase;
 import market.roles.MarketWorkerRole;
 import market.test.mock.*;
 import market.*;
-import market.Order.EnumOrderEvent;
-import market.Order.EnumOrderStatus;
+import market.MarketOrder.EnumOrderEvent;
+import market.MarketOrder.EnumOrderStatus;
 
 import java.util.*;
 
@@ -22,7 +22,7 @@ public class WorkerTest extends TestCase {
  	MockDeliveryTruck mMockDeliveryTruck;
  	
  	Map<String, Integer> mItems = new HashMap<String, Integer>();
- 	Order mOrder;
+ 	MarketOrder mOrder;
 	
 	public void setUp() throws Exception {
 		super.setUp();
@@ -47,7 +47,7 @@ public class WorkerTest extends TestCase {
 		System.out.println("Test Worker Functions");
 	  //create order; set state of
 	  //order to beginning of worker obligations
-		mOrder = new Order(mItems, mMockCustomer);
+		mOrder = new MarketOrder(mItems, mMockCustomer);
 		mOrder.mStatus = EnumOrderStatus.PAID;
 		mOrder.mCashier = mMockCashier;
 		mOrder.mWorker = mWorker;
@@ -101,7 +101,7 @@ public class WorkerTest extends TestCase {
 			System.out.println("Test Worker Functions");
 		  //create order; set state of order to beginning of
 		  //worker obligations; 
-			mOrder = new Order(mItems, mMockCookCustomer);
+			mOrder = new MarketOrder(mItems, mMockCookCustomer);
 			mOrder.mStatus = EnumOrderStatus.PAID;
 			mOrder.mDeliveryTruck = mMockDeliveryTruck;
 			mOrder.mCashier = mMockCashier;

@@ -3,13 +3,13 @@ package market.roles;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import market.gui.WorkerGui;
+import market.gui.MarketWorkerGui;
 import market.interfaces.*;
 import market.*;
-import market.Order.EnumOrderEvent;
-import market.Order.EnumOrderStatus;
-import market.interfaces.DeliveryTruck;
-import market.interfaces.Worker;
+import market.MarketOrder.EnumOrderEvent;
+import market.MarketOrder.EnumOrderStatus;
+import market.interfaces.MarketDeliveryTruck;
+import market.interfaces.MarketWorker;
 import base.BaseRole;
 import base.interfaces.Person;
 
@@ -19,11 +19,11 @@ import base.interfaces.Person;
  * @author Angelica Huyen Tran
  */
 
-public class MarketWorkerRole extends BaseRole implements Worker {
-	WorkerGui mGui;
+public class MarketWorkerRole extends BaseRole implements MarketWorker {
+	MarketWorkerGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
 	
-	private List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
+	private List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	public MarketWorkerRole() {
 	}
@@ -33,15 +33,15 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	}
 	
 /* Messages */
-	public void msgFulfillOrder(Order o) {
+	public void msgFulfillOrder(MarketOrder o) {
 		mOrders.add(o);
 		o.mEvent = EnumOrderEvent.ORDER_PAID;
 		stateChanged();
 	}
 	
 /* Animation Message */
-	public void msgOrderFulfilled(Order o) {
-		if(o.mPersonRole instanceof Customer)
+	public void msgOrderFulfilled(MarketOrder o) {
+		if(o.mPersonRole instanceof MarketCustomer)
 			o.mEvent = EnumOrderEvent.TOLD_TO_FULFILL;
 		else
 			o.mEvent = EnumOrderEvent.TOLD_TO_SEND;
@@ -63,21 +63,21 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
-		for(Order order : mOrders) {
+		for(MarketOrder order : mOrders) {
 			if(order.mStatus == EnumOrderStatus.PAID && order.mEvent == EnumOrderEvent.ORDER_PAID) {
 				order.mStatus = EnumOrderStatus.ORDERING;
 				processOrder(order);
 				return true;
 			}
 		}
-		for(Order order : mOrders) {
+		for(MarketOrder order : mOrders) {
 			if(order.mStatus == EnumOrderStatus.ORDERING && order.mEvent == EnumOrderEvent.TOLD_TO_FULFILL) {
 				order.mStatus = EnumOrderStatus.FULFILLING;
 				fulfillOrder(order);
 				return true;
 			}
 		}
-		for(Order order : mOrders) {
+		for(MarketOrder order : mOrders) {
 			if(order.mStatus == EnumOrderStatus.ORDERING && order.mEvent == EnumOrderEvent.TOLD_TO_SEND) {
 				order.mStatus = EnumOrderStatus.DELIVERING;
 				sendOrder(order);
@@ -92,24 +92,24 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	}
 
 /* Actions */
-	private void processOrder(Order o) {
+	private void processOrder(MarketOrder o) {
 		DoFulfillOrder(o);
 	}
 	
-	private void fulfillOrder(Order o) {
+	private void fulfillOrder(MarketOrder o) {
 		DoGoToFront();
-		((Customer)(o.mPersonRole)).msgHereIsCustomerOrder(o);
+		((MarketCustomer)(o.mPersonRole)).msgHereIsCustomerOrder(o);
 		mOrders.remove(o);
 	}
 	
-	private void sendOrder(Order o) {
+	private void sendOrder(MarketOrder o) {
 		DoGoToDeliveryTruck(o.mDeliveryTruck);
 		o.mDeliveryTruck.msgDeliverOrderToCook(o);
 		mOrders.remove(o);
 	}
 
 /* Animation Actions */
-	private void DoFulfillOrder(Order o) {
+	private void DoFulfillOrder(MarketOrder o) {
 		mGui.DoFulfillOrder(o);
 		try {
 			inTransit.acquire();
@@ -129,7 +129,7 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 		}
 	}
 	
-	private void DoGoToDeliveryTruck(DeliveryTruck d) {
+	private void DoGoToDeliveryTruck(MarketDeliveryTruck d) {
 		//check to pass DeliveryTruck or MarketDeliveryTruckRole
 		mGui.DoGoToDeliveryTruck();
 		try {
@@ -159,11 +159,11 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 		return mOrders.size();
 	}
 	
-	public Order getOrder(int n) {
+	public MarketOrder getOrder(int n) {
 		return mOrders.get(n);
 	}
 	
-	public void setGui(WorkerGui g) {
+	public void setGui(MarketWorkerGui g) {
 		mGui = g;
 	}
 }
