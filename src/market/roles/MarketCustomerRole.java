@@ -1,21 +1,22 @@
 package market.roles;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+import java.util.concurrent.Semaphore;
 
 import market.*;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
 import market.interfaces.*;
+import market.gui.CustomerGui;
 import base.*;
 
 public class MarketCustomerRole extends BaseRole implements Customer{
 	//DATA
 	//mCash accessed from Person
-
+	private CustomerGui mGui;
+	private Semaphore inTransit = new Semaphore(0,true);
+	
 	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
 	List<Invoice> mInvoices	= Collections.synchronizedList(new ArrayList<Invoice>());
 
@@ -25,8 +26,6 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	Map<String, Integer> mCannotFulfill = new HashMap<String, Integer>();
 
 	Cashier mCashier;
-
-	int mMarketToOrderFrom = 0; //TODO: use for market switching % Market.getNumMarkets
 	
 	public MarketCustomerRole(PersonAgent person) {
 		mPerson = person;
@@ -46,6 +45,18 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 		stateChanged();
 	}
 	
+/* Animation Messages */
+	public void msgAnimationAtMarket() {
+		inTransit.release();
+	}
+	
+	public void msgAnimationAtWaitingArea() {
+		inTransit.release();
+	}
+	
+	public void msgAnimationLeftRestaurant() {
+		inTransit.release();
+	}
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction(){
@@ -95,6 +106,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 	}
 
 	private void placeOrder(Order order){
+		DoGoToMarket();
 		mCashier.msgOrderPlacement(order);
 	}
 
@@ -110,11 +122,49 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 		
 		mCashier.msgPayingForOrder(invoice);
 		mInvoices.remove(invoice);
+		DoWaitForOrder();
 	}
 
 	private void completeOrder(Order o) {
 		for(String item : o.mItems.keySet()) {
 			mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
 		}
+		DoLeaveMarket();
+	}
+	
+/* Animation Actions */
+	private void DoGoToMarket() {
+		mGui.DoGoToMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void DoWaitForOrder() {
+		mGui.DoWaitForOrder();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void DoLeaveMarket() {
+		mGui.DoLeaveMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+/* Utilities */
+	public void setGui(CustomerGui g) {
+		mGui = g;
 	}
 }

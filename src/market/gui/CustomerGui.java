@@ -36,17 +36,17 @@ public class CustomerGui implements Gui {
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToMarket: {
-        		//mAgent.msgAnimationAtMarket();
+        		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToWaitingArea: {
-        		//mAgent.msgAnimationAtWaitingArea();
+        		mAgent.msgAnimationAtWaitingArea();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        		//mAgent.msgAnimationLeftRestaurant();
+        		mAgent.msgAnimationLeftRestaurant();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}

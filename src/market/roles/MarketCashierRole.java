@@ -1,6 +1,7 @@
 package market.roles;
 
 import java.util.*;
+import java.util.concurrent.Semaphore;
 
 import market.*;
 import market.Order.EnumOrderEvent;
@@ -15,6 +16,8 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	Market mMarket;
 	
 	CashierGui mGui;
+	Semaphore inTransit = new Semaphore(0,true);
+	
 	int mNumWorkers = 0;
 	
 	Map<String, Integer> mInventory;
@@ -22,6 +25,7 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	List<Worker> mWorkers = Collections.synchronizedList(new ArrayList<Worker>());
 	static int mWorkerIndex;
 	
+	List<DeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<DeliveryTruck>());
 	
 	int mCash;
 
@@ -48,6 +52,15 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 //			throw error?
 		}
 		stateChanged();
+	}
+	
+/* Animation Messages */
+	public void msgAnimationLeftRestaurant() {
+		inTransit.release();
+	}
+	
+	public void msgAnimationAtPosition() {
+		inTransit.release();
 	}
 	
 //	Scheduler
@@ -119,10 +132,22 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 /* Animation Actions */
 	private void DoLeaveMarket() {
 		mGui.DoLeaveMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void DoGoToPosition() {
 		mGui.DoGoToPosition();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 /* Utilities */

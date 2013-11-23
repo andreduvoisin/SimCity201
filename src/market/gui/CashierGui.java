@@ -34,12 +34,12 @@ public class CashierGui implements Gui {
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToPosition: {
-        		//mAgent.msgAnimationAtPosition();
+        		mAgent.msgAnimationAtPosition();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        		//mAgent.msgAnimationLeftRestaurant();
+        		mAgent.msgAnimationLeftRestaurant();
         		mCommand = EnumCommand.noCommand;
         	}
         	default:

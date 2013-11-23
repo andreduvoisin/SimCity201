@@ -7,6 +7,8 @@ import market.roles.MarketDeliveryTruckRole;
 public class DeliveryTruckGui implements Gui {
 	private MarketDeliveryTruckRole mAgent;
 	
+	private String mDestination;
+	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xMarketBase = 20, yMarketBase = 20;
 	private int xMarket = xMarketBase, yMarket = yMarketBase;
@@ -38,17 +40,17 @@ public class DeliveryTruckGui implements Gui {
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToMarket: {
-        		//mAgent.msgAnimationAtMarket();
+        		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToRestaurant: {
-        		//mAgent.msgAnimationAtRestaurant();
+        		mAgent.msgDeliverOrderToCook(mDestination);
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        		//mAgent.msgAnimationLeftRestaurant();
+        		mAgent.msgAnimationLeftRestaurant();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -70,7 +72,7 @@ public class DeliveryTruckGui implements Gui {
 		mCommand = EnumCommand.goToMarket;
 	}
 
-	public void DoGoToRestaurant(int n) {
+	public void DoGoToRestaurant(String r) {
 		//fill in;
 		//must consider parameters
 		//proper way to get to restaurant

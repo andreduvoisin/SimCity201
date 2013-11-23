@@ -1,7 +1,9 @@
 package market.roles;
 
 import java.util.*;
+import java.util.concurrent.Semaphore;
 
+import market.gui.WorkerGui;
 import market.interfaces.*;
 import market.*;
 import market.Order.EnumOrderEvent;
@@ -15,8 +17,8 @@ import base.*;
  */
 
 public class MarketWorkerRole extends BaseRole implements Worker {
-	//MarketWorkerGui gui;
-	//Semaphore inTransit = new Semaphore(0,true);
+	WorkerGui mGui;
+	Semaphore inTransit = new Semaphore(0,true);
 	
 	private List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
@@ -31,13 +33,26 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 		stateChanged();
 	}
 	
+/* Animation Message */
 	public void msgOrderFulfilled(Order o) {
 		if(o.mPersonRole instanceof Customer)
 			o.mEvent = EnumOrderEvent.TOLD_TO_FULFILL;
 		else
 			o.mEvent = EnumOrderEvent.TOLD_TO_SEND;
+		inTransit.release();
 		stateChanged();
-		//release animation semaphore
+	}
+
+	public void msgAnimationAtDeliveryTruck() {
+		inTransit.release();
+	}
+
+	public void msgAnimationAtCustomer() {
+		inTransit.release();
+	}
+
+	public void msgAnimationLeftMarket() {
+		inTransit.release();
 	}
 	
 /* Scheduler */
@@ -64,6 +79,9 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 			}
 		}
 		DoGoToHomePosition();
+		/*
+		 * if time shift expires, leave restaurant
+		 */
 		return false;
 	}
 
@@ -86,19 +104,48 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 
 /* Animation Actions */
 	private void DoFulfillOrder(Order o) {
-		
+		mGui.DoFulfillOrder(o);
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void DoGoToFront() {
-		
+		mGui.DoGoToMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void DoGoToDeliveryTruck(DeliveryTruck d) {
 		//check to pass DeliveryTruck or MarketDeliveryTruckRole
+		mGui.DoGoToDeliveryTruck();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void DoGoToHomePosition() {
-		
+		mGui.DoGoToHome();
+	}
+	
+	private void DoLeaveMarket() {
+		mGui.DoLeaveMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 /* Utilities */
@@ -108,5 +155,9 @@ public class MarketWorkerRole extends BaseRole implements Worker {
 	
 	public Order getOrder(int n) {
 		return mOrders.get(n);
+	}
+	
+	public void setGui(WorkerGui g) {
+		mGui = g;
 	}
 }

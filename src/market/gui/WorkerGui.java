@@ -8,6 +8,8 @@ import market.roles.MarketWorkerRole;
 public class WorkerGui implements Gui {
 	private MarketWorkerRole mAgent;
 	
+	private Order mOrder = null;
+	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xHome = 0, yHome = 100;
 	
@@ -39,6 +41,8 @@ public class WorkerGui implements Gui {
         		mCommand = EnumCommand.noCommand;
         	}
         	case fulFillOrder: {
+        		mAgent.msgOrderFulfilled(mOrder);
+        		mOrder = null;
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -47,14 +51,17 @@ public class WorkerGui implements Gui {
         		break;
         	}
         	case goToCustomer: {
+        		mAgent.msgAnimationAtCustomer();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToDeliveryTruck: {
+        		mAgent.msgAnimationAtDeliveryTruck();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
+        		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -77,7 +84,7 @@ public class WorkerGui implements Gui {
 	}
 	
 	public void DoFulfillOrder(Order o) {
-		
+		mOrder = o;
 	}
 	
 	public void DoGoToCustomer() {

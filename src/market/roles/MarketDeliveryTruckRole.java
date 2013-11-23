@@ -1,11 +1,13 @@
 package market.roles;
 
 import java.util.*;
+import java.util.concurrent.Semaphore;
 
 import market.interfaces.*;
 import market.*;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
+import market.gui.DeliveryTruckGui;
 import base.*;
 
 /**
@@ -16,7 +18,8 @@ import base.*;
 
 public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 
-//	DeliveryTruckGui gui;
+	DeliveryTruckGui mGui;
+	Semaphore inTransit = new Semaphore(0,true);
 	
 	List<Order> mDeliveries = Collections.synchronizedList(new ArrayList<Order>());
 	//FIX THIS MAP!!!
@@ -38,11 +41,17 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	public void msgAnimationAtRestaurant(Order o) {
 //		o.mEvent = EnumOrderEvent.TOLD_TO_DELIVER;
 		//change event!!
-		stateChanged();
+		inTransit.release();
 	}
 	
 	public void msgAnimationAtMarket() {
 		mStatus = EnumDeliveryTruckStatus.Ready;
+		inTransit.release();
+		stateChanged();
+	}
+	
+	public void msgAnimationLeftRestaurant() {
+		inTransit.release();
 	}
 	
 /* Scheduler */
@@ -68,6 +77,10 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 			return true;
 		}
 		DoGoToMarket();
+		/*
+		 * if time for role change,
+		 * DoLeaveMarket();
+		 */
 		return false;
 	}
 
@@ -87,13 +100,37 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	
 /* Animation Actions */
 	public void DoGoToRestaurant(String restaurant) {
-		
+		mGui.DoGoToRestaurant(restaurant);
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void DoGoToMarket() {
-		
+		mGui.DoGoToMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void DoLeaveMarket() {
+		mGui.DoLeaveMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 /* Utilities */
-
+	public void setGui(DeliveryTruckGui g) {
+		mGui = g;
+	}
 }
