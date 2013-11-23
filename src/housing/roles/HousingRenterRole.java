@@ -20,7 +20,7 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	/* Data */
 
 	public HousingLandlord myLandLord;
-	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
+	public List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
 	private HousingResidentGui gui = new HousingResidentGui();
 
 	enum EnumBillState {
