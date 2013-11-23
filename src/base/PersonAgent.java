@@ -1,6 +1,6 @@
 package base;
 
-import housing.roles.HousingLandlordRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,8 +12,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import market.roles.MarketCashierRole;
+import market.roles.MarketCustomerRole;
 import bank.interfaces.MasterTeller;
+import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
@@ -26,12 +27,10 @@ public class PersonAgent extends Agent implements Person {
 	static int sSSN = 0;
 	static int sTimeSchedule = 0; //0,1,2
 	static int sEatingTime = 0;
-	static final int mealsToEat = 2;
-	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
-
+	
 	//Roles and Job
-	static enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
-	private EnumJobPlaces mJobPlace;
+	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, NONE};
+	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	
 	//Lists
@@ -45,8 +44,6 @@ public class PersonAgent extends Agent implements Person {
 	private String mName; 
 	int mSSN;
 	int mTimeShift;
-	int mEatingTime;
-	int mMealsToEat;
 	double mCash;
 	double mLoan;
 	boolean mHasHome;
@@ -64,38 +61,37 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(EnumJobPlaces job, double cash, String name){
+	public PersonAgent(EnumJobType job, double cash, String name){
 		initializePerson();
 		mJobPlace = job;
 		mCash = cash;
 		mName = name;
 		
-		//SHANE: 1 Make role after asking correct roles
-		
-		//SHANE: Add try/catch here
 		switch (job){
 			case BANK:
-				mRoles.put(BankMasterTellerRole.getNextRole(), true); //initially active
+				mRoles.put(SortingHat.getBankRole(), true); //true = initially active
 				break;
 			case HOUSING:
-				mRoles.put(HousingLandlordRole.getNextRole(), true);
+				mRoles.put(SortingHat.getHousingRole(), true);
 				break;
 			case MARKET:
-				//Ask market cashier for role
-				mRoles.put(MarketCashierRole.getNextRole(), true);
+				mRoles.put(SortingHat.getMarketRole(), true);
 				break;
 			case RESTAURANT:
-				
-				//SHANE: MAKE A STATIC METHOD FOR RESTAURANT INTERFACE FOR ADDING PEOPLE
-				Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
-				sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
-				//SHANE: Create 
-				//RestaurantHost host = (RestaurantHost) hostPerson;
+				mRoles.put(SortingHat.getRestaurantRole(), true);
 				break;
-			case TRANSPORTATION:
-				//never will happen...
+			case NONE:
+				//wealthy people - no role
 				break;
 		}
+		
+		//SHANE: 1 add other roles like customer roles here
+		mRoles.put(new BankCustomerRole(this), false);
+		mRoles.put(new HousingRenterRole(this), false);
+		mRoles.put(new MarketCustomerRole(this), false);
+		//RestaurantCustomerRole
+		//TransportationBusRiderRole
+		
 	}
 	
 	private void initializePerson(){
@@ -103,7 +99,6 @@ public class PersonAgent extends Agent implements Person {
 		
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
-		mEatingTime = (mTimeShift + 2 * Time.cTimeShift + (sEatingTime++ % (Time.cTimeShift / 2))) % 24; // assign first eating time
 
 		mRoles = new HashMap<Role, Boolean>();
 		mCash = 100;
@@ -124,7 +119,6 @@ public class PersonAgent extends Agent implements Person {
 	public void msgTimeShift() {
 		if (Time.GetShift() == 0) {
 			// resetting of variables
-			mMealsToEat = 2;
 		}
 		stateChanged();
 	}
@@ -175,7 +169,7 @@ public class PersonAgent extends Agent implements Person {
 		//Daily Recurring Events (Job, Eat)
 		if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
-			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobPlaces.BANK)){
+			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobType.BANK)){
 				goToJob();
 			}
 			mEvents.add(new Event(event, 24));
@@ -222,14 +216,41 @@ public class PersonAgent extends Agent implements Person {
 //		gui.DoGoTo(Location Job);
 //		semAnimation.acquire();
 		//add job role
+		
+		// DoGoTo(work.location);
+		// work.getHost().msgImHere(job);
+		// job.active = T;
+		// state = PersonState.Working;
 	}
 
 	private void eatFood() {
-
+		// // What will be our algorithm to figure out which to do?
+		// switch(random(2)) {
+		// case 0:
+		// // Eat at home.
+		// DoGoTo(home.location);
+		// roles.find(HouseRenterRole).active = T;
+		// DoGoMakeFoodAtHome();
+		// state = PersonState.Eating;
+		// break;
+		// case 1:
+		// // Eat at restaurant.
+		// // What will be our algorithm to figure out which restaurant to go
+		// to?
+		// restaurantChoice = restaurants.chooseRestaurant();
+		// DoGoTo(restaurantChoice.location);
+		// restaurantChoice.getHost().msgImHungry(roles.find(CustomerRole));
+		// roles.find(CustomerRole).active = T;
+		// state = PersonState.Eating;
+		// break;
+		// }
 	}
 
 	private void getCar() {
-
+		// DoGoTo(market.location);
+		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
+		// roles.find(MarketCustomerRole).active = T;
+		// state = PersonState.Shopping;
 	}
 
 	private void depositCheck() {
@@ -262,56 +283,10 @@ public class PersonAgent extends Agent implements Person {
 		return bestFriends;
 	}
 	
-	
-	// ----------------------------------------------------------OLD ACTIONS----------------------------------------------------------
-
-	private void GoToWork() {
-		// DoGoTo(work.location);
-		// work.getHost().msgImHere(job);
-		// job.active = T;
-		// state = PersonState.Working;
-	}
-
-	private void EatFood() {
-		// // What will be our algorithm to figure out which to do?
-		// switch(random(2)) {
-		// case 0:
-		// // Eat at home.
-		// DoGoTo(home.location);
-		// roles.find(HouseRenterRole).active = T;
-		// DoGoMakeFoodAtHome();
-		// state = PersonState.Eating;
-		// break;
-		// case 1:
-		// // Eat at restaurant.
-		// // What will be our algorithm to figure out which restaurant to go
-		// to?
-		// restaurantChoice = restaurants.chooseRestaurant();
-		// DoGoTo(restaurantChoice.location);
-		// restaurantChoice.getHost().msgImHungry(roles.find(CustomerRole));
-		// roles.find(CustomerRole).active = T;
-		// state = PersonState.Eating;
-		// break;
-		// }
-	}
-
-	private void BuyHouse() {
-		// DoGoTo(market.location);
-		// market.getHost().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
-	}
-
-	private void BuyCar() {
-		// DoGoTo(market.location);
-		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
-	}
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
-	//SHANE: Organize PersonAgent Accessors
+	//SHANE: 4 Organize PersonAgent Accessors
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);
 		role.setPerson(this);

@@ -6,15 +6,12 @@ import market.*;
 import market.interfaces.Cook;
 import test.mock.*;
 import base.PersonAgent;
+import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class MockCookCustomer extends Mock implements Cook, Role {
 
-<<<<<<< HEAD
-	public MockCookCustomer(String name) {
-=======
 	public MockCookCustomer() {
->>>>>>> market
 		super();
 	}
 	
@@ -31,7 +28,7 @@ public class MockCookCustomer extends Mock implements Cook, Role {
 		return false;
 	}
 
-	public void setPerson(PersonAgent person) {
+	public void setPerson(Person person) {
 	}
 
 	public PersonAgent getPersonAgent() {

@@ -22,13 +22,9 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	Semaphore inTransit = new Semaphore(0,true);
 	
 	List<Order> mDeliveries = Collections.synchronizedList(new ArrayList<Order>());
-<<<<<<< HEAD
+
 	//ANGELICA: FIX THIS MAP!!!
-	Map<MarketCookCustomerRole, String>	mRestaurants = new HashMap<MarketCookCustomerRole, String>();
-=======
-	//FIX THIS MAP!!!
 	Map<String, MarketCookCustomerRole>	mRestaurants = new HashMap<String, MarketCookCustomerRole>();
->>>>>>> market
 	
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;

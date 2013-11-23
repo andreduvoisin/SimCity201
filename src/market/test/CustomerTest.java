@@ -25,7 +25,7 @@ public class CustomerTest extends TestCase {
  	public void setUp() throws Exception {
  		super.setUp();
  		
- 		mPerson = new PersonAgent("Role");
+ 		mPerson = new PersonAgent();
  		mCustomer = new MarketCustomerRole(mPerson);
  		
  		mMockCashier = new MockCashier();

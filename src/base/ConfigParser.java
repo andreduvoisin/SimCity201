@@ -3,7 +3,7 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import base.PersonAgent.EnumJobPlaces;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.CityPanel;
 
@@ -24,7 +24,7 @@ public class ConfigParser {
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
 			
 			String jobString = scanPerson.next();
-			EnumJobPlaces jobPlace = EnumJobPlaces.valueOf(jobString);
+			EnumJobType jobPlace = EnumJobType.valueOf(jobString);
 			
 			String cashString = scanPerson.next();
 			double cash = Double.valueOf(cashString);
