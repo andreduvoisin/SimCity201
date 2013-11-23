@@ -177,16 +177,6 @@ public class MarketCashierRole extends BaseRole implements Cashier{
 	public int getNumWorkers(){
 		return mNumWorkers;
 	}
-<<<<<<< HEAD
-
-	public static Role getNextRole() {
-		// SHANE: ADD GETNEXTROLE METHODS
-		Role worker = new MarketWorkerRole();
-		return worker;
-	}
-
-=======
->>>>>>> market
 	
 	public void addWorker(Worker w) {
 		mWorkers.add(w);

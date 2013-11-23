@@ -75,14 +75,14 @@ public class PersonAgent extends Agent implements Person {
 		//SHANE: Add try/catch here
 		switch (job){
 			case BANK:
-				mRoles.put(BankMasterTellerRole.getNextRole(), true); //initially active
+				mRoles.put(SortingHat.getBankRole(), true); //initially active
 				break;
 			case HOUSING:
-				mRoles.put(SortingHat.getNextRole(), true);
+				mRoles.put(SortingHat.getHousingRole(), true);
 				break;
 			case MARKET:
 				//Ask market cashier for role
-				mRoles.put(MarketCashierRole.getNextRole(), true);
+				mRoles.put(SortingHat.getMarketRole(), true);
 				break;
 			case RESTAURANT:
 				
