@@ -31,11 +31,12 @@ public class SortingHat {
 			//Bank
 			shift.add(new BankGuardRole(null));
 			shift.add(new BankMasterTellerRole(null));
-			shift.add(new BankTellerRole(null));
+			shift.add(new BankTellerRole(null)); //REX: How many tellers do we need? -SHANE
 			
 			//Housing
-			shift.add(new HousingLandlordRole(null));
-			shift.add(new HousingOwnerRole(null));
+//			shift.add(new HousingLandlordRole(null));
+//			shift.add(new HousingOwnerRole(null));
+			
 			
 			//Market
 			shift.add(new MarketCashierRole(null, new Market())); //ANGELICA: Is this how it's created? New market()?
@@ -79,13 +80,16 @@ public class SortingHat {
 	
 	
 	//HOUSING
-
-	static int landlord_count = 0;
-	static int renter_count = 0;
+	static int sLandlordCount = 0;
+	static int sRenterCount = 0;
+	static final int sHouseSize = 5;
 	final static int max_landlords = 5;
 	final static int max_renters = 5;
 
 	public static Role getHousingRole(int shift) {
+		//landlord, renter, owner (in that order)
+		
+		
 		Role newRole = null;
 		if (landlord_count < max_landlords) {
 			newRole = new HousingLandlordRole();
@@ -102,6 +106,17 @@ public class SortingHat {
 	//MARKET
 	
 	public static Role getMarketRole(int shift){
+		List<Role> shiftRoles = sRoles.get(shift);
+		
+		//Master Teller (1) - first priority
+				for (Role iRole : shiftRoles){
+					if (iRole instanceof BankMasterTellerRole){
+						if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
+					}
+				}
+				
+				
+		
 		// SHANE: ADD GETNEXTROLE METHODS
 		Role worker = new MarketWorkerRole();
 		return worker;
@@ -111,6 +126,17 @@ public class SortingHat {
 	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
 	
 	public static Role getRestaurantRole(int shift){
+		List<Role> shiftRoles = sRoles.get(shift);
+		
+		//Master Teller (1) - first priority
+				for (Role iRole : shiftRoles){
+					if (iRole instanceof BankMasterTellerRole){
+						if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
+					}
+				}
+				
+				
+		
 		Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
 		sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
 		

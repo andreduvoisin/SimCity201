@@ -184,6 +184,9 @@ public class PersonAgent extends Agent implements Person {
 			depositCheck();
 		}
 		
+		//Housing Events
+		//ASK_FOR_RENT, MAINTAIN_HOUSE,				//Housing Events
+		
 		//Party Events
 		if (event.mEventType == EnumEventType.INVITE1) {
 			inviteToParty();
