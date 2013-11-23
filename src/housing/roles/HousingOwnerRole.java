@@ -36,6 +36,9 @@ public class HousingOwnerRole extends BaseRole implements HousingOwner {
 	public HousingOwnerRole(Person person) {
 		mPerson = person;
 	}
+	
+	public HousingOwnerRole() {
+	}
 
 	public void msgEatAtHome() {
 		isHungry = true;

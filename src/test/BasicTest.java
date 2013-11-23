@@ -1,14 +1,10 @@
 package test;
 
-import java.io.FileNotFoundException;
-
-import city.gui.CityPanel;
 import housing.House;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
-import base.ConfigParser;
 import base.PersonAgent;
 
 /*
@@ -17,52 +13,50 @@ import base.PersonAgent;
  * @author David Carr
  */
 
-public class BasicTest extends TestCase{
-	
+public class BasicTest extends TestCase {
+
 	PersonAgent mPerson;
 	PersonAgent mPerson2;
 	HousingLandlordRole landlord;
 	HousingRenterRole renter;
 	BankMasterTellerRole master;
-	
-	
-	public void setUp() throws Exception{
+
+	public void setUp() throws Exception {
 		super.setUp();
 	}
-	
-	//TESTS
-	
-	public void testImportFromConfigFile() throws FileNotFoundException {
-		ConfigParser config = ConfigParser.getInstanceOf();
-		config.readFileCreatePersons();
-		CityPanel citypanel = CityPanel.getInstanceOf();
-		assertEquals("8 people added", citypanel.masterPersonList.size(), 8);
-	}
-	
+
+	// TESTS
+
+	/*
+	 * public void testImportFromConfigFile() throws FileNotFoundException {
+	 * ConfigParser config = ConfigParser.getInstanceOf();
+	 * config.readFileCreatePersons(); CityPanel citypanel =
+	 * CityPanel.getInstanceOf(); assertEquals("8 people added",
+	 * citypanel.masterPersonList.size(), 8); }
+	 */
+
 	public void testInstantiatePeopleAndAssignRoles() {
 		mPerson = new PersonAgent();
 		mPerson2 = new PersonAgent();
 		landlord = new HousingLandlordRole();
-		master = new BankMasterTellerRole();
+		master = new BankMasterTellerRole(null);
 		mPerson.mMasterTeller = master;
 		mPerson2.mMasterTeller = master;
-		House house1 = new House(5, 5, 50);
-		assertEquals("House1 rent set correctly", 50.00, house1.mRent);
-		House house2 = new House(10, 10, 60);
-		assertEquals("House2 rent set correctly", 60.00, house2.mRent);
-		landlord.mHousesList.add(house1);
-		landlord.mHousesList.add(house2);
-		assertEquals("Landlord housing size correct", landlord.mHousesList.size(), 2);
+		assertEquals("Landlord housing size correct",
+				landlord.mHousesList.size(), 2);
 		landlord.setPerson(mPerson);
 		renter = new HousingRenterRole();
 		renter.setPerson(mPerson2);
 		mPerson.addRole(landlord, true);
-		assertEquals("mPerson contains one role (the landlord role)", mPerson.mRoles.size(), 1);
+		assertEquals("mPerson contains one role (the landlord role)",
+				mPerson.mRoles.size(), 1);
 		mPerson2.addRole(renter, true);
-		assertEquals("mPerson2 contains one role (the renter role)", mPerson2.mRoles.size(), 1);
+		assertEquals("mPerson2 contains one role (the renter role)",
+				mPerson2.mRoles.size(), 1);
 		mPerson.addCash(100000);
 		mPerson2.addCash(200000);
-		landlord.msgIWouldLikeToLiveHere(renter, mPerson2.getCash(), mPerson2.getSSN());
+		landlord.msgIWouldLikeToLiveHere(renter, mPerson2.getCash(),
+				mPerson2.getSSN());
 		mPerson.pickAndExecuteAnAction();
 		landlord.mTimeToCheckRent = true;
 		mPerson2.pickAndExecuteAnAction();
@@ -70,10 +64,8 @@ public class BasicTest extends TestCase{
 		mPerson2.pickAndExecuteAnAction();
 	}
 
-	private void print(String message){
+	private void print(String message) {
 		System.out.println("[PersonTest] " + message);
 	}
-	
-	
-}
 
+}

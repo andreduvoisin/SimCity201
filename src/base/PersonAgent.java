@@ -12,8 +12,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import transportation.roles.TransportationBusRiderRole;
 import market.roles.MarketCustomerRole;
+import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
