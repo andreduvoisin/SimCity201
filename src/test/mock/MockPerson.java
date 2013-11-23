@@ -114,4 +114,16 @@ public class MockPerson extends Mock implements Person {
 		this.person = person;
 	}
 
+	@Override
+	public void msgHereIsPayment(int senderSSN, double amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgOverdrawnAccount(double loan) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
