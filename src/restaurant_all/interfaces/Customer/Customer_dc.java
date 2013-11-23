@@ -1,16 +1,16 @@
-package restaurant_all.interfaces;
+package restaurant_all.interfaces.Customer;
 
 import restaurant_davidmca.Check;
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Table;
-import restaurant_davidmca.agents.HostAgent;
 import restaurant_davidmca.gui.CustomerGui;
 import restaurant_davidmca.interfaces.Cashier;
+import restaurant_davidmca.interfaces.Host;
 import restaurant_davidmca.interfaces.Waiter;
 
-public interface Customer_dm {
+public interface Customer_dc {
 
-	public abstract void setHost(HostAgent host);
+	public abstract void setHost(Host host);
 
 	public abstract double getMoney();
 
@@ -47,5 +47,7 @@ public interface Customer_dm {
 	public abstract void setCashier(Cashier ca);
 
 	public abstract void msgAnimationFinishedGoToWaitingArea();
+
+	public abstract void msgAvailability(boolean availability);
 
 }

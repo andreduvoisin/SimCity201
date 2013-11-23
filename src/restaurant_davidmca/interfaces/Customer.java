@@ -3,12 +3,11 @@ package restaurant_davidmca.interfaces;
 import restaurant_davidmca.Check;
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Table;
-import restaurant_davidmca.agents.HostAgent;
 import restaurant_davidmca.gui.CustomerGui;
 
 public interface Customer {
 
-	public abstract void setHost(HostAgent host);
+	public abstract void setHost(Host host);
 
 	public abstract double getMoney();
 

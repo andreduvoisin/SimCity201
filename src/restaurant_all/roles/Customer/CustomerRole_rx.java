@@ -1,4 +1,4 @@
-package restaurant_all.roles;
+package restaurant_all.roles.Customer;
 
 import restaurant_xurex.gui.CustomerGui;
 import restaurant_xurex.interfaces.Cashier;

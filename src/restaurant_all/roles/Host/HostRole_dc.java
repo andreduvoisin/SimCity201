@@ -1,4 +1,4 @@
-package restaurant_davidmca.agents;
+package restaurant_all.roles.Host;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,41 +7,57 @@ import java.util.List;
 
 import restaurant_davidmca.MyWaiter;
 import restaurant_davidmca.Table;
+import restaurant_davidmca.agents.HostAgent.WaiterState;
 import restaurant_davidmca.gui.HostGui;
-import restaurant_davidmca.interfaces.Customer;
+import restaurant_all.interfaces.Customer.Customer_dc;
+import restaurant_all.interfaces.Host.Host_dc;
+import restaurant_davidmca.interfaces.Cook;
 import restaurant_davidmca.interfaces.Host;
 import restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
+import base.BaseRole;
 
 /**
  * Restaurant Host Agent
  */
 
-public class HostAgent extends Agent implements Host {
+public class HostRole_dc extends BaseRole implements Host_dc {
 	static final int NTABLES = 4;// a global for the number of tables.
-	public List<CustomerAgent> waitingCustomers = Collections
-			.synchronizedList(new ArrayList<CustomerAgent>());
-	public List<CustomerAgent> indecisiveCustomers = Collections
-			.synchronizedList(new ArrayList<CustomerAgent>());
+	public List<Customer_dc> waitingCustomer_dcs = Collections
+			.synchronizedList(new ArrayList<Customer_dc>());
+	public List<Customer_dc> indecisiveCustomer_dcs = Collections
+			.synchronizedList(new ArrayList<Customer_dc>());
 	public Collection<Table> tables;
 	public Collection<MyWaiter> waiters = Collections
 			.synchronizedList(new ArrayList<MyWaiter>());
 	private int workingWaiters = 0;
 	private int index = 0;
-	public CookAgent cook = null;
+	public Cook cook = null;
 
 	private String name;
 	// Table positions
 	private int[] xpositions = { 0, 100, 200, 300, 200 };
 	private int[] ypositions = { 0, 300, 200, 300, 400 };
 
+	public class MyWaiter {
+		public Waiter w;
+		public int numCustomers;
+		public WaiterState state;
+
+		public MyWaiter(Waiter waiter) {
+			this.w = waiter;
+			numCustomers = 0;
+			state = WaiterState.Normal;
+		}
+	};
+	
 	public enum WaiterState {
 		Normal, BreakRequested, OnBreak
 	};
 
 	public HostGui hostGui = null;
 
-	public HostAgent(String name) {
+	public HostRole_dc(String name) {
 		super();
 
 		this.name = name;
@@ -67,8 +83,8 @@ public class HostAgent extends Agent implements Host {
 		stateChanged();
 	}
 
-	public List<CustomerAgent> getWaitingCustomers() {
-		return waitingCustomers;
+	public List<Customer_dc> getWaitingCustomer_dcs() {
+		return waitingCustomer_dcs;
 	}
 
 	public Collection<Waiter> getWaitersList() {
@@ -106,7 +122,7 @@ public class HostAgent extends Agent implements Host {
 				}
 			}
 		}
-		if (opentables == 0 || (waitingCustomers.size() >= tables.size())) {
+		if (opentables == 0 || (waitingCustomer_dcs.size() >= tables.size())) {
 			return false;
 		} else {
 			return true;
@@ -131,14 +147,14 @@ public class HostAgent extends Agent implements Host {
 
 	// Messages
 
-	public void msgCheckAvailability(CustomerAgent cust) {
-		indecisiveCustomers.add(cust);
+	public void msgCheckAvailability(Customer_dc cust) {
+		indecisiveCustomer_dcs.add(cust);
 		stateChanged();
 	}
 
-	public void msgIWantFood(CustomerAgent cust) {
+	public void msgIWantFood(Customer_dc cust) {
 		index++;
-		waitingCustomers.add(cust);
+		waitingCustomer_dcs.add(cust);
 		stateChanged();
 	}
 
@@ -175,21 +191,21 @@ public class HostAgent extends Agent implements Host {
 	/**
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
-		synchronized (indecisiveCustomers) {
-			for (CustomerAgent cust : indecisiveCustomers) {
+	public boolean pickAndExecuteAnAction() {
+		synchronized (indecisiveCustomer_dcs) {
+			for (Customer_dc cust : indecisiveCustomer_dcs) {
 				cust.msgAvailability(getAvailability());
-				indecisiveCustomers.remove(cust);
+				indecisiveCustomer_dcs.remove(cust);
 				return true;
 			}
 		}
 		synchronized (tables) {
 			for (Table table : tables) {
-				if (!table.isOccupied() && !waitingCustomers.isEmpty()
+				if (!table.isOccupied() && !waitingCustomer_dcs.isEmpty()
 						&& !waiters.isEmpty()) {
 					MyWaiter waiterToUse = getWaiter();
 					waiterToUse.numCustomers++;
-					seatCustomer(waitingCustomers.get(0), table, waiterToUse.w);
+					seatCustomer_dc(waitingCustomer_dcs.get(0), table, waiterToUse.w);
 					return true;
 				}
 			}
@@ -214,11 +230,11 @@ public class HostAgent extends Agent implements Host {
 
 	// Actions
 
-	private void seatCustomer(Customer customer, Table table, Waiter waiter) {
-		print("seat customer");
+	private void seatCustomer_dc(Customer_dc customer, Table table, Waiter waiter) {
+		print("seat Customer_dc");
 		waiter.msgSeatAtTable(customer, table, customer.getGui().getHomeLocation());
 		table.setOccupant(customer);
-		waitingCustomers.remove(customer);
+		waitingCustomer_dcs.remove(customer);
 	}
 
 	// utilities
@@ -231,7 +247,7 @@ public class HostAgent extends Agent implements Host {
 		return hostGui;
 	}
 
-	public void setCook(CookAgent cook) {
+	public void setCook(Cook cook) {
 		this.cook = cook;
 
 	}
@@ -240,7 +256,7 @@ public class HostAgent extends Agent implements Host {
 		return !waiters.isEmpty();
 	}
 
-	public int getCustomerIndex() {
+	public int getCustomer_dcIndex() {
 		return index;
 	}
 }

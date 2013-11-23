@@ -147,6 +147,7 @@ public class RestaurantPanel extends JPanel {
 				w = new WaiterAgent(name);
 			} else {*/
 				w = new WaiterAgentSharedData(name);
+				((WaiterAgentSharedData) w).setCook(cook);
 			//}
 			WaiterGui g = new WaiterGui(w, host.getWaitersList().size());
 			gui.animationPanel.addGui(g);

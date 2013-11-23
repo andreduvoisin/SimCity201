@@ -10,7 +10,7 @@ public class HousingBaseRole extends BaseRole {
 	
 	boolean mHungry = false;
 	boolean mTimeToMaintain = false;
-	
+	public boolean mTimeToCheckRent = false;
 	Semaphore isAnimating = new Semaphore(0, true);
 	House mHouse = null;
 	

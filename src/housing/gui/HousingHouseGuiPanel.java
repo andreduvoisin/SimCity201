@@ -22,8 +22,8 @@ import base.PersonAgent;
 public class HousingHouseGuiPanel extends JPanel implements ActionListener {
 	static HousingHouseGuiPanel instance = null;
 
-	private final int WINDOWX = 300;
-	private final int WINDOWY = 400;
+	private final int WINDOWX = 500;
+	private final int WINDOWY = 500;
 	private List<Gui> guis = new ArrayList<Gui>();
 
 	private HousingHouseGuiPanel() {

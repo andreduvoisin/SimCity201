@@ -1,4 +1,4 @@
-package restaurant_all.roles;
+package restaurant_all.roles.Customer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import base.Agent;
 import base.BaseRole;
 import restaurant_davidmca.Check;
 import restaurant_davidmca.Menu;
@@ -15,13 +14,13 @@ import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.CustomerGui;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
+import restaurant_davidmca.interfaces.Host;
 import restaurant_davidmca.interfaces.Waiter;
-import base.Agent;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CustomerRole_dm extends BaseRole implements Customer {
+public class CustomerRole_dc extends BaseRole implements Customer {
 	private String name;
 	private int hungerLevel = 4000; // determines length of meal
 	private double mymoney = 0;
@@ -59,7 +58,7 @@ public class CustomerRole_dm extends BaseRole implements Customer {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CustomerRole_dm(String name) {
+	public CustomerRole_dc(String name) {
 		super();
 		this.name = name;
 		this.availability = true;
@@ -398,6 +397,11 @@ public class CustomerRole_dm extends BaseRole implements Customer {
 	@Override
 	public void setCashier(Cashier ca) {
 		this.cash = ca;
+	}
+	@Override
+	public void setHost(Host host) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

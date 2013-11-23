@@ -1,4 +1,4 @@
-package restaurant_all.interfaces;
+package restaurant_all.interfaces.Customer;
 
 import java.util.Map;
 

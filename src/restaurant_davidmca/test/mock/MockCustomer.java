@@ -6,10 +6,10 @@ import java.util.TimerTask;
 import restaurant_davidmca.Check;
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Table;
-import restaurant_davidmca.agents.HostAgent;
 import restaurant_davidmca.gui.CustomerGui;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
+import restaurant_davidmca.interfaces.Host;
 import restaurant_davidmca.interfaces.Waiter;
 
 public class MockCustomer extends Mock implements Customer {
@@ -28,7 +28,7 @@ public class MockCustomer extends Mock implements Customer {
 	}
 
 	@Override
-	public void setHost(HostAgent host) {
+	public void setHost(Host host) {
 
 	}
 

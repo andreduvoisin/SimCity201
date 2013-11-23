@@ -7,14 +7,14 @@ import java.util.Collection;
 
 import base.Gui;
 import restaurant_davidmca.Table;
-import restaurant_davidmca.agents.HostAgent;
+import restaurant_davidmca.interfaces.Host;
 
 public class HostGui implements Gui {
 
-    private HostAgent agent = null;
+    private Host agent = null;
     private static int tableSize = 50;
 
-    public HostGui(HostAgent agent) {
+    public HostGui(Host agent) {
         this.agent = agent;
     }
 

@@ -14,7 +14,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import market.roles.MarketCustomerRole;
-import restaurant_all.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
@@ -23,6 +22,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+
 
 public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
@@ -71,34 +71,34 @@ public class PersonAgent extends Agent implements Person {
 		mCash = cash;
 		mName = name;
 		
+		boolean active = (mTimeShift == 0);
 		switch (job){
 			case BANK:
-				mRoles.put(SortingHat.getBankRole(mTimeShift), true); //true = initially active
+				mRoles.put(SortingHat.getBankRole(mTimeShift), active);
 				break;
 			case MARKET:
-				mRoles.put(SortingHat.getMarketRole(mTimeShift), true);
+				mRoles.put(SortingHat.getMarketRole(mTimeShift), active);
 				break;
 			case RESTAURANT:
-				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), true);
+				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), active);
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
 			case NONE: break;
 		}
-		//SHANE: 1 assign role based on time shift (if me or other person with same role)
 		
 		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 		mRoles.put(mHouseRole, true);
+		
+		//Add customer/rider role possibilities
 		mRoles.put(new BankCustomerRole(this), false);
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false);
+		//mRoles.put(new RestaurantCustomerRole(this), false);
 	}
 	
 	private void initializePerson(){
-		//DAVID: Check the initialization to make sure it meshes with the config file
-		
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
 

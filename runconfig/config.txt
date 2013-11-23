@@ -1,8 +1,3 @@
-Rex 200 Renter
-Chase 200 Renter
-David 200 Renter
-Maggi 200 Renter
-Shane 200 Renter
-Angelica 200 Renter
-Jerry 200 Renter
-Andre 200 Renter
+BANK 200 p1
+BANK 200 p2
+BANK 200 p3

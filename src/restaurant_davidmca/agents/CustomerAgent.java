@@ -14,6 +14,7 @@ import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.CustomerGui;
 import restaurant_davidmca.interfaces.Cashier;
 import restaurant_davidmca.interfaces.Customer;
+import restaurant_davidmca.interfaces.Host;
 import restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
 
@@ -31,7 +32,7 @@ public class CustomerAgent extends Agent implements Customer {
 
 	// restaurant_davidmca.agent correspondents
 	private Waiter waiter;
-	private HostAgent host;
+	private Host host;
 	private Table table;
 	private Menu menu;
 	private Cashier cash;
@@ -65,7 +66,7 @@ public class CustomerAgent extends Agent implements Customer {
 	}
 
 	@Override
-	public void setHost(HostAgent host) {
+	public void setHost(Host host) {
 		this.host = host;
 	}
 

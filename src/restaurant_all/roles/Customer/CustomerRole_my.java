@@ -1,4 +1,4 @@
-package restaurant_all.roles;
+package restaurant_all.roles.Customer;
 
 import restaurant_maggiyan.Check;
 import restaurant_maggiyan.Menu;

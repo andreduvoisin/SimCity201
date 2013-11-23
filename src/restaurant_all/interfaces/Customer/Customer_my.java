@@ -1,4 +1,4 @@
-package restaurant_all.interfaces;
+package restaurant_all.interfaces.Customer;
 
 import restaurant_maggiyan.Check;
 import restaurant_maggiyan.Menu;
