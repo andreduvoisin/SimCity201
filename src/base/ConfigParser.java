@@ -24,14 +24,14 @@ public class ConfigParser {
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
 			
 			String jobString = scanPerson.next();
-			EnumJobType jobPlace = EnumJobType.valueOf(jobString);
+			EnumJobType jobType = EnumJobType.valueOf(jobString);
 			
 			String cashString = scanPerson.next();
 			double cash = Double.valueOf(cashString);
 			
 			String name = scanPerson.next();
 			
-			Person person = new PersonAgent(jobPlace, cash, name); //adds role automatically
+			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
 			synchronized (person) {
 				citypanel.masterPersonList.add(person);

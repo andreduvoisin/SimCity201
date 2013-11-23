@@ -1,27 +1,26 @@
 package market;
 
-import market.interfaces.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import market.interfaces.MarketCashier;
+import base.Item;
 
 public class Market {
 	private MarketCashier mCashier;
 	private List<MarketItem> mInventory = Collections.synchronizedList(new ArrayList<MarketItem>());
 	private double mCash = 5000;
 	
-	private static final double steakPrice = 15.99; //ANGELICA SHANE: 2 Please remove all of these and delete this class
-	private static final double chickenPrice = 10.99;
-	private static final double saladPrice = 5.99;
-	private static final double pizzaPrice = 8.99;
-	private static final double carPrice = 100.00;
 	private static final int mBaseInventory = 3;
 
 	public Market() {
 		//populate inventory
-		mInventory.add(new MarketItem("Steak", mBaseInventory, steakPrice)); //ANGELICA SHANE: Change this to Item for all 5 items
-		mInventory.add(new MarketItem("Chicken", mBaseInventory, chickenPrice));
-		mInventory.add(new MarketItem("Salad", mBaseInventory, saladPrice));
-		mInventory.add(new MarketItem("Pizza", mBaseInventory, pizzaPrice));
-		mInventory.add(new MarketItem("Car", mBaseInventory, carPrice));
+		mInventory.add(new MarketItem("Steak", mBaseInventory, Item.cPRICE_STEAK));
+		mInventory.add(new MarketItem("Chicken", mBaseInventory, Item.cPRICE_CHICKEN));
+		mInventory.add(new MarketItem("Salad", mBaseInventory, Item.cPRICE_SALAD));
+		mInventory.add(new MarketItem("Pizza", mBaseInventory, Item.cPRICE_PIZZA));
+		mInventory.add(new MarketItem("Car", mBaseInventory, Item.cPRICE_CAR));
 	}
 	
 	public void setCashier(MarketCashier c) {

@@ -2,17 +2,15 @@ package base;
 
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
-import housing.roles.HousingRenterRole;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import market.Market;
 import market.roles.MarketCashierRole;
 import market.roles.MarketCookCustomerRole;
-import market.roles.MarketCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
-import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
@@ -21,36 +19,42 @@ import base.interfaces.Role;
 
 public class SortingHat {
 	
-	//list of all roles, accessed and instantiated 
-	static List<Role> sRoles;
+	//list of all (non-ubiquitous) roles, accessed and instantiated 
+	static List<List<Role>> sRoles;
 	
-	static void InstantiateBaseRoles(){
-		//Bank
-		sRoles.add(new BankCustomerRole(null));
-		sRoles.add(new BankGuardRole(null));
-		sRoles.add(new BankMasterTellerRole(null));
-		sRoles.add(new BankTellerRole(null));
+	public static void InstantiateBaseRoles(){
+		sRoles = new ArrayList<List<Role>>();
 		
-		//Housing
-		sRoles.add(new HousingLandlordRole(null));
-		sRoles.add(new HousingOwnerRole(null));
-		sRoles.add(new HousingRenterRole(null));
+		for (int i = 0; i < 3; i++){
+			ArrayList<Role> shift = new ArrayList<Role>();
+			
+			//Bank
+			shift.add(new BankGuardRole(null));
+			shift.add(new BankMasterTellerRole(null));
+			shift.add(new BankTellerRole(null));
+			
+			//Housing
+			shift.add(new HousingLandlordRole(null));
+			shift.add(new HousingOwnerRole(null));
+			
+			//Market
+			shift.add(new MarketCashierRole(null, new Market())); //ANGELICA: Is this how it's created? New market()?
+			shift.add(new MarketCookCustomerRole(null));
+			shift.add(new MarketDeliveryTruckRole(null));
+			shift.add(new MarketWorkerRole(null));
+			
+			//Restaurants
+			//REX - ADD RESTAURANT STUFF HERE WHEN DONE
+			
+			sRoles.add(shift);
+		}
 		
-		//Market
-		sRoles.add(new MarketCashierRole(null, new Market())); //ANGELICA SHANE REMOVE THIS (MARKET)
-		sRoles.add(new MarketCookCustomerRole(null));
-		sRoles.add(new MarketCustomerRole(null));
-		sRoles.add(new MarketDeliveryTruckRole(null));
-		sRoles.add(new MarketWorkerRole(null));
-		
-		//Restaurants
-		//REX - ADD RESTAURANT STUFF HERE WHEN DONE
 	}
 	
 	//BANK
-
-
-	public static Role getBankRole() {
+	public static Role getBankRole(int shift) {
+		
+		
 		//SHANE: 1 do this
 		//loop through roles and assign them in priority order
 		return role;
@@ -64,7 +68,7 @@ public class SortingHat {
 	final static int max_landlords = 5;
 	final static int max_renters = 5;
 
-	public static Role getHousingRole() {
+	public static Role getHousingRole(int shift) {
 		Role newRole = null;
 		if (landlord_count < max_landlords) {
 			newRole = new HousingLandlordRole();
@@ -80,7 +84,7 @@ public class SortingHat {
 	
 	//MARKET
 	
-	public static Role getMarketRole(){
+	public static Role getMarketRole(int shift){
 		// SHANE: ADD GETNEXTROLE METHODS
 		Role worker = new MarketWorkerRole();
 		return worker;
@@ -89,7 +93,7 @@ public class SortingHat {
 	//RESTAURANTS
 	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
 	
-	public static Role getRestaurantRole(){
+	public static Role getRestaurantRole(int shift){
 		Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
 		sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
 		
