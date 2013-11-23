@@ -33,5 +33,7 @@ public interface Person {
 	
 	public void setName(String name);
 	public void setSSN(int SSN);
+	public Map<Role, Boolean> getRoles();
+	public Role getHousingRole();
 
 }

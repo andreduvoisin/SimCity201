@@ -382,4 +382,14 @@ public class PersonAgent extends Agent implements Person {
 	public void msgOverdrawnAccount(double loan) {
 		mLoan += loan;
 	}
+
+	@Override
+	public Map<Role, Boolean> getRoles() {
+		return mRoles;
+	}
+
+	@Override
+	public Role getHousingRole() {
+		return mHouseRole;
+	}
 }
