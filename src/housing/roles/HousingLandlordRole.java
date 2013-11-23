@@ -7,8 +7,11 @@ import housing.interfaces.HousingRenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
+import base.Event;
+import base.Time;
 import base.interfaces.Person;
 
 /*
@@ -94,34 +97,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			return true; 
 		}
 		
-//		if (mTimeToCheckRent && mRenterList.size() > 0) {
-//			mTimeToCheckRent = false;
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.RentOverdue) {
-//						GiveEvictionNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.OwesRent) {
-//						GiveRentOverdueNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.RentPaid) {
-//						GiveRentDueNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//		}
-		
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
 				if (r.mState == EnumRenterState.ApplyingForHousing) {
@@ -149,9 +124,12 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Actions */
 	private void CollectRent(){
 		synchronized (mRenterList) {
-			for (MyRenter r : mRenterList) {
-				if (r.mState == EnumRenterState.RentOverdue) {
-					GiveEvictionNotice(r);
+			Iterator<MyRenter> itr = mRenterList.iterator();
+			while (itr.hasNext()) {
+				MyRenter renter = itr.next();
+				if (renter.mState == EnumRenterState.RentOverdue) {
+					GiveEvictionNotice(renter);
+					itr.remove();
 				}
 			}
 		}
@@ -180,7 +158,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
-		r.mRenter.msgRentDue(mPerson.getSSN(), r.mHouse.mRent);
+		r.mRenter.msgOverdueNotice(mPerson.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
@@ -192,9 +170,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 					h.mOccupant = null;
 				}
 			}
-		}
-		synchronized (mRenterList) {
-			mRenterList.remove(r);
 		}
 	}
 

@@ -15,11 +15,8 @@ public class SimCityGui extends JFrame {
 
 	public SimCityGui() throws HeadlessException {
 		CP = new CityControlPanel(this);
-		
 		city = new CityPanel(this);
-		
 		view = new CityView(this);
-		
 		info = new InfoPanel(this);
 		
 		this.setLayout(new GridBagLayout());
