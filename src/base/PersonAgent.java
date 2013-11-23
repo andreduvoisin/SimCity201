@@ -14,8 +14,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
-import city.gui.CityPerson;
-import market.interfaces.MarketCashier;
 import market.roles.MarketCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
@@ -26,6 +24,7 @@ import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 //import city.gui.PersonGui;
+import city.gui.CityPerson;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -38,7 +37,6 @@ public class PersonAgent extends Agent implements Person {
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
 	private EnumJobType mJobPlace;
-	private Location mJobLocation;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
 	
@@ -66,7 +64,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	//private PersonGui mGui; //SHANE JERRY: 2 put PersonGui here
+	private CityPerson mGui; //SHANE JERRY: 2 instantiate this
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -243,7 +241,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void getCar(){
 		Location location = ContactList.cMARKET_LOCATION;
-//		mGui.DoGoTo(location);
+		mGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		
 		//remove current gui (isPresent = false)
