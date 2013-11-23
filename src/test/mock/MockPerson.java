@@ -66,13 +66,12 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public void setLoan(double loan) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public double getLoan() {
-		// TODO Auto-generated method stub
+
 		return 0;
 	}
 
@@ -95,18 +94,15 @@ public class MockPerson extends Mock implements Person {
 	@Override
 	public void setName(String name) {
 		
-		
 	}
 
 	@Override
 	public void setSSN(int SSN) {
 		
-		
 	}
 
 	@Override
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
-		
 		
 	}
 	

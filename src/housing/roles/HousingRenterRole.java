@@ -89,11 +89,13 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 		}
 
 		if (mHouse != null) {
-			synchronized (mBills) {
-				for (Bill b : mBills) {
-					if (b.mStatus == EnumBillState.Pending) {
-						PayBill(b);
-						return true;
+			if(!mBills.isEmpty()){
+				synchronized (mBills) {
+					for (Bill b : mBills) {
+						if (b.mStatus == EnumBillState.Pending) {
+							PayBill(b);
+							return true;
+						}
 					}
 				}
 			}
