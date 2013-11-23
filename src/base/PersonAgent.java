@@ -24,6 +24,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.PersonGui;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -62,7 +63,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	private Object mGui; //SHANE JERRY: 2 put PersonAgentGui here
+	private PersonGui mGui; //SHANE JERRY: 2 put PersonGui here
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
