@@ -14,8 +14,8 @@ import base.Item.EnumMarketItemType;
  */
 public class MarketItemsGui implements MarketBaseGui {
 	MarketCashierRole mCashier;
-	private Map<ItemGui, MarketCoordinates> mItems;
-	private int xBase = 10, yBase = 300;
+	private Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
+	private int xBase = 10, yBase = 20;
 	private static final int SIZE = 20;
 	
 	public MarketItemsGui(MarketCashierRole c) {
@@ -32,9 +32,11 @@ public class MarketItemsGui implements MarketBaseGui {
 	public void updatePosition() {
 		//no need to update position
 		//instead update inventory?
-		for(ItemGui i : mItems.keySet()) {
+	/*	for(ItemGui i : mItems.keySet()) {
 			i.mNumber = mCashier.getInventory(i.mItem);
 		}
+		
+	*/
 	}
 	
 	public void draw(Graphics2D g) {
@@ -43,7 +45,8 @@ public class MarketItemsGui implements MarketBaseGui {
 			MarketCoordinates c = mItems.get(i);
 			g.setColor(i.mColor);
 			for(int j=0;j<i.mNumber;j++) {
-				c.setY(c.getY()+30);
+				System.out.println("La");
+			//	c.setY(c.getY()+30);
 				g.fillRect(c.getX(),c.getY(),SIZE,SIZE);
 			}
 		}
@@ -63,6 +66,7 @@ public class MarketItemsGui implements MarketBaseGui {
 		ItemGui(EnumMarketItemType i, Color c) {
 			mItem = i;
 			mColor = c;
+			mNumber = 5;
 		}
 	}
 }

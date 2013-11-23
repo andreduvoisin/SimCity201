@@ -2,11 +2,10 @@ package market.gui;
 
 import java.awt.*;
 import javax.swing.*;
-import market.gui.MarketPanel;
 
 public class MarketGui extends JFrame {
 	MarketPanel marketPanel = new MarketPanel();
-
+	
 	public MarketGui() {
 		setLayout(new GridLayout());
 		setBounds(50,50,600,400);
