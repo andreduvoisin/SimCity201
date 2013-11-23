@@ -42,4 +42,8 @@ public class MockCookCustomer extends Mock implements MarketCook, Role {
 	public int getSSN() {
 		return 0;
 	}
+
+	public Person getPerson() {
+		return null;
+	}
 }

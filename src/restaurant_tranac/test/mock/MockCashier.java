@@ -1,6 +1,7 @@
 package restaurant_tranac.test.mock;
 
 import restaurant_tranac.interfaces.*;
+import test.mock.*;
 
 /**
  * MockCashier built for unit testing.
@@ -10,8 +11,8 @@ import restaurant_tranac.interfaces.*;
 
 public class MockCashier extends Mock implements Cashier {
 	
-	public MockCashier(String name) {
-		super(name);
+	public MockCashier() {
+		super();
 	}
 
 	public void msgComputeCheck(Waiter w, Customer c, String item) {

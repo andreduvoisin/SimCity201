@@ -1,9 +1,9 @@
-package restaurant_tranac.agents;
+package restaurant_tranac.roles;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
-import base.Agent;
-import restaurant_tranac.gui.CustomerGui;
+import base.BaseRole;
+import restaurant_tranac.gui.CustomerGui_at;
 import restaurant_tranac.interfaces.*;
 
 import java.util.ArrayList;
@@ -15,9 +15,8 @@ import java.util.TimerTask;
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer{
-	private String name;
-	private CustomerGui customerGui;
+public class RestaurantCustomerRole_at extends BaseRole implements Customer{
+	private CustomerGui_at customerGui;
 	private int hungerLevel = 10;        		//determines length of meal
 	private final int baseMoney = 30;
 	private String choice;
@@ -56,10 +55,9 @@ public class CustomerAgent extends Agent implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customerGui so the customer can send it messages
 	 */
-	public CustomerAgent(String name){
+	public RestaurantCustomerRole_at(){
 		super();
-		this.name = name;
-		money = baseMoney;
+		money = baseMoney;	//ANGELICA: no longer necessary; will get from person
 		num = 0;
 		
 		//randomly chooses waiting unless set later
@@ -161,7 +159,7 @@ public class CustomerAgent extends Agent implements Customer{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry){
 			state = AgentState.GoingToRestaurant;
@@ -440,7 +438,7 @@ public class CustomerAgent extends Agent implements Customer{
 	/** Utilities */
 
 	public String getName() {
-		return name;
+		return mPerson.getName();
 	}
 	
 	public void setHost(Host h) {
@@ -454,11 +452,7 @@ public class CustomerAgent extends Agent implements Customer{
 	public void setCashier(Cashier c) {
 		cashier = c;
 	}
-	
-	public String getCustomerName() {
-		return name;
-	}
-	
+
 	public int getHungerLevel() {
 		return hungerLevel;
 	}
@@ -487,11 +481,11 @@ public class CustomerAgent extends Agent implements Customer{
 		return "customer " + getName();
 	}
 
-	public void setGui(CustomerGui g) {
+	public void setGui(CustomerGui_at g) {
 		customerGui = g;
 	}
 
-	public CustomerGui getGui() {
+	public CustomerGui_at getGui() {
 		return customerGui;
 	}
 }

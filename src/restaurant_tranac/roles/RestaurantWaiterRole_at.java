@@ -1,9 +1,8 @@
-package restaurant_tranac.agents;
+package restaurant_tranac.roles;
 
-import restaurant_tranac.Check;
-import restaurant_tranac.Menu;
-import base.Agent;
-import restaurant_tranac.gui.WaiterGui;
+import restaurant_tranac.*;
+import base.BaseRole;
+import restaurant_tranac.gui.WaiterGui_at;
 import restaurant_tranac.interfaces.*;
 
 import java.util.*;
@@ -13,15 +12,14 @@ import java.util.concurrent.Semaphore;
  * Restaurant Waiter Agent
  */
 
-public class WaiterAgent extends Agent implements Waiter{
-	private String name;
-	public WaiterGui waiterGui = null;
+public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
+	public WaiterGui_at waiterGui = null;
 	private Timer timer = new Timer();	//used for breaks
 	
 	//agent correspondents
-	private Host host = null; 
-	private Cook cook = null;
-	private Cashier cashier = null;
+	private Host mHost = null; 
+	private Cook mCook = null;
+	private Cashier mCashier = null;
 	
 	//synchronized list to make it "thread-safe"
 	private List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
@@ -29,22 +27,19 @@ public class WaiterAgent extends Agent implements Waiter{
 
 	private enum WaiterState {Active, WantToGoOnBreak, CanGoOnBreak, NoBreak, OnBreak};
 	
-	private WaiterState state;
+	private WaiterState mState = WaiterState.Active;
 	
 	//semaphores to prevent action while waiting for another message
 	private Semaphore inTransit = new Semaphore(0,true);		//used for animation
 	private Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
 	private Semaphore askingForBreak = new Semaphore(0,true);
 	
-	public WaiterAgent(String n, Host h, Cook c, Cashier cash) {
+	public RestaurantWaiterRole_at(Host h, Cook c, Cashier cash) {
 		super();
 
-		name = n;
-		host = h;
-		cook = c;
-		cashier = cash;
-		
-		state = WaiterState.Active;
+		mHost = h;
+		mCook = c;
+		mCashier = cash;
 	}
 	
 	/** Messages */
@@ -138,20 +133,20 @@ public class WaiterAgent extends Agent implements Waiter{
 
 	public void msgWantToGoOnBreak() {
 		Do("Want to go on break.");
-		state = WaiterState.WantToGoOnBreak;
+		mState = WaiterState.WantToGoOnBreak;
 		stateChanged();
 	}
 	
 	public void msgGoOnBreak() {
 		Do("Go on break.");
-		state = WaiterState.CanGoOnBreak;
+		mState = WaiterState.CanGoOnBreak;
 		askingForBreak.release();
 		stateChanged();
 	}
 	
 	public void msgNoBreak() {
 		Do("No break for me.");
-		state = WaiterState.NoBreak;
+		mState = WaiterState.NoBreak;
 		askingForBreak.release();
 		stateChanged();
 	}
@@ -190,7 +185,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		synchronized(customers) {
 			for(MyCustomer c : customers) {
 				if(c.s == CustomerState.Waiting)
@@ -265,16 +260,16 @@ public class WaiterAgent extends Agent implements Waiter{
 				}
 			}
 		}
-		if(state == WaiterState.WantToGoOnBreak) {
+		if(mState == WaiterState.WantToGoOnBreak) {
 			askToGoOnBreak();
 			return true;
 		}
-		if(state == WaiterState.NoBreak) {
+		if(mState == WaiterState.NoBreak) {
 			setNoBreak();
 			return true;
 		}
 		//check if no customers; go on break
-		if(customers.isEmpty() && state == WaiterState.CanGoOnBreak) {
+		if(customers.isEmpty() && mState == WaiterState.CanGoOnBreak) {
 			goOnBreak();
 			return true;
 		}
@@ -287,7 +282,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		Do("Seating customer");
 		DoGoToWaitingArea(c.n);
 		c.c.msgFollowMe(new Menu(), this);	//tell customer to follow
-		host.msgCustomerSeated(c.c);		//tell host customer is seated
+		mHost.msgCustomerSeated(c.c);		//tell host customer is seated
 		DoSeatCustomer(c);
 		c.s = CustomerState.Seated;
 	}
@@ -315,14 +310,14 @@ public class WaiterAgent extends Agent implements Waiter{
 		Do("Sending order.");
 		DoGoToCook();
 		c.s = CustomerState.WaitingForFood;
-		cook.msgHereIsOrder(this, c.choice, c.table);
+		mCook.msgHereIsOrder(this, c.choice, c.table);
 	}
 	
 	private void deliverFood(MyCustomer c) {
 		Do("Delivering food to " + c.getName() + ".");
 		DoGoToGetOrder(c.orderNum);
 		Do("Testing");
-		cook.msgOrderPickedUp(this, c.choice);
+		mCook.msgOrderPickedUp(this, c.choice);
 		
 		waiterGui.setFood(c.choice);	//set gui to show food
 		waiterGui.setDeliveringFood();
@@ -336,7 +331,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		Do("Asking cashier for check");
 		c.s = CustomerState.WaitingForCheck;
 		DoGoToCashier();
-		cashier.msgComputeCheck(this,c.c,c.choice);
+		mCashier.msgComputeCheck(this,c.c,c.choice);
 	}
 	
 	private void giveCheck(MyCustomer c) {
@@ -353,13 +348,13 @@ public class WaiterAgent extends Agent implements Waiter{
 		Do("Freeing table.");
 		DoGoToTable(c.table);			//"clean" table
 		DoGoToHost();					//"tell" the host table is free
-		host.msgTableIsFree(c.table);
+		mHost.msgTableIsFree(c.table);
 		customers.remove(c);
 	}
 
 	private void askToGoOnBreak() {
 		Do("Asking to go on break.");
-		host.msgWantToGoOnBreak(this);
+		mHost.msgWantToGoOnBreak(this);
 		try {
 			askingForBreak.acquire();		//wait for customer to reply
 		}
@@ -370,7 +365,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private void goOnBreak() {
 		Do("Going on break.");
-		state = WaiterState.OnBreak;
+		mState = WaiterState.OnBreak;
 		DoGoToHome();
 		timer.schedule(new TimerTask() {
 			public void run() {
@@ -382,9 +377,9 @@ public class WaiterAgent extends Agent implements Waiter{
 
 	private void goOffBreak() {
 		Do("Coming off of break.");
-		state = WaiterState.Active;
+		mState = WaiterState.Active;
 		waiterGui.setBreak();
-		host.msgBackFromBreak(this);
+		mHost.msgBackFromBreak(this);
 	}
 	
 	private void setNoBreak() {
@@ -468,25 +463,28 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	/** Utilities */
 	public String getName() {
-		return name;
+		return mPerson.getName();
 	}
 	
-	public void setGui(WaiterGui gui) {
+	public void setGui(WaiterGui_at gui) {
 		waiterGui = gui;
 	}
 
-	public WaiterGui getGui() {
+	public WaiterGui_at getGui() {
 		return waiterGui;
 	}
 
 	public void setHost(Host h) {
-		host = h;
+		mHost = h;
 	}
 	
 	public void setCook(Cook c) {
-		cook = c;
+		mCook = c;
 	}
 
+	public void setCashier(Cashier c) {
+		mCashier = c;
+	}
 	public List<MyCustomer> getCustomers() {
 		return customers;
 	}
