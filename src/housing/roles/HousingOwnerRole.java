@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 /*
  * @author David Carr, Maggi Yang
@@ -31,6 +32,13 @@ public class HousingOwnerRole extends BaseRole implements HousingOwner {
 	};
 
 	/* Messages */
+
+	public HousingOwnerRole(Person person) {
+		mPerson = person;
+	}
+	
+	public HousingOwnerRole() {
+	}
 
 	public void msgEatAtHome() {
 		isHungry = true;

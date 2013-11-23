@@ -1,13 +1,16 @@
 package transportation.roles;
 
 import base.BaseRole;
+import base.PersonAgent;
+import base.interfaces.Person;
 import transportation.*;
 import transportation.gui.*;
 import transportation.interfaces.*;
 
 public class TransportationBusRiderRole extends BaseRole implements TransportationRider {
 
-	public TransportationBusRiderRole() {
+	public TransportationBusRiderRole(Person person) {
+		mPerson = person;
 		state = enumState.none;
 	}
 

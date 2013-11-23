@@ -18,8 +18,8 @@ import restaurant_davidmca.gui.Gui;
 
 public class HousingHouseGuiPanel extends JPanel implements ActionListener {
 
-	private final int WINDOWX = 200;
-	private final int WINDOWY = 300;
+	private final int WINDOWX = 300;
+	private final int WINDOWY = 400;
 	private List<Gui> guis = new ArrayList<Gui>();
 
 	public HousingHouseGuiPanel() {

@@ -37,14 +37,16 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 		}
 	};
 
-	enum EnumBillState {Pending, Paid};
-	
-	
-	public HousingRenterRole(Person person){
+	enum EnumBillState {
+		Pending, Paid
+	};
+
+	public HousingRenterRole(Person person) {
 		mPerson = person;
 	}
-	
-	
+
+	public HousingRenterRole() {
+	}
 
 	private class Bill {
 		int mLandLordSSN;
@@ -166,8 +168,8 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 	}
 
 	/* Utilities */
-	public void setLandlord(HousingLandlord landlord){
-		myLandLord = landlord; 
+	public void setLandlord(HousingLandlord landlord) {
+		myLandLord = landlord;
 	}
 
 	protected void print(String msg) {

@@ -9,6 +9,7 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.interfaces.Person;
 //import interfaces
 
 
@@ -19,6 +20,10 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
 	public List<BankCustomer> mCustomers = new ArrayList<BankCustomer>();
 	public List<BankCustomer> mCriminals = new ArrayList<BankCustomer>();
+	
+	public BankGuardRole(Person person) {
+		mPerson = person;
+	}
 	
 //	MESSAGES
 	
