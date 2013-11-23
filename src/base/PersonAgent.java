@@ -38,6 +38,7 @@ public class PersonAgent extends Agent implements Person {
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
 	private EnumJobType mJobPlace;
+	private Location mJobLocation;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
 	
@@ -241,8 +242,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void getCar(){
-		MarketCashier marketCashier = (MarketCashier) ContactList.sMarketCashiers.keySet().toArray()[0];
-		Location location = ContactList.sMarketCashiers.get(marketCashier);
+		Location location = ContactList.cMARKET_LOCATION;
 //		mGui.DoGoTo(location);
 		acquireSemaphore(semAnimationDone);
 		
