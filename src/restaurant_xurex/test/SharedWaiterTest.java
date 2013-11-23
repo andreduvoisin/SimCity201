@@ -1,7 +1,5 @@
 package restaurant_xurex.test;
 
-//import restaurant.interfaces.Customer;
-//import restaurant.interfaces.Waiter;
 import restaurant_xurex.WaiterAgent2;
 import restaurant_xurex.test.mock.MockCook;
 import restaurant_xurex.test.mock.MockCustomer;

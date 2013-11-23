@@ -3,7 +3,7 @@ package restaurant_all.roles;
 import restaurant_tranac.Check;
 import restaurant_tranac.Menu;
 import base.BaseRole;
-import restaurant_tranac.gui.CustomerGui;
+import restaurant_tranac.gui.CustomerGui_at;
 import restaurant_tranac.interfaces.*;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.TimerTask;
  */
 public class CustomerRole_at extends BaseRole implements Customer{
 	private String name;
-	private CustomerGui customerGui;
+	private CustomerGui_at customerGui;
 	private int hungerLevel = 10;        		//determines length of meal
 	private final int baseMoney = 30;
 	private String choice;
@@ -487,11 +487,11 @@ public class CustomerRole_at extends BaseRole implements Customer{
 		return "customer " + getName();
 	}
 
-	public void setGui(CustomerGui g) {
+	public void setGui(CustomerGui_at g) {
 		customerGui = g;
 	}
 
-	public CustomerGui getGui() {
+	public CustomerGui_at getGui() {
 		return customerGui;
 	}
 }

@@ -37,7 +37,7 @@ public class ListPanel extends JPanel implements ActionListener {
     private Vector<RestaurantCustomerRole_at> customers;
     private Vector<RestaurantWaiterRole_at> waiters;
     private Vector<MarketAgent> markets;
-    private RestaurantPanel restPanel;
+    private RestaurantSidePanel_at restPanel;
     private String type;
 
     /**
@@ -46,7 +46,7 @@ public class ListPanel extends JPanel implements ActionListener {
      * @param rp   reference to the restaurant panel
      * @param type indicates if this is for customers or waiters
      */
-    public ListPanel(RestaurantPanel rp, String type) {
+    public ListPanel(RestaurantSidePanel_at rp, String type) {
         restPanel = rp;
         this.type = type;
         customers = rp.getCustomers();
