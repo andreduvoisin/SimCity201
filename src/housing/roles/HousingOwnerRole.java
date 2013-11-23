@@ -75,22 +75,23 @@ public class HousingOwnerRole extends BaseRole implements HousingOwner {
 	/* Actions */
 
 	void EatAtHome() {
-		print("Action - Eat at Home");
+		/*gui.DoCookAndEatFood();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
+		print("Action - Eat at Home");
 	}
 
 	void Maintain() {
-		print("Action - Maintain");
+		/*gui.DoMaintainHouse();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
-		// DAVID MAGGI: run timer for some period of time, animate
+		}*/
+		print("Action - Maintain");
 	}
 
 	/* Utilities */

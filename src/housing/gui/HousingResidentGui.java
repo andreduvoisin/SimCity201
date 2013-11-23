@@ -1,5 +1,6 @@
 package housing.gui;
 
+import housing.House;
 import housing.roles.HousingRenterRole;
 
 import java.awt.Color;
@@ -46,6 +47,28 @@ public class HousingResidentGui implements Gui {
 	@Override
 	public boolean isPresent() {
 		return true;
+	}
+	
+	public void DoGoToHouse(House h) {
+		xDestination = h.xLocation;
+		yDestination = h.yLocation;
+		currentlyAnimating = true;
+	}
+	
+	public void DoLeaveHouse(House h) {
+		xDestination = -20;
+		yDestination = -20;
+		currentlyAnimating = true;
+	}
+	
+	public void DoCookAndEatFood() {
+		
+		currentlyAnimating = true;
+	}
+	
+	public void DoMaintainHouse() {
+		
+		currentlyAnimating = true;
 	}
 
 }
