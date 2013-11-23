@@ -21,7 +21,7 @@ public class WorkerTest extends TestCase {
 	MockCookCustomer mMockCookCustomer;
  	MockDeliveryTruck mMockDeliveryTruck;
  	
- 	Map<String, Integer> mItems = new HashMap<String, Integer>();
+ 	Map<EnumMarketItemType, Integer> mItems = new HashMap<EnumMarketItemType, Integer>();
  	MarketOrder mOrder;
 	
 	public void setUp() throws Exception {
@@ -35,8 +35,8 @@ public class WorkerTest extends TestCase {
 		mMockCookCustomer = new MockCookCustomer();
 		mMockDeliveryTruck = new MockDeliveryTruck();
 
-		mItems.put("Chicken", 3);
-		mItems.put("Steak", 1);
+		mItems.put(EnumMarketItemType.CHICKEN, 3);
+		mItems.put(EnumMarketItemType.STEAK, 1);
 	}
 	
 /** 

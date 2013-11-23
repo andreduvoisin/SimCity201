@@ -12,7 +12,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.Semaphore;
 
+import city.gui.CityPerson;
+import market.interfaces.MarketCashier;
 import market.roles.MarketCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
@@ -22,6 +25,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+//import city.gui.PersonGui;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -32,8 +36,9 @@ public class PersonAgent extends Agent implements Person {
 	static int sEatingTime = 0;
 	
 	//Roles and Job
-	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
 	private EnumJobType mJobPlace;
+	private Location mJobLocation;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
 	
@@ -41,7 +46,7 @@ public class PersonAgent extends Agent implements Person {
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
-		//ALL: Does this need to be synchronized? -SHANE
+		//ALL: Does this need to be synchronized? -Shane
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
 	//Personal Variables
@@ -54,9 +59,14 @@ public class PersonAgent extends Agent implements Person {
 	Set<Location> mHomeLocations; //multiple for landlord
 	boolean mHasCar;
 	Location mWorkLocation;
+	CityPerson personGui = null;
+	
+	public Semaphore semAnimationDone = new Semaphore(0);
+	private boolean mRoleFinished;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
+	//private PersonGui mGui; //SHANE JERRY: 2 put PersonGui here
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -108,7 +118,6 @@ public class PersonAgent extends Agent implements Person {
 		
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
-		mEvents.add(new Event(EnumEventType.BUY_HOME, 0)); //SHANE REX: 3 check initial times
 		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
@@ -129,21 +138,32 @@ public class PersonAgent extends Agent implements Person {
 		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond (half are deadbeats)
 		mEvents.add(event);
 	}
+	
+	public void msgAnimationDone(){
+		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
+	}
+	
+	public void msgRoleFinished(){
+		mRoleFinished = true;
+	}
 
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
 
-		// Process events (calendar)
-		Iterator<Event> itr = mEvents.iterator();
-		while (itr.hasNext()) {
-			Event event = itr.next();
-			if (event.mTime > Time.GetTime())
-				break; // don't do future calendar events
-			processEvent(event);
-			itr.remove();
+		//if not during job shift
+		if ((mRoleFinished) && (Time.GetShift() != mTimeShift)){
+			// Process events (calendar)
+			Iterator<Event> itr = mEvents.iterator();
+			while (itr.hasNext()) {
+				Event event = itr.next();
+				if (event.mTime > Time.GetTime())
+					break; // don't do future calendar events
+				processEvent(event);
+				itr.remove();
+			}
 		}
-
+		
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
@@ -151,78 +171,103 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 			}
 		}
-
-		// SHANE: 1 leave role and add role?
-
+		
 		return false;
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		//One time events (Home, Car)
-		if (event.mEventType == EnumEventType.BUY_HOME) {
-			buyHome();
-		}
-		else if (event.mEventType == EnumEventType.GET_CAR) {
-			getCar();
+		//One time events (Car)
+		if (event.mEventType == EnumEventType.GET_CAR) {
+			getCar(); //SHANE: 1 get car
 		}
 		
 		//Daily Recurring Events (Job, Eat)
-		if (event.mEventType == EnumEventType.JOB) {
+		else if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobType.BANK)){
-				goToJob();
+				goToJob(); //SHANE: 1 go to job
 			}
 			mEvents.add(new Event(event, 24));
 		}
-		if (event.mEventType == EnumEventType.EAT) {
-			eatFood();
+		else if (event.mEventType == EnumEventType.EAT) {
+			eatFood(); //SHANE: 1 eat food
 			mEvents.add(new Event(event, 24));
 		}
 
 		//Intermittent Events (Deposit Check)
-		if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
-			depositCheck();
+		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
+			depositCheck(); //SHANE: 1 deposit check
 		}
 		
-		if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
-			invokeRent();
+		else if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
+			invokeRent(); //SHANE: 1 invoke rent
 		}
 		
-		if (event.mEventType == EnumEventType.MAINTAIN_HOUSE) {
-			invokeMaintenance();
+		else if (event.mEventType == EnumEventType.MAINTAIN_HOUSE) {
+			invokeMaintenance(); //SHANE: 1 invoke maintenance
 		}
 		
 		//Party Events
-		if (event.mEventType == EnumEventType.INVITE1) {
-			inviteToParty();
+		else if (event.mEventType == EnumEventType.INVITE1) {
+			inviteToParty(); //SHANE: 1 invite to party
 		}
-		if (event.mEventType == EnumEventType.INVITE2) {
-			reinviteDeadbeats();
+		else if (event.mEventType == EnumEventType.INVITE2) {
+			reinviteDeadbeats(); //SHANE: 1 reinvite deadbeats
 		}
-		if (event.mEventType == EnumEventType.RSVP1) {
-			respondToRSVP();
+		else if (event.mEventType == EnumEventType.RSVP1) {
+			respondToRSVP(); //SHANE: 1 respond to rsvp
 		}
-		if (event.mEventType == EnumEventType.RSVP2) {
-			respondToRSVP();
+		else if (event.mEventType == EnumEventType.RSVP2) {
+			respondToRSVP(); //SHANE: 1 respond to rsvp (same)
 		}
-		if (event.mEventType == EnumEventType.PARTY) {
-			throwParty();
+		else if (event.mEventType == EnumEventType.PARTY) {
+			throwParty(); //SHANE: 1 throw party
 			int inviteNextDelay = 24*mSSN;
 			EventParty party = (EventParty) event;
 			mEvents.add(new EventParty(party, inviteNextDelay + 2));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
-			//SHANE: check event classes
+			//SHANE: 3 check event classes
 		}
 	}
-
-	private void buyHome() {
-		
+	
+	private void acquireSemaphore(Semaphore semaphore){
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
+	private void getCar(){
+		Location location = ContactList.cMARKET_LOCATION;
+//		mGui.DoGoTo(location);
+		acquireSemaphore(semAnimationDone);
+		
+		//remove current gui (isPresent = false)
+		//create new market gui
+		
+		//lock person until role is finished
+		mRoleFinished = false;
+		//activate marketcustomer role
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof MarketCustomerRole){
+				mRoles.put(iRole, true); //set active
+			}
+		}
+		
+		//add desired item
+		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
+		//message market cashier to start transaction
+	}
+	
 	private void goToJob() {
+		
+		
+		
+		
 //		gui.DoGoTo(Location Job);
 //		semAnimation.acquire();
 		//add job role
@@ -255,12 +300,9 @@ public class PersonAgent extends Agent implements Person {
 		// break;
 		// }
 	}
-
-	private void getCar() {
-		// DoGoTo(market.location);
-		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
+	
+	public void SetGui(CityPerson pGui){
+		personGui = pGui;
 	}
 
 	private void depositCheck() {

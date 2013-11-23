@@ -1,10 +1,9 @@
 package market.gui;
 
 import java.awt.*;
-
-import market.Market;
-
+import market.roles.MarketCashierRole;
 import java.util.*;
+import base.Item.EnumMarketItemType;
 
 
 /**
@@ -14,21 +13,19 @@ import java.util.*;
  * @author Angelica Huyen Tran
  */
 public class MarketItemsGui implements MarketBaseGui {
-	private Market mMarket;
-	
+	MarketCashierRole mCashier;
 	private Map<ItemGui, MarketCoordinates> mItems;
 	private int xBase = 10, yBase = 300;
 	private static final int SIZE = 20;
 	
-	public MarketItemsGui(Market m) {
-		mMarket = m;
+	public MarketItemsGui(MarketCashierRole c) {
 		
 		//populate list of items; hack right now
-		mItems.put(new ItemGui("Steak",Color.RED), new MarketCoordinates(xBase, yBase));
-		mItems.put(new ItemGui("Chicken",Color.RED), new MarketCoordinates(xBase+30, yBase));
-		mItems.put(new ItemGui("Salad",Color.RED), new MarketCoordinates(xBase+60, yBase));
-		mItems.put(new ItemGui("Pizza",Color.RED), new MarketCoordinates(xBase+90, yBase));
-		mItems.put(new ItemGui("Car",Color.RED), new MarketCoordinates(xBase+120, yBase));
+		mItems.put(new ItemGui(EnumMarketItemType.STEAK,Color.RED), new MarketCoordinates(xBase, yBase));
+		mItems.put(new ItemGui(EnumMarketItemType.CHICKEN,Color.RED), new MarketCoordinates(xBase+30, yBase));
+		mItems.put(new ItemGui(EnumMarketItemType.SALAD,Color.RED), new MarketCoordinates(xBase+60, yBase));
+		mItems.put(new ItemGui(EnumMarketItemType.PIZZA,Color.RED), new MarketCoordinates(xBase+90, yBase));
+		mItems.put(new ItemGui(EnumMarketItemType.CAR,Color.RED), new MarketCoordinates(xBase+120, yBase));
 		
 	}
 	
@@ -36,7 +33,7 @@ public class MarketItemsGui implements MarketBaseGui {
 		//no need to update position
 		//instead update inventory?
 		for(ItemGui i : mItems.keySet()) {
-			i.mNumber = mMarket.getInventory(i.mItem);
+			i.mNumber = mCashier.getInventory(i.mItem);
 		}
 	}
 	
@@ -59,11 +56,11 @@ public class MarketItemsGui implements MarketBaseGui {
 	
 /* Classes */
 	class ItemGui {
-		String mItem;
+		EnumMarketItemType mItem;
 		int mNumber;
 		Color mColor;
 		
-		ItemGui(String i, Color c) {
+		ItemGui(EnumMarketItemType i, Color c) {
 			mItem = i;
 			mColor = c;
 		}

@@ -25,6 +25,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		background = new Color(128, 64, 0);
 		this.addStatic(new CityRestaurant(30, 30));
 		this.addStatic(new CityRestaurant(60, 30, "Restaurant 2"));
+		this.addStatic(new CityHousing(90, 90, "Housing 1"));
+		this.addStatic(new CityBank(60, 90, "Bank 1"));
+		this.addStatic(new CityRestaurant(60, 60, "Restaurant 3"));
 		for (int i = 10; i < 1000; i += 100) {
 			this.addStatic(new CityRoad(i, RoadDirection.HORIZONTAL));
 			this.addStatic(new CityRoad(i, RoadDirection.VERTICAL));
