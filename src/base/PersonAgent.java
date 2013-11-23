@@ -1,5 +1,7 @@
 package base;
 
+import housing.roles.HousingRenterRole;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +12,9 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import market.roles.MarketCustomerRole;
 import bank.interfaces.MasterTeller;
+import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
@@ -71,7 +75,6 @@ public class PersonAgent extends Agent implements Person {
 				mRoles.put(SortingHat.getHousingRole(), true);
 				break;
 			case MARKET:
-				//Ask market cashier for role
 				mRoles.put(SortingHat.getMarketRole(), true);
 				break;
 			case RESTAURANT:
@@ -83,6 +86,12 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//SHANE: 1 add other roles like customer roles here
+		mRoles.put(new BankCustomerRole(this), false);
+		mRoles.put(new HousingRenterRole(this), false);
+		mRoles.put(new MarketCustomerRole(this), false);
+		//RestaurantCustomerRole
+		//TransportationBusRiderRole
+		
 	}
 	
 	private void initializePerson(){
@@ -207,14 +216,41 @@ public class PersonAgent extends Agent implements Person {
 //		gui.DoGoTo(Location Job);
 //		semAnimation.acquire();
 		//add job role
+		
+		// DoGoTo(work.location);
+		// work.getHost().msgImHere(job);
+		// job.active = T;
+		// state = PersonState.Working;
 	}
 
 	private void eatFood() {
-
+		// // What will be our algorithm to figure out which to do?
+		// switch(random(2)) {
+		// case 0:
+		// // Eat at home.
+		// DoGoTo(home.location);
+		// roles.find(HouseRenterRole).active = T;
+		// DoGoMakeFoodAtHome();
+		// state = PersonState.Eating;
+		// break;
+		// case 1:
+		// // Eat at restaurant.
+		// // What will be our algorithm to figure out which restaurant to go
+		// to?
+		// restaurantChoice = restaurants.chooseRestaurant();
+		// DoGoTo(restaurantChoice.location);
+		// restaurantChoice.getHost().msgImHungry(roles.find(CustomerRole));
+		// roles.find(CustomerRole).active = T;
+		// state = PersonState.Eating;
+		// break;
+		// }
 	}
 
 	private void getCar() {
-
+		// DoGoTo(market.location);
+		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
+		// roles.find(MarketCustomerRole).active = T;
+		// state = PersonState.Shopping;
 	}
 
 	private void depositCheck() {
@@ -247,56 +283,10 @@ public class PersonAgent extends Agent implements Person {
 		return bestFriends;
 	}
 	
-	
-	// ----------------------------------------------------------OLD ACTIONS----------------------------------------------------------
-
-	private void GoToWork() {
-		// DoGoTo(work.location);
-		// work.getHost().msgImHere(job);
-		// job.active = T;
-		// state = PersonState.Working;
-	}
-
-	private void EatFood() {
-		// // What will be our algorithm to figure out which to do?
-		// switch(random(2)) {
-		// case 0:
-		// // Eat at home.
-		// DoGoTo(home.location);
-		// roles.find(HouseRenterRole).active = T;
-		// DoGoMakeFoodAtHome();
-		// state = PersonState.Eating;
-		// break;
-		// case 1:
-		// // Eat at restaurant.
-		// // What will be our algorithm to figure out which restaurant to go
-		// to?
-		// restaurantChoice = restaurants.chooseRestaurant();
-		// DoGoTo(restaurantChoice.location);
-		// restaurantChoice.getHost().msgImHungry(roles.find(CustomerRole));
-		// roles.find(CustomerRole).active = T;
-		// state = PersonState.Eating;
-		// break;
-		// }
-	}
-
-	private void BuyHouse() {
-		// DoGoTo(market.location);
-		// market.getHost().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
-	}
-
-	private void BuyCar() {
-		// DoGoTo(market.location);
-		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
-	}
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
-	//SHANE: Organize PersonAgent Accessors
+	//SHANE: 4 Organize PersonAgent Accessors
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);
 		role.setPerson(this);

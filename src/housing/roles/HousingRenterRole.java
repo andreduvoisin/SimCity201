@@ -13,6 +13,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 /*
  * @author David Carr, Maggi Yang
@@ -36,9 +37,14 @@ public class HousingRenterRole extends BaseRole implements Renter {
 		}
 	};
 
-	enum EnumBillState {
-		Pending, Paid
-	};
+	enum EnumBillState {Pending, Paid};
+	
+	
+	public HousingRenterRole(Person person){
+		mPerson = person;
+	}
+	
+	
 
 	private class Bill {
 		int mLandLordSSN;

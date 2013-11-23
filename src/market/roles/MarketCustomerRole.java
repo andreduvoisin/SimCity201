@@ -1,14 +1,21 @@
 package market.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import market.*;
+import market.Invoice;
+import market.Order;
 import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
-import market.interfaces.*;
 import market.gui.CustomerGui;
-import base.*;
+import market.interfaces.Cashier;
+import market.interfaces.Customer;
+import base.BaseRole;
+import base.interfaces.Person;
 
 public class MarketCustomerRole extends BaseRole implements Customer{
 	//DATA
@@ -26,7 +33,7 @@ public class MarketCustomerRole extends BaseRole implements Customer{
 
 	Cashier mCashier;
 	
-	public MarketCustomerRole(PersonAgent person) {
+	public MarketCustomerRole(Person person) {
 		mPerson = person;
 	}
 	

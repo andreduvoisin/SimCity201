@@ -34,7 +34,7 @@ public class SortingHat {
 			newRole = new HousingLandlordRole();
 		}
 		if (renter_count < max_renters) {
-			newRole = new HousingRenterRole();
+//			newRole = new HousingRenterRole();
 		} else {
 			newRole = new HousingOwnerRole();
 		}

@@ -3,12 +3,13 @@ package bank.roles;
 import java.util.ArrayList;
 import java.util.List;
 
-import base.BaseRole;
-import base.PersonAgent;
 import bank.Action;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
 import bank.interfaces.Teller;
+import base.BaseRole;
+import base.PersonAgent;
+import base.interfaces.Person;
 
 public class BankCustomerRole extends BaseRole implements Customer{
 	
@@ -35,6 +36,13 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	//Agent Correspondents//
 	public Guard mGuard;
 	public Teller mTeller;
+	
+	
+	public BankCustomerRole(Person person){
+		mPerson = person;
+	}
+	
+	
 	
 //	MESSAGES
 	
