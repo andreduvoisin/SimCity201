@@ -47,6 +47,12 @@ public class SharedWaiterTest extends TestCase {
 		assertEquals(
 				"Check that there is now one order on the revolving stand",
 				cook.getRevolvingStand().size(), 1);
+		// Mock cook hack to message back orders to waiter
+		cook.ProcessOrders();
+		waiter.pickAndExecuteAnAction();
+		assertTrue("Check that customer1 got msgHereIsYourOrder"
+				+ customer1.log.toString(),
+				customer1.log.containsString("msgHereIsYourOrder"));
 	}
 
 	public void testMultipleCustomers() {
@@ -101,13 +107,26 @@ public class SharedWaiterTest extends TestCase {
 		waiter.msgHereIsMyOrder(customer2, "Pizza");
 		waiter.pickAndExecuteAnAction();
 		assertEquals(
-				"Check that there is now one order on the revolving stand",
+				"Check that there is now two orders on the revolving stand",
 				cook.getRevolvingStand().size(), 2);
 		waiter.msgHereIsMyOrder(customer3, "Salad");
 		waiter.pickAndExecuteAnAction();
 		assertEquals(
-				"Check that there is now one order on the revolving stand",
+				"Check that there is now three orders on the revolving stand",
 				cook.getRevolvingStand().size(), 3);
-
+		// Mock cook hack to message back orders to waiter
+		cook.ProcessOrders();
+		waiter.pickAndExecuteAnAction();
+		assertTrue("Check that customer1 got msgHereIsYourOrder"
+				+ customer1.log.toString(),
+				customer1.log.containsString("msgHereIsYourOrder"));
+		waiter.pickAndExecuteAnAction();
+		assertTrue("Check that customer2 got msgHereIsYourOrder"
+				+ customer2.log.toString(),
+				customer2.log.containsString("msgHereIsYourOrder"));
+		waiter.pickAndExecuteAnAction();
+		assertTrue("Check that customer3 got msgHereIsYourOrder"
+				+ customer3.log.toString(),
+				customer3.log.containsString("msgHereIsYourOrder"));
 	}
 }

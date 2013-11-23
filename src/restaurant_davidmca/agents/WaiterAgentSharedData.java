@@ -433,8 +433,12 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		waiterGui.setLabelText(myc.choice);
-		waiterGui.DoGoToTable(myc.t);
+		try {
+			waiterGui.setLabelText(myc.choice);
+			waiterGui.DoGoToTable(myc.t);
+		} catch (Exception e) {
+
+		}
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -442,7 +446,11 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 		}
 		myc.c.msgHereIsYourOrder();
 		myc.state = CustomerState.Eating;
-		waiterGui.setLabelText("");
+		try {
+			waiterGui.setLabelText("");
+		} catch (Exception e) {
+
+		}
 	}
 
 	private void ClearTable(MyCustomer myc) {
@@ -462,7 +470,7 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 	public WaiterGui getGui() {
 		return waiterGui;
 	}
-	
+
 	public void setCook(Cook c) {
 		cook = c;
 	}

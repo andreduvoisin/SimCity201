@@ -18,6 +18,14 @@ public class MockCook extends Mock implements Cook {
 	
 	public List<Order> revolvingStand = Collections
 			.synchronizedList(new ArrayList<Order>());
+	
+	public void ProcessOrders() {
+		synchronized (revolvingStand) {
+			for (Order o: revolvingStand) {
+				o.waiter.msgOrderIsReady(o);
+			}
+		}
+	}
 
 	public MockCook(String name) {
 		super(name);
