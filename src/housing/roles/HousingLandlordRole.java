@@ -25,6 +25,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			.synchronizedList(new ArrayList<House>());
 	int mMinCash = 50;
 	int mMinSSN = 0;
+	public boolean mTimeToCheckRent = false;
 	private HousingLandlordGui gui = new HousingLandlordGui();
 
 	enum EnumRenterState {
@@ -86,6 +87,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Scheduler */
 
 	public boolean pickAndExecuteAnAction() {
+		
 		if (mTimeToCheckRent && mRenterList.size() > 0) {
 			mTimeToCheckRent = false;
 			synchronized (mRenterList) {
