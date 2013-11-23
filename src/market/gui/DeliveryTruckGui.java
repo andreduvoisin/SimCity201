@@ -45,7 +45,7 @@ public class DeliveryTruckGui implements Gui {
         		break;
         	}
         	case goToRestaurant: {
-        		mAgent.msgDeliverOrderToCook(mDestination);
+        		mAgent.msgAnimationAtRestaurant(mDestination);
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -74,6 +74,7 @@ public class DeliveryTruckGui implements Gui {
 
 	public void DoGoToRestaurant(String r) {
 		//fill in;
+		mDestination = r;
 		//must consider parameters
 		//proper way to get to restaurant
 		//mCommand = EnumCommand.goToRestaurant;

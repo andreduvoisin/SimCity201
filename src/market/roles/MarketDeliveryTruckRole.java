@@ -23,7 +23,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 	
 	List<Order> mDeliveries = Collections.synchronizedList(new ArrayList<Order>());
 	//FIX THIS MAP!!!
-	Map<MarketCookCustomerRole, String>	mRestaurants = new HashMap<MarketCookCustomerRole, String>();
+	Map<String, MarketCookCustomerRole>	mRestaurants = new HashMap<String, MarketCookCustomerRole>();
 	
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
@@ -38,9 +38,11 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 		o.mEvent = EnumOrderEvent.TOLD_TO_DELIVER;
 	}
 	
-	public void msgAnimationAtRestaurant(Order o) {
-//		o.mEvent = EnumOrderEvent.TOLD_TO_DELIVER;
-		//change event!!
+	public void msgAnimationAtRestaurant(String r) {
+		for(Order d : mDeliveries) {
+			if(d.mPersonRole == mRestaurants.get(r))
+			d.mEvent = EnumOrderEvent.READY_TO_DELIVER;
+		}
 		inTransit.release();
 	}
 	
@@ -57,15 +59,14 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
 		for(Order delivery : mDeliveries) {
-			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {				delivery.mStatus = EnumOrderStatus.DELIVERING;
-				//change status!
+			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
+				delivery.mStatus = EnumOrderStatus.BEING_DELIVERED;
 				goToDeliverOrder(delivery);
 				return true;
 			}
 		}
 		for(Order delivery : mDeliveries) {
-			//change status and event!
-			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
+			if(delivery.mStatus == EnumOrderStatus.BEING_DELIVERED && delivery.mEvent == EnumOrderEvent.READY_TO_DELIVER) {
 				delivery.mStatus = EnumOrderStatus.FULFILLING;
 				deliverOrder(delivery);
 				return true;
@@ -86,7 +87,14 @@ public class MarketDeliveryTruckRole extends BaseRole implements DeliveryTruck {
 
 /* Actions */
 	private void goToDeliverOrder(Order o) {
-		DoGoToRestaurant(mRestaurants.get(o.mPersonRole));
+		String r = null;;
+		for(String iR : mRestaurants.keySet()) {
+			if(mRestaurants.get(iR) == o.mPersonRole) {
+				r = iR;
+				break;
+			}
+		}
+		DoGoToRestaurant(r);
 	}
 	
 	private void deliverOrder(Order o) {
