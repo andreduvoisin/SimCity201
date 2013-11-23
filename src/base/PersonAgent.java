@@ -300,13 +300,6 @@ public class PersonAgent extends Agent implements Person {
 		// break;
 		// }
 	}
-
-	private void getCar() {
-		// DoGoTo(market.location);
-		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
-		// roles.find(MarketCustomerRole).active = T;
-		// state = PersonState.Shopping;
-	}
 	
 	public void SetGui(CityPerson pGui){
 		personGui = pGui;
