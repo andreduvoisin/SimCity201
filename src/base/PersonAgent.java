@@ -14,6 +14,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import market.roles.MarketCustomerRole;
+import restaurant_all.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
@@ -35,7 +36,6 @@ public class PersonAgent extends Agent implements Person {
 	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
-	//SHANE make sure mHouseRole gets set when the roles are instantiated
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -85,9 +85,10 @@ public class PersonAgent extends Agent implements Person {
 			case HOUSING: break;
 			case NONE: break;
 		}
-		//SHANE: assign role based on time shift (if me or other person with same role)
+		//SHANE: 1 assign role based on time shift (if me or other person with same role)
 		
-		mRoles.put(SortingHat.getHousingRole(this), true); //get housing status
+		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+		mRoles.put(mHouseRole, true);
 		mRoles.put(new BankCustomerRole(this), false);
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);

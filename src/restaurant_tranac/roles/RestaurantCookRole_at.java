@@ -1,19 +1,17 @@
-package restaurant_tranac.agents;
+package restaurant_tranac.roles;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import base.Agent;
-import restaurant_tranac.gui.CookGui;
+import base.BaseRole;
+import restaurant_tranac.gui.CookGui_at;
 import restaurant_tranac.interfaces.*;
 
 /**
  * Restaurant Cook Agent
  */
-public class CookAgent extends Agent implements Cook {
-	
-	private String name;;
-	private CookGui cookGui;
+public class RestaurantCookRole_at extends BaseRole implements Cook {
+	private CookGui_at cookGui;
 	
 	public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
 	public enum FoodState {Good, LowStock, Ordered, NoStock};
@@ -36,9 +34,8 @@ public class CookAgent extends Agent implements Cook {
 	
 	private Semaphore inTransit = new Semaphore(0, true);
 	
-	public CookAgent(String n) {
+	public RestaurantCookRole_at() {
 		super();
-		name = n;
 		
 		//create inventory
 		inventory.add(new Food("Steak",(int)(baseTime*2),baseInventory));
@@ -135,7 +132,7 @@ public class CookAgent extends Agent implements Cook {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		for(Food f : inventory) {
 			if(f.s == FoodState.LowStock) {
 				orderFood();
@@ -310,18 +307,18 @@ public class CookAgent extends Agent implements Cook {
 	/** Utilities */
 
 	public String getName() {
-		return name;
+		return mPerson.getName();
 	}
 	
-	public void setGui(CookGui c) {
+	public void setGui(CookGui_at c) {
 		setCookGui(c);
 	}
 	
-	public CookGui getCookGui() {
+	public CookGui_at getCookGui() {
 		return cookGui;
 	}
 
-	public void setCookGui(CookGui cookGui) {
+	public void setCookGui(CookGui_at cookGui) {
 		this.cookGui = cookGui;
 	}
 	

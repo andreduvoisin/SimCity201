@@ -1,9 +1,9 @@
 package restaurant_tranac.test.mock;
 
-import restaurant_tranac.Check;
-import restaurant_tranac.Menu;
-import restaurant_tranac.gui.CustomerGui;
+import restaurant_tranac.*;
+import restaurant_tranac.gui.CustomerGui_at;
 import restaurant_tranac.interfaces.*;
+import test.mock.*;
 
 /**
  * MockCustomer built for unit testing.
@@ -12,8 +12,8 @@ import restaurant_tranac.interfaces.*;
  */
 
 public class MockCustomer extends Mock implements Customer {
-	public MockCustomer(String name) {
-		super(name);
+	public MockCustomer() {
+		super();
 	}
 	
 	public void msgHereIsChange(Check c) {
@@ -27,7 +27,7 @@ public class MockCustomer extends Mock implements Customer {
 //empty messages; not necessary to test cashier
 	public String getName() { return getName(); }
 	
-	public CustomerGui getGui() { return null; }
+	public CustomerGui_at getGui() { return null; }
 	
 	public void msgGotHungry() {	}
 	

@@ -1,6 +1,6 @@
-package restaurant_tranac.agents;
+package restaurant_tranac.roles;
 
-import base.Agent;
+import base.BaseRole;
 import restaurant_tranac.interfaces.*;
 
 import java.util.*;
@@ -8,9 +8,8 @@ import java.util.*;
 /**
  * Restaurant Cook Agent
  */
-public class MarketAgent extends Agent implements Market {
+public class MarketAgent extends BaseRole implements Market {
 	
-	private String name;
 	private Cashier cashier = null;
 
 	public enum OrderState {Pending, Fulfilling, Done,
@@ -25,9 +24,8 @@ public class MarketAgent extends Agent implements Market {
 	private static final int baseInventory = 3;
 	private static final int basePrice = 3;
 	
-	public MarketAgent(String n) {
+	public MarketAgent() {
 		super();
-		name = n;
 		
 		//create inventory
 		inventory.add(new Food("Steak",baseInventory));
@@ -87,7 +85,7 @@ public class MarketAgent extends Agent implements Market {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 	  try {
 		for(Order o : orders) {
 			if(o.s == OrderState.Pending) {
@@ -183,7 +181,7 @@ public class MarketAgent extends Agent implements Market {
 	/** Utilities */
 
 	public String getName() {
-		return name;
+		return mPerson.getName();
 	}
 	
 	public void setInventory(int n) {

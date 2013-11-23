@@ -11,10 +11,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AnimationPanel extends JPanel implements ActionListener {
+public class RestaurantPanel_at extends JPanel implements ActionListener {
 
-//    private final int WINDOWX = 450;
-//    private final int WINDOWY = 475;
 	private final int WINDOWX = 626;
 	private final int WINDOWY = 507;
     private final int TIMERDELAY = 8;
@@ -22,7 +20,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
     private List<Gui> guis = new ArrayList<Gui>();
 
-    public AnimationPanel() {
+    public RestaurantPanel_at() {
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         setBackground(Color.white);
@@ -62,23 +60,23 @@ public class AnimationPanel extends JPanel implements ActionListener {
         }
     }
 
-    public void addGui(CustomerGui gui) {
+    public void addGui(CustomerGui_at gui) {
         guis.add(gui);
     }
 
-    public void addGui(WaiterGui gui) {
+    public void addGui(WaiterGui_at gui) {
         guis.add(gui);
     }
     
-    public void addGui(CookGui gui) {
+    public void addGui(CookGui_at gui) {
     	guis.add(gui);
     }
     
-    public void addGui(HostGui gui) {
+    public void addGui(HostGui_at gui) {
     	guis.add(gui);
     }
 
-	public void addGui(CashierGui gui) {
+	public void addGui(CashierGui_at gui) {
 		guis.add(gui);
 	}
 }
