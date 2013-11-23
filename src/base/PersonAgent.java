@@ -34,6 +34,7 @@ public class PersonAgent extends Agent implements Person {
 	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, NONE};
 	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
+	public Role mHouseRole;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -184,9 +185,13 @@ public class PersonAgent extends Agent implements Person {
 			depositCheck();
 		}
 		
-		//Housing Events
-		//ASK_FOR_RENT, MAINTAIN_HOUSE,				//Housing Events DAVID MAGGI: 1 Housing recurring events here
-		//then make submethods, and do recurring as shown below, or just tag me and tell me how often
+		if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
+			invokeRent();
+		}
+		
+		if (event.mEventType == EnumEventType.MAINTAIN_HOUSE) {
+			invokeMaintenance();
+		}
 		
 		//Party Events
 		if (event.mEventType == EnumEventType.INVITE1) {
@@ -274,6 +279,14 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void respondToRSVP(){
+		
+	}
+	
+	private void invokeRent() {
+		mHouseRole.
+	}
+	
+	private void invokeMaintenance() {
 		
 	}
 
