@@ -117,9 +117,8 @@ public class LandlordTest extends TestCase {
 		//Check 2: HousingLandlord sends appropriate rent collection messages to all renters
 		assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
 		assertTrue("HousingRenter1 should receive rent due message", mHousingRenter1.log.containsString("Received msgRentDue"));
-		//assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
-		//assertTrue("HousingRenter2 should receive rent due message", mHousingRenter2.log.containsString("Received msgRentDue"));
-		
+		assertTrue("HousingRenter2 should receive rent due message", mHousingRenter2.log.containsString("Received msgRentDue"));
+		assertTrue("PAEA: should return false", !mHousingLandlord.pickAndExecuteAnAction());
 	}
 
 }
