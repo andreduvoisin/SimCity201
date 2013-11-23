@@ -8,17 +8,17 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
-import restaurant_smileham.Menu;
-import restaurant_smileham.WaitingArea;
-import restaurant_smileham.Food.EnumFoodOptions;
-import restaurant_smileham.agent.Check;
-import restaurant_smileham.gui.CustomerGui;
-import restaurant_smileham.gui.LabelGui;
-import restaurant_smileham.gui.RestaurantGui;
-import restaurant_smileham.interfaces.Cashier;
-import restaurant_smileham.interfaces.Customer;
-import restaurant_smileham.interfaces.Host;
-import restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.Menu;
+import restaurant.restaurant_smileham.WaitingArea;
+import restaurant.restaurant_smileham.Food.EnumFoodOptions;
+import restaurant.restaurant_smileham.agent.Check;
+import restaurant.restaurant_smileham.gui.CustomerGui;
+import restaurant.restaurant_smileham.gui.LabelGui;
+import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.interfaces.Cashier;
+import restaurant.restaurant_smileham.interfaces.Customer;
+import restaurant.restaurant_smileham.interfaces.Host;
+import restaurant.restaurant_smileham.interfaces.Waiter;
 
 /**
  * Restaurant customer agent.

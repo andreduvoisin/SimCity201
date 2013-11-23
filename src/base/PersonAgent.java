@@ -277,6 +277,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void eatFood() {
+		
+		
+		
 		// // What will be our algorithm to figure out which to do?
 		// switch(random(2)) {
 		// case 0:

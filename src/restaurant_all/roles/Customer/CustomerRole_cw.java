@@ -1,7 +1,7 @@
 package restaurant_all.roles.Customer;
 
-import restaurant_cwagoner.gui.CustomerGui;
-import restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.gui.CustomerGui;
+import restaurant.restaurant_cwagoner.interfaces.*;
 
 import java.awt.Dimension;
 import java.util.*;

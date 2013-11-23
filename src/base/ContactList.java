@@ -12,6 +12,7 @@ public class ContactList {
 	
 	//----------------------------------------------------------PEOPLE----------------------------------------------------------
 	static Map<Role, Location> sRoleLocations;
+	//SHANE: sRestaurantRoleLocations
 	static List<Person> sPeople; //list of people
 	
 //	static Map<BankMasterTellerRole, Location> sBankMasterTellers;

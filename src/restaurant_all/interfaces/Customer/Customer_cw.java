@@ -3,7 +3,7 @@ package restaurant_all.interfaces.Customer;
 import java.awt.Dimension;
 import java.util.HashMap;
 
-import restaurant_cwagoner.interfaces.Waiter;
+import restaurant.restaurant_cwagoner.interfaces.Waiter;
 
 public interface Customer_cw {
 
