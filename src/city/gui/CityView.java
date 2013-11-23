@@ -30,7 +30,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("Road", new CityCard(city));
 		cards.put("Restaurant 1", new CityCard(city, Color.blue));
 		cards.put("Restaurant 2", new CityCard(city, Color.red));
-
+	
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {

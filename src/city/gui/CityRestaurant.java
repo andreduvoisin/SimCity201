@@ -25,6 +25,8 @@ public class CityRestaurant extends CityComponent {
 		g.setColor(color);
 		g.fillOval(x, y, 20, 20);
 		g.fill3DRect(x, y, 20, 20, true);
+		g.setColor(Color.BLACK);
+		g.drawString("R",x + 5 , y + 15);
 	}
 
 	
