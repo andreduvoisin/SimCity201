@@ -7,7 +7,7 @@ import market.*;
 
 public interface MarketCook {
 	
-	public abstract void msgInvoiceToPerson(Map<String,Integer> cannotFulfill, MarketInvoice invoice);
+	public abstract void msgInvoiceToPerson(Map<EnumMarketItemType,Integer> cannotFulfill, MarketInvoice invoice);
 	
 	public abstract void msgHereIsCookOrder(MarketOrder o);
 }

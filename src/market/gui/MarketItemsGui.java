@@ -14,14 +14,11 @@ import java.util.*;
  * @author Angelica Huyen Tran
  */
 public class MarketItemsGui implements MarketBaseGui {
-	private Market mMarket;
-	
 	private Map<ItemGui, MarketCoordinates> mItems;
 	private int xBase = 10, yBase = 300;
 	private static final int SIZE = 20;
 	
-	public MarketItemsGui(Market m) {
-		mMarket = m;
+	public MarketItemsGui() {
 		
 		//populate list of items; hack right now
 		mItems.put(new ItemGui("Steak",Color.RED), new MarketCoordinates(xBase, yBase));

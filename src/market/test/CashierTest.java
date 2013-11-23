@@ -13,7 +13,6 @@ import base.Item.EnumMarketItemType;
 import base.PersonAgent;
 
 public class CashierTest extends TestCase {
-	Market mMarket;
 	PersonAgent mPerson;
 	MarketCashierRole mCashier;
 	
@@ -27,9 +26,8 @@ public class CashierTest extends TestCase {
  	public void setUp() throws Exception {
  		super.setUp();
  		
- 		mMarket = new Market();
  		mPerson = new PersonAgent();
- 		mCashier = new MarketCashierRole(mPerson,mMarket);
+ 		mCashier = new MarketCashierRole(mPerson);
  		
  		mMockCustomer = new MockCustomer();
  		mMockCookCustomer = new MockCookCustomer();
