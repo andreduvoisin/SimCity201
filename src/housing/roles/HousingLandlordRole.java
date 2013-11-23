@@ -94,34 +94,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			return true; 
 		}
 		
-//		if (mTimeToCheckRent && mRenterList.size() > 0) {
-//			mTimeToCheckRent = false;
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.RentOverdue) {
-//						GiveEvictionNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.OwesRent) {
-//						GiveRentOverdueNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.RentPaid) {
-//						GiveRentDueNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//		}
-		
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
 				if (r.mState == EnumRenterState.ApplyingForHousing) {
@@ -149,9 +121,11 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Actions */
 	private void CollectRent(){
 		synchronized (mRenterList) {
+			//change to iterator 
 			for (MyRenter r : mRenterList) {
 				if (r.mState == EnumRenterState.RentOverdue) {
 					GiveEvictionNotice(r);
+					
 				}
 			}
 		}
@@ -180,7 +154,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
-		r.mRenter.msgRentDue(mPerson.getSSN(), r.mHouse.mRent);
+		r.mRenter.msgOverdueNotice(mPerson.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
@@ -194,7 +168,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			}
 		}
 		synchronized (mRenterList) {
-			mRenterList.remove(r);
+//			mRenterList.remove(r);
 		}
 	}
 

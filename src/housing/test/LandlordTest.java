@@ -111,14 +111,42 @@ public class LandlordTest extends TestCase {
 		assertTrue("HousingRenter1 has received only one message", mHousingRenter1.log.size() == 1); 
 		assertTrue("HousingRenter2 has received only one message", mHousingRenter2.log.size() == 1); 
 		
-		//Set time for rent collection
+		//Set time for first rent collection
 		mHousingLandlord.mTimeToCheckRent = true; 
 		
-		//Check 2: HousingLandlord sends appropriate rent collection messages to all renters
+		//Check 2: HousingLandlord properly conducts first rent collection 
 		assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
 		assertTrue("HousingRenter1 should receive rent due message", mHousingRenter1.log.containsString("Received msgRentDue"));
 		assertTrue("HousingRenter2 should receive rent due message", mHousingRenter2.log.containsString("Received msgRentDue"));
+		assertTrue("HousingRenter1 should have received two messages", mHousingRenter1.log.size() ==  2); 
+		assertTrue("HousingRenter2 should have received two messages", mHousingRenter2.log.size() ==  2); 
 		assertTrue("PAEA: should return false", !mHousingLandlord.pickAndExecuteAnAction());
+		
+		//HousingRenter1 makes payment but HousingRenter2 does not and Housing Landlord conducts second rent collection 
+		mHousingLandlord.msgHereIsPayment(1, 100.00);
+		mHousingLandlord.mTimeToCheckRent = true; 
+		
+		//Check 3: HousingLandlord properly conducts second rent collection 
+		mHousingRenter1.log.clear(); //clear in order to check whether or not HousingLandlord receives RentDue again
+		assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
+		assertTrue("HousingRenter1 should receive another message", mHousingRenter1.log.size() ==  1); 
+		assertTrue("HousingRenter1 should receive rent due message", mHousingRenter1.log.containsString("Received msgRentDue")); 
+		assertTrue("HousingRenter2 should receive another message", mHousingRenter2.log.size() ==  3); 
+		assertTrue("HousingRenter2 should receive rent overdue message", mHousingRenter2.log.containsString("Received msgOverdueNotice"));
+		assertTrue("PAEA: should return false", !mHousingLandlord.pickAndExecuteAnAction());
+		
+		//HousingRenter1 makes payment but HousingRenter2 does not and Housing Landlord conducts third rent collection 
+		mHousingLandlord.msgHereIsPayment(1, 100.00);
+		mHousingLandlord.mTimeToCheckRent = true; 	
+		
+		//Check 3: HousingLandlord properly conducts second rent collection 
+		//mHousingRenter1.log.clear(); //clear in order to check whether or not HousingLandlord receives RentDue again
+		//assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
+//		assertTrue("HousingRenter1 should receive another message", mHousingRenter1.log.size() ==  1); 
+//		assertTrue("HousingRenter1 should receive rent due message", mHousingRenter1.log.containsString("Received msgRentDue")); 
+//		assertTrue("HousingRenter2 should receive another message", mHousingRenter2.log.size() ==  4); 
+//		assertTrue("HousingRenter2 should receive rent overdue message", mHousingRenter2.log.containsString("Received msgEviction"));
+//		assertTrue("PAEA: should return false", !mHousingLandlord.pickAndExecuteAnAction());
 	}
 
 }
