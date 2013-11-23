@@ -25,7 +25,8 @@ public interface Person {
 	
 	public void addRole(Role role, boolean active);
 	
-	public void msgHereIsPayment(int senderSSN, int amount);
+	public void msgHereIsPayment(int senderSSN, double amount);
+	public void msgOverdrawnAccount(double loan);
 	
 	public String getName(); 
 	public int getTimeShift();

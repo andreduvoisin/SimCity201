@@ -4,6 +4,7 @@ import java.util.Map;
 
 import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
+import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -19,8 +20,7 @@ public class MockPerson extends Mock implements Person {
 	public Person person;
 
 	public MockPerson(String name) {
-		this.name = name; 
-
+		this.name = name;
 	}
 	
 	public String getName(){
@@ -106,6 +106,22 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void setPerson(PersonAgent person){
+		this.person = person;
+	}
+
+	@Override
+	public void msgHereIsPayment(int senderSSN, double amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgOverdrawnAccount(double loan) {
 		// TODO Auto-generated method stub
 		
 	}

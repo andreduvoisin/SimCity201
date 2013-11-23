@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import base.BaseRole;
+import base.PersonAgent;
 import bank.Action;
 import bank.interfaces.Customer;
 import bank.interfaces.Guard;
@@ -117,7 +118,7 @@ public class BankCustomerRole extends BaseRole implements Customer{
 				mTeller.msgPayment(this, mPerson.getSSN(), amount);
 			}
 			else if (action == EnumAction.Open){
-				mTeller.msgOpen(this, mPerson.getSSN(), amount, mPerson.getName());
+				mTeller.msgOpen(this, mPerson.getSSN(), amount, (PersonAgent)mPerson);
 			}
 			else if (action == EnumAction.Robbery){
 				mTeller.msgRobbery(this, mPerson.getSSN(), amount);
