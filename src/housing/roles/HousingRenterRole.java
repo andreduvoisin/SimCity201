@@ -136,12 +136,13 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 	/* Actions */
 
 	void EatAtHome() {
-		print("Action - Eat at Home");
+		/*gui.DoCookAndEatFood();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
+		print("Action - Eat at Home");
 	}
 
 	void RequestHousing() {
@@ -158,12 +159,13 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 	}
 
 	void Maintain() {
-		print("Action - Maintain");
+		/*gui.DoMaintainHouse();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
+		print("Action - Maintain");
 		// DAVID MAGGI: run timer for some period of time, animate
 	}
 
@@ -174,5 +176,9 @@ public class HousingRenterRole extends BaseRole implements HousingRenter {
 
 	protected void print(String msg) {
 		System.out.println("Renter - " + msg);
+	}
+
+	public void setGui(HousingResidentGui g) {
+		gui = g;
 	}
 }

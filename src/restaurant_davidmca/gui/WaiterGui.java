@@ -3,6 +3,7 @@ package restaurant_davidmca.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import base.Gui;
 import restaurant_davidmca.Table;
 import restaurant_davidmca.interfaces.Waiter;
 
