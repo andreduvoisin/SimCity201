@@ -113,14 +113,18 @@ public class SortingHat {
 	public static Role getRestaurantRole(int shift){
 		List<Role> shiftRoles = sRoles.get(shift);
 		
+		//SHANE REX: 1 DO THIS WHEN YOU FINISH THE RESTAURANT ROLES
+		
+		
+		
+		
+		
 		//Master Teller (1) - first priority
-				for (Role iRole : shiftRoles){
-					if (iRole instanceof BankMasterTellerRole){
-						if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
-					}
-				}
-				
-				
+		for (Role iRole : shiftRoles){
+			if (iRole instanceof BankMasterTellerRole){
+				if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
+			}
+		}
 		
 		Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
 		sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
