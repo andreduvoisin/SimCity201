@@ -1,9 +1,9 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.LandlordGui;
-import housing.interfaces.Landlord;
-import housing.interfaces.Renter;
+import housing.gui.HousingLandlordGui;
+import housing.interfaces.HousingLandlord;
+import housing.interfaces.HousingRenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,13 +13,14 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import base.interfaces.Role;
 
 /*
  * @author David Carr, Maggi Yang
  */
 
-public class HousingLandlordRole extends BaseRole implements Landlord {
+public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 
 	/* Data */
 
@@ -35,7 +36,7 @@ public class HousingLandlordRole extends BaseRole implements Landlord {
 			.synchronizedList(new ArrayList<House>());
 	int mMinCash = 50;
 	int mMinSSN = 0;
-	private LandlordGui gui = new LandlordGui();
+	private HousingLandlordGui gui = new HousingLandlordGui();
 	private Semaphore isAnimating = new Semaphore(0, true);
 
 	enum EnumRenterState {
@@ -45,13 +46,13 @@ public class HousingLandlordRole extends BaseRole implements Landlord {
 	public boolean mTimeToCheckRent = false;
 
 	private class MyRenter {
-		Renter mRenter;
+		HousingRenter mRenter;
 		EnumRenterState mState;
 		double mCash;
 		House mHouse;
 		int SSN;
 
-		public MyRenter(Renter renter, double cash, int mySSN) {
+		public MyRenter(HousingRenter renter, double cash, int mySSN) {
 			mRenter = renter;
 			mState = EnumRenterState.Initial;
 			mCash = cash;
@@ -62,7 +63,8 @@ public class HousingLandlordRole extends BaseRole implements Landlord {
 	
 	/* Constructor */
 	
-	public HousingLandlordRole(){
+	public HousingLandlordRole(Person person){
+		mPerson = person;
 		
 		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
 		mHousesList.add(new House(20, 20, 100.00)); 
@@ -76,7 +78,7 @@ public class HousingLandlordRole extends BaseRole implements Landlord {
 		stateChanged();
 	}
 
-	public void msgIWouldLikeToLiveHere(Renter r, double cash, int SSN) {
+	public void msgIWouldLikeToLiveHere(HousingRenter r, double cash, int SSN) {
 		print("Message - I would like to live here recieved");
 		MyRenter newRenter = new MyRenter(r, cash, SSN);
 		newRenter.mState = EnumRenterState.ApplyingForHousing;

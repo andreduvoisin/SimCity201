@@ -2,15 +2,15 @@ package bank.test.mock;
 
 import test.mock.LoggedEvent;
 import test.mock.Mock;
-import bank.interfaces.Customer;
-import bank.interfaces.Guard;
-import bank.interfaces.Teller;
+import bank.interfaces.BankCustomer;
+import bank.interfaces.BankGuard;
+import bank.interfaces.BankTeller;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
 
-public class MockCustomerRole extends Mock implements Customer, Role{
+public class MockCustomerRole extends Mock implements BankCustomer, Role{
 	
 	public PersonAgent mPerson;
 
@@ -19,7 +19,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 		// JERRY: Auto-generated constructor stub
 	}
 
-	public void msgGoToTeller(Teller t){
+	public void msgGoToTeller(BankTeller t){
 		log.add(new LoggedEvent("msgGoToTeller"));
 	}
 
@@ -54,7 +54,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 	}
 
 	@Override
-	public void setGuard(Guard guard) {
+	public void setGuard(BankGuard guard) {
 		// TODO Auto-generated method stub
 		
 	}

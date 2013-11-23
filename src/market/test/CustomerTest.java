@@ -4,8 +4,8 @@ import junit.framework.TestCase;
 import market.roles.MarketCustomerRole;
 import market.test.mock.*;
 import market.*;
-import market.Order.EnumOrderEvent;
-import market.Order.EnumOrderStatus;
+import market.MarketOrder.EnumOrderEvent;
+import market.MarketOrder.EnumOrderStatus;
 
 import java.util.*;
 
@@ -20,7 +20,7 @@ public class CustomerTest extends TestCase {
 	MockWorker mMockWorker;
 	
  	Map<EnumMarketItemType, Integer> mItems = new HashMap<EnumMarketItemType, Integer>();
- 	Order mOrder;
+ 	MarketOrder mOrder;
  
  	public void setUp() throws Exception {
  		super.setUp();

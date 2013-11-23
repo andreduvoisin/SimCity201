@@ -1,7 +1,7 @@
 package bank.test;
 
 import junit.framework.TestCase;
-import bank.Action;
+import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
 import bank.roles.BankCustomerRole.EnumEvent;
@@ -56,7 +56,7 @@ public class CustomerTest extends TestCase{
 		
 		//1 : set guard and action
 		mCustomer.setGuard(mGuard);
-		mCustomer.mActions.add(new Action(EnumAction.Open, 100));
+		mCustomer.mActions.add(new BankAction(EnumAction.Open, 100));
 		
 		//Check
 		assertTrue("Customer guard is set", mCustomer.mGuard != null);

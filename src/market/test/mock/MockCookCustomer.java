@@ -3,23 +3,23 @@ package market.test.mock;
 import java.util.Map;
 
 import market.*;
-import market.interfaces.Cook;
+import market.interfaces.MarketCook;
 import test.mock.*;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class MockCookCustomer extends Mock implements Cook, Role {
+public class MockCookCustomer extends Mock implements MarketCook, Role {
 
 	public MockCookCustomer() {
 		super();
 	}
 	
-	public void msgInvoiceToPerson(Map<String,Integer> cannotFulfill, Invoice invoice) {
+	public void msgInvoiceToPerson(Map<String,Integer> cannotFulfill, MarketInvoice invoice) {
 		log.add(new LoggedEvent("Received msgInvoiceToPerson."));
 	}
 	
-	public void msgHereIsCookOrder(Order o) {
+	public void msgHereIsCookOrder(MarketOrder o) {
 		log.add(new LoggedEvent("Received msgHereIsCookOrder."));
 	}
 

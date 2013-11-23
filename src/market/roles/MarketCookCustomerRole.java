@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import market.Invoice;
-import market.Order;
-import market.Order.EnumOrderEvent;
-import market.Order.EnumOrderStatus;
-import market.interfaces.Cashier;
-import market.interfaces.Cook;
+import market.MarketInvoice;
+import market.MarketOrder;
+import market.MarketOrder.EnumOrderEvent;
+import market.MarketOrder.EnumOrderStatus;
+import market.interfaces.MarketCashier;
+import market.interfaces.MarketCook;
 import base.PersonAgent;
 import base.BaseRole;
 
@@ -20,7 +20,7 @@ import base.BaseRole;
  * @author Angelica Huyen Tran
  */
 
-public class MarketCookCustomerRole extends BaseRole implements Cook {
+public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 	//RestaurantCashierRole mRestaurantCashier;
 
 	Map<String, Integer> mItemInventory = new HashMap<String, Integer>();
@@ -28,24 +28,24 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	
 	Map<String, Integer> mCannotFulfill = new HashMap<String, Integer>();
 	
-	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
-	List<Invoice> mInvoices	= Collections.synchronizedList(new ArrayList<Invoice>());
+	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
-	Cashier mMarketCashier;
+	MarketCashier mMarketCashier;
 	
 	public MarketCookCustomerRole(PersonAgent person) {
 		mPerson = person;
 	}
 	
 /* Messages */
-	public void msgInvoiceToPerson(Map<String,Integer> cannotFulfill, Invoice invoice) {
+	public void msgInvoiceToPerson(Map<String,Integer> cannotFulfill, MarketInvoice invoice) {
 		mInvoices.add(invoice);
 		mCannotFulfill = cannotFulfill;
 		invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
 		stateChanged();
 	}
 	
-	public void msgHereIsCookOrder(Order o) {
+	public void msgHereIsCookOrder(MarketOrder o) {
 		o.mEvent = EnumOrderEvent.RECEIVED_ORDER;
 		stateChanged();
 	}
@@ -53,22 +53,22 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
-		for(Invoice invoice : mInvoices) {
-			Order order = invoice.mOrder;
+		for(MarketInvoice invoice : mInvoices) {
+			MarketOrder order = invoice.mOrder;
 			if(order.mStatus == EnumOrderStatus.PAYING && order.mEvent == EnumOrderEvent.RECEIVED_INVOICE) {
 				order.mStatus = EnumOrderStatus.PAID;
 				payAndProcessOrder(invoice);
 				return true;
 			}
 		}
-		for(Order order : mOrders) {
+		for(MarketOrder order : mOrders) {
 			if(order.mStatus == EnumOrderStatus.FULFILLING && order.mEvent == EnumOrderEvent.RECEIVED_ORDER) {
 				order.mStatus = EnumOrderStatus.DONE;
 				completeOrder(order);
 				return true;
 			}
 		}
-		for(Order order : mOrders) {
+		for(MarketOrder order : mOrders) {
 			if(order.mStatus == EnumOrderStatus.CARTED) {
 				order.mStatus = EnumOrderStatus.PLACED;
 				placeOrder(order);
@@ -87,7 +87,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 
 /* Actions */
 	private void createOrder() {
-		Order o = new Order(mItemsDesired, this);
+		MarketOrder o = new MarketOrder(mItemsDesired, this);
 		
 		for(String item : mItemsDesired.keySet()) {
 			mItemsDesired.put(item,0);
@@ -96,11 +96,11 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 		mOrders.add(o);
 	}
 	
-	private void placeOrder(Order o) {
+	private void placeOrder(MarketOrder o) {
 		mMarketCashier.msgOrderPlacement(o);
 	}
 	
-	private void payAndProcessOrder(Invoice i) {
+	private void payAndProcessOrder(MarketInvoice i) {
 		i.mPayment = i.mTotal;
 		//check if cannot afford invoice
 		//check how to get payment from restaurant cashier
@@ -114,14 +114,14 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 		mInvoices.remove(i);
 	}
 	
-	private void completeOrder(Order o) {
+	private void completeOrder(MarketOrder o) {
 		for(String item : o.mItems.keySet()) {
 			mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
 		}
 	}
 	
 /* Utilities */
-	public void setMarketCashier(Cashier c) {
+	public void setMarketCashier(MarketCashier c) {
 		mMarketCashier = c;
 	}
 }

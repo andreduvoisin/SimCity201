@@ -1,6 +1,6 @@
 package housing;
 
-import housing.interfaces.Renter;
+import housing.interfaces.HousingRenter;
 
 /*
  * House class
@@ -10,7 +10,7 @@ import housing.interfaces.Renter;
 public class House {
 	public int xLocation, yLocation;
 	public double mRent;
-	public Renter mOccupant;
+	public HousingRenter mOccupant;
 	public enum HousingType{Apartment, House}; 
 	public HousingType type; 
 	public final double maxAptRent = 450.00;  

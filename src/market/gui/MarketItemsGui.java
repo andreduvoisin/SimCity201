@@ -13,10 +13,10 @@ import java.util.*;
  * 
  * @author Angelica Huyen Tran
  */
-public class MarketItemsGui implements Gui {
+public class MarketItemsGui implements MarketBaseGui {
 	private Market mMarket;
 	
-	private Map<ItemGui, Coordinates> mItems;
+	private Map<ItemGui, MarketCoordinates> mItems;
 	private int xBase = 10, yBase = 300;
 	private static final int SIZE = 20;
 	
@@ -24,11 +24,11 @@ public class MarketItemsGui implements Gui {
 		mMarket = m;
 		
 		//populate list of items; hack right now
-		mItems.put(new ItemGui("Steak",Color.RED), new Coordinates(xBase, yBase));
-		mItems.put(new ItemGui("Chicken",Color.RED), new Coordinates(xBase+30, yBase));
-		mItems.put(new ItemGui("Salad",Color.RED), new Coordinates(xBase+60, yBase));
-		mItems.put(new ItemGui("Pizza",Color.RED), new Coordinates(xBase+90, yBase));
-		mItems.put(new ItemGui("Car",Color.RED), new Coordinates(xBase+120, yBase));
+		mItems.put(new ItemGui("Steak",Color.RED), new MarketCoordinates(xBase, yBase));
+		mItems.put(new ItemGui("Chicken",Color.RED), new MarketCoordinates(xBase+30, yBase));
+		mItems.put(new ItemGui("Salad",Color.RED), new MarketCoordinates(xBase+60, yBase));
+		mItems.put(new ItemGui("Pizza",Color.RED), new MarketCoordinates(xBase+90, yBase));
+		mItems.put(new ItemGui("Car",Color.RED), new MarketCoordinates(xBase+120, yBase));
 		
 	}
 	
@@ -43,7 +43,7 @@ public class MarketItemsGui implements Gui {
 	public void draw(Graphics2D g) {
 		//draw all items
 		for(ItemGui i : mItems.keySet()) {
-			Coordinates c = mItems.get(i);
+			MarketCoordinates c = mItems.get(i);
 			g.setColor(i.mColor);
 			for(int j=0;j<i.mNumber;j++) {
 				c.setY(c.getY()+30);

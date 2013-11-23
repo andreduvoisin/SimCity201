@@ -5,28 +5,33 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bank.interfaces.Customer;
-import bank.interfaces.Guard;
-import bank.interfaces.Teller;
+import bank.interfaces.BankCustomer;
+import bank.interfaces.BankGuard;
+import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.interfaces.Person;
 //import interfaces
 
 
-public class BankGuardRole extends BaseRole implements Guard{
+public class BankGuardRole extends BaseRole implements BankGuard{
 	
 //	DATA
 	
-	public Map <Teller, Boolean> mTellers = new HashMap<Teller, Boolean>();
-	public List<Customer> mCustomers = new ArrayList<Customer>();
-	public List<Customer> mCriminals = new ArrayList<Customer>();
+	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
+	public List<BankCustomer> mCustomers = new ArrayList<BankCustomer>();
+	public List<BankCustomer> mCriminals = new ArrayList<BankCustomer>();
+	
+	public BankGuardRole(Person person) {
+		mPerson = person;
+	}
 	
 //	MESSAGES
 	
-	public void msgNeedService(Customer c){
+	public void msgNeedService(BankCustomer c){
 		mCustomers.add(c);
 		stateChanged();
 	}
-	public void msgReadyToWork(Teller t){
+	public void msgReadyToWork(BankTeller t){
 		mTellers.put(t, true);
 		stateChanged();
 	}
@@ -34,7 +39,7 @@ public class BankGuardRole extends BaseRole implements Guard{
 		mTellers.put(t, true);
 		stateChanged();
 	}*/
-	public void msgRobberAlert(Customer c){
+	public void msgRobberAlert(BankCustomer c){
 		mCriminals.add(c);
 		stateChanged();
 	}
@@ -42,13 +47,13 @@ public class BankGuardRole extends BaseRole implements Guard{
 //	SCHEDULER
 	
 	public boolean pickAndExecuteAnAction(){
-		for (Customer c : mCriminals){
+		for (BankCustomer c : mCriminals){
 			killRobber(c);
 			mCriminals.remove(c);
 			return true;
 		}
-		for (Customer c : mCustomers){
-			for (Teller t : mTellers.keySet()){
+		for (BankCustomer c : mCustomers){
+			for (BankTeller t : mTellers.keySet()){
 				//if Teller t is available
 				if (mTellers.get(t)){
 					provideService(c, t);
@@ -63,17 +68,17 @@ public class BankGuardRole extends BaseRole implements Guard{
 	
 //	ACTIONS
 	
-	private void killRobber(Customer c){
+	private void killRobber(BankCustomer c){
 		//GUI Interactions
 		c.msgStopRobber();
 	}
-	private void provideService(Customer c, Teller t){
+	private void provideService(BankCustomer c, BankTeller t){
 		c.msgGoToTeller(t);
 	}
 	
 //	UTILITIES
 	
-	public void msgOffWork(Teller t){
+	public void msgOffWork(BankTeller t){
 		mTellers.put(t, false);
 	}
 }

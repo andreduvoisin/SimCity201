@@ -1,9 +1,9 @@
 package bank.test.mock;
 
-import bank.interfaces.Customer;
-import bank.interfaces.Guard;
-import bank.interfaces.MasterTeller;
-import bank.interfaces.Teller;
+import bank.interfaces.BankCustomer;
+import bank.interfaces.BankGuard;
+import bank.interfaces.BankMasterTeller;
+import bank.interfaces.BankTeller;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -11,7 +11,7 @@ import test.mock.LoggedEvent;
 import test.mock.Mock;
 
 
-public class MockTellerRole extends Mock implements Teller, Role{
+public class MockTellerRole extends Mock implements BankTeller, Role{
 
 	public MockTellerRole() {
 		super();
@@ -31,25 +31,25 @@ public class MockTellerRole extends Mock implements Teller, Role{
 	}
 
 	@Override
-	public void msgDeposit(Customer c, int SSN, double amount) {
+	public void msgDeposit(BankCustomer c, int SSN, double amount) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void msgLoan(Customer c, int SSN, double amount) {
+	public void msgLoan(BankCustomer c, int SSN, double amount) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void msgPayment(Customer c, int SSN, double amount) {
+	public void msgPayment(BankCustomer c, int SSN, double amount) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void msgRobbery(Customer c, int SSN, double amount) {
+	public void msgRobbery(BankCustomer c, int SSN, double amount) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -61,13 +61,13 @@ public class MockTellerRole extends Mock implements Teller, Role{
 	}
 
 	@Override
-	public void addGuard(Guard guard) {
+	public void addGuard(BankGuard guard) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void setMaster(MasterTeller masterTeller) {
+	public void setMaster(BankMasterTeller masterTeller) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -91,7 +91,7 @@ public class MockTellerRole extends Mock implements Teller, Role{
 	}
 
 	@Override
-	public void msgOpen(Customer c, int SSN, double amount, PersonAgent person) {
+	public void msgOpen(BankCustomer c, int SSN, double amount, PersonAgent person) {
 		log.add(new LoggedEvent("msgOpen: "+SSN+" "+amount+" "+person.getName()));
 	}
 	

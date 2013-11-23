@@ -1,9 +1,7 @@
 package restaurant_xurex.test.mock;
 
 
-import restaurant_xurex.WaiterAgent.MyCustomer;
-import restaurant_xurex.WaiterAgent.Order;
-import restaurant_xurex.WaiterAgent.WaiterState;
+import restaurant_xurex.utilities.*;
 import restaurant_xurex.gui.WaiterGui;
 import restaurant_xurex.interfaces.Cashier;
 import restaurant_xurex.interfaces.Cook;

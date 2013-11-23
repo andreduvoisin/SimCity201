@@ -1,0 +1,121 @@
+package market.gui;
+
+import java.awt.*;
+
+import market.*;
+import market.roles.MarketWorkerRole;
+
+public class MarketWorkerGui implements MarketBaseGui {
+	private MarketWorkerRole mAgent;
+	
+	private MarketOrder mOrder = null;
+	
+	private static final int xStart = -20, yStart = -20;
+	private static final int xHome = 0, yHome = 100;
+	
+	private int xPos = 50, yPos = 50;
+	private int xDestination = xHome, yDestination = yHome;
+	private static final int SIZE = 20;
+	
+	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
+	private EnumCommand mCommand = EnumCommand.noCommand;
+	
+	public MarketWorkerGui(MarketWorkerRole agent) {
+		mAgent = agent;
+	}
+	
+	public void updatePosition() {
+        if (xPos < xDestination)
+            xPos++;
+        else if (xPos > xDestination)
+            xPos--;
+
+        if (yPos < yDestination)
+            yPos++;
+        else if (yPos > yDestination)
+            yPos--;
+        
+        if(xPos == xDestination && yPos == yDestination) {
+        	switch(mCommand) {
+        	case goToMarket: {
+        		mCommand = EnumCommand.noCommand;
+        	}
+        	case fulFillOrder: {
+        		mAgent.msgOrderFulfilled(mOrder);
+        		mOrder = null;
+        		mCommand = EnumCommand.noCommand;
+        		break;
+        	}
+        	case goToCashier: {
+        		mCommand = EnumCommand.noCommand;
+        		break;
+        	}
+        	case goToCustomer: {
+        		mAgent.msgAnimationAtCustomer();
+        		mCommand = EnumCommand.noCommand;
+        		break;
+        	}
+        	case goToDeliveryTruck: {
+        		mAgent.msgAnimationAtDeliveryTruck();
+        		mCommand = EnumCommand.noCommand;
+        		break;
+        	}
+        	case leaveMarket: {
+        		mAgent.msgAnimationLeftMarket();
+        		mCommand = EnumCommand.noCommand;
+        		break;
+        	}
+        		default:
+        			break;
+        	}
+        }
+	}
+	
+	public void draw(Graphics2D g) {
+		g.setColor(Color.GREEN);
+		g.fillRect(xPos, yPos, SIZE, SIZE);
+	}
+	
+/* Action Calls */
+	public void DoGoToMarket() {
+		xDestination = xHome;
+		yDestination = yHome;
+		mCommand = EnumCommand.goToMarket;
+	}
+	
+	public void DoFulfillOrder(MarketOrder o) {
+		mOrder = o;
+	}
+	
+	public void DoGoToCustomer() {
+		
+	}
+	
+	public void DoGoToDeliveryTruck() {
+		
+	}
+	
+	public void DoLeaveMarket() {
+		xDestination = xStart;
+		yDestination = yStart;
+		mCommand = EnumCommand.leaveMarket;
+	}
+	
+	public void DoGoToHome() {
+		xDestination = xHome;
+		yDestination = yHome;
+	}
+	 
+/* Utilities */
+	public boolean isPresent() {
+		return true;
+	}
+	
+	public int getXPos() {
+		return xPos;
+	}
+	
+	public int getYPos() {
+		return yPos;
+	}
+}

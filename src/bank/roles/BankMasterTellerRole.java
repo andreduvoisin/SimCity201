@@ -6,30 +6,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bank.Account;
-import bank.Transaction;
-import bank.interfaces.MasterTeller;
+import bank.BankAccount;
+import bank.BankTransaction;
+import bank.interfaces.BankMasterTeller;
 import base.BaseRole;
-import base.interfaces.Role;
+import base.interfaces.Person;
 
-public class BankMasterTellerRole extends BaseRole implements MasterTeller{
+public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	
 //	DATA
 	public Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();
-	public List <Account> mAccounts = Collections.synchronizedList(new ArrayList<Account>());
-	public List<Transaction> mTransactions = Collections.synchronizedList(new ArrayList<Transaction>());
-	
-	//List <PersonAgent> totalPopulation;
-	
-//	MESSAGES
+	public List <BankAccount> mAccounts = Collections.synchronizedList(new ArrayList<BankAccount>());
+	public List<BankTransaction> mTransactions = Collections.synchronizedList(new ArrayList<BankTransaction>());
+		
+	public BankMasterTellerRole(Person person) {
+		mPerson = person;
+	}
+
+	//	MESSAGES
 	public void msgSendPayment(int senderSSN, int receiverSSN, double amount){
-		mTransactions.add(new Transaction(senderSSN, receiverSSN, amount));
+		mTransactions.add(new BankTransaction(senderSSN, receiverSSN, amount));
 		stateChanged();
 	}
 	
 //	SCHEDULER
 	public boolean pickAndExecuteAnAction(){
-		for (Transaction t : mTransactions){
+		for (BankTransaction t : mTransactions){
 			processTransaction(t);
 			mTransactions.remove(t);
 			return true;
@@ -38,9 +40,9 @@ public class BankMasterTellerRole extends BaseRole implements MasterTeller{
 	}
 	
 //	ACTIONS
-	private void processTransaction(Transaction t){
-		Account sender = mAccounts.get(mAccountIndex.get(t.sender));
-		Account receiver = mAccounts.get(mAccountIndex.get(t.receiver));
+	private void processTransaction(BankTransaction t){
+		BankAccount sender = mAccounts.get(mAccountIndex.get(t.sender));
+		BankAccount receiver = mAccounts.get(mAccountIndex.get(t.receiver));
 		if (sender.balance < t.amount){
 			sender.balance = 0;
 			double excess = t.amount - sender.balance;
@@ -57,7 +59,7 @@ public class BankMasterTellerRole extends BaseRole implements MasterTeller{
 	public Map<Integer, Integer> getAccountIndex() {
 		return mAccountIndex;
 	}
-	public List<Account> getAccounts() {
+	public List<BankAccount> getAccounts() {
 		return mAccounts;
 	}
 }

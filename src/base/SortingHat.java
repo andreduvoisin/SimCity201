@@ -1,22 +1,58 @@
 package base;
 
-import market.roles.MarketWorkerRole;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
+
+import java.util.List;
+
+import market.Market;
+import market.roles.MarketCashierRole;
+import market.roles.MarketCookCustomerRole;
+import market.roles.MarketCustomerRole;
+import market.roles.MarketDeliveryTruckRole;
+import market.roles.MarketWorkerRole;
+import bank.roles.BankCustomerRole;
+import bank.roles.BankGuardRole;
+import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class SortingHat {
 	
+	//list of all roles, accessed and instantiated 
+	static List<Role> sRoles;
+	
+	static void InstantiateBaseRoles(){
+		//Bank
+		sRoles.add(new BankCustomerRole(null));
+		sRoles.add(new BankGuardRole(null));
+		sRoles.add(new BankMasterTellerRole(null));
+		sRoles.add(new BankTellerRole(null));
+		
+		//Housing
+		sRoles.add(new HousingLandlordRole(null));
+		sRoles.add(new HousingOwnerRole(null));
+		sRoles.add(new HousingRenterRole(null));
+		
+		//Market
+		sRoles.add(new MarketCashierRole(null, new Market())); //ANGELICA SHANE REMOVE THIS (MARKET)
+		sRoles.add(new MarketCookCustomerRole(null));
+		sRoles.add(new MarketCustomerRole(null));
+		sRoles.add(new MarketDeliveryTruckRole(null));
+		sRoles.add(new MarketWorkerRole(null));
+		
+		//Restaurants
+		//REX - ADD RESTAURANT STUFF HERE WHEN DONE
+	}
 	
 	//BANK
 
 
 	public static Role getBankRole() {
 		//SHANE: 1 do this
-		Role role = new BankTellerRole();
+		//loop through roles and assign them in priority order
 		return role;
 	}
 	
@@ -34,7 +70,7 @@ public class SortingHat {
 			newRole = new HousingLandlordRole();
 		}
 		if (renter_count < max_renters) {
-			newRole = new HousingRenterRole();
+//			newRole = new HousingRenterRole();
 		} else {
 			newRole = new HousingOwnerRole();
 		}

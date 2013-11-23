@@ -3,14 +3,15 @@ package bank.roles;
 import java.util.ArrayList;
 import java.util.List;
 
+import bank.BankAction;
+import bank.interfaces.BankCustomer;
+import bank.interfaces.BankGuard;
+import bank.interfaces.BankTeller;
 import base.BaseRole;
 import base.PersonAgent;
-import bank.Action;
-import bank.interfaces.Customer;
-import bank.interfaces.Guard;
-import bank.interfaces.Teller;
+import base.interfaces.Person;
 
-public class BankCustomerRole extends BaseRole implements Customer{
+public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 //	DATA
 	
@@ -22,7 +23,7 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	
 	public double mTransaction;
 
-	public List<Action> mActions = new ArrayList<Action>();
+	public List<BankAction> mActions = new ArrayList<BankAction>();
 	/*Example: (Deposit, 34.23), (Loan, 3000.23)*/
 	
 	public enum EnumAction {Deposit, Loan, Payment, Open, Robbery};
@@ -33,12 +34,21 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	public enum EnumEvent {None, Assigned, Arrived, Received};
 
 	//Agent Correspondents//
-	public Guard mGuard;
-	public Teller mTeller;
+	public BankGuard mGuard;
+	public BankTeller mTeller;
+	
+	
+	public BankCustomerRole(Person person){
+		mPerson = person;
+	}
+	
+	public BankCustomerRole(){
+		
+	}
 	
 //	MESSAGES
 	
-	public void msgGoToTeller(Teller t){
+	public void msgGoToTeller(BankTeller t){
 		mTeller = t;
 		mEvent = EnumEvent.Assigned;
 		stateChanged();
@@ -159,7 +169,7 @@ public class BankCustomerRole extends BaseRole implements Customer{
 	public int getSSN() {
 		return mPerson.getSSN();
 	}
-	public void setGuard(Guard guard){
+	public void setGuard(BankGuard guard){
 		mGuard = guard;
 	}
 }

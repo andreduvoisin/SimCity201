@@ -2,7 +2,7 @@ package test.mock;
 
 import java.util.Map;
 
-import bank.interfaces.MasterTeller;
+import bank.interfaces.BankMasterTeller;
 import base.Item.EnumMarketItemType;
 import base.PersonAgent;
 import base.interfaces.Person;
@@ -59,7 +59,7 @@ public class MockPerson extends Mock implements Person {
 		return null;
 	}
 
-	public MasterTeller getMasterTeller() {
+	public BankMasterTeller getMasterTeller() {
 		return null;
 
 	}
