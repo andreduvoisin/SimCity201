@@ -3,22 +3,20 @@ package market.interfaces;
 import java.util.Map;
 
 import base.Item.EnumMarketItemType;
-import market.Invoice;
-import restaurant_smileham.test.mock.EventLog;
+import market.*;
 
 public interface Customer{
-	
-	public EventLog log = new EventLog();
-	
+		
 	//Messages
+	public abstract void msgInvoiceToPerson(Map<String, Integer> cannotFulfill, Invoice invoice);
+	
+	public abstract void msgHereIsCustomerOrder(Order order);
 	
 	//Animation
 	
 	//Scheduler
-	public abstract boolean pickAndExecuteAnAction();
+//	public abstract boolean pickAndExecuteAnAction();
 	//Actions
-
-	public abstract void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> canFulfill, Invoice invoice);
 	
 	//Accessors
 }

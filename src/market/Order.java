@@ -9,18 +9,20 @@ import market.interfaces.DeliveryTruck;
 import market.interfaces.Worker;
 
 public class Order {
-	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, ORDERING, DELIVERING, FULFILLING, DONE};
+	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, ORDERING, DELIVERING, BEING_DELIVERED, FULFILLING, DONE};
 	public EnumOrderStatus mStatus;
-	public static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, RECEIVED_ORDER};
+	public static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, READY_TO_DELIVER, RECEIVED_ORDER, NONE};
 	public EnumOrderEvent mEvent;
-	public Map<EnumMarketItemType, Integer> mItems;
+	public Map<String, Integer> mItems;
 	public Role mPersonRole;
 	public Worker mWorker;
 	public Cashier mCashier;
 	public DeliveryTruck mDeliveryTruck;
 	
-	public Order(Map<EnumMarketItemType, Integer> items, Role person) {
+	public Order(Map<String, Integer> items, Role person) {
 		mItems = items;
 		mPersonRole = person;
+		mStatus = EnumOrderStatus.CARTED;
+		mEvent = EnumOrderEvent.NONE;
 	}
 }
