@@ -64,6 +64,7 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 	
 	public HousingLandlordRole(Person person){
 		mPerson = person;
+		
 		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
 		mHousesList.add(new House(20, 20, 100.00)); 
 		mHousesList.add(new House(30, 30, 250.00));
@@ -145,48 +146,18 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 	/* Actions */
 
 	private void GiveRentDueNotice(MyRenter r) {
-		/*gui.DoGoToHouse(r.mHouse);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 		print("Action - GiveRentDueNotice");
 		r.mState = EnumRenterState.OwesRent;
 		r.mRenter.msgRentDue(mPerson.getSSN(), r.mHouse.mRent);
-		/*gui.DoLeaveHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	private void GiveRentOverdueNotice(MyRenter r) {
-		/*gui.DoGoToHouse(r.mHouse);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
 		r.mRenter.msgRentDue(mPerson.getSSN(), r.mHouse.mRent);
-		/*gui.DoLeaveHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
-		/*gui.DoGoToHouse(r.mHouse);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 		print("Action - GiveEvictionNotice");
 		r.mRenter.msgEviction();
 		synchronized (mHousesList) {
@@ -199,12 +170,6 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 		synchronized (mRenterList) {
 			mRenterList.remove(r);
 		}
-		/*gui.DoLeaveHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	void ReviewApplicant(MyRenter r) {
@@ -213,16 +178,24 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 			for(House h: mHousesList){
 				if(h.mOccupant == null){
 					r.mHouse = h; 
+					r.mHouse.mOccupant = r.mRenter;
+					r.mRenter.msgApplicationAccepted(r.mHouse);
+					r.mState = EnumRenterState.RentPaid;
+					return;
 				}
 			}
-			r.mHouse.mOccupant = r.mRenter;
-			r.mRenter.msgApplicationAccepted(r.mHouse);
-			r.mState = EnumRenterState.RentPaid;
+			r.mRenter.msgApplicationDenied();
+			synchronized (mRenterList) {
+				mRenterList.remove(r);
+			}
+			return;
+
 		} else {
 			r.mRenter.msgApplicationDenied();
 			synchronized (mRenterList) {
 				mRenterList.remove(r);
 			}
+			return;
 		}
 	}
 
