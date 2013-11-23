@@ -27,8 +27,8 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer{
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 
-	Map<EnumMarketItemType, Integer> mItemInventory = mPerson.getItemInventory();
-	Map<EnumMarketItemType, Integer> mItemsDesired = mPerson.getItemsDesired();
+	Map<EnumMarketItemType, Integer> mItemInventory;
+	Map<EnumMarketItemType, Integer> mItemsDesired;
 	
 	Map<EnumMarketItemType, Integer> mCannotFulfill = new HashMap<EnumMarketItemType, Integer>();
 
@@ -36,6 +36,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer{
 	
 	public MarketCustomerRole(Person person) {
 		mPerson = person;
+		
+		mItemInventory = mPerson.getItemInventory();
+		mItemsDesired = mPerson.getItemsDesired();
 	}
 	
 	//MESSAGES
