@@ -27,7 +27,7 @@ public class PersonAgent extends Agent implements Person {
 	static int sTimeSchedule = 0; //0,1,2
 	static int sEatingTime = 0;
 	static final int mealsToEat = 2;
-	static int sRestaurantAssignment = 0; //list of 8 restaurants
+	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
 
 	//Roles and Job
 	static enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
@@ -38,7 +38,7 @@ public class PersonAgent extends Agent implements Person {
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
-		//SHANE: Make synchronized?
+		//ALL: Does this need to be synchronized? -Shane
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
 	//Personal Variables
@@ -85,6 +85,7 @@ public class PersonAgent extends Agent implements Person {
 				mRoles.put(MarketCashierRole.getNextRole(), true);
 				break;
 			case RESTAURANT:
+				
 				//SHANE: MAKE A STATIC METHOD FOR RESTAURANT INTERFACE FOR ADDING PEOPLE
 				Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
 				sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
@@ -95,12 +96,6 @@ public class PersonAgent extends Agent implements Person {
 				//never will happen...
 				break;
 		}
-//		if (mStartingRole.equals("Landlord")) {
-//			LandlordRole newLandlordRole = new LandlordRole();
-//			for (int i=0; i<4; i++) {
-//				newLandlordRole.mHousesList.add(new House(5, 5, 60));				
-//			}
-//		}
 	}
 	
 	private void initializePerson(){

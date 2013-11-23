@@ -206,8 +206,12 @@ public class HousingLandlordRole extends BaseRole implements Landlord {
 	}
 
 	public static Role getNextRole() {
-		// SHANE: ADD GETNEXTROLE METHODS
-		Role landlord = new HousingLandlordRole();
+		// DAVID: ADD GETNEXTROLE METHODS
+		HousingLandlordRole landlord = new HousingLandlordRole();
+		for (int i=0; i<4; i++) {
+			landlord.mHousesList.add(new House(5, 5, 60));				
+		}
+		
 		return landlord;
 	}
 
