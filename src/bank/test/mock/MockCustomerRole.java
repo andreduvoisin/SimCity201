@@ -11,6 +11,8 @@ import base.interfaces.Role;
 
 
 public class MockCustomerRole extends Mock implements Customer, Role{
+	
+	public PersonAgent mPerson;
 
 	public MockCustomerRole() {
 		super();
@@ -59,8 +61,7 @@ public class MockCustomerRole extends Mock implements Customer, Role{
 
 	@Override
 	public void setPerson(Person person) {
-		// TODO Auto-generated method stub
-		
+		mPerson = (PersonAgent)person;
 	}
 
 }

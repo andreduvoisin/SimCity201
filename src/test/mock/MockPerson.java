@@ -4,6 +4,7 @@ import java.util.Map;
 
 import bank.interfaces.MasterTeller;
 import base.Item.EnumMarketItemType;
+import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -19,8 +20,7 @@ public class MockPerson extends Mock implements Person {
 	public Person person;
 
 	public MockPerson(String name) {
-		this.name = name; 
-
+		this.name = name;
 	}
 	
 	public String getName(){
@@ -108,6 +108,10 @@ public class MockPerson extends Mock implements Person {
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void setPerson(PersonAgent person){
+		this.person = person;
 	}
 
 }

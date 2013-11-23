@@ -1,5 +1,7 @@
 package bank.interfaces;
 
+import base.PersonAgent;
+
 
 public interface Teller {
 
@@ -9,7 +11,7 @@ public interface Teller {
 
 	public abstract void msgPayment(Customer c, int SSN, double amount);
 
-	public abstract void msgOpen(Customer c, int SSN, double amount, String name);
+	public abstract void msgOpen(Customer c, int SSN, double amount, PersonAgent person);
 
 	public abstract void msgRobbery(Customer c, int SSN, double amount);
 
