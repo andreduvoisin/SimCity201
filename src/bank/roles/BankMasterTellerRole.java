@@ -22,6 +22,10 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	public BankMasterTellerRole(Person person) {
 		mPerson = person;
 	}
+	
+	public BankMasterTellerRole() {
+		
+	}
 
 	//	MESSAGES
 	public void msgSendPayment(int senderSSN, int receiverSSN, double amount){

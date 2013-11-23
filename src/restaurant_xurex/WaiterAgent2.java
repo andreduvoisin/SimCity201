@@ -25,7 +25,7 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
-	List<MyCustomer> customers = new ArrayList<MyCustomer>();
+	public List<MyCustomer> customers = new ArrayList<MyCustomer>();
 	List<Order> orders = new ArrayList<Order>();
 	Cook cook;
 	Host host;
@@ -34,7 +34,7 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	
 	static Map<String, Integer> menu = new HashMap<String, Integer>();
 	
-	WaiterState state = WaiterState.good;
+	public WaiterState state = WaiterState.good;
 	
 	private WaiterGui waiterGui = null;
 
@@ -56,10 +56,6 @@ public class WaiterAgent2 extends Agent implements Waiter{
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#getName()
-	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -167,7 +163,7 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	/**
 	 * Scheduler: the brains of the operation
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.askedToOrder){
 				StayStill(); return true;
@@ -369,24 +365,12 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	}
 	
 	//UTILITIES
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setHost(restaurant.interfaces.Host)
-	 */
-	@Override
 	public void setHost (Host host){
 		this.host = host;
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setCook(restaurant.interfaces.Cook)
-	 */
-	@Override
 	public void setCook (Cook cook){
 		this.cook = cook;
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setCashier(restaurant.interfaces.Cashier)
-	 */
-	@Override
 	public void setCashier (Cashier cashier){
 		this.cashier = cashier;
 	}

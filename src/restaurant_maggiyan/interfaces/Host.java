@@ -14,21 +14,21 @@ import restaurant_maggiyan.HostAgent.WaiterState;
  */
 public interface Host {
 	//From Customer 
-		public void msgIWantFood(CustomerAgent cust);
+		public void msgIWantFood(Customer cust);
 		
-		public void msgLeaving(CustomerAgent customer);
+		public void msgLeaving(Customer customer);
 		
 		//From Waiter
-		public void msgIAmHere(WaiterAgent waiter);
+		public void msgIAmHere(Waiter waiter);
 		
-		public void msgWaiterFree(WaiterAgent w);
-		public void msgWaiterBusy(WaiterAgent w);
+		public void msgWaiterFree(Waiter w);
+		public void msgWaiterBusy(Waiter w);
 		
 		
-		public void msgCanIGoOnBreak(WaiterAgent w);
+		public void msgCanIGoOnBreak(Waiter w);
 		
-		public void msgDoneWithBreak(WaiterAgent w);
+		public void msgDoneWithBreak(Waiter w);
 		
-		public void msgTableFree(int tableNum, WaiterAgent w);
+		public void msgTableFree(int tableNum, Waiter w);
 
 }

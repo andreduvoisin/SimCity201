@@ -25,6 +25,10 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		mPerson = person;
 	}
 	
+	public BankGuardRole() {
+		
+	}
+	
 //	MESSAGES
 	
 	public void msgNeedService(BankCustomer c){
