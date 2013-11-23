@@ -1,6 +1,6 @@
 package restaurant_tranac.gui;
 
-import restaurant_tranac.agents.CookAgent;
+import restaurant_tranac.roles.RestaurantCookRole_at;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,9 +12,9 @@ import java.util.*;
 
 import javax.imageio.ImageIO;
 
-public class CookGui implements Gui {
+public class CookGui_at implements Gui {
 
-    private CookAgent agent;
+    private RestaurantCookRole_at agent;
 
     private int xPos = 540, yPos = 60;					//default cook position
     private int xDestination = 540, yDestination = 60;	//default cook position
@@ -34,7 +34,7 @@ public class CookGui implements Gui {
 
     private BufferedImage image;
     
-    public CookGui(CookAgent agent) {
+    public CookGui_at(RestaurantCookRole_at agent) {
         this.agent = agent;
         
         //plating locations for food

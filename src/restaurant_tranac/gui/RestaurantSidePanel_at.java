@@ -1,12 +1,7 @@
 package restaurant_tranac.gui;
 
-import base.Agent;
-import restaurant_tranac.agents.CashierAgent;
-import restaurant_tranac.agents.CookAgent;
-import restaurant_tranac.agents.CustomerAgent;
-import restaurant_tranac.agents.HostAgent;
-import restaurant_tranac.agents.MarketAgent;
-import restaurant_tranac.agents.WaiterAgent;
+import base.BaseRole;
+import restaurant_tranac.roles.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -18,22 +13,22 @@ import java.util.Vector;
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
-public class RestaurantPanel extends JPanel {
+public class RestaurantSidePanel_at extends JPanel {
 
-	private Vector<Agent> agents = new Vector<Agent>();	//List of all the agents
+	private Vector<BaseRole> agents = new Vector<BaseRole>();	//List of all the agents
 	
-    private HostAgent host = new HostAgent("Sora");
-    private HostGui hostGui = new HostGui(host);
+    private RestaurantHostRole_at host = new RestaurantHostRole_at("Sora");
+    private HostGui_at hostGui = new HostGui_at(host);
 
-    private CookAgent cook = new CookAgent("Riku");
-    private CookGui cookGui = new CookGui(cook);
+    private RestaurantCookRole_at cook = new RestaurantCookRole_at("Riku");
+    private CookGui_at cookGui = new CookGui_at(cook);
     
-    private CashierAgent cashier = new CashierAgent("Kairi");
-    private CashierGui cashierGui = new CashierGui(cashier);
+    private RestaurantCashierRole_at cashier = new RestaurantCashierRole_at("Kairi");
+    private CashierGui_at cashierGui = new CashierGui_at(cashier);
     
     private Vector<MarketAgent> markets = new Vector<MarketAgent>();
-    private Vector<WaiterAgent> waiters = new Vector<WaiterAgent>();
-    private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
+    private Vector<RestaurantWaiterRole_at> waiters = new Vector<RestaurantWaiterRole_at>();
+    private Vector<RestaurantCustomerRole_at> customers = new Vector<RestaurantCustomerRole_at>();
 
     private JPanel restLabel = new JPanel();
 
@@ -43,7 +38,7 @@ public class RestaurantPanel extends JPanel {
     private ListPanel marketPanel = new ListPanel(this,"Markets");
     private ScenarioPanel scenarioPanel = new ScenarioPanel(this, customerPanel, waiterPanel, marketPanel);
     
-    private RestaurantGui gui; //reference to main gui
+    private RestaurantGui_at gui; //reference to main gui
     
     private final int GAP = 20;
     private final double cheapCost = 5.99;
@@ -51,7 +46,7 @@ public class RestaurantPanel extends JPanel {
     private final int lHeight = 400;
     private final int width = 165;
     
-    public RestaurantPanel(RestaurantGui gui) {
+    public RestaurantSidePanel_at(RestaurantGui_at gui) {
         this.gui = gui;
         
         agents.add(host);
@@ -122,8 +117,8 @@ public class RestaurantPanel extends JPanel {
      */
     public void addPerson(String type, String name) {
     	if (type.equals("Customers")) {
-    		CustomerAgent c = new CustomerAgent(name);
-    		CustomerGui g = new CustomerGui(c, gui);
+    		RestaurantCustomerRole_at c = new RestaurantCustomerRole_at(name);
+    		CustomerGui_at g = new CustomerGui_at(c, gui);
 
     		gui.animationPanel.addGui(g);
     		c.setHost(host);
@@ -134,11 +129,11 @@ public class RestaurantPanel extends JPanel {
     		c.startThread();
     	}
     	if(type.equals("Waiters")) {
-    		WaiterAgent w = new WaiterAgent(name, host, cook, cashier);
+    		RestaurantWaiterRole_at w = new RestaurantWaiterRole_at(name, host, cook, cashier);
     		waiters.add(w);
     		agents.add(w);
     		
-    		WaiterGui g = new WaiterGui(w, gui, waiters.size()-1);
+    		WaiterGui_at g = new WaiterGui_at(w, gui, waiters.size()-1);
     		//size of waiters = the numer of the new created waiter
     		
     		gui.animationPanel.addGui(g);
@@ -159,8 +154,8 @@ public class RestaurantPanel extends JPanel {
 
     public void addPerson(String type, String name, String hack) {
     	if (type.equals("Customers")) {
-		CustomerAgent c = new CustomerAgent(name);
-    		CustomerGui g = new CustomerGui(c, gui);
+		RestaurantCustomerRole_at c = new RestaurantCustomerRole_at(name);
+    		CustomerGui_at g = new CustomerGui_at(c, gui);
 
     		switch(hack) {
     			case "willWait": {
@@ -220,11 +215,11 @@ public class RestaurantPanel extends JPanel {
     	cook.setInventory(n);
     }
     
-    public Vector<CustomerAgent> getCustomers() {
+    public Vector<RestaurantCustomerRole_at> getCustomers() {
     	return customers;
     }
     
-    public Vector<WaiterAgent> getWaiters() {
+    public Vector<RestaurantWaiterRole_at> getWaiters() {
     	return waiters;
     }
     
@@ -232,19 +227,19 @@ public class RestaurantPanel extends JPanel {
     	return markets;
     }
     
-    public CookAgent getCook() {
+    public RestaurantCookRole_at getCook() {
     	return cook;
     }
     
-    public CashierAgent getCashier() {
+    public RestaurantCashierRole_at getCashier() {
     	return cashier;
     }
     
-    public void setEnabled(CustomerAgent c) {		//used to allow customer to be hungry again
+    public void setEnabled(RestaurantCustomerRole_at c) {		//used to allow customer to be hungry again
     	customerPanel.setEnabled(c);
     }
     
-    public void setEnabled(WaiterAgent w) {
+    public void setEnabled(RestaurantWaiterRole_at w) {
     	waiterPanel.setEnabled(w);
     }
 }

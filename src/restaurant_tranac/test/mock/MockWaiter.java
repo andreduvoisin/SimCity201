@@ -2,6 +2,7 @@ package restaurant_tranac.test.mock;
 
 import restaurant_tranac.Check;
 import restaurant_tranac.interfaces.*;
+import test.mock.*;
 
 /**
  * MockWaiter built for unit testing.
@@ -11,8 +12,8 @@ import restaurant_tranac.interfaces.*;
 
 public class MockWaiter extends Mock implements Waiter {
 
-	public MockWaiter(String name) {
-		super(name);
+	public MockWaiter() {
+		super();
 	}
 	
 	public void msgHereIsCheck(Check c) {

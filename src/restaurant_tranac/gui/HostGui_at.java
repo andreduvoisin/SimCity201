@@ -1,25 +1,23 @@
 package restaurant_tranac.gui;
 
-import restaurant_tranac.agents.CashierAgent;
+import restaurant_tranac.roles.RestaurantHostRole_at;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-public class CashierGui implements Gui {
+public class HostGui_at implements Gui {
 
-    private CashierAgent agent;
+    private RestaurantHostRole_at agent = null;
 
-    private int xPos = 230, yPos = 130;					//static host position
-    private int xDestination = 230, yDestination = 130;	//static cashier position
+    private int xPos = 50, yPos = 20;					//static host position
+    private int xDestination = 50, yDestination = 20;	//static host position
 
     private BufferedImage image;
     
-    public CashierGui(CashierAgent agent) {
+    public HostGui_at(RestaurantHostRole_at agent) {
         this.agent = agent;
         
     	image = null;
@@ -32,7 +30,7 @@ public class CashierGui implements Gui {
     	}
     }
 
-	public void updatePosition() {
+    public void updatePosition() {
         if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
@@ -41,13 +39,13 @@ public class CashierGui implements Gui {
         if (yPos < yDestination)
             yPos++;
         else if (yPos > yDestination)
-            yPos--;
-	}
-	
+            yPos--;   
+    }
+
     public void draw(Graphics2D g) {
     	g.setColor(Color.WHITE);
     	g.drawImage(image, xPos, yPos, null);
-    	g.drawString("The Cashier", xPos-25, yPos-3);
+    	g.drawString("The Host", xPos-15, yPos-3);
     }
 
     public boolean isPresent() {
