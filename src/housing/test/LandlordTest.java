@@ -140,8 +140,8 @@ public class LandlordTest extends TestCase {
 		mHousingLandlord.mTimeToCheckRent = true; 	
 		
 		//Check 3: HousingLandlord properly conducts second rent collection 
-		//mHousingRenter1.log.clear(); //clear in order to check whether or not HousingLandlord receives RentDue again
-		//assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
+		mHousingRenter1.log.clear(); //clear in order to check whether or not HousingLandlord receives RentDue again
+		assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
 //		assertTrue("HousingRenter1 should receive another message", mHousingRenter1.log.size() ==  1); 
 //		assertTrue("HousingRenter1 should receive rent due message", mHousingRenter1.log.containsString("Received msgRentDue")); 
 //		assertTrue("HousingRenter2 should receive another message", mHousingRenter2.log.size() ==  4); 

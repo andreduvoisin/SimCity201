@@ -7,8 +7,11 @@ import housing.interfaces.HousingRenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
+import base.Event;
+import base.Time;
 import base.interfaces.Person;
 
 /*
@@ -122,12 +125,20 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	private void CollectRent(){
 		synchronized (mRenterList) {
 			//change to iterator 
-			for (MyRenter r : mRenterList) {
-				if (r.mState == EnumRenterState.RentOverdue) {
-					GiveEvictionNotice(r);
-					
+			Iterator<MyRenter> itr = mRenterList.iterator();
+			while (itr.hasNext()) {
+				MyRenter renter = itr.next();
+				if (renter.mState == EnumRenterState.RentOverdue) {
+					GiveEvictionNotice(renter);
+					itr.remove();
 				}
 			}
+//			for (MyRenter r : mRenterList) {
+//				if (r.mState == EnumRenterState.RentOverdue) {
+//					GiveEvictionNotice(r);
+//				}
+//				
+//			}
 		}
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
