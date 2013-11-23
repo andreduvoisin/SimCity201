@@ -185,7 +185,8 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Housing Events
-		//ASK_FOR_RENT, MAINTAIN_HOUSE,				//Housing Events
+		//ASK_FOR_RENT, MAINTAIN_HOUSE,				//Housing Events DAVID MAGGI: 1 Housing recurring events here
+		//then make submethods, and do recurring as shown below, or just tag me and tell me how often
 		
 		//Party Events
 		if (event.mEventType == EnumEventType.INVITE1) {
