@@ -43,4 +43,8 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 		return 0;
 	}
 
+	public Person getPerson() {
+		return null;
+	}
+
 }
