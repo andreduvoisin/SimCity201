@@ -7,6 +7,7 @@ import java.util.List;
 
 import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.HostGui;
+import restaurant_davidmca.interfaces.Cook;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
 import base.Agent;

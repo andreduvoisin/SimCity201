@@ -4,7 +4,7 @@ import java.util.Map;
 
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.agents.CashierAgent;
-import restaurant_davidmca.agents.CookAgent;
+import restaurant_davidmca.interfaces.Cook;
 import restaurant_davidmca.interfaces.Market;
 
 public class MockMarket implements Market {
@@ -31,7 +31,7 @@ public class MockMarket implements Market {
 	}
 
 	@Override
-	public void msgWantToBuy(CookAgent c, Map<String, Integer> stuffToBuy) {
+	public void msgWantToBuy(Cook c, Map<String, Integer> stuffToBuy) {
 		Menu prices = new Menu();
 		for (Map.Entry<String, Integer> food: stuffToBuy.entrySet()) {
 			orderTotal += (prices.getPrice(food.getKey())*food.getValue());
