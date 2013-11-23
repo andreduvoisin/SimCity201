@@ -86,16 +86,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Scheduler */
 
 	public boolean pickAndExecuteAnAction() {
-
-		synchronized (mRenterList) {
-			for (MyRenter r : mRenterList) {
-				if (r.mState == EnumRenterState.ApplyingForHousing) {
-					ReviewApplicant(r);
-					return true;
-				}
-			}
-		}
-
 		if (mTimeToCheckRent && mRenterList.size() > 0) {
 			mTimeToCheckRent = false;
 			synchronized (mRenterList) {
@@ -123,6 +113,28 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 				}
 			}
 		}
+		
+		synchronized (mRenterList) {
+			for (MyRenter r : mRenterList) {
+				if (r.mState == EnumRenterState.ApplyingForHousing) {
+					ReviewApplicant(r);
+					return true;
+				}
+			}
+		}
+		
+		if (mHungry) {
+			mHungry = false;
+			EatAtHome();
+			return true;
+		}
+
+		if (mTimeToMaintain) {
+			mTimeToMaintain = false;
+			Maintain();
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -180,6 +192,26 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			}
 			return;
 		}
+	}
+	
+	void EatAtHome() {
+		/*gui.DoCookAndEatFood();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
+		print("Action - Eat at Home");
+	}
+
+	void Maintain() {
+		/*gui.DoMaintainHouse();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
+		print("Action - Maintain");
 	}
 
 	/* Utilities */
