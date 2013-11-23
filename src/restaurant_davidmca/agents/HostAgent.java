@@ -227,7 +227,7 @@ public class HostAgent extends Agent {
 
 	private void seatCustomer(Customer customer, Table table, Waiter waiter) {
 		print("seat customer");
-		waiter.msgSeatAtTable(customer, table);
+		waiter.msgSeatAtTable(customer, table, customer.getGui().getHomeLocation());
 		table.setOccupant(customer);
 		waitingCustomers.remove(customer);
 	}

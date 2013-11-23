@@ -30,7 +30,9 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		g.fillRect(0, 0, getWidth(), getHeight());
 		moveComponents();
 		drawComponents(g);
+		
 	}
+	
 	
 	public void drawComponents(Graphics g) {
 		for (CityComponent c:statics) {

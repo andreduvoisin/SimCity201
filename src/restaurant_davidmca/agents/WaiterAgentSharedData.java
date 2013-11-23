@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
+
 import restaurant_davidmca.Check;
 import restaurant_davidmca.Menu;
 import restaurant_davidmca.Order;
@@ -124,8 +125,8 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 	}
 
 	@Override
-	public void msgSeatAtTable(Customer c, Table t) {
-		myCustomers.add(new MyCustomer(c, t, c.getGui().getHomeLocation()));
+	public void msgSeatAtTable(Customer c, Table t, int homeLocation) {
+		myCustomers.add(new MyCustomer(c, t, homeLocation));
 		stateChanged();
 	}
 
@@ -208,7 +209,7 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 	/**
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Arrived) {
@@ -220,6 +221,7 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Ready) {
+					print("triggering action WhatWouldYouLike");
 					WhatWouldYouLike(myc);
 					return true;
 				}
@@ -279,7 +281,10 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 			TakeABreak();
 			return true;
 		}
-		waiterGui.DoGoToFront();
+		try {
+			waiterGui.DoGoToFront();
+		} catch (Exception e) {
+		}
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -321,13 +326,19 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 
 	private void FollowMe(MyCustomer myc) {
 		print("Follow me");
-		waiterGui.DoGoToCustomer(myc.loc);
+		try {
+			waiterGui.DoGoToCustomer(myc.loc);
+		} catch (Exception e) {
+		}
 		try {
 			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
 		}
-		waiterGui.DoGoToTable(myc.t);
+		try {
+			waiterGui.DoGoToTable(myc.t);
+		} catch (Exception e) {
+		}
 		myc.c.msgFollowMe(this, myc.t);
 		try {
 			isAnimating.acquire();

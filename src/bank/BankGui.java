@@ -16,12 +16,12 @@ public class BankGui extends JFrame implements ActionListener{
 	static final int xIndexing = 50;
 	static final int yIndexing = 50;
 	
-	static final int WINDOWX = 700;
-	static final int WINDOWY = 600;
-	static final int BankX = 700;
-	static final int BankY = 600;
+	static final int WINDOWX = 500;
+	static final int WINDOWY = 500;
+	static final int BankX = 500;
+	static final int BankY = 500;
 	static final int CONTROLX = 300;
-	static final int CONTROLY = 600;
+	static final int CONTROLY = 500;
 	
 	public BankGui() {
 		BankFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

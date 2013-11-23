@@ -12,7 +12,6 @@ import market.Order.EnumOrderEvent;
 import market.Order.EnumOrderStatus;
 import market.interfaces.Cashier;
 import market.interfaces.Cook;
-import base.Item.EnumMarketItemType;
 import base.PersonAgent;
 import base.BaseRole;
 
@@ -24,10 +23,10 @@ import base.BaseRole;
 public class MarketCookCustomerRole extends BaseRole implements Cook {
 	//RestaurantCashierRole mRestaurantCashier;
 
-	Map<EnumMarketItemType, Integer> mItemInventory = new HashMap<EnumMarketItemType, Integer>();
-	Map<EnumMarketItemType, Integer> mItemsDesired = new HashMap<EnumMarketItemType, Integer>();
+	Map<String, Integer> mItemInventory = new HashMap<String, Integer>();
+	Map<String, Integer> mItemsDesired = new HashMap<String, Integer>();
 	
-	Map<EnumMarketItemType, Integer> mCannotFulfill = new HashMap<EnumMarketItemType, Integer>();
+	Map<String, Integer> mCannotFulfill = new HashMap<String, Integer>();
 	
 	List<Order> mOrders = Collections.synchronizedList(new ArrayList<Order>());
 	List<Invoice> mInvoices	= Collections.synchronizedList(new ArrayList<Invoice>());
@@ -35,11 +34,11 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	Cashier mMarketCashier;
 	
 	public MarketCookCustomerRole(PersonAgent person) {
-		setPerson(person);
+		mPerson = person;
 	}
 	
 /* Messages */
-	public void msgInvoiceToPerson(Map<EnumMarketItemType,Integer> cannotFulfill, Invoice invoice) {
+	public void msgInvoiceToPerson(Map<String,Integer> cannotFulfill, Invoice invoice) {
 		mInvoices.add(invoice);
 		mCannotFulfill = cannotFulfill;
 		invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
@@ -48,6 +47,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	
 	public void msgHereIsCookOrder(Order o) {
 		o.mEvent = EnumOrderEvent.RECEIVED_ORDER;
+		stateChanged();
 	}
 	
 	
@@ -76,7 +76,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 			}
 		}
 		//check efficiency of method
-		for(EnumMarketItemType i : mItemsDesired.keySet()) {
+		for(String i : mItemsDesired.keySet()) {
 			if(mItemsDesired.get(i) != 0) {
 				createOrder();
 				return true;
@@ -89,7 +89,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	private void createOrder() {
 		Order o = new Order(mItemsDesired, this);
 		
-		for(EnumMarketItemType item : mItemsDesired.keySet()) {
+		for(String item : mItemsDesired.keySet()) {
 			mItemsDesired.put(item,0);
 		}
 		
@@ -102,9 +102,10 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	
 	private void payAndProcessOrder(Invoice i) {
 		i.mPayment = i.mTotal;
+		//check if cannot afford invoice
 		//check how to get payment from restaurant cashier
 		
-		for(EnumMarketItemType item : mCannotFulfill.keySet()) {
+		for(String item : mCannotFulfill.keySet()) {
 			mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
 		}
 		
@@ -114,7 +115,7 @@ public class MarketCookCustomerRole extends BaseRole implements Cook {
 	}
 	
 	private void completeOrder(Order o) {
-		for(EnumMarketItemType item : o.mItems.keySet()) {
+		for(String item : o.mItems.keySet()) {
 			mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
 		}
 	}

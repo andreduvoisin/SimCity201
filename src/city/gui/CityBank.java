@@ -26,6 +26,8 @@ public class CityBank extends CityComponent {
 
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x, y, 20, 20);
+		g.fillOval(x, y, 25, 25);
+		g.setColor(Color.WHITE);
+		g.drawString("B",x + 10 , y + 17);
 	}
 }

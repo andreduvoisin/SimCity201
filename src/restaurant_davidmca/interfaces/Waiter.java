@@ -31,7 +31,7 @@ public interface Waiter {
 
 	public abstract void msgHereIsCheck(Check chk);
 
-	public abstract void msgSeatAtTable(Customer c, Table t);
+	public abstract void msgSeatAtTable(Customer c, Table t, int home);
 
 	public abstract void msgReadyToOrder(Customer c);
 

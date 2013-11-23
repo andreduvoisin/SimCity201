@@ -9,7 +9,7 @@ public class CityRoad extends CityComponent {
 	private RoadDirection direction;
 	
 	public CityRoad(int x, RoadDirection direction) {
-		super(x, 0, Color.gray, "Road");
+		super(x, 0, Color.black, "Road");
 		this.direction = direction;
 		if (direction == RoadDirection.HORIZONTAL)
 			rectangle = new Rectangle(0, x, 1000, 20);
