@@ -1,4 +1,4 @@
-package restaurant_davidmca.gui;
+package base;
 
 import java.awt.*;
 

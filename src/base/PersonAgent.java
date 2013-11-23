@@ -1,5 +1,6 @@
 package base;
 
+import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -30,15 +31,17 @@ public class PersonAgent extends Agent implements Person {
 	static int sEatingTime = 0;
 	
 	//Roles and Job
-	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, NONE};
+	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
 	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
+	public HousingBaseRole mHouseRole;
+	//SHANE make sure mHouseRole gets set when the roles are instantiated
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
-		//ALL: Does this need to be synchronized? -Shane
+		//ALL: Does this need to be synchronized? -SHANE
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 
 	//Personal Variables
@@ -70,29 +73,26 @@ public class PersonAgent extends Agent implements Person {
 		
 		switch (job){
 			case BANK:
-				mRoles.put(SortingHat.getBankRole(), true); //true = initially active
-				break;
-			case HOUSING:
-				mRoles.put(SortingHat.getHousingRole(), true);
+				mRoles.put(SortingHat.getBankRole(mTimeShift), true); //true = initially active
 				break;
 			case MARKET:
-				mRoles.put(SortingHat.getMarketRole(), true);
+				mRoles.put(SortingHat.getMarketRole(mTimeShift), true);
 				break;
 			case RESTAURANT:
-				mRoles.put(SortingHat.getRestaurantRole(), true);
+				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), true);
 				break;
-			case NONE:
-				//wealthy people - no role
-				break;
+			case TRANSPORTATION: break;
+			case HOUSING: break;
+			case NONE: break;
 		}
+		//SHANE: assign role based on time shift (if me or other person with same role)
 		
+		mRoles.put(SortingHat.getHousingRole(this), true); //get housing status
 		mRoles.put(new BankCustomerRole(this), false);
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-//		mRoles.put(new RestaurantCustomerRole, false);
-		//REX: Create RestaurantCustomerRole
-		
+		mRoles.put(new RestaurantCustomerRole(this), false);
 	}
 	
 	private void initializePerson(){
@@ -112,7 +112,7 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
 		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
-		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN days
+		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 
@@ -183,6 +183,14 @@ public class PersonAgent extends Agent implements Person {
 		//Intermittent Events (Deposit Check)
 		if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
 			depositCheck();
+		}
+		
+		if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
+			invokeRent();
+		}
+		
+		if (event.mEventType == EnumEventType.MAINTAIN_HOUSE) {
+			invokeMaintenance();
 		}
 		
 		//Party Events
@@ -272,6 +280,14 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void respondToRSVP(){
 		
+	}
+	
+	private void invokeRent() {
+		mHouseRole.msgTimeToCheckRent();
+	}
+	
+	private void invokeMaintenance() {
+		mHouseRole.msgTimeToMaintain();
 	}
 
 	

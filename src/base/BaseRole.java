@@ -60,4 +60,9 @@ public class BaseRole implements Role{
         }
         System.out.print(sb.toString());
     }
+
+	@Override
+	public Person getPerson() {
+		return mPerson;
+	}
 }

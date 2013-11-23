@@ -8,28 +8,17 @@ import housing.interfaces.HousingRenter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Semaphore;
 
-import base.BaseRole;
 import base.interfaces.Person;
-import base.interfaces.Role;
 
 /*
  * @author David Carr, Maggi Yang
  */
 
-public class HousingLandlordRole extends BaseRole implements HousingLandlord {
+public class HousingLandlordRole extends HousingBaseRole implements HousingLandlord {
 
 	/* Data */
 
-	Timer mRentTimer = new Timer();
-	TimerTask mRentTimerTask = new TimerTask() {
-		public void run() {
-			mTimeToCheckRent = true;
-		}
-	};
 	public List<MyRenter> mRenterList = Collections
 			.synchronizedList(new ArrayList<MyRenter>());
 	public List<House> mHousesList = Collections
@@ -37,13 +26,10 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 	int mMinCash = 50;
 	int mMinSSN = 0;
 	private HousingLandlordGui gui = new HousingLandlordGui();
-	private Semaphore isAnimating = new Semaphore(0, true);
 
 	enum EnumRenterState {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
 	};
-
-	public boolean mTimeToCheckRent = false;
 
 	private class MyRenter {
 		HousingRenter mRenter;
@@ -78,14 +64,11 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 	}
 
 	/* Messages */
-
-	public void msgDoneAnimating() {
-		isAnimating.release();
-		stateChanged();
-	}
+	
+	
 
 	public void msgIWouldLikeToLiveHere(HousingRenter r, double cash, int SSN) {
-		print("Message - I would like to live here recieved");
+		print("Message - I would like to live here received");
 		MyRenter newRenter = new MyRenter(r, cash, SSN);
 		newRenter.mState = EnumRenterState.ApplyingForHousing;
 		mRenterList.add(newRenter);
@@ -103,19 +86,8 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 	/* Scheduler */
 
 	public boolean pickAndExecuteAnAction() {
-
-		synchronized (mRenterList) {
-			for (MyRenter r : mRenterList) {
-				if (r.mState == EnumRenterState.ApplyingForHousing) {
-					ReviewApplicant(r);
-					return true;
-				}
-			}
-		}
-
 		if (mTimeToCheckRent && mRenterList.size() > 0) {
 			mTimeToCheckRent = false;
-			mRentTimer.schedule(mRentTimerTask, 1000000); //DAVID MAGGI: establish schedule for rent
 			synchronized (mRenterList) {
 				for (MyRenter r : mRenterList) {
 					if (r.mState == EnumRenterState.RentOverdue) {
@@ -141,6 +113,28 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 				}
 			}
 		}
+		
+		synchronized (mRenterList) {
+			for (MyRenter r : mRenterList) {
+				if (r.mState == EnumRenterState.ApplyingForHousing) {
+					ReviewApplicant(r);
+					return true;
+				}
+			}
+		}
+		
+		if (mHungry) {
+			mHungry = false;
+			EatAtHome();
+			return true;
+		}
+
+		if (mTimeToMaintain) {
+			mTimeToMaintain = false;
+			Maintain();
+			return true;
+		}
+		
 		return false;
 	}
 
@@ -179,17 +173,45 @@ public class HousingLandlordRole extends BaseRole implements HousingLandlord {
 			for(House h: mHousesList){
 				if(h.mOccupant == null){
 					r.mHouse = h; 
+					r.mHouse.mOccupant = r.mRenter;
+					r.mRenter.msgApplicationAccepted(r.mHouse);
+					r.mState = EnumRenterState.RentPaid;
+					return;
 				}
 			}
-			r.mHouse.mOccupant = r.mRenter;
-			r.mRenter.msgApplicationAccepted(r.mHouse);
-			r.mState = EnumRenterState.RentPaid;
+			r.mRenter.msgApplicationDenied();
+			synchronized (mRenterList) {
+				mRenterList.remove(r);
+			}
+			return;
+
 		} else {
 			r.mRenter.msgApplicationDenied();
 			synchronized (mRenterList) {
 				mRenterList.remove(r);
 			}
+			return;
 		}
+	}
+	
+	void EatAtHome() {
+		/*gui.DoCookAndEatFood();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
+		print("Action - Eat at Home");
+	}
+
+	void Maintain() {
+		/*gui.DoMaintainHouse();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}*/
+		print("Action - Maintain");
 	}
 
 	/* Utilities */

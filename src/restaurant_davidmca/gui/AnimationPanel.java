@@ -10,6 +10,8 @@ import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import base.Gui;
+
 public class AnimationPanel extends JPanel implements ActionListener {
 
 	private final int WINDOWX = 600;
