@@ -64,4 +64,10 @@ public class MockCustomerRole extends Mock implements BankCustomer, Role{
 		mPerson = (PersonAgent)person;
 	}
 
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

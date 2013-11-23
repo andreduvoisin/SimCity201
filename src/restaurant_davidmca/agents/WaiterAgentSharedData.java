@@ -14,6 +14,7 @@ import restaurant_davidmca.Table;
 import restaurant_davidmca.gui.HostGui;
 import restaurant_davidmca.gui.WaiterGui;
 import restaurant_davidmca.interfaces.Cashier;
+import restaurant_davidmca.interfaces.Cook;
 import restaurant_davidmca.interfaces.Customer;
 import restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
@@ -30,6 +31,7 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 			.synchronizedList(new ArrayList<Check>());
 	public WaiterGui waiterGui = null;
 	private Cashier cashier;
+	public Cook cook;
 	private HostAgent host;
 	private Semaphore isOnBreak = new Semaphore(1, true);
 	private boolean breakRequested;
@@ -61,7 +63,7 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 	}
 
 	private String name;
-	private Semaphore isAnimating = new Semaphore(0, true);
+	public Semaphore isAnimating = new Semaphore(0, true);
 	public HostGui hostGui = null;
 
 	@Override
@@ -221,7 +223,6 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Ready) {
-					print("triggering action WhatWouldYouLike");
 					WhatWouldYouLike(myc);
 					return true;
 				}
@@ -375,7 +376,10 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 
 	private void WhatWouldYouLike(MyCustomer myc) {
 		print("What Would You Like?");
-		waiterGui.DoGoToTable(myc.t);
+		try {
+			waiterGui.DoGoToTable(myc.t);
+		} catch (Exception e) {
+		}
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -402,27 +406,39 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 	}
 
 	private void HereIsAnOrder(MyCustomer myc) {
-		waiterGui.DoGoToKitchen();
+		try {
+			waiterGui.DoGoToKitchen();
+		} catch (Exception e) {
+
+		}
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		myc.state = CustomerState.WaitingForFood;
-		synchronized (host.cook.revolvingStand) {
-			host.cook.revolvingStand.add(new Order(this, myc.choice, myc.t));
+		synchronized (cook.getRevolvingStand()) {
+			cook.getRevolvingStand().add(new Order(this, myc.choice, myc.t));
 		}
 	}
 
 	private void HereIsYourOrder(MyCustomer myc) {
-		waiterGui.DoGoToKitchen();
+		try {
+			waiterGui.DoGoToKitchen();
+		} catch (Exception e) {
+
+		}
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		waiterGui.setLabelText(myc.choice);
-		waiterGui.DoGoToTable(myc.t);
+		try {
+			waiterGui.setLabelText(myc.choice);
+			waiterGui.DoGoToTable(myc.t);
+		} catch (Exception e) {
+
+		}
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -430,7 +446,11 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 		}
 		myc.c.msgHereIsYourOrder();
 		myc.state = CustomerState.Eating;
-		waiterGui.setLabelText("");
+		try {
+			waiterGui.setLabelText("");
+		} catch (Exception e) {
+
+		}
 	}
 
 	private void ClearTable(MyCustomer myc) {
@@ -449,6 +469,10 @@ public class WaiterAgentSharedData extends Agent implements Waiter {
 	@Override
 	public WaiterGui getGui() {
 		return waiterGui;
+	}
+
+	public void setCook(Cook c) {
+		cook = c;
 	}
 
 }

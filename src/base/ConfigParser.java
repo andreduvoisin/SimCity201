@@ -23,12 +23,16 @@ public class ConfigParser {
 		SortingHat.InstantiateBaseRoles();
 		
 		while (scanFile.hasNext()) {
-			//Order of Inputs: Job Type (BANK, MARKET, RESTAURANT), Cash, Name
+			//Order of Inputs: Job Type (BANK, MARKET, RESTAURANT, NONE), Cash, Name
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
 			
 			//Job
 			String jobString = scanPerson.next();
-			EnumJobType jobType = EnumJobType.valueOf(jobString);
+			EnumJobType jobType = null;
+			if (jobString.equals("BANK")) {
+				jobType = EnumJobType.BANK;
+			}
+			//EnumJobType jobType = EnumJobType.valueOf(jobString);
 			
 			//Cash
 			String cashString = scanPerson.next();

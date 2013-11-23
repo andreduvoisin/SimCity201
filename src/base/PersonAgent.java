@@ -14,7 +14,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import market.roles.MarketCustomerRole;
-import restaurant_all.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
@@ -96,7 +95,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false);
+		//mRoles.put(new RestaurantCustomerRole(this), false);
 	}
 	
 	private void initializePerson(){
