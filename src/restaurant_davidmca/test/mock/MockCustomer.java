@@ -84,16 +84,18 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void msgFollowMe(Waiter w, Table t) {
+		log.add(new LoggedEvent("Recieved msgFollowMe"));
 
 	}
 
 	@Override
 	public void msgWhatWouldYouLike(Menu m) {
-
+		log.add(new LoggedEvent("Recieved msgWhatWouldYouLike"));
 	}
 
 	@Override
 	public void msgHereIsYourOrder() {
+		log.add(new LoggedEvent("Recieved msgHereIsYourOrder"));
 
 	}
 

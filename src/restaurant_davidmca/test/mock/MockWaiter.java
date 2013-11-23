@@ -60,7 +60,7 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 
 	@Override
-	public void msgSeatAtTable(Customer c, Table t) {
+	public void msgSeatAtTable(Customer c, Table t, int home) {
 		
 	}
 
