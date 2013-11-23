@@ -1,7 +1,5 @@
 package base;
 
-import housing.roles.HousingLandlordRole;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +10,6 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import market.roles.MarketCashierRole;
 import bank.interfaces.MasterTeller;
 import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
@@ -26,12 +23,10 @@ public class PersonAgent extends Agent implements Person {
 	static int sSSN = 0;
 	static int sTimeSchedule = 0; //0,1,2
 	static int sEatingTime = 0;
-	static final int mealsToEat = 2;
-	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
-
+	
 	//Roles and Job
-	static enum EnumJobPlaces {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION};
-	private EnumJobPlaces mJobPlace;
+	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, NONE};
+	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	
 	//Lists
@@ -62,18 +57,15 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(EnumJobPlaces job, double cash, String name){
+	public PersonAgent(EnumJobType job, double cash, String name){
 		initializePerson();
 		mJobPlace = job;
 		mCash = cash;
 		mName = name;
 		
-		//SHANE: 1 Make role after asking correct roles
-		
-		//SHANE: Add try/catch here
 		switch (job){
 			case BANK:
-				mRoles.put(SortingHat.getBankRole(), true); //initially active
+				mRoles.put(SortingHat.getBankRole(), true); //true = initially active
 				break;
 			case HOUSING:
 				mRoles.put(SortingHat.getHousingRole(), true);
@@ -83,17 +75,14 @@ public class PersonAgent extends Agent implements Person {
 				mRoles.put(SortingHat.getMarketRole(), true);
 				break;
 			case RESTAURANT:
-				
-				//SHANE: MAKE A STATIC METHOD FOR RESTAURANT INTERFACE FOR ADDING PEOPLE
-				Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
-				sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
-				//SHANE: Create 
-				//RestaurantHost host = (RestaurantHost) hostPerson;
+				mRoles.put(SortingHat.getRestaurantRole(), true);
 				break;
-			case TRANSPORTATION:
-				//never will happen...
+			case NONE:
+				//wealthy people - no role
 				break;
 		}
+		
+		//SHANE: 1 add other roles like customer roles here
 	}
 	
 	private void initializePerson(){
@@ -171,7 +160,7 @@ public class PersonAgent extends Agent implements Person {
 		//Daily Recurring Events (Job, Eat)
 		if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
-			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobPlaces.BANK)){
+			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobType.BANK)){
 				goToJob();
 			}
 			mEvents.add(new Event(event, 24));
