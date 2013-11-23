@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import city.gui.CityPerson;
 import market.roles.MarketCustomerRole;
 import restaurant_all.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
@@ -33,7 +34,7 @@ public class PersonAgent extends Agent implements Person {
 	static int sEatingTime = 0;
 	
 	//Roles and Job
-	static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
 	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -55,6 +56,7 @@ public class PersonAgent extends Agent implements Person {
 	Set<Location> mHomeLocations; //multiple for landlord
 	boolean mHasCar;
 	Location mWorkLocation;
+	CityPerson personGui = null;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -262,6 +264,10 @@ public class PersonAgent extends Agent implements Person {
 		// market.getHose().msgImHere(roles.find(MarketCustomerRole));
 		// roles.find(MarketCustomerRole).active = T;
 		// state = PersonState.Shopping;
+	}
+	
+	public void SetGui(CityPerson pGui){
+		personGui = pGui;
 	}
 
 	private void depositCheck() {

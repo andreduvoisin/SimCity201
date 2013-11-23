@@ -10,15 +10,22 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import base.PersonAgent;
+
 public abstract class SimCityPanel extends JPanel implements ActionListener, MouseListener {
 
 	protected SimCityGui city;
 	protected ArrayList<CityComponent> statics, movings;
 	protected Color background;
 	protected Timer timer;
+	private PersonAgent person = new PersonAgent(PersonAgent.EnumJobType.NONE, 20, "bob" );
+	private CityPerson personGui = new CityPerson(person, city);
+	
 	
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
+		person.SetGui(personGui);
+		person.startThread();
 		statics = new ArrayList<CityComponent>();
 		movings = new ArrayList<CityComponent>();
 		timer = new Timer(50, this);
@@ -49,6 +56,10 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 			c.updatePosition();
 		}
 	}
+	/*
+	public void addGui(WPersonGui gui) {
+		guis.add(gui);
+	}*/
 	
 	public void addStatic(CityComponent c) {
 		statics.add(c);
