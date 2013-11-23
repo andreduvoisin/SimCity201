@@ -61,6 +61,7 @@ public class BankMasterTellerRole extends BaseRole implements MasterTeller{
 
 	public static Role getNextRole() {
 		// SHANE: ADD GETROLE METHODS
+		
 		Role role = new BankTellerRole();
 		return role;
 	}

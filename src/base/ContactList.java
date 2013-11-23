@@ -12,10 +12,11 @@ public class ContactList {
 	static Map<BankMasterTellerRole, Location> sBankMasterTellers;
 	static Map<HousingLandlordRole, Location> sHousingLandlords;
 	static Map<MarketCashierRole, Location> sMarketCashiers;
-	static Map<Person, Location> sRestaurantHosts; //ALL: Make a host interface and implement a restaurant SHANE: 1 TELL PEOPLE TO ADD A L L
+	static Map<Person, Location> sRestaurantHosts; //ALL: Make a host interface and implement a restaurant
 	
-	//REX ALL: What else do we need here?
+	//REX ALL: What else do we need here? -Shane
 	// SHANE: consider above maps with location as a key, instead of value
 	// so that we can look up the role-person by location
 	// (finding the location of a role isn't as helpful, methinks)
+	//^^^Why? Who is this?
 }

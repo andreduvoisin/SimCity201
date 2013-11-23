@@ -22,7 +22,7 @@ public class Item {
     }
 	
 	//REX: 2 Set prices
-	
+
 	EnumMarketItemType mItemType;
 	
 	public Item(EnumMarketItemType itemType){
