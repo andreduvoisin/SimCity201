@@ -47,6 +47,9 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mPerson = person;
 	}
 
+	public BankTellerRole() {
+		
+	}
 	
 	//	MESSAGES
 	
