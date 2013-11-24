@@ -1,9 +1,10 @@
 /bank
 /base
+/city
 /housing
 /market
-/restaurant_all
+/reference
+/restaurant
+/runconfig
 /test
 /transportation
-/restaurant
-/city

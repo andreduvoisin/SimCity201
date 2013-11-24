@@ -16,7 +16,7 @@ public class ConfigParser {
 	private static ConfigParser instance = null;
 
 	public void readFileCreatePersons(CityPanel citypanel) throws FileNotFoundException {
-		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/config.txt"));
+		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/config.txt"));
 		
 		//Instantiate the base roles before creating the people
 		SortingHat.InstantiateBaseRoles();
@@ -47,7 +47,7 @@ public class ConfigParser {
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			synchronized (person) {
 				citypanel.masterPersonList.add(person);
-				((PersonAgent) person).startThread();
+//				((PersonAgent) person).startThread();
 			}
 			
 			scanPerson.close();

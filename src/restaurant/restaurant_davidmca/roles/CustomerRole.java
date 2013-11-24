@@ -379,10 +379,11 @@ public class CustomerRole extends BaseRole implements Customer {
 		this.hungerLevel = hungerLevel;
 	}
 
-	@Override
-	public String toString() {
-		return "customer " + getName();
-	}
+
+//	@Override
+//	public String toString() {
+//		return "customer " + getName();
+//	}
 
 	@Override
 	public void setGui(CustomerGui g) {
