@@ -32,6 +32,7 @@ public class HousingPersonGui implements Gui {
 			yPos += 1;
 		else if (yPos > yDestination)
 			yPos -= 1;
+		
 		if (xPos == xDestination && yPos == yDestination && currentlyAnimating) {
 			currentlyAnimating = false;
 			housingrole.msgDoneAnimating();
@@ -39,7 +40,7 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLUE);
+		g.setColor(Color.RED);
 		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
 	}
 
