@@ -51,7 +51,7 @@ public class CashierTest extends TestCase {
 		double orderTotal = market1.orderTotal;
 		assertEquals("Make sure the invoice total is correct",
 				cashier.invoicesToPay.get(0).total, orderTotal);
-		cashier.startThread();
+		cashier.pickAndExecuteAnAction();
 		// Wait a bit for the cashier thread to start and process the invoice
 		try {
 			Thread.sleep(100);
@@ -95,7 +95,7 @@ public class CashierTest extends TestCase {
 				cashier.invoicesToPay.get(0).total, firstOrderTotal);
 		assertEquals("Make sure the second invoice total is correct",
 				cashier.invoicesToPay.get(1).total, secondOrderTotal);
-		cashier.startThread();
+		cashier.pickAndExecuteAnAction();
 		// Wait a bit for the cashier thread to start and process the invoice
 		try {
 			Thread.sleep(100);
