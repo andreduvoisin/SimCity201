@@ -2,6 +2,8 @@ package restaurant.restaurant_smileham.gui;
 
 import javax.swing.*;
 
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.agents.HostAgent;
@@ -12,10 +14,10 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AnimationPanel extends JPanel implements ActionListener {
+public class AnimationPanel extends CityCard implements ActionListener {
 
-    private final int WINDOWX = 450;
-    private final int WINDOWY = RestaurantGui.cWINDOWY;
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
 //    private Image bufferImage;
 //    private Dimension bufferSize;
 
@@ -23,7 +25,8 @@ public class AnimationPanel extends JPanel implements ActionListener {
     
     
     //CONSTRUCTOR
-    public AnimationPanel() {
+    public AnimationPanel(SimCityGui city, Color background) {
+    	super(city, background);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         
@@ -37,7 +40,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 		repaint();  //Will have paintComponent called
 	}
 
-    public void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame

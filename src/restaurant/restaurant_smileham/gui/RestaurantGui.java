@@ -13,7 +13,7 @@ import java.awt.event.*;
  * Contains the main frame and subsequent panels
  */
 @SuppressWarnings("serial")
-public class RestaurantGui extends CityCard implements ActionListener {
+public class RestaurantGui extends JFrame implements ActionListener {
     /* The GUI has two frames, the control frame (in variable gui) 
      * and the animation frame, (in variable animationFrame within gui)*/
 	
@@ -33,8 +33,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
     
 
     //CONSTRUCTOR
-    public RestaurantGui(SimCityGui city, Color background) {
-    	super(city, background);
+    public RestaurantGui() {
         //Alter JFrame RestaurantGUI
         setBounds(50, 50, cWINDOWX, cWINDOWY);
         setLayout(new GridLayout(1,2));
@@ -151,11 +150,11 @@ public class RestaurantGui extends CityCard implements ActionListener {
      * Main routine to get gui started
      */
     public static void main(String[] args) {
-        //RestaurantGui gui = new RestaurantGui();
-        //gui.setTitle("CSCI201 Restaurant");
-        //gui.setVisible(true);
-        //gui.setResizable(false);
-        //gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        RestaurantGui gui = new RestaurantGui();
+        gui.setTitle("CSCI201 Restaurant");
+        gui.setVisible(true);
+        gui.setResizable(false);
+        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     public RestaurantPanel getRestaurantPanel(){
@@ -175,7 +174,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
     	if (exit) return;
     	JOptionPane.showMessageDialog(mRestPanel, message);
     	setVisible(false);
-    	//dispose();
+    	dispose();
     	exit = true;
     }
     
