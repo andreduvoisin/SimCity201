@@ -65,8 +65,11 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 
 	/* Messages */
 	
+	public void msgTimeToCheckRent() {
+		mTimeToCheckRent = true;
+		stateChanged();
+	}
 	
-
 	public void msgIWouldLikeToLiveHere(HousingRenter r, double cash, int SSN) {
 		print("Message - I would like to live here received");
 		MyRenter newRenter = new MyRenter(r, cash, SSN);

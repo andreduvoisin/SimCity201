@@ -128,6 +128,26 @@ public class RenterTest extends TestCase {
 	}
 	
 	public void testMaintenance(){
+		//Set house 
+		mHousingRenter.mHouse = mHouse1; 
+		
+		//Preconditions
+		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
+		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
+		
+		//Set renter hungry
+		mHousingRenter.mTimeToMaintain = true;  
+	}
+	
+	public void testHungry(){
+		
+		//Set house 
+		mHousingRenter.mHouse = mHouse1; 
+		
+		//Preconditions
+		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
+		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
+		
 		
 	}
 	

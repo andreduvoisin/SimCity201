@@ -9,9 +9,9 @@ import base.BaseRole;
 
 public class HousingBaseRole extends BaseRole {
 	
-	boolean mHungry = false;
-	boolean mTimeToMaintain = false;
-	public boolean mTimeToCheckRent = false;
+	public boolean mHungry = false;
+	public boolean mTimeToMaintain = false;
+	
 	Semaphore isAnimating = new Semaphore(0, true);
 	HousingPersonGui gui;
 	public House mHouse = null;
@@ -23,11 +23,6 @@ public class HousingBaseRole extends BaseRole {
 
 	public void msgEatAtHome() {
 		mHungry = true;
-		stateChanged();
-	}
-	
-	public void msgTimeToCheckRent() {
-		mTimeToCheckRent = true;
 		stateChanged();
 	}
 
