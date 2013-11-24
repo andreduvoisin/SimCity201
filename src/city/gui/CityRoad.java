@@ -8,14 +8,18 @@ import java.awt.Rectangle;
 public class CityRoad extends CityComponent {
 	
 	private RoadDirection direction;
+	private int ROADWIDTH = 30; 
+	private int ROADLENGTH = 1000; 
+	private int HOUSEBLOCKWIDTH = 20; 
 	
 	public CityRoad(int x, RoadDirection direction) {
 		super(x, 0, Color.black, "Road");
 		this.direction = direction;
 		if (direction == RoadDirection.HORIZONTAL)
-			rectangle = new Rectangle(0, x, 1000, 40);
-		else
-			rectangle = new Rectangle(x, 0, 40, 1000);
+			rectangle = new Rectangle(0, x, ROADLENGTH, ROADWIDTH);
+		else if(direction == RoadDirection.VERTICAL)
+			rectangle = new Rectangle(x, 0, ROADWIDTH, ROADLENGTH);
+		
 	}
 
 	public CityRoad(int x, RoadDirection direction, String I) {

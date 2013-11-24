@@ -1,10 +1,10 @@
 package housing.test.mock;
 
 import base.PersonAgent;
+
 import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.MockPerson;
-import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
