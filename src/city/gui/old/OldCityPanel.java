@@ -58,7 +58,7 @@ public class OldCityPanel extends JPanel implements ActionListener{
 		
 		bufferSize = this.getSize();
 		
-		Time mTime = new Time();
+		//Time mTime = new Time();
    	}
 
 	

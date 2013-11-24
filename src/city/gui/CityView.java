@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import bank.BankPanel;
+import bank.gui.BankPanel;
 import restaurant.restaurant_davidmca.gui.AnimationPanel;
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
 

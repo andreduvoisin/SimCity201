@@ -2,6 +2,7 @@ package city.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class CityRoad extends CityComponent {
@@ -23,6 +24,24 @@ public class CityRoad extends CityComponent {
 	}
 
 	public void updatePosition() {
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
 	}
 
 //	public void paint(Graphics g) {

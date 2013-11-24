@@ -2,6 +2,7 @@ package city.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class CityRestaurant extends CityComponent {
@@ -29,6 +30,24 @@ public class CityRestaurant extends CityComponent {
 		g.fill3DRect(x, y, 100, 60, true);
 		g.setColor(Color.BLACK);
 		g.drawString(restaurantName,x + 5 , y + 15);
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

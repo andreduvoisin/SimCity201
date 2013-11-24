@@ -2,6 +2,7 @@ package city.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 
@@ -29,6 +30,24 @@ public class CityHousing extends CityComponent {
 		g.fillRect(x, y, 50, 50);
 		g.setColor(Color.WHITE);
 		g.drawString(houseName,x + 7 , y + 17);
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
 	}	
 
 }

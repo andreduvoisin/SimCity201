@@ -1,4 +1,4 @@
-package bank;
+package bank.gui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -8,6 +8,7 @@ import java.util.List;
 
 import city.gui.CityCard;
 import city.gui.SimCityGui;
+import base.Gui;
 import base.interfaces.Person;
 
 
@@ -22,7 +23,9 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	static final int panelXpos = 0;
 	static final int panelYpos = 0;
-	static final int timerCount = 5;	
+	static final int timerCount = 5;
+	
+	private List<Gui> guis = new ArrayList<Gui>();
 	
 	public BankPanel(SimCityGui city) {
 		super(city);
@@ -45,5 +48,4 @@ public class BankPanel extends CityCard implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
 	}
-
 }
