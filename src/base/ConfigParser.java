@@ -31,6 +31,9 @@ public class ConfigParser {
 			if (jobString.equals("BANK")) {
 				jobType = EnumJobType.BANK;
 			}
+			if (jobString.equals("RESTAURANT")) {
+				jobType = EnumJobType.RESTAURANT;
+			}
 			//EnumJobType jobType = EnumJobType.valueOf(jobString);
 			
 			//Cash

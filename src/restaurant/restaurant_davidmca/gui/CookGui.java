@@ -11,8 +11,8 @@ public class CookGui implements Gui {
 	private Cook agent = null;
 
 	private int xPos, yPos = -20;
-	private int xHome = 300, yHome = 600;
-	private int xDestination = 300, yDestination = 600;
+	private int xHome = 300, yHome = 450;
+	private int xDestination = 300, yDestination = 450;
 	private int FoodSize;
 	private static int CookSize = 20;
 	private String labelText = "";
@@ -71,19 +71,19 @@ public class CookGui implements Gui {
 	public void DoGoToFridge() {
 		currentlyAnimating = true;
 		xDestination = 300;
-		yDestination = 500;
+		yDestination = 350;
 	}
 
 	public void DoGoToPlating() {
 		currentlyAnimating = true;
 		xDestination = 250;
-		yDestination = 600;
+		yDestination = 450;
 	}
 
 	public void DoGoToGrill(int grillnum) {
 		currentlyAnimating = true;
 		xDestination = 400;
-		yDestination = 550+grillnum*10;
+		yDestination = 400+grillnum*10;
 	}
 	
 	public void DoGoToHome() {

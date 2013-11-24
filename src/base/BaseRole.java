@@ -10,7 +10,9 @@ public class BaseRole implements Role{
 	
 	//NEEDED METHODS
 	protected void stateChanged(){
+		if (!(mPerson==null)) {
 		((PersonAgent)mPerson).stateChanged();
+		}
 	}
 	
 	public boolean pickAndExecuteAnAction(){
@@ -52,7 +54,7 @@ public class BaseRole implements Role{
      */
     protected void print(String msg, Throwable e) {
         StringBuffer sb = new StringBuffer();
-        sb.append(mPerson.getName());
+        //sb.append(mPerson.getName());
         sb.append(": ");
         sb.append(msg);
         sb.append("\n");

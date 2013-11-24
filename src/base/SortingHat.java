@@ -3,7 +3,6 @@ package base;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
-import intermediate.RestaurantCashierRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,12 +54,12 @@ public class SortingHat {
 
 		//Restaurants
 
-		for (int iRestaurantNum = 0; iRestaurantNum < 8; iRestaurantNum++){
-			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+		for (int iRestaurantNum = 1; iRestaurantNum < 2; iRestaurantNum++){
+			sRoleLocations.put(new RestaurantHostRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCashierRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCookRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-				sRoleLocations.put(new RestaurantWaiterRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+				sRoleLocations.put(new RestaurantWaiterRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
 			}
 		}		
 		
