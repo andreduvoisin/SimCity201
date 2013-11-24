@@ -32,22 +32,22 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	void EatAtHome() {
-		gui.DoCookAndEatFood();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		gui.DoCookAndEatFood();
+//		try {
+//			isAnimating.acquire();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		print("Action - Eat at Home");
 	}
 
 	void Maintain() {
-		gui.DoMaintainHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		gui.DoMaintainHouse();
+//		try {
+//			isAnimating.acquire();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		print("Action - Maintain");
 	}
 	
