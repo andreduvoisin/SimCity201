@@ -49,14 +49,16 @@ public class MarketPanel extends JPanel implements ActionListener {
 	private void addGuis() {
 		guis.add(new MarketItemsGui());
 		guis.add(new MarketCashierGui(null));
-		guis.add(new MarketDeliveryTruckGui(null));
+	//	guis.add(new MarketDeliveryTruckGui(null));
 		guis.add(new MarketCustomerGui(null));
 		guis.add(new MarketWorkerGui(null));
 	}
 	
 	public void testGuis() {
-		MarketWorkerGui m = (MarketWorkerGui)guis.get(4);
-		m.setItemsGui((MarketItemsGui)guis.get(0));
+//		MarketWorkerGui m = (MarketWorkerGui)guis.get(3);
+//		m.setItemsGui((MarketItemsGui)guis.get(0));
+		MarketCustomerGui c = (MarketCustomerGui)guis.get(2);
+		c.DoWaitForOrder();
 	}
 	
 	public void addGui(MarketBaseGui g) {

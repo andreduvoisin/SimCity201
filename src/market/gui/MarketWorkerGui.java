@@ -14,11 +14,11 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private MarketOrder mOrder = null;
 	
 	private static final int xStart = -20, yStart = -20;
-	private static final int xHome = 0, yHome = 100;
+	private static final int xHome = 200, yHome = 10;
 	private static final int xDeliveryTruck = 250, yDeliveryTruck = 500;
 	private int xCustomer = 100, yCustomer = 250;
 	
-	private int xPos = 50, yPos = 50;
+	private int xPos = xStart, yPos = yStart;
 	private int xDestination = xHome, yDestination = yHome;
 	private static final int SIZE = 20;
 	
