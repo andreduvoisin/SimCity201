@@ -47,6 +47,7 @@ public class ConfigParser {
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			synchronized (person) {
 				citypanel.masterPersonList.add(person);
+				citypanel.addMoving(person.getPersonGui());
 //				((PersonAgent) person).startThread();
 			}
 			

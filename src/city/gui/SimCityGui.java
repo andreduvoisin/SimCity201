@@ -18,6 +18,8 @@ public class SimCityGui extends JFrame {
 	CityView view;
 	CityControlPanel CP;
 	GridBagConstraints c = new GridBagConstraints();
+	
+	static CityPanel cityPanel;
 
 	public SimCityGui() throws HeadlessException, IOException {
 		CP = new CityControlPanel(this);
@@ -49,11 +51,19 @@ public class SimCityGui extends JFrame {
 		Person person = city.masterPersonList.get(0);
 		if (person instanceof PersonAgent){
 			((PersonAgent) person).msgAnimationDone();
+			((PersonAgent) person).getCar();
+			((PersonAgent) person).msgAnimationDone();
+		}
+		
+		if (person instanceof PersonAgent){
+			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).pickAndExecuteAnAction();
 //			((PersonAgent) person).pickAndExecuteAnAction();
-			
+		}
+		
+		if (person instanceof PersonAgent){
 			//Housing
 			((PersonAgent) person).invokeMaintenance();
 			((PersonAgent) person).mHouseRole.setHouse(view.house1);
@@ -81,6 +91,7 @@ public class SimCityGui extends JFrame {
 		test.setResizable(false);
 		test.pack();
 		test.setVisible(true);
+		
 	}
 	
 }

@@ -2,8 +2,8 @@ package base.interfaces;
 
 import java.util.Map;
 
-import bank.interfaces.BankMasterTeller;
 import base.Item.EnumMarketItemType;
+import city.gui.CityPerson;
 
 public interface Person {
 	void msgTimeShift();
@@ -35,5 +35,7 @@ public interface Person {
 	public Role getHousingRole();
 
 	void subLoan(double mTransaction);
+	
+	public CityPerson getPersonGui();
 
 }
