@@ -50,6 +50,7 @@ public class MockWaiter extends Mock implements Waiter {
 
 	//COOK MESSAGES
 	public void OrderIsReady(String choice, int table, int kitchen) {
+		log.add(new LoggedEvent("OrderIsReady: "+choice+" "+table));
 	}
 
 	public void OutOfFood(int table, String choice) {

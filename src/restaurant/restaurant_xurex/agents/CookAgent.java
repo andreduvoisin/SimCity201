@@ -1,9 +1,9 @@
 package restaurant.restaurant_xurex.agents;
 
 import base.Agent;
-import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
+import restaurant.restaurant_xurex.interfaces.CookGui_;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 
@@ -22,7 +22,7 @@ public class CookAgent extends Agent implements Cook {
 	{pending, ready, completed}; //Can use boolean instead
 	
 	private Semaphore atLocation = new Semaphore(0,true);
-	private CookGui cookGui = null;
+	private CookGui_ cookGui = null;
 	RestaurantGui gui;
 	
 	public class CookOrder{
@@ -30,7 +30,7 @@ public class CookAgent extends Agent implements Cook {
 		String choice;
 		int table;
 		int kitchenNum = 0;
-		OrderState s;
+		public OrderState s;
 		
 		CookOrder(Waiter w, String choice, int table){
 			this.w=w; this.choice=choice; this.table=table; s=OrderState.pending;
@@ -69,12 +69,12 @@ public class CookAgent extends Agent implements Cook {
 	
 	private Map<Integer, Boolean> Kitchen = new HashMap<Integer, Boolean>();
 	
-	private List<CookOrder> orders = Collections.synchronizedList(new ArrayList<CookOrder>());
+	public List<CookOrder> orders = Collections.synchronizedList(new ArrayList<CookOrder>());
 	public List<CookOrder> revolvingStand = Collections.synchronizedList(new ArrayList<CookOrder>());
-	private List<MarketOrder> marketOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	public List<MarketOrder> marketOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	//AGENT CORRESPONDENTS
-	List<Market> markets = new ArrayList<Market>();
+	public List<Market> markets = new ArrayList<Market>();
 
 	//CONSTRUCTORS
 	public CookAgent(String name) {
@@ -182,7 +182,7 @@ public class CookAgent extends Agent implements Cook {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		synchronized(orders){
 		for (CookOrder order: orders){
 			if(order.s==OrderState.cooked){
@@ -338,7 +338,7 @@ public class CookAgent extends Agent implements Cook {
 		this.gui = gui;
 	}
 	
-	public void setGui(CookGui cookGui){
+	public void setGui(CookGui_ cookGui){
 		this.cookGui = cookGui;
 	}
 	private void runTimer(){
