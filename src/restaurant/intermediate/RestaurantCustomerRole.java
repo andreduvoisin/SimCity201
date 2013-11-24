@@ -15,7 +15,6 @@ public class RestaurantCustomerRole extends BaseRole {
 
 	public RestaurantCustomerRole(Person person) {
 		mPerson = person;
-		int x = 0; //SHANE testing
 	}
 	
 	public RestaurantCustomerRole(Person person, int restaurantID){

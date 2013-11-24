@@ -10,7 +10,7 @@ public class BaseRole implements Role {
 
 	// NEEDED METHODS
 	protected void stateChanged() {
-		System.out.println("STATECHANGED");
+		System.out.println("BaseRole:stateChanged()");
 
 		//Person person = getPerson();
 //		System.out.println("PERSON: " + person.toString());
