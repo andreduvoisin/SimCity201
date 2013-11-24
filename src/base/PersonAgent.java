@@ -32,9 +32,9 @@ import city.gui.CityPerson;
 public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
-	static int sSSN = 0;
-	static int sTimeSchedule = 0; //0,1,2
-	static int sEatingTime = 0;
+	private static int sSSN = 0;
+	private static int sTimeSchedule = 0; //0,1,2
+	private static int sEatingTime = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
@@ -304,41 +304,48 @@ public class PersonAgent extends Agent implements Person {
 		mGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
 		
-
-
-		//add job role
+		mGui.setInvisible();
 		
-		// DoGoTo(work.location);
+		
+
 		// work.getHost().msgImHere(job);
-		// job.active = T;
-		// state = PersonState.Working;
 	}
 
 	public void eatFood() {
 		//decide if eating at home or not
 		//SHANE REX: 3 get to this 
-		
-		//set random restaurant
-		RestaurantCustomerRole restaurantCustomerRole = null;
-		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof RestaurantCustomerRole){
-				restaurantCustomerRole = (RestaurantCustomerRole) iRole;
+		if (isCheap()){
+			
+			
+			
+		}else{
+			//set random restaurant
+			RestaurantCustomerRole restaurantCustomerRole = null;
+			for (Role iRole : mRoles.keySet()){
+				if (iRole instanceof RestaurantCustomerRole){
+					restaurantCustomerRole = (RestaurantCustomerRole) iRole;
+				}
 			}
+			//set restaurant customer role to active
+			mRoles.put(restaurantCustomerRole, true);
+			
+			
+			int restaurantChoice = 1; // SHANE: Make random
+			try {
+				restaurantCustomerRole.setRestaurant(restaurantChoice);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} // DAVID: 1 This is where it's set
+			
+			
+			
+			try {
+				mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
+			}
+			catch (Exception e) {
+			}
+			acquireSemaphore(semAnimationDone);
 		}
-		
-		int restaurantChoice = 1; // SHANE: Make random
-		try {
-			restaurantCustomerRole.setRestaurant(restaurantChoice);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		} // DAVID: 1 This is where it's set
-		
-		try {
-			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-		}
-		catch (Exception e) {
-		}
-		acquireSemaphore(semAnimationDone);
 		
 	}
 	
@@ -387,6 +394,11 @@ public class PersonAgent extends Agent implements Person {
 			if (iPerson.getTimeShift() == mTimeShift) bestFriends.add(iPerson);
 		}
 		return bestFriends;
+	}
+	
+	private boolean isCheap(){
+//		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
+		return false;
 	}
 	
 

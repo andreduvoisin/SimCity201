@@ -21,13 +21,13 @@ import base.PersonAgent;
  * @author David Carr
  */
 
-public class HousingHouseGuiPanel extends CityCard implements ActionListener {
+public class HousingGuiPanel extends CityCard implements ActionListener {
 
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
 	private List<Gui> guis = new ArrayList<Gui>();
 
-	public HousingHouseGuiPanel(SimCityGui city) {
+	public HousingGuiPanel(SimCityGui city) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
@@ -54,10 +54,11 @@ public class HousingHouseGuiPanel extends CityCard implements ActionListener {
 		repaint();
 	}
 
-	public void paintComponent(Graphics g) {
+	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(getBackground());
 		g2.fillRect(0, 0, WINDOWX, WINDOWY);
+		
 		for (Gui gui : guis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
@@ -73,5 +74,4 @@ public class HousingHouseGuiPanel extends CityCard implements ActionListener {
 	public void addGui(Gui g) {
 		guis.add(g);
 	}
-
 }
