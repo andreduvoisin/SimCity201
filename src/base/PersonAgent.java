@@ -58,7 +58,7 @@ public class PersonAgent extends Agent implements Person {
 	Set<Location> mHomeLocations; //multiple for landlord
 	boolean mHasCar;
 	Location mWorkLocation;
-	CityPerson personGui = null;
+	CityPerson personComponent = null;
 	
 	public Semaphore semAnimationDone = new Semaphore(0);
 	private boolean mRoleFinished;
@@ -304,10 +304,6 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		
 	}
-	
-	public void SetGui(CityPerson pGui){
-		personGui = pGui;
-	}
 
 	private void depositCheck() {
 
@@ -437,5 +433,9 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public Role getHousingRole() {
 		return mHouseRole;
+	}
+	
+	public void setComponent(CityPerson personGui){
+		personComponent = personGui;
 	}
 }

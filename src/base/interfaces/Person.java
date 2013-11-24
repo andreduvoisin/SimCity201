@@ -2,6 +2,7 @@ package base.interfaces;
 
 import java.util.Map;
 
+import city.gui.CityPerson;
 import bank.interfaces.BankMasterTeller;
 import base.Item.EnumMarketItemType;
 
@@ -33,5 +34,6 @@ public interface Person {
 	public void setSSN(int SSN);
 	public Map<Role, Boolean> getRoles();
 	public Role getHousingRole();
-
+	public void setComponent(CityPerson pc);
+	
 }

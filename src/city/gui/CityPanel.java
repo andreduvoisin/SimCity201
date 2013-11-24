@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.PersonAgent;
 import base.interfaces.Person;
 
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
@@ -17,9 +18,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	CityComponent temp;
 	
 	public List<Person> masterPersonList = new ArrayList<Person>();
-	
+	//public List<PersonAgent> masterPersonList = new ArrayList<PersonAgent>();
 	public CityPanel(SimCityGui city) {
 		super(city);
+		masterPersonList.add(new PersonAgent(PersonAgent.EnumJobType.NONE, 20, "bob"));
 		
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
@@ -29,7 +31,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(400, 75, "Green Guts Bank"));
 		this.addStatic(new CityHousing(400, 400, "House 1"));
 		this.addStatic(new CityMarket(75, 200, "Sears!"));
-		this.addMoving(new CityPerson(40, 40, "Bob"));
+		CityPerson cp = new CityPerson(40, 40, "Bob");
+		masterPersonList.get(0).setComponent(cp);
+		this.addMoving(cp);
 		
 		for (int i = 30; i < 1000; i += 500) {
 			this.addStatic(new CityRoad(i, RoadDirection.HORIZONTAL));
