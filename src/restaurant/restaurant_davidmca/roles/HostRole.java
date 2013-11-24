@@ -1,4 +1,4 @@
-package restaurant.restaurant_davidmca.agents;
+package restaurant.restaurant_davidmca.roles;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,23 +12,24 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
+import base.BaseRole;
 
 /**
  * Restaurant Host Agent
  */
 
-public class HostAgent extends Agent implements Host {
+public class HostRole extends BaseRole implements Host {
 	static final int NTABLES = 4;// a global for the number of tables.
-	public List<CustomerAgent> waitingCustomers = Collections
-			.synchronizedList(new ArrayList<CustomerAgent>());
-	public List<CustomerAgent> indecisiveCustomers = Collections
-			.synchronizedList(new ArrayList<CustomerAgent>());
+	public List<CustomerRole> waitingCustomers = Collections
+			.synchronizedList(new ArrayList<CustomerRole>());
+	public List<CustomerRole> indecisiveCustomers = Collections
+			.synchronizedList(new ArrayList<CustomerRole>());
 	public Collection<Table> tables;
 	public Collection<MyWaiter> waiters = Collections
 			.synchronizedList(new ArrayList<MyWaiter>());
 	private int workingWaiters = 0;
 	private int index = 0;
-	public CookAgent cook = null;
+	public CookRole cook = null;
 
 	private String name;
 	// Table positions
@@ -41,7 +42,7 @@ public class HostAgent extends Agent implements Host {
 
 	public HostGui hostGui = null;
 
-	public HostAgent(String name) {
+	public HostRole(String name) {
 		super();
 
 		this.name = name;
@@ -67,7 +68,7 @@ public class HostAgent extends Agent implements Host {
 		stateChanged();
 	}
 
-	public List<CustomerAgent> getWaitingCustomers() {
+	public List<CustomerRole> getWaitingCustomers() {
 		return waitingCustomers;
 	}
 
@@ -131,12 +132,12 @@ public class HostAgent extends Agent implements Host {
 
 	// Messages
 
-	public void msgCheckAvailability(CustomerAgent cust) {
+	public void msgCheckAvailability(CustomerRole cust) {
 		indecisiveCustomers.add(cust);
 		stateChanged();
 	}
 
-	public void msgIWantFood(CustomerAgent cust) {
+	public void msgIWantFood(CustomerRole cust) {
 		index++;
 		waitingCustomers.add(cust);
 		stateChanged();
@@ -175,9 +176,9 @@ public class HostAgent extends Agent implements Host {
 	/**
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		synchronized (indecisiveCustomers) {
-			for (CustomerAgent cust : indecisiveCustomers) {
+			for (CustomerRole cust : indecisiveCustomers) {
 				cust.msgAvailability(getAvailability());
 				indecisiveCustomers.remove(cust);
 				return true;
@@ -231,7 +232,7 @@ public class HostAgent extends Agent implements Host {
 		return hostGui;
 	}
 
-	public void setCook(CookAgent cook) {
+	public void setCook(CookRole cook) {
 		this.cook = cook;
 
 	}

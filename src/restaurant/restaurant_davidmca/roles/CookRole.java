@@ -1,4 +1,4 @@
-package restaurant.restaurant_davidmca.agents;
+package restaurant.restaurant_davidmca.roles;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,16 +17,17 @@ import java.util.concurrent.Semaphore;
 import restaurant.restaurant_davidmca.Order;
 import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.Table;
+import restaurant.restaurant_davidmca.agents.MarketAgent;
 import restaurant.restaurant_davidmca.gui.CookGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import base.Agent;
+import base.BaseRole;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CookAgent extends Agent implements Cook {
+public class CookRole extends BaseRole implements Cook {
 
 	private CookGui cookGui;
 	private Semaphore isAnimating = new Semaphore(0, true);
@@ -80,7 +81,7 @@ public class CookAgent extends Agent implements Cook {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CookAgent(String name, int qty) {
+	public CookRole(String name, int qty) {
 		super();
 		this.name = name;
 		ordering = false;
@@ -153,7 +154,7 @@ public class CookAgent extends Agent implements Cook {
 
 	// Scheduler
 
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		if (reorder) {
 			reorder = false;
 			DoOrderFood();

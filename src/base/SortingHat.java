@@ -4,6 +4,8 @@ import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ public class SortingHat {
 	
 	public static void InstantiateBaseRoles(){
 		sRoleLocations = ContactList.sRoleLocations;
+		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
 		//Bank
 		BankMasterTellerRole bankMasterTellerRole = new BankMasterTellerRole(null);
@@ -50,18 +53,23 @@ public class SortingHat {
 		
 		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){
+			Map<Role, Boolean> shiftRoles = new HashMap<Role, Boolean>();
+			
 			//Bank
-			sRolesFilled.get(i).put(bankGuardRole, false);
-			sRolesFilled.get(i).put(bankMasterTellerRole, false);
-			sRolesFilled.get(i).put(bankTellerRole, false);
+			shiftRoles.put(bankGuardRole, false);
+			shiftRoles.put(bankMasterTellerRole, false);
+			shiftRoles.put(bankTellerRole, false);
 			
 			//Market
-			sRolesFilled.get(i).put(marketCashierRole, false);
-			sRolesFilled.get(i).put(marketCookCustomerRole, false);
-			sRolesFilled.get(i).put(marketDeliveryTruckRole, false);
-			sRolesFilled.get(i).put(marketWorkerRole, false);
+			
+			shiftRoles.put(marketCashierRole, false);
+			shiftRoles.put(marketCookCustomerRole, false);
+			shiftRoles.put(marketDeliveryTruckRole, false);
+			shiftRoles.put(marketWorkerRole, false);
 			
 			//Restaurants
+			
+			sRolesFilled.add(shiftRoles);
 		}
 		
 		//SHANE: Add locations to contact list

@@ -67,8 +67,4 @@ public class BaseRole implements Role{
 		return mPerson;
 	}
 
-	@Override
-	public Location getLocation() {
-		return mLocation;
-	}
 }

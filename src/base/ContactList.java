@@ -2,9 +2,11 @@ package base;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bank.interfaces.BankMasterTeller;
 import bank.roles.BankMasterTellerRole;
 import bank.test.MasterTellerTest;
 import base.interfaces.Person;
@@ -13,7 +15,7 @@ import base.interfaces.Role;
 public class ContactList {
 	
 	//----------------------------------------------------------PEOPLE----------------------------------------------------------
-	static Map<Role, Location> sRoleLocations;
+	public static Map<Role, Location> sRoleLocations = new HashMap<Role, Location>();
 	//SHANE: sRestaurantRoleLocations
 	static List<Person> sPeople; //list of people
 	
@@ -69,11 +71,11 @@ public class ContactList {
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
-	static void SendPayment(int senderSSN, int receiverSSN, int amount){
-		BankMasterTellerRole bankMasterTellerRole = null;
+	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
+		BankMasterTeller bankMasterTellerRole = new BankMasterTellerRole();
 		for (Role iRole : sRoleLocations.keySet()){
-			if (iRole instanceof BankMasterTellerRole){
-				bankMasterTellerRole = (BankMasterTellerRole) iRole;
+			if (iRole instanceof BankMasterTeller){
+				bankMasterTellerRole = (BankMasterTeller) iRole;
 			}
 		}
 		bankMasterTellerRole.msgSendPayment(senderSSN, receiverSSN, amount);

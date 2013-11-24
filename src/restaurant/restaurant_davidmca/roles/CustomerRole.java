@@ -1,4 +1,4 @@
-package restaurant.restaurant_davidmca.agents;
+package restaurant.restaurant_davidmca.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import base.Agent;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.Menu;
 import restaurant.restaurant_davidmca.Table;
@@ -16,12 +15,12 @@ import restaurant.restaurant_davidmca.interfaces.Cashier;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import base.Agent;
+import base.BaseRole;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CustomerAgent extends Agent implements Customer {
+public class CustomerRole extends BaseRole implements Customer {
 	private String name;
 	private int hungerLevel = 4000; // determines length of meal
 	private double mymoney = 0;
@@ -59,7 +58,7 @@ public class CustomerAgent extends Agent implements Customer {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CustomerAgent(String name) {
+	public CustomerRole(String name) {
 		super();
 		this.name = name;
 		this.availability = true;
@@ -158,7 +157,7 @@ public class CustomerAgent extends Agent implements Customer {
 	/**
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		// CustomerAgent is a finite state machine
 
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry) {

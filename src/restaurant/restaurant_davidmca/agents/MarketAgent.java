@@ -14,6 +14,7 @@ import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
+import restaurant.restaurant_davidmca.roles.CashierRole;
 import base.Agent;
 
 /**
@@ -68,7 +69,7 @@ public class MarketAgent extends Agent implements Market {
 	}
 
 	@Override
-	public void setCashier(CashierAgent cash) {
+	public void setCashier(CashierRole cash) {
 		this.cashier = cash;
 	}
 

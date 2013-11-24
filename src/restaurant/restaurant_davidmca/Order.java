@@ -1,7 +1,7 @@
 package restaurant.restaurant_davidmca;
 
-import restaurant.restaurant_davidmca.agents.CookAgent.OrderState;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import restaurant.restaurant_davidmca.roles.CookRole.OrderState;
 
 public class Order {
 	public Waiter waiter;
