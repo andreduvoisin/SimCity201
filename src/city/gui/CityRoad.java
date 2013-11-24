@@ -12,9 +12,9 @@ public class CityRoad extends CityComponent {
 		super(x, 0, Color.black, "Road");
 		this.direction = direction;
 		if (direction == RoadDirection.HORIZONTAL)
-			rectangle = new Rectangle(0, x, 1000, 20);
+			rectangle = new Rectangle(0, x, 1000, 40);
 		else
-			rectangle = new Rectangle(x, 0, 20, 1000);
+			rectangle = new Rectangle(x, 0, 40, 1000);
 	}
 
 	public CityRoad(int x, RoadDirection direction, String I) {
