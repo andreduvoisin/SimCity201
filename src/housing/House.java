@@ -1,5 +1,7 @@
 package housing;
 
+import city.gui.SimCityGui;
+import housing.gui.HousingGuiPanel;
 import housing.interfaces.HousingRenter;
 
 /*
@@ -14,12 +16,14 @@ public class House {
 	public enum HousingType{Apartment, House}; 
 	public HousingType type; 
 	public final double maxAptRent = 450.00;  
+	public HousingGuiPanel mPanel;
 	
-	public House(int x, int y, double rent) {
+	public House(SimCityGui city, int x, int y, double rent) {
 		xLocation = x;
 		yLocation = y;
 		mRent = rent;
 		mOccupant = null;
+		mPanel = new HousingGuiPanel(city);
 		
 		if(rent <= maxAptRent){
 			type = HousingType.Apartment; 

@@ -17,12 +17,18 @@ public class HousingBaseRole extends BaseRole {
 	HousingPersonGui gui;
 	public House mHouse = null;
 	
+	public HousingBaseRole() {
+		gui = new HousingPersonGui();
+		gui.setPresent(true);
+	}
+	
 	public void msgTimeToCheckRent() {
 		mTimeToCheckRent = true;
 		stateChanged();
 	}
 	
 	public void msgTimeToMaintain() {
+		print("msgTimeToMaintain recieved");
 		mTimeToMaintain = true;
 		stateChanged();
 	}
@@ -38,12 +44,13 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	void EatAtHome() {
-//		gui.DoCookAndEatFood();
-//		try {
-//			isAnimating.acquire();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		gui.DoCookAndEatFood();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoGoRelax(); 
 		print("Action - Eat at Home");
 	}
 
@@ -57,8 +64,8 @@ public class HousingBaseRole extends BaseRole {
 		print("Action - Maintain");
 	}
 	
-	public void setGui(HousingPersonGui g) {
-		gui = g;
+	public void setHouse(House h) {
+		this.mHouse = h;
 	}
 
 }

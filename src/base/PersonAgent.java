@@ -376,11 +376,11 @@ public class PersonAgent extends Agent implements Person {
 		
 	}
 	
-	private void invokeRent() {
+	public void invokeRent() {
 		mHouseRole.msgTimeToCheckRent();
 	}
 	
-	private void invokeMaintenance() {
+	public void invokeMaintenance() {
 		mHouseRole.msgTimeToMaintain();
 	}
 	

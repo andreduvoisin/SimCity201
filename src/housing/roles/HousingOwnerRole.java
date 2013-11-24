@@ -16,6 +16,7 @@ public class HousingOwnerRole extends HousingBaseRole implements HousingOwner {
 	}
 	
 	public HousingOwnerRole() {
+		super();
 	}
 
 	/* Scheduler */

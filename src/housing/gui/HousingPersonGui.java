@@ -14,12 +14,23 @@ import base.Gui;
 
 public class HousingPersonGui implements Gui {
 
-	HousingBaseRole housingrole;
-
-	private int xPos, yPos = 20;
-	private int xDestination, yDestination = 20;
+	public HousingBaseRole housingrole;
+	
+	//Initial Positions
+	private int xPos = 40; 
+	private int yPos = 40;
+	private int xDestination = 40;
+	private int yDestination = 40;
 	private boolean currentlyAnimating;
+	private boolean present;
 
+	//Person Positions
+	private int eatingXPos = 210; 
+	private int eatingYPos = 280; 
+	
+	private int restingXPos = 200;
+	private int restingYPos = 75; 
+	
 	private static int GUISIZE = 20;
 
 	public void updatePosition() {
@@ -40,13 +51,13 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
 	}
 
 	@Override
 	public boolean isPresent() {
-		return true;
+		return present;
 	}
 
 	public void DoGoToHouse(House h) {
@@ -62,7 +73,8 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void DoCookAndEatFood() {
-
+		xDestination = eatingXPos; 
+		yDestination = eatingYPos; 
 		currentlyAnimating = true;
 	}
 
@@ -71,4 +83,12 @@ public class HousingPersonGui implements Gui {
 		currentlyAnimating = true;
 	}
 
+	@Override
+	public void setPresent(boolean state) {
+		present = state;
+	}
+	
+	public void DoGoRelax(){
+		currentlyAnimating = true; 
+	}
 }
