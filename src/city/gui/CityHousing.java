@@ -25,7 +25,7 @@ public class CityHousing extends CityComponent {
 		yLocation = y;
 		mOccupant = null;
 		mRent = rent;
-		rectangle = new Rectangle(x, y, 50, 50);
+		rectangle = new Rectangle(x, y, 20, 20);
 		mPanel = new HousingGuiPanel(city);
 		
 		if(rent <= maxAptRent){
@@ -58,7 +58,7 @@ public class CityHousing extends CityComponent {
 	public void paint(Graphics g) {
 	
 		g.setColor(color);
-		g.fillRect(x, y, 50, 50);
+		g.fillRect(x, y, 20, 20);
 		g.setColor(Color.WHITE);
 		g.drawString(houseName,x + 7 , y + 17);
 	}

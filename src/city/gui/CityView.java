@@ -20,7 +20,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 	SimCityGui city;
 	public static final int VIEW_WIDTH = 500, VIEW_HEIGHT = 500;
 	CardLayout layout;
-	public CityHousing house1;
 	
 	public CityView(SimCityGui city) throws IOException {
 		
@@ -35,10 +34,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		RestaurantGui davidmca = new RestaurantGui(city);
 		cards.put("Restaurant 2", davidmca);
-		
-		CityHousing house1 = new CityHousing(city, 100, 100, "House 1", 50.00);
-		cards.put("House 1", house1.mPanel);
-		city.citypanel.addStatic(house1);
 		
 		cards.put("R_Maggiyan", new CityCard(city));
 		cards.put("Green Guts Bank", new BankPanel(city));

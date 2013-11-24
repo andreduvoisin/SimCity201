@@ -22,6 +22,8 @@ import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityHousing;
+import city.gui.SimCityGui;
 
 public class SortingHat {
 	
@@ -31,8 +33,7 @@ public class SortingHat {
 	
 	static int sNumBankTellers = 1;
 	static int sNumMarketWorkers = 1;
-	static int sNumRestaurantWaiters = 1;
-	
+	static int sNumRestaurantWaiters = 1;	
 	
 	public static void InstantiateBaseRoles(){
 		sRoleLocations = ContactList.sRoleLocations;
@@ -205,6 +206,7 @@ public class SortingHat {
 	//HOUSING
 	static int sLandlordCount = 0;
 	static int sRenterCount = 0;
+	static int sHouseCount = 0;
 	static final int sHouseSize = 5;
 	static final int sMaxLandlords = 5;
 	static final int sMaxRenters = sMaxLandlords*sHouseSize;
@@ -212,16 +214,48 @@ public class SortingHat {
 	public static Role getHousingRole(Person person) {
 		//landlord, renter, owner (in that order)
 		
+		int xCord, yCord = 0;
+		
+		if (sHouseCount % 20 == 0) {
+			xCord = 50 + (20*sHouseCount%20);
+			yCord = 0;
+		}
+		else if (sHouseCount % 20 == 2) {
+			xCord = 50 + (20*sHouseCount%20);
+			yCord = 480;
+		}
+		else if (sHouseCount % 20 == 3) {
+			xCord = 0;
+			yCord = 50+20*(sHouseCount%20);
+		}
+		else {
+			xCord = 480;
+			yCord = 50+20*(sHouseCount%20);
+		}
+		
 		if (sLandlordCount < sMaxLandlords){
 			sLandlordCount++;
-			return new HousingLandlordRole(person);
+			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
+ 			CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), xCord, yCord, "House " + sHouseCount, 50.00);
+			SimCityGui.getInstance().cityview.cards.put("House " + sHouseCount, newHouse.mPanel);
+			sHouseCount++;
+			SimCityGui.getInstance().citypanel.addStatic(newHouse);
+			newLandLordRole.setHouse(newHouse);
+			return newLandLordRole;
 		}
 		
 		if (sRenterCount < sMaxRenters){
 			sRenterCount++;
 			return new HousingRenterRole(person);
 		}
-		return new HousingOwnerRole(person);
+		
+		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
+		CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), xCord, yCord, "House " + sHouseCount, 50.00);
+		SimCityGui.getInstance().cityview.cards.put("House " + sHouseCount, newHouse.mPanel);
+		sHouseCount++;
+		SimCityGui.getInstance().citypanel.addStatic(newHouse);
+		newOwnerRole.setHouse(newHouse);
+		return newOwnerRole;
 	}
 
 	

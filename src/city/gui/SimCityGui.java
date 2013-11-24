@@ -13,16 +13,19 @@ import base.Time;
 import base.interfaces.Person;
 
 public class SimCityGui extends JFrame {
-	
+	static SimCityGui instance = null;
 	public CityPanel citypanel;
 	public InfoPanel infopanel;
 	public CityView cityview;
 	CityControlPanel CP;
 	GridBagConstraints c = new GridBagConstraints();
-
-	static CityPanel cityPanel;
+	
+	public static SimCityGui getInstance() {
+		return instance;
+	}
 
 	public SimCityGui() throws HeadlessException, IOException {
+		instance = this;
 		CP = new CityControlPanel(this);
 		citypanel = new CityPanel(this);
 		cityview = new CityView(this);
@@ -49,7 +52,7 @@ public class SimCityGui extends JFrame {
 		this.add(cityview, c);
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
-		config.readFileCreatePersons(citypanel);
+		config.readFileCreatePersons(this);
 		
 		Person person = citypanel.masterPersonList.get(0);
 		if (person instanceof PersonAgent){
@@ -58,22 +61,22 @@ public class SimCityGui extends JFrame {
 			((PersonAgent) person).msgAnimationDone();
 		}
 		
-		if (person instanceof PersonAgent){
-			((PersonAgent) person).msgAnimationDone();
+/*		if (person instanceof PersonAgent){
+			//((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).pickAndExecuteAnAction();
 //			((PersonAgent) person).pickAndExecuteAnAction();
-		}
+		}*/
 		
-		if (person instanceof PersonAgent){
+/*		if (person instanceof PersonAgent){
 			//Housing
 			//((PersonAgent) person).invokeMaintenance();
-			((PersonAgent) person).mHouseRole.setHouse(cityview.house1);
+			//((PersonAgent) person).mHouseRole.setHouse(cityview.house1);
 			//((PersonAgent) person).mHouseRole.msgEatAtHome();
-			((PersonAgent) person).startThread();
+			//((PersonAgent) person).startThread();
 //			((PersonAgent) person).eatFood();
-		}
+		}*/
 		
 //		for (Person person: city.masterPersonList) {
 //			((PersonAgent) person).msgAnimationDone();
