@@ -3,6 +3,7 @@ package base;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
+import intermediate.RestaurantCashierRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +49,6 @@ public class SortingHat {
 		sRoleLocations.put(marketWorkerRole, ContactList.cMARKET_LOCATION);
 
 		//Restaurants
-		//REX - ADD RESTAURANT STUFF HERE WHEN DONE
 		
 		
 		//Create roles filled matrix
