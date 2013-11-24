@@ -1,6 +1,7 @@
 package housing.roles;
 
 import housing.House;
+import housing.gui.HousingPersonGui;
 
 import java.util.concurrent.Semaphore;
 
@@ -8,11 +9,18 @@ import base.BaseRole;
 
 public class HousingBaseRole extends BaseRole {
 	
-	boolean mHungry = false;
-	boolean mTimeToMaintain = false;
+	public boolean mHungry = false;
+	public boolean mTimeToMaintain = false;
+	public boolean mTimeToCheckRent = false;
 	
 	Semaphore isAnimating = new Semaphore(0, true);
-	House mHouse = null;
+	HousingPersonGui gui;
+	public House mHouse = null;
+	
+	public void msgTimeToCheckRent() {
+		mTimeToCheckRent = true;
+		stateChanged();
+	}
 	
 	public void msgTimeToMaintain() {
 		mTimeToMaintain = true;
@@ -23,14 +31,34 @@ public class HousingBaseRole extends BaseRole {
 		mHungry = true;
 		stateChanged();
 	}
-	
-	public void msgTimeToCheckRent() {
-		stateChanged();
-	}
 
 	public void msgDoneAnimating() {
 		isAnimating.release();
 		stateChanged();
+	}
+	
+	void EatAtHome() {
+//		gui.DoCookAndEatFood();
+//		try {
+//			isAnimating.acquire();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+		print("Action - Eat at Home");
+	}
+
+	void Maintain() {
+//		gui.DoMaintainHouse();
+//		try {
+//			isAnimating.acquire();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+		print("Action - Maintain");
+	}
+	
+	public void setGui(HousingPersonGui g) {
+		gui = g;
 	}
 
 }

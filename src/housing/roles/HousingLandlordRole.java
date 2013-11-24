@@ -1,12 +1,12 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.HousingLandlordGui;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import base.interfaces.Person;
@@ -25,9 +25,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			.synchronizedList(new ArrayList<House>());
 	int mMinCash = 50;
 	int mMinSSN = 0;
-	public boolean mTimeToCheckRent = false;
-	private HousingLandlordGui gui = new HousingLandlordGui();
-
+	
 	enum EnumRenterState {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
 	};
@@ -66,8 +64,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 
 	/* Messages */
 	
-	
-
 	public void msgIWouldLikeToLiveHere(HousingRenter r, double cash, int SSN) {
 		print("Message - I would like to live here received");
 		MyRenter newRenter = new MyRenter(r, cash, SSN);
@@ -93,34 +89,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			CollectRent(); 
 			return true; 
 		}
-		
-//		if (mTimeToCheckRent && mRenterList.size() > 0) {
-//			mTimeToCheckRent = false;
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.RentOverdue) {
-//						GiveEvictionNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.OwesRent) {
-//						GiveRentOverdueNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//			synchronized (mRenterList) {
-//				for (MyRenter r : mRenterList) {
-//					if (r.mState == EnumRenterState.RentPaid) {
-//						GiveRentDueNotice(r);
-//						return true;
-//					}
-//				}
-//			}
-//		}
 		
 		synchronized (mRenterList) {
 			for (MyRenter r : mRenterList) {
@@ -149,9 +117,12 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Actions */
 	private void CollectRent(){
 		synchronized (mRenterList) {
-			for (MyRenter r : mRenterList) {
-				if (r.mState == EnumRenterState.RentOverdue) {
-					GiveEvictionNotice(r);
+			Iterator<MyRenter> itr = mRenterList.iterator();
+			while (itr.hasNext()) {
+				MyRenter renter = itr.next();
+				if (renter.mState == EnumRenterState.RentOverdue) {
+					GiveEvictionNotice(renter);
+					itr.remove();
 				}
 			}
 		}
@@ -180,7 +151,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	private void GiveRentOverdueNotice(MyRenter r) {
 		print("Action - GiveRentOverdueNotice");
 		r.mState = EnumRenterState.RentOverdue;
-		r.mRenter.msgRentDue(mPerson.getSSN(), r.mHouse.mRent);
+		r.mRenter.msgOverdueNotice(mPerson.getSSN(), r.mHouse.mRent);
 	}
 
 	private void GiveEvictionNotice(MyRenter r) {
@@ -192,9 +163,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 					h.mOccupant = null;
 				}
 			}
-		}
-		synchronized (mRenterList) {
-			mRenterList.remove(r);
 		}
 	}
 
@@ -223,26 +191,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			}
 			return;
 		}
-	}
-	
-	void EatAtHome() {
-		/*gui.DoCookAndEatFood();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Eat at Home");
-	}
-
-	void Maintain() {
-		/*gui.DoMaintainHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Maintain");
 	}
 
 	/* Utilities */

@@ -1,9 +1,9 @@
 package restaurant_all.interfaces;
 
-import restaurant_tranac.Check;
-import restaurant_tranac.Menu;
-import restaurant_tranac.gui.CustomerGui_at;
-import restaurant_tranac.interfaces.Waiter;
+import restaurant.restaurant_tranac.Check;
+import restaurant.restaurant_tranac.Menu;
+import restaurant.restaurant_tranac.gui.CustomerGui_at;
+import restaurant.restaurant_tranac.interfaces.Waiter;
 
 /**
  * Customer interface built for unit testing.

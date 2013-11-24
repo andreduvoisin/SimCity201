@@ -10,29 +10,36 @@ import java.util.List;
 import base.interfaces.Person;
 
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
-	private static CityPanel instance = null;
 	
 	public static final int CITY_WIDTH = 600, CITY_HEIGHT = 600;
 	boolean addingObject = false;
 	CityComponent temp;
+	SimCityGui simcitygui;
 	
 	public List<Person> masterPersonList = new ArrayList<Person>();
 	
 	public CityPanel(SimCityGui city) {
 		super(city);
+		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 		background = new Color(128, 64, 0);
-		this.addStatic(new CityRestaurant(30, 30));
-		this.addStatic(new CityRestaurant(60, 30, "Restaurant 2"));
-		for (int i = 10; i < 1000; i += 100) {
+		this.addStatic(new CityRestaurant(75, 75, "R_Maggiyan"));
+		this.addStatic(new CityRestaurant(80, 400, "Restaurant 2"));
+		this.addStatic(new CityBank(400, 75, "Green Guts Bank"));
+		this.addStatic(new CityHousing(400, 400, "House 1"));
+		this.addStatic(new CityMarket(75, 200, "Sears!"));
+		this.addMoving(new CityPerson(40, 40, "Bob"));
+		
+		for (int i = 30; i < 1000; i += 500) {
 			this.addStatic(new CityRoad(i, RoadDirection.HORIZONTAL));
 			this.addStatic(new CityRoad(i, RoadDirection.VERTICAL));
 		}
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		
 	}
-	
+
 	public void mouseClicked(MouseEvent arg0) {
 		
 	}
@@ -54,7 +61,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 					return;
 			}
 			addingObject = false;
-			city.view.addView(new CityCard(city, Color.pink), temp.ID);
+			city.view.addView(new CityCard(city, Color.black), temp.ID);
 			temp = null;
 		}
 		for (CityComponent c: statics) {
@@ -90,12 +97,5 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		if (addingObject) {
 			temp.setPosition(arg0.getPoint());
 		}
-	}
-	
-	public static CityPanel getInstanceOf() {
-		if (instance == null) {
-			instance = new CityPanel(SimCityGui.getInstanceOf());
-		}
-		return instance;
 	}
 }

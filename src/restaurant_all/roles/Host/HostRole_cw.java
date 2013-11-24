@@ -1,6 +1,6 @@
 package restaurant_all.roles.Host;
 
-import restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.interfaces.*;
 
 import java.util.*;
 

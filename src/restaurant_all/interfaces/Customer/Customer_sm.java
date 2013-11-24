@@ -1,12 +1,12 @@
 package restaurant_all.interfaces.Customer;
 
-import restaurant_smileham.Menu;
-import restaurant_smileham.Food.EnumFoodOptions;
-import restaurant_smileham.agent.Check;
-import restaurant_smileham.gui.CustomerGui;
-import restaurant_smileham.interfaces.Host;
-import restaurant_smileham.interfaces.Waiter;
-import restaurant_smileham.test.mock.EventLog;
+import restaurant.restaurant_smileham.Menu;
+import restaurant.restaurant_smileham.Food.EnumFoodOptions;
+import restaurant.restaurant_smileham.agent.Check;
+import restaurant.restaurant_smileham.gui.CustomerGui;
+import restaurant.restaurant_smileham.interfaces.Host;
+import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.test.mock.EventLog;
 
 public interface Customer_sm{
 	

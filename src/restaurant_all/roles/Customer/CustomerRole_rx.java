@@ -1,10 +1,10 @@
 package restaurant_all.roles.Customer;
 
-import restaurant_xurex.gui.CustomerGui;
-import restaurant_xurex.interfaces.Cashier;
-import restaurant_xurex.interfaces.Customer;
-import restaurant_xurex.interfaces.Host;
-import restaurant_xurex.interfaces.Waiter;
+import restaurant.restaurant_xurex.gui.CustomerGui;
+import restaurant.restaurant_xurex.interfaces.Cashier;
+import restaurant.restaurant_xurex.interfaces.Customer;
+import restaurant.restaurant_xurex.interfaces.Host;
+import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.BaseRole;
 
 import java.util.ArrayList;

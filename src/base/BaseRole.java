@@ -6,6 +6,7 @@ import base.interfaces.Role;
 public class BaseRole implements Role{
 	
 	public Person mPerson;
+	private Location mLocation;
 	
 	//NEEDED METHODS
 	protected void stateChanged(){
@@ -65,4 +66,5 @@ public class BaseRole implements Role{
 	public Person getPerson() {
 		return mPerson;
 	}
+
 }

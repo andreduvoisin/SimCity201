@@ -5,6 +5,7 @@ import test.mock.Mock;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -69,5 +70,6 @@ public class MockCustomerRole extends Mock implements BankCustomer, Role{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

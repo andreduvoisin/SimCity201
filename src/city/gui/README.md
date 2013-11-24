@@ -36,7 +36,7 @@ Create however many JPanels you need to implement your design (in this case, 4).
 I personally use **GridBagLayout**. It's like GridLayout, only it doesn't automatically resize all your components and gives you a lot more control over how your components are placed. You don't have to use GridBagLayout if you don't want to, but if you do your project will probably look better and Professor Crowley will be happier.
 
 #### Step 3.5: Using GridBagLayout
-The first thing you need to use GridBagLayout is to set the layout to a GridBagLayout. The second thing thing is a GridBagConstraints object.
+The first thing you need to use GridBagLayout is to set the layout to a GridBagLayout. The second thing is a GridBagConstraints object.
 
 In your constructor, add the following line:
 ```java
@@ -69,7 +69,7 @@ So you just do that.
 	this.add(CP, c);
 ```
 You don't have to change the GridBagConstraints components each time if they don't change. I just include it anyway because I'm forgetful or if I add a different component in between to components.<br>
-Observant students will notice that the add() function has a new parameter in it. We include c in this function to let Java know to apply these constraints when adding a JComponent to our JFrame.<br>
+Observant students will notice that the add() function has a new parameter in it. We include c in this function to let Java hknow to apply these constraints when adding a JComponent to our JFrame.<br>
 Now we run this program as a Java Application. If it looks like we wanted to, great. If not, play around with the GridBagConstraints until it does. Now is the time to play around with your layout design to get to it how you want it to look.
 
 ### Step 4: Creating each individual Panel

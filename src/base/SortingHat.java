@@ -5,9 +5,10 @@ import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import market.Market;
 import market.roles.MarketCashierRole;
 import market.roles.MarketCookCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
@@ -21,53 +22,90 @@ import base.interfaces.Role;
 public class SortingHat {
 	
 	//list of all (non-ubiquitous) roles, accessed and instantiated 
-	static List<List<Role>> sRoles; //list for each timeshift (0-2)
+	static Map<Role, Location> sRoleLocations; //list of roles (pointer to that in contact list)
+	static List<Map<Role, Boolean>> sRolesFilled;
 	
 	public static void InstantiateBaseRoles(){
-		sRoles = new ArrayList<List<Role>>();
+		sRoleLocations = ContactList.sRoleLocations;
+		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
+		//Bank
+		BankMasterTellerRole bankMasterTellerRole = new BankMasterTellerRole(null);
+		sRoleLocations.put(bankMasterTellerRole, ContactList.cBANK_LOCATION);
+		BankGuardRole bankGuardRole = new BankGuardRole(null);
+		sRoleLocations.put(bankGuardRole, ContactList.cBANK_LOCATION);
+		BankTellerRole bankTellerRole = new BankTellerRole(null); //REX: How many tellers do we need? -SHANE
+		sRoleLocations.put(bankTellerRole, ContactList.cBANK_LOCATION);
+		
+		//Market
+		MarketCashierRole marketCashierRole = new MarketCashierRole(null);
+		sRoleLocations.put(marketCashierRole, ContactList.cMARKET_LOCATION);
+		MarketCookCustomerRole marketCookCustomerRole = new MarketCookCustomerRole(null); //ANGELICA: Is this just the restaurant cook?
+		sRoleLocations.put(marketCookCustomerRole, ContactList.cMARKET_LOCATION);
+		MarketDeliveryTruckRole marketDeliveryTruckRole = new MarketDeliveryTruckRole(null);
+		sRoleLocations.put(marketDeliveryTruckRole, ContactList.cMARKET_LOCATION);
+		MarketWorkerRole marketWorkerRole = new MarketWorkerRole(null);//? ANGELICA: How many do we need?
+		sRoleLocations.put(marketWorkerRole, ContactList.cMARKET_LOCATION);
+
+		//Restaurants
+		//REX - ADD RESTAURANT STUFF HERE WHEN DONE
+		
+		
+		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){
-			ArrayList<Role> shift = new ArrayList<Role>();
+			Map<Role, Boolean> shiftRoles = new HashMap<Role, Boolean>();
 			
 			//Bank
-			shift.add(new BankGuardRole(null));
-			shift.add(new BankMasterTellerRole(null));
-			shift.add(new BankTellerRole(null)); //REX: How many tellers do we need? -SHANE
+			shiftRoles.put(bankGuardRole, false);
+			shiftRoles.put(bankMasterTellerRole, false);
+			shiftRoles.put(bankTellerRole, false);
 			
 			//Market
-			shift.add(new MarketCashierRole(null, new Market())); 	//1 //ANGELICA: Is this how it's created? New market()?
-			shift.add(new MarketCookCustomerRole(null));			//1
-			shift.add(new MarketDeliveryTruckRole(null));			//1?
-			shift.add(new MarketWorkerRole(null));					//? ANGELICA: How many do we need?
+			
+			shiftRoles.put(marketCashierRole, false);
+			shiftRoles.put(marketCookCustomerRole, false);
+			shiftRoles.put(marketDeliveryTruckRole, false);
+			shiftRoles.put(marketWorkerRole, false);
 			
 			//Restaurants
-			//REX - ADD RESTAURANT STUFF HERE WHEN DONE
 			
-			sRoles.add(shift);
+			sRolesFilled.add(shiftRoles);
 		}
+		
+		//SHANE: Add locations to contact list
+		
 		
 	}
 	
 	//BANK
 	public static Role getBankRole(int shift) {
-		List<Role> shiftRoles = sRoles.get(shift);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 		
 		//Master Teller (1) - first priority
-		for (Role iRole : shiftRoles){
-			if (iRole instanceof BankMasterTellerRole){
-				if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof BankMasterTellerRole){ //find role
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true); //fill it
+					return (BankMasterTellerRole) iRole; //return role
+				}
 			}
 		}
 		//Guard (1) - second priority
-		for (Role iRole : shiftRoles){
+		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof BankGuardRole){
-				if (iRole.getPerson() == null) return (BankGuardRole) iRole;
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (BankGuardRole) iRole;
+				}
 			}
 		}
 		//Teller (limited) - third priority
-		for (Role iRole : shiftRoles){
+		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof BankTellerRole){
-				if (iRole.getPerson() == null) return (BankTellerRole) iRole;
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (BankTellerRole) iRole;
+				}
 			}
 		}
 		
@@ -77,30 +115,42 @@ public class SortingHat {
 	
 	//MARKET
 	public static Role getMarketRole(int shift){
-		List<Role> shiftRoles = sRoles.get(shift);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 		
 		//MarketCashierRole (1) - first priority
-		for (Role iRole : shiftRoles){
+		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketCashierRole){
-				if (iRole.getPerson() == null) return (MarketCashierRole) iRole;
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (MarketCashierRole) iRole;
+				}
 			}
 		}
 		//MarketCookCustomerRole (1)
-		for (Role iRole : shiftRoles){
+		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketCookCustomerRole){
-				if (iRole.getPerson() == null) return (MarketCookCustomerRole) iRole;
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (MarketCookCustomerRole) iRole;
+				}
 			}
 		}
 		//MarketDeliveryTruckRole
-		for (Role iRole : shiftRoles){
+		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketDeliveryTruckRole){
-				if (iRole.getPerson() == null) return (MarketDeliveryTruckRole) iRole;
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (MarketDeliveryTruckRole) iRole;
+				}
 			}
 		}
 		//MarketWorkerRole
-		for (Role iRole : shiftRoles){
+		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketWorkerRole){
-				if (iRole.getPerson() == null) return (MarketWorkerRole) iRole;
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (MarketWorkerRole) iRole;
+				}
 			}
 		}
 		
@@ -111,23 +161,9 @@ public class SortingHat {
 	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
 	
 	public static Role getRestaurantRole(int shift){
-		List<Role> shiftRoles = sRoles.get(shift);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 		
 		//SHANE REX: 1 DO THIS WHEN YOU FINISH THE RESTAURANT ROLES
-		
-		
-		
-		
-		
-		//Master Teller (1) - first priority
-		for (Role iRole : shiftRoles){
-			if (iRole instanceof BankMasterTellerRole){
-				if (iRole.getPerson() == null) return (BankMasterTellerRole) iRole;
-			}
-		}
-		
-		Person hostPerson = (Person) ContactList.sRestaurantHosts.keySet().toArray()[sRestaurantAssignment];
-		sRestaurantAssignment = (sRestaurantAssignment + 1) % ContactList.sRestaurantHosts.size(); //should be mod 8
 		
 		return new MarketWorkerRole(); //holding place
 	}

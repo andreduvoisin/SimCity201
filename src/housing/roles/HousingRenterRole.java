@@ -1,7 +1,6 @@
 package housing.roles;
 
 import housing.House;
-import housing.gui.HousingResidentGui;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import base.ContactList;
 import base.interfaces.Person;
 
 /*
@@ -20,8 +20,8 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	/* Data */
 
 	public HousingLandlord myLandLord;
-	List<Bill> mBills = Collections.synchronizedList(new ArrayList<Bill>());
-	private HousingResidentGui gui = new HousingResidentGui();
+	public List<Bill> mBills = Collections
+			.synchronizedList(new ArrayList<Bill>());
 
 	enum EnumBillState {
 		Pending, Paid
@@ -83,42 +83,35 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	public boolean pickAndExecuteAnAction() {
 		// DAVID MAGGI: establish what triggers the RequestHousing() action
 
-		if (mHungry) {
-			mHungry = false;
-			EatAtHome();
-			return true;
-		}
-
 		if (mHouse != null) {
-			synchronized (mBills) {
-				for (Bill b : mBills) {
-					if (b.mStatus == EnumBillState.Pending) {
-						PayBill(b);
-						return true;
+			if(!mBills.isEmpty()){
+				synchronized (mBills) {
+					for (Bill b : mBills) {
+						if (b.mStatus == EnumBillState.Pending) {
+							PayBill(b);
+							return true;
+						}
 					}
 				}
 			}
-		}
+			
+			if (mHungry) {
+				mHungry = false;
+				EatAtHome();
+				return true;
+			}
 
-		if (mTimeToMaintain) {
-			mTimeToMaintain = false;
-			Maintain();
-			return true;
+			if (mTimeToMaintain) {
+				mTimeToMaintain = false;
+				Maintain();
+				return true;
+			}
 		}
+		
 		return false;
 	}
 
 	/* Actions */
-
-	void EatAtHome() {
-		/*gui.DoCookAndEatFood();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Eat at Home");
-	}
 
 	void RequestHousing() {
 		print("Action - RequestHousing");
@@ -128,20 +121,8 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		// mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(),
-		// b.mLandLordSSN, b.mAmt);
+		ContactList.SendPayment(mPerson.getSSN(), b.mLandLordSSN, b.mAmt);
 		mBills.remove(b);
-	}
-
-	void Maintain() {
-		/*gui.DoMaintainHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}*/
-		print("Action - Maintain");
-		// DAVID MAGGI: run timer for some period of time, animate
 	}
 
 	/* Utilities */
@@ -153,7 +134,4 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 		System.out.println("Renter - " + msg);
 	}
 
-	public void setGui(HousingResidentGui g) {
-		gui = g;
-	}
 }

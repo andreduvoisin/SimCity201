@@ -12,7 +12,6 @@ public interface Person {
 	
 	public double getCash();
 	public int getSSN();
-	public BankMasterTeller getMasterTeller();
 	
 	public void addCash(double amount);
 	
@@ -25,7 +24,6 @@ public interface Person {
 	
 	public void addRole(Role role, boolean active);
 	
-	public void msgHereIsPayment(int senderSSN, double amount);
 	public void msgOverdrawnAccount(double loan);
 	
 	public String getName(); 
@@ -33,5 +31,7 @@ public interface Person {
 	
 	public void setName(String name);
 	public void setSSN(int SSN);
+	public Map<Role, Boolean> getRoles();
+	public Role getHousingRole();
 
 }

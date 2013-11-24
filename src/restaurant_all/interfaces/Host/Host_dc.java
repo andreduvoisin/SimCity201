@@ -3,13 +3,13 @@ package restaurant_all.interfaces.Host;
 import java.util.Collection;
 import java.util.List;
 
+import restaurant.restaurant_davidmca.Table;
+import restaurant.restaurant_davidmca.gui.HostGui;
+import restaurant.restaurant_davidmca.interfaces.Waiter;
+import restaurant.restaurant_davidmca.roles.CookRole;
+import restaurant.restaurant_davidmca.roles.CustomerRole;
 import restaurant_all.interfaces.Customer.Customer_dc;
 import restaurant_all.roles.Host.HostRole_dc.MyWaiter;
-import restaurant_davidmca.Table;
-import restaurant_davidmca.agents.CookAgent;
-import restaurant_davidmca.agents.CustomerAgent;
-import restaurant_davidmca.gui.HostGui;
-import restaurant_davidmca.interfaces.Waiter;
 
 public interface Host_dc {
 
@@ -19,7 +19,7 @@ public interface Host_dc {
 
 	public abstract void addWaiter(Waiter newWaiter);
 
-	public abstract List<CustomerAgent> getWaitingCustomers();
+	public abstract List<CustomerRole> getWaitingCustomers();
 
 	public abstract Collection<Waiter> getWaitersList();
 
@@ -43,7 +43,7 @@ public interface Host_dc {
 
 	public abstract HostGui getGui();
 
-	public abstract void setCook(CookAgent cook);
+	public abstract void setCook(CookRole cook);
 
 	public abstract boolean AreWaiters();
 
