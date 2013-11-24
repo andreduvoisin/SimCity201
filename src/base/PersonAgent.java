@@ -32,9 +32,9 @@ import city.gui.CityPerson;
 public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
-	static int sSSN = 0;
-	static int sTimeSchedule = 0; //0,1,2
-	static int sEatingTime = 0;
+	private static int sSSN = 0;
+	private static int sTimeSchedule = 0; //0,1,2
+	private static int sEatingTime = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
