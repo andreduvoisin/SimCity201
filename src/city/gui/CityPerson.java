@@ -28,10 +28,8 @@ public class CityPerson extends CityComponent{
 	public boolean visible;
 	
 	public CityPerson(int x, int y){
-		super(x,y, Color.ORANGE, "Rex");
+		super(x,y, Color.ORANGE, "Unnamed Person");
 		rectangle = new Rectangle(x, y, 5, 5);
-//		Timer timer = new Timer(10, this);
-//		timer.start();
 	}
 	
 	public CityPerson(int x, int y, String ID){
