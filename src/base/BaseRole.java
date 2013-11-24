@@ -34,9 +34,9 @@ public class BaseRole implements Role {
 		mPerson = person;
 	}
 
-//	public PersonAgent getPersonAgent() {
-//		return ((PersonAgent) mPerson);
-//	}
+	public Person getPerson() {
+		return mPerson;
+	}
 
 	/* Utilities */
 
@@ -73,10 +73,5 @@ public class BaseRole implements Role {
 		}
 		System.out.print(sb.toString());
 	}
-
-//	@Override
-//	public Person getPerson() {
-//		return mPerson;
-//	}
 
 }
