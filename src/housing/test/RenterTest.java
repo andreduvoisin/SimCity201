@@ -8,6 +8,8 @@ import housing.test.mock.MockLandlord;
 import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
 import bank.test.mock.MockMasterTellerRole;
+import base.ContactList;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -48,6 +50,10 @@ public class RenterTest extends TestCase {
 		//Mock Interfaces 
 		mHousingLandlord = new MockLandlord("Mocklandlord"); 
 		mMockPerson = new MockPerson("MockPerson"); 
+		mMockMasterTeller = new MockMasterTellerRole("MockMasterTeller"); 
+		mMockPerson.addRole((Role) mMockMasterTeller, true); 
+		
+		ContactList.sRoleLocations.put(mMockMasterTeller, new Location(10,10)); 
 		
 		//Houses
 		mHouse1 = new House(10, 10, 300.00); 
