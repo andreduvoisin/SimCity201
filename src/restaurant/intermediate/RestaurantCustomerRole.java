@@ -35,6 +35,7 @@ public class RestaurantCustomerRole extends BaseRole {
 	}
 	
 	public void setPerson(Person person){
+		print("setPerson called");
 		mPerson = person;
 		try {
 			setRestaurant(restaurantID);

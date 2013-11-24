@@ -58,8 +58,8 @@ public class RestaurantGui extends CityCard implements ActionListener {
 	 * @throws IOException
 	 */
 
-	public RestaurantGui(SimCityGui city, Color background) throws IOException {
-		super(city, background);
+	public RestaurantGui(SimCityGui city) throws IOException {
+		super(city);
 		int WINDOWX = 500;
 		int WINDOWY = 500;
 		int PAD = 0;

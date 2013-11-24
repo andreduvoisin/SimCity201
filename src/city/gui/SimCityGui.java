@@ -48,7 +48,9 @@ public class SimCityGui extends JFrame {
 		for (Person person: city.masterPersonList) {
 			((PersonAgent) person).msgAnimationDone();
 			((PersonAgent) person).startThread();
+			((PersonAgent) person).msgAnimationDone();
 			((PersonAgent) person).eatFood();
+			((PersonAgent) person).msgAnimationDone();
 		}
 	}
 

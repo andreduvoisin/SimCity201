@@ -1,12 +1,12 @@
 package restaurant.restaurant_xurex;
 
 import base.Agent;
-import restaurant.restaurant_xurex.gui.WaiterGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
+import restaurant.restaurant_xurex.interfaces.W_Gui;
 import restaurant.restaurant_xurex.utilities.*;
 
 import java.util.*;
@@ -36,7 +36,7 @@ public class WaiterAgent1 extends Agent implements Waiter{
 	
 	WaiterState state = WaiterState.good;
 	
-	private WaiterGui waiterGui = null;
+	private W_Gui waiterGui = null;
 
 	public WaiterAgent1(String name) {
 		super();
@@ -390,10 +390,10 @@ public class WaiterAgent1 extends Agent implements Waiter{
 	public void setCashier (Cashier cashier){
 		this.cashier = cashier;
 	}
-	public void setGui(WaiterGui gui) {
+	public void setGui(W_Gui gui) {
 		waiterGui = gui;
 	}
-	public WaiterGui getGui() {
+	public W_Gui getGui() {
 		return waiterGui;
 	}
 	public boolean isAvailable() {

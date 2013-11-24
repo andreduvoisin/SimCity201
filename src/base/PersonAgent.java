@@ -102,6 +102,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		if (active){
 			for (Role iRole : mRoles.keySet()){
+				System.out.println(iRole.toString());
 				iRole.setPerson(this);
 			}
 		}

@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import base.Gui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 
-public class CookGui implements Gui {
+public class CookGui implements Gui { 
 
 	private Cook agent = null;
 
