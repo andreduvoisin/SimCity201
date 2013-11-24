@@ -88,7 +88,7 @@ public class ListPanel extends JPanel implements ActionListener {
 	 * button being pressed
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == addPersonB) {
+		/*if (e.getSource() == addPersonB) {
 			addPerson(personName.getText(), stateCB.isSelected());
 			personName.setText("");
 		}
@@ -99,7 +99,7 @@ public class ListPanel extends JPanel implements ActionListener {
 				if (e.getSource() == temp)
 					restPanel.showInfo(type, temp.getText());
 			}
-		}
+		}*/
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ListPanel extends JPanel implements ActionListener {
 	 * @param name
 	 *            name of new person
 	 */
-	public void addPerson(String name, boolean isHungry) {
+	/*public void addPerson(String name, boolean isHungry) {
 		if (name != null) {
 			JButton button = new JButton(name);
 			button.setBackground(Color.white);
@@ -129,7 +129,7 @@ public class ListPanel extends JPanel implements ActionListener {
 											// type
 			validate();
 		}
-	}
+	}*/
 
 	public void addTable(String x, String y, String numSeats) {
 		restPanel.addTable(Integer.parseInt(x), Integer.parseInt(y),
