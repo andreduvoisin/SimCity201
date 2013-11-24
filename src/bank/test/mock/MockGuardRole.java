@@ -3,8 +3,6 @@ package bank.test.mock;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
-import base.Location;
-import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.LoggedEvent;
@@ -17,13 +15,6 @@ public class MockGuardRole extends Mock implements BankGuard, Role{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	@Override
-	public PersonAgent getPersonAgent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public int getSSN() {
 		// TODO Auto-generated method stub
@@ -61,13 +52,4 @@ public class MockGuardRole extends Mock implements BankGuard, Role{
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public Person getPerson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-
 }

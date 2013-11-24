@@ -1,6 +1,10 @@
 package restaurant.restaurant_xurex.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import restaurant.restaurant_xurex.agents.CookAgent;
+import restaurant.restaurant_xurex.agents.CookAgent.MarketOrderState;
 import restaurant.restaurant_xurex.test.mock.MockCookGui;
 import restaurant.restaurant_xurex.test.mock.MockMarket;
 import restaurant.restaurant_xurex.test.mock.MockWaiter;
@@ -22,7 +26,6 @@ public class CookTest extends TestCase
 	
 	MockWaiter waiter;
 	MockMarket market1;
-	MockMarket market2;
 	
 	MockCookGui cookGui;
 	
@@ -35,19 +38,17 @@ public class CookTest extends TestCase
 		cook = new CookAgent("cook");
 		waiter = new MockWaiter("waiter");
 		market1 = new MockMarket("market1");
-		market2 = new MockMarket("market2");
 		cookGui = new MockCookGui("cookGui");
 		
 		cook.addMarket(market1);
-		cook.addMarket(market2);
 		cook.setGui(cookGui);
 	}	
 	
-	public void testOne_OneCustomer(){
+	public void testOne_OneCookOrder_OneMarketOrder(){
 	//  setUp()
 		
 	//	Preconditions
-		assertTrue("Cook has two markets", cook.markets.size() == 2);
+		assertTrue("Cook has two markets", cook.markets.size() == 1);
 		assertTrue("Cook has no cookOrders", cook.orders.isEmpty());
 		assertTrue("Cook has no marketOrders", cook.marketOrders.isEmpty());
 		assertTrue("Stand has no orders", cook.revolvingStand.isEmpty());
@@ -79,6 +80,35 @@ public class CookTest extends TestCase
 		
 		assertTrue("Order state is served", cook.orders.get(0).s == OrderState.served);
 		assertTrue("Waiter received OrderIsReady", waiter.log.containsString("OrderIsReady: Salad 1"));
+	
+		//6: msgMarketCanFulfillOrder
+		Map<String, Integer> provided = new HashMap<String, Integer>();
+		provided.put("Salad", 14);
+		cook.MarketCanFulfill(market1, provided);
+		
+		assertTrue("Waiter has marketOrder with provided", cook.marketOrders.get(0).provided ==provided);
+		
+		//7: msgOrderIsReady (market)
+		cook.OrderIsReady(market1);
+		
+		assertTrue("Market Order state is ready", cook.marketOrders.get(0).state == MarketOrderState.ready);
+		
+		//8: paea: RefillInventory (marketOrder)
+		assertTrue("paea: RefillInventory", cook.pickAndExecuteAnAction());
+		
+		assertTrue("Inventory has 15 salads. Instead: "+
+					cook.Inventory.get("Salad").quantity,
+					cook.Inventory.get("Salad").quantity == 15);
+		assertTrue("Inventory has 15 steaks. Instead: "+
+					cook.Inventory.get("Steak").quantity, 
+					cook.Inventory.get("Steak").quantity == 10);
+		assertTrue("Inventory has 15 pizzas. Instead: "+
+					cook.Inventory.get("Pizza").quantity, 
+					cook.Inventory.get("Pizza").quantity == 10);
+		assertTrue("Inventory has 15 chickens. Instead: "+
+					cook.Inventory.get("Chicken").quantity, 
+					cook.Inventory.get("Chicken").quantity == 10);
+		assertTrue("paea: return false", !cook.pickAndExecuteAnAction());
 		
 	}
 	

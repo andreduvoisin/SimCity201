@@ -44,12 +44,13 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	void EatAtHome() {
-//		gui.DoCookAndEatFood();
-//		try {
-//			isAnimating.acquire();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		gui.DoCookAndEatFood();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoGoRelax(); 
 		print("Action - Eat at Home");
 	}
 

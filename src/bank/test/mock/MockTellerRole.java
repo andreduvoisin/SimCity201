@@ -4,7 +4,6 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
-import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -18,13 +17,6 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	@Override
-	public PersonAgent getPersonAgent() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public int getSSN() {
 		// TODO Auto-generated method stub
@@ -95,12 +87,4 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 	public void msgOpen(BankCustomer c, int SSN, double amount, PersonAgent person) {
 		log.add(new LoggedEvent("msgOpen: "+SSN+" "+amount+" "+person.getName()));
 	}
-
-	@Override
-	public Person getPerson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }
