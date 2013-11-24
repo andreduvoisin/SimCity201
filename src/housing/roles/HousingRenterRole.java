@@ -83,12 +83,6 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	public boolean pickAndExecuteAnAction() {
 		// DAVID MAGGI: establish what triggers the RequestHousing() action
 
-		if (mHungry) {
-			mHungry = false;
-			EatAtHome();
-			return true;
-		}
-
 		if (mHouse != null) {
 			if(!mBills.isEmpty()){
 				synchronized (mBills) {
@@ -100,13 +94,20 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 					}
 				}
 			}
-		}
+			
+			if (mHungry) {
+				mHungry = false;
+				EatAtHome();
+				return true;
+			}
 
-		if (mTimeToMaintain) {
-			mTimeToMaintain = false;
-			Maintain();
-			return true;
+			if (mTimeToMaintain) {
+				mTimeToMaintain = false;
+				Maintain();
+				return true;
+			}
 		}
+		
 		return false;
 	}
 

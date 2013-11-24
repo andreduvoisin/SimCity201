@@ -68,11 +68,6 @@ public class MockGuardRole extends Mock implements BankGuard, Role{
 		return null;
 	}
 
-	@Override
-	public Location getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }
