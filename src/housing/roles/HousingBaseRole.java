@@ -11,10 +11,16 @@ public class HousingBaseRole extends BaseRole {
 	
 	public boolean mHungry = false;
 	public boolean mTimeToMaintain = false;
+	public boolean mTimeToCheckRent = false;
 	
 	Semaphore isAnimating = new Semaphore(0, true);
 	HousingPersonGui gui;
 	public House mHouse = null;
+	
+	public void msgTimeToCheckRent() {
+		mTimeToCheckRent = true;
+		stateChanged();
+	}
 	
 	public void msgTimeToMaintain() {
 		mTimeToMaintain = true;
@@ -32,22 +38,22 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	void EatAtHome() {
-		gui.DoCookAndEatFood();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		gui.DoCookAndEatFood();
+//		try {
+//			isAnimating.acquire();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		print("Action - Eat at Home");
 	}
 
 	void Maintain() {
-		gui.DoMaintainHouse();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		gui.DoMaintainHouse();
+//		try {
+//			isAnimating.acquire();
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		print("Action - Maintain");
 	}
 	

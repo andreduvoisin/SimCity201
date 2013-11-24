@@ -135,8 +135,12 @@ public class RenterTest extends TestCase {
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
 		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
 		
-		//Set renter hungry
+		//Set time to maintain
 		mHousingRenter.mTimeToMaintain = true;  
+		
+		//Check
+		assertTrue("PAEA: return true and does action", mHousingRenter.pickAndExecuteAnAction()); 
+		assertEquals("Should no longer be time to maintain", mHousingRenter.mTimeToMaintain, false); 
 	}
 	
 	public void testHungry(){
@@ -148,7 +152,12 @@ public class RenterTest extends TestCase {
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
 		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
 		
+		//Set renter hungry
+		mHousingRenter.mHungry = true;  
 		
+		//Check
+		assertTrue("PAEA: return true and does action", mHousingRenter.pickAndExecuteAnAction()); 
+		assertEquals("Renter should no longer be hungry", mHousingRenter.mHungry, false); 
 	}
 	
 	

@@ -25,7 +25,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			.synchronizedList(new ArrayList<House>());
 	int mMinCash = 50;
 	int mMinSSN = 0;
-	public boolean mTimeToCheckRent = false;
 	
 	enum EnumRenterState {
 		Initial, ApplyingForHousing, RentPaid, OwesRent, RentOverdue
@@ -64,11 +63,6 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	}
 
 	/* Messages */
-	
-	public void msgTimeToCheckRent() {
-		mTimeToCheckRent = true;
-		stateChanged();
-	}
 	
 	public void msgIWouldLikeToLiveHere(HousingRenter r, double cash, int SSN) {
 		print("Message - I would like to live here received");
