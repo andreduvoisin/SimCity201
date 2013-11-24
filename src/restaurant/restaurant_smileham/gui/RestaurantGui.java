@@ -4,6 +4,8 @@ import restaurant.restaurant_smileham.agents.CustomerAgent;
 
 import javax.swing.*;
 
+import city.gui.*;
+
 import java.awt.*;
 import java.awt.event.*;
 /**
@@ -32,7 +34,6 @@ public class RestaurantGui extends JFrame implements ActionListener {
 
     //CONSTRUCTOR
     public RestaurantGui() {
-    	
         //Alter JFrame RestaurantGUI
         setBounds(50, 50, cWINDOWX, cWINDOWY);
         setLayout(new GridLayout(1,2));

@@ -66,12 +66,5 @@ public class MockMasterTellerRole extends Mock implements BankMasterTeller, Role
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public Location getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 }

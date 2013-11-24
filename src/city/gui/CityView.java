@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import restaurant.restaurant_smileham.gui.AnimationPanel;
+
 public class CityView extends JPanel implements MouseListener, ActionListener {
 
 	HashMap<String, CityCard> cards;
@@ -28,7 +30,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards = new HashMap<String, CityCard>();
 		cards.put("null", new CityCard(city, Color.black));
 		cards.put("Road", new CityCard(city, Color.black));
-		cards.put("R_Maggiyan", new CityCard(city, Color.blue));
+		cards.put("R_Maggiyan", new AnimationPanel(city, Color.blue));
 		cards.put("Restaurant 2", new CityCard(city, Color.red));
 		cards.put("Green Guts Bank", new CityCard(city, Color.green));
 		cards.put("House 1", new CityCard(city, Color.cyan));

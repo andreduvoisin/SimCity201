@@ -66,7 +66,7 @@ public class PersonAgent extends Agent implements Person {
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
 	private CityPerson mGui; //SHANE JERRY: 2 instantiate this
-	private SimCityGui mRoleGui; //SHANE JERRY: make sure this works
+	private SimCityGui mRoleGui; //SHANE JERRY: 1 what type does this need to be? make sure this works
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -248,7 +248,9 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		
 		//remove current gui (isPresent = false)
+		mGui.setInvisible();
 		//create new market gui
+		
 		
 		//lock person until role is finished
 		mRoleFinished = false;
@@ -299,28 +301,8 @@ public class PersonAgent extends Agent implements Person {
 		}
 		catch (Exception e) {
 		}
+		acquireSemaphore(semAnimationDone);
 		
-		
-		// // What will be our algorithm to figure out which to do?
-		// switch(random(2)) {
-		// case 0:
-		// // Eat at home.
-		// DoGoTo(home.location);
-		// roles.find(HouseRenterRole).active = T;
-		// DoGoMakeFoodAtHome();
-		// state = PersonState.Eating;
-		// break;
-		// case 1:
-		// // Eat at restaurant.
-		// // What will be our algorithm to figure out which restaurant to go
-		// to?
-		// restaurantChoice = restaurants.chooseRestaurant();
-		// DoGoTo(restaurantChoice.location);
-		// restaurantChoice.getHost().msgImHungry(roles.find(CustomerRole));
-		// roles.find(CustomerRole).active = T;
-		// state = PersonState.Eating;
-		// break;
-		// }
 	}
 	
 	public void SetGui(CityPerson pGui){
@@ -353,6 +335,12 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void invokeMaintenance() {
 		mHouseRole.msgTimeToMaintain();
+	}
+	
+	
+	//JERRY 0 FOR TESTING
+	public void move(){
+		mGui.DoGoToDestination(ContactList.cBANK_LOCATION);
 	}
 
 	
@@ -423,9 +411,7 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-	public void msgHereIsPayment(int senderSSN, double amount) {
-		mCash += amount;
-	}
+
 	public void setName(String name) {
 		mName = name;
 	}

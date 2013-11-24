@@ -14,8 +14,8 @@ import base.Gui;
 
 public class AnimationPanel extends JPanel implements ActionListener {
 
-	private final int WINDOWX = 600;
-	private final int WINDOWY = 700;
+	private final int WINDOWX = 500;
+	private final int WINDOWY = 500;
 	private List<Gui> guis = new ArrayList<Gui>();
 
 	public AnimationPanel() {

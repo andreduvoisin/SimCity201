@@ -26,8 +26,8 @@ public class CityCard extends JPanel implements ActionListener, MouseListener {
 	}
 	
 	public void paint(Graphics g) {
-		g.setColor(background);
-		g.fillRect(0, 0, getWidth(), getHeight());
+		//g.setColor(background);
+		//g.fillRect(0, 0, getWidth(), getHeight());
 	}
 	
 	public void actionPerformed(ActionEvent e) {
