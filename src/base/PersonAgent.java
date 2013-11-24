@@ -25,7 +25,6 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-//import city.gui.PersonGui;
 import city.gui.CityPerson;
 
 
@@ -41,6 +40,7 @@ public class PersonAgent extends Agent implements Person {
 	private EnumJobType mJobPlace;
 	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
+	private Location mJobLocation;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -82,22 +82,28 @@ public class PersonAgent extends Agent implements Person {
 		mCash = cash;
 		mName = name;
 		
-		boolean active = (mTimeShift == 0);
+		Role jobRole = null;
 		switch (job){
 			case BANK:
-				mRoles.put(SortingHat.getBankRole(mTimeShift), active);
+				jobRole = SortingHat.getBankRole(mTimeShift);
 				break;
 			case MARKET:
-				mRoles.put(SortingHat.getMarketRole(mTimeShift), active);
+				jobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
-				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), active);
+				jobRole = SortingHat.getRestaurantRole(mTimeShift);
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
 			case NONE: break;
 		}
-		if (mTimeShift == 0){
+		boolean active = (mTimeShift == 0);
+		if (jobRole != null){
+			mJobLocation = ContactList.sRoleLocations.get(jobRole);
+			mRoles.put(jobRole, active);
+		}
+		
+		if (active){
 			for (Role iRole : mRoles.keySet()){
 				iRole.setPerson(this);
 			}
@@ -118,8 +124,10 @@ public class PersonAgent extends Agent implements Person {
 	private void initializePerson(){
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
-
+		
+		mJobPlace = null;
 		mRoles = new HashMap<Role, Boolean>();
+		mHouseRole = null;
 		mCash = 100;
 		mLoan = 0;
 		
@@ -281,12 +289,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void goToJob() {
+		mGui.DoGoToDestination(mJobLocation);
+		acquireSemaphore(semAnimationDone);
 		
-		
-		
-		
-//		gui.DoGoTo(Location Job);
-//		semAnimation.acquire();
+
+
 		//add job role
 		
 		// DoGoTo(work.location);
@@ -307,15 +314,15 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		
-		int randomRestaurant = 1; // SHANE: Make random
+		int restaurantChoice = 1; // SHANE: Make random
 		try {
-			restaurantCustomerRole.setRestaurant(randomRestaurant);
+			restaurantCustomerRole.setRestaurant(restaurantChoice);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} // DAVID: 1 This is where it's set
 		
 		try {
-			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
+			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 		}
 		catch (Exception e) {
 		}
