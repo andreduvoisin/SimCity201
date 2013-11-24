@@ -14,6 +14,11 @@ public class RestaurantCookRole extends BaseRole {
 		mPerson = person;
 	}
 	
+	public RestaurantCookRole(Person person, int restaurantID){
+		mPerson = person;
+		setRestaurant(restaurantID);
+	}
+	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = new CookRole(mPerson.getName(), DEFAULT_FOOD_QTY);

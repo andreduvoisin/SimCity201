@@ -13,6 +13,11 @@ public class RestaurantHostRole extends BaseRole {
 		mPerson = person;
 	}
 	
+	public RestaurantHostRole(Person person, int restaurantID){
+		mPerson = person;
+		setRestaurant(restaurantID);
+	}
+	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = new CustomerRole(mPerson.getName());

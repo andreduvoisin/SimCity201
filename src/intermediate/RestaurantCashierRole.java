@@ -13,6 +13,11 @@ public class RestaurantCashierRole extends BaseRole {
 		mPerson = person;
 	}
 	
+	public RestaurantCashierRole(Person person, int restaurantID){
+		mPerson = person;
+		setRestaurant(restaurantID);
+	}
+	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = new CashierRole(mPerson.getName());
