@@ -60,7 +60,7 @@ public class Time {
 					sGlobalDate = sGlobalDate + 1;
 				}
 			}
-		}, new Date( System.currentTimeMillis()), 1000);
+		}, new Date( System.currentTimeMillis()), 10000);
 		
 		/*mTimer.schedule(new TimerTask() {
 			

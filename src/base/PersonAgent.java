@@ -196,7 +196,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		//if not during job shift
-		if ((mRoleFinished) /*&& (Time.GetShift() != mTimeShift)*/){
+		if ((mRoleFinished) && (Time.GetShift() != mTimeShift)){
 			// Process events (calendar)
 				Iterator<Event> itr = mEvents.iterator();
 				while (itr.hasNext()) {
