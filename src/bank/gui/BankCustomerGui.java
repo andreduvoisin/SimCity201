@@ -8,16 +8,16 @@ import java.awt.*;
 public class BankCustomerGui implements Gui {
 
 	private BankCustomer agent = null;
-	private boolean isPresent = false;
+	private boolean isPresent = true;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOS = -40;
+	static final int STARTPOS = 20;
 
-	public BankCustomerGui(BankCustomer c) {
-		agent = c;
+	public BankCustomerGui(BankCustomer bc) {
+		agent = bc;
 		xPos = STARTPOS;
 		yPos = STARTPOS;
 		xDestination = STARTPOS;

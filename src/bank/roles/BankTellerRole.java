@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import bank.BankAccount;
+import bank.gui.BankTellerGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
@@ -31,6 +32,8 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public enum EnumTransaction {None, Deposit, Open, Loan, Payment, Robbery};
 	
+	//GUI
+	BankTellerGui mGUI;
 	//GUI Coordinate
 	int mLocation;
 	//Agent Correspodents
@@ -155,5 +158,8 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public void setAccounts(){
 		mAccounts = mMasterTeller.getAccounts();
+	}
+	public void setGui(BankTellerGui g) {
+		mGUI = g;
 	}
 }

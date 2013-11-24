@@ -1,23 +1,24 @@
 package bank.gui;
 
 import bank.interfaces.BankCustomer;
+import bank.interfaces.BankTeller;
 import base.Gui;
 
 import java.awt.*;
 
 public class BankTellerGui implements Gui {
 
-	private BankCustomer agent = null;
-	private boolean isPresent = false;
+	private BankTeller agent = null;
+	private boolean isPresent = true;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOS = -40;
+	static final int STARTPOS = 60;
 
-	public BankTellerGui(BankCustomer c) {
-		agent = c;
+	public BankTellerGui(BankTeller bt) {
+		agent = bt;
 		xPos = STARTPOS;
 		yPos = STARTPOS;
 		xDestination = STARTPOS;
@@ -37,7 +38,7 @@ public class BankTellerGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLUE);
 		g.fillRect(xPos, yPos, CUSTOMERSIZE, CUSTOMERSIZE);
 	}
 

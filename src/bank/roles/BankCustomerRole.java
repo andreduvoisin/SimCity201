@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bank.BankAction;
+import bank.gui.BankCustomerGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -36,6 +37,9 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	//Agent Correspondents//
 	public BankGuard mGuard;
 	public BankTeller mTeller;
+	
+	//GUI
+	BankCustomerGui mGUI;
 	
 	
 	public BankCustomerRole(Person person){
@@ -170,5 +174,11 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	public void setGuard(BankGuard guard){
 		mGuard = guard;
+	}
+	
+//	UTILITIES
+	
+	public void setGui(BankCustomerGui g) {
+		mGUI = g;
 	}
 }
