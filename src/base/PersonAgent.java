@@ -105,7 +105,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false); 
+		mRoles.put(new RestaurantCustomerRole(this), true); 
 		
 	}
 	
@@ -263,7 +263,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//add desired item
 		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
-		//message market cashier to start transaction
+		//PAEA for role will message market cashier to start transaction
 	}
 	
 	private void goToJob() {
@@ -281,10 +281,9 @@ public class PersonAgent extends Agent implements Person {
 		// state = PersonState.Working;
 	}
 
-	private void eatFood() {
+	public void eatFood() {
 		//decide if eating at home or not
 		//SHANE REX: 3 get to this 
-		
 		
 		//set random restaurant
 		RestaurantCustomerRole restaurantCustomerRole = null;
@@ -297,7 +296,11 @@ public class PersonAgent extends Agent implements Person {
 		int randomRestaurant = 1; //SHANE: Make random
 		restaurantCustomerRole.setRestaurant(randomRestaurant); //DAVID: 1 This is where it's set
 		
-		mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
+		try {
+			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
+		}
+		catch (Exception e) {
+		}
 		acquireSemaphore(semAnimationDone);
 		
 	}
