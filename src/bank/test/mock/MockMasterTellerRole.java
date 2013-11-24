@@ -5,6 +5,7 @@ import java.util.Map;
 
 import bank.BankAccount;
 import bank.interfaces.BankMasterTeller;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -62,6 +63,12 @@ public class MockMasterTellerRole extends Mock implements BankMasterTeller, Role
 
 	@Override
 	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Location getLocation() {
 		// TODO Auto-generated method stub
 		return null;
 	}

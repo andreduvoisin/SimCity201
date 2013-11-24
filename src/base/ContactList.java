@@ -71,7 +71,7 @@ public class ContactList {
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
 	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
-		BankMasterTellerRole bankMasterTellerRole = null;
+		BankMasterTellerRole bankMasterTellerRole = new BankMasterTellerRole();
 		for (Role iRole : sRoleLocations.keySet()){
 			if (iRole instanceof BankMasterTellerRole){
 				bankMasterTellerRole = (BankMasterTellerRole) iRole;
