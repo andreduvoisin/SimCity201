@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import bank.roles.BankMasterTellerRole;
+import bank.test.MasterTellerTest;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -66,6 +68,16 @@ public class ContactList {
 	}
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
+		
+	static void SendPayment(int senderSSN, int receiverSSN, int amount){
+		BankMasterTellerRole bankMasterTellerRole = null;
+		for (Role iRole : sRoleLocations.keySet()){
+			if (iRole instanceof BankMasterTellerRole){
+				bankMasterTellerRole = (BankMasterTellerRole) iRole;
+			}
+		}
+		bankMasterTellerRole.msgSendPayment(senderSSN, receiverSSN, amount);
+	}
 	
 	
 	//REX ALL: What else do we need here? -Shane

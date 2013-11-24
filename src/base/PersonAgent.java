@@ -16,7 +16,6 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
-import bank.interfaces.BankMasterTeller;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
@@ -384,10 +383,6 @@ public class PersonAgent extends Agent implements Person {
 
 	public int getSSN() {
 		return mSSN;
-	}
-
-	public BankMasterTeller getMasterTeller() {
-		return mMasterTeller;
 	}
 
 	public Map<EnumMarketItemType, Integer> getItemInventory() {

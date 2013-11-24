@@ -12,7 +12,6 @@ public interface Person {
 	
 	public double getCash();
 	public int getSSN();
-	public BankMasterTeller getMasterTeller();
 	
 	public void addCash(double amount);
 	
