@@ -97,7 +97,7 @@ public class PersonAgent extends Agent implements Person {
 			case HOUSING: break;
 			case NONE: break;
 		}
-		boolean active = (mTimeShift == 0);
+		boolean active = (mTimeShift == Time.GetShift());
 		if (jobRole != null){
 			mJobLocation = ContactList.sRoleLocations.get(jobRole);
 			mRoles.put(jobRole, active);
