@@ -12,7 +12,9 @@ import java.awt.event.*;
 
 public class MarketPanel extends JPanel implements ActionListener {
 	private List<MarketBaseGui> guis = new ArrayList<MarketBaseGui>();
-	MarketItemsGui mItemGui = new MarketItemsGui();
+	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
+	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
+	private MarketItemsGui mItemGui = new MarketItemsGui();
 	private final int TIMERDELAY = 8;
 	
 	public MarketPanel() {
@@ -49,7 +51,6 @@ public class MarketPanel extends JPanel implements ActionListener {
 	private void addGuis() {
 		guis.add(new MarketItemsGui());
 		guis.add(new MarketCashierGui(null));
-	//	guis.add(new MarketDeliveryTruckGui(null));
 		guis.add(new MarketCustomerGui(null));
 		guis.add(new MarketWorkerGui(null));
 	}
@@ -63,7 +64,22 @@ public class MarketPanel extends JPanel implements ActionListener {
 	
 	public void addGui(MarketBaseGui g) {
 		guis.add(g);
-		if(g instanceof MarketWorkerGui)
+		if(g instanceof MarketWorkerGui) {
+			mWorkerGuis.add((MarketWorkerGui)g);
 			((MarketWorkerGui) g).setItemsGui(mItemGui);
+		}
+		else if (g instanceof MarketCustomerGui) {
+			mCustomerGuis.add((MarketCustomerGui)g);
+		}
+	}
+	
+	public void removeGui(MarketBaseGui g) {
+		guis.remove(g);
+		if(g instanceof MarketWorkerGui) {
+			mWorkerGuis.remove((MarketWorkerGui)g);
+		}
+		else if (g instanceof MarketCustomerGui) {
+			mCustomerGuis.remove((MarketCustomerGui)g);
+		}
 	}
 }

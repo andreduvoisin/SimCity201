@@ -54,7 +54,7 @@ public class MarketWorkerGui implements MarketBaseGui {
         		break;
         	}
         	case fulFillOrder: {
-        //		mAgent.msgOrderFulfilled(mOrder);
+        		mAgent.msgOrderFulfilled(mOrder);
         		mOrder = null;
         		mCommand = EnumCommand.noCommand;
         		break;
@@ -64,17 +64,17 @@ public class MarketWorkerGui implements MarketBaseGui {
         		break;
         	}
         	case goToCustomer: {
-       // 		mAgent.msgAnimationAtCustomer();
+        		mAgent.msgAnimationAtCustomer();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToDeliveryTruck: {
-        //		mAgent.msgAnimationAtDeliveryTruck();
+        		mAgent.msgAnimationAtDeliveryTruck();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        //		mAgent.msgAnimationLeftMarket();
+        		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
