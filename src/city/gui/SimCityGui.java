@@ -14,9 +14,9 @@ import base.interfaces.Person;
 
 public class SimCityGui extends JFrame {
 	
-	CityPanel city;
-	InfoPanel info;
-	CityView view;
+	public CityPanel citypanel;
+	public InfoPanel infopanel;
+	public CityView cityview;
 	CityControlPanel CP;
 	GridBagConstraints c = new GridBagConstraints();
 
@@ -24,13 +24,13 @@ public class SimCityGui extends JFrame {
 
 	public SimCityGui() throws HeadlessException, IOException {
 		CP = new CityControlPanel(this);
-		city = new CityPanel(this);
-		view = new CityView(this);
-		info = new InfoPanel(this);
+		citypanel = new CityPanel(this);
+		cityview = new CityView(this);
+		infopanel = new InfoPanel(this);
 		
 		this.setLayout(new GridBagLayout());
 		
-		Time globaltime = new Time(city.masterPersonList);
+		Time globaltime = new Time(citypanel.masterPersonList);
 		
 		c.gridx = 0; c.gridy = 0;
 		c.gridwidth = 2; c.gridheight = 6;
@@ -38,20 +38,20 @@ public class SimCityGui extends JFrame {
 		
 		c.gridx = 2; c.gridy = 0;
 		c.gridwidth = 6; c.gridheight = 6;
-		this.add(city, c);
+		this.add(citypanel, c);
 		
 		c.gridx = 8; c.gridy = 0;
 		c.gridwidth = 5; c.gridheight = 1;
-		this.add(info, c);
+		this.add(infopanel, c);
 
 		c.gridx = 8; c.gridy = 1;
 		c.gridwidth = 5; c.gridheight = 5;
-		this.add(view, c);
+		this.add(cityview, c);
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
-		config.readFileCreatePersons(city);
+		config.readFileCreatePersons(citypanel);
 		
-		Person person = city.masterPersonList.get(0);
+		Person person = citypanel.masterPersonList.get(0);
 		/*if (person instanceof PersonAgent){
 			((PersonAgent) person).msgAnimationDone();
 			((PersonAgent) person).getCar();
@@ -69,7 +69,7 @@ public class SimCityGui extends JFrame {
 		if (person instanceof PersonAgent){
 			//Housing
 			//((PersonAgent) person).invokeMaintenance();
-			((PersonAgent) person).mHouseRole.setHouse(view.house1);
+			((PersonAgent) person).mHouseRole.setHouse(cityview.house1);
 			//((PersonAgent) person).mHouseRole.msgEatAtHome();
 			((PersonAgent) person).startThread();
 //			((PersonAgent) person).eatFood();

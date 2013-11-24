@@ -1,6 +1,5 @@
 package housing.roles;
 
-import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -10,6 +9,7 @@ import java.util.List;
 
 import base.ContactList;
 import base.interfaces.Person;
+import city.gui.CityHousing;
 
 /*
  * @author David Carr, Maggi Yang
@@ -49,7 +49,7 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 
 	/* Messages */
 
-	public void msgApplicationAccepted(House newHouse) {
+	public void msgApplicationAccepted(CityHousing newHouse) {
 		print("Message - msgApplicationAccepted");
 		mHouse = newHouse;
 		stateChanged();

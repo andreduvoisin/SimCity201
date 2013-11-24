@@ -129,10 +129,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(addRestaurant)) {
-			city.city.addObject(CityComponents.RESTAURANT);
+			city.citypanel.addObject(CityComponents.RESTAURANT);
 		}
 		else if (e.getSource().equals(addBank)) {
-			city.city.addObject(CityComponents.BANK);
+			city.citypanel.addObject(CityComponents.BANK);
 		}
 		else if (e.getSource().equals(housingGUIButton)) {
 			JFrame HousingGUITest = new JFrame("HousingGUITest");

@@ -1,6 +1,5 @@
 package housing.roles;
 
-import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -10,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import base.interfaces.Person;
+import city.gui.CityHousing;
 
 /*
  * @author David Carr, Maggi Yang
@@ -21,8 +21,8 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 
 	public List<MyRenter> mRenterList = Collections
 			.synchronizedList(new ArrayList<MyRenter>());
-	public List<House> mHousesList = Collections
-			.synchronizedList(new ArrayList<House>());
+	public List<CityHousing> mHousesList = Collections
+			.synchronizedList(new ArrayList<CityHousing>());
 	int mMinCash = 50;
 	int mMinSSN = 0;
 	
@@ -34,7 +34,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 		HousingRenter mRenter;
 		EnumRenterState mState;
 		double mCash;
-		House mHouse;
+		CityHousing mHouse;
 		int SSN;
 
 		public MyRenter(HousingRenter renter, double cash, int mySSN) {
@@ -51,17 +51,10 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	public HousingLandlordRole(Person person){
 		super();
 		mPerson = person;
-		
-		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
-		//mHousesList.add(new House(20, 20, 100.00)); 
-		//mHousesList.add(new House(30, 30, 250.00));
 	}
 	
 	public HousingLandlordRole(){
 		super();
-		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
-		//mHousesList.add(new House(20, 20, 100.00)); 
-		//mHousesList.add(new House(30, 30, 250.00));
 	}
 
 	/* Messages */
@@ -160,7 +153,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 		print("Action - GiveEvictionNotice");
 		r.mRenter.msgEviction();
 		synchronized (mHousesList) {
-			for (House h : mHousesList) {
+			for (CityHousing h : mHousesList) {
 				if (h.mOccupant == r) {
 					h.mOccupant = null;
 				}
@@ -171,7 +164,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	void ReviewApplicant(MyRenter r) {
 		print("Action - ReviewApplicant");
 		if (r.mCash >= mMinCash && r.SSN >= mMinSSN) {
-			for(House h: mHousesList){
+			for(CityHousing h: mHousesList){
 				if(h.mOccupant == null){
 					r.mHouse = h; 
 					r.mHouse.mOccupant = r.mRenter;
