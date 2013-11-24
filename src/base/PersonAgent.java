@@ -263,7 +263,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//add desired item
 		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
-		//message market cashier to start transaction
+		//PAEA for role will message market cashier to start transaction
 	}
 	
 	private void goToJob() {
