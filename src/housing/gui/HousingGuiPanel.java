@@ -1,8 +1,5 @@
 package housing.gui;
 
-import housing.roles.HousingRenterRole;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -12,10 +9,9 @@ import java.util.List;
 
 import javax.swing.Timer;
 
+import base.Gui;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
-import base.Gui;
-import base.PersonAgent;
 
 /*
  * @author David Carr
@@ -35,19 +31,19 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		Timer timer = new Timer(20, this);
 		timer.start();
 	}
-	
-	/*public void testHousingGui() {
-		PersonAgent mPerson = new PersonAgent();
-		PersonAgent mPerson2 = new PersonAgent();
-		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
-		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
-		HousingPersonGui gui1 = new HousingPersonGui();
-		HousingPersonGui gui2 = new HousingPersonGui();
-		renter1.setGui(gui1);
-		renter2.setGui(gui2);
-		this.addGui(gui1);
-		this.addGui(gui2);
-	}*/
+		
+	public void testHousingGui() {
+//		PersonAgent mPerson = new PersonAgent();
+//		PersonAgent mPerson2 = new PersonAgent();
+//		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
+//		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
+//		HousingPersonGui gui1 = new HousingPersonGui();
+//		HousingPersonGui gui2 = new HousingPersonGui();
+//		renter1.setGui(gui1);
+//		renter2.setGui(gui2);
+//		this.addGui(gui1);
+//		this.addGui(gui2);
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();
