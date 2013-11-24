@@ -111,9 +111,10 @@ public class RenterTest extends TestCase {
 		//Check
 		assertEquals("HousingRenter should have one bill", mHousingRenter.mBills.size(), 1); 
 		assertTrue("PAEA: return true and does action", mHousingRenter.pickAndExecuteAnAction()); 
-
+		assertEquals("HousingRenter should pay and then remove bill", mHousingRenter.mBills.size(), 0); 
 		
 	}
+	
 	
 
 }
