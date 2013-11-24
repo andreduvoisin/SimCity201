@@ -103,7 +103,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false); 
+		mRoles.put(new RestaurantCustomerRole(this), true); 
 		
 	}
 	
