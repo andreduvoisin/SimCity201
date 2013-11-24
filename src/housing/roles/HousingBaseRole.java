@@ -11,10 +11,16 @@ public class HousingBaseRole extends BaseRole {
 	
 	public boolean mHungry = false;
 	public boolean mTimeToMaintain = false;
+	public boolean mTimeToCheckRent = false;
 	
 	Semaphore isAnimating = new Semaphore(0, true);
 	HousingPersonGui gui;
 	public House mHouse = null;
+	
+	public void msgTimeToCheckRent() {
+		mTimeToCheckRent = true;
+		stateChanged();
+	}
 	
 	public void msgTimeToMaintain() {
 		mTimeToMaintain = true;
