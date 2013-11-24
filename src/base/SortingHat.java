@@ -13,6 +13,10 @@ import market.roles.MarketCashierRole;
 import market.roles.MarketCookCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
+import restaurant.intermediate.RestaurantCashierRole;
+import restaurant.intermediate.RestaurantCookRole;
+import restaurant.intermediate.RestaurantHostRole;
+import restaurant.intermediate.RestaurantWaiterRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
@@ -25,55 +29,48 @@ public class SortingHat {
 	static Map<Role, Location> sRoleLocations; //list of roles (pointer to that in contact list)
 	static List<Map<Role, Boolean>> sRolesFilled;
 	
+	static int sNumBankTellers = 1;
+	static int sNumMarketWorkers = 1;
+	static int sNumRestaurantWaiters = 1;
+	
+	
 	public static void InstantiateBaseRoles(){
 		sRoleLocations = ContactList.sRoleLocations;
 		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
 		//Bank
-		BankMasterTellerRole bankMasterTellerRole = new BankMasterTellerRole(null);
-		sRoleLocations.put(bankMasterTellerRole, ContactList.cBANK_LOCATION);
-		BankGuardRole bankGuardRole = new BankGuardRole(null);
-		sRoleLocations.put(bankGuardRole, ContactList.cBANK_LOCATION);
-		BankTellerRole bankTellerRole = new BankTellerRole(null); //REX: How many tellers do we need? -SHANE
-		sRoleLocations.put(bankTellerRole, ContactList.cBANK_LOCATION);
+		sRoleLocations.put(new BankMasterTellerRole(null), ContactList.cBANK_LOCATION);
+		sRoleLocations.put(new BankGuardRole(null), ContactList.cBANK_LOCATION);
+		for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
+			sRoleLocations.put(new BankTellerRole(null), ContactList.cBANK_LOCATION);
+		}
 		
 		//Market
-		MarketCashierRole marketCashierRole = new MarketCashierRole(null);
-		sRoleLocations.put(marketCashierRole, ContactList.cMARKET_LOCATION);
-		MarketCookCustomerRole marketCookCustomerRole = new MarketCookCustomerRole(null); //ANGELICA: Is this just the restaurant cook?
-		sRoleLocations.put(marketCookCustomerRole, ContactList.cMARKET_LOCATION);
-		MarketDeliveryTruckRole marketDeliveryTruckRole = new MarketDeliveryTruckRole(null);
-		sRoleLocations.put(marketDeliveryTruckRole, ContactList.cMARKET_LOCATION);
-		MarketWorkerRole marketWorkerRole = new MarketWorkerRole(null);//? ANGELICA: How many do we need?
-		sRoleLocations.put(marketWorkerRole, ContactList.cMARKET_LOCATION);
+		sRoleLocations.put(new MarketCashierRole(null), ContactList.cMARKET_LOCATION);
+		sRoleLocations.put(new MarketDeliveryTruckRole(null), ContactList.cMARKET_LOCATION);
+		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
+			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_LOCATION);
+		}
 
 		//Restaurants
-		//REX - ADD RESTAURANT STUFF HERE WHEN DONE
-		
+
+		for (int iRestaurantNum = 1; iRestaurantNum < 2; iRestaurantNum++){
+			sRoleLocations.put(new RestaurantHostRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCashierRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCookRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
+				sRoleLocations.put(new RestaurantWaiterRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			}
+		}		
 		
 		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){
 			Map<Role, Boolean> shiftRoles = new HashMap<Role, Boolean>();
-			
-			//Bank
-			shiftRoles.put(bankGuardRole, false);
-			shiftRoles.put(bankMasterTellerRole, false);
-			shiftRoles.put(bankTellerRole, false);
-			
-			//Market
-			
-			shiftRoles.put(marketCashierRole, false);
-			shiftRoles.put(marketCookCustomerRole, false);
-			shiftRoles.put(marketDeliveryTruckRole, false);
-			shiftRoles.put(marketWorkerRole, false);
-			
-			//Restaurants
-			
+			for (Role iRole : sRoleLocations.keySet()){
+				shiftRoles.put(iRole, false);
+			}
 			sRolesFilled.add(shiftRoles);
 		}
-		
-		//SHANE: Add locations to contact list
-		
 		
 	}
 	
@@ -158,20 +155,53 @@ public class SortingHat {
 	}
 	
 	//RESTAURANTS
-	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
-	
 	public static Role getRestaurantRole(int shift){
 		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 		
-		//SHANE REX: 1 DO THIS WHEN YOU FINISH THE RESTAURANT ROLES
+		//RestaurantHostRole (1) - first priority
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantHostRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantHostRole) iRole;
+				}
+			}
+		}
 		
-		return new MarketWorkerRole(); //holding place
+		//RestaurantCookRole (1) - first priority
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantCookRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantCookRole) iRole;
+				}
+			}
+		}
+		
+		//RestaurantCashierRole (1) - first priority
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantCashierRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantCashierRole) iRole;
+				}
+			}
+		}
+		
+		//RestaurantWaiterRole (limited)
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantWaiterRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantWaiterRole) iRole;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	
-	
-	
-
 	//HOUSING
 	static int sLandlordCount = 0;
 	static int sRenterCount = 0;

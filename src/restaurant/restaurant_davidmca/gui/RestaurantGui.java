@@ -58,13 +58,13 @@ public class RestaurantGui extends CityCard implements ActionListener {
 	 * @throws IOException
 	 */
 
-	public RestaurantGui(SimCityGui city, Color background) throws IOException {
-		super(city, background);
-		int WINDOWX = 1000;
-		int WINDOWY = 700;
-		int PAD = 10;
+	public RestaurantGui(SimCityGui city) throws IOException {
+		super(city);
+		int WINDOWX = 500;
+		int WINDOWY = 500;
+		int PAD = 0;
 
-		setBounds(50, 50, WINDOWX, WINDOWY);
+		setBounds(0, 0, WINDOWX, WINDOWY);
 
 		setLayout(new GridLayout(1, 2));
 

@@ -33,8 +33,8 @@ public class HostRole extends BaseRole implements Host {
 
 	private String name;
 	// Table positions
-	private int[] xpositions = { 0, 100, 200, 300, 200 };
-	private int[] ypositions = { 0, 300, 200, 300, 400 };
+	private int[] xpositions = { 0, 125, 225, 325, 225 };
+	private int[] ypositions = { 0, 200, 100, 200, 300 };
 
 	public enum WaiterState {
 		Normal, BreakRequested, OnBreak

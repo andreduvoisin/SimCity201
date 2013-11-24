@@ -1,5 +1,7 @@
 package city.gui;
 
+import housing.gui.HousingHouseGuiPanel;
+
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import bank.BankPanel;
 import restaurant.restaurant_davidmca.gui.AnimationPanel;
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
 
@@ -30,16 +33,16 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		this.city = city;
 		
 		cards = new HashMap<String, CityCard>();
-		cards.put("null", new CityCard(city, Color.black));
-		cards.put("Road", new CityCard(city, Color.black));
+		cards.put("null", new CityCard(city));
+		cards.put("Road", new CityCard(city));
 		
-		RestaurantGui davidmca = new RestaurantGui(city, Color.blue);
+		RestaurantGui davidmca = new RestaurantGui(city);
 		cards.put("Restaurant 2", davidmca);
 		
-		cards.put("R_Maggiyan", new CityCard(city, Color.red));
-		cards.put("Green Guts Bank", new CityCard(city, Color.green));
-		cards.put("House 1", new CityCard(city, Color.cyan));
-		cards.put("Sears!", new CityCard(city, Color.yellow));
+		cards.put("R_Maggiyan", new CityCard(city));
+		cards.put("Green Guts Bank", new BankPanel(city));
+		cards.put("House 1", new HousingHouseGuiPanel(city));
+		cards.put("Sears!", new CityCard(city));
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {

@@ -2,12 +2,12 @@ package base;
 
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
-import intermediate.RestaurantCustomerRole;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,7 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import reference.simcity.gui.SimCityGui;
+import restaurant.intermediate.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
@@ -25,7 +26,6 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-//import city.gui.PersonGui;
 import city.gui.CityPerson;
 
 
@@ -38,37 +38,34 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
-	private EnumJobType mJobPlace;
-	public Map<Role, Boolean> mRoles; // i.e. WaiterRole, BankTellerRole, etc.
+	private EnumJobType mJobType;
+	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
+	private Location mJobLocation;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
 	SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
-		//ALL: Does this need to be synchronized? -Shane
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
-
+	Set<Location> mHomeLocations; //multiple for landlord
+	
 	//Personal Variables
 	private String mName; 
 	int mSSN;
 	int mTimeShift;
 	double mCash;
 	double mLoan;
-	boolean mHasHome;
-	Set<Location> mHomeLocations; //multiple for landlord
 	boolean mHasCar;
-	Location mWorkLocation;
-	CityPerson personGui = null;
-	
-	public Semaphore semAnimationDone = new Semaphore(0);
-	private boolean mRoleFinished;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
 	private CityPerson mGui; //SHANE JERRY: 2 instantiate this
 	private SimCityGui mRoleGui; //SHANE JERRY: 1 what type does this need to be? make sure this works
 
+	//PAEA Helpers
+	public Semaphore semAnimationDone = new Semaphore(1);
+	private boolean mRoleFinished;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -78,24 +75,36 @@ public class PersonAgent extends Agent implements Person {
 	
 	public PersonAgent(EnumJobType job, double cash, String name){
 		initializePerson();
-		mJobPlace = job;
+		mJobType = job;
 		mCash = cash;
 		mName = name;
 		
-		boolean active = (mTimeShift == 0);
+		Role jobRole = null;
 		switch (job){
 			case BANK:
-				mRoles.put(SortingHat.getBankRole(mTimeShift), active);
+				jobRole = SortingHat.getBankRole(mTimeShift);
 				break;
 			case MARKET:
-				mRoles.put(SortingHat.getMarketRole(mTimeShift), active);
+				jobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
-				mRoles.put(SortingHat.getRestaurantRole(mTimeShift), active);
+				jobRole = SortingHat.getRestaurantRole(mTimeShift);
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
 			case NONE: break;
+		}
+		boolean active = (mTimeShift == Time.GetShift());
+		if (jobRole != null){
+			mJobLocation = ContactList.sRoleLocations.get(jobRole);
+			mRoles.put(jobRole, active);
+		}
+		
+		if (active){
+			for (Role iRole : mRoles.keySet()){
+				System.out.println(iRole.toString());
+				iRole.setPerson(this);
+			}
 		}
 		
 		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
@@ -106,17 +115,31 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false); 
+		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 	}
 	
 	private void initializePerson(){
+		//Roles and Job
+		mJobType = null;
+		mRoles = new HashMap<Role, Boolean>();
+		mHouseRole = null;
+		mJobLocation = null;
+		
+		//Lists
+		mFriends = new ArrayList<Person>();
+		mEvents = new TreeSet<Event>();
+		mItemInventory = Collections.synchronizedMap(new HashMap<EnumMarketItemType, Integer>());
+		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumMarketItemType, Integer>());
+		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
+		
+		//Personal Variables
+		mName = "";
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
-
-		mRoles = new HashMap<Role, Boolean>();
 		mCash = 100;
 		mLoan = 0;
+		mHasCar = false;
 		
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
@@ -196,7 +219,7 @@ public class PersonAgent extends Agent implements Person {
 		//Daily Recurring Events (Job, Eat)
 		else if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
-			if (!(Time.IsWeekend()) || (mJobPlace != EnumJobType.BANK)){
+			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				goToJob(); //SHANE: 1 go to job
 			}
 			mEvents.add(new Event(event, 24));
@@ -273,15 +296,16 @@ public class PersonAgent extends Agent implements Person {
 		//add desired item
 		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
 		//PAEA for role will message market cashier to start transaction
+		
+		//SHANE: 3 When gets car, change mHasCar to true
 	}
 	
 	private void goToJob() {
+		mGui.DoGoToDestination(mJobLocation);
+		acquireSemaphore(semAnimationDone);
 		
-		
-		
-		
-//		gui.DoGoTo(Location Job);
-//		semAnimation.acquire();
+
+
 		//add job role
 		
 		// DoGoTo(work.location);
@@ -302,15 +326,15 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		
-		int randomRestaurant = 1; // SHANE: Make random
+		int restaurantChoice = 1; // SHANE: Make random
 		try {
-			restaurantCustomerRole.setRestaurant(randomRestaurant);
+			restaurantCustomerRole.setRestaurant(restaurantChoice);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		} // DAVID: 1 This is where it's set
 		
 		try {
-			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
+			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 		}
 		catch (Exception e) {
 		}
@@ -318,10 +342,6 @@ public class PersonAgent extends Agent implements Person {
 		
 	}
 	
-	public void SetGui(CityPerson pGui){
-		personGui = pGui;
-	}
-
 	private void depositCheck() {
 
 	}
@@ -356,6 +376,9 @@ public class PersonAgent extends Agent implements Person {
 		mGui.DoGoToDestination(ContactList.cBANK_LOCATION);
 	}
 
+	public void SetGui(CityPerson pGui){
+		mGui = pGui;
+	}
 	
 	
 	private List<Person> getBestFriends(){

@@ -8,11 +8,11 @@ public class MarketCustomerGui implements MarketBaseGui {
 	private MarketCustomerRole mAgent;
 
 	private static final int xStart = -20, yStart = -20;
-	private static final int xCashier = 200, yCashier = 250;
-	private static final int xWaitingArea = 100, yWaitingArea = 250;
+	private static final int xMarket = 70, yMarket = 50;
+	private static final int xWaitingArea = 70, yWaitingArea = 200;
 	
-	private int xPos = 50, yPos = 50;
-	private int xDestination = xCashier, yDestination = yCashier;
+	private int xPos = xStart, yPos = yStart;
+	private int xDestination = xMarket, yDestination = yMarket;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, goToWaitingArea, leaveMarket};
@@ -64,8 +64,8 @@ public class MarketCustomerGui implements MarketBaseGui {
 /* Action Calls */
 	public void DoGoToMarket() {
 		//change to a waiting line
-		xDestination = xCashier;
-		yDestination = yCashier;
+		xDestination = xMarket;
+		yDestination = yMarket;
 		mCommand = EnumCommand.goToMarket;
 	}
 	

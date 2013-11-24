@@ -61,7 +61,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 					return;
 			}
 			addingObject = false;
-			city.view.addView(new CityCard(city, Color.black), temp.ID);
+			city.view.addView(new CityCard(city), temp.ID);
 			temp = null;
 		}
 		for (CityComponent c: statics) {

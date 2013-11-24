@@ -46,7 +46,11 @@ public class SimCityGui extends JFrame {
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(city);
 		for (Person person: city.masterPersonList) {
+			((PersonAgent) person).msgAnimationDone();
+			((PersonAgent) person).startThread();
+			((PersonAgent) person).msgAnimationDone();
 			((PersonAgent) person).eatFood();
+			((PersonAgent) person).msgAnimationDone();
 		}
 	}
 
