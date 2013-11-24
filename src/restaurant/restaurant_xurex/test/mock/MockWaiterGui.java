@@ -4,9 +4,9 @@ package restaurant.restaurant_xurex.test.mock;
 import java.awt.Graphics2D;
 
 import restaurant.restaurant_xurex.gui.RestaurantGui;
-import restaurant.restaurant_xurex.interfaces.W_Gui;
+import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
-public class MockWaiterGui extends Mock implements W_Gui {
+public class MockWaiterGui extends Mock implements WaiterGui_ {
 
 	public MockWaiterGui(String name) {
 		super(name);

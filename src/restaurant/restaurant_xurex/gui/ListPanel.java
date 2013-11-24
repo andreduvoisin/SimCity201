@@ -1,6 +1,6 @@
 package restaurant.restaurant_xurex.gui;
 
-import restaurant.restaurant_xurex.CustomerAgent;
+import restaurant.restaurant_xurex.agents.CustomerAgent;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 
 import javax.swing.*;

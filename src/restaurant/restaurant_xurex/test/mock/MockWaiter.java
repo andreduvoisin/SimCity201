@@ -6,7 +6,7 @@ import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
-import restaurant.restaurant_xurex.interfaces.W_Gui;
+import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 import restaurant.restaurant_xurex.utilities.*;
 
 /**
@@ -111,10 +111,10 @@ public class MockWaiter extends Mock implements Waiter {
 	public void DoServeCustomer(String choice, int table) {
 	}
 
-	public void setGui(W_Gui gui) {
+	public void setGui(WaiterGui_ gui) {
 	}
 
-	public W_Gui getGui() {
+	public WaiterGui_ getGui() {
 		return null;
 	}
 

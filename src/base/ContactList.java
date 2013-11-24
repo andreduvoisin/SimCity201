@@ -72,7 +72,7 @@ public class ContactList {
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
 	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
-		BankMasterTeller bankMasterTellerRole = new BankMasterTellerRole();
+		BankMasterTeller bankMasterTellerRole = null;
 		for (Role iRole : sRoleLocations.keySet()){
 			if (iRole instanceof BankMasterTeller){
 				bankMasterTellerRole = (BankMasterTeller) iRole;
@@ -80,11 +80,5 @@ public class ContactList {
 		}
 		bankMasterTellerRole.msgSendPayment(senderSSN, receiverSSN, amount);
 	}
-	
-	
-	//REX ALL: What else do we need here? -Shane
-	// SHANE: consider above maps with location as a key, instead of value
-	// so that we can look up the role-person by location
-	// (finding the location of a role isn't as helpful, methinks)
-	//^^^Why? Who is this?
+	//REX: 5 change list iteration and put bank master teller outside
 }

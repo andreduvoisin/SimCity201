@@ -70,9 +70,9 @@ public interface Waiter {
 
 	void DoServeCustomer(String choice, int table);
 
-	void setGui(W_Gui gui);
+	void setGui(WaiterGui_ gui);
 
-	W_Gui getGui();
+	WaiterGui_ getGui();
 
 	void DoDisplayOrder(String choice, int table);
 

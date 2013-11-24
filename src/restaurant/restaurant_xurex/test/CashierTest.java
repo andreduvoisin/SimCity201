@@ -2,8 +2,8 @@ package restaurant.restaurant_xurex.test;
 
 //import restaurant.interfaces.Customer;
 //import restaurant.interfaces.Waiter;
-import restaurant.restaurant_xurex.CashierAgent;
-import restaurant.restaurant_xurex.CashierAgent.BillState;
+import restaurant.restaurant_xurex.agents.CashierAgent;
+import restaurant.restaurant_xurex.agents.CashierAgent.BillState;
 import restaurant.restaurant_xurex.test.mock.MockCustomer;
 import restaurant.restaurant_xurex.test.mock.MockMarket;
 import restaurant.restaurant_xurex.test.mock.MockWaiter;

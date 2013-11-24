@@ -1,12 +1,12 @@
 package restaurant.restaurant_xurex.gui;
 
-import restaurant.restaurant_xurex.CashierAgent;
-import restaurant.restaurant_xurex.CookAgent;
-import restaurant.restaurant_xurex.CustomerAgent;
-import restaurant.restaurant_xurex.HostAgent;
-import restaurant.restaurant_xurex.MarketAgent;
-import restaurant.restaurant_xurex.WaiterAgent1;
-import restaurant.restaurant_xurex.WaiterAgent2;
+import restaurant.restaurant_xurex.agents.CashierAgent;
+import restaurant.restaurant_xurex.agents.CookAgent;
+import restaurant.restaurant_xurex.agents.CustomerAgent;
+import restaurant.restaurant_xurex.agents.HostAgent;
+import restaurant.restaurant_xurex.agents.MarketAgent;
+import restaurant.restaurant_xurex.agents.WaiterAgent1;
+import restaurant.restaurant_xurex.agents.WaiterAgent2;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;

@@ -315,9 +315,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void eatFood() {
-		//decide if eating at home or not
-		//SHANE REX: 3 get to this 
-		
 		//set random restaurant
 		RestaurantCustomerRole restaurantCustomerRole = null;
 		for (Role iRole : mRoles.keySet()){
@@ -417,6 +414,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void setLoan(double loan) {
 		mLoan = loan;
+	}
+	
+	public void subLoan(double loan) {
+		mLoan -= loan;
 	}
 	
 	public double getLoan() {
