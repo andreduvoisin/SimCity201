@@ -148,7 +148,7 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(200, 100, "Shane"); //SHANE: Hardcoded
+		mPersonGui = new CityPerson(200, 100, "Person"); //SHANE: Hardcoded
 		//SHANE REX: ADD TO MOVING IN SIMCITYPANEL
 		
 		// Event Setup
