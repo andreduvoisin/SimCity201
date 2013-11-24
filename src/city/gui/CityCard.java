@@ -3,6 +3,7 @@ package city.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,18 +17,19 @@ public class CityCard extends JPanel implements ActionListener, MouseListener {
 	protected Color background;
 	public static final int CARD_WIDTH = 500, CARD_HEIGHT = 500;
 	
-	public CityCard(SimCityGui city, Color background) {
+	public CityCard(SimCityGui city) {
 		this.city = city;
 		this.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
 		this.setVisible(true);
 		addMouseListener(this);
-		
-		this.background = background;
 	}
 	
 	public void paint(Graphics g) {
-		//g.setColor(background);
-		//g.fillRect(0, 0, getWidth(), getHeight());
+		Graphics2D g2 = (Graphics2D)g;
+
+        //Clear the screen by painting a rectangle the size of the frame
+        g2.setColor(getBackground());
+        g2.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
