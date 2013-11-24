@@ -58,7 +58,8 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		PersonAgent mPerson = new PersonAgent();
 		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
 		HousingPersonGui gui1 = new HousingPersonGui();
-		renter1.setGui(gui1);
+		//renter1.setGui(gui1);
+		gui1.setPresent(true);
 		this.addGui(gui1);
 		
 		renter1.mHungry = true; 
