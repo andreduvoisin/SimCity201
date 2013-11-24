@@ -21,7 +21,6 @@ public class RestaurantCustomerRole extends BaseRole {
 			subRole = new CustomerRole(mPerson.getName());
 			subRole.setPerson(mPerson);
 			RestaurantPanel.getInstance().addCustomer((CustomerRole) subRole);
-			System.out.println("hi"+RestaurantPanel.getInstance().customers.size());
 		}
 		// TODO DAVID add if statements for all the other restaurants
 	}

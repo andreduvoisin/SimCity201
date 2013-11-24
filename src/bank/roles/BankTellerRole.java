@@ -76,31 +76,33 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 
 //	SCHEDULER
-	public boolean pickAndExecuteAnAction(){
-		if (mCustomer.transaction == EnumTransaction.Deposit){
-			deposit();
-			mCustomer.transaction = EnumTransaction.None;
-			return true;
-		}
-		if (mCustomer.transaction == EnumTransaction.Loan){
-			loan();
-			mCustomer.transaction = EnumTransaction.None;
-			return true;
-		}
-		if (mCustomer.transaction == EnumTransaction.Payment){
-			payment();
-			mCustomer.transaction = EnumTransaction.None;
-			return true;
-		}
-		if (mCustomer.transaction == EnumTransaction.Open){
-			open();
-			mCustomer.transaction = EnumTransaction.None;
-			return true;
-		}
-		if (mCustomer.transaction == EnumTransaction.Robbery){
-			robbery();
-			mCustomer.transaction = EnumTransaction.None;
-			return true;
+	public boolean pickAndExecuteAnAction() {
+		if (!(mCustomer == null)) {
+			if (mCustomer.transaction == EnumTransaction.Deposit) {
+				deposit();
+				mCustomer.transaction = EnumTransaction.None;
+				return true;
+			}
+			if (mCustomer.transaction == EnumTransaction.Loan) {
+				loan();
+				mCustomer.transaction = EnumTransaction.None;
+				return true;
+			}
+			if (mCustomer.transaction == EnumTransaction.Payment) {
+				payment();
+				mCustomer.transaction = EnumTransaction.None;
+				return true;
+			}
+			if (mCustomer.transaction == EnumTransaction.Open) {
+				open();
+				mCustomer.transaction = EnumTransaction.None;
+				return true;
+			}
+			if (mCustomer.transaction == EnumTransaction.Robbery) {
+				robbery();
+				mCustomer.transaction = EnumTransaction.None;
+				return true;
+			}
 		}
 		return false;
 	}
