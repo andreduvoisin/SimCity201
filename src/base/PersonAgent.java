@@ -2,7 +2,6 @@ package base;
 
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
-import intermediate.RestaurantCustomerRole;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import reference.simcity.gui.SimCityGui;
+import restaurant.intermediate.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
@@ -61,7 +61,7 @@ public class PersonAgent extends Agent implements Person {
 	Location mWorkLocation;
 	CityPerson personGui = null;
 	
-	public Semaphore semAnimationDone = new Semaphore(0);
+	public Semaphore semAnimationDone = new Semaphore(1);
 	private boolean mRoleFinished;
 	
 	//Role References
