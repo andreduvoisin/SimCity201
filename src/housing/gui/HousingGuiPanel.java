@@ -34,10 +34,9 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		this.getSize();
 		Timer timer = new Timer(20, this);
 		timer.start();
-		testHousingGui();
 	}
-		
-	public void testHousingGui() {
+	
+	/*public void testHousingGui() {
 		PersonAgent mPerson = new PersonAgent();
 		PersonAgent mPerson2 = new PersonAgent();
 		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
@@ -48,7 +47,7 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		renter2.setGui(gui2);
 		this.addGui(gui1);
 		this.addGui(gui2);
-	}
+	}*/
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();

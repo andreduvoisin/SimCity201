@@ -16,8 +16,8 @@ public class HousingPersonGui implements Gui {
 
 	HousingBaseRole housingrole;
 
-	private int xPos, yPos = 20;
-	private int xDestination, yDestination = 20;
+	private int xPos, yPos = 40;
+	private int xDestination, yDestination = 40;
 	private boolean currentlyAnimating;
 
 	private static int GUISIZE = 20;
@@ -40,7 +40,7 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
 	}
 
