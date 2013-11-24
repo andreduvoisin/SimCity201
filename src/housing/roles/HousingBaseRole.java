@@ -31,6 +31,7 @@ public class HousingBaseRole extends BaseRole {
 	public void msgTimeToMaintain() {
 		print("msgTimeToMaintain recieved");
 		mTimeToMaintain = true;
+		System.out.println(mPerson.getName());
 		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}
@@ -79,6 +80,7 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	public void setHouse(House h) {
+		print("set house");
 		this.mHouse = h;
 	}
 

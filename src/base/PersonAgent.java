@@ -27,6 +27,7 @@ import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
+import city.gui.SimCityPanel;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -60,7 +61,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	private CityPerson mGui; //SHANE JERRY: 2 instantiate this
+	private CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
 	private SimCityGui mRoleGui; //SHANE JERRY: 1 what type does this need to be? make sure this works
 
 	//PAEA Helpers
@@ -147,7 +148,8 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mGui = new CityPerson(200, 200); //SHANE: Hardcoded
+		mPersonGui = new CityPerson(200, 100, "Shane"); //SHANE: Hardcoded
+		//SHANE REX: ADD TO MOVING IN SIMCITYPANEL
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>();
@@ -288,11 +290,11 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void getCar(){
 		Location location = ContactList.cMARKET_LOCATION;
-		mGui.DoGoToDestination(location);
+		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		
 		//remove current gui (isPresent = false)
-		mGui.setInvisible();
+//		mGui.setInvisible();
 		//create new market gui
 		
 		
@@ -313,10 +315,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void goToJob() {
-		mGui.DoGoToDestination(mJobLocation);
+		mPersonGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
 		
-		mGui.setInvisible();
+		mPersonGui.setInvisible();
 		
 		
 
@@ -348,7 +350,7 @@ public class PersonAgent extends Agent implements Person {
 			
 			
 			try {
-				mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
+				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			}
 			catch (Exception e) {
 			}
@@ -382,17 +384,19 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-		mHouseRole.msgTimeToMaintain();
+		if (mHouseRole.mHouse != null) {
+			mHouseRole.msgTimeToMaintain();
+		}
 	}
 	
 	
 	//JERRY 0 FOR TESTING
 	public void move(){
-		mGui.DoGoToDestination(ContactList.cBANK_LOCATION);
+		mPersonGui.DoGoToDestination(ContactList.cBANK_LOCATION);
 	}
 
 	public void SetGui(CityPerson pGui){
-		mGui = pGui;
+		mPersonGui = pGui;
 	}
 	
 	
@@ -492,5 +496,10 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public Role getHousingRole() {
 		return mHouseRole;
+	}
+
+	@Override
+	public CityPerson getPersonGui() {
+		return mPersonGui;
 	}
 }

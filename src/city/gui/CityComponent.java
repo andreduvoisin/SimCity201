@@ -4,8 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import base.Gui;
 
-public abstract class CityComponent {
+public abstract class CityComponent implements Gui{
 	//Consider creating a rectangle for every Component for better universal collision detection
 
 	Rectangle rectangle;

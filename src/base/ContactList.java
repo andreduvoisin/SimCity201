@@ -27,7 +27,7 @@ public class ContactList {
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	static final Location cBANK_LOCATION = new Location(10,10); //JERRY: Bank coordinates go here
-	static final Location cMARKET_LOCATION = new Location(10,10); //JERRY: Market coordinates
+	static final Location cMARKET_LOCATION = new Location(300,10); //JERRY: Market coordinates
 	static List<Location> cHOUSE_LOCATIONS;
 	static List<Location> cRESTAURANT_LOCATIONS;
 	

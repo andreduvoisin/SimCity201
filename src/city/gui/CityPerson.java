@@ -28,8 +28,10 @@ public class CityPerson extends CityComponent{
 	public boolean visible;
 	
 	public CityPerson(int x, int y){
-		super(x,y, Color.ORANGE, "Bob");
+		super(x,y, Color.ORANGE, "Rex");
 		rectangle = new Rectangle(x, y, 5, 5);
+//		Timer timer = new Timer(10, this);
+//		timer.start();
 	}
 	
 	public CityPerson(int x, int y, String ID){
@@ -37,11 +39,11 @@ public class CityPerson extends CityComponent{
 			rectangle = new Rectangle(x, y, 5, 5);
 			name = ID;
 	}
-	/*
+	
 	public CityPerson(PersonAgent P, SimCityGui gui) {
 		agent = P;
 		this.gui = gui;
-	}*/
+	}
 
 	@Override
 	public void updatePosition() {
@@ -60,10 +62,10 @@ public class CityPerson extends CityComponent{
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillRect(x, y, 5, 5);
+		g.fillRect(xPos, yPos, 5, 5);
 		//g.fill3DRect(x, y, 20, 20, false);
 		g.setColor(Color.WHITE);
-		g.drawString(name, x - 10, y);
+		g.drawString(name, xPos - 10, yPos);
 	}
 	/*
 	@Override
@@ -92,6 +94,24 @@ public class CityPerson extends CityComponent{
 	
 	public void setInvisible(){
 		visible = false;
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 
