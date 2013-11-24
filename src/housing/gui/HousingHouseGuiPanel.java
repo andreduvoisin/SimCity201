@@ -27,8 +27,8 @@ public class HousingHouseGuiPanel extends CityCard implements ActionListener {
 	private final int WINDOWY = 500;
 	private List<Gui> guis = new ArrayList<Gui>();
 
-	public HousingHouseGuiPanel(SimCityGui city, Color background) {
-		super(city, background);
+	public HousingHouseGuiPanel(SimCityGui city) {
+		super(city);
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 		this.getSize();
