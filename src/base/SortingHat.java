@@ -3,6 +3,7 @@ package base;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
+import intermediate.RestaurantCashierRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public class SortingHat {
 		}
 
 		//Restaurants
+
 		for (int iRestaurantNum = 0; iRestaurantNum < 8; iRestaurantNum++){
 			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
@@ -60,8 +62,7 @@ public class SortingHat {
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
 				sRoleLocations.put(new RestaurantWaiterRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
 			}
-		}
-		
+		}		
 		
 		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){

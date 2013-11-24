@@ -15,6 +15,15 @@ public class RestaurantCustomerRole extends BaseRole {
 	public RestaurantCustomerRole(Person person) {
 		mPerson = person;
 	}
+	
+	public RestaurantCustomerRole(Person person, int restaurantID){
+		mPerson = person;
+		try {
+			setRestaurant(restaurantID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void setRestaurant(int restaurantID) throws IOException {
 		if (restaurantID == 1) {
