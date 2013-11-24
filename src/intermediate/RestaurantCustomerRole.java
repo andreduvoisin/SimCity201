@@ -1,5 +1,8 @@
-package restaurant.interfaces;
+package intermediate;
 
+import java.io.IOException;
+
+import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -13,11 +16,13 @@ public class RestaurantCustomerRole extends BaseRole {
 		mPerson = person;
 	}
 
-	public void setRestaurant(int restaurantID) {
+	public void setRestaurant(int restaurantID) throws IOException {
 		if (restaurantID == 1) {
 			subRole = new CustomerRole(mPerson.getName());
+			subRole.setPerson(mPerson);
+			RestaurantPanel.getInstance().addCustomer((CustomerRole) subRole);
 		}
-		//TODO DAVID add if statements for all the other restaurants
+		// TODO DAVID add if statements for all the other restaurants
 	}
 
 	public boolean pickAndExecuteAnAction() {

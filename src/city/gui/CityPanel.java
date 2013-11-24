@@ -10,17 +10,17 @@ import java.util.List;
 import base.interfaces.Person;
 
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
-	private static CityPanel instance = null;
 	
 	public static final int CITY_WIDTH = 600, CITY_HEIGHT = 600;
 	boolean addingObject = false;
 	CityComponent temp;
+	SimCityGui simcitygui;
 	
 	public List<Person> masterPersonList = new ArrayList<Person>();
 	
 	public CityPanel(SimCityGui city) {
 		super(city);
-		
+		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 		background = new Color(128, 64, 0);
@@ -37,8 +37,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		}
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		
 	}
-	
+
 	public void mouseClicked(MouseEvent arg0) {
 		
 	}
@@ -96,12 +97,5 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		if (addingObject) {
 			temp.setPosition(arg0.getPoint());
 		}
-	}
-	
-	public static CityPanel getInstanceOf() {
-		if (instance == null) {
-			instance = new CityPanel(SimCityGui.getInstanceOf());
-		}
-		return instance;
 	}
 }

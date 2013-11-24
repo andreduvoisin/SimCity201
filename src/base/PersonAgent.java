@@ -2,7 +2,9 @@ package base;
 
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
+import intermediate.RestaurantCustomerRole;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +18,6 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import reference.simcity.gui.SimCityGui;
-import restaurant.interfaces.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
@@ -105,7 +106,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), true); 
+		mRoles.put(new RestaurantCustomerRole(this), false); 
 		
 	}
 	
@@ -142,6 +143,14 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void msgAnimationDone(){
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
+	}
+	
+	public void msgHereIsPayment(int senderSSN, double amount){
+		mCash += amount;
+	}
+	
+	public void msgOverdrawnAccount(double loan) {
+		mLoan += loan;
 	}
 	
 	public void msgRoleFinished(){
@@ -293,8 +302,12 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		
-		int randomRestaurant = 1; //SHANE: Make random
-		restaurantCustomerRole.setRestaurant(randomRestaurant); //DAVID: 1 This is where it's set
+		int randomRestaurant = 1; // SHANE: Make random
+		try {
+			restaurantCustomerRole.setRestaurant(randomRestaurant);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} // DAVID: 1 This is where it's set
 		
 		try {
 			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
@@ -422,11 +435,6 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
 		mItemsDesired = map;
-	}
-
-	@Override
-	public void msgOverdrawnAccount(double loan) {
-		mLoan += loan;
 	}
 
 	@Override
