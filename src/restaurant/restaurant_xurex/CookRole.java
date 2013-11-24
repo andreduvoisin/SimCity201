@@ -1,6 +1,6 @@
-package restaurant.restaurant_xurex.agents;
+package restaurant.restaurant_xurex;
 
-import base.Agent;
+import base.BaseRole;
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
@@ -15,7 +15,7 @@ import java.util.concurrent.Semaphore;
  * Restaurant Cook Agent
  */
 
-public class CookAgent extends Agent implements Cook {
+public class CookRole extends BaseRole implements Cook {
 	public enum OrderState
 	{pending, cooking, cooked, served};
 	public enum MarketOrderState
@@ -77,7 +77,7 @@ public class CookAgent extends Agent implements Cook {
 	public List<Market> markets = new ArrayList<Market>();
 
 	//CONSTRUCTORS
-	public CookAgent(String name) {
+	public CookRole(String name) {
 		super();
 		this.name = name;
 		//Food Constructor(String food, Low Threshold, Initial Quantity, Capacity, Cook Time)//
@@ -92,7 +92,7 @@ public class CookAgent extends Agent implements Cook {
 		runTimer();
 		
 	}
-	public CookAgent(String name, String food) {
+	public CookRole(String name, String food) {
 		super();
 		this.name = name;
 		Inventory.put("Steak", new Food("Steak", 5, 5, 2, 15));
