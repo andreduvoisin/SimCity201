@@ -277,7 +277,16 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void eatFood() {
+		//set restaurant for restaurantcustomerrole
+		RestaurantCustomerRole restaurantCustomerRole = null;
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof RestaurantCustomerRole){
+				restaurantCustomerRole = (RestaurantCustomerRole) iRole;
+			}
+		}
 		
+		int randomRestaurant = 1; //SHANE: Make random
+//		restaurantCustomerRole
 		
 		
 		// // What will be our algorithm to figure out which to do?
