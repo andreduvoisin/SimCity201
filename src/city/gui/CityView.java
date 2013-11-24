@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import restaurant.restaurant_smileham.gui.AnimationPanel;
+import restaurant.restaurant_davidmca.gui.AnimationPanel;
 
 public class CityView extends JPanel implements MouseListener, ActionListener {
 
