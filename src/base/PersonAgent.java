@@ -65,7 +65,7 @@ public class PersonAgent extends Agent implements Person {
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(1);
-	private boolean mRoleFinished;
+	private boolean mRoleFinished = true;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -102,7 +102,6 @@ public class PersonAgent extends Agent implements Person {
 		
 		if (active){
 			for (Role iRole : mRoles.keySet()){
-				System.out.println(iRole.toString());
 				iRole.setPerson(this);
 			}
 		}
@@ -151,12 +150,14 @@ public class PersonAgent extends Agent implements Person {
 		mGui = new CityPerson(200, 200); //SHANE: Hardcoded
 		
 		// Event Setup
-		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
-		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
-		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
+		mEvents = new TreeSet<Event>();
+		//mEvents.add(new Event(EnumEventType.GET_CAR, 0));
+		//mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
+		mEvents.add(new Event(EnumEventType.EAT, 8));
+		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
+		//mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 
@@ -192,18 +193,18 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
-
 		//if not during job shift
-		if ((mRoleFinished) && (Time.GetShift() != mTimeShift)){
+		if ((mRoleFinished) /*&& (Time.GetShift() != mTimeShift)*/){
 			// Process events (calendar)
-			Iterator<Event> itr = mEvents.iterator();
-			while (itr.hasNext()) {
-				Event event = itr.next();
-				if (event.mTime > Time.GetTime())
-					break; // don't do future calendar events
-				processEvent(event);
-				itr.remove();
-			}
+				Iterator<Event> itr = mEvents.iterator();
+				while (itr.hasNext()) {
+					Event event = itr.next();
+					System.out.println(event.mTime + " " + Time.GetTime());
+					if (event.mTime > Time.GetTime())
+						break; // don't do future calendar events
+					processEvent(event);
+					return true;
+				}
 		}
 		
 		// Do role actions
@@ -273,6 +274,8 @@ public class PersonAgent extends Agent implements Person {
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
 			//SHANE: 3 check event classes
 		}
+		
+		mEvents.remove(event);
 	}
 	
 	private void acquireSemaphore(Semaphore semaphore){
@@ -322,9 +325,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void eatFood() {
 		if (isCheap()){
-			
-			
-			
+			mHouseRole.msgEatAtHome();
 		}else{
 			//set random restaurant
 			RestaurantCustomerRole restaurantCustomerRole = null;
@@ -405,7 +406,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return false;
+		return true;
 	}
 	
 

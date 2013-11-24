@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import base.ConfigParser;
 import base.PersonAgent;
+import base.Time;
 import base.interfaces.Person;
 
 public class SimCityGui extends JFrame {
@@ -18,6 +19,8 @@ public class SimCityGui extends JFrame {
 	CityView view;
 	CityControlPanel CP;
 	GridBagConstraints c = new GridBagConstraints();
+	
+	
 
 	public SimCityGui() throws HeadlessException, IOException {
 		CP = new CityControlPanel(this);
@@ -26,6 +29,9 @@ public class SimCityGui extends JFrame {
 		info = new InfoPanel(this);
 		
 		this.setLayout(new GridBagLayout());
+		
+		Time globaltime = new Time(city.masterPersonList);
+		//globaltime.setPersonList(city.masterPersonList);
 		
 		c.gridx = 0; c.gridy = 0;
 		c.gridwidth = 2; c.gridheight = 6;
@@ -55,9 +61,9 @@ public class SimCityGui extends JFrame {
 //			((PersonAgent) person).pickAndExecuteAnAction();
 			
 			//Housing
-			((PersonAgent) person).invokeMaintenance();
+			//((PersonAgent) person).invokeMaintenance();
 			((PersonAgent) person).mHouseRole.setHouse(view.house1);
-			((PersonAgent) person).mHouseRole.msgEatAtHome();
+			//((PersonAgent) person).mHouseRole.msgEatAtHome();
 			((PersonAgent) person).startThread();
 //			((PersonAgent) person).eatFood();
 		}

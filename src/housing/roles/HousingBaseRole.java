@@ -31,6 +31,7 @@ public class HousingBaseRole extends BaseRole {
 	public void msgTimeToMaintain() {
 		print("msgTimeToMaintain recieved");
 		mTimeToMaintain = true;
+		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}
 
@@ -53,6 +54,11 @@ public class HousingBaseRole extends BaseRole {
 			e.printStackTrace();
 		}
 		gui.DoGoRelax(); 
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		print("Action - Eat at Home");
 	}
 
@@ -64,6 +70,11 @@ public class HousingBaseRole extends BaseRole {
 			e.printStackTrace();
 		}
 		gui.DoGoRelax(); 
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		print("Action - Maintain");
 	}
 	

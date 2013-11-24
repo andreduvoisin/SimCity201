@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import base.interfaces.Person;
@@ -16,7 +17,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	CityComponent temp;
 	SimCityGui simcitygui;
 	
-	public List<Person> masterPersonList = new ArrayList<Person>();
+	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	public CityPanel(SimCityGui city) {
 		super(city);
