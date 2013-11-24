@@ -80,6 +80,7 @@ public class PersonAgent extends Agent implements Person {
 		mCash = cash;
 		mName = name;
 		
+		//Get job role and location; set active if necessary
 		Role jobRole = null;
 		switch (job){
 			case BANK:
@@ -107,7 +108,13 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		
+		//Get housing role and location; set active
 		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+//		Location location = 
+//		
+//		ContactList.sRoleLocations.put(mHouseRole, location);
+		
+		
 		mRoles.put(mHouseRole, true);
 		
 		//Add customer/rider role possibilities
@@ -116,13 +123,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
-//		for (Role iRole : mRoles.keySet()){
-//			if (iRole instanceof RestaurantCustomerRole){
-//				System.out.println("Person: " + iRole);
-//			}
-//		}
-		
-		
 	}
 	
 	private void initializePerson(){

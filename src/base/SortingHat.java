@@ -61,7 +61,7 @@ public class SortingHat {
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
 				sRoleLocations.put(new RestaurantWaiterRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
 			}
-		}		
+		}
 		
 		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){
