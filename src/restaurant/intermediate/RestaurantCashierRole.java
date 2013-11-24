@@ -21,9 +21,13 @@ public class RestaurantCashierRole extends BaseRole {
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = new CashierRole(mPerson.getName());
-			subRole.setPerson(mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
+	}
+	
+	public void setPerson(Person person){
+		mPerson = person;
+		subRole.setPerson(person);
 	}
 	
 	public boolean pickAndExecuteAnAction() {

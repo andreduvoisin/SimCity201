@@ -22,9 +22,13 @@ public class RestaurantCookRole extends BaseRole {
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = new CookRole(mPerson.getName(), DEFAULT_FOOD_QTY);
-			subRole.setPerson(mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
+	}
+	
+	public void setPerson(Person person){
+		mPerson = person;
+		subRole.setPerson(person);
 	}
 	
 	public boolean pickAndExecuteAnAction() {
