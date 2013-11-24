@@ -44,14 +44,12 @@ public class MockHost extends Mock implements Host {
 
 	@Override
 	public void IAmFree() {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("IAmFree"));
 	}
 
 	@Override
 	public void TableIsFree(int t) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("TableIsFree: "+t));
 	}
 
 	@Override

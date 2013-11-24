@@ -72,14 +72,12 @@ public class MockCook extends Mock implements Cook {
 
 	@Override
 	public void PickedUp(int kitchen) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("PickedUp: "+kitchen));
 	}
 
 	@Override
 	public void addToStand(Waiter w, String choice, int table) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("addToStand: "+choice+" "+table));
 	}
 
 
