@@ -122,12 +122,6 @@ public class PersonAgent extends Agent implements Person {
 //			}
 //		}
 		
-		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof RestaurantCustomerRole){
-				RestaurantCustomerRole customer = (RestaurantCustomerRole) iRole;
-				Person person = customer.getPerson();
-			}
-		}
 		
 	}
 	
@@ -152,6 +146,9 @@ public class PersonAgent extends Agent implements Person {
 		mCash = 100;
 		mLoan = 0;
 		mHasCar = false;
+		
+		//Role References
+		mGui = new CityPerson(200, 200); //SHANE: Hardcoded
 		
 		// Event Setup
 		mEvents = Collections.synchronizedSortedSet(new TreeSet<Event>());
@@ -286,7 +283,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 	
-	private void getCar(){
+	public void getCar(){
 		Location location = ContactList.cMARKET_LOCATION;
 		mGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);

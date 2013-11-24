@@ -37,6 +37,8 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer{
 	public MarketCustomerRole(Person person) {
 		mPerson = person;
 		
+		mGui = new MarketCustomerGui(this);
+		
 		mItemInventory = mPerson.getItemInventory();
 		mItemsDesired = mPerson.getItemsDesired();
 	}

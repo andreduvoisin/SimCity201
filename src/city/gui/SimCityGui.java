@@ -49,6 +49,10 @@ public class SimCityGui extends JFrame {
 		Person person = city.masterPersonList.get(0);
 		if (person instanceof PersonAgent){
 			((PersonAgent) person).msgAnimationDone();
+			((PersonAgent) person).getCar();
+			((PersonAgent) person).msgAnimationDone();
+			((PersonAgent) person).pickAndExecuteAnAction();
+			((PersonAgent) person).pickAndExecuteAnAction();
 //			((PersonAgent) person).eatFood();
 		}
 		
