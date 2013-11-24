@@ -117,6 +117,13 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof RestaurantCustomerRole){
+				RestaurantCustomerRole customer = (RestaurantCustomerRole) iRole;
+				Person person = customer.getPerson();
+			}
+		}
+		
 	}
 	
 	private void initializePerson(){

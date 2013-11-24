@@ -10,10 +10,16 @@ public class BaseRole implements Role {
 
 	// NEEDED METHODS
 	protected void stateChanged() {
+		System.out.println("STATECHANGED");
+
+		Person person = getPerson();
+//		System.out.println("PERSON: " + person.toString());
+
+		
 		if (!(mPerson == null)) {
 			((PersonAgent) mPerson).stateChanged();
 		} else {
-			print("stateChanged not called");
+			print(this.toString() + "stateChanged not called");
 		}
 	}
 
