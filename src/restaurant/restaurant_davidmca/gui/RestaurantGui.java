@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import city.gui.CityCard;
+import city.gui.CityPanel;
 import city.gui.SimCityGui;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
@@ -24,12 +26,11 @@ import restaurant.restaurant_davidmca.roles.WaiterRole;
 /**
  * Main GUI class. Contains the main frame and subsequent panels
  */
-public class RestaurantGui extends JFrame implements ActionListener {
-	static RestaurantGui instance = null;
+public class RestaurantGui extends CityCard implements ActionListener {
 
-	AnimationPanel animationPanel = new AnimationPanel(SimCityGui.getInstanceOf(), Color.white);
+	AnimationPanel animationPanel = new AnimationPanel();
 
-	private RestaurantPanel restPanel = RestaurantPanel.getInstance();
+	private RestaurantPanel restPanel = new RestaurantPanel(this);
 
 	/* infoPanel holds information about the clicked customer, if there is one */
 	boolean currentlyPaused = false;
@@ -56,15 +57,9 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	 * 
 	 * @throws IOException
 	 */
-	
-	public static RestaurantGui getInstance() throws IOException {
-		if (instance == null) {
-			instance = new RestaurantGui();
-		}
-		return instance;
-	}
 
-	private RestaurantGui() throws IOException {
+	public RestaurantGui(SimCityGui city, Color background) throws IOException {
+		super(city, background);
 		int WINDOWX = 1000;
 		int WINDOWY = 700;
 		int PAD = 10;
@@ -73,7 +68,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 
 		setLayout(new GridLayout(1, 2));
 
-		// Left panel
+		/*// Left panel
 		Dimension leftSize = new Dimension(WINDOWX / 2 - PAD, WINDOWY - PAD);
 		leftPanel = new JPanel();
 		leftPanel.setPreferredSize(leftSize);
@@ -154,10 +149,10 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		waiterPanel.setBorder(BorderFactory.createTitledBorder("Waiters"));
 		leftPanel.add(waiterPanel);
 
-		add(leftPanel);
+		add(leftPanel);*/
 
 		// Animation Panel
-		Dimension animDim = new Dimension(WINDOWX / 2 - PAD, WINDOWY - PAD);
+		Dimension animDim = new Dimension(500, 500);
 		animationPanel.setPreferredSize(animDim);
 		animationPanel.setMinimumSize(animDim);
 		animationPanel.setMaximumSize(animDim);
@@ -241,11 +236,11 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	 * 
 	 * @throws IOException
 	 */
-	public static void main(String[] args) throws IOException {
+	/*public static void main(String[] args) throws IOException {
 		RestaurantGui gui = new RestaurantGui();
 		gui.setTitle("csci201 Restaurant");
 		gui.setVisible(true);
 		gui.setResizable(false);
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+	}*/
 }

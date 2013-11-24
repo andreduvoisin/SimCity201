@@ -1,6 +1,5 @@
 package restaurant.restaurant_davidmca.gui;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -8,20 +7,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import base.Gui;
-import city.gui.CityCard;
-import city.gui.SimCityGui;
 
-public class AnimationPanel extends CityCard implements ActionListener {
+public class AnimationPanel extends JPanel implements ActionListener {
 
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
 	private List<Gui> guis = new ArrayList<Gui>();
 
-	public AnimationPanel(SimCityGui city, Color background) {
-		super(city, background);
+	public AnimationPanel() {
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 

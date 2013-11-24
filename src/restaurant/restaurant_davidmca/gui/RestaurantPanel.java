@@ -3,7 +3,6 @@ package restaurant.restaurant_davidmca.gui;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Random;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -25,7 +24,7 @@ import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
  * including host, cook, waiters, and customers.
  */
 public class RestaurantPanel extends JPanel {
-	static RestaurantPanel instance = null;
+	static RestaurantPanel instance;
 
 	// animation grid
 	static int gridX = 25;
@@ -38,18 +37,23 @@ public class RestaurantPanel extends JPanel {
 	private HostGui hostGui = new HostGui(host);
 	MarketAgent mkt1, mkt2, mkt3;
 
-	private Vector<CustomerRole> customers = new Vector<CustomerRole>();
+	public Vector<CustomerRole> customers = new Vector<CustomerRole>();
 
 	private JPanel restLabel = new JPanel();
 
 	private JPanel group = new JPanel();
 
 	private RestaurantGui gui; // reference to main gui
+	
+	public static RestaurantPanel getInstance() {
+		return instance;
+	}
 
-	private RestaurantPanel(RestaurantGui gui) {
+	public RestaurantPanel(RestaurantGui gui) {
 		this.gui = gui;
+		this.instance = this;
 		gui.animationPanel.addGui(hostGui);
-		//host.startThread();
+		// host.startThread();
 		host.setCook(cook);
 		mkt1 = new MarketAgent("Ralphs", 0);
 		mkt2 = new MarketAgent("Smart and Final", 50);
@@ -57,27 +61,20 @@ public class RestaurantPanel extends JPanel {
 		cook.addMarket(mkt1);
 		cook.addMarket(mkt2);
 		cook.addMarket(mkt3);
-		/*mkt1.startThread();
-		mkt2.startThread();
-		mkt3.startThread();*/
+		/*
+		 * mkt1.startThread(); mkt2.startThread(); mkt3.startThread();
+		 */
 		mkt1.setCashier(cash);
 		mkt2.setCashier(cash);
 		mkt3.setCashier(cash);
 		CookGui cg = new CookGui(cook);
 		cook.setGui(cg);
 		gui.animationPanel.addGui(cg);
-		//cook.startThread();
-		//cash.startThread();
+		// cook.startThread();
+		// cash.startThread();
 		initRestLabel();
 		add(restLabel);
 		add(group);
-	}
-	
-	public static RestaurantPanel getInstance() throws IOException {
-		if (instance == null) {
-			instance = new RestaurantPanel(RestaurantGui.getInstance());
-		}
-		return instance;
 	}
 
 	/**
@@ -131,7 +128,7 @@ public class RestaurantPanel extends JPanel {
 	 * @param name
 	 *            name of person
 	 */
-	
+
 	public void addCustomer(CustomerRole cust) {
 		CustomerGui g = new CustomerGui(cust, gui, host.getCustomerIndex());
 		gui.animationPanel.addGui(g);
@@ -160,40 +157,22 @@ public class RestaurantPanel extends JPanel {
 		waiter.setCashier(cash);
 	}
 
-	/*public void addPerson(String type, String name, boolean isHungry) {
-
-		if (type.equals("Customers")) {
-			CustomerRole c = new CustomerRole(name);
-			CustomerGui g = new CustomerGui(c, gui, host.getCustomerIndex());
-
-			gui.animationPanel.addGui(g);
-			c.setHost(host);
-			c.setCashier(cash);
-			c.setGui(g);
-			customers.add(c);
-			if (isHungry) {
-				g.setHungry();
-			}
-		}
-
-		if (type.equals("Waiters")) {
-			int rn = new Random().nextInt();
-			Waiter w;
-			if (rn % 2 == 0) {
-				w = new WaiterAgent(name);
-			} else {
-				w = new WaiterRoleShared(name);
-				((WaiterRoleShared) w).setCook(cook);
-			}
-			WaiterGui g = new WaiterGui(w, host.getWaitersList().size());
-			gui.animationPanel.addGui(g);
-			w.setHost(host);
-			w.setGui(g);
-			host.addWaiter(w);
-			w.setCashier(cash);
-			w.startThread();
-		}
-	}*/
+	/*
+	 * public void addPerson(String type, String name, boolean isHungry) {
+	 * 
+	 * if (type.equals("Customers")) { CustomerRole c = new CustomerRole(name);
+	 * CustomerGui g = new CustomerGui(c, gui, host.getCustomerIndex());
+	 * 
+	 * gui.animationPanel.addGui(g); c.setHost(host); c.setCashier(cash);
+	 * c.setGui(g); customers.add(c); if (isHungry) { g.setHungry(); } }
+	 * 
+	 * if (type.equals("Waiters")) { int rn = new Random().nextInt(); Waiter w;
+	 * if (rn % 2 == 0) { w = new WaiterAgent(name); } else { w = new
+	 * WaiterRoleShared(name); ((WaiterRoleShared) w).setCook(cook); } WaiterGui
+	 * g = new WaiterGui(w, host.getWaitersList().size());
+	 * gui.animationPanel.addGui(g); w.setHost(host); w.setGui(g);
+	 * host.addWaiter(w); w.setCashier(cash); w.startThread(); } }
+	 */
 
 	public void addTable(int x, int y, int seats) {
 		Table newTable = new Table(host.tables.size() + 1, x, y, seats);

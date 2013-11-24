@@ -7,11 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import restaurant.restaurant_smileham.gui.AnimationPanel;
+import restaurant.restaurant_davidmca.gui.AnimationPanel;
+import restaurant.restaurant_davidmca.gui.RestaurantGui;
 
 public class CityView extends JPanel implements MouseListener, ActionListener {
 
@@ -20,7 +22,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 	public static final int VIEW_WIDTH = 500, VIEW_HEIGHT = 500;
 	CardLayout layout;
 	
-	public CityView(SimCityGui city) {
+	public CityView(SimCityGui city) throws IOException {
 		
 		this.setPreferredSize(new Dimension(VIEW_WIDTH, VIEW_HEIGHT));
 		this.setVisible(true);
@@ -30,8 +32,11 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards = new HashMap<String, CityCard>();
 		cards.put("null", new CityCard(city, Color.black));
 		cards.put("Road", new CityCard(city, Color.black));
-		cards.put("R_Maggiyan", new AnimationPanel(city, Color.blue));
-		cards.put("Restaurant 2", new CityCard(city, Color.red));
+		
+		RestaurantGui davidmca = new RestaurantGui(city, Color.blue);
+		cards.put("Restaurant 2", davidmca);
+		
+		cards.put("R_Maggiyan", new CityCard(city, Color.red));
 		cards.put("Green Guts Bank", new CityCard(city, Color.green));
 		cards.put("House 1", new CityCard(city, Color.cyan));
 		cards.put("Sears!", new CityCard(city, Color.yellow));

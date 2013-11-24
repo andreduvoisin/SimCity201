@@ -3,6 +3,7 @@ package base;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -293,8 +294,12 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		
-		int randomRestaurant = 1; //SHANE: Make random
-		restaurantCustomerRole.setRestaurant(randomRestaurant); //DAVID: 1 This is where it's set
+		int randomRestaurant = 1; // SHANE: Make random
+		try {
+			restaurantCustomerRole.setRestaurant(randomRestaurant);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} // DAVID: 1 This is where it's set
 		
 		try {
 			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
