@@ -1,4 +1,4 @@
-package restaurant.restaurant_davidmca.agents;
+package restaurant.restaurant_davidmca.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +11,12 @@ import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import restaurant.restaurant_davidmca.test.mock.EventLog;
 import restaurant.restaurant_davidmca.test.mock.LoggedEvent;
-import base.Agent;
+import base.BaseRole;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CashierAgent extends Agent implements Cashier {
+public class CashierRole extends BaseRole implements Cashier {
 
 	private String name;
 	public double totalCash;
@@ -48,7 +48,7 @@ public class CashierAgent extends Agent implements Cashier {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CashierAgent(String name) {
+	public CashierRole(String name) {
 		super();
 		this.name = name;
 		totalCash = 100.00;

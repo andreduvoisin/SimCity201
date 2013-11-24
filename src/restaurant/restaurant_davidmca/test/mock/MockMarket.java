@@ -3,14 +3,14 @@ package restaurant.restaurant_davidmca.test.mock;
 import java.util.Map;
 
 import restaurant.restaurant_davidmca.Menu;
-import restaurant.restaurant_davidmca.agents.CashierAgent;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
+import restaurant.restaurant_davidmca.roles.CashierRole;
 
 public class MockMarket implements Market {
 	
 	String name;
-	CashierAgent cashier;
+	CashierRole cashier;
 	public double totalRevenue = 0;
 	
 	public double orderTotal = 0;
@@ -25,7 +25,7 @@ public class MockMarket implements Market {
 	}
 
 	@Override
-	public void setCashier(CashierAgent cash) {
+	public void setCashier(CashierRole cash) {
 		this.cashier = cash;
 
 	}

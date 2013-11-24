@@ -9,15 +9,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.agents.CashierAgent;
-import restaurant.restaurant_davidmca.agents.CookAgent;
-import restaurant.restaurant_davidmca.agents.CustomerAgent;
-import restaurant.restaurant_davidmca.agents.HostAgent;
 import restaurant.restaurant_davidmca.agents.MarketAgent;
-import restaurant.restaurant_davidmca.agents.WaiterAgent;
-import restaurant.restaurant_davidmca.agents.WaiterAgentSharedData;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import restaurant.restaurant_davidmca.roles.CashierRole;
+import restaurant.restaurant_davidmca.roles.CookRole;
+import restaurant.restaurant_davidmca.roles.CustomerRole;
+import restaurant.restaurant_davidmca.roles.HostRole;
+import restaurant.restaurant_davidmca.roles.WaiterRole;
+import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
 
 /**
  * Panel in frame that contains all the restaurant_davidmca information,
@@ -30,13 +30,13 @@ public class RestaurantPanel extends JPanel {
 	static int gridY = 35;
 
 	// Host, cook, waiters and customers
-	private HostAgent host = new HostAgent("Host");
-	private CookAgent cook = new CookAgent("Cook", 1);
-	private CashierAgent cash = new CashierAgent("Cashier");
+	private HostRole host = new HostRole("Host");
+	private CookRole cook = new CookRole("Cook", 1);
+	private CashierRole cash = new CashierRole("Cashier");
 	private HostGui hostGui = new HostGui(host);
 	MarketAgent mkt1, mkt2, mkt3;
 
-	private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
+	private Vector<CustomerRole> customers = new Vector<CustomerRole>();
 
 	private JPanel restLabel = new JPanel();
 
@@ -126,7 +126,7 @@ public class RestaurantPanel extends JPanel {
 	public void addPerson(String type, String name, boolean isHungry) {
 
 		if (type.equals("Customers")) {
-			CustomerAgent c = new CustomerAgent(name);
+			CustomerRole c = new CustomerRole(name);
 			CustomerGui g = new CustomerGui(c, gui, host.getCustomerIndex());
 
 			gui.animationPanel.addGui(g);
@@ -146,8 +146,8 @@ public class RestaurantPanel extends JPanel {
 			/*if (rn % 2 == 0) {
 				w = new WaiterAgent(name);
 			} else {*/
-				w = new WaiterAgentSharedData(name);
-				((WaiterAgentSharedData) w).setCook(cook);
+				w = new WaiterRoleShared(name);
+				((WaiterRoleShared) w).setCook(cook);
 			//}
 			WaiterGui g = new WaiterGui(w, host.getWaitersList().size());
 			gui.animationPanel.addGui(g);

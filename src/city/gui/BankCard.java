@@ -13,8 +13,8 @@ import restaurant.restaurant_smileham.gui.RestaurantGui;
 public class BankCard extends CityCard{
 	public static final int CARD_WIDTH = 500, CARD_HEIGHT = 500;
 	
-	public BankCard(SimCityGui city) {
-		super(city);
+	public BankCard(SimCityGui city, Color background) {
+		super(city, background);
 		
 		JLabel staffLabel = new JLabel();
         staffLabel.setText(

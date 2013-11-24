@@ -20,13 +20,12 @@ import base.PersonAgent;
  */
 
 public class HousingHouseGuiPanel extends JPanel implements ActionListener {
-	static HousingHouseGuiPanel instance = null;
 
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
 	private List<Gui> guis = new ArrayList<Gui>();
 
-	private HousingHouseGuiPanel() {
+	public HousingHouseGuiPanel() {
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 		this.getSize();
@@ -34,25 +33,18 @@ public class HousingHouseGuiPanel extends JPanel implements ActionListener {
 		timer.start();
 		testHousingGui();
 	}
-	
+		
 	public void testHousingGui() {
 		PersonAgent mPerson = new PersonAgent();
 		PersonAgent mPerson2 = new PersonAgent();
 		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
 		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
-		HousingResidentGui gui1 = new HousingResidentGui();
-		HousingResidentGui gui2 = new HousingResidentGui();
+		HousingPersonGui gui1 = new HousingPersonGui();
+		HousingPersonGui gui2 = new HousingPersonGui();
 		renter1.setGui(gui1);
 		renter2.setGui(gui2);
 		this.addGui(gui1);
 		this.addGui(gui2);
-	}
-	
-	public static HousingHouseGuiPanel getInstance() {
-		if (instance == null) {
-			instance = new HousingHouseGuiPanel();
-		}
-		return instance;
 	}
 
 	public void actionPerformed(ActionEvent e) {

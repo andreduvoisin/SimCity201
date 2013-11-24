@@ -13,18 +13,20 @@ import javax.swing.JPanel;
 public class CityCard extends JPanel implements ActionListener, MouseListener {
 
 	protected SimCityGui city;
-	
+	protected Color background;
 	public static final int CARD_WIDTH = 500, CARD_HEIGHT = 500;
 	
-	public CityCard(SimCityGui city) {
+	public CityCard(SimCityGui city, Color background) {
 		this.city = city;
 		this.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
 		this.setVisible(true);
 		addMouseListener(this);
+		
+		this.background = background;
 	}
 	
 	public void paint(Graphics g) {
-		g.setColor(Color.black);
+		g.setColor(background);
 		g.fillRect(0, 0, getWidth(), getHeight());
 	}
 	

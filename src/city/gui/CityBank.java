@@ -8,16 +8,17 @@ import java.awt.Rectangle;
  * Not to be confused with CitiBank
  */
 public class CityBank extends CityComponent {
-
+	private String bankName = "";
 
 	public CityBank(int x, int y) {
 		super(x, y, Color.green, "Bank 1");
-		rectangle = new Rectangle(x, y, 20, 20);
+		rectangle = new Rectangle(x, y, 120, 90);
 	}
 
-	public CityBank(int x, int y, String I) {
-		super(x, y, Color.green, I);
-		rectangle = new Rectangle(x, y, 20, 20);
+	public CityBank(int x, int y, String ID) {
+		super(x, y, Color.green, ID);
+		rectangle = new Rectangle(x, y, 120, 90);
+		bankName = ID;
 	}
 
 	public void updatePosition() {
@@ -26,8 +27,8 @@ public class CityBank extends CityComponent {
 
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x, y, 25, 25);
+		g.fillOval(x, y, 120, 90);
 		g.setColor(Color.WHITE);
-		g.drawString("B",x + 10 , y + 17);
+		g.drawString(bankName,x + 10 , y + 50);
 	}
 }

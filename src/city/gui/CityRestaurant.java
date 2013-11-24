@@ -5,15 +5,17 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 public class CityRestaurant extends CityComponent {
-
+	private String restaurantName = "";
+	
 	public CityRestaurant(int x, int y) {
 		super(x, y, Color.red, "Restaurant 1");
-		rectangle = new Rectangle(x, y, 20, 20);
+		rectangle = new Rectangle(x, y, 100, 60);
 	}
 	
 	public CityRestaurant(int x, int y, String ID) {
 		super(x, y, Color.red, ID);
-		rectangle = new Rectangle(x, y, 20, 20);
+		rectangle = new Rectangle(x, y, 100, 60);
+		restaurantName = ID;
 	}
 
 	public void updatePosition() {
@@ -23,10 +25,10 @@ public class CityRestaurant extends CityComponent {
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x, y, 20, 20);
-		g.fill3DRect(x, y, 20, 20, true);
+		g.fillOval(x, y, 100, 60);
+		g.fill3DRect(x, y, 100, 60, true);
 		g.setColor(Color.BLACK);
-		g.drawString("R",x + 5 , y + 15);
+		g.drawString(restaurantName,x + 5 , y + 15);
 	}
 
 	

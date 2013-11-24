@@ -3,5 +3,10 @@ package city.gui;
 public enum CityComponents {
 	RESTAURANT,
 	ROAD,
-	BANK
+	BANK,
+	HOUSE,
+	MARKET,
+	CAR,
+	BUS,
+	PEOPLE
 }

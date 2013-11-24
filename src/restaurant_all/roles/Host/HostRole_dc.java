@@ -7,11 +7,11 @@ import java.util.List;
 
 import restaurant.restaurant_davidmca.MyWaiter;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.agents.HostAgent.WaiterState;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import restaurant.restaurant_davidmca.roles.HostRole.WaiterState;
 import restaurant_all.interfaces.Customer.Customer_dc;
 import restaurant_all.interfaces.Host.Host_dc;
 import base.Agent;

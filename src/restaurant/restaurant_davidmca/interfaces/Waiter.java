@@ -3,15 +3,15 @@ package restaurant.restaurant_davidmca.interfaces;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.Order;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.agents.HostAgent;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.gui.WaiterGui;
+import restaurant.restaurant_davidmca.roles.HostRole;
 
 public interface Waiter {
 
 	public abstract boolean isOnBreak();
 
-	public abstract void setHost(HostAgent host);
+	public abstract void setHost(HostRole host);
 
 	public abstract void setCashier(Cashier cash);
 
