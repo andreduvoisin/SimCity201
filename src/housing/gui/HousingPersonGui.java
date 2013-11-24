@@ -40,7 +40,7 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.RED);
+		g.setColor(Color.BLUE);
 		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
 	}
 
