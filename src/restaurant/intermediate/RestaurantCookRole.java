@@ -8,6 +8,7 @@ import base.interfaces.Role;
 public class RestaurantCookRole extends BaseRole {
 	
 	Role subRole = null;
+	int restaurantID;
 	static int DEFAULT_FOOD_QTY = 5;
 	
 	public RestaurantCookRole(Person person){
@@ -21,13 +22,14 @@ public class RestaurantCookRole extends BaseRole {
 	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
-			subRole = new CookRole(mPerson.getName(), DEFAULT_FOOD_QTY);
+			subRole = new CookRole("Cook", DEFAULT_FOOD_QTY);
 		}
 		//TODO DAVID add if statements for all the other restaurants
 	}
 	
 	public void setPerson(Person person){
 		mPerson = person;
+		setRestaurant(restaurantID);
 		subRole.setPerson(person);
 	}
 	

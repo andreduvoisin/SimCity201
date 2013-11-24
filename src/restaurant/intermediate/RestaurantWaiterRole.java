@@ -13,6 +13,7 @@ import base.interfaces.Role;
 public class RestaurantWaiterRole extends BaseRole {
 
 	Role subRole = null;
+	int restaurantID;
 
 	public RestaurantWaiterRole(Person person) {
 		mPerson = person;
@@ -31,10 +32,10 @@ public class RestaurantWaiterRole extends BaseRole {
 		if (restaurantID == 1) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
-				subRole = new WaiterRole(mPerson.getName());
+				subRole = new WaiterRole("Waiter");
 				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 			} else {
-				subRole = new WaiterRoleShared(mPerson.getName());
+				subRole = new WaiterRoleShared("Waiter");
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
 			}
@@ -44,6 +45,11 @@ public class RestaurantWaiterRole extends BaseRole {
 	
 	public void setPerson(Person person){
 		mPerson = person;
+		try {
+			setRestaurant(restaurantID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		subRole.setPerson(person);
 	}
 
