@@ -155,22 +155,53 @@ public class SortingHat {
 	}
 	
 	//RESTAURANTS
-	static int sRestaurantAssignment = 0; //0-7 for 8 restaurants
-	
 	public static Role getRestaurantRole(int shift){
 		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 		
+		//RestaurantHostRole (1) - first priority
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantHostRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantHostRole) iRole;
+				}
+			}
+		}
 		
+		//RestaurantCookRole (1) - first priority
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantCookRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantCookRole) iRole;
+				}
+			}
+		}
 		
-		//SHANE REX: 1 DO THIS WHEN YOU FINISH THE RESTAURANT ROLES
+		//RestaurantCashierRole (1) - first priority
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantCashierRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantCashierRole) iRole;
+				}
+			}
+		}
 		
-		return new MarketWorkerRole(); //holding place
+		//RestaurantWaiterRole (limited)
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof RestaurantWaiterRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (RestaurantWaiterRole) iRole;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 	
-	
-	
-
 	//HOUSING
 	static int sLandlordCount = 0;
 	static int sRenterCount = 0;
