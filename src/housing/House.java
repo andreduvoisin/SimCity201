@@ -32,5 +32,20 @@ public class House {
 			type = HousingType.House; 
 		}	
 	}
+	
+	//For unit testing
+	public House(int x, int y, double rent) {
+		xLocation = x;
+		yLocation = y;
+		mRent = rent;
+		mOccupant = null;
+		
+		if(rent <= maxAptRent){
+			type = HousingType.Apartment; 
+		}
+		else{
+			type = HousingType.House; 
+		}	
+	}
 
 }

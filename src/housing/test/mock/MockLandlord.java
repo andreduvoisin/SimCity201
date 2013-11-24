@@ -45,22 +45,11 @@ public class MockLandlord extends Mock implements Role, HousingLandlord {
 		return false;
 	}
 
-	@Override
-	public Person getPerson() {
-		
-		return null;
-	}
 
 	@Override
 	public void setPerson(Person person) {
 		
 		
-	}
-
-	@Override
-	public PersonAgent getPersonAgent() {
-	
-		return null;
 	}
 
 	@Override
