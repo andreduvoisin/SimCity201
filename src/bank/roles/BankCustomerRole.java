@@ -76,7 +76,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		stateChanged();
 	}
 	public void msgStopRobber() {
-		// REX: robber gui interactions	
+		// REX ANDRE: robber gui interactions, non-norm
 	}
 	
 //	SCHEDULER

@@ -78,6 +78,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 	private void killRobber(BankCustomer c){
 		//GUI Interactions
+		// REX ANDRE: robber gui interactions, non-norm
 		c.msgStopRobber();
 	}
 	private void provideService(BankCustomer c, BankTeller t){
