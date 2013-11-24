@@ -57,12 +57,13 @@ public class HousingBaseRole extends BaseRole {
 	}
 
 	void Maintain() {
-//		gui.DoMaintainHouse();
-//		try {
-//			isAnimating.acquire();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		gui.DoMaintainHouse();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoGoRelax(); 
 		print("Action - Maintain");
 	}
 	

@@ -27,9 +27,10 @@ public class HousingPersonGui implements Gui {
 	//Person Positions
 	private int eatingXPos = 210; 
 	private int eatingYPos = 280; 
-	
 	private int restingXPos = 200;
 	private int restingYPos = 75; 
+	private int maintenanceXPos = 30; 
+	private int maintenanceYPos = 150; 
 	
 	private static int GUISIZE = 20;
 
@@ -79,7 +80,8 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void DoMaintainHouse() {
-
+		xDestination = maintenanceXPos;
+		yDestination = maintenanceYPos; 
 		currentlyAnimating = true;
 	}
 
@@ -89,6 +91,9 @@ public class HousingPersonGui implements Gui {
 	}
 	
 	public void DoGoRelax(){
+		xDestination = restingXPos; 
+		yDestination = restingYPos; 
+			
 		currentlyAnimating = true; 
 	}
 }
