@@ -17,7 +17,6 @@ import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
-import reference.simcity.gui.SimCityGui;
 import restaurant.intermediate.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
@@ -27,7 +26,7 @@ import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
-import city.gui.SimCityPanel;
+import city.gui.SimCityGui;
 
 
 public class PersonAgent extends Agent implements Person {
