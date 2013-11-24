@@ -381,7 +381,7 @@ public class CustomerRole extends BaseRole implements Customer {
 
 	@Override
 	public String toString() {
-		return "customer " + getName();
+		return "CustomerRole " + getName();
 	}
 
 	@Override
