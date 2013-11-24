@@ -4,12 +4,12 @@ package restaurant.restaurant_davidmca.test.mock;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.Order;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.agents.HostAgent;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.gui.WaiterGui;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import restaurant.restaurant_davidmca.roles.HostRole;
 
 public class MockWaiter extends Mock implements Waiter {
 	
@@ -25,7 +25,7 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 
 	@Override
-	public void setHost(HostAgent host) {
+	public void setHost(HostRole host) {
 		
 	}
 
