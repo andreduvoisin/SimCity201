@@ -119,8 +119,7 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 
 	void PayBill(Bill b) {
 		print("Action - PayBill");
-		// mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(),
-		// b.mLandLordSSN, b.mAmt);
+		mPerson.getMasterTeller().msgSendPayment(mPerson.getSSN(),b.mLandLordSSN, b.mAmt);
 		mBills.remove(b);
 	}
 
