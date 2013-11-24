@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
-import city.gui.CityPanel;
+import city.gui.SimCityGui;
 
 /*
  * Reads in a config file filled with new people to instantiate
@@ -15,7 +15,7 @@ public class ConfigParser {
 
 	private static ConfigParser instance = null;
 
-	public void readFileCreatePersons(CityPanel citypanel) throws FileNotFoundException {
+	public void readFileCreatePersons(SimCityGui simcitygui) throws FileNotFoundException {
 		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/config.txt"));
 		
 		//Instantiate the base roles before creating the people
@@ -46,9 +46,9 @@ public class ConfigParser {
 			//Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			synchronized (person) {
-				citypanel.masterPersonList.add(person);
-				citypanel.addMoving(person.getPersonGui());
-//				((PersonAgent) person).startThread();
+				simcitygui.citypanel.masterPersonList.add(person);
+				simcitygui.citypanel.addMoving(person.getPersonGui());
+				//((PersonAgent) person).startThread();
 			}
 			
 			scanPerson.close();

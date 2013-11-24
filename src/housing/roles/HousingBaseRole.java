@@ -1,11 +1,11 @@
 package housing.roles;
 
-import housing.House;
 import housing.gui.HousingPersonGui;
 
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import city.gui.CityHousing;
 
 public class HousingBaseRole extends BaseRole {
 	
@@ -15,7 +15,7 @@ public class HousingBaseRole extends BaseRole {
 	
 	Semaphore isAnimating = new Semaphore(0, true);
 	HousingPersonGui gui;
-	public House mHouse = null;
+	public CityHousing mHouse = null;
 	
 	public HousingBaseRole() {
 		gui = new HousingPersonGui();
@@ -79,7 +79,7 @@ public class HousingBaseRole extends BaseRole {
 		print("Action - Maintain");
 	}
 	
-	public void setHouse(House h) {
+	public void setHouse(CityHousing h) {
 		print("set house");
 		this.mHouse = h;
 	}

@@ -1,6 +1,5 @@
 package housing.interfaces;
 
-import housing.House;
 
 public interface HousingOwner {
 

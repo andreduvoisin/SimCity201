@@ -1,12 +1,12 @@
 package housing.gui;
 
-import housing.House;
 import housing.roles.HousingBaseRole;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 import base.Gui;
+import city.gui.CityHousing;
 
 /*
  * @author David Carr
@@ -61,13 +61,13 @@ public class HousingPersonGui implements Gui {
 		return present;
 	}
 
-	public void DoGoToHouse(House h) {
+	public void DoGoToHouse(CityHousing h) {
 		xDestination = h.xLocation;
 		yDestination = h.yLocation;
 		currentlyAnimating = true;
 	}
 
-	public void DoLeaveHouse(House h) {
+	public void DoLeaveHouse(CityHousing h) {
 		xDestination = -20;
 		yDestination = -20;
 		currentlyAnimating = true;

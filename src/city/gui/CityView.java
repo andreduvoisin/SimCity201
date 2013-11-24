@@ -1,10 +1,6 @@
 package city.gui;
 
-import housing.House;
-import housing.gui.HousingGuiPanel;
-
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,9 +11,8 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import bank.gui.BankPanel;
-import restaurant.restaurant_davidmca.gui.AnimationPanel;
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
+import bank.gui.BankPanel;
 
 public class CityView extends JPanel implements MouseListener, ActionListener {
 
@@ -25,7 +20,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 	SimCityGui city;
 	public static final int VIEW_WIDTH = 500, VIEW_HEIGHT = 500;
 	CardLayout layout;
-	public House house1;
 	
 	public CityView(SimCityGui city) throws IOException {
 		
@@ -43,9 +37,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		cards.put("R_Maggiyan", new CityCard(city));
 		cards.put("Green Guts Bank", new BankPanel(city));
-		
-		house1 = new House(city, 80, 80, 50);
-		cards.put("House 1", house1.mPanel);
 		
 		cards.put("Sears!", new CityCard(city));
 		layout = new CardLayout();
@@ -69,7 +60,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 	public void setView(String key) {
 		if (cards.containsKey(key)) {
 			layout.show(this, key);
-			city.info.setText(key);
+			city.infopanel.setText(key);
 		}
 	}
 

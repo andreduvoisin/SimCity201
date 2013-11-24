@@ -384,6 +384,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
+		
 		if (mHouseRole.mHouse != null) {
 			mHouseRole.msgTimeToMaintain();
 		}

@@ -28,7 +28,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(120, 120, "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(80, 400, "Restaurant 2"));
 		this.addStatic(new CityBank(400, 75, "Green Guts Bank"));
-		this.addStatic(new CityHousing(400, 400, "House 1"));
+		
 		this.addStatic(new CityMarket(75, 200, "Sears!"));
 		
 		for (int i = 30; i < 1000; i += 500) {
@@ -69,7 +69,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		for (CityComponent c: statics) {
 			if (c.contains(arg0.getX(), arg0.getY())) {
 				//city.info.setText(c.ID);
-				city.view.setView(c.ID);
+				city.cityview.setView(c.ID);
 			}
 		}
 	}
