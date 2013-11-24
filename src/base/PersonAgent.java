@@ -296,28 +296,8 @@ public class PersonAgent extends Agent implements Person {
 		restaurantCustomerRole.setRestaurant(randomRestaurant); //DAVID: 1 This is where it's set
 		
 		mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
+		acquireSemaphore(semAnimationDone);
 		
-		
-		// // What will be our algorithm to figure out which to do?
-		// switch(random(2)) {
-		// case 0:
-		// // Eat at home.
-		// DoGoTo(home.location);
-		// roles.find(HouseRenterRole).active = T;
-		// DoGoMakeFoodAtHome();
-		// state = PersonState.Eating;
-		// break;
-		// case 1:
-		// // Eat at restaurant.
-		// // What will be our algorithm to figure out which restaurant to go
-		// to?
-		// restaurantChoice = restaurants.chooseRestaurant();
-		// DoGoTo(restaurantChoice.location);
-		// restaurantChoice.getHost().msgImHungry(roles.find(CustomerRole));
-		// roles.find(CustomerRole).active = T;
-		// state = PersonState.Eating;
-		// break;
-		// }
 	}
 	
 	public void SetGui(CityPerson pGui){
@@ -420,9 +400,7 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-	public void msgHereIsPayment(int senderSSN, double amount) {
-		mCash += amount;
-	}
+
 	public void setName(String name) {
 		mName = name;
 	}
