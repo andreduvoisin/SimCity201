@@ -40,7 +40,7 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		Timer timer = new Timer(20, this);
 		timer.start();
 		
-		testHousingGui(); 
+		//testHousingGui(); 
 	}
 		
 	public void testHousingGui() {
@@ -62,7 +62,6 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		gui1.setPresent(true);
 		this.addGui(gui1);
 		
-		//renter1.mHungry = true; 
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -92,6 +91,8 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		
 		for (Gui gui : guis) {
 			if (gui.isPresent()) {
+				gui.updatePosition();
+				gui.updatePosition();
 				gui.updatePosition();
 			}
 		}
