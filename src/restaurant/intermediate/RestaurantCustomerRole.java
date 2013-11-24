@@ -1,4 +1,4 @@
-package intermediate;
+package restaurant.intermediate;
 
 import java.io.IOException;
 

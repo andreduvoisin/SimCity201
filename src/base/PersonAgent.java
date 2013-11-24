@@ -2,7 +2,6 @@ package base;
 
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
-import intermediate.RestaurantCustomerRole;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,6 +17,7 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import reference.simcity.gui.SimCityGui;
+import restaurant.intermediate.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
@@ -61,7 +61,7 @@ public class PersonAgent extends Agent implements Person {
 	Location mWorkLocation;
 	CityPerson personGui = null;
 	
-	public Semaphore semAnimationDone = new Semaphore(0);
+	public Semaphore semAnimationDone = new Semaphore(1);
 	private boolean mRoleFinished;
 	
 	//Role References
@@ -143,6 +143,14 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void msgAnimationDone(){
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
+	}
+	
+	public void msgHereIsPayment(int senderSSN, double amount){
+		mCash += amount;
+	}
+	
+	public void msgOverdrawnAccount(double loan) {
+		mLoan += loan;
 	}
 	
 	public void msgRoleFinished(){
@@ -427,11 +435,6 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
 		mItemsDesired = map;
-	}
-
-	@Override
-	public void msgOverdrawnAccount(double loan) {
-		mLoan += loan;
 	}
 
 	@Override
