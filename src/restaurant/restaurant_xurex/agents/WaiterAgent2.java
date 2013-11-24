@@ -21,7 +21,7 @@ import java.util.concurrent.Semaphore;
 
 
 public class WaiterAgent2 extends Agent implements Waiter{
-	private Semaphore atLocation = new Semaphore(100,true);
+	private Semaphore atLocation = new Semaphore(0,true);
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
