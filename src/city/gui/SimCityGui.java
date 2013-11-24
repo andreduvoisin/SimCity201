@@ -51,6 +51,7 @@ public class SimCityGui extends JFrame {
 			((PersonAgent) person).msgAnimationDone();
 			((PersonAgent) person).invokeMaintenance();
 			((PersonAgent) person).mHouseRole.setHouse(view.house1);
+			((PersonAgent) person).mHouseRole.msgEatAtHome();
 			((PersonAgent) person).startThread();
 //			((PersonAgent) person).eatFood();
 		}

@@ -40,7 +40,7 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		Timer timer = new Timer(20, this);
 		timer.start();
 		
-		testHousingGui(); 
+		//testHousingGui(); 
 	}
 		
 	public void testHousingGui() {

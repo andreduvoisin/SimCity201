@@ -19,6 +19,7 @@ public class HousingBaseRole extends BaseRole {
 	
 	public HousingBaseRole() {
 		gui = new HousingPersonGui();
+		gui.housingrole = this;
 		gui.setPresent(true);
 	}
 	
@@ -35,6 +36,7 @@ public class HousingBaseRole extends BaseRole {
 
 	public void msgEatAtHome() {
 		mHungry = true;
+		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}
 

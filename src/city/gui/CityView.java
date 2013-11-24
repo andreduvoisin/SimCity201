@@ -25,7 +25,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 	SimCityGui city;
 	public static final int VIEW_WIDTH = 500, VIEW_HEIGHT = 500;
 	CardLayout layout;
-	House house1;
+	public House house1;
 	
 	public CityView(SimCityGui city) throws IOException {
 		
