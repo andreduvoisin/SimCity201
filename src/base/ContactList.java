@@ -2,6 +2,7 @@ package base;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import base.interfaces.Role;
 public class ContactList {
 	
 	//----------------------------------------------------------PEOPLE----------------------------------------------------------
-	static Map<Role, Location> sRoleLocations;
+	static Map<Role, Location> sRoleLocations = new HashMap<Role, Location>();
 	//SHANE: sRestaurantRoleLocations
 	static List<Person> sPeople; //list of people
 	
@@ -69,7 +70,7 @@ public class ContactList {
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
-	static void SendPayment(int senderSSN, int receiverSSN, int amount){
+	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
 		BankMasterTellerRole bankMasterTellerRole = null;
 		for (Role iRole : sRoleLocations.keySet()){
 			if (iRole instanceof BankMasterTellerRole){
