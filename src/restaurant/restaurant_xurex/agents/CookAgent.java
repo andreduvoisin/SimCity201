@@ -21,7 +21,7 @@ public class CookAgent extends Agent implements Cook {
 	public enum MarketOrderState
 	{pending, ready, completed}; //Can use boolean instead
 	
-	private Semaphore atLocation = new Semaphore(0,true);
+	private Semaphore atLocation = new Semaphore(100,true);
 	private CookGui_ cookGui = null;
 	RestaurantGui gui;
 	
@@ -36,20 +36,20 @@ public class CookAgent extends Agent implements Cook {
 			this.w=w; this.choice=choice; this.table=table; s=OrderState.pending;
 		}
 	}
-	private class MarketOrder{
+	public class MarketOrder{
 		String market;
-		Map<String, Integer> provided = new HashMap<String, Integer>();
-		MarketOrderState state;
+		public Map<String, Integer> provided = new HashMap<String, Integer>();
+		public MarketOrderState state;
 		//pending, ready, completed
 		MarketOrder(Market market){
 			this.market = market.getName();
 			this.state  = MarketOrderState.pending;
 		}
 	}
-	private class Food{
+	public class Food{
 		String type;
 		int low;
-		int quantity;
+		public int quantity;
 		int capacity;
 		int cookingTime;
 		boolean orderState = false;
@@ -64,7 +64,7 @@ public class CookAgent extends Agent implements Cook {
 	
 	private String name;
 	
-	private Map<String, Food> Inventory = new HashMap<String, Food>();
+	public Map<String, Food> Inventory = new HashMap<String, Food>();
 	private Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
 	
 	private Map<Integer, Boolean> Kitchen = new HashMap<Integer, Boolean>();
@@ -199,6 +199,7 @@ public class CookAgent extends Agent implements Cook {
 		for (MarketOrder marketOrder : marketOrders){
 			if(marketOrder.state == MarketOrderState.ready){
 				RefillInventory(marketOrder);
+				return true;
 			}
 		}
 		}
