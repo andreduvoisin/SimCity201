@@ -145,6 +145,14 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
+	public void msgHereIsPayment(int senderSSN, double amount){
+		mCash += amount;
+	}
+	
+	public void msgOverdrawnAccount(double loan) {
+		mLoan += loan;
+	}
+	
 	public void msgRoleFinished(){
 		mRoleFinished = true;
 	}
@@ -427,11 +435,6 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
 		mItemsDesired = map;
-	}
-
-	@Override
-	public void msgOverdrawnAccount(double loan) {
-		mLoan += loan;
 	}
 
 	@Override

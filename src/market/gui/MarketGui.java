@@ -2,15 +2,14 @@ package market.gui;
 
 import java.awt.*;
 import javax.swing.*;
-import market.gui.MarketPanel;
 
 public class MarketGui extends JFrame {
-	MarketPanel marketPanel = new MarketPanel();
-
+	static MarketPanel marketPanel = new MarketPanel();
+	
 	public MarketGui() {
 		setLayout(new GridLayout());
-		setBounds(50,50,600,400);
-		Dimension dim = new Dimension(600,400);
+		setBounds(50,50,500,500);
+		Dimension dim = new Dimension(500,500);
 		marketPanel.setPreferredSize(dim);
 		marketPanel.setMaximumSize(dim);
 		marketPanel.setMinimumSize(dim);
@@ -23,5 +22,7 @@ public class MarketGui extends JFrame {
 		gui.setVisible(true);
 		gui.setResizable(false);
 		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		marketPanel.testGuis();
 	}
 }
