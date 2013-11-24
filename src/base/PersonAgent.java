@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
+import reference.simcity.gui.SimCityGui;
 import restaurant.interfaces.RestaurantCustomerRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
@@ -65,6 +66,7 @@ public class PersonAgent extends Agent implements Person {
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
 	private CityPerson mGui; //SHANE JERRY: 2 instantiate this
+	private SimCityGui mRoleGui; //SHANE JERRY: make sure this works
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -278,7 +280,22 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void eatFood() {
+		//decide if eating at home or not
+		//SHANE REX: 3 get to this 
 		
+		
+		//set random restaurant
+		RestaurantCustomerRole restaurantCustomerRole = null;
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof RestaurantCustomerRole){
+				restaurantCustomerRole = (RestaurantCustomerRole) iRole;
+			}
+		}
+		
+		int randomRestaurant = 1; //SHANE: Make random
+		restaurantCustomerRole.setRestaurant(randomRestaurant); //DAVID: 1 This is where it's set
+		
+		mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
 		
 		
 		// // What will be our algorithm to figure out which to do?
