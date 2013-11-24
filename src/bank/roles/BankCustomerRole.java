@@ -156,8 +156,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 			}
 		}
 		else if (action == EnumAction.Payment){
-			//REX: Does the base agent keep track of loan?
-				//yes, personagent has an int loan
+			mPerson.subLoan(mTransaction);
 		}
 		else if (action == EnumAction.Open){
 			mPerson.setCash(mTransaction);

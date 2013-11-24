@@ -1,4 +1,4 @@
-package restaurant.restaurant_xurex;
+package restaurant.restaurant_xurex.agents;
 
 import base.Agent;
 import restaurant.restaurant_xurex.interfaces.Cashier;
@@ -6,7 +6,7 @@ import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
-import restaurant.restaurant_xurex.interfaces.W_Gui;
+import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 import restaurant.restaurant_xurex.utilities.*;
 
 import java.util.*;
@@ -20,13 +20,13 @@ import java.util.concurrent.Semaphore;
 //Waiter Agent also serves food once notified by cook that order is ready.
 
 
-public class WaiterAgent1 extends Agent implements Waiter{
+public class WaiterAgent2 extends Agent implements Waiter{
 	private Semaphore atLocation = new Semaphore(0,true);
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
-	List<MyCustomer> customers = new ArrayList<MyCustomer>();
-	List<Order> orders = new ArrayList<Order>();
+	public List<MyCustomer> customers = new ArrayList<MyCustomer>();
+	public List<Order> orders = new ArrayList<Order>();
 	Cook cook;
 	Host host;
 	Cashier cashier;
@@ -34,11 +34,11 @@ public class WaiterAgent1 extends Agent implements Waiter{
 	
 	static Map<String, Integer> menu = new HashMap<String, Integer>();
 	
-	WaiterState state = WaiterState.good;
+	public WaiterState state = WaiterState.good;
 	
-	private W_Gui waiterGui = null;
+	private WaiterGui_ waiterGui = null;
 
-	public WaiterAgent1(String name) {
+	public WaiterAgent2(String name) {
 		super();
 		this.name = name;
 		menu.put("Steak", new Integer(16));
@@ -46,7 +46,7 @@ public class WaiterAgent1 extends Agent implements Waiter{
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	public WaiterAgent1(String name, Host host, Cook cook){
+	public WaiterAgent2(String name, Host host, Cook cook){
 		super();
 		this.name = name;
 		this.cook = cook;
@@ -56,10 +56,6 @@ public class WaiterAgent1 extends Agent implements Waiter{
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#getName()
-	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -167,7 +163,7 @@ public class WaiterAgent1 extends Agent implements Waiter{
 	/**
 	 * Scheduler: the brains of the operation
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.askedToOrder){
 				StayStill(); return true;
@@ -264,7 +260,7 @@ public class WaiterAgent1 extends Agent implements Waiter{
 		while(!waiterGui.atTable(5)){
 			//Busy Wait//
 		}
-		cook.HereIsOrder(this, c.choice, c.table);
+		cook.addToStand(this, c.choice, c.table);
 		GetBill(c);
 	}
 	private void GetBill(MyCustomer c){
@@ -369,31 +365,19 @@ public class WaiterAgent1 extends Agent implements Waiter{
 	}
 	
 	//UTILITIES
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setHost(restaurant.interfaces.Host)
-	 */
-	@Override
 	public void setHost (Host host){
 		this.host = host;
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setCook(restaurant.interfaces.Cook)
-	 */
-	@Override
 	public void setCook (Cook cook){
 		this.cook = cook;
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setCashier(restaurant.interfaces.Cashier)
-	 */
-	@Override
 	public void setCashier (Cashier cashier){
 		this.cashier = cashier;
 	}
-	public void setGui(W_Gui gui) {
+	public void setGui(WaiterGui_ gui) {
 		waiterGui = gui;
 	}
-	public W_Gui getGui() {
+	public WaiterGui_ getGui() {
 		return waiterGui;
 	}
 	public boolean isAvailable() {
@@ -411,6 +395,10 @@ public class WaiterAgent1 extends Agent implements Waiter{
 	}
 	public int getNumber(){
 		return number;
+	}
+	
+	public void releaseSem(){
+		atLocation.release();
 	}
 }
 

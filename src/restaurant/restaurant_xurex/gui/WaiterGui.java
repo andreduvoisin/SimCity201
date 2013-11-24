@@ -6,9 +6,9 @@ import java.util.Map;
 
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Waiter;
-import restaurant.restaurant_xurex.interfaces.W_Gui;
+import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
-public class WaiterGui implements Gui, W_Gui {
+public class WaiterGui implements Gui, WaiterGui_ {
 
     private Waiter agent = null;
     RestaurantGui gui;

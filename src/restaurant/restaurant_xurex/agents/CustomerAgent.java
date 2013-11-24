@@ -1,4 +1,4 @@
-package restaurant.restaurant_xurex;
+package restaurant.restaurant_xurex.agents;
 
 import restaurant.restaurant_xurex.gui.CustomerGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;

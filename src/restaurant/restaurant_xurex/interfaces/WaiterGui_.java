@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 
-public interface W_Gui {
+public interface WaiterGui_ {
 
 	public abstract void updatePosition();
 

@@ -1,4 +1,4 @@
-package restaurant.restaurant_xurex;
+package restaurant.restaurant_xurex.agents;
 
 import base.Agent;
 import restaurant.restaurant_xurex.interfaces.Cashier;

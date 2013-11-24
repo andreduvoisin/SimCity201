@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Item {
 	
-	public static final double cPRICE_STEAK = 4;
-	public static final double cPRICE_CHICKEN = 2;
-	public static final double cPRICE_SALAD = 1;
-	public static final double cPRICE_PIZZA = 2;
-	public static final double cPRICE_CAR = 100;
+	public static final double cPRICE_STEAK = 6;
+	public static final double cPRICE_CHICKEN = 4;
+	public static final double cPRICE_SALAD = 2;
+	public static final double cPRICE_PIZZA = 5;
+	public static final double cPRICE_CAR = 200;
 	public static enum EnumMarketItemType {CHICKEN, PIZZA, SALAD, STEAK, CAR};
 	
 	public static Map<EnumMarketItemType, Double> cMARKET_PRICES;
@@ -24,8 +24,6 @@ public class Item {
         cMARKET_PRICES = Collections.unmodifiableMap(map);
     }
     
-    //REX: 2 Set prices
-
 	EnumMarketItemType mItemType;
 	
 	public Item(EnumMarketItemType itemType){

@@ -4,11 +4,11 @@ package restaurant.restaurant_xurex.test.mock;
 import java.awt.Graphics2D;
 
 import restaurant.restaurant_xurex.gui.RestaurantGui;
-import restaurant.restaurant_xurex.interfaces.WaiterGui_;
+import restaurant.restaurant_xurex.interfaces.CookGui_;
 
-public class MockWaiterGui extends Mock implements WaiterGui_ {
+public class MockCookGui extends Mock implements CookGui_ {
 
-	public MockWaiterGui(String name) {
+	public MockCookGui(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
@@ -26,22 +26,25 @@ public class MockWaiterGui extends Mock implements WaiterGui_ {
 	}
 
 	@Override
-	public void DoServeFood(String choice) {
-		log.add(new LoggedEvent("DoServeFood: "+choice));
-	}
-
-	@Override
-	public void DoCleanFood() {
-		log.add(new LoggedEvent("DoCleanFood"));
-	}
-
-	@Override
 	public void DoDisplayOrder(String choice, int table) {
-		log.add(new LoggedEvent("DoDisplayOrder: "+choice+" "+table));
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void DoRemoveOrder(int table) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void DoDisplayServe(String choice, int table) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void DoRemoveServe(int table) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -54,7 +57,8 @@ public class MockWaiterGui extends Mock implements WaiterGui_ {
 
 	@Override
 	public void DoGoToTable(int table) {
-		log.add(new LoggedEvent("DoGoToTable: "+table));
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -64,48 +68,27 @@ public class MockWaiterGui extends Mock implements WaiterGui_ {
 	}
 
 	@Override
-	public void DoGoBase() {
+	public void DoGoRef() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean atRef() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean atHome() {
-		return true;
-	}
-
-	@Override
-	public boolean atBase() {
-		return true;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
 	public boolean atTable(int table) {
-		return true;
-	}
-
-	@Override
-	public void setBreak() {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void backToWork() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setWaiterEnabled() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setWaiterEnabled(String name) {
-		// TODO Auto-generated method stub
-		
+		return false;
 	}
 
 	@Override
@@ -127,5 +110,4 @@ public class MockWaiterGui extends Mock implements WaiterGui_ {
 	}
 
 	
-
 }

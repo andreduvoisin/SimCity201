@@ -135,7 +135,7 @@ public class RestaurantPanel extends JPanel {
 		cust.setHost(host);
 		cust.setCashier(cash);
 		cust.setGui(g);
-		g.setHungry();
+//		g.setHungry();
 		customers.add(cust);
 	}
 
@@ -144,7 +144,7 @@ public class RestaurantPanel extends JPanel {
 		gui.animationPanel.addGui(g);
 		waiter.setHost(host);
 		waiter.setGui(g);
-		host.addWaiter(waiter);
+//		host.addWaiter(waiter);
 		waiter.setCashier(cash);
 	}
 
@@ -153,7 +153,7 @@ public class RestaurantPanel extends JPanel {
 		gui.animationPanel.addGui(g);
 		waiter.setHost(host);
 		waiter.setGui(g);
-		host.addWaiter(waiter);
+//		host.addWaiter(waiter);
 		waiter.setCashier(cash);
 	}
 

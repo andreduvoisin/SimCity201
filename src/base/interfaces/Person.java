@@ -34,4 +34,6 @@ public interface Person {
 	public Map<Role, Boolean> getRoles();
 	public Role getHousingRole();
 
+	void subLoan(double mTransaction);
+
 }

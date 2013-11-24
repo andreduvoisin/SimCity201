@@ -123,7 +123,6 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer{
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
 		//check if cannot afford invoice
-		//REX: 1 How to write to bank / bank interactions
 		//subtract money from cash
 		//ANGELICA: SHANE: actual payment method?
 		

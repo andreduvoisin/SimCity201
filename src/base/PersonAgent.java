@@ -116,6 +116,11 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
+//		for (Role iRole : mRoles.keySet()){
+//			if (iRole instanceof RestaurantCustomerRole){
+//				System.out.println("Person: " + iRole);
+//			}
+//		}
 		
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof RestaurantCustomerRole){
@@ -319,8 +324,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void eatFood() {
-		//decide if eating at home or not
-		//SHANE REX: 3 get to this 
 		if (isCheap()){
 			
 			
@@ -436,6 +439,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void setLoan(double loan) {
 		mLoan = loan;
+	}
+	
+	public void subLoan(double loan) {
+		mLoan -= loan;
 	}
 	
 	public double getLoan() {

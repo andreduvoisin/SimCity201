@@ -12,7 +12,7 @@ public class BaseRole implements Role {
 	protected void stateChanged() {
 		System.out.println("STATECHANGED");
 
-		Person person = getPerson();
+		//Person person = getPerson();
 //		System.out.println("PERSON: " + person.toString());
 
 		
@@ -20,6 +20,7 @@ public class BaseRole implements Role {
 			((PersonAgent) mPerson).stateChanged();
 		} else {
 			print(this.toString() + "stateChanged not called");
+			print("mPerson is null in BaseRole:stateChanged()");
 		}
 	}
 
@@ -33,9 +34,9 @@ public class BaseRole implements Role {
 		mPerson = person;
 	}
 
-	public PersonAgent getPersonAgent() {
-		return ((PersonAgent) mPerson);
-	}
+//	public PersonAgent getPersonAgent() {
+//		return ((PersonAgent) mPerson);
+//	}
 
 	/* Utilities */
 
@@ -63,6 +64,7 @@ public class BaseRole implements Role {
 	protected void print(String msg, Throwable e) {
 		StringBuffer sb = new StringBuffer();
 		// sb.append(mPerson.getName());
+		sb.append(this);
 		sb.append(": ");
 		sb.append(msg);
 		sb.append("\n");
@@ -72,9 +74,9 @@ public class BaseRole implements Role {
 		System.out.print(sb.toString());
 	}
 
-	@Override
-	public Person getPerson() {
-		return mPerson;
-	}
+//	@Override
+//	public Person getPerson() {
+//		return mPerson;
+//	}
 
 }
