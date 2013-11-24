@@ -2,6 +2,7 @@ package bank.roles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
@@ -40,6 +41,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 	//GUI
 	BankCustomerGui mGUI;
+	Semaphore atLocation = new Semaphore(0, true);
 	
 	
 	public BankCustomerRole(Person person){
@@ -59,6 +61,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	public void msgAtLocation(){
 		//from GUI
+		atLocation.release();
 		mEvent = EnumEvent.Arrived;
 		stateChanged();
 	}
@@ -109,11 +112,17 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 //	ACTIONS
 	
 	private void waitInLine(){
+		mGUI.DoGoWaitInLine();
 		mGuard.msgNeedService(this);
 	}
 	private void goToTeller(){
-		//Using Teller mTeller.location
 		//GUI Interaction
+		mGUI.DoGoToTeller();
+		try {
+			atLocation.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	private void pickAction(){
 		if (mActions.isEmpty()){
@@ -141,6 +150,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	private void leave(){
 		//GUI Interaction
+		mGUI.DoLeaveBank();
 		mTransaction = -1;
 	}
 	private void processTransaction(){

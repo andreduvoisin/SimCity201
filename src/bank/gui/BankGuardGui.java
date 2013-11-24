@@ -15,7 +15,7 @@ public class BankGuardGui implements Gui {
 	private int xDestination, yDestination;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOS = 40;
+	static final int STARTPOS = 0;
 
 	public BankGuardGui(BankGuard bg) {
 		agent = bg;

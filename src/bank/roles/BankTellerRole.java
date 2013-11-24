@@ -10,6 +10,7 @@ import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 
@@ -35,7 +36,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	//GUI
 	BankTellerGui mGUI;
 	//GUI Coordinate
-	int mLocation;
+	Location mLocation;
 	//Agent Correspodents
 	BankGuard mGuard;
 	public MyCustomer mCustomer;
