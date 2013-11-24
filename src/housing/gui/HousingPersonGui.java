@@ -19,6 +19,7 @@ public class HousingPersonGui implements Gui {
 	private int xPos, yPos = 40;
 	private int xDestination, yDestination = 40;
 	private boolean currentlyAnimating;
+	private boolean present;
 
 	private static int GUISIZE = 20;
 
@@ -46,7 +47,7 @@ public class HousingPersonGui implements Gui {
 
 	@Override
 	public boolean isPresent() {
-		return true;
+		return present;
 	}
 
 	public void DoGoToHouse(House h) {
@@ -69,6 +70,11 @@ public class HousingPersonGui implements Gui {
 	public void DoMaintainHouse() {
 
 		currentlyAnimating = true;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		present = state;
 	}
 
 }

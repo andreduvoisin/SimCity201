@@ -49,17 +49,19 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Constructor */
 	
 	public HousingLandlordRole(Person person){
+		super();
 		mPerson = person;
 		
 		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
-		mHousesList.add(new House(20, 20, 100.00)); 
-		mHousesList.add(new House(30, 30, 250.00));
+		//mHousesList.add(new House(20, 20, 100.00)); 
+		//mHousesList.add(new House(30, 30, 250.00));
 	}
 	
 	public HousingLandlordRole(){
+		super();
 		//DAVID MAGGI: remove after finishing config file, for testing purposes only 
-		mHousesList.add(new House(20, 20, 100.00)); 
-		mHousesList.add(new House(30, 30, 250.00));
+		//mHousesList.add(new House(20, 20, 100.00)); 
+		//mHousesList.add(new House(30, 30, 250.00));
 	}
 
 	/* Messages */
