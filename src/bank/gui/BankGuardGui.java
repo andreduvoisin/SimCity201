@@ -10,6 +10,7 @@ public class BankGuardGui implements Gui {
 
 	private BankGuard agent = null;
 	private boolean isPresent = true;
+	private BankPanel bankPanel;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -17,8 +18,9 @@ public class BankGuardGui implements Gui {
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
 	static final int STARTPOS = 0;
 
-	public BankGuardGui(BankGuard bg) {
+	public BankGuardGui(BankGuard bg, BankPanel bp) {
 		agent = bg;
+		bankPanel = bp;
 		xPos = STARTPOS;
 		yPos = STARTPOS;
 		xDestination = STARTPOS;

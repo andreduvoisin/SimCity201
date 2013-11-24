@@ -10,6 +10,7 @@ public class BankCustomerGui implements Gui {
 
 	private BankCustomer agent = null;
 	private boolean isPresent = false;
+	private BankPanel bankPanel;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -18,9 +19,12 @@ public class BankCustomerGui implements Gui {
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
 	static final int STARTPOS = -20;
+	
+	private int positionInLine;
 
-	public BankCustomerGui(BankCustomer bc) {
+	public BankCustomerGui(BankCustomer bc, BankPanel bp) {
 		agent = bc;
+		bankPanel = bp;
 		xPos = STARTPOS;
 		yPos = STARTPOS;
 		xDestination = STARTPOS;
@@ -67,6 +71,7 @@ public class BankCustomerGui implements Gui {
 		isPresent = true;
 		xDestination = BankPanel.LINE_X;
 		yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
+		positionInLine = BankPanel.LINE_POSITION;
 		BankPanel.LINE_POSITION++;
 	}
 	
@@ -78,6 +83,15 @@ public class BankCustomerGui implements Gui {
 	public void DoGoToTeller() {
 		xDestination = BankPanel.INTERACT_X;
 		yDestination = BankPanel.INTERACT_Y;
+		bankPanel.updateCustomerLine();
 		isMovingToTeller = true;
+	}
+	
+	public void moveForwardInLine() {
+		positionInLine--;
+		if(positionInLine >= 0) {
+			xDestination = BankPanel.LINE_X;
+			yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
+		}
 	}
 }

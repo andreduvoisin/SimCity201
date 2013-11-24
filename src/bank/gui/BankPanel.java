@@ -60,7 +60,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	public void testBankGui() {
 		PersonAgent cust = new PersonAgent();
 		BankCustomerRole bcr = new BankCustomerRole(cust);
-		BankCustomerGui bcg = new BankCustomerGui(bcr);
+		BankCustomerGui bcg = new BankCustomerGui(bcr, this);
 		bcr.setGui(bcg);
 		addGui(bcg);
 		bcg.DoGoWaitInLine();
@@ -68,27 +68,27 @@ public class BankPanel extends CityCard implements ActionListener{
 		
 		PersonAgent cust2 = new PersonAgent();
 		BankCustomerRole bcr2 = new BankCustomerRole(cust2);
-		BankCustomerGui bcg2 = new BankCustomerGui(bcr2);
+		BankCustomerGui bcg2 = new BankCustomerGui(bcr2, this);
 		bcr2.setGui(bcg2);
 		addGui(bcg2);
 		bcg2.DoGoWaitInLine();
 		
 		PersonAgent cust3 = new PersonAgent();
 		BankCustomerRole bcr3 = new BankCustomerRole(cust3);
-		BankCustomerGui bcg3 = new BankCustomerGui(bcr3);
+		BankCustomerGui bcg3 = new BankCustomerGui(bcr3, this);
 		bcr3.setGui(bcg3);
 		addGui(bcg3);
 		bcg3.DoGoWaitInLine();
 		
 		PersonAgent teller = new PersonAgent();
 		BankTellerRole btr = new BankTellerRole(teller);
-		BankTellerGui btg = new BankTellerGui(btr);
+		BankTellerGui btg = new BankTellerGui(btr, this);
 		btr.setGui(btg);
 		addGui(btg);
 		
 		PersonAgent guard = new PersonAgent();
 		BankGuardRole bgr = new BankGuardRole(guard);
-		BankGuardGui bgg = new BankGuardGui(bgr);
+		BankGuardGui bgg = new BankGuardGui(bgr, this);
 		bgr.setGui(bgg);
 		addGui(bgg);
 	}
@@ -104,6 +104,8 @@ public class BankPanel extends CityCard implements ActionListener{
         g2.setColor(Color.GRAY);
         g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
         
+        g2.fillRect(LINE_X, LINE_Y, 20, 20);
+        
         for(Gui gui : guis) {
             if (gui.isPresent()) {
                 gui.updatePosition();
@@ -117,10 +119,11 @@ public class BankPanel extends CityCard implements ActionListener{
 	}
 	
 	public void updateCustomerLine() {
+		LINE_POSITION--;
 		for(Gui gui : guis) {
             if (gui.isPresent()) {
                 if(gui instanceof BankCustomerGui) {
-                	
+                	((BankCustomerGui) gui).moveForwardInLine();
                 }
             }
         }

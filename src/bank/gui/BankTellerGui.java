@@ -11,6 +11,7 @@ public class BankTellerGui implements Gui {
 
 	private BankTeller agent = null;
 	private boolean isPresent = true;
+	private BankPanel bankPanel;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -19,8 +20,9 @@ public class BankTellerGui implements Gui {
 	static final int STARTPOSX = 250;
 	static final int STARTPOSY = 470;
 
-	public BankTellerGui(BankTeller bt) {
+	public BankTellerGui(BankTeller bt, BankPanel bp) {
 		agent = bt;
+		bankPanel = bp;
 		xPos = STARTPOSX;
 		yPos = STARTPOSY;
 		xDestination = STARTPOSX;
