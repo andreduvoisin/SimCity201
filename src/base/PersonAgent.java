@@ -97,6 +97,11 @@ public class PersonAgent extends Agent implements Person {
 			case HOUSING: break;
 			case NONE: break;
 		}
+		if (mTimeShift == 0){
+			for (Role iRole : mRoles.keySet()){
+				iRole.setPerson(this);
+			}
+		}
 		
 		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 		mRoles.put(mHouseRole, true);
@@ -318,10 +323,6 @@ public class PersonAgent extends Agent implements Person {
 		
 	}
 	
-	public void SetGui(CityPerson pGui){
-		personGui = pGui;
-	}
-
 	private void depositCheck() {
 
 	}
@@ -356,6 +357,9 @@ public class PersonAgent extends Agent implements Person {
 		mGui.DoGoToDestination(ContactList.cBANK_LOCATION);
 	}
 
+	public void SetGui(CityPerson pGui){
+		personGui = pGui;
+	}
 	
 	
 	private List<Person> getBestFriends(){
