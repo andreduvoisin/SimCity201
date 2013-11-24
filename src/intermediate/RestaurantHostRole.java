@@ -1,21 +1,22 @@
-package restaurant.interfaces;
+package intermediate;
 
-import restaurant.restaurant_davidmca.roles.CashierRole;
+import restaurant.restaurant_davidmca.roles.CustomerRole;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantCashierRole extends BaseRole {
+public class RestaurantHostRole extends BaseRole {
 	
 	Role subRole = null;
-
-	public RestaurantCashierRole(Person person){
+	
+	public RestaurantHostRole(Person person){
 		mPerson = person;
 	}
 	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
-			subRole = new CashierRole(mPerson.getName());
+			subRole = new CustomerRole(mPerson.getName());
+			subRole.setPerson(mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
 	}
