@@ -14,12 +14,22 @@ import base.Gui;
 
 public class HousingPersonGui implements Gui {
 
-	HousingBaseRole housingrole;
-
-	private int xPos, yPos = 40;
-	private int xDestination, yDestination = 40;
+	public HousingBaseRole housingrole;
+	
+	//Initial Positions
+	private int xPos = 40; 
+	private int yPos = 40;
+	private int xDestination = 40;
+	private int yDestination = 40;
 	private boolean currentlyAnimating;
 
+	//Person Positions
+	private int eatingXPos = 210; 
+	private int eatingYPos = 280; 
+	
+	private int restingXPos = 200;
+	private int restingYPos = 75; 
+	
 	private static int GUISIZE = 20;
 
 	public void updatePosition() {
@@ -62,7 +72,8 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void DoCookAndEatFood() {
-
+		xDestination = eatingXPos; 
+		yDestination = eatingYPos; 
 		currentlyAnimating = true;
 	}
 
@@ -70,5 +81,8 @@ public class HousingPersonGui implements Gui {
 
 		currentlyAnimating = true;
 	}
-
+	
+	public void DoGoRelax(){
+		currentlyAnimating = true; 
+	}
 }

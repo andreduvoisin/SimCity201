@@ -38,12 +38,13 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	void EatAtHome() {
-//		gui.DoCookAndEatFood();
-//		try {
-//			isAnimating.acquire();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		gui.DoCookAndEatFood();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoGoRelax(); 
 		print("Action - Eat at Home");
 	}
 
@@ -59,6 +60,7 @@ public class HousingBaseRole extends BaseRole {
 	
 	public void setGui(HousingPersonGui g) {
 		gui = g;
+		g.housingrole = this; 
 	}
 
 }
