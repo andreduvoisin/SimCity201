@@ -214,26 +214,12 @@ public class SortingHat {
 	public static Role getHousingRole(Person person) {
 		//landlord, renter, owner (in that order)
 
-		int xCord, yCord = 0;
-
-		if (sHouseCount % 20 == 0) {
-			xCord = 50 + (20 * sHouseCount % 20);
-			yCord = 0;
-		} else if (sHouseCount % 20 == 2) {
-			xCord = 50 + (20 * sHouseCount % 20);
-			yCord = 480;
-		} else if (sHouseCount % 20 == 3) {
-			xCord = 0;
-			yCord = 50 + 20 * (sHouseCount % 20);
-		} else {
-			xCord = 480;
-			yCord = 50 + 20 * (sHouseCount % 20);
-		}
-
+		Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(sHouseCount);
+		
 		if (sLandlordCount < sMaxLandlords){
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
- 			CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), xCord, yCord, "House " + sHouseCount, 50.00);
+ 			CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), houseLocation.mX, houseLocation.mY, "House " + sHouseCount, 50.00);
  			SimCityGui.getInstance().cityview.addView(newHouse.mPanel, "House " + sHouseCount);
 			sHouseCount++;
 			SimCityGui.getInstance().citypanel.addStatic(newHouse);
@@ -247,7 +233,7 @@ public class SortingHat {
 		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), xCord, yCord, "House " + sHouseCount, 50.00);
+		CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), houseLocation.mX, houseLocation.mY, "House " + sHouseCount, 50.00);
 		SimCityGui.getInstance().cityview.addView(newHouse.mPanel, "House " + sHouseCount);
 		sHouseCount++;
 		SimCityGui.getInstance().citypanel.addStatic(newHouse);
