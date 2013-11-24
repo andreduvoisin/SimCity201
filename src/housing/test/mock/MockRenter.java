@@ -1,10 +1,11 @@
 package housing.test.mock;
 
+import city.gui.CityHousing;
+
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.MockPerson;
-import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -23,7 +24,7 @@ public class MockRenter extends Mock implements Role, HousingRenter {
 
 	}
 
-	public void msgApplicationAccepted(House newHouse) {
+	public void msgApplicationAccepted(CityHousing newHouse) {
 		log.add(new LoggedEvent("Received msgApplicationAccepted"));
 		
 	}
