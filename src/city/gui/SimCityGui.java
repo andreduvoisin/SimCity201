@@ -1,12 +1,15 @@
 package city.gui;
 
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
-import restaurant.restaurant_davidmca.gui.RestaurantGui;
 import base.ConfigParser;
+import base.PersonAgent;
+import base.interfaces.Person;
 
 public class SimCityGui extends JFrame {
 	
@@ -42,6 +45,9 @@ public class SimCityGui extends JFrame {
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(city);
+		for (Person person: city.masterPersonList) {
+			((PersonAgent) person).eatFood();
+		}
 	}
 
 	/**

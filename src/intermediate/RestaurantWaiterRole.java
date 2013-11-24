@@ -1,4 +1,4 @@
-package restaurant.interfaces;
+package intermediate;
 
 import java.io.IOException;
 import java.util.Random;
@@ -23,9 +23,11 @@ public class RestaurantWaiterRole extends BaseRole {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
 				subRole = new WaiterRole(mPerson.getName());
+				subRole.setPerson(mPerson);
 				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 			} else {
 				subRole = new WaiterRoleShared(mPerson.getName());
+				subRole.setPerson(mPerson);
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
 			}
