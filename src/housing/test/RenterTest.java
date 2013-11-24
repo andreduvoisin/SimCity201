@@ -39,10 +39,10 @@ public class RenterTest extends TestCase {
 		mPerson = new PersonAgent();
 		mHousingRenter = new HousingRenterRole(); 
 		mPerson.addRole((Role) mHousingRenter, true); 
+		mHousingRenter.setLandlord(mHousingLandlord);
 	
 		//Mock Interfaces 
 		mHousingLandlord = new MockLandlord("Mocklandlord"); 
-		mHousingRenter.setLandlord(mHousingLandlord);
 		
 		//Houses
 		mHouse1 = new House(10, 10, 300.00); 
@@ -90,6 +90,31 @@ public class RenterTest extends TestCase {
 
 		
 	}
+	
+	public void testRenterPaysRent(){
+		
+		/**
+		 * Tests renter paying rent after receiving notice that rent is due 
+		 */
+		
+		//Set house 
+		mHousingRenter.mHouse = mHouse1; 
+		
+		//Preconditions 
+		assertTrue("HousingLandlord has an empty log", mHousingLandlord.log.size() == 0); 
+		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
+		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
+		
+		//HousingLandlord sends housing application denied message 
+		mHousingRenter.msgRentDue(3, 300.00);
+		
+		//Check
+		assertEquals("HousingRenter should have one bill", mHousingRenter.mBills.size(), 1); 
+		assertTrue("PAEA: return true and does action", mHousingRenter.pickAndExecuteAnAction()); 
+		//assertEquals("HousingRenter should pay and then remove bill", mHousingRenter.mBills.size(), 0); 
+		
+	}
+	
 	
 
 }
