@@ -2,6 +2,7 @@ package housing.gui;
 
 import housing.roles.HousingRenterRole;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -9,9 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 import base.Gui;
 import base.PersonAgent;
 
@@ -19,13 +21,14 @@ import base.PersonAgent;
  * @author David Carr
  */
 
-public class HousingHouseGuiPanel extends JPanel implements ActionListener {
+public class HousingHouseGuiPanel extends CityCard implements ActionListener {
 
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
 	private List<Gui> guis = new ArrayList<Gui>();
 
-	public HousingHouseGuiPanel() {
+	public HousingHouseGuiPanel(SimCityGui city, Color background) {
+		super(city, background);
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 		this.getSize();
