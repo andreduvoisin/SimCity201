@@ -104,6 +104,7 @@ public class BankPanel extends CityCard implements ActionListener{
         g2.setColor(Color.GRAY);
         g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
         
+        // temp square, showing beginning of line
         g2.fillRect(LINE_X, LINE_Y, 20, 20);
         
         for(Gui gui : guis) {
