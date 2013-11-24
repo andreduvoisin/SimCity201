@@ -22,6 +22,8 @@ public class CityPerson implements Gui{
 	static final int xIndex = 10;
 	static final int yIndex = 10;
 	
+	public boolean visible;
+	
 	public CityPerson(PersonAgent P, SimCityGui gui) {
 		agent = P;
 		this.gui = gui;
@@ -44,13 +46,10 @@ public class CityPerson implements Gui{
 
 	@Override
 	public void draw(Graphics2D g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(xPos, yPos, waiterWidth, waiterHeight);
-	}
-
-	@Override
-	public boolean isPresent() {
-		return true;
+		if (visible){
+	        g.setColor(Color.BLACK);
+	        g.fillRect(xPos, yPos, waiterWidth, waiterHeight);
+		}
 	}
 	
 	public void DoGoToDestination(int x, int y){
@@ -63,6 +62,19 @@ public class CityPerson implements Gui{
 		atDestination = false;
 		xDestination = location.mX;
 		yDestination = location.mY;
+	}
+
+	@Override
+	public boolean isPresent() {
+		return visible;
+	}
+	
+	public void setVisible(){
+		visible = true;
+	}
+	
+	public void setInvisible(){
+		visible = false;
 	}
 	
 

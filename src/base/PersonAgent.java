@@ -66,7 +66,7 @@ public class PersonAgent extends Agent implements Person {
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
 	private CityPerson mGui; //SHANE JERRY: 2 instantiate this
-	private SimCityGui mRoleGui; //SHANE JERRY: make sure this works
+	private SimCityGui mRoleGui; //SHANE JERRY: 1 what type does this need to be? make sure this works
 
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -248,7 +248,9 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		
 		//remove current gui (isPresent = false)
+		mGui.setInvisible();
 		//create new market gui
+		
 		
 		//lock person until role is finished
 		mRoleFinished = false;
@@ -330,6 +332,12 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void invokeMaintenance() {
 		mHouseRole.msgTimeToMaintain();
+	}
+	
+	
+	//JERRY 0 FOR TESTING
+	public void move(){
+		mGui.DoGoToDestination(ContactList.cBANK_LOCATION);
 	}
 
 	
