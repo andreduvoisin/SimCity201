@@ -47,7 +47,7 @@ public class RestaurantPanel extends JPanel {
 	public RestaurantPanel(RestaurantGui gui) {
 		this.gui = gui;
 		gui.animationPanel.addGui(hostGui);
-		host.startThread();
+		//host.startThread();
 		host.setCook(cook);
 		mkt1 = new MarketAgent("Ralphs", 0);
 		mkt2 = new MarketAgent("Smart and Final", 50);
@@ -55,17 +55,17 @@ public class RestaurantPanel extends JPanel {
 		cook.addMarket(mkt1);
 		cook.addMarket(mkt2);
 		cook.addMarket(mkt3);
-		mkt1.startThread();
+		/*mkt1.startThread();
 		mkt2.startThread();
-		mkt3.startThread();
+		mkt3.startThread();*/
 		mkt1.setCashier(cash);
 		mkt2.setCashier(cash);
 		mkt3.setCashier(cash);
 		CookGui cg = new CookGui(cook);
 		cook.setGui(cg);
 		gui.animationPanel.addGui(cg);
-		cook.startThread();
-		cash.startThread();
+		//cook.startThread();
+		//cash.startThread();
 		initRestLabel();
 		add(restLabel);
 		add(group);
@@ -137,7 +137,7 @@ public class RestaurantPanel extends JPanel {
 			if (isHungry) {
 				g.setHungry();
 			}
-			c.startThread();
+			//c.startThread();
 		}
 
 		if (type.equals("Waiters")) {
@@ -155,7 +155,7 @@ public class RestaurantPanel extends JPanel {
 			w.setGui(g);
 			host.addWaiter(w);
 			w.setCashier(cash);
-			w.startThread();
+			//w.startThread();
 		}
 	}
 

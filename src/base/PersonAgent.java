@@ -279,10 +279,9 @@ public class PersonAgent extends Agent implements Person {
 		// state = PersonState.Working;
 	}
 
-	private void eatFood() {
+	public void eatFood() {
 		//decide if eating at home or not
 		//SHANE REX: 3 get to this 
-		
 		
 		//set random restaurant
 		RestaurantCustomerRole restaurantCustomerRole = null;
@@ -295,7 +294,11 @@ public class PersonAgent extends Agent implements Person {
 		int randomRestaurant = 1; //SHANE: Make random
 		restaurantCustomerRole.setRestaurant(randomRestaurant); //DAVID: 1 This is where it's set
 		
-		mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
+		try {
+			mGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(randomRestaurant));
+		}
+		catch (Exception e) {
+		}
 		
 		
 		// // What will be our algorithm to figure out which to do?
