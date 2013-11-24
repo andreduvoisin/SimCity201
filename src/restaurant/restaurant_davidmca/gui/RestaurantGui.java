@@ -1,6 +1,7 @@
 package restaurant.restaurant_davidmca.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import city.gui.SimCityGui;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
@@ -23,10 +25,11 @@ import restaurant.restaurant_davidmca.roles.WaiterRole;
  * Main GUI class. Contains the main frame and subsequent panels
  */
 public class RestaurantGui extends JFrame implements ActionListener {
+	static RestaurantGui instance = null;
 
-	AnimationPanel animationPanel = new AnimationPanel();
+	AnimationPanel animationPanel = new AnimationPanel(SimCityGui.getInstanceOf(), Color.white);
 
-	private RestaurantPanel restPanel = new RestaurantPanel(this);
+	private RestaurantPanel restPanel = RestaurantPanel.getInstance();
 
 	/* infoPanel holds information about the clicked customer, if there is one */
 	boolean currentlyPaused = false;
@@ -53,8 +56,15 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	 * 
 	 * @throws IOException
 	 */
+	
+	public static RestaurantGui getInstance() throws IOException {
+		if (instance == null) {
+			instance = new RestaurantGui();
+		}
+		return instance;
+	}
 
-	public RestaurantGui() throws IOException {
+	private RestaurantGui() throws IOException {
 		int WINDOWX = 1000;
 		int WINDOWY = 700;
 		int PAD = 10;

@@ -1,7 +1,9 @@
 package restaurant.interfaces;
 
+import java.io.IOException;
 import java.util.Random;
 
+import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.WaiterRole;
 import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
 import base.BaseRole;
@@ -16,13 +18,16 @@ public class RestaurantWaiterRole extends BaseRole {
 		mPerson = person;
 	}
 
-	public void setRestaurant(int restaurantID) {
+	public void setRestaurant(int restaurantID) throws IOException {
 		if (restaurantID == 1) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
 				subRole = new WaiterRole(mPerson.getName());
+				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 			} else {
 				subRole = new WaiterRoleShared(mPerson.getName());
+				RestaurantPanel.getInstance().addSharedWaiter(
+						(WaiterRoleShared) subRole);
 			}
 		}
 		// TODO DAVID add if statements for all the other restaurants

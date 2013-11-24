@@ -1,6 +1,7 @@
 package restaurant.restaurant_davidmca.gui;
 
 import java.awt.BorderLayout;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Random;
 import java.util.Vector;
@@ -24,6 +25,7 @@ import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
  * including host, cook, waiters, and customers.
  */
 public class RestaurantPanel extends JPanel {
+	static RestaurantPanel instance = null;
 
 	// animation grid
 	static int gridX = 25;
@@ -44,7 +46,7 @@ public class RestaurantPanel extends JPanel {
 
 	private RestaurantGui gui; // reference to main gui
 
-	public RestaurantPanel(RestaurantGui gui) {
+	private RestaurantPanel(RestaurantGui gui) {
 		this.gui = gui;
 		gui.animationPanel.addGui(hostGui);
 		//host.startThread();
@@ -69,6 +71,13 @@ public class RestaurantPanel extends JPanel {
 		initRestLabel();
 		add(restLabel);
 		add(group);
+	}
+	
+	public static RestaurantPanel getInstance() throws IOException {
+		if (instance == null) {
+			instance = new RestaurantPanel(RestaurantGui.getInstance());
+		}
+		return instance;
 	}
 
 	/**
@@ -122,8 +131,36 @@ public class RestaurantPanel extends JPanel {
 	 * @param name
 	 *            name of person
 	 */
+	
+	public void addCustomer(CustomerRole cust) {
+		CustomerGui g = new CustomerGui(cust, gui, host.getCustomerIndex());
+		gui.animationPanel.addGui(g);
+		cust.setHost(host);
+		cust.setCashier(cash);
+		cust.setGui(g);
+		g.setHungry();
+		customers.add(cust);
+	}
 
-	public void addPerson(String type, String name, boolean isHungry) {
+	public void addWaiter(WaiterRole waiter) {
+		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
+		gui.animationPanel.addGui(g);
+		waiter.setHost(host);
+		waiter.setGui(g);
+		host.addWaiter(waiter);
+		waiter.setCashier(cash);
+	}
+
+	public void addSharedWaiter(WaiterRoleShared waiter) {
+		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
+		gui.animationPanel.addGui(g);
+		waiter.setHost(host);
+		waiter.setGui(g);
+		host.addWaiter(waiter);
+		waiter.setCashier(cash);
+	}
+
+	/*public void addPerson(String type, String name, boolean isHungry) {
 
 		if (type.equals("Customers")) {
 			CustomerRole c = new CustomerRole(name);
@@ -137,27 +174,26 @@ public class RestaurantPanel extends JPanel {
 			if (isHungry) {
 				g.setHungry();
 			}
-			//c.startThread();
 		}
 
 		if (type.equals("Waiters")) {
 			int rn = new Random().nextInt();
 			Waiter w;
-			/*if (rn % 2 == 0) {
+			if (rn % 2 == 0) {
 				w = new WaiterAgent(name);
-			} else {*/
+			} else {
 				w = new WaiterRoleShared(name);
 				((WaiterRoleShared) w).setCook(cook);
-			//}
+			}
 			WaiterGui g = new WaiterGui(w, host.getWaitersList().size());
 			gui.animationPanel.addGui(g);
 			w.setHost(host);
 			w.setGui(g);
 			host.addWaiter(w);
 			w.setCashier(cash);
-			//w.startThread();
+			w.startThread();
 		}
-	}
+	}*/
 
 	public void addTable(int x, int y, int seats) {
 		Table newTable = new Table(host.tables.size() + 1, x, y, seats);
