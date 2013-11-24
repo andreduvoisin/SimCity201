@@ -14,10 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant.restaurant_davidmca.agents.CustomerAgent;
-import restaurant.restaurant_davidmca.agents.WaiterAgent;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import restaurant.restaurant_davidmca.roles.CustomerRole;
+import restaurant.restaurant_davidmca.roles.WaiterRole;
 
 /**
  * Main GUI class. Contains the main frame and subsequent panels
@@ -166,7 +166,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		breakCB.setVisible(false);
 		currentPerson = person;
 
-		if (person instanceof CustomerAgent) {
+		if (person instanceof CustomerRole) {
 			Customer customer = (Customer) person;
 			stateCB.setVisible(true);
 			stateCB.setText("Hungry?");
@@ -175,7 +175,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 			infoLabel.setText("<html><pre>     Name: " + customer.getName()
 					+ " </pre></html>");
 		}
-		if (person instanceof WaiterAgent) {
+		if (person instanceof WaiterRole) {
 			Waiter waiter = (Waiter) person;
 			breakCB.setVisible(true);
 			breakCB.setText("Break?");
@@ -194,14 +194,14 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == stateCB) {
-			if (currentPerson instanceof CustomerAgent) {
+			if (currentPerson instanceof CustomerRole) {
 				Customer c = (Customer) currentPerson;
 				c.getGui().setHungry();
 				stateCB.setEnabled(false);
 			}
 		}
 		if (e.getSource() == breakCB) {
-			if (currentPerson instanceof WaiterAgent) {
+			if (currentPerson instanceof WaiterRole) {
 				Waiter w = (Waiter) currentPerson;
 				w.getGui().wantsBreak();
 				breakCB.setEnabled(false);
@@ -217,7 +217,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	 *            reference to the customer
 	 */
 	public void setCustomerEnabled(Customer c) {
-		if (currentPerson instanceof CustomerAgent) {
+		if (currentPerson instanceof CustomerRole) {
 			Customer cust = (Customer) currentPerson;
 			if (c.equals(cust)) {
 				stateCB.setEnabled(true);
