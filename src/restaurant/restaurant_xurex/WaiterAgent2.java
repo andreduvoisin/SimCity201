@@ -1,12 +1,12 @@
 package restaurant.restaurant_xurex;
 
 import base.Agent;
-import restaurant.restaurant_xurex.gui.WaiterGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
+import restaurant.restaurant_xurex.interfaces.W_Gui;
 import restaurant.restaurant_xurex.utilities.*;
 
 import java.util.*;
@@ -21,12 +21,12 @@ import java.util.concurrent.Semaphore;
 
 
 public class WaiterAgent2 extends Agent implements Waiter{
-	private Semaphore atLocation = new Semaphore(0,true);
+	private Semaphore atLocation = new Semaphore(100,true);
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
 	public List<MyCustomer> customers = new ArrayList<MyCustomer>();
-	List<Order> orders = new ArrayList<Order>();
+	public List<Order> orders = new ArrayList<Order>();
 	Cook cook;
 	Host host;
 	Cashier cashier;
@@ -36,7 +36,7 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	
 	public WaiterState state = WaiterState.good;
 	
-	private WaiterGui waiterGui = null;
+	private W_Gui waiterGui = null;
 
 	public WaiterAgent2(String name) {
 		super();
@@ -374,10 +374,10 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	public void setCashier (Cashier cashier){
 		this.cashier = cashier;
 	}
-	public void setGui(WaiterGui gui) {
+	public void setGui(W_Gui gui) {
 		waiterGui = gui;
 	}
-	public WaiterGui getGui() {
+	public W_Gui getGui() {
 		return waiterGui;
 	}
 	public boolean isAvailable() {
@@ -395,6 +395,10 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	}
 	public int getNumber(){
 		return number;
+	}
+	
+	public void releaseSem(){
+		atLocation.release();
 	}
 }
 
