@@ -1,24 +1,31 @@
 package market.gui;
 
 import java.awt.*;
+import java.util.concurrent.Semaphore;
 
+import base.Item.EnumMarketItemType;
 import market.*;
 import market.roles.MarketWorkerRole;
 
 public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorkerRole mAgent;
+	private MarketItemsGui mItems;
 	
 	private MarketOrder mOrder = null;
 	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xHome = 0, yHome = 100;
+	private static final int xDeliveryTruck = 250, yDeliveryTruck = 500;
+	private int xCustomer = 100, yCustomer = 250;
 	
 	private int xPos = 50, yPos = 50;
 	private int xDestination = xHome, yDestination = yHome;
 	private static final int SIZE = 20;
 	
-	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
+	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToItem, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
+	
+	private Semaphore gettingItem = new Semaphore(0,true);
 	
 	public MarketWorkerGui(MarketWorkerRole agent) {
 		mAgent = agent;
@@ -37,11 +44,17 @@ public class MarketWorkerGui implements MarketBaseGui {
         
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
+        	case goToItem: {
+        		gettingItem.release();
+        		mCommand = EnumCommand.noCommand;
+        		break;
+        	}
         	case goToMarket: {
         		mCommand = EnumCommand.noCommand;
+        		break;
         	}
         	case fulFillOrder: {
-        		mAgent.msgOrderFulfilled(mOrder);
+        //		mAgent.msgOrderFulfilled(mOrder);
         		mOrder = null;
         		mCommand = EnumCommand.noCommand;
         		break;
@@ -51,17 +64,17 @@ public class MarketWorkerGui implements MarketBaseGui {
         		break;
         	}
         	case goToCustomer: {
-        		mAgent.msgAnimationAtCustomer();
+       // 		mAgent.msgAnimationAtCustomer();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToDeliveryTruck: {
-        		mAgent.msgAnimationAtDeliveryTruck();
+        //		mAgent.msgAnimationAtDeliveryTruck();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftMarket();
+        //		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -85,14 +98,32 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
+		for(EnumMarketItemType item : mOrder.mItems.keySet()) {
+			MarketCoordinates c = mItems.getItemCoordinates(item);
+			xDestination = c.getX()-30;
+			yDestination = c.getY();
+			mCommand = EnumCommand.goToItem;
+			try {
+				gettingItem.acquire();
+			}
+			catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+			mItems.decreaseItemCount(item);
+		}
 	}
 	
+	//ANGELICA: add in parameter
 	public void DoGoToCustomer() {
-		
+		xDestination = xCustomer;
+		yDestination = yCustomer;
+		mCommand = EnumCommand.goToCustomer;
 	}
 	
 	public void DoGoToDeliveryTruck() {
-		
+		xDestination = xDeliveryTruck;
+		yDestination = yDeliveryTruck;
+		mCommand = EnumCommand.goToDeliveryTruck;
 	}
 	
 	public void DoLeaveMarket() {
@@ -117,5 +148,9 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public int getYPos() {
 		return yPos;
+	}
+	
+	public void setItemsGui(MarketItemsGui g) {
+		mItems = g;
 	}
 }

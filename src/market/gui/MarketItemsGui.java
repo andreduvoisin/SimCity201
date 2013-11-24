@@ -15,28 +15,22 @@ import base.Item.EnumMarketItemType;
 public class MarketItemsGui implements MarketBaseGui {
 	MarketCashierRole mCashier;
 	private Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
-	private int xBase = 10, yBase = 20;
+	private int xBase = 300, yBase = 30;
 	private static final int SIZE = 20;
+	private static final int sBaseInventory = 5;
 	
-	public MarketItemsGui(MarketCashierRole c) {
+	public MarketItemsGui() {
 		
 		//populate list of items; hack right now
 		mItems.put(new ItemGui(EnumMarketItemType.STEAK,Color.RED), new MarketCoordinates(xBase, yBase));
-		mItems.put(new ItemGui(EnumMarketItemType.CHICKEN,Color.RED), new MarketCoordinates(xBase+30, yBase));
-		mItems.put(new ItemGui(EnumMarketItemType.SALAD,Color.RED), new MarketCoordinates(xBase+60, yBase));
-		mItems.put(new ItemGui(EnumMarketItemType.PIZZA,Color.RED), new MarketCoordinates(xBase+90, yBase));
-		mItems.put(new ItemGui(EnumMarketItemType.CAR,Color.RED), new MarketCoordinates(xBase+120, yBase));
-		
+		mItems.put(new ItemGui(EnumMarketItemType.CHICKEN,Color.RED), new MarketCoordinates(xBase, yBase+100));
+		mItems.put(new ItemGui(EnumMarketItemType.SALAD,Color.RED), new MarketCoordinates(xBase, yBase+200));
+		mItems.put(new ItemGui(EnumMarketItemType.PIZZA,Color.RED), new MarketCoordinates(xBase, yBase+300));
+		mItems.put(new ItemGui(EnumMarketItemType.CAR,Color.RED), new MarketCoordinates(xBase, yBase+400));
 	}
 	
 	public void updatePosition() {
 		//no need to update position
-		//instead update inventory?
-	/*	for(ItemGui i : mItems.keySet()) {
-			i.mNumber = mCashier.getInventory(i.mItem);
-		}
-		
-	*/
 	}
 	
 	public void draw(Graphics2D g) {
@@ -45,14 +39,29 @@ public class MarketItemsGui implements MarketBaseGui {
 			MarketCoordinates c = mItems.get(i);
 			g.setColor(i.mColor);
 			for(int j=0;j<i.mNumber;j++) {
-				System.out.println("La");
-			//	c.setY(c.getY()+30);
-				g.fillRect(c.getX(),c.getY(),SIZE,SIZE);
+				g.fillRect(c.getX()+30*j,c.getY(),SIZE,SIZE);
 			}
 		}
 	}
 	
 /* Utilities */
+	public void decreaseItemCount(EnumMarketItemType i) {
+		for(ItemGui item : mItems.keySet()) {
+			if(item.mItem == i) {
+				item.mNumber--;
+			}
+		}
+	}
+	
+	public MarketCoordinates getItemCoordinates(EnumMarketItemType i) {
+		for(ItemGui item : mItems.keySet()) {
+			if(item.mItem == i) {
+				return mItems.get(item);
+			}
+		}
+		return null;
+	}
+	
 	public boolean isPresent() {
 		return true;
 	}
@@ -66,7 +75,7 @@ public class MarketItemsGui implements MarketBaseGui {
 		ItemGui(EnumMarketItemType i, Color c) {
 			mItem = i;
 			mColor = c;
-			mNumber = 5;
+			mNumber = sBaseInventory;
 		}
 	}
 }

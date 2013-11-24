@@ -12,14 +12,15 @@ import java.awt.event.*;
 
 public class MarketPanel extends JPanel implements ActionListener {
 	private List<MarketBaseGui> guis = new ArrayList<MarketBaseGui>();
+	MarketItemsGui mItemGui = new MarketItemsGui();
 	private final int TIMERDELAY = 8;
 	
 	public MarketPanel() {
-		setSize(600,400);
+		setSize(500,500);
 		setVisible(true);
-		setBackground(Color.BLACK);
+		setBackground(Color.LIGHT_GRAY);
 		
-		testGuis();
+		addGuis();
 		
 		Timer timer = new Timer(TIMERDELAY, this);
 		timer.start();
@@ -45,11 +46,22 @@ public class MarketPanel extends JPanel implements ActionListener {
 		}
 	}
 	
-	private void testGuis() {
-		guis.add(new MarketItemsGui(null));
+	private void addGuis() {
+		guis.add(new MarketItemsGui());
 		guis.add(new MarketCashierGui(null));
 		guis.add(new MarketDeliveryTruckGui(null));
 		guis.add(new MarketCustomerGui(null));
 		guis.add(new MarketWorkerGui(null));
+	}
+	
+	public void testGuis() {
+		MarketWorkerGui m = (MarketWorkerGui)guis.get(4);
+		m.setItemsGui((MarketItemsGui)guis.get(0));
+	}
+	
+	public void addGui(MarketBaseGui g) {
+		guis.add(g);
+		if(g instanceof MarketWorkerGui)
+			((MarketWorkerGui) g).setItemsGui(mItemGui);
 	}
 }
