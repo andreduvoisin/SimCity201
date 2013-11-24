@@ -99,6 +99,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		if (mTimeShift == 0){
 			for (Role iRole : mRoles.keySet()){
+				System.out.println(iRole.toString());
 				iRole.setPerson(this);
 			}
 		}
