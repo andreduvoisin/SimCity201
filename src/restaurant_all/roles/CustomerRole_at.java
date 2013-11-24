@@ -1,10 +1,10 @@
 package restaurant_all.roles;
 
-import restaurant_tranac.Check;
-import restaurant_tranac.Menu;
+import restaurant.restaurant_tranac.Check;
+import restaurant.restaurant_tranac.Menu;
+import restaurant.restaurant_tranac.gui.CustomerGui_at;
+import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
-import restaurant_tranac.gui.CustomerGui_at;
-import restaurant_tranac.interfaces.*;
 
 import java.util.ArrayList;
 import java.util.List;

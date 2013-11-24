@@ -1,7 +1,7 @@
 package restaurant_all.interfaces.Host;
 
+import restaurant.restaurant_cwagoner.interfaces.Waiter;
 import restaurant_all.interfaces.Customer.Customer_cw;
-import restaurant_cwagoner.interfaces.Waiter;
 
 public interface Host_cw {
 

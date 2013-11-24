@@ -2,7 +2,7 @@ package base;
 
 import java.util.concurrent.Semaphore;
 
-import restaurant_smileham.test.mock.EventLog;
+import restaurant.restaurant_smileham.test.mock.EventLog;
 
 // ALL: DO NOT COMMIT CODE THAT CAUSES ERRORS IN THE PROJECT
 
