@@ -439,4 +439,10 @@ public class WaiterRole extends BaseRole implements Waiter {
 		return waiterGui;
 	}
 
+	@Override
+	public void startThread() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
