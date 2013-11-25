@@ -2,7 +2,6 @@ package restaurant.restaurant_cwagoner.interfaces;
 
 public interface Waiter {
 
-	public abstract void msgGoOnBreak(boolean allowed);
 	public abstract void msgSeatCustomer(Customer c, int table);
 	public abstract void msgReadyToOrder(Customer c);
 	public abstract void msgHeresMyOrder(Customer c, String choice);

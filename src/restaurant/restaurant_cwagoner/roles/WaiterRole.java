@@ -41,9 +41,6 @@ public class WaiterRole extends Agent implements Waiter {
 	// Pauses agent's thread while GUI is doing an animation
 	private Semaphore animationFinished = new Semaphore(0, true);
 	public WaiterGui gui = null;
-	private enum State { working, askForBreak, asked, onBreak }
-	State state = State.working;
-	Timer breakTimer = new Timer();
 	
 	
 	// MESSAGES
@@ -51,27 +48,6 @@ public class WaiterRole extends Agent implements Waiter {
 	// From GUI
 	public void msgAnimationFinished() {
 		animationFinished.release();
-	}
-	
-	// From animation when "Ask" (for break) button clicked
-	public void msgGuiAskedForBreak() {		
-		state = State.askForBreak;
-		stateChanged();
-	}
-	
-	// From host
-	public void msgGoOnBreak(boolean allowed) {
-		
-		if (allowed) {
-			state = State.onBreak;
-			print("Received msgGoOnBreak(allowed)");
-		}
-		else {
-			state = State.working;
-			print("Received msgGoOnBreak(not allowed)");
-		}
-		
-		stateChanged();
 	}
 	
 	// From host
@@ -169,11 +145,6 @@ public class WaiterRole extends Agent implements Waiter {
 	// SCHEDULER
 
 	protected boolean pickAndExecuteAnAction() {
-		
-		if (state.equals(State.askForBreak)) {
-			AskForBreak();
-			return true;
-		}
 
 		synchronized(Customers) {
 			// Tell cashier to prepare check, and tell host table empty
@@ -233,14 +204,6 @@ public class WaiterRole extends Agent implements Waiter {
 					return true;
 				}
 			}
-		}
-		
-		// If break has been allowed, take it once all tasks are completed
-		if (state.equals(State.onBreak)) {
-			TakeBreak();
-		}
-		else {
-			gui.onBreak(false);
 		}
 		
 		return false;
@@ -365,37 +328,6 @@ public class WaiterRole extends Agent implements Waiter {
 		gui.DoGoToHomePosition();
 		
 		stateChanged();
-	}
-	
-	private void AskForBreak() {
-		print("AskForBreak()");
-		
-		host.msgCanIGoOnBreak(this);
-		state = State.asked;
-		
-		stateChanged();
-	}
-	
-	private void TakeBreak() {
-		print("TakeBreak()");
-		
-		gui.onBreak(true);
-		
-		breakTimer.schedule(new TimerTask() {
-			public void run() {
-				state = State.working;
-				GoOffBreak();
-
-				stateChanged();
-			}
-		}, 10000);
-	}
-	
-	// Necessary because host.msgOffBreak can't be put in run() above
-	private void GoOffBreak() {
-		print("GoOffBreak()");
-		host.msgOffBreak(this);
-		gui.onBreak(false);
 	}
 	
 	// ACCESSORS

@@ -73,8 +73,6 @@ public class CustomerGui implements Gui {
 			else if (command.equals(Command.LeaveRestaurant)
 					&& xDestination == GONE_X && yDestination == GONE_Y) {
 				agent.msgGuiLeftRestaurant();
-				isHungry = false;
-				restaurantGui.setCustomerEnabled(agent);
 			}
 			command = Command.noCommand;
 		}

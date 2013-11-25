@@ -29,11 +29,6 @@ public class RestaurantPanel extends JPanel {
 
     // Stores restaurant menu
     private JPanel menuPanel = new JPanel();
-    
-    // Lists of customers and waiters
-    private ListPanel customerPanel = new ListPanel(this, "Customers");
-    private ListPanel waiterPanel = new ListPanel(this, "Waiters");
-    
 
     public RestaurantPanel(RestaurantGui restaurantGui, int numTables) {
     	super();
@@ -59,8 +54,6 @@ public class RestaurantPanel extends JPanel {
         initRestLabel();
 
         add(menuPanel);
-        add(customerPanel);
-        add(waiterPanel);
     }
 
     /**
@@ -81,24 +74,6 @@ public class RestaurantPanel extends JPanel {
                 + "<tr><td>Pizza</td><td>$4</td></tr>"
                 + "</table><br></html>");
         menuPanel.add(label);
-    }
-
-    /**
-     * When a customer or waiter is clicked, this function calls
-     * updateInfoPanel() from the main GUI so that person's information
-     * will be shown
-     *
-     * @param type indicates whether the person is a customer or waiter
-     * @param name name of person
-     */
-    public void showInfo(String type, int index) {
-    	if (type.equals("Customers")) {
-			mainGui.updateInfoPanel(Customers.get(index));
-			return;
-    	}
-    	else {	// It's a waiter
-    		mainGui.updateInfoPanel(Waiters.get(index));
-    	}
     }
 
     /**
@@ -140,40 +115,4 @@ public class RestaurantPanel extends JPanel {
     		host.addWaiter(w);
     	}
     }
-    
-	public void makeHungry(int index) {
-		Customers.get(index).getGui().setHungry();
-		mainGui.updateInfoPanel(Customers.get(index));
-		return;
-	}
-	
-	// Accessors
-	public int numCustomers() {
-		return customerPanel.numPeople();
-	}
-	
-	public String getCustomerName(int i) {
-		return customerPanel.getNameOf(i);
-	}
-	
-	public void enableCustomer(int i) {
-		customerPanel.enableCust(i);
-	}
-    
-    /**
-     * Gui asks for break
-     */
-    public void askForBreak(int index) {
-    	Waiters.get(index).msgGuiAskedForBreak();
-    	mainGui.updateInfoPanel(Waiters.get(index));
-    }
-	
-	public void waiterBreak(boolean onBreak, WaiterRole w) {
-		for (int i = 0; i < Waiters.size(); i++) {
-			if (Waiters.get(i).equals(w)) {
-				waiterPanel.setWaiterBreak(onBreak, i);
-				break;
-			}
-		}
-	}
 }
