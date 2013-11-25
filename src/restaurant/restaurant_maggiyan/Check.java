@@ -1,18 +1,18 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan;
 
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 public class Check{
     
-    Menu menu = new Menu(); 
-    Customer customer;
-    Waiter waiter; 
-    String choice;
-    private double checkTotal;
-    boolean paid;
+	public Menu menu = new Menu(); 
+	public Customer customer;
+	public Waiter waiter; 
+	public String choice;
+	public double checkTotal;
+	public boolean paid;
     
-    Check(Waiter w, Customer c, String fc){
+	public Check(Waiter w, Customer c, String fc){
             waiter = w; 
             customer = c;
             choice = fc;

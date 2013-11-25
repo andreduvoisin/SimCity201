@@ -1,12 +1,12 @@
-package restaurant_maggiyan.test.mock;
+package restaurant.restaurant_maggiyan.test.mock;
 
 
 import java.util.Map;
 
-import restaurant_maggiyan.CookAgent;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Cook;
-import restaurant_maggiyan.interfaces.Market;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Cook;
+import restaurant.restaurant_maggiyan.interfaces.Market;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.

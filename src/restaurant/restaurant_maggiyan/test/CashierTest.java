@@ -1,12 +1,12 @@
-package restaurant_maggiyan.test;
+package restaurant.restaurant_maggiyan.test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import restaurant_maggiyan.CashierAgent;
-import restaurant_maggiyan.test.mock.MockCustomer;
-import restaurant_maggiyan.test.mock.MockMarket;
-import restaurant_maggiyan.test.mock.MockWaiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
+import restaurant.restaurant_maggiyan.test.mock.MockCustomer;
+import restaurant.restaurant_maggiyan.test.mock.MockMarket;
+import restaurant.restaurant_maggiyan.test.mock.MockWaiter;
 import junit.framework.*;
 
 /**
@@ -20,7 +20,7 @@ import junit.framework.*;
 public class CashierTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
-	CashierAgent cashier;
+	MaggiyanCashierRole cashier;
 	MockWaiter waiter;
 	MockWaiter waiter1; 
 	MockWaiter waiter2;
@@ -44,7 +44,7 @@ public class CashierTest extends TestCase
 	
 	public void setUp() throws Exception{
 		super.setUp();		
-		cashier = new CashierAgent("Mockcashier", true);	
+		cashier = new MaggiyanCashierRole("Mockcashier", true);	
 		customer = new MockCustomer("Mockcustomer");
 		customer1 = new MockCustomer("Mockcustomer1");
 		customer2 = new MockCustomer("Mockcustomer2");	

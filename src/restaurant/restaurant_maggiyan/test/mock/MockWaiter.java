@@ -1,11 +1,11 @@
-package restaurant_maggiyan.test.mock;
+package restaurant.restaurant_maggiyan.test.mock;
 
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.gui.WaiterGui;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.gui.WaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -129,17 +129,6 @@ public void msgWaiterFree() {
 	
 }
 
-@Override
-public void restart() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void pause() {
-	// TODO Auto-generated method stub
-	
-}
 
 @Override
 public WaiterGui getGui() {

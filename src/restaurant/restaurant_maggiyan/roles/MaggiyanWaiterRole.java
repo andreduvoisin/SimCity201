@@ -1,4 +1,4 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -7,14 +7,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant_maggiyan.gui.WaiterGui;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Cook;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Host;
-import restaurant_maggiyan.interfaces.Waiter;
-import agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.MyCustomer;
+import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
+import restaurant.restaurant_maggiyan.gui.WaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Cook;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Host;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
+
 
 /**
  * Restaurant Waiter Agent
@@ -23,7 +27,7 @@ import agent.Agent;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the Host. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class WaiterAgent extends Agent implements Waiter{
+public class MaggiyanWaiterRole extends BaseRole implements Waiter{
 	static final int NTABLES = 3;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
@@ -61,7 +65,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private boolean reenableBreakButton = false; 
 	
-	public WaiterAgent(String name, Cook cook, Host host) {
+	public MaggiyanWaiterRole(String name, Cook cook, Host host) {
 		super();
 		
 		this.name = name;
@@ -234,7 +238,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		try{
 			if(justGotToWork){
 				startWork();
@@ -338,7 +342,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private void goOnBreak(){
 		print("Going on break");
-		final restaurant_maggiyan.interfaces.Waiter w = this; 
+		final restaurant.restaurant_maggiyan.interfaces.Waiter w = this; 
 		waiterGui.DoGoOnBreak();
 		try{
 			animationReady.acquire(); 

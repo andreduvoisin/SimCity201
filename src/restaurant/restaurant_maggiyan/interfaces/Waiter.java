@@ -1,7 +1,7 @@
-package restaurant_maggiyan.interfaces;
+package restaurant.restaurant_maggiyan.interfaces;
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.gui.WaiterGui;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.gui.WaiterGui;
 
 
 /**
@@ -54,10 +54,6 @@ public interface Waiter {
 	public void msgBackFromBreak();
 
 	public void msgWaiterFree();
-
-	public void restart();
-
-	public void pause();
 
 	public WaiterGui getGui();
 

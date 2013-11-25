@@ -1,4 +1,4 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,14 +8,14 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant_maggiyan.CashierAgent;
-import restaurant_maggiyan.CookAgent;
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.HostAgent;
-import restaurant_maggiyan.MarketAgent;
-import restaurant_maggiyan.SharedWaiterAgent;
-import restaurant_maggiyan.WaiterAgent;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanMarketRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 /**
  * Panel in frame that contains all the restaurant information,
@@ -24,17 +24,17 @@ import restaurant_maggiyan.interfaces.Waiter;
 public class RestaurantPanel extends JPanel {
 
     //Host, cook, waiters and customers
-    private HostAgent host = new HostAgent("Host");
-    private CookAgent cook = new CookAgent("Cook"); 
-    private CashierAgent cashier = new CashierAgent("Cashier", false);
-    private MarketAgent market1 = new MarketAgent("Market 1"); 
-    private MarketAgent market2 = new MarketAgent("Market 2"); 
-    private MarketAgent market3 = new MarketAgent("Market 3"); 
+    private MaggiyanHostRole host = new MaggiyanHostRole("Host");
+    private MaggiyanCookRole cook = new MaggiyanCookRole("Cook"); 
+    private MaggiyanCashierRole cashier = new MaggiyanCashierRole("Cashier", false);
+    private MaggiyanMarketRole market1 = new MaggiyanMarketRole("Market 1"); 
+    private MaggiyanMarketRole market2 = new MaggiyanMarketRole("Market 2"); 
+    private MaggiyanMarketRole market3 = new MaggiyanMarketRole("Market 3"); 
     private CookGui cookGui = new CookGui(cook); 
     //private WaiterGui waiterGui = new WaiterGui(host);
  
 
-    public Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
+    public Vector<MaggiyanCustomerRole> customers = new Vector<MaggiyanCustomerRole>();
     public Vector<Waiter> waiters = new Vector<Waiter>();
 
     private JPanel restLabel = new JPanel();
@@ -46,7 +46,6 @@ public class RestaurantPanel extends JPanel {
     public RestaurantPanel(RestaurantGui gui) {
         this.gui = gui;
         
-        host.startThread();
         cook.setMarket(market1);
         cook.setMarket(market2);
         cook.setMarket(market3);
@@ -72,39 +71,8 @@ public class RestaurantPanel extends JPanel {
     	return customerPanel; 
     }
     
-    public void pause(){
-    	cook.pause(); 
-    	host.pause();
-    	cashier.pause();
-    	for(Waiter waiter: waiters){
-    		waiter.pause();
-    	}
-    	for(CustomerAgent cust: customers){
-    		cust.pause(); 
-    	}
-    	market1.pause();
-    	market2.pause();
-    	market3.pause();
-    	System.out.println("Paused");
-    }
     
-    public void restart(){
-    	cook.restart(); 
-    	host.restart();
-    	cashier.restart();
-    	for(Waiter waiter: waiters){
-    		waiter.restart();
-    	}
-    	for(CustomerAgent cust: customers){
-    		cust.restart(); 
-    	}
-    	market1.restart();
-    	market2.restart();
-    	market3.restart();
-    	System.out.println("Restarted");
-    }
-    
-    public Vector<CustomerAgent> getCust(){
+    public Vector<MaggiyanCustomerRole> getCust(){
     	return customers;
     }
     
@@ -125,7 +93,7 @@ public class RestaurantPanel extends JPanel {
     	return null; 
     }
     
-    public HostAgent getHost(){
+    public MaggiyanHostRole getHost(){
     	return host; 
     }
     
@@ -166,7 +134,7 @@ public class RestaurantPanel extends JPanel {
         if (type.equals("Customers")) {
 
             for (int i = 0; i < customers.size(); i++) {
-                CustomerAgent temp = customers.get(i);
+                MaggiyanCustomerRole temp = customers.get(i);
                 if (temp.getName() == name)
                     gui.updateInfoPanel(temp);
             }
@@ -182,7 +150,7 @@ public class RestaurantPanel extends JPanel {
     public void addPerson(String type, String name) {
 
     	if (type.equals("Customers")) {
-    		CustomerAgent c = new CustomerAgent(name);	
+    		MaggiyanCustomerRole c = new MaggiyanCustomerRole(name);	
     		CustomerGui g = new CustomerGui(c, gui);
 
     		gui.animationPanel.addGui(g);
@@ -190,7 +158,7 @@ public class RestaurantPanel extends JPanel {
     		c.setGui(g);
     		c.setCashier(cashier);
     		customers.add(c);
-    		c.startThread();
+    	
     	}
     	
     	else if (type.equals("Waiter")){
@@ -198,24 +166,24 @@ public class RestaurantPanel extends JPanel {
     		
     		//Create new waiter agent and gui
     		if(waiterTypeNum%2 == 1){
-	    		WaiterAgent w = new WaiterAgent(name, cook, host); 
+	    		MaggiyanWaiterRole w = new MaggiyanWaiterRole(name, cook, host); 
 	    		WaiterGui waiterGui = new WaiterGui(w, gui);
 	    		
 	    		gui.animationPanel.addGui(waiterGui);
 	    		w.setCashier(cashier); 
 	    		w.setGui(waiterGui);
 	    		waiters.add(w); 
-	    		w.startThread(); 
+	
     		}
     		else{
-    			SharedWaiterAgent w = new SharedWaiterAgent(name, cook, host); 
+    			MaggiyanSharedWaiterRole w = new MaggiyanSharedWaiterRole(name, cook, host); 
 	    		WaiterGui waiterGui = new WaiterGui(w, gui);
 	    		
 	    		gui.animationPanel.addGui(waiterGui);
 	    		w.setCashier(cashier); 
 	    		w.setGui(waiterGui);
 	    		waiters.add(w); 
-	    		w.startThread(); 
+
     		}
     		
     	}

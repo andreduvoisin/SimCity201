@@ -1,7 +1,7 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan;
 
 
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 public class Order {
 	

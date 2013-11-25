@@ -1,7 +1,7 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.HostAgent;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 
 import javax.swing.*;
 
@@ -137,17 +137,6 @@ public class ListPanel extends JPanel implements ActionListener {
         if(e.getSource() == addWaiter){
         	String waiterName = waiterNameBox.getText(); 
         	addWaiter(waiterName); 
-        }
-        if(e.getSource() == pauseButton){
-        	if(!pressed){
-        		pressed = true; 
-        		restPanel.pause(); 
-        	}
-        	else if(pressed){
-        		pressed = false;
-        		restPanel.restart(); 
-        	}
-        		
         }
         else {
         	//Checks for hungry customers

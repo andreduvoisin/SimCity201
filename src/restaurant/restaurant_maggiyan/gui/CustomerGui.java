@@ -1,15 +1,15 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
 import javax.swing.*;
 
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.HostAgent;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 
 import java.awt.*;
 
 public class CustomerGui implements Gui{
 
-	private CustomerAgent agent = null;
+	private MaggiyanCustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 	private boolean showChoiceLabel =  true; 
@@ -47,7 +47,7 @@ public class CustomerGui implements Gui{
 	    }
 	}
 
-	public CustomerGui(CustomerAgent c, RestaurantGui gui){ //HostAgent m) {
+	public CustomerGui(MaggiyanCustomerRole c, RestaurantGui gui){ //HostAgent m) {
 		agent = c;
 		xPos = -40;
 		yPos = -40;

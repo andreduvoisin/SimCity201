@@ -1,6 +1,6 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan;
 
-import restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
 
 public class MyCustomer {
 	

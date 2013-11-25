@@ -1,4 +1,4 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,11 +6,12 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import restaurant_maggiyan.gui.WaiterGui;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Host;
-import restaurant_maggiyan.interfaces.Waiter;
-import agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.gui.WaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Host;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
+
 
 /**
  * Restaurant Host Agent
@@ -19,7 +20,7 @@ import agent.Agent;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class HostAgent extends Agent implements Host{
+public class MaggiyanHostRole extends BaseRole implements Host{
 	static final int NTABLES = 3;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
@@ -36,7 +37,7 @@ public class HostAgent extends Agent implements Host{
 	public boolean amReady = true; 
 	public enum WaiterState {busy, free, askedToGoOnBreak, onBreak};
 	private WaiterGui hostGui = null;
-	private CookAgent cook; 
+	private MaggiyanCookRole cook; 
 	private int minWaiters = 1; 
 	private int minCustomer = Integer.MAX_VALUE; 
 	private MyWaiter leastBusyWaiter = null; 
@@ -52,7 +53,7 @@ public class HostAgent extends Agent implements Host{
 	public enum AgentPos 
 	{atStart}; 
 	
-	public HostAgent(String name) {
+	public MaggiyanHostRole(String name) {
 		super(); 
 		this.name = name;
 		
@@ -174,7 +175,7 @@ public class HostAgent extends Agent implements Host{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		/* Think of this next rule as:
             Does there exist a table and customer,
             so that table is unoccupied and customer is waiting.

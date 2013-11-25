@@ -1,20 +1,22 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Market;
-import restaurant_maggiyan.interfaces.Waiter;
-import agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Market;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 /**
  * Restaurant Host Agent
  */
 
-public class CashierAgent extends Agent implements Cashier{
+public class MaggiyanCashierRole extends BaseRole implements Cashier{
 	private String n; 
 	private Double TOTALMONEY = 500.00; 
 	private Menu menu = new Menu(); 
@@ -23,11 +25,8 @@ public class CashierAgent extends Agent implements Cashier{
 	private List<MarketPayment> marketpayments = Collections.synchronizedList(new ArrayList<MarketPayment>());
 	private List<Payment> payments = new ArrayList<Payment>();
 	
-	public CashierAgent(String name, boolean isTest){
+	public MaggiyanCashierRole(String name, boolean isTest){
 		this.n = name;
-		if(!isTest){
-			startThread(); 
-		}
 	}
 	
 	public String getName(){

@@ -1,8 +1,8 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.WaiterAgent;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 import javax.swing.*;
 
@@ -88,8 +88,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == stateCB) {
-            if (currentPerson instanceof CustomerAgent) {
-                CustomerAgent c = (CustomerAgent) currentPerson;
+            if (currentPerson instanceof MaggiyanCustomerRole) {
+                MaggiyanCustomerRole c = (MaggiyanCustomerRole) currentPerson;
                 //c.getGui().setHungry();
                 stateCB.setEnabled(false);
             }
@@ -102,7 +102,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(CustomerAgent c) {
+    public void setCustomerEnabled(MaggiyanCustomerRole c) {
     	for(int i = 0; i<restPanel.getCustPanel().getCheckBoxList().size(); i++){
     		JCheckBox tempBox = restPanel.getCustPanel().getCheckBoxList().get(i); 
     		if(c.getName() == tempBox.getText()){
@@ -111,8 +111,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
     		}
     	}
     	
-        if (currentPerson instanceof CustomerAgent) {
-            CustomerAgent cust = (CustomerAgent) currentPerson;
+        if (currentPerson instanceof MaggiyanCustomerRole) {
+            MaggiyanCustomerRole cust = (MaggiyanCustomerRole) currentPerson;
             if (c.equals(cust)) {
                 stateCB.setEnabled(true);
                 stateCB.setSelected(false);

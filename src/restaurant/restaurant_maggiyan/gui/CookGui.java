@@ -1,8 +1,8 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
 import javax.swing.*;
 
-import restaurant_maggiyan.CookAgent;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CookGui implements Gui{
 
-	private CookAgent agent = null;
+	private MaggiyanCookRole agent = null;
 	private boolean isPresent = true;
 	
 	//Cook Positions
@@ -64,7 +64,7 @@ public class CookGui implements Gui{
 	    }
 	}
 
-	public CookGui(CookAgent cook){ //HostAgent m) {
+	public CookGui(MaggiyanCookRole cook){ //HostAgent m) {
 		agent = cook; 
 		xPos = initialxPos;
 		yPos = initialyPos;

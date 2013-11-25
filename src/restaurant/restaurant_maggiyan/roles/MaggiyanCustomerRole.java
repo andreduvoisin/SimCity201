@@ -1,18 +1,21 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import restaurant_maggiyan.gui.CustomerGui;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
-import agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.gui.CustomerGui;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer{
+public class MaggiyanCustomerRole extends BaseRole implements Customer{
 	//Customer data
 	private String name;
 	private int tableNumber;
@@ -30,10 +33,10 @@ public class CustomerAgent extends Agent implements Customer{
 	private boolean isImpatient = false;
 	
 	// Agent Correspondents
-	private CustomerAgent me; 
-	private HostAgent host;
+	private MaggiyanCustomerRole me; 
+	private MaggiyanHostRole host;
 	private Waiter waiter; 
-	private CashierAgent cashier;
+	private MaggiyanCashierRole cashier;
 	private Menu menu; 
 	private Check check; 
 	public String choice; 
@@ -54,7 +57,7 @@ public class CustomerAgent extends Agent implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerAgent(String name){
+	public MaggiyanCustomerRole(String name){
 		super();
 		this.name = name;
 		if(name.equals("Smartpoor") || name.equals("Dumbpoor")){
@@ -71,11 +74,11 @@ public class CustomerAgent extends Agent implements Customer{
 	/**
 	 * hack to establish connection to Host agent.
 	 */
-	public void setHost(HostAgent host) {
+	public void setHost(MaggiyanHostRole host) {
 		this.host = host;
 	}
 	
-	public void setCashier(CashierAgent cashier){
+	public void setCashier(MaggiyanCashierRole cashier){
 		this.cashier = cashier;
 	}
 
@@ -159,7 +162,7 @@ public class CustomerAgent extends Agent implements Customer{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
 		
 		//Non-Normative

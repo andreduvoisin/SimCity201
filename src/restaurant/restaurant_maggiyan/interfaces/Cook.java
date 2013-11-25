@@ -1,10 +1,10 @@
-package restaurant_maggiyan.interfaces;
+package restaurant.restaurant_maggiyan.interfaces;
 
 import java.util.Map;
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.WaiterAgent;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 
 /**

@@ -1,8 +1,8 @@
-package restaurant_maggiyan.interfaces;
+package restaurant.restaurant_maggiyan.interfaces;
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.Menu;
-import restaurant_maggiyan.WaiterAgent;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 /**
  * A sample Customer interface built to unit test a CashierAgent.

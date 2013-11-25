@@ -1,4 +1,4 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,15 +9,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import restaurant_maggiyan.Order.state;
-import restaurant_maggiyan.gui.CookGui;
-import restaurant_maggiyan.interfaces.Cook;
-import restaurant_maggiyan.interfaces.Market;
-import restaurant_maggiyan.interfaces.Waiter;
-import agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.Order;
+import restaurant.restaurant_maggiyan.Order.state;
+import restaurant.restaurant_maggiyan.gui.CookGui;
+import restaurant.restaurant_maggiyan.interfaces.Cook;
+import restaurant.restaurant_maggiyan.interfaces.Market;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
-
-public class CookAgent extends Agent implements Cook{
+public class MaggiyanCookRole extends BaseRole implements Cook{
 	private String n; 
 	
 	//Cooking Food
@@ -49,7 +49,7 @@ public class CookAgent extends Agent implements Cook{
 	private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Order> rStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
-	public CookAgent(String name){
+	public MaggiyanCookRole(String name){
 		this.n = name;
 		
 		Food steak = new Food("Steak", inventoryLOW, foodCookingTime* 50);
@@ -69,7 +69,6 @@ public class CookAgent extends Agent implements Cook{
 			}
 		}, 0,  10000);
 		
-		startThread(); 
 	}
 	
 	public String getName(){
@@ -142,7 +141,7 @@ public class CookAgent extends Agent implements Cook{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		
 		if(stockInventory){
 			StockInventory(); 

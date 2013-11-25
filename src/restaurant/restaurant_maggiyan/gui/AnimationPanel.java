@@ -1,4 +1,4 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
 import javax.swing.*;
 

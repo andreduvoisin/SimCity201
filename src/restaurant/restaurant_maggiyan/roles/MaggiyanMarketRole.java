@@ -1,4 +1,4 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,10 +8,11 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Cook;
-import restaurant_maggiyan.interfaces.Market;
-import agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Cook;
+import restaurant.restaurant_maggiyan.interfaces.Market;
+
 
 /**
  * Restaurant Host Agent
@@ -20,7 +21,7 @@ import agent.Agent;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class MarketAgent extends Agent implements Market{
+public class MaggiyanMarketRole extends BaseRole implements Market{
 	private String n; 
 	private int maxINVENTORY = 4; 
 	private Cashier cashier; 
@@ -33,7 +34,7 @@ public class MarketAgent extends Agent implements Market{
 	private Map<String, Integer> marketInventory = new HashMap<String, Integer>(); 
 	public Map<String, Integer> orderToFulfill = new HashMap<String, Integer>();
 	
-	public MarketAgent(String name){
+	public MaggiyanMarketRole(String name){
 		this.n = name;
 		
 		marketInventory.put("Steak", maxINVENTORY);
@@ -41,8 +42,6 @@ public class MarketAgent extends Agent implements Market{
 		marketInventory.put("Salad", maxINVENTORY);
 		marketInventory.put("Pizza", maxINVENTORY);
 
-		
-		startThread(); 
 	}
 	
 	public String getName(){
@@ -75,7 +74,7 @@ public class MarketAgent extends Agent implements Market{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 
 		if(!marketOrders.isEmpty()){
 			synchronized(marketOrders){
