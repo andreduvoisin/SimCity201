@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Menu{
 	
-	public List<FoodChoice> MenuOptions = new ArrayList<FoodChoice>(); 
+	List<FoodChoice> MenuOptions = new ArrayList<FoodChoice>(); 
 	int cheapFoodIndex = 2; 
 	
 	Menu(){

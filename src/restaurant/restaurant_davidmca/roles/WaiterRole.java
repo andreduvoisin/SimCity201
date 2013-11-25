@@ -216,6 +216,7 @@ public class WaiterRole extends BaseRole implements Waiter {
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		//System.out.println("davidmca WaiterRole pAEA run");
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Arrived) {

@@ -1,5 +1,6 @@
 package restaurant.intermediate;
 
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -27,6 +28,7 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 	}
 	
 	public boolean pickAndExecuteAnAction() {
+		//System.out.println("RestaurantHostRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
 	}
 

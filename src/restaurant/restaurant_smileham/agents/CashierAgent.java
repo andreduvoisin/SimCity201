@@ -10,7 +10,7 @@ import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Market;
 
@@ -28,11 +28,11 @@ public class CashierAgent extends Agent implements Cashier{
 	private Map<Market, Integer> mMarketBills;
 
 	//GUI
-	private RestaurantGui mGUI;
+	private SmilehamRestaurantGui mGUI;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public CashierAgent(String name, RestaurantGui gui){
+	public CashierAgent(String name, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;
@@ -184,11 +184,11 @@ public class CashierAgent extends Agent implements Cashier{
 			this.mMarketBills = mMarketBills;
 		}
 
-		public RestaurantGui getGUI() {
+		public SmilehamRestaurantGui getGUI() {
 			return mGUI;
 		}
 
-		public void setGUI(RestaurantGui mGUI) {
+		public void setGUI(SmilehamRestaurantGui mGUI) {
 			this.mGUI = mGUI;
 		}
 }

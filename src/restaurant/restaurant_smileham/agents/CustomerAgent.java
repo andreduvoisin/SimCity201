@@ -14,7 +14,7 @@ import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
@@ -61,7 +61,7 @@ public class CustomerAgent extends Agent implements Customer{
 	//GUI
 	private CustomerGui mCustomerGui;
 	private LabelGui mFoodLabelGui;
-	private RestaurantGui mGUI;
+	private SmilehamRestaurantGui mGUI;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
@@ -71,7 +71,7 @@ public class CustomerAgent extends Agent implements Customer{
 	 * @param name name of the customer
 	 * @param mGUI  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerAgent(String name, HostAgent host, Cashier cashier, RestaurantGui gui){
+	public CustomerAgent(String name, HostAgent host, Cashier cashier, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;

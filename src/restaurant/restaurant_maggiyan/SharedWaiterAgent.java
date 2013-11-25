@@ -15,6 +15,7 @@ import restaurant.restaurant_maggiyan.interfaces.Waiter;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+
 /**
  * Restaurant Waiter Agent
  */
@@ -22,7 +23,7 @@ import java.util.concurrent.Semaphore;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the Host. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class WaiterAgent extends Agent implements Waiter{
+public class SharedWaiterAgent extends Agent implements Waiter{
 	static final int NTABLES = 3;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
@@ -60,7 +61,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private boolean reenableBreakButton = false; 
 	
-	public WaiterAgent(String name, Cook cook, Host host) {
+	public SharedWaiterAgent(String name, Cook cook, Host host) {
 		super();
 		
 		this.name = name;
@@ -337,7 +338,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private void goOnBreak(){
 		print("Going on break");
-		final restaurant_maggiyan.interfaces.Waiter w = this; 
+		final SharedWaiterAgent w = this; 
 		waiterGui.DoGoOnBreak();
 		try{
 			animationReady.acquire(); 
@@ -446,7 +447,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		catch(Exception e){
 			print ("giveOrderToCook exception");
 		}
-		cook.msgHereIsOrder(this, cust.choice, cust.table); 
+		cook.addRStandOrder(this, cust.choice, cust.table); 
 	}
 	
 	private void giveCustomerFood(MyCustomer mc){

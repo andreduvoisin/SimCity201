@@ -2,6 +2,7 @@ package restaurant.intermediate;
 
 import java.util.Random;
 
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.WaiterRole;
 import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
@@ -38,7 +39,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	}
 
 	public boolean pickAndExecuteAnAction() {
-		print("paea in generic waiter run");
+		//System.out.println("RestaurantWaiterRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
 	}
 }
