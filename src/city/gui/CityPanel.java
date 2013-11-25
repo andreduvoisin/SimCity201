@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
@@ -29,6 +31,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(120, 120, "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(80, 400, "Restaurant 2"));
 		this.addStatic(new CityBank(400, 75, "Green Guts Bank"));
+		this.addStatic(new CityRestaurant(50, 50, "Test Restaurant"));
 		
 		this.addStatic(new CityMarket(75, 200, "Sears!"));
 		
@@ -42,21 +45,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		 */
 				
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
-			int xCord, yCord = 0;
-			if (iHouseCount % 20 == 0) {
-				xCord = 50 + (20 * iHouseCount % 20);
-				yCord = 0;
-			} else if (iHouseCount % 20 == 2) {
-				xCord = 50 + (20 * iHouseCount % 20);
-				yCord = 480;
-			} else if (iHouseCount % 20 == 3) {
-				xCord = 0;
-				yCord = 50 + 20 * (iHouseCount % 20);
-			} else {
-				xCord = 480;
-				yCord = 50 + 20 * (iHouseCount % 20);
-			}
-			CityHousing newHouse = new CityHousing(simcitygui, xCord, yCord, "House " + iHouseCount, 50.00);
+			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
+			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, "House " + iHouseCount, 50.00);
 			simcitygui.cityview.addView(newHouse.mPanel, "House " + iHouseCount);
 			this.addStatic(newHouse);
 			masterHouseList.add(newHouse);

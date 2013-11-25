@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import bank.interfaces.BankMasterTeller;
-import bank.roles.BankMasterTellerRole;
-import bank.test.MasterTellerTest;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -28,22 +26,30 @@ public class ContactList {
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	static final Location cBANK_LOCATION = new Location(10,10); //JERRY: Bank coordinates go here
 	static final Location cMARKET_LOCATION = new Location(300,300); //JERRY: Market coordinates
-	static List<Location> cHOUSE_LOCATIONS;
+	public static List<Location> cHOUSE_LOCATIONS;
 	static List<Location> cRESTAURANT_LOCATIONS;
 	
 	//setup housing locations
-	static final Location cHOUSE_LOCATION1 = new Location(10,10); //JERRY: Housing locations go here
-	static final Location cHOUSE_LOCATION2 = new Location(10,10);
-	static final Location cHOUSE_LOCATION3 = new Location(10,10);
-	static final Location cHOUSE_LOCATION4 = new Location(10,10);
-	static final Location cHOUSE_LOCATION5 = new Location(10,10);
 	static {
 		List<Location> list = new ArrayList<Location>();
-		list.add(cHOUSE_LOCATION1);
-		list.add(cHOUSE_LOCATION2);
-		list.add(cHOUSE_LOCATION3);
-		list.add(cHOUSE_LOCATION4);
-		list.add(cHOUSE_LOCATION5);
+		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
+			int xCord, yCord = 0;
+			if (iHouse % 20 == 0) {
+				xCord = 50 + (20 * iHouse % 20);
+				yCord = 0;
+			} else if (iHouse % 20 == 2) {
+				xCord = 50 + (20 * iHouse % 20);
+				yCord = 480;
+			} else if (iHouse % 20 == 3) {
+				xCord = 0;
+				yCord = 50 + 20 * (iHouse % 20);
+			} else {
+				xCord = 480;
+				yCord = 50 + 20 * (iHouse % 20);
+			}
+			Location houseLocation = new Location(xCord, yCord);
+			list.add(houseLocation);
+		}
 		cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
 	}
 	

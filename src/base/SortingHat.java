@@ -212,14 +212,11 @@ public class SortingHat {
 	static final int sMaxRenters = sMaxLandlords*sHouseSize;
 
 	public static Role getHousingRole(Person person) {
-		//landlord, renter, owner (in that order)
-
-		
+		//landlord, renter, owner (in that order)		
 
 		if (sLandlordCount < sMaxLandlords){
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
-			newLandLordRole.setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCount));
 			sHouseCount++;
 			return newLandLordRole;
 		}
