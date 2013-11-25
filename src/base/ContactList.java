@@ -55,14 +55,14 @@ public class ContactList {
 	}
 	
 	//setup job locations
-	static final Location cRESTAURANT_LOCATION1 = new Location(100,100);
-	static final Location cRESTAURANT_LOCATION2 = new Location(100,200);
-	static final Location cRESTAURANT_LOCATION3 = new Location(100,300);
-	static final Location cRESTAURANT_LOCATION4 = new Location(215,420);
-	static final Location cRESTAURANT_LOCATION5 = new Location(310,420);
-	static final Location cRESTAURANT_LOCATION6 = new Location(420,100);
-	static final Location cRESTAURANT_LOCATION7 = new Location(420,200);
-	static final Location cRESTAURANT_LOCATION8 = new Location(420,300);
+	static final Location cRESTAURANT_LOCATION1 = new Location(100,100); //aduvoisin	0
+	static final Location cRESTAURANT_LOCATION2 = new Location(100,200); //cwagoner		1
+	static final Location cRESTAURANT_LOCATION3 = new Location(100,300); //jerrywebb	2
+	static final Location cRESTAURANT_LOCATION4 = new Location(215,420); //maggiyang	3
+	static final Location cRESTAURANT_LOCATION5 = new Location(310,420); //davidmca		4
+	static final Location cRESTAURANT_LOCATION6 = new Location(420,300); //smileham		5
+	static final Location cRESTAURANT_LOCATION7 = new Location(420,200); //tranac		6
+	static final Location cRESTAURANT_LOCATION8 = new Location(420,100); //xurex		7
 	static {
 		List<Location> list = new ArrayList<Location>();
 		list.add(cRESTAURANT_LOCATION1);

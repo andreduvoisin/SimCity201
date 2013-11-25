@@ -30,10 +30,10 @@ public class RestaurantPanel extends JPanel {
     private JPanel mMenuPanel;
     private AgentPanel mAgentPanel;
     
-    private RestaurantGui mGUI; //reference to main gui
+    private SmilehamRestaurantGui mGUI; //reference to main gui
 
     //CONSTRUCTOR
-    public RestaurantPanel(RestaurantGui gui) {
+    public RestaurantPanel(SmilehamRestaurantGui gui) {
     	//super
     	mGUI = gui;
     	this.setLayout(new GridLayout(1, 2, 20, 20));
@@ -85,7 +85,7 @@ public class RestaurantPanel extends JPanel {
 		return mCustomers;
 	}
 	
-	public RestaurantGui getGui(){
+	public SmilehamRestaurantGui getGui(){
 		return mGUI;
 	}
 	

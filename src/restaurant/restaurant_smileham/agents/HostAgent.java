@@ -7,7 +7,7 @@ import java.util.List;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.gui.HostGui;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
@@ -32,11 +32,11 @@ public class HostAgent extends Agent implements Host{
 
 	//GUI
 	private HostGui mHostGui;
-	private RestaurantGui mGUI;
+	private SmilehamRestaurantGui mGUI;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public HostAgent(String name, RestaurantGui gui) {
+	public HostAgent(String name, SmilehamRestaurantGui gui) {
 		super();
 		mName = name;
 		mGUI = gui;
