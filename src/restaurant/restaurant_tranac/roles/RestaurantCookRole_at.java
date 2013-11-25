@@ -3,14 +3,19 @@ package restaurant.restaurant_tranac.roles;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+import market.MarketInvoice;
+import market.MarketOrder;
+import market.interfaces.MarketCashier;
 import base.BaseRole;
+import base.Item.EnumItemType;
+import restaurant.intermediate.*;
 import restaurant.restaurant_tranac.gui.CookGui_at;
 import restaurant.restaurant_tranac.interfaces.*;
 
 /**
  * Restaurant Cook Agent
  */
-public class RestaurantCookRole_at extends BaseRole implements Cook {
+public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
 	private CookGui_at cookGui;
 	
 	public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
@@ -34,6 +39,19 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	
 	private Semaphore inTransit = new Semaphore(0, true);
 	
+	/**
+	 * Code added from MarketCookCustomerRole
+	 */
+	Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
+	Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
+	
+	Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
+	
+	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
+	
+	MarketCashier mMarketCashier;
+
 	public RestaurantCookRole_at() {
 		super();
 		
@@ -72,7 +90,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 		o.s = OrderState.Done;
 		stateChanged();
 	}
-	
+	/*
 	public void msgCanFulfillInventory(String f, int n) {
 		Food food = null;
 		synchronized(inventory) {
@@ -117,7 +135,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 		food.addMarketOutOfItem(m);
 		stateChanged();
 	}
-	
+	*/
 	/** Animation Messages */
 	public void msgAnimationAtGrill() {
 		inTransit.release();
@@ -133,13 +151,13 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		for(Food f : inventory) {
+	/*	for(Food f : inventory) {
 			if(f.s == FoodState.LowStock) {
 				orderFood();
 				return true;
 			}
 		}
-		for(Order o : orders) {
+	*/	for(Order o : orders) {
 			if(o.s == OrderState.Pending) {
 				tryToCookIt(o);
 				return true;
@@ -157,6 +175,9 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 				return true;
 			}
 		}
+		//ordering food items
+		if(marketPickAndExecuteAnAction())
+			return true;
 		DoGoToHome();
 		return false;
 	}
