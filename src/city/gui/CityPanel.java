@@ -56,7 +56,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
 			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
 			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, iHouseCount, 50.00);
-			simcitygui.cityview.addView(newHouse.mPanel, "H" + iHouseCount);
+			simcitygui.cityview.addView(newHouse.mPanel, "House " + iHouseCount);
 			this.addStatic(newHouse);
 			masterHouseList.add(newHouse);
 		}
