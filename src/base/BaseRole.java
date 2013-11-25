@@ -8,6 +8,10 @@ public class BaseRole implements Role {
 	protected Person mPerson;
 	private Location mLocation;
 	
+	public BaseRole(){
+		mPerson = null;
+	}
+	
 	public BaseRole(Person person) {
 		mPerson = person;
 	}
