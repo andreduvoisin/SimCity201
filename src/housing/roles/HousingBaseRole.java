@@ -18,6 +18,7 @@ public class HousingBaseRole extends BaseRole {
 	public CityHousing mHouse = null;
 	
 	public HousingBaseRole() {
+		super(null);
 		gui = new HousingPersonGui();
 		gui.housingrole = this;
 		gui.setPresent(true);

@@ -5,7 +5,7 @@ import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantHostRole extends BaseRole {
+public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterface {
 	
 	Role subRole = null;
 	int restaurantID;
@@ -14,21 +14,16 @@ public class RestaurantHostRole extends BaseRole {
 		super(person);
 	}
 	
-	public RestaurantHostRole(Person person, int restID){
-		super(person);
-		restaurantID = restID;
-	}
-	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = RestaurantPanel.getInstance().host;
-			subRole.setPerson(mPerson);
+			subRole.setPerson(super.mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;
+		super.mPerson = person;
 	}
 	
 	public boolean pickAndExecuteAnAction() {

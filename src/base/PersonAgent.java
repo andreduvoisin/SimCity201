@@ -3,7 +3,6 @@ package base;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,7 +29,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
-import city.gui.SimCityGui;
+import restaurant.intermediate.RestaurantBaseInterface;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -99,6 +98,9 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case RESTAURANT:
 				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(1);
+				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
@@ -157,6 +159,7 @@ public class PersonAgent extends Agent implements Person {
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
+//		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
 //		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
@@ -226,6 +229,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
 				if (((BaseRole) iRole).getPerson() == null) {
+					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
 				else if (iRole.pickAndExecuteAnAction())
@@ -241,7 +245,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		System.out.println(event.mEventType.toString());
+		//System.out.println(event.mEventType.toString());
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
@@ -356,11 +360,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 			
 			int restaurantChoice = 1; // SHANE DAVID: Make random later
-			try {
-				restaurantCustomerRole.setRestaurant(restaurantChoice);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			restaurantCustomerRole.setRestaurant(restaurantChoice);
 			
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);

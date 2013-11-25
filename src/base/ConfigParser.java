@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
-import base.interfaces.Role;
 import city.gui.SimCityGui;
 
 /*
@@ -56,13 +55,11 @@ public class ConfigParser {
 		}
 		scanFile.close();
 		
-		for (Role iRole : SortingHat.sRoleLocations.keySet()){
-			if (iRole.isRestaurantPerson()){
-//				iRole.setRestaurant(get restaurant)
-				
-				//DAVID: 1 Add base restaurant type, Finish this up
-			}
-		}
+//		for (Role iRole : SortingHat.sRoleLocations.keySet()){
+//			if (iRole.isRestaurantPerson()){
+//				((RestaurantBaseInterface) iRole).setRestaurant(1);
+//			}
+//		}
 
 	}
 

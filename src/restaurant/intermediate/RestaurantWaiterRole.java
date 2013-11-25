@@ -1,6 +1,5 @@
 package restaurant.intermediate;
 
-import java.io.IOException;
 import java.util.Random;
 
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
@@ -10,7 +9,7 @@ import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantWaiterRole extends BaseRole {
+public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInterface {
 
 	Role subRole = null;
 	int restaurantID;
@@ -18,24 +17,15 @@ public class RestaurantWaiterRole extends BaseRole {
 	public RestaurantWaiterRole(Person person) {
 		super(person);
 	}
-	
-	public RestaurantWaiterRole(Person person, int restaurantID){
-		super(person);
-		try {
-			setRestaurant(restaurantID);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
-	public void setRestaurant(int restaurantID) throws IOException {
+	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
-				subRole = new WaiterRole(mPerson);
+				subRole = new WaiterRole(super.mPerson);
 				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 			} else {
-				subRole = new WaiterRoleShared(mPerson);
+				subRole = new WaiterRoleShared(super.mPerson);
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
 			}
@@ -44,7 +34,7 @@ public class RestaurantWaiterRole extends BaseRole {
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;		
+		super.mPerson = person;	
 	}
 
 	public boolean pickAndExecuteAnAction() {

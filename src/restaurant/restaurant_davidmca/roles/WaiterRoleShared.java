@@ -84,7 +84,11 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 
 	public WaiterRoleShared(Person person) {
 		super(person);
-		this.name = person.getName();
+		if (person == null) {
+			this.name = "null person";
+		} else {
+			this.name = person.getName();
+		}
 	}
 
 	@Override
@@ -479,7 +483,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	@Override
 	public void startThread() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
