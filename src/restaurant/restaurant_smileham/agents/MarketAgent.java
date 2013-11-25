@@ -8,7 +8,7 @@ import java.util.TimerTask;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.agent.Agent;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Market;
@@ -32,11 +32,11 @@ public class MarketAgent extends Agent implements Market{
 	private Map<EnumFoodOptions, Integer> mOrderedFood;
 
 	//GUI
-	private RestaurantGui mGUI;
+	private SmilehamRestaurantGui mGUI;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public MarketAgent(String name, int steak, int chicken, int salad, int pizza, RestaurantGui gui){
+	public MarketAgent(String name, int steak, int chicken, int salad, int pizza, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;

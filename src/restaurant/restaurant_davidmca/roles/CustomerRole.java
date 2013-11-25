@@ -16,6 +16,7 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
@@ -58,9 +59,9 @@ public class CustomerRole extends BaseRole implements Customer {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CustomerRole(String name) {
-		super();
-		this.name = name;
+	public CustomerRole(Person person) {
+		super(person);
+		this.name = person.getName();
 		this.availability = true;
 	}
 

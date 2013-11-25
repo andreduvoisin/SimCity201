@@ -22,7 +22,7 @@ public class HostGui_at implements Gui {
         
     	image = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/green-requiem.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/green-requiem.png");
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {

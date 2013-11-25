@@ -11,7 +11,6 @@ import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import base.Agent;
 import base.BaseRole;
 
 /**
@@ -43,7 +42,7 @@ public class HostRole extends BaseRole implements Host {
 	public HostGui hostGui = null;
 
 	public HostRole(String name) {
-		super();
+		super(null);
 
 		this.name = name;
 		// make some tables
@@ -177,6 +176,7 @@ public class HostRole extends BaseRole implements Host {
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		//System.out.println("davidmca HostRole pAEA run");
 		synchronized (indecisiveCustomers) {
 			for (CustomerRole cust : indecisiveCustomers) {
 				cust.msgAvailability(getAvailability());

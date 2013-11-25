@@ -1,6 +1,5 @@
 package restaurant.intermediate;
 
-import java.io.IOException;
 import java.util.Random;
 
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
@@ -10,32 +9,23 @@ import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantWaiterRole extends BaseRole {
+public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInterface {
 
 	Role subRole = null;
 	int restaurantID;
 
 	public RestaurantWaiterRole(Person person) {
-		mPerson = person;
-	}
-	
-	public RestaurantWaiterRole(Person person, int restaurantID){
-		mPerson = person;
-		try {
-			setRestaurant(restaurantID);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		super(person);
 	}
 
-	public void setRestaurant(int restaurantID) throws IOException {
+	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
-				subRole = new WaiterRole("Waiter");
+				subRole = new WaiterRole(super.mPerson);
 				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 			} else {
-				subRole = new WaiterRoleShared("Waiter");
+				subRole = new WaiterRoleShared(super.mPerson);
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
 			}
@@ -44,16 +34,11 @@ public class RestaurantWaiterRole extends BaseRole {
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;
-		try {
-			setRestaurant(restaurantID);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		subRole.setPerson(person);
+		super.mPerson = person;	
 	}
 
 	public boolean pickAndExecuteAnAction() {
+		//System.out.println("RestaurantWaiterRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
 	}
 }

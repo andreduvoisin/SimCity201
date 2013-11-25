@@ -1,36 +1,30 @@
 package restaurant.intermediate;
 
-import restaurant.restaurant_davidmca.roles.CookRole;
+import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantCookRole extends BaseRole {
+public class RestaurantCookRole extends BaseRole implements RestaurantBaseInterface {
 	
 	Role subRole = null;
 	int restaurantID;
 	static int DEFAULT_FOOD_QTY = 5;
 	
 	public RestaurantCookRole(Person person){
-		mPerson = person;
-	}
-	
-	public RestaurantCookRole(Person person, int restaurantID){
-		mPerson = person;
-		setRestaurant(restaurantID);
+		super(person);
 	}
 	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
-			subRole = new CookRole("Cook", DEFAULT_FOOD_QTY);
+			subRole = RestaurantPanel.getInstance().cook;
+			subRole.setPerson(super.mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;
-		setRestaurant(restaurantID);
-		subRole.setPerson(person);
+		super.mPerson = person;
 	}
 	
 	public boolean pickAndExecuteAnAction() {

@@ -44,7 +44,7 @@ public class CustomerGui_at implements Gui{
 		//grabs the correct image using relative file paths
     	image = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/red-nocturne.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/red-nocturne.png");
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
@@ -53,7 +53,7 @@ public class CustomerGui_at implements Gui{
     	
     	check = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/check.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/check.png");
     	check = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {

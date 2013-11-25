@@ -1,9 +1,7 @@
 package bank.gui;
 
-import bank.interfaces.BankCustomer;
 import bank.interfaces.BankTeller;
 import base.Gui;
-import base.Location;
 
 import java.awt.*;
 
@@ -17,16 +15,32 @@ public class BankTellerGui implements Gui {
 	private int xDestination, yDestination;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOSX = 250;
+	static final int STARTPOSX1 = 250;
+	static final int STARTPOSX2 = 200;
+	static final int STARTPOSX3 = 300;
 	static final int STARTPOSY = 470;
-
+	
 	public BankTellerGui(BankTeller bt, BankPanel bp) {
 		agent = bt;
 		bankPanel = bp;
-		xPos = STARTPOSX;
-		yPos = STARTPOSY;
-		xDestination = STARTPOSX;
+		xPos = -20;
+		yPos = -20;
+		xDestination = STARTPOSX1;
 		yDestination = STARTPOSY;
+	}
+	
+	public BankTellerGui(BankTeller bt, BankPanel bp, int position) {
+		agent = bt;
+		bankPanel = bp;
+		xPos = -20;
+		yPos = -20;
+		yDestination = STARTPOSY;
+		switch (position){
+		case 1:	xDestination = STARTPOSX1; break;
+		case 2: xDestination = STARTPOSX2; break;
+		case 3: xDestination = STARTPOSX3; break;
+		default: xDestination = STARTPOSX1; break;
+		}
 	}
 
 	public void updatePosition() {
@@ -52,5 +66,11 @@ public class BankTellerGui implements Gui {
 
 	public void setPresent(boolean state) {
 		isPresent = state;
+	}
+	
+//	MESSAGES
+	public void DoLeaveBank() {
+		xDestination = -20;
+		yDestination = -20;
 	}
 }

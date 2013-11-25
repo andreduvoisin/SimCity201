@@ -18,6 +18,7 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent
@@ -79,9 +80,14 @@ public class WaiterRole extends BaseRole implements Waiter {
 		waiterGui = gui;
 	}
 
-	public WaiterRole(String name) {
-		super();
-		this.name = name;
+	public WaiterRole(Person person) {
+		super(person);
+		if (person == null) {
+			this.name = "null";
+		}
+		else {
+			this.name = person.getName();
+		}
 	}
 
 	@Override
@@ -210,6 +216,7 @@ public class WaiterRole extends BaseRole implements Waiter {
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		//System.out.println("davidmca WaiterRole pAEA run");
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Arrived) {

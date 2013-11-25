@@ -82,7 +82,7 @@ public class CookRole extends BaseRole implements Cook {
 	 *            name of the customer
 	 */
 	public CookRole(String name, int qty) {
-		super();
+		super(null);
 		this.name = name;
 		ordering = false;
 		reorder = false;

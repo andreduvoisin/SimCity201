@@ -12,7 +12,6 @@ import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
-import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 
@@ -41,7 +40,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	//GUI
 	BankTellerGui mGUI;
 	//GUI Coordinate
-	Location mLocation;
+	int mLocation;
 	//Agent Correspodents
 	BankGuard mGuard;
 	public MyCustomer mCustomer;
@@ -53,11 +52,11 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	
 	//CONSTRUCTOR
 	public BankTellerRole(Person person) {
-		mPerson = person;
+		super(person);
 	}
 
 	public BankTellerRole() {
-		
+		super(null);
 	}
 	
 	//	MESSAGES
@@ -163,6 +162,12 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 //	UTILITIES
 	public void addGuard(BankGuard guard){
 		mGuard = guard;
+	}
+	public int getLocation(){
+		return mLocation;
+	}
+	public void setLocation(int location){
+		mLocation = location;
 	}
 	public void setMaster(BankMasterTeller masterTeller) {
 		mMasterTeller = masterTeller;

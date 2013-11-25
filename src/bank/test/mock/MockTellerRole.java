@@ -87,4 +87,19 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 	public void msgOpen(BankCustomer c, int SSN, double amount, PersonAgent person) {
 		log.add(new LoggedEvent("msgOpen: "+SSN+" "+amount+" "+person.getName()));
 	}
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int getLocation() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public boolean isRestaurantPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Market;
@@ -44,9 +45,16 @@ public class CashierRole extends BaseRole implements Cashier {
 	Map<Market, Float> marketBills = new HashMap<Market, Float>();
 	
 	//CONSTRUCTORS //
-	public CashierRole(String name){
-		super();
+	public CashierRole(String name, Person person){
+		super(person);
 		this.name = name;
+		menu.put("Steak", new Integer(16));
+		menu.put("Chicken", new Integer(11));
+		menu.put("Salad", new Integer(6));
+		menu.put("Pizza", new Integer(9));
+	}
+	public CashierRole(){
+		super();
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));

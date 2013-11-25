@@ -57,4 +57,16 @@ public class MockCustomerRole extends Mock implements BankCustomer, Role{
 	public void setPerson(Person person) {
 		mPerson = (PersonAgent)person;
 	}
+
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isRestaurantPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

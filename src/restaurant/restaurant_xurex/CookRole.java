@@ -1,9 +1,10 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.interfaces.Person;
+import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
-import restaurant.restaurant_xurex.interfaces.CookGui_;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 
@@ -22,7 +23,7 @@ public class CookRole extends BaseRole implements Cook {
 	{pending, ready, completed}; //Can use boolean instead
 	
 	private Semaphore atLocation = new Semaphore(100,true);
-	private CookGui_ cookGui = null;
+	private CookGui cookGui = null;
 	RestaurantGui gui;
 	
 	public class CookOrder{
@@ -77,28 +78,34 @@ public class CookRole extends BaseRole implements Cook {
 	public List<Market> markets = new ArrayList<Market>();
 
 	//CONSTRUCTORS
-	public CookRole(String name) {
-		super();
-		this.name = name;
+	private void initializeInventory(){
 		//Food Constructor(String food, Low Threshold, Initial Quantity, Capacity, Cook Time)//
 		Inventory.put("Steak", 	 new Food("Steak",   5, 10, 15, 15));
 		Inventory.put("Chicken", new Food("Chicken", 5, 10, 15, 10));
 		Inventory.put("Salad", 	 new Food("Salad",   5, 2, 15, 5));
 		Inventory.put("Pizza",	 new Food("Pizza",   5, 10, 15, 20));
-		
+	}
+	public CookRole(){
+		super();
+		initializeInventory();
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
 		runTimer();
-		
 	}
-	public CookRole(String name, String food) {
-		super();
+	public CookRole(String name, Person person) {
+		super(person);
 		this.name = name;
-		Inventory.put("Steak", new Food("Steak", 5, 5, 2, 15));
-		Inventory.put("Chicken", new Food("Chicken", 5, 10, 15, 10));
-		Inventory.put("Salad", new Food("Salad", 5, 10, 2, 5));
-		Inventory.put("Pizza", new Food("Pizza", 5, 10, 15, 20));
+		initializeInventory();
+		for(int i=1; i<11; i++){
+			Kitchen.put(new Integer(i), false);
+		}
+		runTimer();
+	}
+	public CookRole(String name, String food, Person person) {
+		super(person);
+		this.name = name;
+		initializeInventory();
 		Food changedQuantity = Inventory.get(food);
 		changedQuantity.quantity = 1;
 		if(food.equals("Steak"))
@@ -339,7 +346,7 @@ public class CookRole extends BaseRole implements Cook {
 		this.gui = gui;
 	}
 	
-	public void setGui(CookGui_ cookGui){
+	public void setGui(CookGui cookGui){
 		this.cookGui = cookGui;
 	}
 	private void runTimer(){

@@ -20,7 +20,7 @@ import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Market;
 import restaurant.restaurant_smileham.interfaces.Waiter;
@@ -50,11 +50,11 @@ public class CookAgent extends Agent implements Cook {
 
 	//GUI
 	private CookGui mCookGui;
-	private RestaurantGui mGUI;
+	private SmilehamRestaurantGui mGUI;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public CookAgent(String name, RestaurantGui gui){
+	public CookAgent(String name, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;

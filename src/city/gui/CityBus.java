@@ -42,7 +42,7 @@ public class CityBus extends CityComponent {
 
 
 	/**
-	 * Creates new CityBus with coordinates
+	 * Creates new CityBus
 	 * @param b Bus "driver"
 	 * @param busNum Index of this instance of bus
 	 */

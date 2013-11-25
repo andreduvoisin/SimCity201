@@ -1,31 +1,32 @@
 package base;
 
+import restaurant.intermediate.RestaurantCashierRole;
+import restaurant.intermediate.RestaurantCookRole;
+import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantHostRole;
+import restaurant.intermediate.RestaurantWaiterRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class BaseRole implements Role {
 
-	public Person mPerson;
+	protected Person mPerson;
 	private Location mLocation;
+	
+	public BaseRole(){
+		mPerson = null;
+	}
+	
+	public BaseRole(Person person) {
+		mPerson = person;
+	}
 
 	// NEEDED METHODS
 	protected void stateChanged() {
-		System.out.println("BaseRole:stateChanged()");
-
-		//Person person = getPerson();
-//		System.out.println("PERSON: " + person.toString());
-
-		
-		if (!(mPerson == null)) {
-			((PersonAgent) mPerson).stateChanged();
-		} else {
-			print(this.toString() + "stateChanged not called");
-			print("mPerson is null in BaseRole:stateChanged()");
-		}
+		((PersonAgent) mPerson).stateChanged();
 	}
 
 	public boolean pickAndExecuteAnAction() {
-
 		return false;
 	}
 
@@ -72,6 +73,17 @@ public class BaseRole implements Role {
 			sb.append(StringUtil.stackTraceString(e));
 		}
 		System.out.print(sb.toString());
+	}
+	
+	public boolean isRestaurantPerson(){ //DAVID: Put this in base rest class
+		if ((this instanceof RestaurantCashierRole) ||
+				(this instanceof RestaurantCookRole) ||
+				(this instanceof RestaurantWaiterRole) ||
+				(this instanceof RestaurantHostRole) ||
+				(this instanceof RestaurantCustomerRole)){
+			return true;
+		}
+		return false;
 	}
 
 }

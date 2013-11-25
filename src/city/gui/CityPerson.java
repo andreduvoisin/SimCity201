@@ -11,11 +11,10 @@ import base.PersonAgent;
 public class CityPerson extends CityComponent{
 	
 	private String name = "";
-	private PersonAgent agent = null;
+	private PersonAgent person = null;
 	private boolean atDestination = true;
 	SimCityGui gui;
 	
-	private int xPos = 20, yPos = 20;
 	private int xDestination = 120, yDestination = 35;
 	
 	static final int waiterWidth = 10;
@@ -27,6 +26,7 @@ public class CityPerson extends CityComponent{
 	
 	public CityPerson(int x, int y){
 		super(x,y, Color.ORANGE, "Unnamed Person");
+		
 		rectangle = new Rectangle(x, y, 5, 5);
 	}
 	
@@ -37,24 +37,26 @@ public class CityPerson extends CityComponent{
 	}
 	
 	public CityPerson(PersonAgent P, SimCityGui gui) {
-		agent = P;
+		person = P;
 		this.gui = gui;
 	}
 
 	@Override
 	public void updatePosition() {
-		if (xPos < xDestination)
-            xPos++;
-        else if (xPos > xDestination)
-            xPos--;
+		if (x < xDestination)
+            x++;
+        else if (x > xDestination)
+            x--;
 
-        if (yPos < yDestination)
-            yPos++;
-        else if (yPos > yDestination)
-            yPos--;
+        if (y < yDestination)
+            y++;
+        else if (y > yDestination)
+            y--;
         
-        if(xPos == xDestination && yPos == yDestination){
+        if(x == xDestination && y == yDestination){
         	this.disable();
+        	atDestination = true; //SHANE: 0 where is this used?
+//        	person.msgAnimationDone(); //SHANE: Add person then enable this line
         }
 	}
 
@@ -75,10 +77,10 @@ public class CityPerson extends CityComponent{
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillRect(xPos, yPos, 5, 5);
+		g.fillRect(x, y, 5, 5);
 		//g.fill3DRect(x, y, 20, 20, false);
 		g.setColor(Color.WHITE);
-		g.drawString(name, xPos - 10, yPos);
+		g.drawString(name, x - 10, y);
 	}
 	/*
 	@Override

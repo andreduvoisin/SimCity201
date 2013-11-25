@@ -1,8 +1,9 @@
 package restaurant.restaurant_maggiyan;
 
-import base.Agent;
+import agent.Agent;
 import restaurant.restaurant_maggiyan.gui.WaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.Host;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -39,7 +40,7 @@ public class HostAgent extends Agent implements Host{
 	
 	private boolean askedToGoOnBreak = false; 
 	
-	public void addWaiter(WaiterAgent waiter){
+	public void addWaiter(Waiter waiter){
 		MyWaiter w = new MyWaiter(waiter); 
 		waiters.add(w); 
 	}
@@ -66,7 +67,7 @@ public class HostAgent extends Agent implements Host{
 		return name;
 	}
 	
-	public MyWaiter findMyWaiter(WaiterAgent w){
+	public MyWaiter findMyWaiter(Waiter w){
 		for(MyWaiter waiter: waiters){
 			if(waiter.w.getName() == w.getName()){
 				return waiter; 
@@ -75,18 +76,18 @@ public class HostAgent extends Agent implements Host{
 		return null; 
 	}
 	
-	public MyWaiter findLeastBusyWaiter(){
-		for(MyWaiter waiter: waiters){
-//			if(waiter.onBreak = true){
-//				//Skip waiter
+//	public MyWaiter findLeastBusyWaiter(){
+//		for(MyWaiter waiter: waiters){
+////			if(waiter.onBreak = true){
+////				//Skip waiter
+////			}
+//			if(waiter.w.getCustomersSize() < minCustomer){
+//				leastBusyWaiter = waiter; 
+//				minCustomer = waiter.w.getCustomersSize();
 //			}
-			if(waiter.w.getCustomersSize() < minCustomer){
-				leastBusyWaiter = waiter; 
-				minCustomer = waiter.w.getCustomersSize();
-			}
-		}
-		return leastBusyWaiter;
-	}
+//		}
+//		return leastBusyWaiter;
+//	}
 	
 	// Messages
 	
@@ -101,13 +102,13 @@ public class HostAgent extends Agent implements Host{
 		stateChanged(); 
 	}
 	//From Waiter
-	public void msgIAmHere(WaiterAgent waiter){
+	public void msgIAmHere(Waiter waiter){
 		print("I am here");
 		addWaiter(waiter); 
 		stateChanged(); 
 	}
 	
-	public void msgWaiterFree(WaiterAgent w){
+	public void msgWaiterFree(Waiter w){
 		for(MyWaiter waiter:waiters){
 			if(waiter.w == w){
 				waiter.s = WaiterState.free; 
@@ -116,7 +117,7 @@ public class HostAgent extends Agent implements Host{
 		stateChanged();
 	}
 	
-	public void msgWaiterBusy(WaiterAgent w){
+	public void msgWaiterBusy(Waiter w){
 		for(MyWaiter waiter:waiters){
 			if(waiter.w == w){
 				waiter.s = WaiterState.busy; 
@@ -126,7 +127,7 @@ public class HostAgent extends Agent implements Host{
 	}
 	
 	
-	public void msgCanIGoOnBreak(WaiterAgent w){
+	public void msgCanIGoOnBreak(Waiter w){
 		print("msgCanIGoOnBreak");
 		for(MyWaiter waiter:waiters){
 			if(waiter.w.equals(w)){
@@ -137,12 +138,12 @@ public class HostAgent extends Agent implements Host{
 		stateChanged(); 
 	}
 	
-	public void msgDoneWithBreak(WaiterAgent w){
+	public void msgDoneWithBreak(Waiter w){
 		findMyWaiter(w).onBreak = false;
 		stateChanged();
 	}
 	
-	public void msgTableFree(int tableNum, WaiterAgent w){
+	public void msgTableFree(int tableNum, Waiter w){
 		for (Table table : tables) {
 			if(table.tableNumber == tableNum){
 				print("Table " + tableNum + " is free");
@@ -178,37 +179,38 @@ public class HostAgent extends Agent implements Host{
 		
 		try{
 			if(!waiters.isEmpty()){
-				//for(MyWaiter waiter: waiters){
-					MyWaiter waiter = findLeastBusyWaiter();
-					if(!waitingCustomers.isEmpty()){
-						for(CustomerAgent customer: waitingCustomers){
-							for(Table table: tables){
-								if(!table.isOccupied()){
-									if(!waiter.onBreak){
-										callWaiter(waiter, customer, table);
-										minCustomer++;
-										return true;
+				for(MyWaiter waiter: waiters){
+					if(waiter.s != WaiterState.busy){
+						if(!waitingCustomers.isEmpty()){
+							for(CustomerAgent customer: waitingCustomers){
+								for(Table table: tables){
+									if(!table.isOccupied()){
+										if(!waiter.onBreak){
+											callWaiter(waiter, customer, table);
+											minCustomer++;
+											return true;
+										}
 									}
 								}
-							}
-							for(Table table: tables){
-								if(table.isOccupied()){
-									occupiedTableCounter++;
+								for(Table table: tables){
+									if(table.isOccupied()){
+										occupiedTableCounter++;
+									}
+								}
+								if(occupiedTableCounter == tables.size()){
+									NotifyCustomer(customer);  
+									return true; 
 								}
 							}
-							if(occupiedTableCounter == tables.size()){
-								NotifyCustomer(customer);  
-								return true; 
-							}
+							
 						}
-						
+						if(waiter.askedToGoOnBreak){
+							handleWaiterBreaks(waiter);
+							waiter.askedToGoOnBreak = false;
+							return true; 
+						}
 					}
-					if(waiter.askedToGoOnBreak){
-						handleWaiterBreaks(waiter);
-						waiter.askedToGoOnBreak = false;
-						return true; 
-					}
-				//}
+				}
 			}
 		
 		
@@ -298,7 +300,7 @@ public class HostAgent extends Agent implements Host{
 		
 	}
 	private class MyWaiter{
-		MyWaiter(WaiterAgent waiter){
+		MyWaiter(Waiter waiter){
 			w = waiter; 
 			s = WaiterState.free; 
 			customerNum = 0; 
@@ -307,7 +309,7 @@ public class HostAgent extends Agent implements Host{
 			
 		}
 		
-		WaiterAgent w;  
+		Waiter w;  
 		WaiterState s; 
 		boolean askedToGoOnBreak;
 		boolean onBreak; 
