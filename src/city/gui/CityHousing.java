@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class CityHousing extends CityComponent {
-	private String houseName = "";
+	public int mHouseNum;
 	public int xLocation, yLocation;
 	public double mRent;
 	public HousingRenter mOccupant;
@@ -18,9 +18,9 @@ public class CityHousing extends CityComponent {
 	public final double maxAptRent = 450.00;  
 	public HousingGuiPanel mPanel;
 	
-	public CityHousing(SimCityGui city, int x, int y, String ID, double rent) {
-		super(x, y, Color.blue, ID);
-		houseName = ID;
+	public CityHousing(SimCityGui city, int x, int y, int ID, double rent) {
+		super(x, y, Color.blue, "House "+ID);
+		mHouseNum = ID;
 		xLocation = x;
 		yLocation = y;
 		mOccupant = null;
@@ -37,12 +37,12 @@ public class CityHousing extends CityComponent {
 	}
 
 	//For unit testing
-	public CityHousing(int x, int y, String ID, double rent) {
+	public CityHousing(int x, int y, int ID, double rent) {
 		xLocation = x;
 		yLocation = y;
 		mRent = rent;
 		mOccupant = null;
-		houseName = ID;
+		mHouseNum = ID;
 		if(rent <= maxAptRent){
 			type = HousingType.Apartment; 
 		}
@@ -60,7 +60,7 @@ public class CityHousing extends CityComponent {
 		g.setColor(color);
 		g.fillRect(x, y, 20, 20);
 		g.setColor(Color.WHITE);
-		g.drawString(houseName,x + 7 , y + 17);
+		g.drawString("House "+mHouseNum,x + 7 , y + 17);
 	}
 
 	@Override
