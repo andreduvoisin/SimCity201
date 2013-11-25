@@ -107,15 +107,6 @@ public class HostRole extends Agent implements Host {
 	 */
 	protected boolean pickAndExecuteAnAction() {
 		
-		synchronized(Waiters) {
-			for (MyWaiter w: Waiters) {
-				if (w.state.equals(MyWaiter.State.askedForBreak)) {
-					DecideBreak(w);
-					return true;
-				}
-			}
-		}
-		
 		// A waiter with state askedForBreak CANNOT make it past the first rule,
 		// so the next rule only checks for state working (the alternative is onBreak)
 		
@@ -152,35 +143,6 @@ public class HostRole extends Agent implements Host {
 
 	
 	// ACTIONS
-
-	void DecideBreak(MyWaiter w) {
-		print("DecideBreak(" + w.waiter.getName() + ")");
-		
-		// As long as there are multiple waiters WORKING, allow one to go on break
-		int numWorking = 0;
-		
-		synchronized(Waiters) {
-			for (MyWaiter mw : Waiters) {
-				if (! mw.equals(w)) {
-					if (! mw.state.equals(MyWaiter.State.onBreak)) {
-						// 'working' and 'askedForBreak' both count as working
-						numWorking++;
-					}
-				}
-			}
-		}
-		
-		if (numWorking > 0) {
-			w.state = MyWaiter.State.onBreak;
-			w.waiter.msgGoOnBreak(true);
-			stateChanged();
-			return;
-		}
-		// No working waiters
-		w.state = MyWaiter.State.working;
-		w.waiter.msgGoOnBreak(false);
-		stateChanged();
-	}
 	
 	void AssignCustomer(MyCustomer c, Table t) {
 		print("AssignCustomer(" + c.customer.getName() + ", table " + t.tableNum + ")");
