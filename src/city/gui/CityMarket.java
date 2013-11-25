@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import base.Location;
+
 public class CityMarket extends CityComponent{
 	private String marketName = "";
 	
@@ -15,6 +17,12 @@ public class CityMarket extends CityComponent{
 	
 	public CityMarket(int x, int y, String ID) {
 		super(x, y, Color.blue, ID);
+		rectangle = new Rectangle(x, y, 90, 90);
+		marketName = ID;
+	}
+	
+	public CityMarket(Location location, String ID) {
+		super(location.mX, location.mY, Color.blue, ID);
 		rectangle = new Rectangle(x, y, 90, 90);
 		marketName = ID;
 	}

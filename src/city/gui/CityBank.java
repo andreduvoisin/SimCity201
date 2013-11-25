@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import base.Location;
+
 /**
  * Not to be confused with CitiBank
  */
@@ -14,12 +16,18 @@ public class CityBank extends CityComponent {
 	private int BANKHEIGHT = 100; 
 
 	public CityBank(int x, int y) {
-		super(x, y, Color.green, "Bank 1");
+		super(x, y, Color.green, "Unnamed Bank");
 		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
 	}
 
 	public CityBank(int x, int y, String ID) {
 		super(x, y, Color.green, ID);
+		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
+		bankName = ID;
+	}
+	
+	public CityBank(Location location, String ID) {
+		super(location.mX, location.mY, Color.green, ID);
 		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
 		bankName = ID;
 	}

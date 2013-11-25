@@ -38,7 +38,7 @@ public class HousingBaseRole extends BaseRole {
 
 	public void msgEatAtHome() {
 		mHungry = true;
-		mHouse.mPanel.addGui(gui);
+		mHouse.mPanel.addGui(gui); //DAVID MAGGI: Null pointer exception here
 		stateChanged();
 	}
 
