@@ -66,7 +66,7 @@ public class AgentPanel extends JPanel implements ActionListener {
 		private JTextField mHackCustomerCashText;
 		private JLabel mHackCustomerCashLabel;
 	
-    private RestaurantGui mGUI;
+    private SmilehamRestaurantGui mGUI;
     
 
     /**
@@ -358,7 +358,7 @@ public class AgentPanel extends JPanel implements ActionListener {
     	System.out.println(this + " " + string);
     }
     
-    public RestaurantGui getGui(){
+    public SmilehamRestaurantGui getGui(){
     	return mGUI;
     }
     

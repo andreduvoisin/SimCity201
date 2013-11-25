@@ -16,7 +16,7 @@ import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.gui.WaiterGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Cook;
@@ -55,11 +55,11 @@ public class WaiterAgent extends Agent implements Waiter {
 
 	//GUI
 	private WaiterGui mWaiterGui;
-	private RestaurantGui mGUI;
+	private SmilehamRestaurantGui mGUI;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public WaiterAgent(String name, Host host, Cook cook, Cashier cashier, RestaurantGui gui) {
+	public WaiterAgent(String name, Host host, Cook cook, Cashier cashier, SmilehamRestaurantGui gui) {
 		super();
 		mName = name;
 		mGUI = gui;
