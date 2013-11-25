@@ -14,7 +14,6 @@ public class ContactList {
 	
 	//----------------------------------------------------------PEOPLE----------------------------------------------------------
 	public static Map<Role, Location> sRoleLocations = new HashMap<Role, Location>();
-	//SHANE: sRestaurantRoleLocations
 	static List<Person> sPeople; //list of people
 	
 //	static Map<BankMasterTellerRole, Location> sBankMasterTellers;
@@ -24,8 +23,8 @@ public class ContactList {
 	
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
-	static final Location cBANK_LOCATION = new Location(10,10); //JERRY: Bank coordinates go here
-	static final Location cMARKET_LOCATION = new Location(300,300); //JERRY: Market coordinates
+	static final Location cBANK_LOCATION = new Location(10,10); //SHANE: Bank coordinates go here
+	static final Location cMARKET_LOCATION = new Location(300,300); //SHANE: Market coordinates
 	static List<Location> cHOUSE_LOCATIONS;
 	static List<Location> cRESTAURANT_LOCATIONS;
 	
@@ -54,7 +53,7 @@ public class ContactList {
 	}
 	
 	//setup job locations
-	static final Location cRESTAURANT_LOCATION1 = new Location(0,0); //JERRY: Restaurant locations go here
+	static final Location cRESTAURANT_LOCATION1 = new Location(0,0); //SHANE: Restaurant locations go here
 	static final Location cRESTAURANT_LOCATION2 = new Location(0,0);
 	static final Location cRESTAURANT_LOCATION3 = new Location(0,0);
 	static final Location cRESTAURANT_LOCATION4 = new Location(0,0);

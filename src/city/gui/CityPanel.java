@@ -79,7 +79,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 	}
 	
-	public void addObject(CityComponents c) {
+	public void addObject(CityComponent.EnumCityComponents c) {
 //		if (addingObject)
 //			return;
 //		addingObject = true;
