@@ -1,6 +1,5 @@
 package transportation;
 
-import java.util.concurrent.Semaphore;
 import java.util.*;
 
 import base.Agent;
@@ -21,7 +20,6 @@ public class TransportationBusDispatch extends Agent {
 	// ==================================================================================
 
 	private ArrayList<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
-	private Semaphore semAtLeastOneBusy = new Semaphore(0, true);
 
 
 	// ==================================================================================
@@ -209,8 +207,6 @@ public class TransportationBusDispatch extends Agent {
 			iBus.mGui.DoAdvanceToNextStop();
 			iBus.mCurrentStop = (iBus.mCurrentStop + 1) % mBusStops.size();
 		}
-		
-		try { semAtLeastOneBusy.acquire(); } catch(Exception e) {}
 	}
 
 
