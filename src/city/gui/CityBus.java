@@ -30,9 +30,9 @@ public class CityBus extends CityComponent {
 	public CityBus(TransportationBusDispatch b, int busNum) {
 		// CHASE: get rid of these
 		mStopCoords.add(new Location(60, 60));
-		mStopCoords.add(new Location(60, 450));
-		mStopCoords.add(new Location(450, 450));
-		mStopCoords.add(new Location(450, 60));
+		mStopCoords.add(new Location(60, 515));
+		mStopCoords.add(new Location(515, 515));
+		mStopCoords.add(new Location(515, 60));
 
 		mBusDispatch = b;
 		mBusNumber = busNum;
@@ -65,7 +65,7 @@ public class CityBus extends CityComponent {
         else if (y > mYDest)	y--;
 
         if (x == mXDest && y == mYDest && mTraveling) {
-        	mBusDispatch.msgGuiArrivedAtStop(mBusNumber); //CHASE: 1 Index out of bounds
+        	mBusDispatch.msgGuiArrivedAtStop(mBusNumber);
 			mTraveling = false;
         }
         
