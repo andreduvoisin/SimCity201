@@ -32,7 +32,11 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		//Add Background and city block
 		background = new Color(100,100,100);
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
-		
+
+		// Add bus
+		transportation.TransportationBusDispatch tbd = new transportation.TransportationBusDispatch();
+		this.addMoving(new CityBus(tbd, 0));
+
 		//Add Roads
 		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
 		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
