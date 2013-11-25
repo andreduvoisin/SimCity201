@@ -29,4 +29,16 @@ public class Item {
 	public Item(EnumItemType itemType){
 		mItemType = itemType;
 	}
+	
+    public static EnumItemType stringToEnum(String t) {
+        for(EnumItemType iType : EnumItemType.values()) {
+                if(iType.toString().equalsIgnoreCase(t))
+                        return iType;
+        }
+        return null;
+    }
+
+    public static String enumToString(EnumItemType i) {
+        return i.toString();
+}
 }

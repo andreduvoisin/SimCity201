@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -145,11 +146,11 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		MarketInvoice invoice = new MarketInvoice(order, cost, mBankAccount);
 
 		//if a cook
-		if (personRole instanceof MarketCook){
-			MarketCook cook = (MarketCook) order.mPersonRole;
-			cook.msgInvoiceToPerson(cannotFulfill, invoice);
-		}
-
+        if (personRole instanceof RestaurantCookInterface){
+            RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
+            cook.msgInvoiceToPerson(cannotFulfill, invoice);
+        }
+        
 		//if a customer
 		else if (personRole instanceof MarketCustomer){
 			MarketCustomer customer = (MarketCustomer) order.mPersonRole;

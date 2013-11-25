@@ -1,5 +1,6 @@
 package restaurant.intermediate;
 
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
