@@ -154,8 +154,8 @@ public class PersonAgent extends Agent implements Person {
 		//mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 		//mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, 8));
-		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+		mEvents.add(new Event(EnumEventType.EAT, 0));
+		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 		//mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
@@ -199,7 +199,7 @@ public class PersonAgent extends Agent implements Person {
 				Iterator<Event> itr = mEvents.iterator();
 				while (itr.hasNext()) {
 					Event event = itr.next();
-					System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
+					//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 					if (event.mTime > Time.GetTime())
 						break; // don't do future calendar events
 					processEvent(event);
@@ -221,6 +221,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
+		System.out.println(event.mEventType.toString());
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar(); //SHANE: 1 get car
@@ -324,9 +325,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void eatFood() {
-		if (isCheap()){
-			mHouseRole.msgEatAtHome();
+		if (isCheap() && mHouseRole.mHouse != null){
 			System.out.println("Going home to eat...");
+			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum));
 			acquireSemaphore(semAnimationDone);
 		}else{
