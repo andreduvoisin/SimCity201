@@ -40,8 +40,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
         		//BoxLayout((Container) getContentPane(), BoxLayout.Y_AXIS));
 	    
         //Animation Panel
-        mAnimationPanel = new AnimationPanel();
-        	mAnimationPanel.setBorder(BorderFactory.createTitledBorder("Animation Panel"));
+//        mAnimationPanel = new AnimationPanel(); //SHANE: Does this break it? Animation panel gone
+//        	mAnimationPanel.setBorder(BorderFactory.createTitledBorder("Animation Panel"));
         
       	//restPanel
         Dimension restDim = new Dimension(cWINDOWX, (int) (cWINDOWY * .6));
