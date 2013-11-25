@@ -45,8 +45,8 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
      */
     public MaggiyanRestaurantGui(SimCityGui city) {
         super(city); 
-    	int WINDOWX = 1000;
-        int WINDOWY = 1000;
+    	int WINDOWX = 500;
+        int WINDOWY = 500;
 
         
         setBounds(0, 0, WINDOWX, WINDOWY);

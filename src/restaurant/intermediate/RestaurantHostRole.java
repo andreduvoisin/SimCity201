@@ -15,7 +15,13 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 	}
 	
 	public void setRestaurant(int restaurantID) {
+		//David's Restaurant 
 		if (restaurantID == 1) {
+			subRole = RestaurantPanel.getInstance().host;
+			subRole.setPerson(super.mPerson);
+		}
+		//Maggi's Restaurant 
+		if (restaurantID == 2) {
 			subRole = RestaurantPanel.getInstance().host;
 			subRole.setPerson(super.mPerson);
 		}

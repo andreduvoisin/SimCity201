@@ -10,15 +10,16 @@ import java.util.ArrayList;
 
 public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 
-	public static int XPOS = 200; 
-	public static int YPOS = 250; 
-	public static int GWIDTH = 50;
-	public static int GHEIGHT = 50; 
-	public static int FRAMESPEED = 10; 
+	private static int XPOS = 50; 
+	private static int YPOS = 175; 
+	private static int GWIDTH = 50;
+	private static int GHEIGHT = 50; 
+	private static int FRAMESPEED = 10; 
 	
+	private static int CookingAreaX = 275;
 	
-    private final int WINDOWX = 1000;
-    private final int WINDOWY = 350;
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
     private Image bufferImage;
     private Dimension bufferSize;
 
@@ -67,13 +68,13 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
         //Kitchen and Cook
         
         g2.setColor(Color.CYAN);
-        g2.fillRect(XPOS+350, YPOS, GWIDTH, GHEIGHT*4);
+        g2.fillRect(CookingAreaX, YPOS+100, GWIDTH, GHEIGHT*4);
         g2.setColor(Color.LIGHT_GRAY);
-        g2.fillRect(XPOS+350+GWIDTH, YPOS, GWIDTH*3, GHEIGHT*4);
+        g2.fillRect(CookingAreaX+GWIDTH, YPOS+100, GWIDTH*3, GHEIGHT*4);
         g2.setColor(Color.DARK_GRAY);
-        g2.fillRect(GWIDTH*14, YPOS, GWIDTH, GWIDTH);
-        g2.fillRect(GWIDTH*14, YPOS + GWIDTH + 25, GWIDTH, GWIDTH);
-        g2.fillRect(GWIDTH*14, YPOS + GHEIGHT*4 - GWIDTH, GWIDTH, GWIDTH);
+        g2.fillRect(CookingAreaX + GWIDTH*3, YPOS+100, GWIDTH, GWIDTH);
+        g2.fillRect(CookingAreaX + GWIDTH*3, YPOS+100 + GWIDTH + 25, GWIDTH, GWIDTH);
+        g2.fillRect(CookingAreaX + GWIDTH*3, YPOS+100 + GHEIGHT*4 - GWIDTH, GWIDTH, GWIDTH);
         
         //g2.setColor(Color.BLUE);
         //g2.fillRect(XPOS+410, YPOS+50, 20, 20);
