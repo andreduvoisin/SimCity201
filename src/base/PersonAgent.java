@@ -29,7 +29,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
-import restaurant.intermediate.RestaurantBaseInterface;
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 
 
 public class PersonAgent extends Agent implements Person {

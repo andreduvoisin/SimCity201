@@ -3,22 +3,29 @@ package restaurant.restaurant_tranac.roles;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import base.BaseRole;
+import market.MarketInvoice;
+import market.MarketOrder;
+import market.interfaces.MarketCashier;
+import base.Item;
+import base.Item.EnumItemType;
+import restaurant.intermediate.*;
 import restaurant.restaurant_tranac.gui.CookGui_at;
 import restaurant.restaurant_tranac.interfaces.*;
 
 /**
  * Restaurant Cook Agent
  */
-public class RestaurantCookRole_at extends BaseRole implements Cook {
+public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
 	private CookGui_at cookGui;
 	
 	public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
 	public enum FoodState {Good, LowStock, Ordered, NoStock};
 	
-	private List<Market> markets = Collections.synchronizedList(new ArrayList<Market>());
+//	private List<Market> markets = Collections.synchronizedList(new ArrayList<Market>());
 	private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
-	private List<Food> inventory = Collections.synchronizedList(new ArrayList<Food>());
+//	private List<Food> inventory = Collections.synchronizedList(new ArrayList<Food>());
+	
+	private Map<EnumItemType,Integer> mCookTimes = new HashMap<EnumItemType,Integer>();
 	
 	private final int NGRILLS = 3;
 	private final int NPLATES = 4;
@@ -28,20 +35,27 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	private Timer timer = new Timer();
 	
 	private final int baseTime = 5000;
-	private final int baseInventory = 5;
 	private final int baseNeed = 3;
 	private final int stockThreshold = 1;
 	
 	private Semaphore inTransit = new Semaphore(0, true);
-	
+
 	public RestaurantCookRole_at() {
 		super();
-		
+		/*
 		//create inventory
-		inventory.add(new Food("Steak",(int)(baseTime*2),baseInventory));
-		inventory.add(new Food("Chicken",(int)(baseTime*1.75),baseInventory));
-		inventory.add(new Food("Salad",baseTime,baseInventory));
-		inventory.add(new Food("Pizza",(int)(baseTime*1.5),baseInventory));
+		inventory.add(new Food("Steak",(int)(baseTime*2),DEFAULT_FOOD_QTY));
+		inventory.add(new Food("Chicken",(int)(baseTime*1.75),DEFAULT_FOOD_QTY));
+		inventory.add(new Food("Salad",baseTime,DEFAULT_FOOD_QTY));
+		inventory.add(new Food("Pizza",(int)(baseTime*1.5),DEFAULT_FOOD_QTY));
+		*/
+		//inventory created in restaurantCookRole
+		
+		//create cook times
+		mCookTimes.put(EnumItemType.STEAK,(int)(baseTime*2));
+		mCookTimes.put(EnumItemType.CHICKEN,(int)(baseTime*1.75));
+		mCookTimes.put(EnumItemType.SALAD,(int)(baseTime));
+		mCookTimes.put(EnumItemType.PIZZA,(int)(baseTime));
 		
 		//initialize grills and plates
 		for(int i=1;i<=NGRILLS;i++)
@@ -72,7 +86,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 		o.s = OrderState.Done;
 		stateChanged();
 	}
-	
+	/*
 	public void msgCanFulfillInventory(String f, int n) {
 		Food food = null;
 		synchronized(inventory) {
@@ -117,7 +131,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 		food.addMarketOutOfItem(m);
 		stateChanged();
 	}
-	
+	*/
 	/** Animation Messages */
 	public void msgAnimationAtGrill() {
 		inTransit.release();
@@ -133,13 +147,13 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		for(Food f : inventory) {
+	/*	for(Food f : inventory) {
 			if(f.s == FoodState.LowStock) {
 				orderFood();
 				return true;
 			}
 		}
-		for(Order o : orders) {
+	*/	for(Order o : orders) {
 			if(o.s == OrderState.Pending) {
 				tryToCookIt(o);
 				return true;
@@ -157,6 +171,9 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 				return true;
 			}
 		}
+		//ordering food items
+		if(marketPickAndExecuteAnAction())
+			return true;
 		DoGoToHome();
 		return false;
 	}
@@ -164,13 +181,15 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	/** Actions */
 
 	private void tryToCookIt(final Order o) {
-		Food food = null;
+		EnumItemType food = null;
+		/*
 		synchronized(inventory) {
 			for(Food i : inventory) {
 				if(i.name == o.choice)
 					food = i;
 			}
 		}
+		//ANGELICA: add in functionality to order if low stock
 		if(food.stock == stockThreshold && food.s != FoodState.Ordered) {
 			food.s = FoodState.LowStock;
 			Do("Low on food!");
@@ -185,6 +204,15 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 				food.s = FoodState.LowStock;
 				food.numNeeded = baseNeed;
 			}
+			return;
+		}
+		*/
+		
+		if(mItemInventory.get(food) == 0) {
+			Do("Out of choice " + food);
+			o.waiter.msgOutOfFood(o.choice.toString(), o.table);
+			orders.remove(o);
+			mItemsDesired.put(food,baseNeed);
 			return;
 		}
 		
@@ -207,12 +235,12 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 			public void run() {
 				msgOrderDone(o);
 			}
-		},food.cookingTime);
-		food.stock--;
+		},mCookTimes.get(food));
+		mItemInventory.put(food,mItemInventory.get(food)-1);
 	}
 	
 	private void plateIt(Order o) {
-		Do("Plating " + o.choice);
+		Do("Plating " + o.choice.toString());
 		o.s = OrderState.Plated;
 		DoGoToGrill(o);
 		grills.put(o.n, false);
@@ -228,7 +256,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 			o.n = 1;
 		
 		DoGoToPlate(o);
-		o.waiter.msgOrderDone(o.choice, o.table, o.n);	//messages waiter order is done
+		o.waiter.msgOrderDone(o.choice.toString(), o.table, o.n);	//messages waiter order is done
 	}
 
 	private void removeOrder(Order o) {
@@ -238,7 +266,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 		plates.put(o.n, false);
 		o.n = 0;
 	}
-	
+	/*
 	private void orderFood() {				//order all food items that are lowStock
 		Do("Ordering food");
 		synchronized(inventory) {
@@ -270,14 +298,14 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 			}
 		}
 	}
-	
+	*/
 	/** Animation Actions */
 	private void DoGoToHome() {
 		cookGui.DoGoToHome();
 	}
 	
 	private void DoAddFoodItem(Order o) {
-		cookGui.DoAddFoodItem(o.choice, o.n);
+		cookGui.DoAddFoodItem(o.choice.toString(), o.n);
 	}
 	
 	private void DoGoToGrill(Order o) {
@@ -291,7 +319,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	}
 	
 	private void DoGoToPlate(Order o) {
-		cookGui.DoGoToPlate(o.n, o.choice);			//change to choose correct plate
+		cookGui.DoGoToPlate(o.n, o.choice.toString());			//change to choose correct plate
 		try {
 			inTransit.acquire();
 		}
@@ -301,7 +329,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	}
 	
 	private void DoRemoveOrder(Order o) {
-		cookGui.FoodPickedUp(o.n, o.choice);
+		cookGui.FoodPickedUp(o.n, o.choice.toString());
 	}
 	
 	/** Utilities */
@@ -321,7 +349,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	public void setCookGui(CookGui_at cookGui) {
 		this.cookGui = cookGui;
 	}
-	
+	/*
 	public void addMarket(Market m) {
 		markets.add(m);
 	}
@@ -351,19 +379,20 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 			}
 		}
 	}
-
+*/
 	/** Classes */
 	
 	private class Order {		//holds all relevant information for the order
 		Waiter waiter;
-		String choice;
+//		String choice;
+		EnumItemType choice;
 		int table;
 		int n;
 		OrderState s;
 		
 		Order(Waiter w, String c, int t) {
 			this.waiter = w;
-			choice = c;
+			choice = Item.stringToEnum(c);
 			table = t;
 			n = 0;
 			s = OrderState.Pending;
@@ -389,6 +418,6 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 		public void addMarketOutOfItem(Market m) {
 			outOfItem.add(m);
 		}
-	}
+	} 
 }
 
