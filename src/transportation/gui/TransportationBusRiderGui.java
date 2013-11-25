@@ -6,29 +6,29 @@ import java.awt.Graphics2D;
 // CHASE: gui
 public class TransportationBusRiderGui {
 
-	
- /*   public void updatePosition() {
-        if (mXPos < mXDest)		mXPos++;
-        else if (mXPos > mXDest)	mXPos--;
+	boolean mBoarded;
 
-        if (mYPos < mYDest)		mYPos++;
-        else if (mYPos > mYDest)	mYPos--;
-    }
+	/**
+	 * Created in TransportationBusRiderRole when person arrives at BusStop
+	 */
+	public TransportationBusRiderGui() {
+		mBoarded = false;
+	}
 
-
+	// Once boarded, don't draw anymore ("inside" the bus)
 	public void draw(Graphics2D g) {
 		if (! mBoarded) {
-			g.setColor(Color.YELLOW);
-			g.fillRect(mXPos, mYPos, mSize, mSize);
+			g.setColor(Color.yellow);
+			// CHASE: use ContactList sizing
+			g.fillRect(0, 0, 0, 0);
 		}
-	}*/
-
+	}
 
 	public void DoBoardBus() {
-		
+		mBoarded = true;
 	}
 
 	public void DoExitBus() {
-		
+		mBoarded = false;
 	}
 }
