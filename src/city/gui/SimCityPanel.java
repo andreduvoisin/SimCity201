@@ -51,6 +51,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 			c.updatePosition();
 			c.updatePosition();
 			c.updatePosition();
+			c.updatePosition();
+			c.updatePosition();
 		}
 	}
 	/*
