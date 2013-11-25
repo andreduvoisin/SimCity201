@@ -4,7 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.Semaphore;
 
+import astar.*;
 import base.Location;
 import base.PersonAgent;
 
@@ -25,24 +30,51 @@ public class CityPerson extends CityComponent{
 	
 	public boolean visible;
 	
+	AStarTraversal aStar;
+	AStarTraversal aStarNW;
+	AStarTraversal aStarNE;
+	AStarTraversal aStarSW;
+	AStarTraversal aStarSE;
+	Position currentPosition;
+	Queue<Position> goToPosition = new LinkedList<Position>();
+	static int numTicks = 0;
+	
 	public CityPerson(int x, int y){
 		super(x,y, Color.ORANGE, "Unnamed Person");
 		rectangle = new Rectangle(x, y, 5, 5);
+		
+		setUpAStar();
 	}
 	
 	public CityPerson(int x, int y, String ID){
-			super(x,y, Color.ORANGE, ID);
-			rectangle = new Rectangle(x, y, 5, 5);
-			name = ID;
+		super(x,y, Color.ORANGE, ID);
+		rectangle = new Rectangle(x, y, 5, 5);
+		name = ID;
+		
+		setUpAStar();
 	}
 	
 	public CityPerson(PersonAgent P, SimCityGui gui) {
 		agent = P;
 		this.gui = gui;
+		
+		setUpAStar();
+	}
+	
+	public void setUpAStar() {
+		aStar = new AStarTraversal(CityPanel.grid);
+		aStarNW = new AStarTraversal(CityPanel.gridNW);
+		aStarNE = new AStarTraversal(CityPanel.gridNE);
+		aStarSW = new AStarTraversal(CityPanel.gridSW);
+		aStarSE = new AStarTraversal(CityPanel.gridSE);
+		currentPosition = new Position(xPos / CityPanel.ASC, yPos / CityPanel.ASC);
+		//currentPosition.moveInto(aStar.getGrid());
 	}
 
 	@Override
 	public void updatePosition() {
+		numTicks++;
+		
 		if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
@@ -56,6 +88,14 @@ public class CityPerson extends CityComponent{
         if(xPos == xDestination && yPos == yDestination){
         	this.disable();
         }
+        
+//        if(numTicks % 5 == 0) {
+//        	if(!goToPosition.isEmpty()) {
+//        		Position temp = goToPosition.poll();
+//        		xPos = temp.getX() * CityPanel.ASC;
+//        		yPos = temp.getY() * CityPanel.ASC;
+//        	}
+//        }
 	}
 
         //Hack A*
@@ -74,6 +114,57 @@ public class CityPerson extends CityComponent{
 
 	
 	public void paint(Graphics g) {
+		// A* TEST DO NOT DELETE :D
+//		for(int i = 0; i < 120; i++)
+//			for(int j = 0; j < 120; j++)
+//				if(CityPanel.grid[i][j].tryAcquire()) {
+//					g.setColor(Color.WHITE);
+//					g.fillRect(i * 5, j * 5, 5, 5);
+//					CityPanel.grid[i][j].release();
+//				} else {
+//					g.setColor(Color.BLACK);
+//					g.fillRect(i * 5, j * 5, 5, 5);
+//				}
+		
+//		for(int i = 0; i < 60; i++)
+//			for(int j = 0; j < 60; j++) {
+//				if(CityPanel.gridNW[i][j].tryAcquire()) {
+//					g.setColor(Color.WHITE);
+//					g.fillRect(i * 5, j * 5, 5, 5);
+//					CityPanel.gridNW[i][j].release();
+//				} else {
+//					g.setColor(Color.BLACK);
+//					g.fillRect(i * 5, j * 5, 5, 5);
+//				}
+//				
+//				if(CityPanel.gridNE[i][j].tryAcquire()) {
+//					g.setColor(Color.WHITE);
+//					g.fillRect(i * 5 + 300, j * 5, 5, 5);
+//					CityPanel.gridNE[i][j].release();
+//				} else {
+//					g.setColor(Color.BLACK);
+//					g.fillRect(i * 5 + 300, j * 5, 5, 5);
+//				}
+//				
+//				if(CityPanel.gridSW[i][j].tryAcquire()) {
+//					g.setColor(Color.WHITE);
+//					g.fillRect(i * 5, j * 5 + 300, 5, 5);
+//					CityPanel.gridSW[i][j].release();
+//				} else {
+//					g.setColor(Color.BLACK);
+//					g.fillRect(i * 5, j * 5 + 300, 5, 5);
+//				}
+//				
+//				if(CityPanel.gridSE[i][j].tryAcquire()) {
+//					g.setColor(Color.WHITE);
+//					g.fillRect(i * 5 + 300, j * 5 + 300, 5, 5);
+//					CityPanel.gridSE[i][j].release();
+//				} else {
+//					g.setColor(Color.BLACK);
+//					g.fillRect(i * 5 + 300, j * 5 + 300, 5, 5);
+//				}
+//			}
+		
 		g.setColor(color);
 		g.fillRect(xPos, yPos, 5, 5);
 		//g.fill3DRect(x, y, 20, 20, false);
@@ -119,5 +210,89 @@ public class CityPerson extends CityComponent{
 		visible = state;
 	}
 	
-
+	// A*
+    //this is just a subroutine for waiter moves. It's not an "Action"
+    //itself, it is called by Actions.
+    public void guiMoveFromCurrentPostionTo(Position to){
+		//System.out.println("[Gaut] " + guiWaiter.getName() + " moving from " + currentPosition.toString() + " to " + to.toString());
+    	to = new Position(to.getX() / CityPanel.ASC, to.getY() / CityPanel.ASC);
+		AStarNode aStarNode = (AStarNode)aStar.generalSearch(currentPosition, to);
+		List<Position> path = aStarNode.getPath();
+		Boolean firstStep   = true;
+		Boolean gotPermit   = true;
+	
+		for (Position tmpPath: path) {
+		    //The first node in the path is the current node. So skip it.
+		    if (firstStep) {
+				firstStep   = false;
+				continue;
+		    }
+	
+		    //Try and get lock for the next step.
+		    int attempts    = 1;
+		    gotPermit       = new Position(tmpPath.getX(), tmpPath.getY()).moveInto(aStar.getGrid());
+	
+		    //Did not get lock. Lets make n attempts.
+		    while (!gotPermit && attempts < 3) {
+				//System.out.println("[Gaut] " + guiWaiter.getName() + " got NO permit for " + tmpPath.toString() + " on attempt " + attempts);
+		
+				//Wait for 1sec and try again to get lock.
+				try { Thread.sleep(1000); }
+				catch (Exception e){}
+		
+				gotPermit   = new Position(tmpPath.getX(), tmpPath.getY()).moveInto(aStar.getGrid());
+				attempts ++;
+		    }
+	
+		    //Did not get lock after trying n attempts. So recalculating path.            
+		    if (!gotPermit) {
+				//System.out.println("[Gaut] " + guiWaiter.getName() + " No Luck even after " + attempts + " attempts! Lets recalculate");
+				guiMoveFromCurrentPostionTo(to);
+				break;
+		    }
+	
+		    //Got the required lock. Lets move.
+		    //System.out.println("[Gaut] " + guiWaiter.getName() + " got permit for " + tmpPath.toString());
+		    currentPosition.release(aStar.getGrid());
+		    currentPosition = new Position(tmpPath.getX(), tmpPath.getY());
+		    System.out.println("x: " + currentPosition.getX() + " && y: " + currentPosition.getY());
+		    goToPosition.add(currentPosition);
+		    //DoGoToDestination(currentPosition.getX() * 5, currentPosition.getY() * 5);
+		}
+		
+		/*
+		boolean pathTaken = false;
+		while (!pathTaken) {
+		    pathTaken = true;
+		    //print("A* search from " + currentPosition + "to "+to);
+		    AStarNode a = (AStarNode)aStar.generalSearch(currentPosition,to);
+		    if (a == null) {//generally won't happen. A* will run out of space first.
+			System.out.println("no path found. What should we do?");
+			break; //dw for now
+		    }
+		    //dw coming. Get the table position for table 4 from the gui
+		    //now we have a path. We should try to move there
+		    List<Position> ps = a.getPath();
+		    Do("Moving to position " + to + " via " + ps);
+		    for (int i=1; i<ps.size();i++){//i=0 is where we are
+			//we will try to move to each position from where we are.
+			//this should work unless someone has moved into our way
+			//during our calculation. This could easily happen. If it
+			//does we need to recompute another A* on the fly.
+			Position next = ps.get(i);
+			if (next.moveInto(aStar.getGrid())){
+			    //tell the layout gui
+			    guiWaiter.move(next.getX(),next.getY());
+			    currentPosition.release(aStar.getGrid());
+			    currentPosition = next;
+			}
+			else {
+			    System.out.println("going to break out path-moving");
+			    pathTaken = false;
+			    break;
+			}
+		    }
+		}
+		*/
+    }
 }

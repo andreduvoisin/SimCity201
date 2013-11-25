@@ -28,7 +28,8 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
-import city.gui.SimCityGui;
+
+import astar.*;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -61,7 +62,6 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasCar;
-	AStarTraversal mAstar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -150,7 +150,6 @@ public class PersonAgent extends Agent implements Person {
 		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
-		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
 		mPersonGui = new CityPerson(200, 100, mName); //SHANE: Hardcoded
@@ -303,10 +302,11 @@ public class PersonAgent extends Agent implements Person {
 	public void getCar(){
 		Location location = ContactList.cCARDEALERSHIP_DOOR;
 		mPersonGui.DoGoToDestination(location);
+		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(95, 255));
 		acquireSemaphore(semAnimationDone);
 		
 		//set city person invisible
-		mPersonGui.setPresent(false);
+		//mPersonGui.setPresent(false);
 		//lock person until role is finished
 		mRoleFinished = false;
 		
@@ -326,6 +326,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void goToJob() {
 		mPersonGui.DoGoToDestination(mJobLocation);
+		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(mJobLocation.mX, mJobLocation.mY));
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
 		mPersonGui.setPresent(false);		
@@ -339,6 +340,7 @@ public class PersonAgent extends Agent implements Person {
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum));
+			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mX, ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mY));
 			acquireSemaphore(semAnimationDone);
 		}else{
 			//set random restaurant
@@ -363,6 +365,7 @@ public class PersonAgent extends Agent implements Person {
 			
 			try {
 				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
+				//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mX, ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mY));
 			}
 			catch (Exception e) {
 			}

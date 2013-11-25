@@ -12,37 +12,47 @@ public class AStarNode implements Node
 	    if (pos==null) System.out.println("AStarNode constructor, pos is null?");
 	    this.pos = pos;
 	}
+	
 	public Position getPosition() {
 		return pos;		
 	}
+	
 	public String toString(){
 	    String t = "";
 	    for (Position p : path) t = t + p.toString();
 	    return "("+ approxTotalDist +","+distTravelled+",("+t+")";		    
 	}
+	
 	public double getDistTravelled() {
 		return distTravelled;
 	}
+	
 	public void setDistTravelled(double distTravelled){
 		this.distTravelled = distTravelled;
 	}
+	
 	public double getApproxTotalDist() {
 		return approxTotalDist;
 	}
+	
 	public void setApproxTotalDist(double newApprox){
 		//distCity is the straight line distance to B
 		approxTotalDist =  newApprox;
 	}
+	
 	public List<Position> getPath() {
 		return path;
 	}
+	
 	public void setPath(List<Position> path) {
 	    this.path=path;
 	}
+	
 	public void updatePath(List<Position> x) {
 		path = new ArrayList<Position>(x);
 		path.add(pos);
 	}
+	
 	public void printNode() {
 	    String ppos = printPath();
 	    System.out.print("("+pos);
@@ -50,6 +60,7 @@ public class AStarNode implements Node
 			      approxTotalDist, distTravelled);
 	    System.out.print(ppos + ")");
 	}
+	
 	public String printPath() {
 	    String pp = "(";
 	    for (Position p:path) pp = pp + p;
