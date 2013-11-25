@@ -48,11 +48,11 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	
 	//CONSTRUCTOR
 	public BankTellerRole(Person person) {
-		mPerson = person;
+		super(person);
 	}
 
 	public BankTellerRole() {
-		
+		super(null);
 	}
 	
 	//	MESSAGES

@@ -7,8 +7,15 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import restaurant.intermediate.RestaurantCashierRole;
+import restaurant.intermediate.RestaurantCookRole;
+import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantHostRole;
+import restaurant.intermediate.RestaurantWaiterRole;
+import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import base.ConfigParser;
 import base.PersonAgent;
+import base.PersonAgent.EnumJobType;
 import base.Time;
 import base.interfaces.Person;
 
@@ -54,12 +61,56 @@ public class SimCityGui extends JFrame {
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(this);
 		
-		Person person = citypanel.masterPersonList.get(0);
-		if (person instanceof PersonAgent){
-			((PersonAgent) person).msgAnimationDone();
-			((PersonAgent) person).getCar();
-			((PersonAgent) person).msgAnimationDone();
-		}
+		/*
+		 * Hack Restaurant DAVID
+		 */
+				
+//		PersonAgent testHost = new PersonAgent();
+//		testHost.setName("testHost");
+//		RestaurantHostRole hostRole = new RestaurantHostRole(testHost);
+//		hostRole.setPerson(testHost);
+//		hostRole.setRestaurant(1);
+//		testHost.addRole(hostRole, true);
+//		testHost.startThread();
+//		
+//		PersonAgent testWaiter = new PersonAgent();
+//		testWaiter.setName("testWaiter");
+//		RestaurantWaiterRole waiterRole = new RestaurantWaiterRole(testWaiter);
+//		waiterRole.setPerson(testWaiter);
+//		waiterRole.setRestaurant(1);
+//		testWaiter.addRole(waiterRole, true);
+//		testWaiter.startThread();
+//		
+//		PersonAgent testCustomer = new PersonAgent();
+//		testCustomer.setName("testCustomer");
+//		RestaurantCustomerRole customerRole = new RestaurantCustomerRole(testCustomer);
+//		customerRole.setPerson(testCustomer);
+//		customerRole.setRestaurant(1);
+//		testCustomer.addRole(customerRole, true);
+//		testCustomer.startThread();
+//		
+//		PersonAgent testCashier = new PersonAgent();
+//		testCashier.setName("testCashier");
+//		RestaurantCashierRole cashierRole = new RestaurantCashierRole(testCashier);
+//		cashierRole.setPerson(testCashier);
+//		cashierRole.setRestaurant(1);
+//		testCashier.addRole(cashierRole, true);
+//		testCashier.startThread();
+//		
+//		PersonAgent testCook = new PersonAgent();
+//		testCook.setName("testCook");
+//		RestaurantCookRole cookRole = new RestaurantCookRole(testCook);
+//		cookRole.setPerson(testCook);
+//		cookRole.setRestaurant(1);
+//		testCook.addRole(cookRole, true);
+//		testCook.startThread();
+		
+		//Person person = citypanel.masterPersonList.get(0);
+		//if (person instanceof PersonAgent){
+			//((PersonAgent) person).msgAnimationDone();
+			//((PersonAgent) person).getCar();
+			//((PersonAgent) person).msgAnimationDone();
+//		}
 		
 /*		if (person instanceof PersonAgent){
 			//((PersonAgent) person).msgAnimationDone();

@@ -97,6 +97,7 @@ public class PersonAgent extends Agent implements Person {
 		boolean active = (mTimeShift == Time.GetShift());
 		if (jobRole != null){
 			mJobLocation = ContactList.sRoleLocations.get(jobRole);
+			jobRole.setPerson(this);
 			mRoles.put(jobRole, active);
 		}
 		
@@ -107,20 +108,20 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Get housing role and location; set active
-		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+//		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 //		Location location = 
 //		
 //		ContactList.sRoleLocations.put(mHouseRole, location);
 		
 		
-		mRoles.put(mHouseRole, true);
-		
-		//Add customer/rider role possibilities
-		mRoles.put(new BankCustomerRole(this), false);
-		mRoles.put(new HousingRenterRole(this), false);
-		mRoles.put(new MarketCustomerRole(this), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false);
+//		mRoles.put(mHouseRole, true);
+//		
+//		//Add customer/rider role possibilities
+//		mRoles.put(new BankCustomerRole(this), false);
+//		mRoles.put(new HousingRenterRole(this), false);
+//		mRoles.put(new MarketCustomerRole(this), false);
+//		mRoles.put(new TransportationBusRiderRole(this), false);
+//		mRoles.put(new RestaurantCustomerRole(this), false);
 	}
 	
 	private void initializePerson(){
@@ -151,8 +152,8 @@ public class PersonAgent extends Agent implements Person {
 		//mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 		//mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, 0));
-		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
+//		mEvents.add(new Event(EnumEventType.EAT, 0));
+//		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 		//mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
@@ -207,7 +208,10 @@ public class PersonAgent extends Agent implements Person {
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
-				if (iRole.pickAndExecuteAnAction())
+				if (((BaseRole) iRole).getPerson() == null) {
+					print("getPerson in iRole was null");
+				}
+				else if (iRole.pickAndExecuteAnAction())
 					return true;
 			}
 		}
@@ -322,12 +326,12 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void eatFood() {
-		if (isCheap() && mHouseRole.mHouse != null){
+		/*if (isCheap() && mHouseRole.mHouse != null){
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum));
 			acquireSemaphore(semAnimationDone);
-		}else{
+		}else{*/
 			//set random restaurant
 			RestaurantCustomerRole restaurantCustomerRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -335,9 +339,6 @@ public class PersonAgent extends Agent implements Person {
 					restaurantCustomerRole = (RestaurantCustomerRole) iRole;
 				}
 			}
-			//set restaurant customer role to active
-			mRoles.put(restaurantCustomerRole, true);
-			
 			
 			int restaurantChoice = 1; // SHANE: Make random
 			try {
@@ -346,15 +347,16 @@ public class PersonAgent extends Agent implements Person {
 				e1.printStackTrace();
 			} // DAVID: 1 This is where it's set
 			
-			
-			
 			try {
 				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			}
 			catch (Exception e) {
 			}
 			acquireSemaphore(semAnimationDone);
-		}
+			
+			//set restaurant customer role to active
+			mRoles.put(restaurantCustomerRole, true);
+		//}
 		
 	}
 	
@@ -419,7 +421,10 @@ public class PersonAgent extends Agent implements Person {
 	//SHANE: 4 Organize PersonAgent Accessors
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);
-		role.setPerson(this);
+		print(this.getName());
+		if (role.getPerson() == null) {
+			print("person is null in addrole");
+		}
 	}
 
 	public void removeRole(Role r) {

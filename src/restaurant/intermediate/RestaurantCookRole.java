@@ -1,5 +1,6 @@
 package restaurant.intermediate;
 
+import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.CookRole;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -12,25 +13,24 @@ public class RestaurantCookRole extends BaseRole {
 	static int DEFAULT_FOOD_QTY = 5;
 	
 	public RestaurantCookRole(Person person){
-		mPerson = person;
+		super(person);
 	}
 	
 	public RestaurantCookRole(Person person, int restaurantID){
-		mPerson = person;
+		super(person);
 		setRestaurant(restaurantID);
 	}
 	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
-			subRole = new CookRole("Cook", DEFAULT_FOOD_QTY);
+			subRole = RestaurantPanel.getInstance().cook;
+			subRole.setPerson(mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
 	}
 	
 	public void setPerson(Person person){
 		mPerson = person;
-		setRestaurant(restaurantID);
-		subRole.setPerson(person);
 	}
 	
 	public boolean pickAndExecuteAnAction() {

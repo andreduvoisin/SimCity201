@@ -1,6 +1,6 @@
 package restaurant.intermediate;
 
-import restaurant.restaurant_davidmca.roles.HostRole;
+import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -11,25 +11,24 @@ public class RestaurantHostRole extends BaseRole {
 	int restaurantID;
 	
 	public RestaurantHostRole(Person person){
-		mPerson = person;
+		super(person);
 	}
 	
 	public RestaurantHostRole(Person person, int restID){
-		mPerson = person;
+		super(person);
 		restaurantID = restID;
 	}
 	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
-			subRole = new HostRole("Host");
+			subRole = RestaurantPanel.getInstance().host;
+			subRole.setPerson(mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
 	}
 	
 	public void setPerson(Person person){
 		mPerson = person;
-		setRestaurant(restaurantID);
-		subRole.setPerson(person);
 	}
 	
 	public boolean pickAndExecuteAnAction() {
