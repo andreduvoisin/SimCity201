@@ -52,7 +52,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
 	public MarketCashierRole(Person person) {
-		mPerson = person;
+		super(person);
 		
 		//populate inventory
 		mInventory.put(EnumMarketItemType.STEAK, mBaseInventory);

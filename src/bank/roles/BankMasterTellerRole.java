@@ -20,11 +20,11 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	public List<BankTransaction> mTransactions = Collections.synchronizedList(new ArrayList<BankTransaction>());
 		
 	public BankMasterTellerRole(Person person) {
-		mPerson = person;
+		super(person);
 	}
 	
 	public BankMasterTellerRole() {
-		
+		super(null);
 	}
 
 	//	MESSAGES

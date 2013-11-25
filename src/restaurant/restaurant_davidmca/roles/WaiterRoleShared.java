@@ -18,6 +18,7 @@ import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent with Shared Data Uses Revolving Stand instead of
@@ -81,9 +82,9 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 		waiterGui = gui;
 	}
 
-	public WaiterRoleShared(String name) {
-		super();
-		this.name = name;
+	public WaiterRoleShared(Person person) {
+		super(person);
+		this.name = person.getName();
 	}
 
 	@Override

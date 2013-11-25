@@ -14,11 +14,11 @@ public class RestaurantCustomerRole extends BaseRole {
 	int restaurantID;
 
 	public RestaurantCustomerRole(Person person) {
-		mPerson = person;
+		super(person);
 	}
 	
 	public RestaurantCustomerRole(Person person, int restaurantID){
-		mPerson = person;
+		super(person);
 		try {
 			setRestaurant(restaurantID);
 		} catch (IOException e) {
@@ -28,21 +28,14 @@ public class RestaurantCustomerRole extends BaseRole {
 
 	public void setRestaurant(int restaurantID) throws IOException {
 		if (restaurantID == 1) {
-			subRole = new CustomerRole(mPerson.getName());
+			subRole = new CustomerRole(mPerson);
 			RestaurantPanel.getInstance().addCustomer((CustomerRole) subRole);
 		}
 		// TODO DAVID add if statements for all the other restaurants
 	}
 	
 	public void setPerson(Person person){
-		print("setPerson called");
-		mPerson = person;
-		try {
-			setRestaurant(restaurantID);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		subRole.setPerson(person);
+		mPerson = person;		
 	}
 
 	public boolean pickAndExecuteAnAction() {
