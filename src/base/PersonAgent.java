@@ -336,7 +336,7 @@ public class PersonAgent extends Agent implements Person {
 		if (isCheap() && mHouseRole.mHouse != null){
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
-			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum));
+			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum)); //SHANE: 2 - change these to doors
 			acquireSemaphore(semAnimationDone);
 		}else{
 			//set random restaurant
@@ -347,18 +347,14 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 			
-			int restaurantChoice = 1; // SHANE: Make random
+			int restaurantChoice = 1; // SHANE DAVID: Make random later
 			try {
 				restaurantCustomerRole.setRestaurant(restaurantChoice);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			
-//			try {
-				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-//			}
-//			catch (Exception e) {
-//			}
+			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
 			
 			//set restaurant customer role to active
@@ -368,7 +364,13 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void depositCheck() {
-
+		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
+		acquireSemaphore(semAnimationDone);
+		mAtJob = false;
+		mPersonGui.setPresent(false);
+		
+		//SHANE REX: Start bank animation
+		
 	}
 
 	private void throwParty() {
@@ -388,16 +390,14 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeRent() {
-		mHouseRole.msgTimeToCheckRent();
+		mHouseRole.msgTimeToCheckRent(); //this role is always active
 	}
 	
 	public void invokeMaintenance() {
-		
 		if (mHouseRole.mHouse != null) {
-			mHouseRole.msgTimeToMaintain();
+			mHouseRole.msgTimeToMaintain(); //this role is always active
 		}
 	}
-	
 	
 	private List<Person> getBestFriends(){
 		List<Person> bestFriends = new ArrayList<Person>();

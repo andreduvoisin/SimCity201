@@ -1,5 +1,10 @@
 package base;
 
+import restaurant.intermediate.RestaurantCashierRole;
+import restaurant.intermediate.RestaurantCookRole;
+import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantHostRole;
+import restaurant.intermediate.RestaurantWaiterRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -7,6 +12,10 @@ public class BaseRole implements Role {
 
 	protected Person mPerson;
 	private Location mLocation;
+	
+	public BaseRole(){
+		mPerson = null;
+	}
 	
 	public BaseRole(Person person) {
 		mPerson = person;
@@ -64,6 +73,17 @@ public class BaseRole implements Role {
 			sb.append(StringUtil.stackTraceString(e));
 		}
 		System.out.print(sb.toString());
+	}
+	
+	public boolean isRestaurantPerson(){ //DAVID: Put this in base rest class
+		if ((this instanceof RestaurantCashierRole) ||
+				(this instanceof RestaurantCookRole) ||
+				(this instanceof RestaurantWaiterRole) ||
+				(this instanceof RestaurantHostRole) ||
+				(this instanceof RestaurantCustomerRole)){
+			return true;
+		}
+		return false;
 	}
 
 }

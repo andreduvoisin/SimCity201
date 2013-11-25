@@ -21,13 +21,13 @@ import java.util.concurrent.Semaphore;
 //Waiter Agent also serves food once notified by cook that order is ready.
 
 
-public class WaiterRole1 extends BaseRole implements Waiter{
+public class WaiterRole2 extends BaseRole implements Waiter{
 	private Semaphore atLocation = new Semaphore(0,true);
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
-	List<MyCustomer> customers = new ArrayList<MyCustomer>();
-	List<Order> orders = new ArrayList<Order>();
+	public List<MyCustomer> customers = new ArrayList<MyCustomer>();
+	public List<Order> orders = new ArrayList<Order>();
 	Cook cook;
 	Host host;
 	Cashier cashier;
@@ -35,11 +35,11 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	
 	static Map<String, Integer> menu = new HashMap<String, Integer>();
 	
-	WaiterState state = WaiterState.good;
+	public WaiterState state = WaiterState.good;
 	
 	private WaiterGui_ waiterGui = null;
 
-	public WaiterRole1(String name, Person person) {
+	public WaiterRole2(String name, Person person) {
 		super(person);
 		this.name = name;
 		menu.put("Steak", new Integer(16));
@@ -47,7 +47,7 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	public WaiterRole1(String name, Host host, Cook cook, Person person){
+	public WaiterRole2(String name, Host host, Cook cook, Person person){
 		super(person);
 		this.name = name;
 		this.cook = cook;
@@ -57,10 +57,6 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#getName()
-	 */
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -265,7 +261,7 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 		while(!waiterGui.atTable(5)){
 			//Busy Wait//
 		}
-		cook.HereIsOrder(this, c.choice, c.table);
+		cook.addToStand(this, c.choice, c.table);
 		GetBill(c);
 	}
 	private void GetBill(MyCustomer c){
@@ -370,24 +366,12 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	}
 	
 	//UTILITIES
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setHost(restaurant.interfaces.Host)
-	 */
-	@Override
 	public void setHost (Host host){
 		this.host = host;
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setCook(restaurant.interfaces.Cook)
-	 */
-	@Override
 	public void setCook (Cook cook){
 		this.cook = cook;
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#setCashier(restaurant.interfaces.Cashier)
-	 */
-	@Override
 	public void setCashier (Cashier cashier){
 		this.cashier = cashier;
 	}
@@ -412,6 +396,10 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	}
 	public int getNumber(){
 		return number;
+	}
+	
+	public void releaseSem(){
+		atLocation.release();
 	}
 }
 

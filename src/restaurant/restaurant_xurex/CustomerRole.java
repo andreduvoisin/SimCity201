@@ -6,6 +6,7 @@ import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -55,8 +56,8 @@ public class CustomerRole extends BaseRole implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerRole(String name){
-		super();
+	public CustomerRole(String name, Person person){
+		super(person);
 		this.name = name;
 		if(IsInt(name)){
 			this.cash = (float) Integer.parseInt(name);

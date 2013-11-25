@@ -55,6 +55,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	public MarketCashierRole(Person person, EnumMarketType type) {
 		super(person);
+		mPerson = person;
 		mMarketType = type;
 		
 		//populate inventory

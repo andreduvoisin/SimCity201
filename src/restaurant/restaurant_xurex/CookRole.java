@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
@@ -77,8 +78,8 @@ public class CookRole extends BaseRole implements Cook {
 	public List<Market> markets = new ArrayList<Market>();
 
 	//CONSTRUCTORS
-	public CookRole(String name) {
-		super();
+	public CookRole(String name, Person person) {
+		super(person);
 		this.name = name;
 		//Food Constructor(String food, Low Threshold, Initial Quantity, Capacity, Cook Time)//
 		Inventory.put("Steak", 	 new Food("Steak",   5, 10, 15, 15));
@@ -92,8 +93,8 @@ public class CookRole extends BaseRole implements Cook {
 		runTimer();
 		
 	}
-	public CookRole(String name, String food) {
-		super();
+	public CookRole(String name, String food, Person person) {
+		super(person);
 		this.name = name;
 		Inventory.put("Steak", new Food("Steak", 5, 5, 2, 15));
 		Inventory.put("Chicken", new Food("Chicken", 5, 10, 15, 10));
