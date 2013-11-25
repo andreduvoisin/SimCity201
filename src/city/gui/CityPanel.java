@@ -33,6 +33,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityMarket(75, 200, "Sears!"));
 		CityPerson cp = new CityPerson(40, 40, "Bob");
 		masterPersonList.get(0).setComponent(cp);
+		
 		this.addMoving(cp);
 		
 		for (int i = 30; i < 1000; i += 500) {
