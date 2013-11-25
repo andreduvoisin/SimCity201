@@ -16,11 +16,6 @@ public class RestaurantCookRole extends BaseRole {
 		super(person);
 	}
 	
-	public RestaurantCookRole(Person person, int restaurantID){
-		super(person);
-		setRestaurant(restaurantID);
-	}
-	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = RestaurantPanel.getInstance().cook;

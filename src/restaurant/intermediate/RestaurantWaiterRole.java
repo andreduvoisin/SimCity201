@@ -18,15 +18,6 @@ public class RestaurantWaiterRole extends BaseRole {
 	public RestaurantWaiterRole(Person person) {
 		super(person);
 	}
-	
-	public RestaurantWaiterRole(Person person, int restaurantID){
-		super(person);
-		try {
-			setRestaurant(restaurantID);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	public void setRestaurant(int restaurantID) throws IOException {
 		if (restaurantID == 1) {

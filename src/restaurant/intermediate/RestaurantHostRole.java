@@ -14,11 +14,6 @@ public class RestaurantHostRole extends BaseRole {
 		super(person);
 	}
 	
-	public RestaurantHostRole(Person person, int restID){
-		super(person);
-		restaurantID = restID;
-	}
-	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = RestaurantPanel.getInstance().host;

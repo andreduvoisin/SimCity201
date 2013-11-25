@@ -15,11 +15,6 @@ public class RestaurantCashierRole extends BaseRole {
 		super(person);
 	}
 	
-	public RestaurantCashierRole(Person person, int restaurantID){
-		super(person);
-		setRestaurant(restaurantID);
-	}
-	
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = RestaurantPanel.getInstance().cash;
