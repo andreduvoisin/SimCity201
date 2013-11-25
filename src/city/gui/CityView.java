@@ -10,14 +10,14 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-import restaurant.restaurant_davidmca.gui.RestaurantGui;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
-import bank.gui.BankPanel;
 import market.gui.MarketPanel;
 import market.gui.MarketPanel.EnumMarketType;
+import restaurant.restaurant_davidmca.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import bank.gui.BankPanel;
 
 public class CityView extends JPanel implements MouseListener, ActionListener {
 
@@ -58,8 +58,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		for (String key:cards.keySet()) {
 			this.add(cards.get(key), key);
 		}
-		
-
+	
 		layout.show(this, "null");
 	}
 	
