@@ -13,12 +13,14 @@ import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantPanel;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant customer agent.
@@ -61,37 +63,49 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 	//GUI
 	private CustomerGui mCustomerGui;
 	private LabelGui mFoodLabelGui;
-	private SmilehamRestaurantGui mGUI;
+//	private SmilehamRestaurantGui mGUI;
+	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	/**
 	 * Constructor for CustomerAgent class
+	 * @param person 
 	 *
 	 * @param name name of the customer
 	 * @param mGUI  reference to the customergui so the customer can send it messages
 	 */
-	public SmilehamCustomerRole(String name, SmilehamHostRole host, Cashier cashier, SmilehamRestaurantGui gui){
-		super();
-		mName = name;
-		mGUI = gui;
+	public SmilehamCustomerRole(Person person, String name, SmilehamAnimationPanel animationPanel){
+		super(person);
+
+		mAnimationPanel = SmilehamRestaurantPanel.mAnimationPanel;
+//		mAnimationPanel = animationPanel;
+
+		//SHANE: 5 grabbing at thin air...
+		mName = "Customer";
+		mHost = SmilehamRestaurantPanel.getHost();
+		mCashier = SmilehamRestaurantPanel.getCashier();
+		
+		
+//		mName = name;
+//		mGUI = gui;
 		print("Constructor");
 		
 		//set up customer
-		mCustomerGui = new CustomerGui(this, mGUI);
-		mGUI.getAnimationPanel().addGui(mCustomerGui);
+		mCustomerGui = new CustomerGui(this);
+		mAnimationPanel.addGui(mCustomerGui);
 		
 		mHunger = cHUNGER_LEVEL;
 		mTableNum = -1;
 		mTimer = new Timer();
 		mState = EnumAgentState.DoingNothing;
 		mEvent = EnumAgentEvent.none;
-		mHost = host;
-		mCashier = cashier;
+//		mHost = host;
+//		mCashier = cashier;
 		mIsHungry = false;
 		
 		//Money
-		int cash = mGUI.getRestaurantPanel().getAgentPanel().getHackCustomerCash(); //HACK: customer cash
+		int cash = 100;//RestaurantPanel.getAgentPanel().getHackCustomerCash(); //HACK: customer cash
 		if (cash == -1){
 			Random rand = new Random();
 			cash = rand.nextInt(cMAX_CASH);
@@ -99,6 +113,8 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		mCash = cash;
 		
 		mCheck = null; //error checking
+		
+		
 		
 //		startThread();
 	}
@@ -119,7 +135,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 	public void msgRestaurantFull(){
 		Random rand = new Random();
 		boolean stay = rand.nextBoolean();
-		stay = (mGUI.getRestaurantPanel().getAgentPanel().getHackBusyStay()); //HACK: busy stay
+//		stay = (mGUI.getRestaurantPanel().getAgentPanel().getHackBusyStay()); //HACK: busy stay
 		stay = true; //HACK: stay in waiting area
 		if (stay) return;
 		mEvent = EnumAgentEvent.restaurantFullLeave;
@@ -316,17 +332,15 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		print("Action: orderFood()");
 		mEvent = EnumAgentEvent.none; //to prevent multiple orderings
 		
-		if(mGUI.getRestaurantPanel().getAgentPanel().getHackFlake() == false){ //HACK: flake
-			//Check what customer can pay for
-			List<EnumFoodOptions> foodList = new ArrayList<EnumFoodOptions>();
-			for (EnumFoodOptions iFood : mMenu.getMenuOptions()){
-				if (mMenu.getMenu().get(iFood) > mCash){
-					foodList.add(iFood);
-				}
+		//Check what customer can pay for
+		List<EnumFoodOptions> foodList = new ArrayList<EnumFoodOptions>();
+		for (EnumFoodOptions iFood : mMenu.getMenuOptions()){
+			if (mMenu.getMenu().get(iFood) > mCash){
+				foodList.add(iFood);
 			}
-			for (EnumFoodOptions iFood : foodList){
-				mMenu.removeChoice(iFood);
-			}
+		}
+		for (EnumFoodOptions iFood : foodList){
+			mMenu.removeChoice(iFood);
 		}
 		
 		//If nothing available to buy (or can't pay), leave restaurant
@@ -341,7 +355,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		mChoice = mMenu.getMenuOptions().get(choiceNum);
 		
 		if (mFoodLabelGui != null) mFoodLabelGui.remove();
-		mFoodLabelGui = new LabelGui(mChoice.toString() + "?", mCustomerGui.getX(), mCustomerGui.getY(), mGUI);
+		mFoodLabelGui = new LabelGui(mChoice.toString() + "?", mCustomerGui.getX(), mCustomerGui.getY(), mAnimationPanel);
 		mWaiter.msgHereIsMyChoice((Customer)this, mChoice);
 	}
 

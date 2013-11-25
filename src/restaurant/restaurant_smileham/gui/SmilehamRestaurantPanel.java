@@ -18,34 +18,34 @@ import restaurant.restaurant_smileham.roles.SmilehamHostRole;
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
-public class RestaurantPanel extends JPanel {
+public class SmilehamRestaurantPanel extends JPanel {
 
     //Host, cook, waiters and customers
-    private SmilehamHostRole mHost;
-    private SmilehamCookRole mCook;
-    private SmilehamCashierRole mCashier;
+    private static SmilehamHostRole mHost;
+    private static SmilehamCookRole mCook;
+    private static SmilehamCashierRole mCashier;
     
     private Vector<SmilehamCustomerRole> mCustomers = new Vector<SmilehamCustomerRole>();
 
     private JPanel mMenuPanel;
-    private AgentPanel mAgentPanel;
+    private SmilehamAgentPanel mAgentPanel;
     
-    private SmilehamRestaurantGui mGUI; //reference to main gui
+    static public SmilehamAnimationPanel mAnimationPanel; //reference to main gui
 
     //CONSTRUCTOR
-    public RestaurantPanel(SmilehamRestaurantGui gui) {
+    public SmilehamRestaurantPanel(SmilehamAnimationPanel animationPanel) {
     	//super
-    	mGUI = gui;
+    	mAnimationPanel = animationPanel;
     	this.setLayout(new GridLayout(1, 2, 20, 20));
     	
     	//Host
-    	mHost = new SmilehamHostRole("Shane", mGUI);
+    	mHost = new SmilehamHostRole("Shane", mAnimationPanel);
     	
 		//Add Cook
-		mCook = new SmilehamCookRole("Mr. Ramen", mGUI);
+		mCook = new SmilehamCookRole("Mr. Ramen", mAnimationPanel);
 		
 		//Add Cashier
-		mCashier = new SmilehamCashierRole("Ke$$$ha", mGUI);
+		mCashier = new SmilehamCashierRole("Ke$$$ha", mAnimationPanel);
 //		mCashier.startThread();
 	    
         //rest label - includes menu, host, and cook info
@@ -67,7 +67,7 @@ public class RestaurantPanel extends JPanel {
 	        mMenuPanel.add(new JLabel("           "), BorderLayout.WEST);
         
 	    //mCustomerWrapperPanel
-	    mAgentPanel = new AgentPanel(this);
+	    mAgentPanel = new SmilehamAgentPanel(this, mAnimationPanel);
 	        
         add(mAgentPanel); //on left
         add(mMenuPanel); //on right
@@ -77,7 +77,7 @@ public class RestaurantPanel extends JPanel {
     
     //GETTERS AND SETTERS
 
-	public SmilehamHostRole getHost() {
+    static public SmilehamHostRole getHost() {
 		return mHost;
 	}
 
@@ -85,19 +85,19 @@ public class RestaurantPanel extends JPanel {
 		return mCustomers;
 	}
 	
-	public SmilehamRestaurantGui getGui(){
-		return mGUI;
-	}
+//	static public SmilehamRestaurantGui getGui(){
+//		return mGUI;
+//	}
 	
-	public AgentPanel getAgentPanel(){
+	public SmilehamAgentPanel getAgentPanel(){
 		return mAgentPanel;
 	}
 
-	public SmilehamCookRole getCook() {
+	static public SmilehamCookRole getCook() {
 		return mCook;
 	}
 
-	public SmilehamCashierRole getCashier() {
+	static public SmilehamCashierRole getCashier() {
 		return mCashier;
 	}
 

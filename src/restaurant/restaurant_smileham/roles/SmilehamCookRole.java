@@ -17,7 +17,7 @@ import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Market;
 import restaurant.restaurant_smileham.interfaces.Waiter;
@@ -48,19 +48,19 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 
 	//GUI
 	private CookGui mCookGui;
-	private SmilehamRestaurantGui mGUI;
+	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamCookRole(String name, SmilehamRestaurantGui gui){
+	public SmilehamCookRole(String name, SmilehamAnimationPanel animationPanel){
 		super();
 		mName = name;
-		mGUI = gui;
+		mAnimationPanel = animationPanel;
 		print("Constructor");
 		
 		//Set up Cook
 		mCookGui = new CookGui(this);
-    	mGUI.getAnimationPanel().addGui(mCookGui);
+    	mAnimationPanel.addGui(mCookGui);
     	
     	//Set up inventory map
     	mInventory = new HashMap<EnumFoodOptions, Food>(EnumFoodOptions.values().length); //4 
@@ -73,8 +73,8 @@ public class SmilehamCookRole extends BaseRole implements Cook {
     	mMarkets = new ArrayList<Market>();
     	mWaiters = new HashSet<Waiter>();
     	
-    	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y, mGUI);
-    	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y, mGUI);
+    	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y, mAnimationPanel);
+    	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y, mAnimationPanel);
     	
 		mTimer = new Timer();
 		mOrders = new HashSet<Order>();
@@ -215,7 +215,7 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 	    			SmilehamMarketRole.cCHICKEN_QUANTITY, 
 	    			SmilehamMarketRole.cSALAD_QUANTITY, 
 	    			SmilehamMarketRole.cPIZZA_QUANTITY, 
-	    			mGUI);
+	    			mAnimationPanel);
 	    	mMarkets.add(market);
 	    	stateChanged();
 		}
