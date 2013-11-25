@@ -43,7 +43,7 @@ public class SimCityGui extends JFrame {
 		Time globaltime = new Time(citypanel.masterPersonList);
 		
 		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
+		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 7;
 		this.add(CP, mGridBagConstraints);
 		
 		mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
