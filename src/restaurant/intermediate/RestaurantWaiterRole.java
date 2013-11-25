@@ -22,10 +22,10 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 		if (restaurantID == 1) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
-				subRole = new WaiterRole(mPerson);
+				subRole = new WaiterRole(super.mPerson);
 				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 			} else {
-				subRole = new WaiterRoleShared(mPerson);
+				subRole = new WaiterRoleShared(super.mPerson);
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
 			}

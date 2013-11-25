@@ -96,6 +96,7 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case RESTAURANT:
 				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
 				((RestaurantBaseInterface) mJobRole).setRestaurant(1);
 				//DAVID set proper restaurant
 				break;
@@ -152,7 +153,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui = new CityPerson(400, 400, mName); //SHANE: Hardcoded start place
 		
 		// Event Setup
-		mEvents = new TreeSet<Event>();
+		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		mEvents.add(new Event(EnumEventType.JOB, 0));
@@ -166,9 +167,7 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
-//		if (Time.GetShift() == 0) {
-//			// resetting of variables?
-//		}
+		mRoleFinished = true;
 		if (Time.GetShift() == mTimeShift) {
 			for(Role iRole : mRoles.keySet()){
 				if (iRole == mJobRole){
@@ -176,6 +175,13 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 		}
+		//Leave job
+		if (mAtJob){
+			mAtJob = false;
+			mRoles.put(mJobRole, false); //set job role to false;
+			mPersonGui.setPresent(true);
+		}
+		
 		stateChanged();
 	}
 
@@ -188,16 +194,16 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
+	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
+		mRoleFinished = true;
+	}
+	
 	public void msgHereIsPayment(int senderSSN, double amount){
 		mCash += amount;
 	}
 	
 	public void msgOverdrawnAccount(double loan) {
 		mLoan += loan;
-	}
-	
-	public void msgRoleFinished(){
-		mRoleFinished = true;
 	}
 
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
@@ -228,6 +234,8 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		
+		//SHANE: 4 last choice - go home
+		
 		return false;
 	}
 
@@ -235,6 +243,7 @@ public class PersonAgent extends Agent implements Person {
 
 	private synchronized void processEvent(Event event) {
 		//System.out.println(event.mEventType.toString());
+		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar(); //SHANE: 1 get car
@@ -244,6 +253,7 @@ public class PersonAgent extends Agent implements Person {
 		else if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
+				mAtJob = true;
 				goToJob(); //SHANE: 1 go to job
 			}
 			mEvents.add(new Event(event, 24));
@@ -305,8 +315,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		
-		//set city person invisible
-		mPersonGui.setPresent(false);
+		mPersonGui.setPresent(false); //set city person invisible
 		//lock person until role is finished
 		mRoleFinished = false;
 		
@@ -366,7 +375,6 @@ public class PersonAgent extends Agent implements Person {
 	private void depositCheck() {
 		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
 		acquireSemaphore(semAnimationDone);
-		mAtJob = false;
 		mPersonGui.setPresent(false);
 		
 		//SHANE REX: Start bank animation

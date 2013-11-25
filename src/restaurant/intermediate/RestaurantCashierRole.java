@@ -17,7 +17,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = RestaurantPanel.getInstance().cash;
-			subRole.setPerson(mPerson);
+			subRole.setPerson(super.mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants
 	}

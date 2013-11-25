@@ -1,6 +1,5 @@
 package base.interfaces;
 
-import base.PersonAgent;
 
 public interface Role {
 
