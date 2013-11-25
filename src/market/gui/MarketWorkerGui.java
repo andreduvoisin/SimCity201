@@ -98,20 +98,19 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
-	//for(EnumMarketItemType item : mOrder.mItems.keySet()) {
-			EnumMarketItemType item = EnumMarketItemType.CHICKEN;
+	for(EnumMarketItemType item : mOrder.mItems.keySet()) {
 			MarketCoordinates c = mItems.getItemCoordinates(item);
 			xDestination = c.getX()-30;
 			yDestination = c.getY();
 			mCommand = EnumCommand.goToItem;
-	/*		try {
+			try {
 				gettingItem.acquire();
 			}
 			catch(InterruptedException e) {
 				e.printStackTrace();
 			}
-	*/		mItems.decreaseItemCount(item);		
-	//	}
+			mItems.decreaseItemCount(item);		
+		}
 	}
 	
 	//ANGELICA: add in parameter

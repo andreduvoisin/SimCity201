@@ -69,9 +69,6 @@ public class MarketPanel extends CityCard implements ActionListener {
 	}
 	
 	public void testGuis() {
-		MarketWorkerGui m = (MarketWorkerGui)guis.get(3);
-		m.setItemsGui((MarketItemsGui)guis.get(0));
-		m.DoFulfillOrder(null);
 		MarketCustomerGui c = (MarketCustomerGui)guis.get(2);
 		c.DoWaitForOrder();
 	}
