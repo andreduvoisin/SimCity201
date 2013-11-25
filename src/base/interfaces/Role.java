@@ -15,4 +15,6 @@ public interface Role {
 
 	public abstract int getSSN();
 
+	public abstract boolean isRestaurantPerson();
+
 }
