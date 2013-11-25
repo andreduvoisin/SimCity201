@@ -38,6 +38,7 @@ public class HousingBaseRole extends BaseRole {
 
 	public void msgEatAtHome() {
 		mHungry = true;
+		System.out.println(mHouse.mHouseNum);
 		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}

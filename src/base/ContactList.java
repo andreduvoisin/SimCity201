@@ -17,8 +17,9 @@ public class ContactList {
 	static List<Person> sPeople; //list of people
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
-	public static final Location cBANK_LOCATION = new Location(10,10); //SHANE: Bank coordinates go here
-	public static final Location cMARKET_LOCATION = new Location(300,300); //SHANE: Market coordinates
+	public static final Location cBANK_LOCATION = new Location(200,100);
+	public static final Location cMARKET_LOCATION = new Location(100,400);
+	public static final Location cCARDEALERSHIP_LOCATION = new Location(400,400);
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	
@@ -28,17 +29,17 @@ public class ContactList {
 		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
 			int xCord, yCord = 0;
 			if (iHouse / 20 == 0) {					//North
-				xCord = 50 + 25 * (iHouse % 20);
+				xCord = 100 + 20 * (iHouse % 20);
 				yCord = 0;
 			} else if (iHouse / 20 == 2) {			//South
-				xCord = 50 + 25 * (iHouse % 20);
+				xCord = 100 + 20 * (iHouse % 20);
 				yCord = 580;
 			} else if (iHouse / 20 == 3) {			//West
 				xCord = 0;
-				yCord = 50 + 25 * (iHouse % 20);
+				yCord = 100 + 20 * (iHouse % 20);
 			} else {								//East
 				xCord = 580;
-				yCord = 50 + 25 * (iHouse % 20);
+				yCord = 100 + 20 * (iHouse % 20);
 			}
 			Location houseLocation = new Location(xCord, yCord);
 			list.add(houseLocation);
@@ -47,14 +48,14 @@ public class ContactList {
 	}
 	
 	//setup job locations
-	static final Location cRESTAURANT_LOCATION1 = new Location(0,0); //SHANE: Restaurant locations go here
-	static final Location cRESTAURANT_LOCATION2 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION3 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION4 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION5 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION6 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION7 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION8 = new Location(0,0);
+	static final Location cRESTAURANT_LOCATION1 = new Location(100,100);
+	static final Location cRESTAURANT_LOCATION2 = new Location(100,200);
+	static final Location cRESTAURANT_LOCATION3 = new Location(100,300);
+	static final Location cRESTAURANT_LOCATION4 = new Location(215,420);
+	static final Location cRESTAURANT_LOCATION5 = new Location(310,420);
+	static final Location cRESTAURANT_LOCATION6 = new Location(420,100);
+	static final Location cRESTAURANT_LOCATION7 = new Location(420,200);
+	static final Location cRESTAURANT_LOCATION8 = new Location(420,300);
 	static {
 		List<Location> list = new ArrayList<Location>();
 		list.add(cRESTAURANT_LOCATION1);
@@ -67,9 +68,6 @@ public class ContactList {
 		list.add(cRESTAURANT_LOCATION8);
 		cRESTAURANT_LOCATIONS = Collections.unmodifiableList(list);
 	}
-	
-	//----------------------------------------------------------SIZING----------------------------------------------------------
-	
 	
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
