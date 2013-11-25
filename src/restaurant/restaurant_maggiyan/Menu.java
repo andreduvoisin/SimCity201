@@ -1,4 +1,4 @@
-package restaurant.restaurant_maggiyan;
+package restaurant_maggiyan;
 
 import java.util.*;
 

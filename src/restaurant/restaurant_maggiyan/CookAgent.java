@@ -1,49 +1,41 @@
-package restaurant.restaurant_maggiyan;
+package restaurant_maggiyan;
 
 import agent.Agent;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import restaurant.restaurant_maggiyan.Order;
-import restaurant.restaurant_maggiyan.Order.state;
-import restaurant.restaurant_maggiyan.gui.CookGui;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Market;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant_maggiyan.gui.CookGui;
+import restaurant_maggiyan.interfaces.Cook;
+import restaurant_maggiyan.interfaces.Market;
+import restaurant_maggiyan.interfaces.Waiter;
 
 
 public class CookAgent extends Agent implements Cook{
 	private String n; 
-	
-	//Cooking Food
 	private int foodCookingTime = 10; 
-	private Timer timer = new Timer(); 
-	
-	//Market and Inventory
 	private int maxFoodQty = 4; 
 	private int inventoryLOW = 2; 
 	private int marketCounter = 0; 
 	private int totalMarkets = 3; 
 	private boolean stockInventory = false; 
-	private boolean allMarketsClosed = false; 
-	
-	//For Cook Animation
-	CookGui cookGui; 
+	private boolean allMarketsClosed = false;
+	private int cookingPosition = 0; 
 	private boolean orderPickedUp = false; 
+	
 	private Semaphore animationReady = new Semaphore(0, true);
 	
 	private List<Market> markets = new ArrayList<Market>(); 
+	public enum state {pending, cooking, done, finished};
 	
-	//Revolving Stand 
-	private Timer RStandTimer = new Timer();  
+	public Timer timer = new Timer(); 
+	CookGui cookGui; 
 	
 	private Map<String, Food> FoodMap = new HashMap<String, Food>();
 	private Map<String, Integer> ShoppingMap = new HashMap<String, Integer>();
 	public Map<String, Integer> restockMap = null;  
 	
-	private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
-	public List<Order> rStandOrders = Collections.synchronizedList(new ArrayList<Order>());
+	List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	
 	public CookAgent(String name){
 		this.n = name;
@@ -57,13 +49,6 @@ public class CookAgent extends Agent implements Cook{
 		FoodMap.put("Chicken", chicken);
 		FoodMap.put("Salad", salad);
 		FoodMap.put("Pizza", pizza);
-		
-		//Enables cook to periodically check for orders on revolving stand
-		RStandTimer.scheduleAtFixedRate(new TimerTask(){
-			public void run(){
-				stateChanged(); 
-			}
-		}, 0,  10000);
 		
 		startThread(); 
 	}
@@ -173,20 +158,8 @@ public class CookAgent extends Agent implements Cook{
 					}				
 				}
 			}
+			
 		}
-		
-		if(!rStandOrders.isEmpty()){
-			synchronized (rStandOrders){
-				for(Order order: rStandOrders){
-					if(order.s == state.pending)
-					{
-						AddOrder(order);   
-						return true; 
-					}
-				}
-			}
-		}
-		
 		if(restockMap != null){
 			Restock(); 
 			return true; 
@@ -196,11 +169,6 @@ public class CookAgent extends Agent implements Cook{
 	}
 
 	// Actions
-	private void AddOrder(Order order){
-		orders.add(order); 
-		rStandOrders.remove(order);
-	}
-	
 	private void StockInventory(){
 		print("Stocking Inventory"); 
 		stockInventory = false; 
@@ -303,10 +271,6 @@ public class CookAgent extends Agent implements Cook{
 	}
 	
 	//Utilities
-	public void addRStandOrder(Waiter w, String c, int t){
-		rStandOrders.add(new Order(w, c, t)); 
-	}
-	
 	public Order findOrder(int pos){
 		for(Order o: orders){
 			if(o.cookingPos == pos){
@@ -335,5 +299,26 @@ public class CookAgent extends Agent implements Cook{
 			qty = q; 
 		}
 		
+	}
+	
+	private class Order{
+		Order(Waiter waiter, String choice, int tableNum){
+			w = waiter;
+			c = choice; 
+			table = tableNum; 
+			s = state.pending;
+			pickedUp = false; 
+			if(cookingPosition < 3){
+				cookingPos = cookingPosition; 
+				cookingPosition++; 
+			}
+			
+		}
+		boolean pickedUp; 
+		int cookingPos; 
+		Waiter w; 
+		String c; 
+		int table; 
+		state s; 
 	}
 }

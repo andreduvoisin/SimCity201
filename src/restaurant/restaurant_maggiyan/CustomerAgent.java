@@ -1,11 +1,12 @@
-package restaurant.restaurant_maggiyan;
+package restaurant_maggiyan;
 
-import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.gui.CustomerGui;
-import restaurant.restaurant_maggiyan.gui.RestaurantGui;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant_maggiyan.Check;
+import restaurant_maggiyan.Menu;
+import restaurant_maggiyan.CookAgent.state;
+import restaurant_maggiyan.gui.CustomerGui;
+import restaurant_maggiyan.gui.RestaurantGui;
+import restaurant_maggiyan.interfaces.Customer;
+import restaurant_maggiyan.interfaces.Waiter;
 import agent.Agent;
 
 import java.util.Timer;

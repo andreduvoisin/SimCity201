@@ -1,9 +1,10 @@
-package restaurant.restaurant_maggiyan;
+package restaurant_maggiyan;
 
 import agent.Agent;
-import restaurant.restaurant_maggiyan.gui.WaiterGui;
-import restaurant.restaurant_maggiyan.interfaces.Host;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant_maggiyan.gui.WaiterGui;
+import restaurant_maggiyan.interfaces.Customer;
+import restaurant_maggiyan.interfaces.Host;
+import restaurant_maggiyan.interfaces.Waiter;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -19,8 +20,8 @@ public class HostAgent extends Agent implements Host{
 	static final int NTABLES = 3;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
-	public List<CustomerAgent> waitingCustomers
-	= new ArrayList<CustomerAgent>();
+	public List<Customer> waitingCustomers
+	= new ArrayList<Customer>();
 	public Collection<Table> tables;
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
@@ -76,28 +77,15 @@ public class HostAgent extends Agent implements Host{
 		return null; 
 	}
 	
-//	public MyWaiter findLeastBusyWaiter(){
-//		for(MyWaiter waiter: waiters){
-////			if(waiter.onBreak = true){
-////				//Skip waiter
-////			}
-//			if(waiter.w.getCustomersSize() < minCustomer){
-//				leastBusyWaiter = waiter; 
-//				minCustomer = waiter.w.getCustomersSize();
-//			}
-//		}
-//		return leastBusyWaiter;
-//	}
-	
 	// Messages
 	
 	//From Customer 
-	public void msgIWantFood(CustomerAgent cust) {
+	public void msgIWantFood(Customer cust) {
 		waitingCustomers.add(cust);
 		stateChanged();
 	}
 	
-	public void msgLeaving(CustomerAgent customer){
+	public void msgLeaving(Customer customer){
 		waitingCustomers.remove(customer); 
 		stateChanged(); 
 	}
@@ -182,7 +170,7 @@ public class HostAgent extends Agent implements Host{
 				for(MyWaiter waiter: waiters){
 					if(waiter.s != WaiterState.busy){
 						if(!waitingCustomers.isEmpty()){
-							for(CustomerAgent customer: waitingCustomers){
+							for(Customer customer: waitingCustomers){
 								for(Table table: tables){
 									if(!table.isOccupied()){
 										if(!waiter.onBreak){
@@ -224,13 +212,13 @@ public class HostAgent extends Agent implements Host{
 	}
 
 	// Actions
-	private void NotifyCustomer(CustomerAgent customer){
+	private void NotifyCustomer(Customer customer){
 		print("Restaurant is full, please wait"); 
 		customer.msgRestaurantFull(); 
 	}
 	
 	private void removeImpatientCustomer(){
-		for(CustomerAgent c: waitingCustomers){
+		for(Customer c: waitingCustomers){
 			if(c.getName().equals("Impatient")){
 				waitingCustomers.remove(c); 
 			}
@@ -250,7 +238,7 @@ public class HostAgent extends Agent implements Host{
 		}
 	}
 	
-	private void callWaiter(MyWaiter waiter, CustomerAgent cust, Table table){
+	private void callWaiter(MyWaiter waiter, Customer cust, Table table){
 		print("Calling Waiter");
 		table.setOccupant(cust);
 		waitingCustomers.remove(0);
@@ -271,14 +259,14 @@ public class HostAgent extends Agent implements Host{
 	}
 
 	private class Table {
-		CustomerAgent occupiedBy;
+		Customer occupiedBy;
 		int tableNumber; 
 
 		Table(int tableNumber) {
 			this.tableNumber = tableNumber;
 		}
 
-		void setOccupant(CustomerAgent cust) {
+		void setOccupant(Customer cust) {
 			occupiedBy = cust;
 		}
 
@@ -286,7 +274,7 @@ public class HostAgent extends Agent implements Host{
 			occupiedBy = null;
 		}
 
-		CustomerAgent getOccupant() {
+		Customer getOccupant() {
 			return occupiedBy;
 		}
 

@@ -1,12 +1,12 @@
-package restaurant.restaurant_maggiyan;
+package restaurant_maggiyan;
 
 import agent.Agent;
 
 import java.util.*;
 
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Market;
+import restaurant_maggiyan.interfaces.Cashier;
+import restaurant_maggiyan.interfaces.Cook;
+import restaurant_maggiyan.interfaces.Market;
 
 /**
  * Restaurant Host Agent
