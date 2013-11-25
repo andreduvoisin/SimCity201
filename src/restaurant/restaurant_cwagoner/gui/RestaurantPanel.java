@@ -1,6 +1,6 @@
 package restaurant.restaurant_cwagoner.gui;
 
-import restaurant.restaurant_cwagoner.*;
+import restaurant.restaurant_cwagoner.roles.*;
 
 import javax.swing.*;
 
@@ -19,13 +19,14 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     private RestaurantGui mainGui; // Reference to main GUI
     
     // Host, cook, waiters, customers, markets
-    private HostAgent host = new HostAgent("Sarah");
-    private CashierAgent cashier = new CashierAgent();
-    private CookAgent cook = new CookAgent();
+    private HostRole host = new HostRole("Sarah");
+    private CashierRole cashier = new CashierRole();
+    private CookRole cook = new CookRole();
 
-    private List<CustomerAgent> Customers = new ArrayList<CustomerAgent>();
-    private List<WaiterAgent> Waiters = new ArrayList<WaiterAgent>();
-    private List<MarketAgent> Markets = new ArrayList<MarketAgent>();
+    private List<CustomerRole> Customers = new ArrayList<CustomerRole>();
+    private List<WaiterRole> Waiters = new ArrayList<WaiterRole>();
+    // CHASE: fix markets - see commented out lines
+    //private List<MarketRole> Markets = new ArrayList<MarketRole>();
 
     // Stores restaurant menu
     private JPanel menuPanel = new JPanel();    
@@ -85,32 +86,32 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     	// Added market with "Add" button
         if (e.getSource().equals(addMarketButton)) {
-        	MarketAgent m = new MarketAgent(Markets.size());
-        	m.startThread();
+        	//MarketRole m = new MarketRole(Markets.size());
+        	//m.startThread();
         	
-        	Markets.add(m);
-        	cook.addMarket(m);
+        	//Markets.add(m);
+        	//cook.addMarket(m);
         	
-        	numMarkets.setText("Number of markets: " + Markets.size());
+        	//numMarkets.setText("Number of markets: " + Markets.size());
         }
         else if (e.getSource().equals(pauseButton)) {
         	if (pauseButton.getText().equals("Pause")) {	// Currently running; pause
-        		pauseAgents();
+        		pauseRoles();
         		pauseButton.setText("Unpause");
         	}
         	else {	// Currently paused; unpause
-        		unpauseAgents();
+        		unpauseRoles();
         		pauseButton.setText("Pause");
         	}
         }
     }
     
-    public void pauseAgents() {
-    	for (CustomerAgent c : Customers) {
+    public void pauseRoles() {
+    	for (CustomerRole c : Customers) {
     		c.pause();
     	}
     	
-    	for (WaiterAgent w : Waiters) {
+    	for (WaiterRole w : Waiters) {
     		w.pause();
     	}
     	
@@ -118,12 +119,12 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     	cook.pause();
     }
     
-    public void unpauseAgents() {
-    	for (CustomerAgent c : Customers) {
+    public void unpauseRoles() {
+    	for (CustomerRole c : Customers) {
     		c.unpause();
     	}
     	
-    	for (WaiterAgent w : Waiters) {
+    	for (WaiterRole w : Waiters) {
     		w.unpause();
     	}
     	
@@ -178,7 +179,7 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     public void addPerson(String type, String name, Boolean hungry) {
 
     	if (type.equals("Customers")) {
-    		CustomerAgent c = new CustomerAgent(name);	
+    		CustomerRole c = new CustomerRole(name);	
     		c.setHost(host);
     		c.setCashier(cashier);
     		CustomerGui g = new CustomerGui(c, mainGui);
@@ -194,7 +195,7 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     	}
     	
     	else {	// It's a waiter; ignore "hungry" checkbox (will be "on break" later)
-    		WaiterAgent w = new WaiterAgent(name);
+    		WaiterRole w = new WaiterRole(name);
     		w.setHost(host);
     		w.setCook(cook);
     		w.setCashier(cashier);
@@ -236,7 +237,7 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     	mainGui.updateInfoPanel(Waiters.get(index));
     }
 	
-	public void waiterBreak(boolean onBreak, WaiterAgent w) {
+	public void waiterBreak(boolean onBreak, WaiterRole w) {
 		for (int i = 0; i < Waiters.size(); i++) {
 			if (Waiters.get(i).equals(w)) {
 				waiterPanel.setWaiterBreak(onBreak, i);

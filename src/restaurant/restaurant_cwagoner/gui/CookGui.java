@@ -1,13 +1,13 @@
 package restaurant.restaurant_cwagoner.gui;
 
 
-import restaurant.restaurant_cwagoner.CookAgent;
+import restaurant.restaurant_cwagoner.roles.CookRole;
 
 import java.awt.*;
 
 public class CookGui implements Gui {
 
-    private CookAgent agent = null;
+    private CookRole agent = null;
     RestaurantGui restaurantGui = null;
     
     private enum State { idle, goingToFridge, goingToCooking, goingToPlating }
@@ -25,7 +25,7 @@ public class CookGui implements Gui {
     			COOKING_X = 600, COOKING_Y = 150, COOKING_WIDTH = 40, COOKING_HEIGHT = 100,
     			PLATING_X = 480, PLATING_Y = 150, PLATING_WIDTH = 20, PLATING_HEIGHT = 100;
 
-    public CookGui(CookAgent c, RestaurantGui g) {
+    public CookGui(CookRole c, RestaurantGui g) {
     	state = State.idle;
         agent = c;
         restaurantGui = g;

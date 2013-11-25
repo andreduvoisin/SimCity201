@@ -1,13 +1,13 @@
 package restaurant.restaurant_cwagoner.gui;
 
 
-import restaurant.restaurant_cwagoner.WaiterAgent;
+import restaurant.restaurant_cwagoner.roles.WaiterRole;
 
 import java.awt.*;
 
 public class WaiterGui implements Gui {
 
-    private WaiterAgent agent = null;
+    private WaiterRole agent = null;
     RestaurantGui restaurantGui = null;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
@@ -24,7 +24,7 @@ public class WaiterGui implements Gui {
     	    	xPos, yPos,
     	    	xDestination, yDestination;
 
-    public WaiterGui(WaiterAgent w, RestaurantGui g, int waiterNum) {
+    public WaiterGui(WaiterRole w, RestaurantGui g, int waiterNum) {
     	state = State.idle;
         agent = w;
         restaurantGui = g;
@@ -126,7 +126,7 @@ public class WaiterGui implements Gui {
     	else {
         	state = State.idle;
     	}
-    	restaurantGui.waiterOnBreak(allowed, (WaiterAgent) agent);
+    	restaurantGui.waiterOnBreak(allowed, (WaiterRole) agent);
     }
     
     public boolean isOnBreak() {

@@ -1,8 +1,8 @@
 package restaurant.restaurant_cwagoner.gui;
 
 
-import restaurant.restaurant_cwagoner.CustomerAgent;
-import restaurant.restaurant_cwagoner.WaiterAgent;
+import restaurant.restaurant_cwagoner.roles.CustomerRole;
+import restaurant.restaurant_cwagoner.roles.WaiterRole;
 
 
 //import javax.imageio.ImageIO;
@@ -90,8 +90,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
         stateCB.setVisible(true);
         currentPerson = person;
 
-        if (person instanceof CustomerAgent) {
-            CustomerAgent c = (CustomerAgent) person;
+        if (person instanceof CustomerRole) {
+            CustomerRole c = (CustomerRole) person;
             stateCB.setText("Hungry?");
             stateCB.setSelected(c.getGui().isHungry());
             stateCB.setEnabled(! c.getGui().isHungry());
@@ -111,8 +111,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(stateCB)) {
-            if (currentPerson instanceof CustomerAgent) {
-                CustomerAgent c = (CustomerAgent) currentPerson;
+            if (currentPerson instanceof CustomerRole) {
+                CustomerRole c = (CustomerRole) currentPerson;
                 c.getGui().setHungry();
                 stateCB.setEnabled(false);
             }
@@ -125,7 +125,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(CustomerAgent c) {        
+    public void setCustomerEnabled(CustomerRole c) {        
         // Handle checkbox in Info panel
         stateCB.setEnabled(true);
         stateCB.setSelected(false);
@@ -149,7 +149,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
     	return tableLocations.get(tableNum);
     }
     
-    public void waiterOnBreak(boolean allowed, WaiterAgent w) {
+    public void waiterOnBreak(boolean allowed, WaiterRole w) {
     	restPanel.waiterBreak(allowed, w);
     }
     
