@@ -115,20 +115,15 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Get housing role and location; set active
-//		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-//		Location location = 
-//		
-//		ContactList.sRoleLocations.put(mHouseRole, location);
+		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+		mRoles.put(mHouseRole, true);
 		
-		
-//		mRoles.put(mHouseRole, true);
-//		
-//		//Add customer/rider role possibilities
-//		mRoles.put(new BankCustomerRole(this), false);
-//		mRoles.put(new HousingRenterRole(this), false);
-//		mRoles.put(new MarketCustomerRole(this), false);
-//		mRoles.put(new TransportationBusRiderRole(this), false);
-//		mRoles.put(new RestaurantCustomerRole(this), false);
+		//Add customer/rider role possibilities
+		mRoles.put(new BankCustomerRole(this), false);
+		mRoles.put(new HousingRenterRole(this), false);
+		mRoles.put(new MarketCustomerRole(this), false);
+		mRoles.put(new TransportationBusRiderRole(this), false);
+		mRoles.put(new RestaurantCustomerRole(this), false);
 	}
 	
 	private void initializePerson(){
@@ -338,12 +333,12 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void eatFood() {
-		/*if (isCheap() && mHouseRole.mHouse != null){
+		if (isCheap() && mHouseRole.mHouse != null){
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum));
 			acquireSemaphore(semAnimationDone);
-		}else{*/
+		}else{
 			//set random restaurant
 			RestaurantCustomerRole restaurantCustomerRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -368,7 +363,7 @@ public class PersonAgent extends Agent implements Person {
 			
 			//set restaurant customer role to active
 			mRoles.put(restaurantCustomerRole, true);
-		//}
+		}
 		
 	}
 	
@@ -414,7 +409,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return true;
+		return false;
 	}
 	
 
