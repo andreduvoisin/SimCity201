@@ -23,10 +23,10 @@ public class ContactList {
 	
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
-	static final Location cBANK_LOCATION = new Location(10,10); //SHANE: Bank coordinates go here
-	static final Location cMARKET_LOCATION = new Location(300,300); //SHANE: Market coordinates
-	static List<Location> cHOUSE_LOCATIONS;
-	static List<Location> cRESTAURANT_LOCATIONS;
+	public static final Location cBANK_LOCATION = new Location(10,10); //SHANE: Bank coordinates go here
+	public static final Location cMARKET_LOCATION = new Location(300,300); //SHANE: Market coordinates
+	public static List<Location> cHOUSE_LOCATIONS;
+	public static List<Location> cRESTAURANT_LOCATIONS;
 	
 	//setup housing locations
 	static {
