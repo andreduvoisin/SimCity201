@@ -1,7 +1,6 @@
 package transportation.roles;
 
 import base.BaseRole;
-import base.PersonAgent;
 import base.interfaces.Person;
 import transportation.*;
 import transportation.gui.*;
