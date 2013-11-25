@@ -17,19 +17,17 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
-import restaurant.restaurant_davidmca.astar.AStarTraversal;
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
-import bank.roles.BankMasterTellerRole;
 import bank.roles.BankCustomerRole.EnumAction;
+import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
-import restaurant.intermediate.RestaurantBaseInterface;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -62,7 +60,6 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasCar;
-	AStarTraversal mAstar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -97,7 +94,7 @@ public class PersonAgent extends Agent implements Person {
 				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 				//System.out.println(mJobRole.toString());
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
-				((RestaurantBaseInterface) mJobRole).setRestaurant(1);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(2);
 				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
@@ -147,7 +144,6 @@ public class PersonAgent extends Agent implements Person {
 		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
-		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
 		mPersonGui = new CityPerson(0, 0, mName); //SHANE: Hardcoded start place
@@ -317,6 +313,7 @@ public class PersonAgent extends Agent implements Person {
 	public void getCar(){
 		Location location = ContactList.cCARDEALERSHIP_DOOR;
 		mPersonGui.DoGoToDestination(location);
+		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(95, 255));
 		acquireSemaphore(semAnimationDone);
 		
 		mPersonGui.setPresent(false); //set city person invisible
@@ -339,9 +336,10 @@ public class PersonAgent extends Agent implements Person {
 	public void goToJob() {
 		//print("goToJob");
 //		mPersonGui.DoGoToDestination(mJobLocation);
+		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(mJobLocation.mX, mJobLocation.mY));
 //		acquireSemaphore(semAnimationDone);
 //		mAtJob = true; //SHANE: This will need to be set to false somewhere
-//		mPersonGui.setPresent(false);		
+//		mPersonGui.setPresent(false);
 		
 		mJobRole.setPerson(this); //take over job role
 		mRoles.put(mJobRole, true); //set role to active
@@ -352,6 +350,7 @@ public class PersonAgent extends Agent implements Person {
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum)); //SHANE: 2 - change these to doors
+			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mX, ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mY));
 			acquireSemaphore(semAnimationDone);
 		}else{
 			System.out.println("Going out to eat...");
@@ -364,12 +363,13 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 4; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 5; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 			((RestaurantBaseInterface) restCustRole).setPerson(this);
 			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
-			
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
+			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mX, ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mY));
 			acquireSemaphore(semAnimationDone);
+			mPersonGui.setPresent(false);
 		}
 		
 	}

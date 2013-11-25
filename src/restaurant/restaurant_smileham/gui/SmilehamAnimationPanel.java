@@ -2,11 +2,16 @@ package restaurant.restaurant_smileham.gui;
 
 import javax.swing.*;
 
+import base.BaseRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
+import restaurant.restaurant_smileham.interfaces.Host;
+import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,18 +20,18 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class SmilehamAnimationPanel extends CityCard implements ActionListener {
-	// old values: X = 450, Y = RestaurantGui.cWINDOWY
-    private final int WINDOWX = 500;
+	private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-//    private Image bufferImage;
-//    private Dimension bufferSize;
 
     private List<Gui> guis = new ArrayList<Gui>();
+    
+    public static SmilehamRestaurantPanel mRestaurantPanel;
     
     
     //CONSTRUCTOR
     public SmilehamAnimationPanel(SimCityGui city) {
     	super(city);
+    	mRestaurantPanel = new SmilehamRestaurantPanel(this);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         
@@ -35,6 +40,28 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     	Timer timer = new Timer(20, this );
     	timer.start();
     }
+    
+    public static void addPerson(BaseRole role) {
+    	
+    	if (role instanceof SmilehamCustomerRole){
+    		SmilehamCustomerRole customer = (SmilehamCustomerRole) role;
+    		mRestaurantPanel.getCustomers().add(customer);
+    		customer.msgGotHungry();
+    	}
+    	else if (role instanceof SmilehamWaiterRole){
+    		SmilehamWaiterRole waiter = (SmilehamWaiterRole) role;
+    		
+    		
+//    		String name = waiter.getName();
+    		Host host = waiter.getHost();
+            host.msgAddWaiter((Waiter)waiter);
+            
+    	}
+    }
+    
+    
+    
+    
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called

@@ -6,7 +6,7 @@ import java.util.List;
 
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.gui.HostGui;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
@@ -31,19 +31,19 @@ public class SmilehamHostRole extends BaseRole implements Host{
 
 	//GUI
 	private HostGui mHostGui;
-	private SmilehamRestaurantGui mGUI;
+	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamHostRole(String name, SmilehamRestaurantGui gui) {
+	public SmilehamHostRole(String name, SmilehamAnimationPanel animationPanel) {
 		super();
 		mName = name;
-		mGUI = gui;
+		mAnimationPanel = animationPanel;
 		print("Constructor");
 		
 		//Set up Host
 		mHostGui = new HostGui(this);
-		mGUI.getAnimationPanel().addGui(mHostGui);
+		mAnimationPanel.addGui(mHostGui);
 		
 		//Add Waiters
 		mWaiters = new ArrayList<Waiter>();

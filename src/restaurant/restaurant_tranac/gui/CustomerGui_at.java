@@ -14,7 +14,7 @@ public class CustomerGui_at implements Gui{
 	private boolean isPresent = false;
 	private String food;
 
-	RestaurantGui_at gui;
+	RestaurantPanel_at gui;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -33,7 +33,7 @@ public class CustomerGui_at implements Gui{
     BufferedImage alertBubble;
     BufferedImage askingBubble;
 
-	public CustomerGui_at(RestaurantCustomerRole_at c, RestaurantGui_at gui){
+	public CustomerGui_at(RestaurantCustomerRole_at c, RestaurantPanel_at gui){
 		agent = c;
 		xPos = -40;
 		yPos = -40;
@@ -111,7 +111,7 @@ public class CustomerGui_at implements Gui{
 				}
 				case LeaveRestaurant: {
 					agent.msgAnimationFinishedLeaveRestaurant();
-					gui.setEnabled(agent);
+		//			gui.setEnabled(agent);
 					break;
 				}
 				default:
@@ -161,12 +161,12 @@ public class CustomerGui_at implements Gui{
     	else
     		food = "PIZ";
 	}
-	
+	/*
 	public void setHungry() {
 		agent.msgGotHungry();
 		setPresent(true);
 	}
-	
+	*/
 	public boolean isPresent() {
 		return isPresent;
 	}
@@ -200,10 +200,10 @@ public class CustomerGui_at implements Gui{
     }
     
 	/** Actions called from Customer Agent */
-	public void DoSetEnabled() {
+/*	public void DoSetEnabled() {
 		gui.setEnabled(agent);
 	}
-	
+*/	
 	public void DoGoToHost() {
 		xDestination = xHost;
 		yDestination = yHost;

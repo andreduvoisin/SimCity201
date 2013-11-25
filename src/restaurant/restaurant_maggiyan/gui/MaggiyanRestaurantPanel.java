@@ -22,11 +22,13 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
  * including host, cook, waiters, and customers.
  */
 public class MaggiyanRestaurantPanel extends JPanel {
-
+	
+	static MaggiyanRestaurantPanel me; 
+	
     //Host, cook, waiters and customers
-    private MaggiyanHostRole host = new MaggiyanHostRole("Host");
-    private MaggiyanCookRole cook = new MaggiyanCookRole("Cook"); 
-    private MaggiyanCashierRole cashier = new MaggiyanCashierRole("Cashier", false);
+    public MaggiyanHostRole host = new MaggiyanHostRole("Host");
+    public MaggiyanCookRole cook = new MaggiyanCookRole("Cook"); 
+    public MaggiyanCashierRole cashier = new MaggiyanCashierRole("Cashier", false);
     private MaggiyanMarketRole market1 = new MaggiyanMarketRole("Market 1"); 
     private MaggiyanMarketRole market2 = new MaggiyanMarketRole("Market 2"); 
     private MaggiyanMarketRole market3 = new MaggiyanMarketRole("Market 3"); 
@@ -45,6 +47,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 
     public MaggiyanRestaurantPanel(MaggiyanRestaurantGui gui) {
         this.gui = gui;
+        this.me = this; 
 //        
 //        cook.setMarket(market1);
 //        cook.setMarket(market2);
@@ -65,6 +68,10 @@ public class MaggiyanRestaurantPanel extends JPanel {
         initRestLabel();
         add(restLabel);
         add(group);
+    }
+    
+    public static MaggiyanRestaurantPanel getRestPanel(){
+    	return me; 
     }
     
     public MaggiyanListPanel getCustPanel(){
@@ -147,46 +154,80 @@ public class MaggiyanRestaurantPanel extends JPanel {
      * @param type indicates whether the person is a customer or waiter (later)
      * @param name name of person
      */
-    public void addPerson(String type, String name) {
+    public void addCustomer(MaggiyanCustomerRole c){
+    	MaggiyanCustomerGui g = new MaggiyanCustomerGui(c, gui);
 
-    	if (type.equals("Customers")) {
-    		MaggiyanCustomerRole c = new MaggiyanCustomerRole(name);	
-    		MaggiyanCustomerGui g = new MaggiyanCustomerGui(c, gui);
-
-    		gui.animationPanel.addGui(g);
-    		c.setHost(host);
-    		c.setGui(g);
-    		c.setCashier(cashier);
-    		customers.add(c);
-    	
-    	}
-    	
-    	else if (type.equals("Waiter")){
-    		int waiterTypeNum = waiters.size(); 
-    		
-    		//Create new waiter agent and gui
-    		if(waiterTypeNum%2 == 1){
-	    		MaggiyanWaiterRole w = new MaggiyanWaiterRole(name, cook, host); 
-	    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(waiterGui);
-	    		w.setCashier(cashier); 
-	    		w.setGui(waiterGui);
-	    		waiters.add(w); 
-	
-    		}
-    		else{
-    			MaggiyanSharedWaiterRole w = new MaggiyanSharedWaiterRole(name, cook, host); 
-	    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(waiterGui);
-	    		w.setCashier(cashier); 
-	    		w.setGui(waiterGui);
-	    		waiters.add(w); 
-
-    		}
-    		
-    	}
+		gui.animationPanel.addGui(g);
+		c.setHost(host);
+		c.setGui(g);
+		c.setCashier(cashier);
+		customers.add(c);
     }
+    
+    public void addWaiter(MaggiyanWaiterRole w){
+    	int waiterTypeNum = waiters.size(); 
+		
+		//Create new waiter agent and gui
+		if(waiterTypeNum%2 == 1){
+    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+    		
+    		gui.animationPanel.addGui(waiterGui);
+    		w.setCashier(cashier); 
+    		w.setGui(waiterGui);
+    		waiters.add(w); 
+
+		}
+		else{
+    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+    		
+    		gui.animationPanel.addGui(waiterGui);
+    		w.setCashier(cashier); 
+    		w.setGui(waiterGui);
+    		waiters.add(w); 
+		}
+		
+	
+    }
+//    public void addPerson(String type, String name) {
+//
+//    	if (type.equals("Customers")) {
+//    		MaggiyanCustomerRole c = new MaggiyanCustomerRole(name);	
+//    		MaggiyanCustomerGui g = new MaggiyanCustomerGui(c, gui);
+//
+//    		gui.animationPanel.addGui(g);
+//    		c.setHost(host);
+//    		c.setGui(g);
+//    		c.setCashier(cashier);
+//    		customers.add(c);
+//    	
+//    	}
+//    	
+//    	else if (type.equals("Waiter")){
+//    		int waiterTypeNum = waiters.size(); 
+//    		
+//    		//Create new waiter agent and gui
+//    		if(waiterTypeNum%2 == 1){
+//	    		MaggiyanWaiterRole w = new MaggiyanWaiterRole(name, cook, host); 
+//	    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+//	    		
+//	    		gui.animationPanel.addGui(waiterGui);
+//	    		w.setCashier(cashier); 
+//	    		w.setGui(waiterGui);
+//	    		waiters.add(w); 
+//	
+//    		}
+//    		else{
+//    			MaggiyanSharedWaiterRole w = new MaggiyanSharedWaiterRole(name, cook, host); 
+//	    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+//	    		
+//	    		gui.animationPanel.addGui(waiterGui);
+//	    		w.setCashier(cashier); 
+//	    		w.setGui(waiterGui);
+//	    		waiters.add(w); 
+//
+//    		}
+//    		
+//    	}
+//    }
 
 }
