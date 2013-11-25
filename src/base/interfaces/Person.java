@@ -2,7 +2,7 @@ package base.interfaces;
 
 import java.util.Map;
 
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import city.gui.CityPerson;
 
 public interface Person {
@@ -20,9 +20,9 @@ public interface Person {
 	public void setLoan(double loan);
 	public double getLoan();
 	
-	public Map<EnumMarketItemType, Integer> getItemsDesired();
-	public void setItemsDesired(Map<EnumMarketItemType, Integer> map);
-	public Map<EnumMarketItemType, Integer> getItemInventory();
+	public Map<EnumItemType, Integer> getItemsDesired();
+	public void setItemsDesired(Map<EnumItemType, Integer> map);
+	public Map<EnumItemType, Integer> getItemInventory();
 	
 	public void addRole(Role role, boolean active);
 	

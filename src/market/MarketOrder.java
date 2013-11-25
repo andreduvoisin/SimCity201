@@ -2,7 +2,7 @@ package market;
 
 import java.util.Map;
 
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import base.interfaces.Role;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketDeliveryTruck;
@@ -13,13 +13,13 @@ public class MarketOrder {
 	public EnumOrderStatus mStatus;
 	public static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, READY_TO_DELIVER, RECEIVED_ORDER, NONE};
 	public EnumOrderEvent mEvent;
-	public Map<EnumMarketItemType, Integer> mItems;
+	public Map<EnumItemType, Integer> mItems;
 	public Role mPersonRole;
 	public MarketWorker mWorker;
 	public MarketCashier mCashier;
 	public MarketDeliveryTruck mDeliveryTruck;
 	
-	public MarketOrder(Map<EnumMarketItemType, Integer> items, Role person) {
+	public MarketOrder(Map<EnumItemType, Integer> items, Role person) {
 		mItems = items;
 		mPersonRole = person;
 		mStatus = EnumOrderStatus.CARTED;

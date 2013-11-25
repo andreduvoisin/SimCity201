@@ -56,4 +56,9 @@ public class MockMasterTellerRole extends Mock implements BankMasterTeller, Role
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public boolean isRestaurantPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

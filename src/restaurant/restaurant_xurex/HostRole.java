@@ -50,6 +50,16 @@ public class HostRole extends BaseRole implements Host {
 		tables.add(new Table(3));//sw 
 		tables.add(new Table(4));//se
 	}
+	
+	public HostRole() {
+		super();
+
+		tables = new ArrayList<Table>(NTABLES);
+		tables.add(new Table(1));//nw
+		tables.add(new Table(2));//ne
+		tables.add(new Table(3));//sw 
+		tables.add(new Table(4));//se
+	}
 
 	/* (non-Javadoc)
 	 * @see restaurant.Host#getName()
