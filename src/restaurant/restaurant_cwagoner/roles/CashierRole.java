@@ -1,4 +1,4 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
 import restaurant.restaurant_cwagoner.agent.Agent;
 import restaurant.restaurant_cwagoner.interfaces.*;
@@ -9,9 +9,9 @@ import java.util.*;
 /**
  * Restaurant cashier agent.
  */
-public class CashierAgent extends Agent implements Cashier {
+public class CashierRole extends Agent implements Cashier {
 	
-	public CashierAgent() {
+	public CashierRole() {
 		PriceList.put("Steak",		8.0);
 		PriceList.put("Chicken",	6.0);
 		PriceList.put("Salad",		2.0);

@@ -1,4 +1,4 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
 import restaurant.restaurant_cwagoner.agent.Agent;
 import restaurant.restaurant_cwagoner.gui.CustomerGui;
@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer {
+public class CustomerRole extends Agent implements Customer {
 	
 	// DATA
 	
@@ -44,7 +44,7 @@ public class CustomerAgent extends Agent implements Customer {
 	 * Constructor for CustomerAgent class
 	 * @param name Customer's name
 	 */
-	public CustomerAgent(String customerName) {
+	public CustomerRole(String customerName) {
 		name = customerName;
 		moneyOwed = 0;
 	}

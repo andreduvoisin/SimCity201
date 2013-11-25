@@ -1,4 +1,4 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
 import restaurant.restaurant_cwagoner.agent.Agent;
 import restaurant.restaurant_cwagoner.interfaces.*;
@@ -10,9 +10,9 @@ import java.util.*;
  * Decides which empty table each customer will occupy.
  * Assigns waiting customers to a waiter
  */
-public class HostAgent extends Agent implements Host {
+public class HostRole extends Agent implements Host {
 
-	public HostAgent(String hostName) {
+	public HostRole(String hostName) {
 		name = hostName;
 	}
 	
@@ -219,7 +219,7 @@ public class HostAgent extends Agent implements Host {
 		return name;
 	}
 	
-	public void addWaiter(WaiterAgent w) {
+	public void addWaiter(WaiterRole w) {
 		Waiters.add(new MyWaiter(w));
 		stateChanged();
 	}

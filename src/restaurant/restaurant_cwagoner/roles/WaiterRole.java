@@ -1,19 +1,19 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
-import restaurant.restaurant_cwagoner.CookAgent.Order;
 import restaurant.restaurant_cwagoner.agent.Agent;
 import restaurant.restaurant_cwagoner.gui.WaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.roles.CookRole.Order;
 
 import java.util.*;
 import java.util.concurrent.*;
 
-public class WaiterAgent extends Agent implements Waiter {
+public class WaiterRole extends Agent implements Waiter {
 
 	private static boolean DirectCookAccess = false;
 	private final boolean accessCook;
 
-	public WaiterAgent(String waiterName) {
+	public WaiterRole(String waiterName) {
 		name = waiterName;
 		// Initialize menu
 		menu.put("Steak", 8);

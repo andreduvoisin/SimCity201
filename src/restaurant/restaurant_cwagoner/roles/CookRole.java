@@ -1,4 +1,4 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
 import restaurant.restaurant_cwagoner.agent.Agent;
 import restaurant.restaurant_cwagoner.gui.*;
@@ -8,9 +8,9 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 
-public class CookAgent extends Agent implements Cook {
+public class CookRole extends Agent implements Cook {
 	
-	public CookAgent() {
+	public CookRole() {
 		// Name of food, cooking time (ms), initial quantity of food, maximum capacity of food
 		addMenuItem("Steak",	8000, 1, 5);
 		addMenuItem("Chicken",	6000, 1, 4);
