@@ -44,7 +44,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "R_cwagoner"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerrywebb"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_maggiyang"));
-		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(4), "R_sciencepro"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(4), "R_davidmca"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "R_smileham"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "R_tranac"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(7), "R_xurex"));
@@ -56,7 +56,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
 			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
 			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, iHouseCount, 50.00);
-			simcitygui.cityview.addView(newHouse.mPanel, "H" + iHouseCount);
+			simcitygui.cityview.addView(newHouse.mPanel, "House " + iHouseCount);
 			this.addStatic(newHouse);
 			masterHouseList.add(newHouse);
 		}

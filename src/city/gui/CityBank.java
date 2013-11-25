@@ -7,9 +7,6 @@ import java.awt.Rectangle;
 
 import base.Location;
 
-/**
- * Not to be confused with CitiBank
- */
 public class CityBank extends CityComponent {
 	private String bankName = "";
 	private int BANKWIDTH = 200;
