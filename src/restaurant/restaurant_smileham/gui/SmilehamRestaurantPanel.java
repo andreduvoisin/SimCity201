@@ -67,7 +67,7 @@ public class SmilehamRestaurantPanel extends JPanel {
 	        mMenuPanel.add(new JLabel("           "), BorderLayout.WEST);
         
 	    //mCustomerWrapperPanel
-	    mAgentPanel = new SmilehamAgentPanel(this, mAnimationPanel);
+	    mAgentPanel = new SmilehamAgentPanel(this);
 	        
         add(mAgentPanel); //on left
         add(mMenuPanel); //on right
@@ -84,10 +84,6 @@ public class SmilehamRestaurantPanel extends JPanel {
 	public Vector<SmilehamCustomerRole> getCustomers() {
 		return mCustomers;
 	}
-	
-//	static public SmilehamRestaurantGui getGui(){
-//		return mGUI;
-//	}
 	
 	public SmilehamAgentPanel getAgentPanel(){
 		return mAgentPanel;

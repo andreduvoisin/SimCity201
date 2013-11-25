@@ -1,17 +1,10 @@
 package restaurant.restaurant_smileham.gui;
 
-import java.util.Timer;
-import java.util.Vector;
-
 import javax.swing.JPanel;
 
-import restaurant.restaurant_smileham.Order;
-import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
-import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
-import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.BaseRole;
 
@@ -24,62 +17,13 @@ public class SmilehamAgentPanel extends JPanel {
 
 	//instance variables
     private static SmilehamRestaurantPanel mRestPanel;
-    private Timer mTimer;
-    
-	//HACKS
-	
-//    private SmilehamRestaurantGui mGUI;
-    private SmilehamAnimationPanel mAnimationPanel;
 
-    /**
-     * Constructor for AgentPanel.  Sets up all the gui
-     *
-     * @param rp   reference to the restaurant panel
-     */
-    public SmilehamAgentPanel(SmilehamRestaurantPanel rp, SmilehamAnimationPanel animationPanel) {
+    public SmilehamAgentPanel(SmilehamRestaurantPanel rp) {
     	//initializations
         mRestPanel = rp;
-        mAnimationPanel = animationPanel;
-        mTimer = new Timer();
     }
     
-    public void pauseSimulation(){
-    	Vector<BaseRole> roles = new Vector<BaseRole>();
-    	
-		SmilehamHostRole host = mRestPanel.getHost();
-		roles.add(host);
-		roles.add((SmilehamCookRole) SmilehamRestaurantPanel.getCook());
-		for (Customer customer : host.getWaitingCustomers()){
-			SmilehamCustomerRole customeragent = (SmilehamCustomerRole) customer;
-			roles.add(customeragent);
-		}
-    	for (Waiter waiter : host.getWaiters()){
-    		SmilehamWaiterRole waiteragent = (SmilehamWaiterRole) waiter;
-    		roles.add(waiteragent);
-    		for (Order order : waiteragent.getOrders()){
-    			roles.add((SmilehamCustomerRole) order.mCustomer);
-    		}
-    	}
-
-//    	if (!host.isPaused()){
-//    		for (Agent agent : roles){
-//    			agent.pause();
-//    		}
-//    	}else{
-//    		for (Agent agent : roles){
-//    			agent.restart();
-//    		}
-//    	}
-    }
-
-    /**
-     * If the add button is pressed, this function creates
-     * a spot for it in the scroll pane, and tells the restaurant panel
-     * to add a new person.
-     *
-     * @param name name of new person
-     */
-    public static void addPerson(BaseRole role) {
+public static void addPerson(BaseRole role) {
     	
     	if (role instanceof SmilehamCustomerRole){
     		SmilehamCustomerRole customer = (SmilehamCustomerRole) role;
