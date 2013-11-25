@@ -28,4 +28,8 @@ public class TransportationBusInstance {
 				|| state.equals(enumState.unloading)
 				|| state.equals(enumState.boarding);
 	}
+
+	public CityBus getCityBus() {
+		return mGui;
+	}
 }
