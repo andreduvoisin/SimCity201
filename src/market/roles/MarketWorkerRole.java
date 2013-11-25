@@ -26,10 +26,11 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	private List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	public MarketWorkerRole() {
+		super(null);
 	}
 	
 	public MarketWorkerRole(Person person){
-		setPerson(person);
+		super(person);
 	}
 	
 /* Messages */

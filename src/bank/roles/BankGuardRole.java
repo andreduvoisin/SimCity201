@@ -26,11 +26,11 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	BankGuardGui mGUI;
 	
 	public BankGuardRole(Person person) {
-		mPerson = person;
+		super(person);
 	}
 	
 	public BankGuardRole() {
-		
+		super(null);
 	}
 	
 //	MESSAGES

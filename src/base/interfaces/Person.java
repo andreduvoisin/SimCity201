@@ -7,8 +7,10 @@ import city.gui.CityPerson;
 
 public interface Person {
 	void msgTimeShift();
-	
+
 	public void setCash(double credit);
+	
+	//public void stateChanged();
 	
 	public double getCash();
 	public int getSSN();

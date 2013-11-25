@@ -5,27 +5,19 @@ import base.interfaces.Role;
 
 public class BaseRole implements Role {
 
-	public Person mPerson;
+	protected Person mPerson;
 	private Location mLocation;
+	
+	public BaseRole(Person person) {
+		mPerson = person;
+	}
 
 	// NEEDED METHODS
 	protected void stateChanged() {
-		System.out.println("BaseRole:stateChanged()");
-
-		//Person person = getPerson();
-//		System.out.println("PERSON: " + person.toString());
-
-		
-		if (!(mPerson == null)) {
-			((PersonAgent) mPerson).stateChanged();
-		} else {
-			print(this.toString() + "stateChanged not called");
-			print("mPerson is null in BaseRole:stateChanged()");
-		}
+		((PersonAgent) mPerson).stateChanged();
 	}
 
 	public boolean pickAndExecuteAnAction() {
-
 		return false;
 	}
 

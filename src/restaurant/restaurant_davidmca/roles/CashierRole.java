@@ -49,7 +49,7 @@ public class CashierRole extends BaseRole implements Cashier {
 	 *            name of the customer
 	 */
 	public CashierRole(String name) {
-		super();
+		super(null);
 		this.name = name;
 		totalCash = 100.00;
 	}
