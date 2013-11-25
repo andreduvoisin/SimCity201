@@ -164,41 +164,32 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	 * Scheduler: the brains of the operation
 	 */
 	public boolean pickAndExecuteAnAction() {
-		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.askedToOrder){
 				StayStill(); return true;
 			}
 		}
-		}
-		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.waiting){
 				SeatCustomer(customer); state=WaiterState.working; return true;
 			}
-		}
 		}
 		for(Order order:orders){
 			if(order.s==OrderState.denied){
 				AskToReorder(order); state=WaiterState.working; return true;
 			}
 		}
-		synchronized(customers){
 		for(Order order:orders){
 			if(order.s==OrderState.readyToServe){
 				ServeFood(order); order.s=OrderState.served;
 				state=WaiterState.working; return true;
 			}
 		}
-		}
-		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.readyToOrder){
 				TakeOrder(customer); state=WaiterState.working; return true;
 			}
 		}
-		}
-		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.ordered){
 				SendOrder(customer); 
@@ -207,14 +198,12 @@ public class WaiterAgent2 extends Agent implements Waiter{
 				return true;
 			}
 		}
-		}
-		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.done){
 				CleanTable(customer); state=WaiterState.working; return true;
 			}
 		}
-		}
+		
 		if(state==WaiterState.working){ //just finished something, can message waiter
 			state=WaiterState.good;
 			host.IAmFree();

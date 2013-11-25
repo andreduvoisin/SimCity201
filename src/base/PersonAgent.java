@@ -17,17 +17,19 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
-import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_davidmca.astar.AStarTraversal;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
-import bank.roles.BankCustomerRole.EnumAction;
 import bank.roles.BankMasterTellerRole;
+import bank.roles.BankCustomerRole.EnumAction;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityPanel;
 import city.gui.CityPerson;
+import restaurant.intermediate.RestaurantBaseInterface;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -60,8 +62,7 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasCar;
-	Location mWorkLocation;
-	CityPerson personComponent = null;
+	AStarTraversal mAstar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -146,6 +147,7 @@ public class PersonAgent extends Agent implements Person {
 		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
+		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
 		mPersonGui = new CityPerson(0, 0, mName); //SHANE: Hardcoded start place
@@ -521,11 +523,7 @@ public class PersonAgent extends Agent implements Person {
 	public Role getHousingRole() {
 		return mHouseRole;
 	}
-	
-	public void setComponent(CityPerson personGui){
-		personComponent = personGui;
-	}
-	
+
 	@Override
 	public CityPerson getPersonGui() {
 		return mPersonGui;

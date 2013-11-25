@@ -9,9 +9,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-
-import base.PersonAgent;
-
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
@@ -23,36 +20,20 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	boolean addingObject = false;
 	CityComponent temp;
 	SimCityGui simcitygui;
-
+	
 	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
 	
 	// A*
 	public static Semaphore[][] grid = new Semaphore[CITY_WIDTH / 5][CITY_HEIGHT / 5];
 	
-
 	public CityPanel(SimCityGui city) {
 		//Setup
 		super(city);
-		masterPersonList.add(new PersonAgent(PersonAgent.EnumJobType.NONE, 20, "bob"));
-		
-		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
-		this.setVisible(true);
-		background = new Color(128, 64, 0);
-		this.addStatic(new CityRestaurant(75, 75, "R_Maggiyan"));
-		this.addStatic(new CityRestaurant(80, 400, "Restaurant 2"));
-		this.addStatic(new CityBank(400, 75, "Green Guts Bank"));
-		//this.addStatic(new CityHousing(400, 400, "House 1"));
-		this.addStatic(new CityMarket(75, 200, "Sears!"));
-		CityPerson cp = new CityPerson(40, 40, "Bob");
-		masterPersonList.get(0).setComponent(cp);
-		
-		this.addMoving(cp);
-
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
-
+		
 		// A* Setup
 		try {
 			for(int i = 0; i < (CITY_WIDTH/5); i++) {

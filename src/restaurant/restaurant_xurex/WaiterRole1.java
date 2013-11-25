@@ -26,7 +26,7 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
-	List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
+	List<MyCustomer> customers = new ArrayList<MyCustomer>();
 	List<Order> orders = new ArrayList<Order>();
 	Cook cook;
 	Host host;
@@ -169,18 +169,16 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	 * Scheduler: the brains of the operation
 	 */
 	public boolean pickAndExecuteAnAction() {
-		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.askedToOrder){
 				StayStill(); return true;
 			}
-		}}
-		synchronized(customers){
+		}
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.waiting){
 				SeatCustomer(customer); state=WaiterState.working; return true;
 			}
-		}}
+		}
 		for(Order order:orders){
 			if(order.s==OrderState.denied){
 				AskToReorder(order); state=WaiterState.working; return true;
@@ -192,13 +190,11 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 				state=WaiterState.working; return true;
 			}
 		}
-		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.readyToOrder){
 				TakeOrder(customer); state=WaiterState.working; return true;
 			}
-		}}
-		synchronized(customers){
+		}
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.ordered){
 				SendOrder(customer); 
@@ -206,13 +202,12 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 				state=WaiterState.working; 
 				return true;
 			}
-		}}
-		synchronized(customers){
+		}
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.done){
 				CleanTable(customer); state=WaiterState.working; return true;
 			}
-		}}
+		}
 		
 		if(state==WaiterState.working){ //just finished something, can message waiter
 			state=WaiterState.good;

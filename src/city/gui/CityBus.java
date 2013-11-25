@@ -10,89 +10,89 @@ import base.Location;
 
 public class CityBus extends CityComponent {
 
-        private TransportationBusDispatch mBusDispatch;
+	private TransportationBusDispatch mBusDispatch;
 
-        // CHASE: get list from main GUI
-        ArrayList<Location> mStopCoords = new ArrayList<Location>();
+	// CHASE: get list from main GUI
+	ArrayList<Location> mStopCoords = new ArrayList<Location>();
 
-        private int mBusNumber;
-        private int mStopNumber,
-                                mSize = 25,
-                                mXDest, mYDest;
-        private boolean mTraveling;
-
-
-        /**
-         * Creates new CityBus
-         * @param b Bus "driver"
-         * @param busNum Index of this instance of bus
-         */
-        public CityBus(TransportationBusDispatch b, int busNum) {
-                // CHASE: get rid of these
-                mStopCoords.add(new Location(60, 60));
-                mStopCoords.add(new Location(60, 515));
-                mStopCoords.add(new Location(515, 515));
-                mStopCoords.add(new Location(515, 60));
-
-                mBusDispatch = b;
-                mBusNumber = busNum;
-                mTraveling = true;
-                mStopNumber = 0;
-
-                // Inherited from CityComponent
-                x = mStopCoords.get(mStopNumber).mX;
-                y = mStopCoords.get(mStopNumber).mY;
+	private int mBusNumber;
+	private int mStopNumber,
+				mSize = 25,
+				mXDest, mYDest;
+	private boolean mTraveling;
 
 
-                rectangle = new Rectangle(0,0,mSize,mSize);
-                setX(x); setY(y);
+	/**
+	 * Creates new CityBus
+	 * @param b Bus "driver"
+	 * @param busNum Index of this instance of bus
+	 */
+	public CityBus(TransportationBusDispatch b, int busNum) {
+		// CHASE: get rid of these
+		mStopCoords.add(new Location(60, 60));
+		mStopCoords.add(new Location(60, 515));
+		mStopCoords.add(new Location(515, 515));
+		mStopCoords.add(new Location(515, 60));
+
+		mBusDispatch = b;
+		mBusNumber = busNum;
+		mTraveling = true;
+		mStopNumber = 0;
+
+		// Inherited from CityComponent
+		x = mStopCoords.get(mStopNumber).mX;
+		y = mStopCoords.get(mStopNumber).mY;
 
 
-                isActive = true;
-                color = Color.yellow;
-
-                // Set initial destination
-                mXDest = mStopCoords.get(mStopNumber + 1).mX;
-                mYDest = mStopCoords.get(mStopNumber + 1).mY;
-        }
+		rectangle = new Rectangle(0,0,mSize,mSize);
+		setX(x); setY(y);
 
 
-        public void updatePosition() {
-                if (x < mXDest)                        x++;
-        else if (x > mXDest)        x--;
+		isActive = true;
+		color = Color.yellow;
 
-        if (y < mYDest)                        y++;
-        else if (y > mYDest)        y--;
+		// Set initial destination
+		mXDest = mStopCoords.get(mStopNumber + 1).mX;
+		mYDest = mStopCoords.get(mStopNumber + 1).mY;
+	}
+
+
+	public void updatePosition() {
+		if (x < mXDest)			x++;
+        else if (x > mXDest)	x--;
+
+        if (y < mYDest)			y++;
+        else if (y > mYDest)	y--;
 
         if (x == mXDest && y == mYDest && mTraveling) {
-                mBusDispatch.msgGuiArrivedAtStop(mBusNumber);
-                        mTraveling = false;
+        	mBusDispatch.msgGuiArrivedAtStop(mBusNumber);
+			mTraveling = false;
         }
         
         setX(x); setY(y);
-        }
+	}
 
-        @Override
-        public void draw(Graphics2D g) {
-                g.setColor(color);
-                g.fillRect(x, y, mSize, mSize);
-                g.fill3DRect(x, y, mSize, mSize, true);
-                g.setColor(Color.white);
-                g.drawString("Bus", x + mSize / 2, y + mSize);
-        }
+	@Override
+	public void draw(Graphics2D g) {
+		g.setColor(color);
+		g.fillRect(x, y, mSize, mSize);
+		g.fill3DRect(x, y, mSize, mSize, true);
+		g.setColor(Color.white);
+		g.drawString("Bus", x + mSize / 2, y + mSize);
+	}
 
-        @Override
-        public boolean isPresent() { return true; }
+	@Override
+	public boolean isPresent() { return true; }
 
-        @Override
-        public void setPresent(boolean state) { }
+	@Override
+	public void setPresent(boolean state) { }
 
 
-        public void DoAdvanceToNextStop() {
+	public void DoAdvanceToNextStop() {
         mStopNumber = (mStopNumber + 1) % mStopCoords.size();
         mTraveling = true;
 
         mXDest = mStopCoords.get(mStopNumber).mX;
         mYDest = mStopCoords.get(mStopNumber).mY;
-        }
+	}
 }

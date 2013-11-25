@@ -36,6 +36,11 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int COUNTER_SIZE_X = 500;
 	static final int COUNTER_SIZE_Y = 15;
 	
+	static final int LINE_X = 250;
+	static final int LINE_Y = 350;
+	static final int LINE_INCREMENT = -25;	// in the y
+	static int LINE_POSITION = 0;
+	
 	public BankPanel(SimCityGui city) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
@@ -113,7 +118,7 @@ public class BankPanel extends CityCard implements ActionListener{
         g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
         
         // temp square, showing beginning of line
-        //g2.fillRect(LINE_X, LINE_Y, 20, 20);
+        g2.fillRect(LINE_X, LINE_Y, 20, 20);
         
         for(Gui gui : guis) {
             if (gui.isPresent()) {
@@ -128,7 +133,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	}
 	
 	public void updateCustomerLine() {
-		BankCustomerGui.LINE_POSITION--;
+		LINE_POSITION--;
 		for(Gui gui : guis) {
             if (gui.isPresent()) {
                 if(gui instanceof BankCustomerGui) {

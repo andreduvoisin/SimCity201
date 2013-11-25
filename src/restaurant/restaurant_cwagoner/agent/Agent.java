@@ -1,19 +1,18 @@
-package base;
+package restaurant.restaurant_cwagoner.agent;
 
-import java.util.concurrent.Semaphore;
-
-import restaurant.restaurant_smileham.test.mock.EventLog;
-
-// ALL: DO NOT COMMIT CODE THAT CAUSES ERRORS IN THE PROJECT
+import java.util.concurrent.*;
 
 /**
  * Base class for simple agents
  */
 public abstract class Agent {
-	EventLog log = new EventLog();
-    Semaphore stateChange = new Semaphore(1, true);//binary semaphore, fair
-    private AgentThread agentThread;
+    Semaphore stateChange = new Semaphore(1, true);
     
+    boolean paused = false;
+    Semaphore pausedSem = new Semaphore(1);
+    
+    private AgentThread agentThread;
+
     protected Agent() {
     }
 
@@ -21,7 +20,7 @@ public abstract class Agent {
      * This should be called whenever state has changed that might cause
      * the agent to do something.
      */
-    public void stateChanged() {
+    protected void stateChanged() {
         stateChange.release();
     }
 
@@ -30,7 +29,7 @@ public abstract class Agent {
      * current state.  Will be called whenever a state change has occurred,
      * and will be called repeated as long as it returns true.
      *
-     * @return true iff some action was executed that might have changed the
+     * @return true if some action was executed that might have changed the
      *         state.
      */
     protected abstract boolean pickAndExecuteAnAction();
@@ -78,17 +77,15 @@ public abstract class Agent {
     public synchronized void startThread() {
         if (agentThread == null) {
             agentThread = new AgentThread(getName());
-            agentThread.start(); // causes the run method to execute in the AgentThread below
+            agentThread.start();
         } else {
-            agentThread.interrupt();//don't worry about this for now
+            agentThread.interrupt();
         }
     }
 
     /**
      * Stop agent scheduler thread.
      */
-    //In this implementation, nothing calls stopThread().
-    //When we have a user interface to agents, this can be called.
     public void stopThread() {
         if (agentThread != null) {
             agentThread.stopAgent();
@@ -111,14 +108,18 @@ public abstract class Agent {
             goOn = true;
 
             while (goOn) {
+            	if (paused) {
+            		try { pausedSem.acquire(); } catch (InterruptedException e) {}
+            	}
+            	
                 try {
                     // The agent sleeps here until someone calls, stateChanged(),
-                    // which causes a call to stateChange.give(), which wakes up agent.
+                    // which causes a call to stateChange.release(), which wakes up agent.
                     stateChange.acquire();
-                    //The next while clause is the key to the control flow.
-                    //When the agent wakes up it will call respondToStateChange()
-                    //repeatedly until it returns FALSE.
-                    //You will see that pickAndExecuteAnAction() is the agent scheduler.
+                    // The next while clause is the key to the control flow.
+                    // When the agent wakes up it will call respondToStateChange()
+                    // repeatedly until it returns FALSE.
+                    // You will see that pickAndExecuteAnAction() is the agent scheduler.
                     while (pickAndExecuteAnAction()) ;
                 } catch (InterruptedException e) {
                     // no action - expected when stopping or when deadline changed
@@ -128,12 +129,21 @@ public abstract class Agent {
             }
         }
         
-
+        // KILLS AGENT
         private void stopAgent() {
             goOn = false;
             this.interrupt();
         }
     }
     
+    public void pause() {
+    	paused = true;
+    	try { pausedSem.acquire(); } catch (InterruptedException e) {}
+    }
+    
+    public void unpause() {
+    	paused = false;
+    	pausedSem.release();
+    }
 }
 
