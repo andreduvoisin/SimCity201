@@ -3,14 +3,16 @@ package market.test.mock;
 import java.util.Map;
 
 import market.*;
+import market.interfaces.MarketCashier;
 import market.interfaces.MarketCook;
+import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import test.mock.*;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import base.Item.EnumItemType;
 
-public class MockCookCustomer extends Mock implements MarketCook, Role {
+public class MockCookCustomer extends Mock implements RestaurantCookInterface, Role {
 
 	public MockCookCustomer() {
 		super();
@@ -24,6 +26,10 @@ public class MockCookCustomer extends Mock implements MarketCook, Role {
 		log.add(new LoggedEvent("Received msgHereIsCookOrder."));
 	}
 
+	public void setMarketCashier(MarketCashier c) {
+		log.add(new LoggedEvent("Set marketCashier to " + c));
+	}
+	
 /*Role Actions*/
 	public boolean pickAndExecuteAnAction() {
 		return false;
@@ -47,4 +53,9 @@ public class MockCookCustomer extends Mock implements MarketCook, Role {
 	public Person getPerson() {
 		return null;
 	}
+
+	public boolean isRestaurantPerson() {
+		return false;
+	}
+
 }

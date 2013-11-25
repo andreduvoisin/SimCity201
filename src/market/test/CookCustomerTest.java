@@ -9,12 +9,13 @@ import market.MarketOrder.EnumOrderStatus;
 
 import java.util.*;
 
+import restaurant.intermediate.RestaurantCookRole;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 
 public class CookCustomerTest extends TestCase {
 	PersonAgent mPerson;
-	MarketCookCustomerRole mCookCustomer;
+	RestaurantCookRole mCookCustomer;
 	
 	MockCashier mMockCashier;
 	MockWorker mMockWorker;
@@ -27,7 +28,7 @@ public class CookCustomerTest extends TestCase {
  		super.setUp();
  		
  		mPerson = new PersonAgent();
- 		mCookCustomer = new MarketCookCustomerRole(mPerson);
+ 		mCookCustomer = new RestaurantCookRole(mPerson);
  		
  		mMockCashier = new MockCashier();
  		mMockWorker = new MockWorker();
@@ -41,20 +42,6 @@ public class CookCustomerTest extends TestCase {
  	 * Test cook customer for a completed order.
  	 */
  	public void testCompletedOrder() {
- 		
- 	}
- 	
- 	/**
- 	 * Test cook customer for a partial order.
- 	 */
- 	public void testPartialOrder() {
- 		
- 	}
- 	
- 	/**
- 	 * Test cook customer for an unfulfilled order.
- 	 */
- 	public void testUnfulfilledOrder() {
  		
  	}
 }

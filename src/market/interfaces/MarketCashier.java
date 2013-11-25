@@ -10,12 +10,8 @@ public interface MarketCashier {
 
 	public abstract void msgPayingForOrder(MarketInvoice invoice);
 
-	//Scheduler
-//	public abstract boolean pickAndExecuteAnAction();
+	//Animation Messages
+	public abstract void msgAnimationAtPosition();
 	
-	//Actions
-	
-	//Accessors
-//	public abstract int getNumWorkers();
-
+	public abstract void msgAnimationLeftMarket();
 }
