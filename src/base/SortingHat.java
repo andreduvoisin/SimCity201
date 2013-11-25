@@ -23,7 +23,6 @@ import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityHousing;
 import city.gui.SimCityGui;
 
 public class SortingHat {
@@ -34,7 +33,7 @@ public class SortingHat {
 	
 	static int sNumBankTellers = 1;
 	static int sNumMarketWorkers = 1;
-	static int sNumRestaurantWaiters = 1;	
+	static int sNumRestaurantWaiters = 4;	
 	
 	public static void InstantiateBaseRoles(){
 		sRoleLocations = ContactList.sRoleLocations;
@@ -55,15 +54,15 @@ public class SortingHat {
 		}
 
 		//Restaurants
-
-//		for (int iRestaurantNum = 1; iRestaurantNum < 2; iRestaurantNum++){
-//			sRoleLocations.put(new RestaurantHostRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-//			sRoleLocations.put(new RestaurantCashierRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-//			sRoleLocations.put(new RestaurantCookRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-//			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-//				sRoleLocations.put(new RestaurantWaiterRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-//			}
-//		}
+		
+		for (int iRestaurantNum = 4; iRestaurantNum < 6; iRestaurantNum++){ //DAVID: 4 Change this later
+			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
+				sRoleLocations.put(new RestaurantWaiterRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+			}
+		}
 		
 		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){
@@ -159,7 +158,7 @@ public class SortingHat {
 	//RESTAURANTS
 	public static Role getRestaurantRole(int shift){
 		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
-		
+			
 		//RestaurantHostRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof RestaurantHostRole){

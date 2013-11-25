@@ -2,21 +2,45 @@ package restaurant.restaurant_xurex.gui;
 
 import javax.swing.*;
 
+import restaurant.restaurant_xurex.CashierRole;
+import restaurant.restaurant_xurex.CookRole;
+import restaurant.restaurant_xurex.HostRole;
+import restaurant.restaurant_xurex.interfaces.Cashier;
+import restaurant.restaurant_xurex.interfaces.Cook;
+import restaurant.restaurant_xurex.interfaces.Customer;
+import restaurant.restaurant_xurex.interfaces.Host;
+import restaurant.restaurant_xurex.interfaces.Waiter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class AnimationPanel extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+	
+//	ROLES
+    //private Vector<Waiter> waiters = new Vector<Waiter>();
+    //private Vector<Customer> customers = new Vector<Customer>();
+    /*
+    //Initial
+    private Host host = new HostRole();
+    private Cook cook = new CookRole(); 
+    private Cashier cashier = new CashierRole();
+    
+    private CookGui cookGui = new CookGui(cook);
+    */
+
+//	DIMENSIONS
 	static final int TABLEDIM = 25;
 	static final int TABLEX = 200;
 	static final int TABLEY = 250;
-    private final int WINDOWX = 450;
-    private final int WINDOWY = 350;
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
     
     static final int CASHIERX = 0;
     static final int CASHIERY = 50;
@@ -25,8 +49,8 @@ public class AnimationPanel extends JPanel implements ActionListener {
     private boolean p = false;
     //private Image bufferImage;
     //private Dimension bufferSize;
-    private List<Icon> foodIcons = Collections.synchronizedList(new ArrayList<Icon>());
     private List<Gui> guis = new ArrayList<Gui>();
+    private List<Icon> foodIcons = Collections.synchronizedList(new ArrayList<Icon>());
     
     private class Icon{
     	private int x;
@@ -41,6 +65,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         
+        //cook.setGui(cookGui);
         //bufferSize = this.getSize();
  
     	Timer timer = new Timer(10, this );
@@ -103,6 +128,17 @@ public class AnimationPanel extends JPanel implements ActionListener {
 		g2.setColor(Color.BLACK);
 		drawFood();
     }
+    
+	public void updateCustomerLine() {
+		CustomerGui.LINE_POSITION--;
+		for(Gui gui : guis) {
+            if (gui.isPresent()) {
+                if(gui instanceof CustomerGui) {
+                	((CustomerGui) gui).moveForwardInLine();
+                }
+            }
+        }
+	}
     
     private void drawFood(){
     	synchronized(foodIcons){

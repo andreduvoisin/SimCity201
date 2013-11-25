@@ -211,7 +211,7 @@ public class CustomerAgent extends Agent implements Customer{
 
 	// ACTIONS //
 	private void goToRestaurant() {
-		customerGui.DoGoArea();
+		customerGui.DoGoWaitInLine();
 		host.IWantFood(this);
 		Do("goToRestaurant called");
 	}
@@ -222,6 +222,8 @@ public class CustomerAgent extends Agent implements Customer{
 		}
 		else{
 			host.IWillNotWait(this);
+			customerGui.DoExitRestaurant();
+			customerGui.gui.animationPanel.updateCustomerLine();
 			timer.schedule(new TimerTask(){
 				public void run(){
 					customerGui.SetCustomerEnabled();

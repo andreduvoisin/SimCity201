@@ -1,17 +1,17 @@
 package restaurant.restaurant_cwagoner.gui;
 
 
-import restaurant.restaurant_cwagoner.WaiterAgent;
+import restaurant.restaurant_cwagoner.roles.WaiterRole;
 
 import java.awt.*;
 
 public class WaiterGui implements Gui {
 
-    private WaiterAgent agent = null;
+    private WaiterRole agent = null;
     RestaurantGui restaurantGui = null;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
-    						movingToCashier, onBreak }
+    						movingToCashier }
     private State state;
     private String food = "";
 
@@ -24,7 +24,7 @@ public class WaiterGui implements Gui {
     	    	xPos, yPos,
     	    	xDestination, yDestination;
 
-    public WaiterGui(WaiterAgent w, RestaurantGui g, int waiterNum) {
+    public WaiterGui(WaiterRole w, RestaurantGui g, int waiterNum) {
     	state = State.idle;
         agent = w;
         restaurantGui = g;
@@ -115,21 +115,5 @@ public class WaiterGui implements Gui {
     // Removes food from waiter's GUI (dropped off at customer)
     public void DoClearFood() {
     	food = "";
-    }
-    
-    public void onBreak(boolean allowed) {
-    	if (allowed) {
-	    	state = State.onBreak;
-	    	xDestination = HOME_X;
-	    	yDestination = HOME_Y;
-    	}
-    	else {
-        	state = State.idle;
-    	}
-    	restaurantGui.waiterOnBreak(allowed, (WaiterAgent) agent);
-    }
-    
-    public boolean isOnBreak() {
-    	return state.equals(State.onBreak);
     }
 }

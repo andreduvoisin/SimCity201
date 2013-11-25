@@ -1,8 +1,10 @@
 package restaurant.restaurant_maggiyan;
 
-import base.Agent;
+import agent.Agent;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.MyCustomer;
+import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
 import restaurant.restaurant_maggiyan.gui.WaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.Cashier;
 import restaurant.restaurant_maggiyan.interfaces.Cook;
@@ -55,8 +57,6 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	public enum WaiterState {busy, free, askingToGoOnBreak, waitingForBreakResponse, DoneWithBreak}; 
 	public WaiterState wState; 
-	
-	public enum CustomerState{waiting, seated, askedToOrder, readyToOrder, gaveOrder, waitingForFood, orderGiven, foodIsCooking, foodOrderReady, eating, checkReady, receivedCheck, done, finished, needsToReOrder, reordering}; 
 	
 	private boolean reenableBreakButton = false; 
 	
@@ -128,11 +128,12 @@ public class WaiterAgent extends Agent implements Waiter{
 	}
 	
 	//Lets the waiter know food is done
-	public void msgOrderDone(String choice, int tableNum){ 
+	public void msgOrderDone(String choice, int tableNum, int orderPos){ 
 		for(MyCustomer mc: customers){
 			if(mc.table == tableNum){
 				print("Order picked up"); 
 				mc.s = CustomerState.foodOrderReady; 
+				mc.orderPos = orderPos; 
 			}
 		}
 		stateChanged(); 
@@ -336,7 +337,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private void goOnBreak(){
 		print("Going on break");
-		final WaiterAgent w = this; 
+		final restaurant_maggiyan.interfaces.Waiter w = this; 
 		waiterGui.DoGoOnBreak();
 		try{
 			animationReady.acquire(); 
@@ -438,7 +439,6 @@ public class WaiterAgent extends Agent implements Waiter{
 		DoGiveOrderToCook();  
 		print("Giving order to cook");
 		cust.s = CustomerState.foodIsCooking; 
-		cook.msgHereIsOrder(this, cust.choice, cust.table); 
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 
@@ -446,6 +446,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		catch(Exception e){
 			print ("giveOrderToCook exception");
 		}
+		cook.msgHereIsOrder(this, cust.choice, cust.table); 
 	}
 	
 	private void giveCustomerFood(MyCustomer mc){
@@ -458,6 +459,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		catch(Exception e){
 			print("giveCustomerFood exception"); 
 		}
+		cook.msgPickedUpOrder(mc.orderPos); 
 		waiterGui.showCustomerOrder(mc.choice);
 		print("Bringing food to customer"); 
 		DoBringCustomerFood(mc.table);
@@ -519,28 +521,5 @@ public class WaiterAgent extends Agent implements Waiter{
 		return waiterGui;
 	}
 	
-	private class MyCustomer {
-		Customer c; 
-		int table; 
-		String choice; 
-		CustomerState s; 
-		Check check;
-		
-		MyCustomer(Customer customer, int tableNum, CustomerState state){
-			c = customer; 
-			table = tableNum; 
-			s = state; 
-			check = null; 
-		}
-		
-		void setCheck(Check c){
-			check = c; 
-		}
-		
-		//For JUnit Testing
-		public double getTotal(Check check){
-			return check.getCheckTotal(); 
-		}
-	}
 }
 

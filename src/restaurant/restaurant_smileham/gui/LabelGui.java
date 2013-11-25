@@ -8,9 +8,9 @@ public class LabelGui implements Gui{
 	private String mLabel;
 	private int mPosX;
 	private int mPosY;
-	private RestaurantGui mGUI;
+	private SmilehamRestaurantGui mGUI;
 
-	public LabelGui(String label, int x, int y, RestaurantGui gui){
+	public LabelGui(String label, int x, int y, SmilehamRestaurantGui gui){
 		mLabel = label;
 		mPosX = x;
 		mPosY = y;

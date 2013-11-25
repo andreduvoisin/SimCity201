@@ -1,6 +1,6 @@
 package restaurant.restaurant_maggiyan;
 
-import base.Agent;
+import agent.Agent;
 
 import java.util.*;
 

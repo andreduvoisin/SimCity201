@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import restaurant.restaurant_xurex.agents.CookAgent.CookOrder;
-import restaurant.restaurant_xurex.gui.RestaurantGui;
+import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 
@@ -32,7 +32,7 @@ public interface Cook {
 
 	public abstract String getName();
 
-	void setGui(RestaurantGui gui);
+	void setGui(CookGui cookGui);
 	
 	public abstract void msgAtLocation();
 	

@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -25,7 +26,7 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
-	List<MyCustomer> customers = new ArrayList<MyCustomer>();
+	List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	List<Order> orders = new ArrayList<Order>();
 	Cook cook;
 	Host host;
@@ -38,16 +39,16 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	
 	private WaiterGui_ waiterGui = null;
 
-	public WaiterRole1(String name) {
-		super();
+	public WaiterRole1(String name, Person person) {
+		super(person);
 		this.name = name;
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	public WaiterRole1(String name, Host host, Cook cook){
-		super();
+	public WaiterRole1(String name, Host host, Cook cook, Person person){
+		super(person);
 		this.name = name;
 		this.cook = cook;
 		this.host = host;
@@ -168,16 +169,18 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	 * Scheduler: the brains of the operation
 	 */
 	public boolean pickAndExecuteAnAction() {
+		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.askedToOrder){
 				StayStill(); return true;
 			}
-		}
+		}}
+		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.waiting){
 				SeatCustomer(customer); state=WaiterState.working; return true;
 			}
-		}
+		}}
 		for(Order order:orders){
 			if(order.s==OrderState.denied){
 				AskToReorder(order); state=WaiterState.working; return true;
@@ -189,11 +192,13 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 				state=WaiterState.working; return true;
 			}
 		}
+		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.readyToOrder){
 				TakeOrder(customer); state=WaiterState.working; return true;
 			}
-		}
+		}}
+		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.ordered){
 				SendOrder(customer); 
@@ -201,12 +206,13 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 				state=WaiterState.working; 
 				return true;
 			}
-		}
+		}}
+		synchronized(customers){
 		for(MyCustomer customer:customers){
 			if(customer.s==CustomerState.done){
 				CleanTable(customer); state=WaiterState.working; return true;
 			}
-		}
+		}}
 		
 		if(state==WaiterState.working){ //just finished something, can message waiter
 			state=WaiterState.good;

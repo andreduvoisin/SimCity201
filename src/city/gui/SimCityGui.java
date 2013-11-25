@@ -105,12 +105,13 @@ public class SimCityGui extends JFrame {
 //		testCook.addRole(cookRole, true);
 //		testCook.startThread();
 		
-		//Person person = citypanel.masterPersonList.get(0);
-		//if (person instanceof PersonAgent){
-			//((PersonAgent) person).msgAnimationDone();
-			//((PersonAgent) person).getCar();
-			//((PersonAgent) person).msgAnimationDone();
-//		}
+		Person person = citypanel.masterPersonList.get(0);
+		if (person instanceof PersonAgent){
+			((PersonAgent) person).msgAnimationDone();
+//			((PersonAgent) person).getCar();
+			((PersonAgent) person).eatFood();
+			((PersonAgent) person).msgAnimationDone();
+		}
 		
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();

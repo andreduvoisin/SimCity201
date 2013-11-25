@@ -4,11 +4,9 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
-import restaurant.restaurant_xurex.interfaces.CookGui_;
 
-public class CookGui implements Gui, CookGui_ {
+public class CookGui implements Gui {
 
     private Cook agent = null;
     RestaurantGui gui;

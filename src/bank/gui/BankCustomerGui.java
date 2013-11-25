@@ -2,7 +2,6 @@ package bank.gui;
 
 import bank.interfaces.BankCustomer;
 import base.Gui;
-import base.Location;
 
 import java.awt.*;
 
@@ -22,6 +21,10 @@ public class BankCustomerGui implements Gui {
 	
 	private int positionInLine;
 	
+	static final int LINE_X = 250;
+	static final int LINE_Y = 350;
+	static final int LINE_INCREMENT = -25;	// in the y
+	static int LINE_POSITION = 0;
 	
 	static final int INTERACT_X1 = 250;
 	static final int INTERACT_X2 = 200;
@@ -75,10 +78,10 @@ public class BankCustomerGui implements Gui {
 	*/
 	public void DoGoWaitInLine() {
 		isPresent = true;
-		xDestination = BankPanel.LINE_X;
-		yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
-		positionInLine = BankPanel.LINE_POSITION;
-		BankPanel.LINE_POSITION++;
+		xDestination = LINE_X;
+		yDestination = LINE_Y + (LINE_INCREMENT * LINE_POSITION);
+		positionInLine = LINE_POSITION;
+		LINE_POSITION++;
 	}
 	
 	public void DoLeaveBank() {
@@ -108,8 +111,8 @@ public class BankCustomerGui implements Gui {
 	public void moveForwardInLine() {
 		positionInLine--;
 		if(positionInLine >= 0) {
-			xDestination = BankPanel.LINE_X;
-			yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
+			xDestination = LINE_X;
+			yDestination = LINE_Y + (LINE_INCREMENT * LINE_POSITION);
 		}
 	}
 }

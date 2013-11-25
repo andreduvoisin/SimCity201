@@ -8,7 +8,7 @@ import test.mock.*;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 
 public class MockCookCustomer extends Mock implements MarketCook, Role {
 
@@ -16,7 +16,7 @@ public class MockCookCustomer extends Mock implements MarketCook, Role {
 		super();
 	}
 	
-	public void msgInvoiceToPerson(Map<EnumMarketItemType,Integer> cannotFulfill, MarketInvoice invoice) {
+	public void msgInvoiceToPerson(Map<EnumItemType,Integer> cannotFulfill, MarketInvoice invoice) {
 		log.add(new LoggedEvent("Received msgInvoiceToPerson."));
 	}
 	

@@ -1,13 +1,13 @@
 package restaurant.restaurant_cwagoner.test;
 
-import restaurant.restaurant_cwagoner.CashierAgent;
+import restaurant.restaurant_cwagoner.roles.CashierRole;
 import restaurant.restaurant_cwagoner.test.mock.*;
 import junit.framework.*;
 
 public class CashierTest extends TestCase {
 	
 	//these are instantiated for each test separately via the setUp() method.
-	CashierAgent cashier;
+	CashierRole cashier;
 	MockWaiter waiter;
 	MockCustomer customer;
 	MockMarket market1, market2;
@@ -19,7 +19,7 @@ public class CashierTest extends TestCase {
 	 */
 	public void setUp() throws Exception {
 		super.setUp();		
-		cashier = new CashierAgent();		
+		cashier = new CashierRole();		
 		customer = new MockCustomer("mockcustomer");		
 		waiter = new MockWaiter("mockwaiter");
 		market1 = new MockMarket("mockmarket1");
@@ -108,7 +108,7 @@ public class CashierTest extends TestCase {
 		
 		//step 1 of the test
 		//public Bill(Customer customer, double price) {
-		CashierAgent.Bill bill = new CashierAgent.Bill(waiter, customer, 7.98);
+		CashierRole.Bill bill = new CashierRole.Bill(waiter, customer, 7.98);
 		cashier.HereIsBill(bill);//send the message from a waiter
 
 		//check postconditions for step 1 and preconditions for step 2
@@ -135,7 +135,7 @@ public class CashierTest extends TestCase {
 		
 		//check postconditions for step 2 / preconditions for step 3
 		assertTrue("CashierBill should contain a bill with state == customerApproached. It doesn't.",
-				cashier.Bills.get(0).state == CashierAgent.Bill.State.customerApproached);
+				cashier.Bills.get(0).state == CashierRole.Bill.State.customerApproached);
 		
 		assertTrue("Cashier should have logged \"Received msgReadyToPay\" but didn't. His log reads instead: " 
 				+ cashier.log.getLastLoggedEvent().toString(), cashier.log.containsString("Received msgReadyToPay"));
