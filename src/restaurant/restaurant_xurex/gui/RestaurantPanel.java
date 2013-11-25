@@ -33,7 +33,7 @@ public class RestaurantPanel extends JPanel{
     private CookAgent cook = new CookAgent("Ramsay"); 
     private CashierAgent cashier = new CashierAgent("Alec");
     
-    private CookGui cookGui = new CookGui(cook);
+	CookGui cookGui = new CookGui(cook);
     
     //MarketAgent Constructor (Name, Cook, Quantity of: Steak, Chicken, Salad, Pizza);
     private MarketAgent market1 = new MarketAgent("Market1", cook, cashier, 7, 7, 7, 7);

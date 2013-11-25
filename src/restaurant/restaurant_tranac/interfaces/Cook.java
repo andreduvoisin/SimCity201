@@ -11,9 +11,10 @@ public interface Cook {
 	
 	public abstract void msgOrderPickedUp(Waiter w, String c);
 	
-	public abstract void msgCanFulfillInventory(String f, int n);
+/*	public abstract void msgCanFulfillInventory(String f, int n);
 	
 	public abstract void msgHereIsInventory(String f, int n);
 	
 	public abstract void msgOutOfInventory(Market m, String f);
+*/
 }
