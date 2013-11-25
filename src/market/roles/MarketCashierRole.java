@@ -20,7 +20,7 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 import base.BaseRole;
 import base.Item;
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -39,7 +39,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	int mNumWorkers = 0;
 	
-	Map<EnumMarketItemType, Integer> mInventory = new HashMap<EnumMarketItemType, Integer>();
+	Map<EnumItemType, Integer> mInventory = new HashMap<EnumItemType, Integer>();
 	int mBaseInventory = 5;
 	
 	List<MarketWorker> mWorkers = Collections.synchronizedList(new ArrayList<MarketWorker>());
@@ -47,8 +47,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	List<MarketDeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<MarketDeliveryTruck>());
 	
-	int mCash; // no longer needed?
-	int mMarketSSN;
+	int mBankAccount;
 
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
@@ -60,13 +59,13 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		
 		//populate inventory
 		if(mMarketType == EnumMarketType.FOOD) {
-		mInventory.put(EnumMarketItemType.STEAK, mBaseInventory);
-		mInventory.put(EnumMarketItemType.SALAD, mBaseInventory);
-		mInventory.put(EnumMarketItemType.CHICKEN, mBaseInventory);
-		mInventory.put(EnumMarketItemType.PIZZA, mBaseInventory);
+		mInventory.put(EnumItemType.STEAK, mBaseInventory);
+		mInventory.put(EnumItemType.SALAD, mBaseInventory);
+		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);
+		mInventory.put(EnumItemType.PIZZA, mBaseInventory);
 		}
 		else {
-			mInventory.put(EnumMarketItemType.CAR, mBaseInventory);
+			mInventory.put(EnumItemType.CAR, mBaseInventory);
 		}
 	}
 	
@@ -127,10 +126,10 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Actions
 	private void processOrderAndNotifyPerson(MarketOrder order){
-		Map<EnumMarketItemType, Integer> cannotFulfill = new HashMap<EnumMarketItemType, Integer>();
+		Map<EnumItemType, Integer> cannotFulfill = new HashMap<EnumItemType, Integer>();
 		int cost = 0;
 
-		for(EnumMarketItemType item : order.mItems.keySet()) {
+		for(EnumItemType item : order.mItems.keySet()) {
 			if(mInventory.get(item) < order.mItems.get(item)) {
 				cannotFulfill.put(item,order.mItems.get(item)-mInventory.get(item));
 				mInventory.put(item,0);
@@ -143,7 +142,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		}
 		
 		Role personRole = order.mPersonRole;
-		MarketInvoice invoice = new MarketInvoice(order, cost);
+		MarketInvoice invoice = new MarketInvoice(order, cost, mBankAccount);
 
 		//if a cook
 		if (personRole instanceof MarketCook){
@@ -197,11 +196,15 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		mWorkers.add(w);
 	}
 	
-	public double getPrice(EnumMarketItemType item) {
+	public double getPrice(EnumItemType item) {
 		return Item.cMARKET_PRICES.get(item);
 	}
 	
-	public int getInventory(EnumMarketItemType item) {
+	public int getInventory(EnumItemType item) {
 		return mInventory.get(item);
+	}
+	
+	public void setBankAccount(int n) {
+		mBankAccount = n;
 	}
 }

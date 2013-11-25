@@ -9,7 +9,7 @@ import market.MarketOrder.EnumOrderStatus;
 
 import java.util.*;
 
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import base.PersonAgent;
 
 public class CustomerTest extends TestCase {
@@ -19,7 +19,7 @@ public class CustomerTest extends TestCase {
 	MockCashier mMockCashier;
 	MockWorker mMockWorker;
 	
- 	Map<EnumMarketItemType, Integer> mItems = new HashMap<EnumMarketItemType, Integer>();
+ 	Map<EnumItemType, Integer> mItems = new HashMap<EnumItemType, Integer>();
  	MarketOrder mOrder;
  
  	public void setUp() throws Exception {
@@ -31,8 +31,8 @@ public class CustomerTest extends TestCase {
  		mMockCashier = new MockCashier();
  		mMockWorker = new MockWorker();
  		
- 		mItems.put(EnumMarketItemType.CHICKEN, 3);
- 		mItems.put(EnumMarketItemType.STEAK, 1);
+ 		mItems.put(EnumItemType.CHICKEN, 3);
+ 		mItems.put(EnumItemType.STEAK, 1);
  	}
  	
  	/**

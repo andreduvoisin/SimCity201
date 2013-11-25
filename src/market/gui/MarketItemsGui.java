@@ -7,7 +7,7 @@ import market.roles.MarketCashierRole;
 
 import java.util.*;
 
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 
 
 /**
@@ -28,13 +28,13 @@ public class MarketItemsGui implements MarketBaseGui {
 		mMarketType = t;
 		//populate list of items; hack right now
 		if(t == EnumMarketType.FOOD) {
-			mItems.put(new ItemGui(EnumMarketItemType.STEAK,Color.RED), new MarketCoordinates(xBase, yBase));
-			mItems.put(new ItemGui(EnumMarketItemType.CHICKEN,Color.RED), new MarketCoordinates(xBase, yBase+100));
-			mItems.put(new ItemGui(EnumMarketItemType.SALAD,Color.RED), new MarketCoordinates(xBase, yBase+200));
-			mItems.put(new ItemGui(EnumMarketItemType.PIZZA,Color.RED), new MarketCoordinates(xBase, yBase+300));
+			mItems.put(new ItemGui(EnumItemType.STEAK,Color.RED), new MarketCoordinates(xBase, yBase));
+			mItems.put(new ItemGui(EnumItemType.CHICKEN,Color.RED), new MarketCoordinates(xBase, yBase+100));
+			mItems.put(new ItemGui(EnumItemType.SALAD,Color.RED), new MarketCoordinates(xBase, yBase+200));
+			mItems.put(new ItemGui(EnumItemType.PIZZA,Color.RED), new MarketCoordinates(xBase, yBase+300));
 		}
 		else
-			mItems.put(new ItemGui(EnumMarketItemType.CAR,Color.RED), new MarketCoordinates(xBase, yBase+400));
+			mItems.put(new ItemGui(EnumItemType.CAR,Color.RED), new MarketCoordinates(xBase, yBase+400));
 	}
 	
 	public void updatePosition() {
@@ -53,7 +53,7 @@ public class MarketItemsGui implements MarketBaseGui {
 	}
 	
 /* Utilities */
-	public void decreaseItemCount(EnumMarketItemType i) {
+	public void decreaseItemCount(EnumItemType i) {
 		for(ItemGui item : mItems.keySet()) {
 			if(item.mItem == i) {
 				item.mNumber--;
@@ -61,7 +61,7 @@ public class MarketItemsGui implements MarketBaseGui {
 		}
 	}
 	
-	public MarketCoordinates getItemCoordinates(EnumMarketItemType i) {
+	public MarketCoordinates getItemCoordinates(EnumItemType i) {
 		for(ItemGui item : mItems.keySet()) {
 			if(item.mItem == i) {
 				return mItems.get(item);
@@ -76,11 +76,11 @@ public class MarketItemsGui implements MarketBaseGui {
 	
 /* Classes */
 	class ItemGui {
-		EnumMarketItemType mItem;
+		EnumItemType mItem;
 		int mNumber;
 		Color mColor;
 		
-		ItemGui(EnumMarketItemType i, Color c) {
+		ItemGui(EnumItemType i, Color c) {
 			mItem = i;
 			mColor = c;
 			mNumber = sBaseInventory;
