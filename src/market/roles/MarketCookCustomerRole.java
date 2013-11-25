@@ -13,6 +13,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCook;
 import base.Item.EnumMarketItemType;
+import base.ContactList;
 import base.PersonAgent;
 import base.BaseRole;
 
@@ -33,7 +34,6 @@ public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
 	MarketCashier mMarketCashier;
-	int mMarketSSN;			///for paying
 	
 	public MarketCookCustomerRole(PersonAgent person) {
 		super(person);
@@ -104,7 +104,7 @@ public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 	
 	private void payAndProcessOrder(MarketInvoice i) {
 		i.mPayment = i.mTotal;
-		//check if cannot afford invoice
+		ContactList.SendPayment(mPerson.getSSN(), i.mMarketBankNumber, i.mPayment);
 		
 		for(EnumMarketItemType item : mCannotFulfill.keySet()) {
 			mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));

@@ -47,8 +47,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	List<MarketDeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<MarketDeliveryTruck>());
 	
-	int mCash; // no longer needed?
-	int mMarketSSN;
+	int mBankAccount;
 
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
@@ -143,7 +142,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		}
 		
 		Role personRole = order.mPersonRole;
-		MarketInvoice invoice = new MarketInvoice(order, cost);
+		MarketInvoice invoice = new MarketInvoice(order, cost, mBankAccount);
 
 		//if a cook
 		if (personRole instanceof MarketCook){
@@ -203,5 +202,9 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	public int getInventory(EnumMarketItemType item) {
 		return mInventory.get(item);
+	}
+	
+	public void setBankAccount(int n) {
+		mBankAccount = n;
 	}
 }

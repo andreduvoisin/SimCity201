@@ -15,6 +15,7 @@ import market.gui.MarketCustomerGui;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
+import base.ContactList;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 
@@ -124,9 +125,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer{
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
-		//check if cannot afford invoice
-		//subtract money from cash
-		//ANGELICA: SHANE: actual payment method?
+		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment);
 		
 		for(EnumMarketItemType item : mCannotFulfill.keySet()) {
 			mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
