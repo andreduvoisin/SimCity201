@@ -26,7 +26,7 @@ import city.gui.CityComponent.EnumCityComponents;
 public class CityControlPanel extends JPanel implements ActionListener{
 	
 	SimCityGui city;
-	public static final int CP_WIDTH = 200, CP_HEIGHT = 700;
+	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
 	JButton addRestaurant, addBank, housingGUIButton;
 	
 	// Title & Pause Button

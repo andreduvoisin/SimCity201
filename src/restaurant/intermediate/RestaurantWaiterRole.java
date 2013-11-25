@@ -2,7 +2,6 @@ package restaurant.intermediate;
 
 import java.util.Random;
 
-import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.WaiterRole;
 import restaurant.restaurant_davidmca.roles.WaiterRoleShared;

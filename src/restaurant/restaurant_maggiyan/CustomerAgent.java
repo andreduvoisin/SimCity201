@@ -1,13 +1,12 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan;
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.Menu;
-import restaurant_maggiyan.CookAgent.state;
-import restaurant_maggiyan.gui.CustomerGui;
-import restaurant_maggiyan.gui.RestaurantGui;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
-import agent.Agent;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.CookAgent.state;
+import restaurant.restaurant_maggiyan.gui.CustomerGui;
+import restaurant.restaurant_maggiyan.gui.RestaurantGui;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import base.Agent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,7 +35,7 @@ public class CustomerAgent extends Agent implements Customer{
 	// Agent Correspondents
 	private CustomerAgent me; 
 	private HostAgent host;
-	private Waiter waiter; 
+	private WaiterAgent waiter; 
 	private CashierAgent cashier;
 	private Menu menu; 
 	private Check check; 
@@ -102,7 +101,7 @@ public class CustomerAgent extends Agent implements Customer{
 	}
 	
 	//From waiter 
-	public void msgFollowMe(Waiter w, Menu m, int tableNumber){
+	public void msgFollowMe(WaiterAgent w, Menu m, int tableNumber){
 		print("Received msgFollowMe");
 		event = AgentEvent.followHost;
 		this.tableNumber = tableNumber;

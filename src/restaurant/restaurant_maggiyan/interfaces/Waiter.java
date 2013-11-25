@@ -1,7 +1,6 @@
-package restaurant_maggiyan.interfaces;
+package restaurant.restaurant_maggiyan.interfaces;
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.gui.WaiterGui;
+import restaurant.restaurant_maggiyan.Check;
 
 
 /**
@@ -11,9 +10,7 @@ import restaurant_maggiyan.gui.WaiterGui;
  *
  */
 public interface Waiter {
-	WaiterGui waiterGui = null;
-
-	public void msgPleaseSeatCustomer(Customer cust, int table);
+public void msgPleaseSeatCustomer(Customer cust, int table);
 	
 	public void msgCantGoOnBreak();
 	
@@ -24,7 +21,7 @@ public interface Waiter {
 	public void msgOutOfChoice(String choice, int tableNum);
 	
 	//Lets the waiter know food is done
-	public void msgOrderDone(String choice, int tableNum, int cookingPos);
+	public void msgOrderDone(String choice, int tableNum);
 	
 	//From Cashier
 	public void msgHereIsBill(Check check);
@@ -37,29 +34,5 @@ public interface Waiter {
 	
 	public void msgLeavingTable(Customer cust);
 
-	public Object getName();
-
 	public void msgReadyToBeSeated();
-
-	public void msgAskToGoOnBreak();
-
-	public void msgAnimationReady();
-
-	public void msgReachedKitchen();
-
-	public void msgAtTable();
-
-	public void atWork();
-
-	public void msgBackFromBreak();
-
-	public void msgWaiterFree();
-
-	public void restart();
-
-	public void pause();
-
-	public WaiterGui getGui();
-
-
 }

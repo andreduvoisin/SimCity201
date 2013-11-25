@@ -24,23 +24,21 @@ public class AnimationPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 //	ROLES
-    //private Vector<Waiter> waiters = new Vector<Waiter>();
-    //private Vector<Customer> customers = new Vector<Customer>();
-    /*
+    private Vector<Waiter> waiters = new Vector<Waiter>();
+    private Vector<Customer> customers = new Vector<Customer>();
     //Initial
     private Host host = new HostRole();
     private Cook cook = new CookRole(); 
     private Cashier cashier = new CashierRole();
     
     private CookGui cookGui = new CookGui(cook);
-    */
 
 //	DIMENSIONS
 	static final int TABLEDIM = 25;
 	static final int TABLEX = 200;
 	static final int TABLEY = 250;
-    private final int WINDOWX = 500;
-    private final int WINDOWY = 500;
+    private final int WINDOWX = 450;
+    private final int WINDOWY = 350;
     
     static final int CASHIERX = 0;
     static final int CASHIERY = 50;
@@ -65,7 +63,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         
-        //cook.setGui(cookGui);
+        cook.setGui(cookGui);
         //bufferSize = this.getSize();
  
     	Timer timer = new Timer(10, this );
@@ -128,17 +126,6 @@ public class AnimationPanel extends JPanel implements ActionListener {
 		g2.setColor(Color.BLACK);
 		drawFood();
     }
-    
-	public void updateCustomerLine() {
-		CustomerGui.LINE_POSITION--;
-		for(Gui gui : guis) {
-            if (gui.isPresent()) {
-                if(gui instanceof CustomerGui) {
-                	((CustomerGui) gui).moveForwardInLine();
-                }
-            }
-        }
-	}
     
     private void drawFood(){
     	synchronized(foodIcons){

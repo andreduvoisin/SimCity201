@@ -36,11 +36,10 @@ public interface Person {
 	public Map<Role, Boolean> getRoles();
 	public Role getHousingRole();
 
-	public void setComponent(CityPerson pc);
-
 	void subLoan(double mTransaction);
 	
 	public CityPerson getPersonGui();
 
 	void msgHereIsPayment(int senderSSN, double amount);
+
 }

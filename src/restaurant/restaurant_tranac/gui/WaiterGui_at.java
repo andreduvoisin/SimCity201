@@ -15,7 +15,7 @@ import java.util.*;
 public class WaiterGui_at implements Gui {
 
     private RestaurantWaiterRole_at agent = null;
-    private RestaurantPanel_at gui = null;
+    private RestaurantGui_at gui = null;
     
     private RestaurantCookRole_at cook = null;
     
@@ -43,7 +43,7 @@ public class WaiterGui_at implements Gui {
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
     
-    public WaiterGui_at(RestaurantWaiterRole_at agent, RestaurantPanel_at gui, int i) {
+    public WaiterGui_at(RestaurantWaiterRole_at agent, RestaurantGui_at gui, int i) {
         this.agent = agent;
         this.gui = gui;
         
@@ -177,7 +177,7 @@ public class WaiterGui_at implements Gui {
     	else
     		food = "PIZ";
     }
-    /*
+    
     public void setBreak() {
     	//set off if enabled 	
     	gui.setEnabled(agent);
@@ -186,7 +186,7 @@ public class WaiterGui_at implements Gui {
     public void setWantToGoOnBreak() {
     	agent.msgWantToGoOnBreak();
     }
-   */ 
+    
     public boolean isPresent() {
         return true;
     }

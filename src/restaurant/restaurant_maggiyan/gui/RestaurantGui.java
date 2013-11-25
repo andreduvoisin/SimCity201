@@ -1,8 +1,7 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.WaiterAgent;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.CustomerAgent;
+import restaurant.restaurant_maggiyan.WaiterAgent;
 
 import javax.swing.*;
 
@@ -120,7 +119,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
         }
     }
     
-    public void setWaiterEnabled(Waiter w){
+    public void setWaiterEnabled(WaiterAgent w){
     	for(int i = 0; i<restPanel.getCustPanel().getWaiterCBList().size(); i++){
     		JCheckBox tempBox = restPanel.getCustPanel().getWaiterCBList().get(i); 
     		if(w.getName() == tempBox.getText()){

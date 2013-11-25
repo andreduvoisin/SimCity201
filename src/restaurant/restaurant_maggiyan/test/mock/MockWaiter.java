@@ -1,11 +1,10 @@
-package restaurant_maggiyan.test.mock;
+package restaurant.restaurant_maggiyan.test.mock;
 
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.gui.WaiterGui;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -47,6 +46,12 @@ public void msgOutOfChoice(String choice, int tableNum) {
 }
 
 @Override
+public void msgOrderDone(String choice, int tableNum) {
+	log.add(new LoggedEvent("Received msgOrderDone. Choice = " + choice + ". Table = " + tableNum)); 
+	
+}
+
+@Override
 public void msgHereIsBill(Check check) {
 	log.add(new LoggedEvent("Received msgHereIsBill of: " + check.getCheckTotal())); 
 	
@@ -73,78 +78,6 @@ public void msgHereIsMyOrder(String choice, Customer c) {
 public void msgLeavingTable(Customer cust) {
 	log.add(new LoggedEvent("Received msgLeavingTable. Customer = " +cust.getName() )); 
 	
-}
-
-@Override
-public void msgOrderDone(String choice, int tableNum, int cookingPos) {
-	log.add(new LoggedEvent("Received msgOrderDone. Choice = " + choice + ". Table = " + tableNum)); 
-	
-}
-
-@Override
-public void msgReadyToBeSeated() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void msgAskToGoOnBreak() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void msgAnimationReady() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void msgReachedKitchen() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void msgAtTable() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void atWork() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void msgBackFromBreak() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void msgWaiterFree() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void restart() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public void pause() {
-	// TODO Auto-generated method stub
-	
-}
-
-@Override
-public WaiterGui getGui() {
-	// TODO Auto-generated method stub
-	return null;
 }
 
 }

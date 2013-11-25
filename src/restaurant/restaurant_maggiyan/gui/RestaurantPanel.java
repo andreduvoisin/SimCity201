@@ -1,13 +1,11 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
-import restaurant_maggiyan.CashierAgent;
-import restaurant_maggiyan.CookAgent;
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.HostAgent;
-import restaurant_maggiyan.MarketAgent;
-import restaurant_maggiyan.SharedDataWaiterAgent;
-import restaurant_maggiyan.WaiterAgent;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.CashierAgent;
+import restaurant.restaurant_maggiyan.CookAgent;
+import restaurant.restaurant_maggiyan.CustomerAgent;
+import restaurant.restaurant_maggiyan.HostAgent;
+import restaurant.restaurant_maggiyan.MarketAgent;
+import restaurant.restaurant_maggiyan.WaiterAgent;
 
 import javax.swing.*;
 
@@ -28,12 +26,11 @@ public class RestaurantPanel extends JPanel {
     private MarketAgent market1 = new MarketAgent("Market 1"); 
     private MarketAgent market2 = new MarketAgent("Market 2"); 
     private MarketAgent market3 = new MarketAgent("Market 3"); 
-    private CookGui cookGui = new CookGui(cook); 
     //private WaiterGui waiterGui = new WaiterGui(host);
  
 
     public Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
-    public Vector<Waiter> waiters = new Vector<Waiter>();
+    public Vector<WaiterAgent> waiters = new Vector<WaiterAgent>();
 
     private JPanel restLabel = new JPanel();
     private ListPanel customerPanel = new ListPanel(this, "Customers");
@@ -51,8 +48,6 @@ public class RestaurantPanel extends JPanel {
         market1.setCashier(cashier); 
         market2.setCashier(cashier); 
         market3.setCashier(cashier); 
-        cook.setGui(cookGui); 
-        gui.animationPanel.addGui(cookGui);
         
         setLayout(new GridLayout(1, 2, 0, 20));
         group.setLayout(new GridLayout(1, 2, 0, 10));
@@ -69,12 +64,12 @@ public class RestaurantPanel extends JPanel {
     public ListPanel getCustPanel(){
     	return customerPanel; 
     }
-    
+   /* 
     public void pause(){
     	cook.pause(); 
     	host.pause();
     	cashier.pause();
-    	for(Waiter waiter: waiters){
+    	for(WaiterAgent waiter: waiters){
     		waiter.pause();
     	}
     	for(CustomerAgent cust: customers){
@@ -90,7 +85,7 @@ public class RestaurantPanel extends JPanel {
     	cook.restart(); 
     	host.restart();
     	cashier.restart();
-    	for(Waiter waiter: waiters){
+    	for(WaiterAgent waiter: waiters){
     		waiter.restart();
     	}
     	for(CustomerAgent cust: customers){
@@ -101,21 +96,21 @@ public class RestaurantPanel extends JPanel {
     	market3.restart();
     	System.out.println("Restarted");
     }
-    
+*/    
     public Vector<CustomerAgent> getCust(){
     	return customers;
     }
     
-    public Vector<Waiter> getWaiter(){
+    public Vector<WaiterAgent> getWaiter(){
     	return waiters;
     }
     
-    public Vector<Waiter> getWaiters(){
+    public Vector<WaiterAgent> getWaiters(){
     	return waiters;
     }
     
     public WaiterGui getWaiterGui(String name){
-    	for(Waiter waiter: waiters){
+    	for(WaiterAgent waiter: waiters){
     		if(waiter.getName() == name){
     			return waiter.waiterGui; 
     		}
@@ -192,28 +187,18 @@ public class RestaurantPanel extends JPanel {
     	}
     	
     	else if (type.equals("Waiter")){
-    		int waiterTypeNum = 1 + (int)(Math.random()*10); 
     		//Create new waiter agent and gui
-    		if(waiterTypeNum%2 == 0){
-	    		WaiterAgent w = new WaiterAgent(name, cook, host); 
-	    		WaiterGui waiterGui = new WaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(waiterGui);
-	    		w.setCashier(cashier); 
-	    		w.setGui(waiterGui);
-	    		waiters.add(w); 
-	    		w.startThread(); 
-    		}
-    		else{
-    			SharedDataWaiterAgent w = new SharedDataWaiterAgent(name, cook, host); 
-	    		WaiterGui waiterGui = new WaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(waiterGui);
-	    		w.setCashier(cashier); 
-	    		w.setGui(waiterGui);
-	    		waiters.add(w); 
-	    		w.startThread(); 
-    		}
+    		WaiterAgent w = new WaiterAgent(name, cook, host); 
+    		WaiterGui waiterGui = new WaiterGui(w, gui);
+    		
+    		
+    		gui.animationPanel.addGui(waiterGui);
+    		w.setCashier(cashier); 
+    		w.setGui(waiterGui);
+    		waiters.add(w); 
+    		w.startThread(); 
+    	
+    		
     		
     	}
     }

@@ -5,21 +5,18 @@ import restaurant.restaurant_xurex.interfaces.Waiter;
 
 import javax.swing.*;
 
-import city.gui.CityCard;
-import city.gui.SimCityGui;
-
 import java.awt.*;
 import java.awt.event.*;
 /**
  * Main GUI class.
  * Contains the main frame and subsequent panels
  */
-public class RestaurantGui extends CityCard implements ActionListener {
+public class RestaurantGui extends JFrame implements ActionListener {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public AnimationPanel animationPanel = new AnimationPanel();
+	AnimationPanel animationPanel = new AnimationPanel();
 	
     /* restPanel holds 2 panels
      * 1) the staff listing, menu, and lists of current customers all constructed
@@ -29,7 +26,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
     private RestaurantPanel restPanel = new RestaurantPanel(this);
     
 	private JLabel label = new JLabel();
-    //private JLabel inventoryLabel = new JLabel();
+    private JLabel inventoryLabel = new JLabel();
     
     /* infoPanel holds information about the clicked customer, if there is one
     private JPanel infoPanel;
@@ -48,10 +45,9 @@ public class RestaurantGui extends CityCard implements ActionListener {
      * Constructor for RestaurantGui class.
      * Sets up all the gui components.
      */
-    public RestaurantGui(SimCityGui city) {
-    	super(city);
-        int WINDOWX = 500;
-        int WINDOWY = 500;
+    public RestaurantGui() {
+        int WINDOWX = 1200;
+        int WINDOWY = 350;
         /*
         animationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         animationFrame.setBounds(100+WINDOWX, 50 , WINDOWX+100, WINDOWY+100);
@@ -59,11 +55,12 @@ public class RestaurantGui extends CityCard implements ActionListener {
     	animationFrame.add(animationPanel); 
     	*/
         
-    	setBounds(0, 0, WINDOWX, WINDOWY);
+    	setBounds(50, 50, WINDOWX, WINDOWY);
 
-        setLayout(new GridLayout(1,2));
+        setLayout(new BoxLayout((Container) getContentPane(), 
+        		BoxLayout.X_AXIS));
 
-    	/*
+    	
         Dimension restDim = new Dimension(550, (int) (WINDOWY));
         restPanel.setPreferredSize(restDim);
         restPanel.setMinimumSize(restDim);
@@ -181,7 +178,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
                 +restPanel.getMarket(3).getQuantity("Pizza")
                 +"</td></tr></table><br></html>");
     }
-    /*
+    
     private void InitInventoryLabel(){
         //restLabel.setLayout(new BoxLayout((Container)restLabel, BoxLayout.Y_AXIS));
         inventoryLabel.setLayout(new BorderLayout());
@@ -214,7 +211,6 @@ public class RestaurantGui extends CityCard implements ActionListener {
         inventoryLabel.add(new JLabel("               "), BorderLayout.EAST);
         inventoryLabel.add(new JLabel("               "), BorderLayout.WEST);
     }
-    */
     /**
      * Message sent from a customer gui to enable that customer's
      * "I'm hungry" checkbox.
@@ -243,7 +239,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
     
     /**
      * Main routine to get gui started
-     
+     */
     public static void main(String[] args) {
         RestaurantGui gui = new RestaurantGui();
         gui.setTitle("Rex's Rad Restaurant");
@@ -251,5 +247,5 @@ public class RestaurantGui extends CityCard implements ActionListener {
         gui.setResizable(false);
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-	*/
+
 }

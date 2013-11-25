@@ -1,9 +1,9 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
 import javax.swing.*;
 
-import restaurant_maggiyan.CustomerAgent;
-import restaurant_maggiyan.HostAgent;
+import restaurant.restaurant_maggiyan.CustomerAgent;
+import restaurant.restaurant_maggiyan.HostAgent;
 
 import java.awt.*;
 

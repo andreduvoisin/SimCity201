@@ -1,4 +1,4 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
 import javax.swing.*;
 
@@ -71,9 +71,9 @@ public class AnimationPanel extends JPanel implements ActionListener {
         g2.setColor(Color.LIGHT_GRAY);
         g2.fillRect(XPOS+350+GWIDTH, YPOS, GWIDTH*3, GHEIGHT*4);
         g2.setColor(Color.DARK_GRAY);
-        g2.fillRect(GWIDTH*14, YPOS, GWIDTH, GWIDTH);
-        g2.fillRect(GWIDTH*14, YPOS + GWIDTH + 25, GWIDTH, GWIDTH);
-        g2.fillRect(GWIDTH*14, YPOS + GHEIGHT*4 - GWIDTH, GWIDTH, GWIDTH);
+        g2.fillRect(XPOS+350+GWIDTH+GWIDTH*3-GWIDTH, YPOS, GWIDTH, GWIDTH);
+        g2.fillRect(XPOS+350+GWIDTH+GWIDTH*3-GWIDTH, YPOS + GWIDTH + 25, GWIDTH, GWIDTH);
+        g2.fillRect(XPOS+350+GWIDTH+GWIDTH*3-GWIDTH, YPOS + GHEIGHT*4 - GWIDTH, GWIDTH, GWIDTH);
         
         //g2.setColor(Color.BLUE);
         //g2.fillRect(XPOS+410, YPOS+50, 20, 20);
@@ -114,9 +114,4 @@ public class AnimationPanel extends JPanel implements ActionListener {
     public void addGui(WaiterGui gui) {
         guis.add(gui);
     }
-
-	public void addGui(CookGui gui) {
-		guis.add(gui); 
-		
-	}
 }

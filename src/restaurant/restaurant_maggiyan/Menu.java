@@ -1,10 +1,10 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan;
 
 import java.util.*;
 
 public class Menu{
 	
-	List<FoodChoice> MenuOptions = new ArrayList<FoodChoice>(); 
+	public List<FoodChoice> MenuOptions = new ArrayList<FoodChoice>(); 
 	int cheapFoodIndex = 2; 
 	
 	Menu(){

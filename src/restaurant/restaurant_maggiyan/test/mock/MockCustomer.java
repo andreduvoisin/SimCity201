@@ -1,12 +1,11 @@
-package restaurant_maggiyan.test.mock;
+package restaurant.restaurant_maggiyan.test.mock;
 
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.Menu;
-import restaurant_maggiyan.WaiterAgent;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.WaiterAgent;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -61,7 +60,7 @@ public class MockCustomer extends Mock implements Customer {
 	}
 
 	@Override
-	public void msgFollowMe(Waiter w, Menu m, int tableNumber) {
+	public void msgFollowMe(WaiterAgent w, Menu m, int tableNumber) {
 		// TODO Auto-generated method stub
 		
 	}

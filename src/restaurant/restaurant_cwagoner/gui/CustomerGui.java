@@ -1,7 +1,7 @@
 package restaurant.restaurant_cwagoner.gui;
 
-import restaurant.restaurant_cwagoner.roles.CustomerRole;
-import restaurant.restaurant_cwagoner.roles.WaiterRole;
+import restaurant.restaurant_cwagoner.CustomerAgent;
+import restaurant.restaurant_cwagoner.WaiterAgent;
 
 import java.awt.*;
 
@@ -10,11 +10,11 @@ public class CustomerGui implements Gui {
 	private final int PLATE = 20;
 	private static int customerNum = 0;
 	
-	private CustomerRole agent = null;
+	private CustomerAgent agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 
-	WaiterRole waiter; 
+	WaiterAgent waiter; 
 	RestaurantGui restaurantGui;
 
 	private int size = 20,
@@ -30,7 +30,7 @@ public class CustomerGui implements Gui {
 	
 	private String food = "";
 	
-	public CustomerGui(CustomerRole c, RestaurantGui g){
+	public CustomerGui(CustomerAgent c, RestaurantGui g){
 		agent = c;
 		restaurantGui = g;
 		WAITING_X = size;
@@ -73,6 +73,8 @@ public class CustomerGui implements Gui {
 			else if (command.equals(Command.LeaveRestaurant)
 					&& xDestination == GONE_X && yDestination == GONE_Y) {
 				agent.msgGuiLeftRestaurant();
+				isHungry = false;
+				restaurantGui.setCustomerEnabled(agent);
 			}
 			command = Command.noCommand;
 		}

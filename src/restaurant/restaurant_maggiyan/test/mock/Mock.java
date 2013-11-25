@@ -1,4 +1,4 @@
-package restaurant_maggiyan.test.mock;
+package restaurant.restaurant_maggiyan.test.mock;
 
 /**
  * This is the base class for all mocks.

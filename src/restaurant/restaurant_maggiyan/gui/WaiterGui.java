@@ -1,9 +1,9 @@
-package restaurant_maggiyan.gui;
+package restaurant.restaurant_maggiyan.gui;
 
 
-import restaurant_maggiyan.HostAgent;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.HostAgent;
+import restaurant.restaurant_maggiyan.WaiterAgent;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ import javax.swing.*;
 
 public class WaiterGui implements Gui {
     
-    private Waiter agent = null; 
+    private WaiterAgent agent = null; 
   	public String customerOrder = " "; 
 
     public int xHome;
@@ -50,7 +50,7 @@ public class WaiterGui implements Gui {
     	}
     }
     
-    public WaiterGui(Waiter agent, RestaurantGui gui) {
+    public WaiterGui(WaiterAgent agent, RestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         tablePositions();
@@ -158,7 +158,7 @@ public class WaiterGui implements Gui {
     	agent.msgAskToGoOnBreak(); 
     }
     
-    public void DoneWithBreak(Waiter waiter){
+    public void DoneWithBreak(WaiterAgent waiter){
     	//gui.setWaiterEnabled(agent);
     }
 

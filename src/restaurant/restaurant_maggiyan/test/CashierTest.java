@@ -1,13 +1,13 @@
-package restaurant_maggiyan.test;
+package restaurant.restaurant_maggiyan.test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import restaurant_maggiyan.CashierAgent;
-import restaurant_maggiyan.test.mock.MockCustomer;
-import restaurant_maggiyan.test.mock.MockMarket;
-import restaurant_maggiyan.test.mock.MockWaiter;
-import junit.framework.*;
+import junit.framework.TestCase;
+import restaurant.restaurant_maggiyan.CashierAgent;
+import restaurant.restaurant_maggiyan.test.mock.MockCustomer;
+import restaurant.restaurant_maggiyan.test.mock.MockMarket;
+import restaurant.restaurant_maggiyan.test.mock.MockWaiter;
 
 /**
  * 

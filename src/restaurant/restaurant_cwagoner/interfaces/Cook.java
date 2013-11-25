@@ -2,7 +2,7 @@ package restaurant.restaurant_cwagoner.interfaces;
 
 import java.util.*;
 
-import restaurant.restaurant_cwagoner.roles.CookRole.Order;
+import restaurant.restaurant_cwagoner.CookAgent.Order;
 
 public interface Cook {
 	public List<Order> Orders = new ArrayList<Order>();

@@ -1,6 +1,5 @@
 package restaurant.intermediate;
 
-import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;

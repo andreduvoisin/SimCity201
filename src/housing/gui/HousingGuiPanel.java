@@ -88,10 +88,6 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		//Table for eating 
         g2.setColor(Color.YELLOW);
         g2.fillRect(DiningTableXPos, DiningTableYPos, DiningTableDim, DiningTableDim);
-        
-        //Bed 
-        //g2.setColor(Color.black);
-        //g2.fillRect(
 		
 		for (Gui gui : guis) {
 			if (gui.isPresent()) {

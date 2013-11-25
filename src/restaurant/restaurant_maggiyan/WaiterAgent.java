@@ -1,15 +1,14 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan;
 
-import agent.Agent;
-
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.Menu;
-import restaurant_maggiyan.gui.WaiterGui;
-import restaurant_maggiyan.interfaces.Cashier;
-import restaurant_maggiyan.interfaces.Cook;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Host;
-import restaurant_maggiyan.interfaces.Waiter;
+import base.Agent;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.gui.WaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.Cashier;
+import restaurant.restaurant_maggiyan.interfaces.Cook;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Host;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -129,12 +128,11 @@ public class WaiterAgent extends Agent implements Waiter{
 	}
 	
 	//Lets the waiter know food is done
-	public void msgOrderDone(String choice, int tableNum, int orderPos){ 
+	public void msgOrderDone(String choice, int tableNum){ 
 		for(MyCustomer mc: customers){
 			if(mc.table == tableNum){
 				print("Order picked up"); 
 				mc.s = CustomerState.foodOrderReady; 
-				mc.orderPos = orderPos; 
 			}
 		}
 		stateChanged(); 
@@ -440,6 +438,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		DoGiveOrderToCook();  
 		print("Giving order to cook");
 		cust.s = CustomerState.foodIsCooking; 
+		cook.msgHereIsOrder(this, cust.choice, cust.table); 
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 
@@ -447,7 +446,6 @@ public class WaiterAgent extends Agent implements Waiter{
 		catch(Exception e){
 			print ("giveOrderToCook exception");
 		}
-		cook.msgHereIsOrder(this, cust.choice, cust.table); 
 	}
 	
 	private void giveCustomerFood(MyCustomer mc){
@@ -460,7 +458,6 @@ public class WaiterAgent extends Agent implements Waiter{
 		catch(Exception e){
 			print("giveCustomerFood exception"); 
 		}
-		cook.msgPickedUpOrder(mc.orderPos); 
 		waiterGui.showCustomerOrder(mc.choice);
 		print("Bringing food to customer"); 
 		DoBringCustomerFood(mc.table);
@@ -528,7 +525,6 @@ public class WaiterAgent extends Agent implements Waiter{
 		String choice; 
 		CustomerState s; 
 		Check check;
-		int orderPos; 
 		
 		MyCustomer(Customer customer, int tableNum, CustomerState state){
 			c = customer; 

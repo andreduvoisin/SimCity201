@@ -1,4 +1,4 @@
-package restaurant_maggiyan.test.mock;
+package restaurant.restaurant_maggiyan.test.mock;
 
 import java.util.LinkedList;
 import java.util.List;

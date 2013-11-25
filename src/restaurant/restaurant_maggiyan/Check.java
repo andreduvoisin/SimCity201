@@ -1,10 +1,10 @@
-package restaurant_maggiyan;
+package restaurant.restaurant_maggiyan;
 
 import java.util.*;
 
-import restaurant_maggiyan.Menu;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.Waiter;
 
 public class Check{
     

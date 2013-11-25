@@ -3,7 +3,6 @@ package restaurant.restaurant_davidmca.test;
 import java.util.HashMap;
 import java.util.Map;
 
-import base.PersonAgent;
 import junit.framework.TestCase;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.roles.CashierRole;
@@ -22,13 +21,10 @@ public class CashierTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		PersonAgent testPerson = new PersonAgent();
-		testPerson.setName("Test Person");
 		waiter = new MockWaiter("mockwaiter");
 		market1 = new MockMarket("Fresh 'n Easy");
 		market2 = new MockMarket("Superior");
 		cashier = new CashierRole("cashier");
-		cashier.setPerson(testPerson);
 		cashier.totalCash = 10000;
 		customer = new MockCustomer("mockcustomer");
 		customer2 = new MockCustomer("mockcustomer2");
@@ -100,10 +96,15 @@ public class CashierTest extends TestCase {
 		assertEquals("Make sure the second invoice total is correct",
 				cashier.invoicesToPay.get(1).total, secondOrderTotal);
 		cashier.pickAndExecuteAnAction();
+		// Wait a bit for the cashier thread to start and process the invoice
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		assertEquals(
 				"First market should have gotten a payment and should now have proper revenue",
 				market1.totalRevenue, firstOrderTotal);
-		cashier.pickAndExecuteAnAction();
 		assertEquals(
 				"Second market should have gotten a payment and should now have proper revenue",
 				market2.totalRevenue, secondOrderTotal);
@@ -211,6 +212,7 @@ public class CashierTest extends TestCase {
 	}
 
 	public void testNotEnoughMoneyDebtPayment() {
+		cashier = new CashierRole("cashier");
 		cashier.log.clear();
 		brokecustomer = new MockCustomer("brokecustomer");
 		brokecustomer.setCashier(cashier);
@@ -235,6 +237,11 @@ public class CashierTest extends TestCase {
 		assertNotSame("Cashier Cash should be lower than expected",
 				cashier.totalCash, startingCash + newCheck.total);
 		double currentCash = cashier.totalCash;
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		assertTrue(
 				"Cashier should record a debt payment" + cashier.log.toString(),
 				cashier.log.containsString("msgDebtPayment occurred"));
