@@ -27,7 +27,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
-		background = new Color(128, 64, 0);
+		background = new Color(30, 30, 30);
 		this.addStatic(new CityRestaurant(120, 120, "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(80, 400, "Restaurant 2"));
 		this.addStatic(new CityBank(400, 75, "Green Guts Bank"));
