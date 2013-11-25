@@ -41,6 +41,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		cards.put("R_Maggiyan", new CityCard(city));
 		cards.put("Green Guts Bank", new BankPanel(city));
+		cards.put("Test Restaurant",  new CityCard(city)); 
 		
 		cards.put("Sears!", new CityCard(city));
 		layout = new CardLayout();

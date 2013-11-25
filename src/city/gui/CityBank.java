@@ -10,15 +10,17 @@ import java.awt.Rectangle;
  */
 public class CityBank extends CityComponent {
 	private String bankName = "";
+	private int BANKWIDTH = 200;
+	private int BANKHEIGHT = 100; 
 
 	public CityBank(int x, int y) {
 		super(x, y, Color.green, "Bank 1");
-		rectangle = new Rectangle(x, y, 120, 90);
+		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
 	}
 
 	public CityBank(int x, int y, String ID) {
 		super(x, y, Color.green, ID);
-		rectangle = new Rectangle(x, y, 120, 90);
+		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
 		bankName = ID;
 	}
 
@@ -28,7 +30,7 @@ public class CityBank extends CityComponent {
 
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x, y, 120, 90);
+		g.fill3DRect(x, y, BANKWIDTH, BANKHEIGHT, true);
 		g.setColor(Color.WHITE);
 		g.drawString(bankName,x + 10 , y + 50);
 	}

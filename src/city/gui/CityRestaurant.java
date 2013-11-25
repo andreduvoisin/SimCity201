@@ -9,15 +9,16 @@ import base.Location;
 
 public class CityRestaurant extends CityComponent {
 	private String restaurantName = "";
+	private int RESTAURANTSIZE = 80; 
 	
 	public CityRestaurant(int x, int y) {
 		super(x, y, Color.red, "Unnamed Restaurant");
-		rectangle = new Rectangle(x, y, 100, 60);
+		rectangle = new Rectangle(x, y, RESTAURANTSIZE, RESTAURANTSIZE);
 	}
 	
 	public CityRestaurant(int x, int y, String ID) {
 		super(x, y, Color.red, ID);
-		rectangle = new Rectangle(x, y, 100, 60);
+		rectangle = new Rectangle(x, y, RESTAURANTSIZE, RESTAURANTSIZE);
 		restaurantName = ID;
 	}
 
@@ -35,7 +36,7 @@ public class CityRestaurant extends CityComponent {
 	public void paint(Graphics g) {
 		g.setColor(color);
 //		g.fillOval(x, y, 100, 60);
-		g.fill3DRect(x, y, 80, 80, true);
+		g.fill3DRect(x, y, RESTAURANTSIZE, RESTAURANTSIZE, true);
 		g.setColor(Color.BLACK);
 		g.drawString(restaurantName,x + 5 , y + 15);
 	}
