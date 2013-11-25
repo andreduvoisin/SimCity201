@@ -1,20 +1,22 @@
-package restaurant.restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
-import base.Agent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import java.util.*;
-
+import base.BaseRole;
 import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Market;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 /**
  * Restaurant Host Agent
  */
 
-public class CashierAgent extends Agent implements Cashier{
+public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
 	private String n; 
 	private Double TOTALMONEY = 500.00; 
 	private Menu menu = new Menu(); 
@@ -23,11 +25,8 @@ public class CashierAgent extends Agent implements Cashier{
 	private List<MarketPayment> marketpayments = Collections.synchronizedList(new ArrayList<MarketPayment>());
 	private List<Payment> payments = new ArrayList<Payment>();
 	
-	public CashierAgent(String name, boolean isTest){
+	public MaggiyanCashierRole(String name, boolean isTest){
 		this.n = name;
-		if(!isTest){
-			startThread(); 
-		}
 	}
 	
 	public String getName(){
@@ -54,7 +53,7 @@ public class CashierAgent extends Agent implements Cashier{
 	// Messages
 
 	//From Waiter
-	public void msgPleaseCalculateBill(Waiter w, Customer c, String choice)
+	public void msgPleaseCalculateBill(MaggiyanWaiter w, MaggiyanCustomer c, String choice)
 	{
 		print("Calculating customer bill"); 
 		Check check = new Check(w, c, choice); 
@@ -64,7 +63,7 @@ public class CashierAgent extends Agent implements Cashier{
 	}
 	
 	//From Customer
-	public void msgHereIsPayment(Customer c, double cash){
+	public void msgHereIsPayment(MaggiyanCustomer c, double cash){
 		print("Received customer payment"); 
 		Payment p = new Payment (c, cash);
 		payments.add(p);
@@ -72,7 +71,7 @@ public class CashierAgent extends Agent implements Cashier{
 	}
 	
 	//From Market
-	public void msgDeliverBill(Market m, List<String> bill){
+	public void msgDeliverBill(MaggiyanMarket m, List<String> bill){
 		print("Received market bill");
 		MarketPayment mp = new MarketPayment(m, bill); 
 		marketpayments.add(mp);
@@ -167,21 +166,21 @@ public class CashierAgent extends Agent implements Cashier{
 
 	//Utilities
 	private class Payment{
-		Customer customer;
+		MaggiyanCustomer customer;
 		double paymentAmount;
 		
-		Payment(Customer c, double p){
+		Payment(MaggiyanCustomer c, double p){
 			customer = c;
 			paymentAmount = p; 
 		}
 	}
 	
 	private class MarketPayment{
-		Market market; 
+		MaggiyanMarket market; 
 		Double total; 
 		List<String> orderedItems; 
 		
-		MarketPayment(Market m, List<String> o){
+		MarketPayment(MaggiyanMarket m, List<String> o){
 			market = m; 
 			orderedItems = o;
 			total = 0.0; 

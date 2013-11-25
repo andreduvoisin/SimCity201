@@ -3,10 +3,10 @@ package restaurant.restaurant_maggiyan.test.mock;
 
 import java.util.Map;
 
-import restaurant.restaurant_maggiyan.CookAgent;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Market;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -14,9 +14,9 @@ import restaurant.restaurant_maggiyan.interfaces.Market;
  * @author Monroe Ekilah
  *
  */
-public class MockMarket extends Mock implements Market {
+public class MockMarket extends Mock implements MaggiyanMarket {
 	
-	public Cashier cashier;
+	public MaggiyanCashier cashier;
 
 	public MockMarket(String name) {
 		super(name);
@@ -24,7 +24,7 @@ public class MockMarket extends Mock implements Market {
 	}
 
 	@Override
-	public void msgRequestItems(Cook c, Map<String, Integer> itemRequest) {
+	public void msgRequestItems(MaggiyanCook c, Map<String, Integer> itemRequest) {
 		// TODO Auto-generated method stub
 		
 	}

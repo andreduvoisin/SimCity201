@@ -30,7 +30,7 @@ import base.BaseRole;
 public class CookRole extends BaseRole implements Cook {
 
 	private CookGui cookGui;
-	private Semaphore isAnimating = new Semaphore(0, true);
+	private Semaphore isAnimating = new Semaphore(500, true);
 	private boolean ordering;
 	private boolean reorder;
 	private Request currentRequest;

@@ -5,6 +5,7 @@ import restaurant.restaurant_tranac.Menu;
 import restaurant.restaurant_tranac.gui.CustomerGui_at;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
+import base.interfaces.Person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,18 @@ public class RestaurantCustomerRole_at extends BaseRole implements Customer{
 			willWait = true;
 	}
 	
+	public RestaurantCustomerRole_at(Person mPerson) {
+		super(mPerson);
+		money = baseMoney;
+		num = 0;
+		
+		//randomly chooses waiting unless set later
+		if(rGenerator.nextInt() % 2 == 0)
+			willWait = false;
+		else
+			willWait = true;
+	}
+
 	/** Messages */
 	public void msgGotHungry() {			//from animation
 		print("I'm hungry.");

@@ -1,29 +1,33 @@
 package restaurant.restaurant_maggiyan.gui;
 
-import restaurant.restaurant_maggiyan.CustomerAgent;
-import restaurant.restaurant_maggiyan.WaiterAgent;
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.*; 
 
-import java.awt.*;
-import java.awt.event.*;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 /**
  * Main GUI class.
  * Contains the main frame and subsequent panels
  */
-public class RestaurantGui extends JFrame implements ActionListener {
+public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
     /* The GUI has two frames, the control frame (in variable gui) 
      * and the animation frame, (in variable animationFrame within gui)
      */
 	//JFrame animationFrame = new JFrame("Restaurant Animation");
-	AnimationPanel animationPanel = new AnimationPanel();
+	MaggiyanAnimationPanel animationPanel = new MaggiyanAnimationPanel();
 	
     /* restPanel holds 2 panels
      * 1) the staff listing, menu, and lists of current customers all constructed
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */   
-    private RestaurantPanel restPanel = new RestaurantPanel(this);
+    private MaggiyanRestaurantPanel restPanel = new MaggiyanRestaurantPanel(this);
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;
@@ -39,21 +43,22 @@ public class RestaurantGui extends JFrame implements ActionListener {
      * Constructor for RestaurantGui class.
      * Sets up all the gui components.
      */
-    public RestaurantGui() {
-        int WINDOWX = 1000;
-        int WINDOWY = 1000;
+    public MaggiyanRestaurantGui(SimCityGui city) {
+        super(city); 
+    	int WINDOWX = 500;
+        int WINDOWY = 500;
 
         
         setBounds(0, 0, WINDOWX, WINDOWY);
-        setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        setLayout(new GridLayout(1,2));
 
-        Dimension restDim = new Dimension(WINDOWX, (int) (WINDOWY * .3));
-        restPanel.setBackground(Color.white);
-        restPanel.setPreferredSize(restDim);
-        restPanel.setMinimumSize(restDim);
-        restPanel.setMaximumSize(restDim); 
+//        Dimension restDim = new Dimension(WINDOWX, (int) (WINDOWY * .3));
+//        restPanel.setBackground(Color.white);
+//        restPanel.setPreferredSize(restDim);
+//        restPanel.setMinimumSize(restDim);
+//        restPanel.setMaximumSize(restDim); 
+//        add(restPanel);
         
-        add(restPanel);
         add(animationPanel); 
         
     }
@@ -87,8 +92,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == stateCB) {
-            if (currentPerson instanceof CustomerAgent) {
-                CustomerAgent c = (CustomerAgent) currentPerson;
+            if (currentPerson instanceof MaggiyanCustomerRole) {
+                MaggiyanCustomerRole c = (MaggiyanCustomerRole) currentPerson;
                 //c.getGui().setHungry();
                 stateCB.setEnabled(false);
             }
@@ -101,7 +106,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(CustomerAgent c) {
+    public void setCustomerEnabled(MaggiyanCustomerRole c) {
     	for(int i = 0; i<restPanel.getCustPanel().getCheckBoxList().size(); i++){
     		JCheckBox tempBox = restPanel.getCustPanel().getCheckBoxList().get(i); 
     		if(c.getName() == tempBox.getText()){
@@ -110,8 +115,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
     		}
     	}
     	
-        if (currentPerson instanceof CustomerAgent) {
-            CustomerAgent cust = (CustomerAgent) currentPerson;
+        if (currentPerson instanceof MaggiyanCustomerRole) {
+            MaggiyanCustomerRole cust = (MaggiyanCustomerRole) currentPerson;
             if (c.equals(cust)) {
                 stateCB.setEnabled(true);
                 stateCB.setSelected(false);
@@ -119,7 +124,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
         }
     }
     
-    public void setWaiterEnabled(WaiterAgent w){
+    public void setWaiterEnabled(MaggiyanWaiter w){
     	for(int i = 0; i<restPanel.getCustPanel().getWaiterCBList().size(); i++){
     		JCheckBox tempBox = restPanel.getCustPanel().getWaiterCBList().get(i); 
     		if(w.getName() == tempBox.getText()){
@@ -132,11 +137,11 @@ public class RestaurantGui extends JFrame implements ActionListener {
     /**
      * Main routine to get gui started
      */
-    public static void main(String[] args) {
-        RestaurantGui gui = new RestaurantGui();
-        gui.setTitle("csci201 Restaurant");
-        gui.setVisible(true);
-        gui.setResizable(false);
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+//    public static void main(String[] args) {
+//        MaggiyanRestaurantGui gui = new MaggiyanRestaurantGui();
+//        gui.setTitle("csci201 Restaurant");
+//        gui.setVisible(true);
+//        gui.setResizable(false);
+//        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//    }
 }

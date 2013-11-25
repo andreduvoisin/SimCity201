@@ -1,17 +1,30 @@
-package restaurant.restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
-import base.Agent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
 
-import java.util.*;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.Order;
+import restaurant.restaurant_maggiyan.Order.state;
+import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Market;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
-
-
-public class CookAgent extends Agent implements Cook{
+public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	private String n; 
+	
+	//Cooking Food
 	private int foodCookingTime = 10; 
+	private Timer timer = new Timer(); 
+	
+	//Market and Inventory
 	private int maxFoodQty = 4; 
 	private int inventoryLOW = 2; 
 	private int marketCounter = 0; 
@@ -19,18 +32,24 @@ public class CookAgent extends Agent implements Cook{
 	private boolean stockInventory = false; 
 	private boolean allMarketsClosed = false; 
 	
-	private List<Market> markets = new ArrayList<Market>(); 
-	public enum state {pending, cooking, done, finished};
+	//For Cook Animation
+	MaggiyanCookGui cookGui; 
+	private boolean orderPickedUp = false; 
+	private Semaphore animationReady = new Semaphore(0, true);
 	
-	public Timer timer = new Timer(); 
+	private List<MaggiyanMarket> markets = new ArrayList<MaggiyanMarket>(); 
+	
+	//Revolving Stand 
+	private Timer RStandTimer = new Timer();  
 	
 	private Map<String, Food> FoodMap = new HashMap<String, Food>();
 	private Map<String, Integer> ShoppingMap = new HashMap<String, Integer>();
 	public Map<String, Integer> restockMap = null;  
 	
-	List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
+	private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
+	public List<Order> rStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
-	public CookAgent(String name){
+	public MaggiyanCookRole(String name){
 		this.n = name;
 		
 		Food steak = new Food("Steak", inventoryLOW, foodCookingTime* 50);
@@ -43,14 +62,20 @@ public class CookAgent extends Agent implements Cook{
 		FoodMap.put("Salad", salad);
 		FoodMap.put("Pizza", pizza);
 		
-		startThread(); 
+		//Enables cook to periodically check for orders on revolving stand
+		RStandTimer.scheduleAtFixedRate(new TimerTask(){
+			public void run(){
+				//stateChanged(); 
+			}
+		}, 0,  10000);
+		
 	}
 	
 	public String getName(){
 		return n; 
 	}
 	
-	public void setMarket(Market m){
+	public void setMarket(MaggiyanMarket m){
 		markets.add(m);
 //		print("Markets size: " + markets.size());
 		stockInventory = true; 
@@ -61,12 +86,18 @@ public class CookAgent extends Agent implements Cook{
 	// Messages
 	
 	//From Waiter
-	public void msgHereIsOrder(Waiter w, String choice, int table)
+	public void msgHereIsOrder(MaggiyanWaiter w, String choice, int table)
 	{
 		Order order = new Order(w, choice, table); 
 		orders.add(order);
 		stateChanged(); 
 		
+	}
+	
+	public void msgPickedUpOrder(int pos){
+		findOrder(pos).pickedUp = true; 
+		orderPickedUp = true; 
+		stateChanged(); 
 	}
 	
 	//From Market
@@ -92,7 +123,7 @@ public class CookAgent extends Agent implements Cook{
 		stateChanged();
 	}
 	
-	public void msgOutOfAllInventory(Market m){
+	public void msgOutOfAllInventory(MaggiyanMarket m){
 		markets.remove(m); 
 		totalMarkets--; 
 		if(markets.size() == 0){
@@ -101,13 +132,24 @@ public class CookAgent extends Agent implements Cook{
 		stateChanged(); 
 	}
 	
+	//From Animation
+	public void msgAnimationReady(){
+		animationReady.release();
+		stateChanged(); 
+	}
+	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		
-		if(stockInventory){
-			StockInventory(); 
+//		if(stockInventory){
+//			StockInventory(); 
+//			return true; 
+//		}
+		
+		if(orderPickedUp){
+			ClearPlatingArea(); 
 			return true; 
 		}
 		
@@ -129,22 +171,39 @@ public class CookAgent extends Agent implements Cook{
 					if(order.s == state.pending)
 					{
 						order.s = state.cooking;
-						print("Called CookIt");
 						CookIt(order);  
 						return true; 
 					}				
 				}
 			}
-			
 		}
+		
+		if(!rStandOrders.isEmpty()){
+			synchronized (rStandOrders){
+				for(Order order: rStandOrders){
+					if(order.s == state.pending)
+					{
+						AddOrder(order);   
+						return true; 
+					}
+				}
+			}
+		}
+		
 		if(restockMap != null){
 			Restock(); 
 			return true; 
 		}
+		
 		return false; 
 	}
 
 	// Actions
+	private void AddOrder(Order order){
+		orders.add(order); 
+		rStandOrders.remove(order);
+	}
+	
 	private void StockInventory(){
 		print("Stocking Inventory"); 
 		stockInventory = false; 
@@ -191,8 +250,17 @@ public class CookAgent extends Agent implements Cook{
 		}
 		
 		print("Order inventory: " + FoodMap.get(o.c).qty); 
+		
 		o.s = state.cooking; 
-		print("cooking order"); 
+		print("Cooking order");
+		cookGui.DoGoToGrill(o.cookingPos);
+		try{
+			animationReady.acquire(); 
+		}catch(Exception e){
+			print("DoCookFood exception thrown"); 
+		}
+		cookGui.DoCookFood(o.c, o.cookingPos);
+		cookGui.GoToHomePosition(); 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				print("DONE!!");
@@ -208,17 +276,53 @@ public class CookAgent extends Agent implements Cook{
 	}
 	
 	private void PlateFood(Order o){
-		//animation
-		//send message to waiter that the order is done
-		//set order state to finished or remove it
+		cookGui.DoGoToGrill(o.cookingPos);
+		try{
+			animationReady.acquire(); 
+		}catch(Exception e){
+			print("PlateFood DoGoToGrill exception thrown"); 
+		}
+		cookGui.DoRemoveFoodFromGrill(o.cookingPos);
 		print ("Plating food");
-		o.w.msgOrderDone(o.c, o.table); 
-
+		cookGui.DoGoToPlatingArea(o.cookingPos);
+//		try{
+//			animationReady.acquire(); 
+//		}catch(Exception e){
+//			print("PlateFood DoGoToPlatingArea exception thrown"); 
+//		}
+		cookGui.DoPlateFood(o.c, o.cookingPos);
+		o.w.msgOrderDone(o.c, o.table, o.cookingPos); 
 		o.s = state.finished; 
+		cookGui.GoToHomePosition();
 	}
 
+	public void ClearPlatingArea(){
+		orderPickedUp = false; 
+		for(Order o: orders){
+			if(o.pickedUp == true){
+				cookGui.DoRemoveFood(o.cookingPos); 
+			}
+		}
+	}
+	
 	//Utilities
-
+	public void addRStandOrder(MaggiyanWaiter w, String c, int t){
+		rStandOrders.add(new Order(w, c, t)); 
+	}
+	
+	public Order findOrder(int pos){
+		for(Order o: orders){
+			if(o.cookingPos == pos){
+				return o; 
+			}
+		}
+		return null; 
+	}
+	
+	public void setGui(MaggiyanCookGui c){
+		cookGui = c; 
+	}
+	
 	private class Food{
 		int cookingTime;
 		int qty;
@@ -234,18 +338,5 @@ public class CookAgent extends Agent implements Cook{
 			qty = q; 
 		}
 		
-	}
-	
-	private class Order{
-		Order(Waiter waiter, String choice, int tableNum){
-			w = waiter;
-			c = choice; 
-			table = tableNum; 
-			s = state.pending; 
-		}
-		Waiter w; 
-		String c; 
-		int table; 
-		state s; 
 	}
 }

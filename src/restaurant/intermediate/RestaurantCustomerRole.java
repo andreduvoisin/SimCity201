@@ -1,9 +1,13 @@
 package restaurant.intermediate;
 
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAgentPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_tranac.roles.RestaurantCustomerRole_at;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -18,9 +22,21 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public void setRestaurant(int restaurantID) {
-		if (restaurantID != 5) {
+		//David
+		if (restaurantID == 1) {
 			subRole = new CustomerRole(super.mPerson);
 			RestaurantPanel.getInstance().addCustomer((CustomerRole) subRole);
+		}
+		//Maggi
+		if (restaurantID == 2) {
+			subRole = new MaggiyanCustomerRole(super.mPerson);
+			//MaggiyanRestaurantPanel.getRestPanel().addCustomer((CustomerRole) subRole);
+		}
+		
+		//Angelica
+		if (restaurantID == 3) {
+			subRole = new RestaurantCustomerRole_at(mPerson);
+			RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
 		}
 		// TODO DAVID add if statements for all the other restaurants
 		if (restaurantID == 5) { //Shane's restaurant

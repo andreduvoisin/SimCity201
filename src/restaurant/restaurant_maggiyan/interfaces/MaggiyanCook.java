@@ -3,8 +3,8 @@ package restaurant.restaurant_maggiyan.interfaces;
 import java.util.Map;
 
 import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.CustomerAgent;
-import restaurant.restaurant_maggiyan.WaiterAgent;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 
 /**
@@ -13,9 +13,9 @@ import restaurant.restaurant_maggiyan.WaiterAgent;
  * @author Monroe Ekilah
  *
  */
-public interface Cook {
+public interface MaggiyanCook {
 	//From Waiter
-		public void msgHereIsOrder(Waiter w, String choice, int table);
+		public void msgHereIsOrder(MaggiyanWaiter w, String choice, int table);
 		
 		//From Market
 		public void msgFulfillingOrder();
@@ -26,7 +26,12 @@ public interface Cook {
 		
 		public void msgDeliverOrder(Map<String, Integer> order);
 		
-		public void msgOutOfAllInventory(Market m);
+		public void msgOutOfAllInventory(MaggiyanMarket m);
+
+		public void msgPickedUpOrder(int orderPos);
+
+		public void addRStandOrder(MaggiyanWaiter w,
+				String choice, int table);
 	
 
 }

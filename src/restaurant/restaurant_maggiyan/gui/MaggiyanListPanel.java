@@ -1,7 +1,7 @@
 package restaurant.restaurant_maggiyan.gui;
 
-import restaurant.restaurant_maggiyan.CustomerAgent;
-import restaurant.restaurant_maggiyan.HostAgent;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 
 import javax.swing.*;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Subpanel of restaurantPanel.
  * This holds the scroll panes for the customers and, later, for waiters
  */
-public class ListPanel extends JPanel implements ActionListener {
+public class MaggiyanListPanel extends JPanel implements ActionListener {
 	//Components for scroll pane for waiter and customers
     public JScrollPane pane =
             new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -40,7 +40,7 @@ public class ListPanel extends JPanel implements ActionListener {
     private JTextField waiterNameBox = new JTextField(); 
     
     //Instance of RestaurantPanel used to create new customers and waiters
-    private RestaurantPanel restPanel;
+    private MaggiyanRestaurantPanel restPanel;
     private String type;
     
     //To Check if paused button has been pressed 
@@ -74,7 +74,7 @@ public class ListPanel extends JPanel implements ActionListener {
      * @param rp   reference to the restaurant panel
      * @param type indicates if this is for customers or waiters
      */
-    public ListPanel(RestaurantPanel rp, String type) {
+    public MaggiyanListPanel(MaggiyanRestaurantPanel rp, String type) {
         restPanel = rp;
         
         this.type = type;
@@ -132,24 +132,13 @@ public class ListPanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addPersonB) {
         	String custName = nameBox.getText();
-            addPerson(custName);
+            //addPerson(custName);
         }
         if(e.getSource() == addWaiter){
         	String waiterName = waiterNameBox.getText(); 
-        	addWaiter(waiterName); 
+        	//addWaiter(waiterName); 
         }
- /*       if(e.getSource() == pauseButton){
-        	if(!pressed){
-        		pressed = true; 
-        		restPanel.pause(); 
-        	}
-        	else if(pressed){
-        		pressed = false;
-        		restPanel.restart(); 
-        	}
-        		
-        }
- */       else {
+        else {
         	//Checks for hungry customers
         	for(int i = 0; i<checkBoxList.size(); i++){
         		JCheckBox temp = checkBoxList.get(i); 
@@ -198,69 +187,69 @@ public class ListPanel extends JPanel implements ActionListener {
         
         }
     }
-
-    /**
-     * If the Add Customer button is pressed, this function creates
-     * a spot for it in the scroll pane, and tells the restaurant panel
-     * to add a new person.
-     *
-     * @param name name of new person
-     */
-    public void addPerson(String name) {
-        if (name != null) {
-        	JPanel custPanel = new JPanel(); 
-        	custPanel.setMaximumSize(new Dimension (MAXDIM_X,MAXDIM_Y));
-        	JCheckBox hungryBox = new JCheckBox(name); 
-            custPanel.setBackground(Color.white);
-        	custPanel.add(hungryBox); 
-        	checkBoxList.add(hungryBox);
-        	hungryBox.addActionListener(this);
-        	
-        	
-            Dimension paneSize = pane.getSize();
-      
-            Dimension buttonSize = new Dimension(paneSize.width - 30, MAXDIM_Y);
-            custPanel.setPreferredSize(buttonSize);
-            custPanel.setMinimumSize(buttonSize);
-            custPanel.setMaximumSize(buttonSize);
-            list.add(custPanel);
-            view.add(custPanel);
-            restPanel.addPerson(type, name);//puts customer on list
-            validate();
-        }
-    }
-    
-    public void addWaiter(String name) {
-        if (name != null) {
-        	JPanel waiterPanel = new JPanel(); 
-        	waiterPanel.setMaximumSize(new Dimension (MAXDIM_X,MAXDIM_Y));
-        	JCheckBox onBreakBox = new JCheckBox(name); 
-        	JLabel breakLabel = new JLabel("Break?");
-//        	JButton breakButton = new JButton("Break"); 
-        	waiterPanel.setBackground(Color.white);
-        	waiterPanel.add(breakLabel); 
-//        	waiterPanel.add(breakButton);
-//        	breakButtonList.add(breakButton); 
-//        	breakButton.addActionListener(this);
-        	waiterPanel.add(onBreakBox); 
-        	waiterCBList.add(onBreakBox);
-        	onBreakBox.addActionListener(this);
-        	
-        	
-            Dimension paneSize = pane.getSize();
-      
-            Dimension buttonSize = new Dimension(paneSize.width - 30, MAXDIM_Y);
-            waiterPanel.setPreferredSize(buttonSize);
-            waiterPanel.setMinimumSize(buttonSize);
-            waiterPanel.setMaximumSize(buttonSize);
-            waiterList.add(waiterPanel);
-            wView.add(waiterPanel);
-            restPanel.addPerson("Waiter", name);
-            restPanel.getWaiterGui(name).atWork(waiterCounter);
-            waiterCounter++; 
-            validate();
-        }
-    }
+//
+//    /**
+//     * If the Add Customer button is pressed, this function creates
+//     * a spot for it in the scroll pane, and tells the restaurant panel
+//     * to add a new person.
+//     *
+//     * @param name name of new person
+//     */
+//    public void addPerson(String name) {
+//        if (name != null) {
+//        	JPanel custPanel = new JPanel(); 
+//        	custPanel.setMaximumSize(new Dimension (MAXDIM_X,MAXDIM_Y));
+//        	JCheckBox hungryBox = new JCheckBox(name); 
+//            custPanel.setBackground(Color.white);
+//        	custPanel.add(hungryBox); 
+//        	checkBoxList.add(hungryBox);
+//        	hungryBox.addActionListener(this);
+//        	
+//        	
+//            Dimension paneSize = pane.getSize();
+//      
+//            Dimension buttonSize = new Dimension(paneSize.width - 30, MAXDIM_Y);
+//            custPanel.setPreferredSize(buttonSize);
+//            custPanel.setMinimumSize(buttonSize);
+//            custPanel.setMaximumSize(buttonSize);
+//            list.add(custPanel);
+//            view.add(custPanel);
+//            restPanel.addPerson(type, name);//puts customer on list
+//            validate();
+//        }
+//    }
+//    
+//    public void addWaiter(String name) {
+//        if (name != null) {
+//        	JPanel waiterPanel = new JPanel(); 
+//        	waiterPanel.setMaximumSize(new Dimension (MAXDIM_X,MAXDIM_Y));
+//        	JCheckBox onBreakBox = new JCheckBox(name); 
+//        	JLabel breakLabel = new JLabel("Break?");
+////        	JButton breakButton = new JButton("Break"); 
+//        	waiterPanel.setBackground(Color.white);
+//        	waiterPanel.add(breakLabel); 
+////        	waiterPanel.add(breakButton);
+////        	breakButtonList.add(breakButton); 
+////        	breakButton.addActionListener(this);
+//        	waiterPanel.add(onBreakBox); 
+//        	waiterCBList.add(onBreakBox);
+//        	onBreakBox.addActionListener(this);
+//        	
+//        	
+//            Dimension paneSize = pane.getSize();
+//      
+//            Dimension buttonSize = new Dimension(paneSize.width - 30, MAXDIM_Y);
+//            waiterPanel.setPreferredSize(buttonSize);
+//            waiterPanel.setMinimumSize(buttonSize);
+//            waiterPanel.setMaximumSize(buttonSize);
+//            waiterList.add(waiterPanel);
+//            wView.add(waiterPanel);
+//            restPanel.addPerson("Waiter", name);
+//            restPanel.getWaiterGui(name).atWork(waiterCounter);
+//            waiterCounter++; 
+//            validate();
+//        }
+//    }
     
     
 //    public void addWaiter(String name){

@@ -25,25 +25,33 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
 	
 	// A*
-	public static Semaphore[][] grid = new Semaphore[CITY_WIDTH / 5][CITY_HEIGHT / 5];
+	public static final int ASC = 5;
+	public static final int NG = 4;
+	public static Semaphore[][] grid = new Semaphore[CITY_WIDTH / ASC][CITY_HEIGHT / ASC];
+	public static Semaphore[][] gridNW = new Semaphore[60][60];
+	public static Semaphore[][] gridNE = new Semaphore[60][60];
+	public static Semaphore[][] gridSW = new Semaphore[60][60];
+	public static Semaphore[][] gridSE = new Semaphore[60][60];
 	
 	public CityPanel(SimCityGui city) {
 		//Setup
 		super(city);
+		    			
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
-		
+		System.out.println("hi");
 		// A* Setup
 		try {
-			for(int i = 0; i < (CITY_WIDTH/5); i++) {
-				for(int j = 0; j < (CITY_HEIGHT/5); j++) {
+			for(int i = 0; i < (CITY_WIDTH/ASC); i++) {
+				for(int j = 0; j < (CITY_HEIGHT/ASC); j++) {
 					grid[i][j] = new Semaphore(1, true);
 				}
 			}
+			
 			// Center (100,100 to 500,500)
-			for(int i = 100/5; i < 500/5; i++) {
-				for(int j = 100/5; j < 500/5; j++) {
+			for(int i = 100/ASC; i < 500/ASC; i++) {
+				for(int j = 100/ASC; j < 500/ASC; j++) {
 					grid[i][j].acquire();
 				}
 			}
@@ -65,12 +73,40 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 				}
 				for(int i = 0; i < 4; i++)
 					for(int j = 0; j < 4; j++)
-						grid[xCord / 5 + i][yCord / 5 + j].acquire();
+						grid[(xCord / ASC) + i][(yCord / ASC) + j].acquire();
 			}
+			// Roads (temp...)
+			for(int i = 35/ASC; i < 85/ASC; i++)
+				for(int j = 0; j < 600/ASC; j++) {
+					grid[i][j].tryAcquire();
+					grid[j][i].tryAcquire();
+				}
+			for(int i = 515/ASC; i < 565/ASC; i++)
+				for(int j = 0; j < 600/ASC; j++) {
+					grid[i][j].tryAcquire();
+					grid[j][i].tryAcquire();
+				}
+			for(int i = 0; i < 600/ASC; i++)
+				grid[i][7].release();
+			for(int j = 0; j < 600/ASC; j++)
+				grid[85/ASC][j].release();
+			for(int i = 0; i < 600/ASC; i++)
+				grid[i][17].release();
+			for(int j = 0; j < 600/ASC; j++)
+				grid[35/ASC][j].release();
+			
+			// Apply to 4 grids.
+			for(int i = 0; i < 60; i++)
+				for(int j = 0; j < 60; j++) {
+					gridNW[i][j] = grid[i][j];
+					gridNE[i][j] = grid[i + 60][j];
+					gridSW[i][j] = grid[i][j + 60];
+					gridSE[i][j] = grid[i + 60][j + 60];
+				}
 		} catch (Exception e) {
 			System.out.println("Exception During A* Setup: " + e);
 		}
-
+		System.out.println("bye");
 		//Add Background and city block
 		background = new Color(100,100,100);
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
@@ -92,7 +128,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "R_cwagoner"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerrywebb"));
-		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_maggiyang"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(4), "R_davidmca"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "R_smileham"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "R_tranac"));

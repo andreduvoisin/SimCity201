@@ -1,12 +1,18 @@
-package restaurant.restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
-import base.Agent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import java.util.*;
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Market;
 
 /**
  * Restaurant Host Agent
@@ -15,11 +21,11 @@ import restaurant.restaurant_maggiyan.interfaces.Market;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class MarketAgent extends Agent implements Market{
+public class MaggiyanMarketRole extends BaseRole implements MaggiyanMarket{
 	private String n; 
 	private int maxINVENTORY = 4; 
-	private Cashier cashier; 
-	private Cook cook; 
+	private MaggiyanCashier cashier; 
+	private MaggiyanCook cook; 
 	private List<MarketOrder> marketOrders = Collections.synchronizedList(new ArrayList<MarketOrder>()); 
 	public enum state {idle, fulfillingOrder};
 	
@@ -28,7 +34,7 @@ public class MarketAgent extends Agent implements Market{
 	private Map<String, Integer> marketInventory = new HashMap<String, Integer>(); 
 	public Map<String, Integer> orderToFulfill = new HashMap<String, Integer>();
 	
-	public MarketAgent(String name){
+	public MaggiyanMarketRole(String name){
 		this.n = name;
 		
 		marketInventory.put("Steak", maxINVENTORY);
@@ -36,22 +42,20 @@ public class MarketAgent extends Agent implements Market{
 		marketInventory.put("Salad", maxINVENTORY);
 		marketInventory.put("Pizza", maxINVENTORY);
 
-		
-		startThread(); 
 	}
 	
 	public String getName(){
 		return n; 
 	}
 	
-	public void setCashier(Cashier c){
+	public void setCashier(MaggiyanCashier c){
 		cashier = c; 
 	}
 	
 	// Messages
 	
 	//From Cook
-	public void msgRequestItems(Cook c, Map<String, Integer> itemRequest)
+	public void msgRequestItems(MaggiyanCook c, Map<String, Integer> itemRequest)
 	{
 		print("Ordering items"); 
 		cook = c; 
@@ -70,7 +74,7 @@ public class MarketAgent extends Agent implements Market{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 
 		if(!marketOrders.isEmpty()){
 			synchronized(marketOrders){
@@ -149,7 +153,7 @@ public class MarketAgent extends Agent implements Market{
 			print("Fulfilling complete order");
 			cook.msgFulfillingOrder();
 		}
-		final Market me = this; 
+		final MaggiyanMarket me = this; 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				print("Delivering inventory order"); 

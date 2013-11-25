@@ -140,6 +140,7 @@ public class RestaurantPanel extends JPanel {
 	}
 
 	public void addWaiter(WaiterRole waiter) {
+		System.out.println("Waiter added");
 		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
 		gui.animationPanel.addGui(g);
 		waiter.setHost(host);

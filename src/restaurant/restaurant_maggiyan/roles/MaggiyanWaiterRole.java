@@ -1,17 +1,24 @@
-package restaurant.restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
-import base.Agent;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
+
+import base.BaseRole;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.gui.WaiterGui;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Host;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.MyCustomer;
+import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
+import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
-import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * Restaurant Waiter Agent
@@ -20,12 +27,12 @@ import java.util.concurrent.Semaphore;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the Host. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class WaiterAgent extends Agent implements Waiter{
+public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	static final int NTABLES = 3;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
-	public List<Customer> waitingCustomers
-	= new ArrayList<Customer>();
+	public List<MaggiyanCustomer> waitingCustomers
+	= new ArrayList<MaggiyanCustomer>();
 	public List<MyCustomer> customers = new ArrayList<MyCustomer>(); 
 
 	private String name;
@@ -42,10 +49,10 @@ public class WaiterAgent extends Agent implements Waiter{
 	public boolean waiterIsReady = false; 
 	public boolean canGoOnBreak = false; 
 	
-	private Cook cook; 
-	private Host host; 
-	private Cashier cashier; 
-	public WaiterGui waiterGui = null;
+	private MaggiyanCook cook; 
+	private MaggiyanHost host; 
+	private MaggiyanCashier cashier; 
+	public MaggyanWaiterGui waiterGui = null;
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
@@ -56,11 +63,9 @@ public class WaiterAgent extends Agent implements Waiter{
 	public enum WaiterState {busy, free, askingToGoOnBreak, waitingForBreakResponse, DoneWithBreak}; 
 	public WaiterState wState; 
 	
-	public enum CustomerState{waiting, seated, askedToOrder, readyToOrder, gaveOrder, waitingForFood, orderGiven, foodIsCooking, foodOrderReady, eating, checkReady, receivedCheck, done, finished, needsToReOrder, reordering}; 
-	
 	private boolean reenableBreakButton = false; 
 	
-	public WaiterAgent(String name, Cook cook, Host host) {
+	public MaggiyanWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
 		super();
 		
 		this.name = name;
@@ -78,7 +83,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		return name;
 	}
 	
-	public void setCashier(Cashier c){
+	public void setCashier(MaggiyanCashier c){
 		cashier = c; 
 	}
 	
@@ -86,7 +91,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		return customers.size(); 
 	}
 
-	public MyCustomer findCustomer(Customer cust){
+	public MyCustomer findCustomer(MaggiyanCustomer cust){
 		for(int i = 0; i < customers.size(); i++){
 			if(customers.get(i).c == cust){
 				return customers.get(i); 
@@ -98,7 +103,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	// Messages
 	
 	//From Host 
-	public void msgPleaseSeatCustomer(Customer cust, int table){	
+	public void msgPleaseSeatCustomer(MaggiyanCustomer cust, int table){	
 		customers.add(new MyCustomer(cust, table, CustomerState.waiting)); 
 		print ("Going to seat customer at table: " + table);
 		stateChanged(); 
@@ -128,11 +133,12 @@ public class WaiterAgent extends Agent implements Waiter{
 	}
 	
 	//Lets the waiter know food is done
-	public void msgOrderDone(String choice, int tableNum){ 
+	public void msgOrderDone(String choice, int tableNum, int orderPos){ 
 		for(MyCustomer mc: customers){
 			if(mc.table == tableNum){
 				print("Order picked up"); 
 				mc.s = CustomerState.foodOrderReady; 
+				mc.orderPos = orderPos; 
 			}
 		}
 		stateChanged(); 
@@ -158,13 +164,13 @@ public class WaiterAgent extends Agent implements Waiter{
 		stateChanged(); 
 	}
 	
-	public void msgReadyToOrder(Customer cust){
+	public void msgReadyToOrder(MaggiyanCustomer cust){
 		MyCustomer mc = findCustomer(cust); 
 		mc.s = CustomerState.readyToOrder; 
 		stateChanged(); 
 	}
 	
-	public void msgHereIsMyOrder(String choice, Customer c){
+	public void msgHereIsMyOrder(String choice, MaggiyanCustomer c){
 		MyCustomer mc = findCustomer(c); 
 		mc.s = CustomerState.gaveOrder; 
 		mc.choice = choice; 
@@ -172,7 +178,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		stateChanged(); 
 	}
 	
-	public void msgLeavingTable(Customer cust) {
+	public void msgLeavingTable(MaggiyanCustomer cust) {
 		MyCustomer mc = findCustomer(cust); 
 		mc.s = CustomerState.done; 
 	
@@ -232,7 +238,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		try{
 			if(justGotToWork){
 				startWork();
@@ -336,7 +342,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private void goOnBreak(){
 		print("Going on break");
-		final WaiterAgent w = this; 
+		final restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter w = this; 
 		waiterGui.DoGoOnBreak();
 		try{
 			animationReady.acquire(); 
@@ -438,7 +444,6 @@ public class WaiterAgent extends Agent implements Waiter{
 		DoGiveOrderToCook();  
 		print("Giving order to cook");
 		cust.s = CustomerState.foodIsCooking; 
-		cook.msgHereIsOrder(this, cust.choice, cust.table); 
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 
@@ -446,6 +451,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		catch(Exception e){
 			print ("giveOrderToCook exception");
 		}
+		cook.msgHereIsOrder(this, cust.choice, cust.table); 
 	}
 	
 	private void giveCustomerFood(MyCustomer mc){
@@ -458,6 +464,7 @@ public class WaiterAgent extends Agent implements Waiter{
 		catch(Exception e){
 			print("giveCustomerFood exception"); 
 		}
+		cook.msgPickedUpOrder(mc.orderPos); 
 		waiterGui.showCustomerOrder(mc.choice);
 		print("Bringing food to customer"); 
 		DoBringCustomerFood(mc.table);
@@ -489,7 +496,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	}
 
 	// The animation DoXYZ() routines
-	private void DoSeatCustomer(Customer customer, int table) {
+	private void DoSeatCustomer(MaggiyanCustomer customer, int table) {
 		print("Seating " + customer + " at " + table);
 		waiterGui.DoBringToTable(table); 
 
@@ -511,36 +518,13 @@ public class WaiterAgent extends Agent implements Waiter{
 
 	//utilities
 
-	public void setGui(WaiterGui gui) {
+	public void setGui(MaggyanWaiterGui gui) {
 		waiterGui = gui;
 	}
 
-	public WaiterGui getGui() {
+	public MaggyanWaiterGui getGui() {
 		return waiterGui;
 	}
 	
-	private class MyCustomer {
-		Customer c; 
-		int table; 
-		String choice; 
-		CustomerState s; 
-		Check check;
-		
-		MyCustomer(Customer customer, int tableNum, CustomerState state){
-			c = customer; 
-			table = tableNum; 
-			s = state; 
-			check = null; 
-		}
-		
-		void setCheck(Check c){
-			check = c; 
-		}
-		
-		//For JUnit Testing
-		public double getTotal(Check check){
-			return check.getCheckTotal(); 
-		}
-	}
 }
 
