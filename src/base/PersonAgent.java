@@ -73,10 +73,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public PersonAgent(EnumJobType job, double cash, String name){
-		initializePerson();
 		mJobType = job;
 		mCash = cash;
 		mName = name;
+		initializePerson();
 		
 		//Get job role and location; set active if necessary
 		Role jobRole = null;
@@ -125,7 +125,6 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void initializePerson(){
 		//Roles and Job
-		mJobType = null;
 		mRoles = new HashMap<Role, Boolean>();
 		mHouseRole = null;
 		mJobLocation = null;
@@ -138,15 +137,13 @@ public class PersonAgent extends Agent implements Person {
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
 		
 		//Personal Variables
-		mName = "";
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
-		mCash = 100;
 		mLoan = 0;
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(200, 100, "Person"); //SHANE: Hardcoded
+		mPersonGui = new CityPerson(200, 100, mName); //SHANE: Hardcoded
 		//SHANE REX: ADD TO MOVING IN SIMCITYPANEL
 		
 		// Event Setup
