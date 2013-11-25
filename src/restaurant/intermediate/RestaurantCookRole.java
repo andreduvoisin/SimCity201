@@ -24,7 +24,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantBaseInterf
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;
+		super.mPerson = person;
 	}
 	
 	public boolean pickAndExecuteAnAction() {

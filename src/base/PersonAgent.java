@@ -27,6 +27,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
+import restaurant.intermediate.RestaurantBaseInterface;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -95,6 +96,8 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case RESTAURANT:
 				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(1);
+				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
@@ -152,6 +155,7 @@ public class PersonAgent extends Agent implements Person {
 		mEvents = new TreeSet<Event>();
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
 //		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
@@ -216,6 +220,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
 				if (((BaseRole) iRole).getPerson() == null) {
+					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
 				else if (iRole.pickAndExecuteAnAction())
@@ -229,7 +234,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		System.out.println(event.mEventType.toString());
+		//System.out.println(event.mEventType.toString());
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar(); //SHANE: 1 get car
@@ -320,10 +325,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void goToJob() {
-		mPersonGui.DoGoToDestination(mJobLocation);
-		acquireSemaphore(semAnimationDone);
-		mAtJob = true; //SHANE: This will need to be set to false somewhere
-		mPersonGui.setPresent(false);		
+		mRoles.put(mJobRole, true);
+//		mPersonGui.DoGoToDestination(mJobLocation);
+//		acquireSemaphore(semAnimationDone);
+//		mAtJob = true; //SHANE: This will need to be set to false somewhere
+//		mPersonGui.setPresent(false);		
 		
 		//DAVID: How do you start your rest sim? -Shane
 

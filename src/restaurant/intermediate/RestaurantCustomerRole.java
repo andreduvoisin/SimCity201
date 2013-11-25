@@ -24,7 +24,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;		
+		super.mPerson = person;
 	}
 
 	public boolean pickAndExecuteAnAction() {

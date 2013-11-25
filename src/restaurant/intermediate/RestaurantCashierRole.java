@@ -23,7 +23,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;
+		super.mPerson = person;
 	}
 	
 	public boolean pickAndExecuteAnAction() {

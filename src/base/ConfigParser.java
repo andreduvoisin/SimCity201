@@ -5,9 +5,7 @@ import java.util.Scanner;
 
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
-import base.interfaces.Role;
 import city.gui.SimCityGui;
-import restaurant.intermediate.RestaurantBaseInterface;
 
 /*
  * Reads in a config file filled with new people to instantiate
