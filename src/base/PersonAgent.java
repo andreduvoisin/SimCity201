@@ -153,8 +153,7 @@ public class PersonAgent extends Agent implements Person {
 		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
-		mPersonGui = new CityPerson(200, 100, mName); //SHANE: Hardcoded
-		//SHANE REX: ADD TO MOVING IN SIMCITYPANEL
+		mPersonGui = new CityPerson(400, 100, mName); //SHANE: Hardcoded
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>();

@@ -98,7 +98,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
-		for(EnumMarketItemType item : mOrder.mItems.keySet()) {
+	for(EnumMarketItemType item : mOrder.mItems.keySet()) {
 			MarketCoordinates c = mItems.getItemCoordinates(item);
 			xDestination = c.getX()-30;
 			yDestination = c.getY();
@@ -109,7 +109,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 			catch(InterruptedException e) {
 				e.printStackTrace();
 			}
-			mItems.decreaseItemCount(item);
+			mItems.decreaseItemCount(item);		
 		}
 	}
 	

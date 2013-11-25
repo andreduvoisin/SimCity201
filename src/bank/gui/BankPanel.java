@@ -41,9 +41,6 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
 	
-	static final int INTERACT_X = 250;
-	static final int INTERACT_Y = 420;
-	
 	public BankPanel(SimCityGui city) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);

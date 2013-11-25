@@ -6,9 +6,11 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.Timer;
 
+import base.PersonAgent;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 import market.gui.*;
+import market.roles.*;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -38,9 +40,8 @@ public class MarketPanel extends CityCard implements ActionListener {
 		repaint();
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
-		
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
@@ -56,14 +57,18 @@ public class MarketPanel extends CityCard implements ActionListener {
 	
 	private void addGuis() {
 		guis.add(new MarketItemsGui());
-		guis.add(new MarketCashierGui(null));
-		guis.add(new MarketCustomerGui(null));
-		guis.add(new MarketWorkerGui(null));
+		PersonAgent p = new PersonAgent();
+		MarketCashierRole r = new MarketCashierRole(p);
+		guis.add(new MarketCashierGui(r));
+		p = new PersonAgent();
+		MarketCustomerRole r2 = new MarketCustomerRole(p);
+		guis.add(new MarketCustomerGui(r2));
+		p = new PersonAgent();
+		MarketWorkerRole r3 = new MarketWorkerRole(p);
+		guis.add(new MarketWorkerGui(r3));
 	}
 	
 	public void testGuis() {
-//		MarketWorkerGui m = (MarketWorkerGui)guis.get(3);
-//		m.setItemsGui((MarketItemsGui)guis.get(0));
 		MarketCustomerGui c = (MarketCustomerGui)guis.get(2);
 		c.DoWaitForOrder();
 	}
