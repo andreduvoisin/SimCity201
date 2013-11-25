@@ -57,6 +57,11 @@ public class CityPerson extends CityComponent{
         else if (yPos > yDestination)
             yPos--;
         
+        if(xPos == xDestination && yPos == yDestination){
+        	visible = false;
+        }
+	}
+
         //Hack A*
 //        boolean xOldInBlock = ((previousX > 95) && (previousX < 500));
 //        boolean yOldInBlock = ((previousY > 95) && (previousY < 500));
@@ -70,7 +75,7 @@ public class CityPerson extends CityComponent{
 //        		xPos = previousX;
 //        	}
 //        }
-	}
+
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
@@ -90,12 +95,14 @@ public class CityPerson extends CityComponent{
 	*/
 	public void DoGoToDestination(int x, int y){
 		atDestination = false;
+		visible = true; 
 		xDestination = x;
 		yDestination = y;
 	}
 	
 	public void DoGoToDestination(Location location){
 		atDestination = false;
+		visible = true; 
 		xDestination = location.mX;
 		yDestination = location.mY;
 	}
