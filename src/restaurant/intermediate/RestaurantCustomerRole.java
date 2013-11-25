@@ -16,7 +16,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public void setRestaurant(int restaurantID) {
-		if (restaurantID == 1) {
+		if ((restaurantID == 4) || (restaurantID == 5)) {
 			subRole = new CustomerRole(super.mPerson);
 			RestaurantPanel.getInstance().addCustomer((CustomerRole) subRole);
 		}

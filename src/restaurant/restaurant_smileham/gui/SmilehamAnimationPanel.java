@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AnimationPanel extends CityCard implements ActionListener {
+public class SmilehamAnimationPanel extends CityCard implements ActionListener {
 	// old values: X = 450, Y = RestaurantGui.cWINDOWY
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
@@ -25,7 +25,7 @@ public class AnimationPanel extends CityCard implements ActionListener {
     
     
     //CONSTRUCTOR
-    public AnimationPanel(SimCityGui city) {
+    public SmilehamAnimationPanel(SimCityGui city) {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);

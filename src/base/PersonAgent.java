@@ -152,7 +152,7 @@ public class PersonAgent extends Agent implements Person {
 		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
-		mPersonGui = new CityPerson(400, 400, mName); //SHANE: Hardcoded start place
+		mPersonGui = new CityPerson(0, 0, mName); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
@@ -359,7 +359,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 			
-			int restaurantChoice = 1; // SHANE DAVID: Make random later
+			int restaurantChoice = 4; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 			restaurantCustomerRole.setRestaurant(restaurantChoice);
 			
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));

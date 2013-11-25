@@ -8,7 +8,7 @@ import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.agents.CashierAgent;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Market;
@@ -51,7 +51,7 @@ public class CashierTest extends TestCase
 	 */
 	public void setUp() throws Exception{
 		super.setUp();
-		RestaurantGui gui = new RestaurantGui();
+		SmilehamRestaurantGui gui = new SmilehamRestaurantGui();
 		cashier = new CashierAgent("real cashier", gui);
 		customer = new MockCustomer("mock customer");		
 		waiter = new MockWaiter("mock waiter");
