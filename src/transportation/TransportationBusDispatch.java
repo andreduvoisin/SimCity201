@@ -2,7 +2,6 @@ package transportation;
 
 import java.util.*;
 
-import city.gui.CityBus;
 import base.Agent;
 import transportation.interfaces.TransportationRider;
 

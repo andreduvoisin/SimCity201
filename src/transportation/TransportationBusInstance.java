@@ -21,6 +21,8 @@ public class TransportationBusInstance {
 		mGui = new CityBus(bd, mBusNumber);
 
 		state = enumState.traveling;
+
+		bd.addBus(this);
 	}
 	
 	public boolean isBusy() {

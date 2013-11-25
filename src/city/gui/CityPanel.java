@@ -12,6 +12,7 @@ import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 
+@SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	
 	public static final int CITY_WIDTH = 600, CITY_HEIGHT = 600;
@@ -36,8 +37,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		// Add bus
 		transportation.TransportationBusDispatch tbd = new transportation.TransportationBusDispatch();
 		transportation.TransportationBusInstance tbi = new transportation.TransportationBusInstance(tbd, 4);
-		tbd.addBus(tbi);
 		tbd.startThread();
+
 		this.addMoving(tbi.getCityBus());
 
 		//Add Roads
