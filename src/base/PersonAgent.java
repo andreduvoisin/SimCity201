@@ -24,7 +24,7 @@ import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankCustomerRole.EnumAction;
 import base.Event.EnumEventType;
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
@@ -51,8 +51,8 @@ public class PersonAgent extends Agent implements Person {
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
 	public SortedSet<Event> mEvents; // tree set ordered by time of event
-	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
-	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
+	Map<EnumItemType, Integer> mItemInventory; // personal inventory
+	Map<EnumItemType, Integer> mItemsDesired; // not ordered yet
 	Set<Location> mHomeLocations; //multiple for landlord
 	
 	//Personal Variables
@@ -140,8 +140,8 @@ public class PersonAgent extends Agent implements Person {
 		//Lists
 		mFriends = new ArrayList<Person>();
 		mEvents = new TreeSet<Event>();
-		mItemInventory = Collections.synchronizedMap(new HashMap<EnumMarketItemType, Integer>());
-		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumMarketItemType, Integer>());
+		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
 		
 		//Personal Variables
@@ -330,7 +330,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//add desired item
-		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
+		mItemsDesired.put(EnumItemType.CAR, 1); //want 1 car
 		//PAEA for role will message market cashier to start transaction
 		mHasCar = true;
 	}
@@ -477,7 +477,7 @@ public class PersonAgent extends Agent implements Person {
 		return mLoan;
 	}
 
-	public Map<EnumMarketItemType, Integer> getItemsDesired() {
+	public Map<EnumItemType, Integer> getItemsDesired() {
 		return mItemsDesired;
 	}
 
@@ -485,7 +485,7 @@ public class PersonAgent extends Agent implements Person {
 		return mSSN;
 	}
 
-	public Map<EnumMarketItemType, Integer> getItemInventory() {
+	public Map<EnumItemType, Integer> getItemInventory() {
 		return mItemInventory;
 	}
 	
@@ -510,7 +510,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	@Override
-	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
+	public void setItemsDesired(Map<EnumItemType, Integer> map) {
 		mItemsDesired = map;
 	}
 
