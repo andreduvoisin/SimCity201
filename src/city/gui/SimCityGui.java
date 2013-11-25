@@ -3,7 +3,11 @@ package city.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
@@ -60,6 +64,17 @@ public class SimCityGui extends JFrame {
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(this);
+		
+//		Timer updateAnimationTimer = new Timer();
+//		updateAnimationTimer.scheduleAtFixedRate(new TimerTask() {
+//			public void run() {
+//				for (CityCard card : cityview.cards.values()) {
+//					if (!card.isVisible()) {
+//						card.update(card.getGraphics());
+//					}
+//				}
+//			}
+//		}, 1000, 30);
 		
 		/*
 		 * Hack Restaurant DAVID

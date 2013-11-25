@@ -62,7 +62,7 @@ public class WaiterRole extends BaseRole implements Waiter {
 	}
 
 	private String name;
-	private Semaphore isAnimating = new Semaphore(0, true);
+	private Semaphore isAnimating = new Semaphore(500, true);
 	public HostGui hostGui = null;
 
 	@Override
