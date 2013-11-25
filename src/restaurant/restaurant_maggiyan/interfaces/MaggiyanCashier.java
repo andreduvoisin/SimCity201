@@ -13,15 +13,15 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
  * @author Monroe Ekilah
  *
  */
-public interface Cashier {
-	public void msgPleaseCalculateBill(Waiter w, Customer c, String choice);
+public interface MaggiyanCashier {
+	public void msgPleaseCalculateBill(MaggiyanWaiter w, MaggiyanCustomer c, String choice);
 
 	
 	//From Customer
-	public void msgHereIsPayment(Customer c, double cash);
+	public void msgHereIsPayment(MaggiyanCustomer c, double cash);
 
 
-	public void msgDeliverBill(Market me, List<String> deliveryBill);
+	public void msgDeliverBill(MaggiyanMarket me, List<String> deliveryBill);
 	
 
 }

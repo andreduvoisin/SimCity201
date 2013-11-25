@@ -3,9 +3,9 @@ package restaurant.restaurant_maggiyan.test.mock;
 
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 /**
@@ -14,12 +14,12 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
  * @author Monroe Ekilah
  *
  */
-public class MockCustomer extends Mock implements Customer {
+public class MockCustomer extends Mock implements MaggiyanCustomer {
 
 	/**
 	 * Reference to the Cashier under test that can be set by the unit test.
 	 */
-	public Cashier cashier;
+	public MaggiyanCashier cashier;
 
 	public MockCustomer(String name) {
 		super(name);
@@ -61,7 +61,7 @@ public class MockCustomer extends Mock implements Customer {
 	}
 
 	@Override
-	public void msgFollowMe(Waiter w, Menu m, int tableNumber) {
+	public void msgFollowMe(MaggiyanWaiter w, Menu m, int tableNumber) {
 		// TODO Auto-generated method stub
 		
 	}

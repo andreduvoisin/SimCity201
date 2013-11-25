@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
-import restaurant.restaurant_maggiyan.gui.WaiterGui;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Host;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 
 /**
@@ -20,12 +20,12 @@ import restaurant.restaurant_maggiyan.interfaces.Waiter;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class MaggiyanHostRole extends BaseRole implements Host{
+public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	static final int NTABLES = 3;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
-	public List<Customer> waitingCustomers
-	= new ArrayList<Customer>();
+	public List<MaggiyanCustomer> waitingCustomers
+	= new ArrayList<MaggiyanCustomer>();
 	public Collection<Table> tables;
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
@@ -36,7 +36,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 	public boolean isWaiter = true; 
 	public boolean amReady = true; 
 	public enum WaiterState {busy, free, askedToGoOnBreak, onBreak};
-	private WaiterGui hostGui = null;
+	private MaggyanWaiterGui hostGui = null;
 	private MaggiyanCookRole cook; 
 	private int minWaiters = 1; 
 	private int minCustomer = Integer.MAX_VALUE; 
@@ -45,7 +45,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 	
 	private boolean askedToGoOnBreak = false; 
 	
-	public void addWaiter(Waiter waiter){
+	public void addWaiter(MaggiyanWaiter waiter){
 		MyWaiter w = new MyWaiter(waiter); 
 		waiters.add(w); 
 	}
@@ -72,7 +72,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 		return name;
 	}
 	
-	public MyWaiter findMyWaiter(Waiter w){
+	public MyWaiter findMyWaiter(MaggiyanWaiter w){
 		for(MyWaiter waiter: waiters){
 			if(waiter.w.getName() == w.getName()){
 				return waiter; 
@@ -97,23 +97,23 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 	// Messages
 	
 	//From Customer 
-	public void msgIWantFood(Customer cust) {
+	public void msgIWantFood(MaggiyanCustomer cust) {
 		waitingCustomers.add(cust);
 		stateChanged();
 	}
 	
-	public void msgLeaving(Customer customer){
+	public void msgLeaving(MaggiyanCustomer customer){
 		waitingCustomers.remove(customer); 
 		stateChanged(); 
 	}
 	//From Waiter
-	public void msgIAmHere(Waiter waiter){
+	public void msgIAmHere(MaggiyanWaiter waiter){
 		print("I am here");
 		addWaiter(waiter); 
 		stateChanged(); 
 	}
 	
-	public void msgWaiterFree(Waiter w){
+	public void msgWaiterFree(MaggiyanWaiter w){
 		for(MyWaiter waiter:waiters){
 			if(waiter.w == w){
 				waiter.s = WaiterState.free; 
@@ -122,7 +122,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 		stateChanged();
 	}
 	
-	public void msgWaiterBusy(Waiter w){
+	public void msgWaiterBusy(MaggiyanWaiter w){
 		for(MyWaiter waiter:waiters){
 			if(waiter.w == w){
 				waiter.s = WaiterState.busy; 
@@ -132,7 +132,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 	}
 	
 	
-	public void msgCanIGoOnBreak(Waiter w){
+	public void msgCanIGoOnBreak(MaggiyanWaiter w){
 		print("msgCanIGoOnBreak");
 		for(MyWaiter waiter:waiters){
 			if(waiter.w.equals(w)){
@@ -143,12 +143,12 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 		stateChanged(); 
 	}
 	
-	public void msgDoneWithBreak(Waiter w){
+	public void msgDoneWithBreak(MaggiyanWaiter w){
 		findMyWaiter(w).onBreak = false;
 		stateChanged();
 	}
 	
-	public void msgTableFree(int tableNum, Waiter w){
+	public void msgTableFree(int tableNum, MaggiyanWaiter w){
 		for (Table table : tables) {
 			if(table.tableNumber == tableNum){
 				print("Table " + tableNum + " is free");
@@ -187,7 +187,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 				for(MyWaiter waiter: waiters){
 					if(waiter.s != WaiterState.busy){
 						if(!waitingCustomers.isEmpty()){
-							for(Customer customer: waitingCustomers){
+							for(MaggiyanCustomer customer: waitingCustomers){
 								for(Table table: tables){
 									if(!table.isOccupied()){
 										if(!waiter.onBreak){
@@ -229,13 +229,13 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 	}
 
 	// Actions
-	private void NotifyCustomer(Customer customer){
+	private void NotifyCustomer(MaggiyanCustomer customer){
 		print("Restaurant is full, please wait"); 
 		customer.msgRestaurantFull(); 
 	}
 	
 	private void removeImpatientCustomer(){
-		for(Customer c: waitingCustomers){
+		for(MaggiyanCustomer c: waitingCustomers){
 			if(c.getName().equals("Impatient")){
 				waitingCustomers.remove(c); 
 			}
@@ -255,7 +255,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 		}
 	}
 	
-	private void callWaiter(MyWaiter waiter, Customer cust, Table table){
+	private void callWaiter(MyWaiter waiter, MaggiyanCustomer cust, Table table){
 		print("Calling Waiter");
 		table.setOccupant(cust);
 		waitingCustomers.remove(0);
@@ -267,23 +267,23 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 
 	//utilities
 
-	public void setGui(WaiterGui gui) {
+	public void setGui(MaggyanWaiterGui gui) {
 		hostGui = gui;
 	}
 
-	public WaiterGui getGui() {
+	public MaggyanWaiterGui getGui() {
 		return hostGui;
 	}
 
 	private class Table {
-		Customer occupiedBy;
+		MaggiyanCustomer occupiedBy;
 		int tableNumber; 
 
 		Table(int tableNumber) {
 			this.tableNumber = tableNumber;
 		}
 
-		void setOccupant(Customer cust) {
+		void setOccupant(MaggiyanCustomer cust) {
 			occupiedBy = cust;
 		}
 
@@ -291,7 +291,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 			occupiedBy = null;
 		}
 
-		Customer getOccupant() {
+		MaggiyanCustomer getOccupant() {
 			return occupiedBy;
 		}
 
@@ -305,7 +305,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 		
 	}
 	private class MyWaiter{
-		MyWaiter(Waiter waiter){
+		MyWaiter(MaggiyanWaiter waiter){
 			w = waiter; 
 			s = WaiterState.free; 
 			customerNum = 0; 
@@ -314,7 +314,7 @@ public class MaggiyanHostRole extends BaseRole implements Host{
 			
 		}
 		
-		Waiter w;  
+		MaggiyanWaiter w;  
 		WaiterState s; 
 		boolean askedToGoOnBreak;
 		boolean onBreak; 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CookGui implements Gui{
+public class MaggiyanCookGui implements MaggiyanGui{
 
 	private MaggiyanCookRole agent = null;
 	private boolean isPresent = true;
@@ -37,7 +37,7 @@ public class CookGui implements Gui{
 	private List<String> PlatedFoods = Arrays.asList(" ", " ", " "); 
 	
 	//private HostAgent host;
-	RestaurantGui gui;
+	MaggiyanRestaurantGui gui;
 	
 	private int xPos, yPos, prevXPos, prevYPos;
 	private int xDestination, yDestination;
@@ -64,7 +64,7 @@ public class CookGui implements Gui{
 	    }
 	}
 
-	public CookGui(MaggiyanCookRole cook){ //HostAgent m) {
+	public MaggiyanCookGui(MaggiyanCookRole cook){ //HostAgent m) {
 		agent = cook; 
 		xPos = initialxPos;
 		yPos = initialyPos;

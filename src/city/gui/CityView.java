@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
@@ -46,7 +47,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		cards.put("R_tranac", new RestaurantPanel_at(city));
 		
-		cards.put("R_Maggiyan", new CityCard(city));
+		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
+		cards.put("R_Maggiyan", maggiyan);
 		cards.put("Gringotts Bank", new BankPanel(city));
 		cards.put("Test Restaurant",  new CityCard(city)); 
 		

@@ -7,7 +7,7 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 
 import java.awt.*;
 
-public class CustomerGui implements Gui{
+public class MaggiyanCustomerGui implements MaggiyanGui{
 
 	private MaggiyanCustomerRole agent = null;
 	private boolean isPresent = false;
@@ -18,7 +18,7 @@ public class CustomerGui implements Gui{
 	private String nameOfChoice = " "; 
 
 	//private HostAgent host;
-	RestaurantGui gui;
+	MaggiyanRestaurantGui gui;
 
 	private int xPos, yPos, prevXPos, prevYPos;
 	private int xDestination, yDestination;
@@ -47,7 +47,7 @@ public class CustomerGui implements Gui{
 	    }
 	}
 
-	public CustomerGui(MaggiyanCustomerRole c, RestaurantGui gui){ //HostAgent m) {
+	public MaggiyanCustomerGui(MaggiyanCustomerRole c, MaggiyanRestaurantGui gui){ //HostAgent m) {
 		agent = c;
 		xPos = -40;
 		yPos = -40;

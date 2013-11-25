@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Subpanel of restaurantPanel.
  * This holds the scroll panes for the customers and, later, for waiters
  */
-public class ListPanel extends JPanel implements ActionListener {
+public class MaggiyanListPanel extends JPanel implements ActionListener {
 	//Components for scroll pane for waiter and customers
     public JScrollPane pane =
             new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -40,7 +40,7 @@ public class ListPanel extends JPanel implements ActionListener {
     private JTextField waiterNameBox = new JTextField(); 
     
     //Instance of RestaurantPanel used to create new customers and waiters
-    private RestaurantPanel restPanel;
+    private MaggiyanRestaurantPanel restPanel;
     private String type;
     
     //To Check if paused button has been pressed 
@@ -74,7 +74,7 @@ public class ListPanel extends JPanel implements ActionListener {
      * @param rp   reference to the restaurant panel
      * @param type indicates if this is for customers or waiters
      */
-    public ListPanel(RestaurantPanel rp, String type) {
+    public MaggiyanListPanel(MaggiyanRestaurantPanel rp, String type) {
         restPanel = rp;
         
         this.type = type;

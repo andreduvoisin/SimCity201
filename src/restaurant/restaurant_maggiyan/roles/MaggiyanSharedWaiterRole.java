@@ -12,12 +12,12 @@ import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant.restaurant_maggiyan.gui.WaiterGui;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Host;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 
 /**
@@ -27,12 +27,12 @@ import restaurant.restaurant_maggiyan.interfaces.Waiter;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the Host. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
+public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter{
 	static final int NTABLES = 3;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
-	public List<Customer> waitingCustomers
-	= new ArrayList<Customer>();
+	public List<MaggiyanCustomer> waitingCustomers
+	= new ArrayList<MaggiyanCustomer>();
 	public List<MyCustomer> customers = new ArrayList<MyCustomer>(); 
 
 	private String name;
@@ -49,10 +49,10 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 	public boolean waiterIsReady = false; 
 	public boolean canGoOnBreak = false; 
 	
-	private Cook cook; 
-	private Host host; 
-	private Cashier cashier; 
-	public WaiterGui waiterGui = null;
+	private MaggiyanCook cook; 
+	private MaggiyanHost host; 
+	private MaggiyanCashier cashier; 
+	public MaggyanWaiterGui waiterGui = null;
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
@@ -65,7 +65,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 	
 	private boolean reenableBreakButton = false; 
 	
-	public MaggiyanSharedWaiterRole(String name, Cook cook, Host host) {
+	public MaggiyanSharedWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
 		super();
 		
 		this.name = name;
@@ -83,7 +83,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 		return name;
 	}
 	
-	public void setCashier(Cashier c){
+	public void setCashier(MaggiyanCashier c){
 		cashier = c; 
 	}
 	
@@ -91,7 +91,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 		return customers.size(); 
 	}
 
-	public MyCustomer findCustomer(Customer cust){
+	public MyCustomer findCustomer(MaggiyanCustomer cust){
 		for(int i = 0; i < customers.size(); i++){
 			if(customers.get(i).c == cust){
 				return customers.get(i); 
@@ -103,7 +103,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 	// Messages
 	
 	//From Host 
-	public void msgPleaseSeatCustomer(Customer cust, int table){	
+	public void msgPleaseSeatCustomer(MaggiyanCustomer cust, int table){	
 		customers.add(new MyCustomer(cust, table, CustomerState.waiting)); 
 		print ("Going to seat customer at table: " + table);
 		stateChanged(); 
@@ -164,13 +164,13 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 		stateChanged(); 
 	}
 	
-	public void msgReadyToOrder(Customer cust){
+	public void msgReadyToOrder(MaggiyanCustomer cust){
 		MyCustomer mc = findCustomer(cust); 
 		mc.s = CustomerState.readyToOrder; 
 		stateChanged(); 
 	}
 	
-	public void msgHereIsMyOrder(String choice, Customer c){
+	public void msgHereIsMyOrder(String choice, MaggiyanCustomer c){
 		MyCustomer mc = findCustomer(c); 
 		mc.s = CustomerState.gaveOrder; 
 		mc.choice = choice; 
@@ -178,7 +178,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 		stateChanged(); 
 	}
 	
-	public void msgLeavingTable(Customer cust) {
+	public void msgLeavingTable(MaggiyanCustomer cust) {
 		MyCustomer mc = findCustomer(cust); 
 		mc.s = CustomerState.done; 
 	
@@ -496,7 +496,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 	}
 
 	// The animation DoXYZ() routines
-	private void DoSeatCustomer(Customer customer, int table) {
+	private void DoSeatCustomer(MaggiyanCustomer customer, int table) {
 		print("Seating " + customer + " at " + table);
 		waiterGui.DoBringToTable(table); 
 
@@ -518,11 +518,11 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements Waiter{
 
 	//utilities
 
-	public void setGui(WaiterGui gui) {
+	public void setGui(MaggyanWaiterGui gui) {
 		waiterGui = gui;
 	}
 
-	public WaiterGui getGui() {
+	public MaggyanWaiterGui getGui() {
 		return waiterGui;
 	}
 	

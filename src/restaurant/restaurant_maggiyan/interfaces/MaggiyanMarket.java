@@ -10,9 +10,9 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
  * @author Monroe Ekilah
  *
  */
-public interface Market {
+public interface MaggiyanMarket {
 	
-	public void msgRequestItems(Cook c, Map<String, Integer> itemRequest);
+	public void msgRequestItems(MaggiyanCook c, Map<String, Integer> itemRequest);
 
 	public String getName();
 

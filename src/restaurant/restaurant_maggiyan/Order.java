@@ -1,14 +1,14 @@
 package restaurant.restaurant_maggiyan;
 
 
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 public class Order {
 	
 	public int cookingPosition = 0;
 	public enum state {pending, cooking, done, finished};
 	
-	public Order(Waiter waiter, String choice, int tableNum){
+	public Order(MaggiyanWaiter waiter, String choice, int tableNum){
 		w = waiter;
 		c = choice; 
 		table = tableNum; 
@@ -23,7 +23,7 @@ public class Order {
 	
 	public boolean pickedUp; 
 	public int cookingPos; 
-	public Waiter w; 
+	public MaggiyanWaiter w; 
 	public String c; 
 	public int table; 
 	public state s; 

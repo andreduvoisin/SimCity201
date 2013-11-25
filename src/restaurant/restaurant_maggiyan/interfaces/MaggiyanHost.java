@@ -12,23 +12,23 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole.WaiterState;
  * @author Monroe Ekilah
  *
  */
-public interface Host {
+public interface MaggiyanHost {
 	//From Customer 
-		public void msgIWantFood(Customer cust);
+		public void msgIWantFood(MaggiyanCustomer cust);
 		
-		public void msgLeaving(Customer customer);
+		public void msgLeaving(MaggiyanCustomer customer);
 		
 		//From Waiter
-		public void msgIAmHere(Waiter waiter);
+		public void msgIAmHere(MaggiyanWaiter waiter);
 		
-		public void msgWaiterFree(Waiter w);
-		public void msgWaiterBusy(Waiter w);
+		public void msgWaiterFree(MaggiyanWaiter w);
+		public void msgWaiterBusy(MaggiyanWaiter w);
 		
 		
-		public void msgCanIGoOnBreak(Waiter w);
+		public void msgCanIGoOnBreak(MaggiyanWaiter w);
 		
-		public void msgDoneWithBreak(Waiter w);
+		public void msgDoneWithBreak(MaggiyanWaiter w);
 		
-		public void msgTableFree(int tableNum, Waiter w);
+		public void msgTableFree(int tableNum, MaggiyanWaiter w);
 
 }

@@ -8,21 +8,21 @@ import java.util.concurrent.Semaphore;
 import base.BaseRole;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.gui.CustomerGui;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.gui.MaggiyanCustomerGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 /**
  * Restaurant customer agent.
  */
-public class MaggiyanCustomerRole extends BaseRole implements Customer{
+public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	//Customer data
 	private String name;
 	private int tableNumber;
 	private int choiceIndex; 
 	private int hungerLevel = 10;        // determines length of meal
 	private double cash; 
-	private CustomerGui customerGui;
+	private MaggiyanCustomerGui customerGui;
 	private boolean reordering = false; 
 	public static int waitTime = 5000; 
 	Timer timer = new Timer();
@@ -35,7 +35,7 @@ public class MaggiyanCustomerRole extends BaseRole implements Customer{
 	// Agent Correspondents
 	private MaggiyanCustomerRole me; 
 	private MaggiyanHostRole host;
-	private Waiter waiter; 
+	private MaggiyanWaiter waiter; 
 	private MaggiyanCashierRole cashier;
 	private Menu menu; 
 	private Check check; 
@@ -101,7 +101,7 @@ public class MaggiyanCustomerRole extends BaseRole implements Customer{
 	}
 	
 	//From waiter 
-	public void msgFollowMe(Waiter w, Menu m, int tableNumber){
+	public void msgFollowMe(MaggiyanWaiter w, Menu m, int tableNumber){
 		print("Received msgFollowMe");
 		event = AgentEvent.followHost;
 		this.tableNumber = tableNumber;
@@ -355,11 +355,11 @@ public class MaggiyanCustomerRole extends BaseRole implements Customer{
 		return "customer " + getName();
 	}
 
-	public void setGui(CustomerGui g) {
+	public void setGui(MaggiyanCustomerGui g) {
 		customerGui = g;
 	}
 
-	public CustomerGui getGui() {
+	public MaggiyanCustomerGui getGui() {
 		return customerGui;
 	}
 	

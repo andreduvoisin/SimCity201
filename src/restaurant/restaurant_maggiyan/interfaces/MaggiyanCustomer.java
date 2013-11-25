@@ -10,12 +10,12 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
  * @author Monroe Ekilah
  *
  */
-public interface Customer {
+public interface MaggiyanCustomer {
 	
 	public void msgRestaurantFull();
 	
 	//From waiter 
-	public void msgFollowMe(Waiter w, Menu m, int tableNumber);
+	public void msgFollowMe(MaggiyanWaiter w, Menu m, int tableNumber);
 	
 	public void msgWhatDoYouWant();
 	

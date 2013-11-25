@@ -13,9 +13,9 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
  * @author Monroe Ekilah
  *
  */
-public interface Cook {
+public interface MaggiyanCook {
 	//From Waiter
-		public void msgHereIsOrder(Waiter w, String choice, int table);
+		public void msgHereIsOrder(MaggiyanWaiter w, String choice, int table);
 		
 		//From Market
 		public void msgFulfillingOrder();
@@ -26,11 +26,11 @@ public interface Cook {
 		
 		public void msgDeliverOrder(Map<String, Integer> order);
 		
-		public void msgOutOfAllInventory(Market m);
+		public void msgOutOfAllInventory(MaggiyanMarket m);
 
 		public void msgPickedUpOrder(int orderPos);
 
-		public void addRStandOrder(Waiter w,
+		public void addRStandOrder(MaggiyanWaiter w,
 				String choice, int table);
 	
 

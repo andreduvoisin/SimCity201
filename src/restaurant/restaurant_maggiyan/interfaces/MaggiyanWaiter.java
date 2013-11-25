@@ -1,7 +1,7 @@
 package restaurant.restaurant_maggiyan.interfaces;
 
 import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.gui.WaiterGui;
+import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
 
 
 /**
@@ -10,10 +10,10 @@ import restaurant.restaurant_maggiyan.gui.WaiterGui;
  * @author Monroe Ekilah
  *
  */
-public interface Waiter {
-	WaiterGui waiterGui = null;
+public interface MaggiyanWaiter {
+	MaggyanWaiterGui waiterGui = null;
 
-	public void msgPleaseSeatCustomer(Customer cust, int table);
+	public void msgPleaseSeatCustomer(MaggiyanCustomer cust, int table);
 	
 	public void msgCantGoOnBreak();
 	
@@ -31,11 +31,11 @@ public interface Waiter {
 	
 	//From Customer
 	
-	public void msgReadyToOrder(Customer cust);
+	public void msgReadyToOrder(MaggiyanCustomer cust);
 	
-	public void msgHereIsMyOrder(String choice, Customer c);
+	public void msgHereIsMyOrder(String choice, MaggiyanCustomer c);
 	
-	public void msgLeavingTable(Customer cust);
+	public void msgLeavingTable(MaggiyanCustomer cust);
 
 	public Object getName();
 
@@ -55,7 +55,7 @@ public interface Waiter {
 
 	public void msgWaiterFree();
 
-	public WaiterGui getGui();
+	public MaggyanWaiterGui getGui();
 
 
 }

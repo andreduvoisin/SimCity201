@@ -9,9 +9,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.BaseRole;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Market;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 
 
 /**
@@ -21,11 +21,11 @@ import restaurant.restaurant_maggiyan.interfaces.Market;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class MaggiyanMarketRole extends BaseRole implements Market{
+public class MaggiyanMarketRole extends BaseRole implements MaggiyanMarket{
 	private String n; 
 	private int maxINVENTORY = 4; 
-	private Cashier cashier; 
-	private Cook cook; 
+	private MaggiyanCashier cashier; 
+	private MaggiyanCook cook; 
 	private List<MarketOrder> marketOrders = Collections.synchronizedList(new ArrayList<MarketOrder>()); 
 	public enum state {idle, fulfillingOrder};
 	
@@ -48,14 +48,14 @@ public class MaggiyanMarketRole extends BaseRole implements Market{
 		return n; 
 	}
 	
-	public void setCashier(Cashier c){
+	public void setCashier(MaggiyanCashier c){
 		cashier = c; 
 	}
 	
 	// Messages
 	
 	//From Cook
-	public void msgRequestItems(Cook c, Map<String, Integer> itemRequest)
+	public void msgRequestItems(MaggiyanCook c, Map<String, Integer> itemRequest)
 	{
 		print("Ordering items"); 
 		cook = c; 
@@ -153,7 +153,7 @@ public class MaggiyanMarketRole extends BaseRole implements Market{
 			print("Fulfilling complete order");
 			cook.msgFulfillingOrder();
 		}
-		final Market me = this; 
+		final MaggiyanMarket me = this; 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				print("Delivering inventory order"); 

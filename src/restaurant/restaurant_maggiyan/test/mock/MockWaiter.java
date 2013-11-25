@@ -2,10 +2,10 @@ package restaurant.restaurant_maggiyan.test.mock;
 
 
 import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.gui.WaiterGui;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -13,9 +13,9 @@ import restaurant.restaurant_maggiyan.interfaces.Waiter;
  * @author Monroe Ekilah
  *
  */
-public class MockWaiter extends Mock implements Waiter {
+public class MockWaiter extends Mock implements MaggiyanWaiter {
 	
-	public Cashier cashier;
+	public MaggiyanCashier cashier;
 
 	public MockWaiter(String name) {
 		super(name);
@@ -23,7 +23,7 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 
 @Override
-public void msgPleaseSeatCustomer(Customer cust, int table) {
+public void msgPleaseSeatCustomer(MaggiyanCustomer cust, int table) {
 	log.add(new LoggedEvent("Received PleaseSeatCustomer from host. Customer = "+ cust.getName() + "Table = " + table));
 	
 }
@@ -58,19 +58,19 @@ private String getCheckTotal(Check check) {
 }
 
 @Override
-public void msgReadyToOrder(Customer cust) {
+public void msgReadyToOrder(MaggiyanCustomer cust) {
 	log.add(new LoggedEvent("Received msgReadyToOrder. Customer = " + cust.getName())); 
 	
 }
 
 @Override
-public void msgHereIsMyOrder(String choice, Customer c) {
+public void msgHereIsMyOrder(String choice, MaggiyanCustomer c) {
 	log.add(new LoggedEvent("Received msgHereIsMyOrder. Choice = " + choice + ". Customer = " + c.getName())); 
 	
 }
 
 @Override
-public void msgLeavingTable(Customer cust) {
+public void msgLeavingTable(MaggiyanCustomer cust) {
 	log.add(new LoggedEvent("Received msgLeavingTable. Customer = " +cust.getName() )); 
 	
 }
@@ -131,7 +131,7 @@ public void msgWaiterFree() {
 
 
 @Override
-public WaiterGui getGui() {
+public MaggyanWaiterGui getGui() {
 	// TODO Auto-generated method stub
 	return null;
 }

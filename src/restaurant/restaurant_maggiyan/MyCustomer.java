@@ -1,18 +1,18 @@
 package restaurant.restaurant_maggiyan;
 
-import restaurant.restaurant_maggiyan.interfaces.Customer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 
 public class MyCustomer {
 	
 	public enum CustomerState{waiting, seated, askedToOrder, readyToOrder, gaveOrder, waitingForFood, orderGiven, foodIsCooking, foodOrderReady, eating, checkReady, receivedCheck, done, finished, needsToReOrder, reordering}; 
-	public Customer c; 
+	public MaggiyanCustomer c; 
 	public int table; 
 	public String choice; 
 	public CustomerState s; 
 	public Check check;
 	public int orderPos; 
 	
-	public MyCustomer(Customer customer, int tableNum, CustomerState state){
+	public MyCustomer(MaggiyanCustomer customer, int tableNum, CustomerState state){
 		c = customer; 
 		table = tableNum; 
 		s = state; 

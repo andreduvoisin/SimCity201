@@ -12,12 +12,12 @@ import java.util.concurrent.Semaphore;
 import base.BaseRole;
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.Order.state;
-import restaurant.restaurant_maggiyan.gui.CookGui;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Market;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
-public class MaggiyanCookRole extends BaseRole implements Cook{
+public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	private String n; 
 	
 	//Cooking Food
@@ -33,11 +33,11 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 	private boolean allMarketsClosed = false; 
 	
 	//For Cook Animation
-	CookGui cookGui; 
+	MaggiyanCookGui cookGui; 
 	private boolean orderPickedUp = false; 
 	private Semaphore animationReady = new Semaphore(0, true);
 	
-	private List<Market> markets = new ArrayList<Market>(); 
+	private List<MaggiyanMarket> markets = new ArrayList<MaggiyanMarket>(); 
 	
 	//Revolving Stand 
 	private Timer RStandTimer = new Timer();  
@@ -65,7 +65,7 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 		//Enables cook to periodically check for orders on revolving stand
 		RStandTimer.scheduleAtFixedRate(new TimerTask(){
 			public void run(){
-				stateChanged(); 
+				//stateChanged(); 
 			}
 		}, 0,  10000);
 		
@@ -75,7 +75,7 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 		return n; 
 	}
 	
-	public void setMarket(Market m){
+	public void setMarket(MaggiyanMarket m){
 		markets.add(m);
 //		print("Markets size: " + markets.size());
 		stockInventory = true; 
@@ -86,7 +86,7 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 	// Messages
 	
 	//From Waiter
-	public void msgHereIsOrder(Waiter w, String choice, int table)
+	public void msgHereIsOrder(MaggiyanWaiter w, String choice, int table)
 	{
 		Order order = new Order(w, choice, table); 
 		orders.add(order);
@@ -123,7 +123,7 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 		stateChanged();
 	}
 	
-	public void msgOutOfAllInventory(Market m){
+	public void msgOutOfAllInventory(MaggiyanMarket m){
 		markets.remove(m); 
 		totalMarkets--; 
 		if(markets.size() == 0){
@@ -143,10 +143,10 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 	 */
 	public boolean pickAndExecuteAnAction() {
 		
-		if(stockInventory){
-			StockInventory(); 
-			return true; 
-		}
+//		if(stockInventory){
+//			StockInventory(); 
+//			return true; 
+//		}
 		
 		if(orderPickedUp){
 			ClearPlatingArea(); 
@@ -306,7 +306,7 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 	}
 	
 	//Utilities
-	public void addRStandOrder(Waiter w, String c, int t){
+	public void addRStandOrder(MaggiyanWaiter w, String c, int t){
 		rStandOrders.add(new Order(w, c, t)); 
 	}
 	
@@ -319,7 +319,7 @@ public class MaggiyanCookRole extends BaseRole implements Cook{
 		return null; 
 	}
 	
-	public void setGui(CookGui c){
+	public void setGui(MaggiyanCookGui c){
 		cookGui = c; 
 	}
 	
