@@ -199,7 +199,7 @@ public class PersonAgent extends Agent implements Person {
 				Iterator<Event> itr = mEvents.iterator();
 				while (itr.hasNext()) {
 					Event event = itr.next();
-					System.out.println(event.mTime + " " + Time.GetTime());
+					System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 					if (event.mTime > Time.GetTime())
 						break; // don't do future calendar events
 					processEvent(event);
