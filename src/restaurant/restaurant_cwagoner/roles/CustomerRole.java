@@ -1,6 +1,6 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import restaurant.restaurant_cwagoner.agent.Agent;
+import base.Agent;
 import restaurant.restaurant_cwagoner.gui.CustomerGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
 

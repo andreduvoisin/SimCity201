@@ -5,7 +5,6 @@ import restaurant.restaurant_cwagoner.roles.*;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
  * including host, cook, waiters, and customers.
  */
 @SuppressWarnings("serial")
-public class RestaurantPanel extends JPanel implements ActionListener {
+public class RestaurantPanel extends JPanel {
 
     private RestaurantGui mainGui; // Reference to main GUI
     
@@ -29,13 +28,7 @@ public class RestaurantPanel extends JPanel implements ActionListener {
     //private List<MarketRole> Markets = new ArrayList<MarketRole>();
 
     // Stores restaurant menu
-    private JPanel menuPanel = new JPanel();    
-
-    private JButton pauseButton = new JButton("Pause");
-    
-    JPanel buttonPanel = new JPanel();    
-    JLabel numMarkets = new JLabel("Number of Markets: 0");    
-    JButton addMarketButton = new JButton("Add Market");
+    private JPanel menuPanel = new JPanel();
     
     // Lists of customers and waiters
     private ListPanel customerPanel = new ListPanel(this, "Customers");
@@ -64,72 +57,10 @@ public class RestaurantPanel extends JPanel implements ActionListener {
         setLayout(new GridLayout(2, 2));
 
         initRestLabel();
-        
-    	JPanel Buttons = new JPanel();
-    	Buttons.setLayout(new GridLayout(2, 1));
-    	pauseButton.addActionListener(this);
-    	Buttons.add(pauseButton);
-        
-        buttonPanel.setLayout(new GridLayout(3, 1));
-        buttonPanel.add(pauseButton);
-        buttonPanel.add(numMarkets);
-        addMarketButton.addActionListener(this);
-        buttonPanel.add(addMarketButton);
 
-        
         add(menuPanel);
-        add(buttonPanel);
         add(customerPanel);
         add(waiterPanel);
-    }
-    
-    public void actionPerformed(ActionEvent e) {
-    	// Added market with "Add" button
-        if (e.getSource().equals(addMarketButton)) {
-        	//MarketRole m = new MarketRole(Markets.size());
-        	//m.startThread();
-        	
-        	//Markets.add(m);
-        	//cook.addMarket(m);
-        	
-        	//numMarkets.setText("Number of markets: " + Markets.size());
-        }
-        else if (e.getSource().equals(pauseButton)) {
-        	if (pauseButton.getText().equals("Pause")) {	// Currently running; pause
-        		pauseRoles();
-        		pauseButton.setText("Unpause");
-        	}
-        	else {	// Currently paused; unpause
-        		unpauseRoles();
-        		pauseButton.setText("Pause");
-        	}
-        }
-    }
-    
-    public void pauseRoles() {
-    	for (CustomerRole c : Customers) {
-    		c.pause();
-    	}
-    	
-    	for (WaiterRole w : Waiters) {
-    		w.pause();
-    	}
-    	
-    	host.pause();
-    	cook.pause();
-    }
-    
-    public void unpauseRoles() {
-    	for (CustomerRole c : Customers) {
-    		c.unpause();
-    	}
-    	
-    	for (WaiterRole w : Waiters) {
-    		w.unpause();
-    	}
-    	
-    	host.unpause();
-    	cook.unpause();
     }
 
     /**
