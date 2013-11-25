@@ -49,7 +49,6 @@ public class ConfigParser {
 				simcitygui.citypanel.masterPersonList.add(person);
 				simcitygui.citypanel.addMoving(person.getPersonGui());
 				((PersonAgent) person).startThread();
-				((PersonAgent) person).msgTimeShift();
 			}
 			
 			scanPerson.close();
