@@ -106,14 +106,6 @@ public class CityPerson extends CityComponent{
 		xDestination = location.mX;
 		yDestination = location.mY;
 	}
-	
-	public void setVisible(){
-		visible = true;
-	}
-	
-	public void setInvisible(){
-		visible = false;
-	}
 
 	@Override
 	public void draw(Graphics2D g) {
@@ -123,14 +115,12 @@ public class CityPerson extends CityComponent{
 
 	@Override
 	public boolean isPresent() {
-		// TODO Auto-generated method stub
-		return false;
+		return visible;
 	}
 
 	@Override
 	public void setPresent(boolean state) {
-		// TODO Auto-generated method stub
-		
+		visible = state;
 	}
 	
 

@@ -43,6 +43,7 @@ public class PersonAgent extends Agent implements Person {
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	private Location mJobLocation;
+	private boolean mAtJob;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -132,6 +133,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles = new HashMap<Role, Boolean>();
 		mHouseRole = null;
 		mJobLocation = null;
+		mAtJob = false;
 		
 		//Lists
 		mFriends = new ArrayList<Person>();
@@ -201,9 +203,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
-		//if not during job shift
-		//SHANE REX: change to if not at job location
-		if ((mRoleFinished) && (Time.GetShift() != mTimeShift) ){
+		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
 				Iterator<Event> itr = mEvents.iterator();
 				while (itr.hasNext()) {
@@ -301,13 +301,11 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		
-		//remove current gui (isPresent = false)
-//		mGui.setInvisible();
-		//create new market gui
-		
-		
+		//set city person invisible
+		mPersonGui.setPresent(false);
 		//lock person until role is finished
 		mRoleFinished = false;
+		
 		//activate marketcustomer role
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof MarketCustomerRole){
@@ -325,9 +323,8 @@ public class PersonAgent extends Agent implements Person {
 	private void goToJob() {
 		mPersonGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
-		
-		mPersonGui.setInvisible();
-		
+		mAtJob = true; //SHANE: This will need to be set to false somewhere
+		mPersonGui.setPresent(false);		
 		
 
 		// work.getHost().msgImHere(job);
@@ -356,7 +353,7 @@ public class PersonAgent extends Agent implements Person {
 				restaurantCustomerRole.setRestaurant(restaurantChoice);
 			} catch (IOException e1) {
 				e1.printStackTrace();
-			} // DAVID: 1 This is where it's set
+			}
 			
 			
 			
@@ -399,16 +396,6 @@ public class PersonAgent extends Agent implements Person {
 		if (mHouseRole.mHouse != null) {
 			mHouseRole.msgTimeToMaintain();
 		}
-	}
-	
-	
-	//JERRY 0 FOR TESTING
-	public void move(){
-		mPersonGui.DoGoToDestination(ContactList.cBANK_LOCATION);
-	}
-
-	public void SetGui(CityPerson pGui){
-		mPersonGui = pGui;
 	}
 	
 	
