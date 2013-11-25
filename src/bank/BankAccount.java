@@ -1,12 +1,12 @@
 package bank;
 
-import base.PersonAgent;
+import base.interfaces.Person;
 
 public class BankAccount {
 		public double loan = 0;
 		public double balance = 0;
-		public PersonAgent person;
-		public BankAccount(double l, double b, PersonAgent p) {
+		public Person person;
+		public BankAccount(double l, double b, Person p) {
 			loan = l;
 			balance = b;
 			person = p;
