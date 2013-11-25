@@ -55,39 +55,55 @@ public class BankPanel extends CityCard implements ActionListener{
 	}
 	
 	public void testBankGui() {
-		PersonAgent cust = new PersonAgent();
-		BankCustomerRole bcr = new BankCustomerRole(cust);
-		BankCustomerGui bcg = new BankCustomerGui(bcr, this);
-		bcr.setGui(bcg);
-		addGui(bcg);
-		bcg.DoGoWaitInLine();
-		bcg.DoGoToTeller();
+		PersonAgent cust1 = new PersonAgent();
+		BankCustomerRole bcr1 = new BankCustomerRole(cust1);
+		BankCustomerGui bcg1 = new BankCustomerGui(bcr1, this);
+		bcr1.setGui(bcg1);
+		addGui(bcg1);
 		
 		PersonAgent cust2 = new PersonAgent();
 		BankCustomerRole bcr2 = new BankCustomerRole(cust2);
 		BankCustomerGui bcg2 = new BankCustomerGui(bcr2, this);
 		bcr2.setGui(bcg2);
 		addGui(bcg2);
-		bcg2.DoGoWaitInLine();
 		
 		PersonAgent cust3 = new PersonAgent();
 		BankCustomerRole bcr3 = new BankCustomerRole(cust3);
 		BankCustomerGui bcg3 = new BankCustomerGui(bcr3, this);
 		bcr3.setGui(bcg3);
 		addGui(bcg3);
-		bcg3.DoGoWaitInLine();
 		
-		PersonAgent teller = new PersonAgent();
-		BankTellerRole btr = new BankTellerRole(teller);
-		BankTellerGui btg = new BankTellerGui(btr, this);
-		btr.setGui(btg);
-		addGui(btg);
+		PersonAgent teller1 = new PersonAgent();
+		BankTellerRole btr1 = new BankTellerRole(teller1);
+		BankTellerGui btg1 = new BankTellerGui(btr1, this, 1);
+		btr1.setGui(btg1);
+		addGui(btg1);
+		
+		PersonAgent teller2 = new PersonAgent();
+		BankTellerRole btr2 = new BankTellerRole(teller2);
+		BankTellerGui btg2 = new BankTellerGui(btr2, this, 2);
+		btr2.setGui(btg2);
+		addGui(btg2);
+
+		PersonAgent teller3 = new PersonAgent();
+		BankTellerRole btr3 = new BankTellerRole(teller3);
+		BankTellerGui btg3 = new BankTellerGui(btr3, this, 3);
+		btr3.setGui(btg3);
+		addGui(btg3);
 		
 		PersonAgent guard = new PersonAgent();
 		BankGuardRole bgr = new BankGuardRole(guard);
 		BankGuardGui bgg = new BankGuardGui(bgr, this);
 		bgr.setGui(bgg);
 		addGui(bgg);
+		
+		//Actions
+		bcg1.DoGoWaitInLine();
+		bcg2.DoGoWaitInLine();
+		bcg3.DoGoWaitInLine();
+		bcg1.DoGoToTeller(1);
+		bcg2.DoGoToTeller(2);
+		bcg3.DoGoToTeller(3);
 	}
 
 	public void paint(Graphics g) {
