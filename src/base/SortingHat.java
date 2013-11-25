@@ -212,18 +212,12 @@ public class SortingHat {
 	static final int sMaxRenters = sMaxLandlords*sHouseSize;
 
 	public static Role getHousingRole(Person person) {
-		//landlord, renter, owner (in that order)
+		//landlord, renter, owner (in that order)		
 
-		Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(sHouseCount);
-		
 		if (sLandlordCount < sMaxLandlords){
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
- 			CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), houseLocation.mX, houseLocation.mY, "House " + sHouseCount, 50.00);
- 			SimCityGui.getInstance().cityview.addView(newHouse.mPanel, "House " + sHouseCount);
 			sHouseCount++;
-			SimCityGui.getInstance().citypanel.addStatic(newHouse);
-			newLandLordRole.setHouse(newHouse);
 			return newLandLordRole;
 		}
 		
@@ -233,11 +227,8 @@ public class SortingHat {
 		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		CityHousing newHouse = new CityHousing(SimCityGui.getInstance(), houseLocation.mX, houseLocation.mY, "House " + sHouseCount, 50.00);
-		SimCityGui.getInstance().cityview.addView(newHouse.mPanel, "House " + sHouseCount);
+		newOwnerRole.setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCount));
 		sHouseCount++;
-		SimCityGui.getInstance().citypanel.addStatic(newHouse);
-		newOwnerRole.setHouse(newHouse);
 		return newOwnerRole;
 	}
 

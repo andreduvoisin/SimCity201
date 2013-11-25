@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
@@ -18,6 +20,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	SimCityGui simcitygui;
 	
 	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
+	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
 	
 	public CityPanel(SimCityGui city) {
 		super(city);
@@ -36,6 +39,20 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 			this.addStatic(new CityRoad(i, RoadDirection.HORIZONTAL));
 			this.addStatic(new CityRoad(i, RoadDirection.VERTICAL));
 		}
+		
+		/*
+		 * Housing creation
+		 */
+				
+		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
+			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
+			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, "House " + iHouseCount, 50.00);
+			simcitygui.cityview.addView(newHouse.mPanel, "House " + iHouseCount);
+			this.addStatic(newHouse);
+			masterHouseList.add(newHouse);
+		}
+		
+		
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
