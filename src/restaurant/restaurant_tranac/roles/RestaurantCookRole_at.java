@@ -28,7 +28,7 @@ public class RestaurantCookRole_at extends BaseRole implements Cook {
 	private Timer timer = new Timer();
 	
 	private final int baseTime = 5000;
-	private final int baseInventory = 2;
+	private final int baseInventory = 5;
 	private final int baseNeed = 3;
 	private final int stockThreshold = 1;
 	

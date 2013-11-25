@@ -53,6 +53,13 @@ public class CashierRole extends BaseRole implements Cashier {
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
+	public CashierRole(){
+		super();
+		menu.put("Steak", new Integer(16));
+		menu.put("Chicken", new Integer(11));
+		menu.put("Salad", new Integer(6));
+		menu.put("Pizza", new Integer(9));
+	}
 
 	// MESSAGES //
 	public void ComputeBill(Waiter waiter, Customer customer){

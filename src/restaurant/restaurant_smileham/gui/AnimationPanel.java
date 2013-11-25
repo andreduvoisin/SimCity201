@@ -25,8 +25,8 @@ public class AnimationPanel extends CityCard implements ActionListener {
     
     
     //CONSTRUCTOR
-    public AnimationPanel(SimCityGui city, Color background) {
-    	super(city, background);
+    public AnimationPanel(SimCityGui city) {
+    	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         

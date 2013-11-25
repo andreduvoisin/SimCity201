@@ -5,7 +5,7 @@ import java.util.Map;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import market.*;
 import market.interfaces.MarketCustomer;
 import test.mock.*;
@@ -16,7 +16,7 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 		super();
 	}
 	
-	public void msgInvoiceToPerson(Map<EnumMarketItemType, Integer> cannotFulfill, MarketInvoice invoice) {
+	public void msgInvoiceToPerson(Map<EnumItemType, Integer> cannotFulfill, MarketInvoice invoice) {
 		log.add(new LoggedEvent("Received msgInvoiceToPerson"));
 	}
 		

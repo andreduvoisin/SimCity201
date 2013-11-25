@@ -19,10 +19,12 @@ import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.restaurant_davidmca.astar.AStarTraversal;
 import transportation.roles.TransportationBusRiderRole;
+import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
+import bank.roles.BankCustomerRole.EnumAction;
 import base.Event.EnumEventType;
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
@@ -49,8 +51,8 @@ public class PersonAgent extends Agent implements Person {
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
 	public SortedSet<Event> mEvents; // tree set ordered by time of event
-	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
-	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
+	Map<EnumItemType, Integer> mItemInventory; // personal inventory
+	Map<EnumItemType, Integer> mItemsDesired; // not ordered yet
 	Set<Location> mHomeLocations; //multiple for landlord
 	
 	//Personal Variables
@@ -139,8 +141,8 @@ public class PersonAgent extends Agent implements Person {
 		//Lists
 		mFriends = new ArrayList<Person>();
 		mEvents = new TreeSet<Event>();
-		mItemInventory = Collections.synchronizedMap(new HashMap<EnumMarketItemType, Integer>());
-		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumMarketItemType, Integer>());
+		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
 		
 		//Personal Variables
@@ -157,7 +159,8 @@ public class PersonAgent extends Agent implements Person {
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		mEvents.add(new Event(EnumEventType.JOB, 0));
+		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
+//		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
 		mEvents.add(new Event(EnumEventType.EAT, 1));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
@@ -177,7 +180,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		//Leave job
-		if (mAtJob){
+		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(mJobRole, false); //set job role to false;
 			mPersonGui.setPresent(true);
@@ -226,7 +229,7 @@ public class PersonAgent extends Agent implements Person {
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
-				print(iRole.toString());
+				//print(iRole.toString());
 				if (((BaseRole) iRole).getPerson() == null) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
@@ -329,10 +332,9 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//add desired item
-		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
+		mItemsDesired.put(EnumItemType.CAR, 1); //want 1 car
 		//PAEA for role will message market cashier to start transaction
-		
-		//SHANE: 3 When gets car, change mHasCar to true
+		mHasCar = true;
 	}
 	
 	private void goToJob() {
@@ -343,9 +345,8 @@ public class PersonAgent extends Agent implements Person {
 //		mAtJob = true; //SHANE: This will need to be set to false somewhere
 //		mPersonGui.setPresent(false);		
 		
-		//DAVID: How do you start your rest sim? -Shane
-
-		// work.getHost().msgImHere(job);
+		mJobRole.setPerson(this); //take over job role
+		mRoles.put(mJobRole, true); //set role to active
 	}
 
 	public void eatFood() {
@@ -371,7 +372,7 @@ public class PersonAgent extends Agent implements Person {
 			
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
-			}
+		}
 		
 	}
 	
@@ -380,8 +381,23 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
-		//SHANE REX: Start bank animation
+		int deposit = 50; //REX: deposit based on job type or constant amount
+		BankCustomerRole bankCustomerRole = null;
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof BankCustomerRole){
+				bankCustomerRole = (BankCustomerRole) iRole;
+			}
+		}
 		
+		//deposit check
+		bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
+		
+		//pay back loan if needed
+		if(mLoan > 0){
+			double payment = Math.max(mCash, mLoan);
+			mCash -= payment;
+			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
+		}
 	}
 
 	private void throwParty() {
@@ -464,7 +480,7 @@ public class PersonAgent extends Agent implements Person {
 		return mLoan;
 	}
 
-	public Map<EnumMarketItemType, Integer> getItemsDesired() {
+	public Map<EnumItemType, Integer> getItemsDesired() {
 		return mItemsDesired;
 	}
 
@@ -472,7 +488,7 @@ public class PersonAgent extends Agent implements Person {
 		return mSSN;
 	}
 
-	public Map<EnumMarketItemType, Integer> getItemInventory() {
+	public Map<EnumItemType, Integer> getItemInventory() {
 		return mItemInventory;
 	}
 	
@@ -497,7 +513,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	@Override
-	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
+	public void setItemsDesired(Map<EnumItemType, Integer> map) {
 		mItemsDesired = map;
 	}
 

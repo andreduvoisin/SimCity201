@@ -12,6 +12,7 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import bank.gui.BankPanel;
 import market.gui.MarketPanel;
 import market.gui.MarketPanel.EnumMarketType;
@@ -37,6 +38,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		RestaurantGui davidmca = new RestaurantGui(city);
 		cards.put("R_davidmca", davidmca);
+		
+		cards.put("R_tranac", new RestaurantPanel_at(city));
 		
 		cards.put("R_Maggiyan", new CityCard(city));
 		cards.put("Gringotts Bank", new BankPanel(city));

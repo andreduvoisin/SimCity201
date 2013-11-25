@@ -3,7 +3,7 @@ package market.gui;
 import java.awt.*;
 import java.util.concurrent.Semaphore;
 
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import market.*;
 import market.roles.MarketWorkerRole;
 
@@ -98,7 +98,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
-	for(EnumMarketItemType item : mOrder.mItems.keySet()) {
+	for(EnumItemType item : mOrder.mItems.keySet()) {
 			MarketCoordinates c = mItems.getItemCoordinates(item);
 			xDestination = c.getX()-30;
 			yDestination = c.getY();
