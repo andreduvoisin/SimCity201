@@ -32,7 +32,7 @@ public class Item {
 	
 	public static EnumItemType stringToEnum(String t) {
 		for(EnumItemType iType : EnumItemType.values()) {
-			if(iType.equals(t))
+			if(iType.toString().equalsIgnoreCase(t))
 				return iType;
 		}
 		return null;
