@@ -16,12 +16,6 @@ public class ContactList {
 	public static Map<Role, Location> sRoleLocations = new HashMap<Role, Location>();
 	static List<Person> sPeople; //list of people
 	
-//	static Map<BankMasterTellerRole, Location> sBankMasterTellers;
-//	static Map<HousingLandlordRole, Location> sHousingLandlords;
-//	static Map<MarketCashierRole, Location> sMarketCashiers;
-//	static Map<Person, Location> sRestaurantHosts; //REX: 1 Make a host interface and implement a restaurant
-	
-	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	public static final Location cBANK_LOCATION = new Location(10,10); //SHANE: Bank coordinates go here
 	public static final Location cMARKET_LOCATION = new Location(300,300); //SHANE: Market coordinates
@@ -33,18 +27,18 @@ public class ContactList {
 		List<Location> list = new ArrayList<Location>();
 		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
 			int xCord, yCord = 0;
-			if (iHouse / 20 == 0) {
-				xCord = 50 + (20 * iHouse % 20);
+			if (iHouse / 20 == 0) {					//North
+				xCord = 50 + 25 * (iHouse % 20);
 				yCord = 0;
-			} else if (iHouse / 20 == 2) {
-				xCord = 50 + (20 * iHouse % 20);
-				yCord = 480;
-			} else if (iHouse / 20 == 3) {
+			} else if (iHouse / 20 == 2) {			//South
+				xCord = 50 + 25 * (iHouse % 20);
+				yCord = 580;
+			} else if (iHouse / 20 == 3) {			//West
 				xCord = 0;
-				yCord = 50 + 20 * (iHouse % 20);
-			} else {
-				xCord = 480;
-				yCord = 50 + 20 * (iHouse % 20);
+				yCord = 50 + 25 * (iHouse % 20);
+			} else {								//East
+				xCord = 580;
+				yCord = 50 + 25 * (iHouse % 20);
 			}
 			Location houseLocation = new Location(xCord, yCord);
 			list.add(houseLocation);
@@ -73,6 +67,10 @@ public class ContactList {
 		list.add(cRESTAURANT_LOCATION8);
 		cRESTAURANT_LOCATIONS = Collections.unmodifiableList(list);
 	}
+	
+	//----------------------------------------------------------SIZING----------------------------------------------------------
+	
+	
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		

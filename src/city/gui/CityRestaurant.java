@@ -5,11 +5,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import base.Location;
+
 public class CityRestaurant extends CityComponent {
 	private String restaurantName = "";
 	
 	public CityRestaurant(int x, int y) {
-		super(x, y, Color.red, "Restaurant 1");
+		super(x, y, Color.red, "Unnamed Restaurant");
 		rectangle = new Rectangle(x, y, 100, 60);
 	}
 	
@@ -19,6 +21,12 @@ public class CityRestaurant extends CityComponent {
 		restaurantName = ID;
 	}
 
+	public CityRestaurant(Location location, String ID) {
+		super(location.mX, location.mY, Color.red, ID);
+		rectangle = new Rectangle(x, y, 100, 60);
+		restaurantName = ID;
+	}
+	
 	public void updatePosition() {
 		
 	}

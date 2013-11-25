@@ -28,6 +28,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 		background = new Color(30, 30, 30);
+		
+		//ADD STATIC BUILDINGS
+		
+		
 		this.addStatic(new CityRestaurant(120, 120, "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(80, 400, "Restaurant 2"));
 		this.addStatic(new CityBank(400, 75, "Green Guts Bank"));
@@ -47,7 +51,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
 			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
 			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, iHouseCount, 50.00);
-			simcitygui.cityview.addView(newHouse.mPanel, "House " + iHouseCount);
+			simcitygui.cityview.addView(newHouse.mPanel, "H" + iHouseCount);
 			this.addStatic(newHouse);
 			masterHouseList.add(newHouse);
 		}

@@ -60,7 +60,7 @@ public class CityHousing extends CityComponent {
 		g.setColor(color);
 		g.fillRect(x, y, 20, 20);
 		g.setColor(Color.WHITE);
-		g.drawString("House "+mHouseNum,x + 7 , y + 17);
+		g.drawString("H"+mHouseNum,x + 7 , y + 17);
 	}
 
 	@Override
