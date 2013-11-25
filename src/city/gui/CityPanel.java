@@ -23,34 +23,36 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
 	
 	public CityPanel(SimCityGui city) {
+		//Setup
 		super(city);
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 
-		background = new Color(128, 64, 0);
-		this.addStatic(new CityRestaurant(420, 50, "R_Maggiyan"));
-		background = new Color(30, 30, 30);
+		//Add Background and city block
+		background = new Color(100,100,100);
+		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
 		
-		//ADD STATIC BUILDINGS
+		//Add Roads
+		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
+		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
+		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL));
+		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL));
 		
+		//Add static buildings
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "R_cwagoner"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerrywebb"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_maggiyang"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(4), "R_sciencepro"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "R_smileham"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "R_tranac"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(7), "R_xurex"));
+		this.addStatic(new CityBank(ContactList.cBANK_LOCATION, "Gringotts Bank"));
+		this.addStatic(new CityMarket(ContactList.cMARKET_LOCATION, "Costco"));
+		this.addStatic(new CityMarket(ContactList.cCARDEALERSHIP_LOCATION, "Car Dealership"));
 		
-		this.addStatic(new CityRestaurant(120, 120, "R_Maggiyan"));
-		this.addStatic(new CityRestaurant(80, 400, "Restaurant 2"));
-		this.addStatic(new CityBank(200, 50, "Green Guts Bank"));
-		this.addStatic(new CityRestaurant(50, 50, "Test Restaurant"));
-		
-		this.addStatic(new CityMarket(75, 200, "Sears!"));
-		
-		for (int i = 30; i < 1000; i += 500) {
-			this.addStatic(new CityRoad(i, RoadDirection.HORIZONTAL));
-			this.addStatic(new CityRoad(i, RoadDirection.VERTICAL));
-		}
-		
-		/*
-		 * Housing creation
-		 */
-				
+		//Create Houses		
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
 			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
 			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, iHouseCount, 50.00);
@@ -77,19 +79,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	}
 	
 	public void mousePressed(MouseEvent arg0) {
-//		if (addingObject) {
-//			for (CityComponent c: statics) {
-//				if (c.equals(temp))
-//					continue;
-//				if (c.rectangle.intersects(temp.rectangle))
-//					return;
-//			}
-//			addingObject = false;
-//			city.view.addView(new CityCard(city), temp.ID);
-//			temp = null;
-//		}
-		
-		//Here is the click method
 		for (CityComponent c: statics) {
 			if (c.contains(arg0.getX(), arg0.getY())) {
 				//city.info.setText(c.ID);
@@ -101,27 +90,12 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public void mouseReleased(MouseEvent arg0) {
 		
 	}
-	
-	public void addObject(CityComponent.EnumCityComponents c) {
-//		if (addingObject)
-//			return;
-//		addingObject = true;
-//		switch (c) {
-//		case RESTAURANT: temp = new CityRestaurant(-100, -100, "Restaurant " + (statics.size()-19)); break;
-//		case ROAD: temp = new CityRoad(-100, RoadDirection.HORIZONTAL); break; //NOTE: DON'T MAKE NEW ROADS
-//		case BANK: temp = new CityBank(-100, -100, "Bank " + (statics.size()-19)); break;
-//		default: return;
-//		}
-//		addStatic(temp);
-	}
 
 	public void mouseDragged(MouseEvent arg0) {
 		
 	}
 
 	public void mouseMoved(MouseEvent arg0) {
-//		if (addingObject) {
-//			temp.setPosition(arg0.getPoint());
-//		}
+
 	}
 }
