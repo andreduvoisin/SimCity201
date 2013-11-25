@@ -39,8 +39,8 @@ public class AnimationPanel extends JPanel implements ActionListener {
 	static final int TABLEDIM = 25;
 	static final int TABLEX = 200;
 	static final int TABLEY = 250;
-    private final int WINDOWX = 450;
-    private final int WINDOWY = 350;
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
     
     static final int CASHIERX = 0;
     static final int CASHIERY = 50;
