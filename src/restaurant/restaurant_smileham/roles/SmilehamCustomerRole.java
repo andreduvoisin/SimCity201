@@ -1,4 +1,4 @@
-package restaurant.restaurant_smileham.agents;
+package restaurant.restaurant_smileham.roles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +7,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.WaitingArea;
-import restaurant.restaurant_smileham.Food.EnumFoodOptions;
-import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
@@ -19,11 +18,12 @@ import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import base.BaseRole;
 
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer{
+public class SmilehamCustomerRole extends BaseRole implements Customer{
 	
 	//Constants
 	private static final int cHUNGER_LEVEL = 5;
@@ -44,8 +44,8 @@ public class CustomerAgent extends Agent implements Customer{
 	
 	
 	private Timer mTimer;
-	private HostAgent mHost;
-	private WaiterAgent mWaiter;
+	private SmilehamHostRole mHost;
+	private SmilehamWaiterRole mWaiter;
 
 	// States and Events
 	public enum EnumAgentState {DoingNothing, WaitingInRestaurant, BeingSeated, Seated, Ordering, WaitingForFood, Eating, AwaitingCheck, Paying, Leaving};
@@ -71,7 +71,7 @@ public class CustomerAgent extends Agent implements Customer{
 	 * @param name name of the customer
 	 * @param mGUI  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerAgent(String name, HostAgent host, Cashier cashier, SmilehamRestaurantGui gui){
+	public SmilehamCustomerRole(String name, SmilehamHostRole host, Cashier cashier, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;
@@ -100,7 +100,7 @@ public class CustomerAgent extends Agent implements Customer{
 		
 		mCheck = null; //error checking
 		
-		startThread();
+//		startThread();
 	}
 
 	
@@ -130,7 +130,7 @@ public class CustomerAgent extends Agent implements Customer{
 		print("Message: msgSitAtTable()");
 		mTableNum = tableNum;
 		mMenu = menu;
-		mWaiter = (WaiterAgent) waiter;
+		mWaiter = (SmilehamWaiterRole) waiter;
 		mEvent = EnumAgentEvent.followHost;
 		stateChanged();
 	}
@@ -402,7 +402,7 @@ public class CustomerAgent extends Agent implements Customer{
 	//-----------------------------------------------ACCESSORS-----------------------------------------------
 	
 	public void setHost(Host host) {
-		mHost = (HostAgent) host;
+		mHost = (SmilehamHostRole) host;
 	}
 
 	public String getCustomerName() {

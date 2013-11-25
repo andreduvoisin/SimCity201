@@ -84,9 +84,6 @@ public class PersonAgent extends Agent implements Person {
 		mName = name;
 		initializePerson();
 		
-		//REX: put in for testing
-		//SortingHat.InstantiateBaseRoles();
-		
 		//Get job role and location; set active if necessary
 		mJobRole = null;
 		switch (job){

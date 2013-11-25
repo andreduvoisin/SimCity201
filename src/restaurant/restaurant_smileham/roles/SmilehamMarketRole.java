@@ -1,19 +1,19 @@
-package restaurant.restaurant_smileham.agents;
+package restaurant.restaurant_smileham.roles;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
-import restaurant.restaurant_smileham.agent.Agent;
+import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Market;
+import base.BaseRole;
 
-public class MarketAgent extends Agent implements Market{
+public class SmilehamMarketRole extends BaseRole implements Market{
 	//Constants
 	public static final int cSTEAK_QUANTITY = 1;
 	public static final int cCHICKEN_QUANTITY = 1;
@@ -36,7 +36,7 @@ public class MarketAgent extends Agent implements Market{
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public MarketAgent(String name, int steak, int chicken, int salad, int pizza, SmilehamRestaurantGui gui){
+	public SmilehamMarketRole(String name, int steak, int chicken, int salad, int pizza, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;
@@ -55,7 +55,7 @@ public class MarketAgent extends Agent implements Market{
     	
 		mTimer = new Timer();
 		
-		startThread();
+//		startThread();
 	}
 	
 	// -----------------------------------------------MESSAGES---------------------------------------------------

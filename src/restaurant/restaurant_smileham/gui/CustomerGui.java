@@ -1,15 +1,16 @@
 package restaurant.restaurant_smileham.gui;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
-import restaurant.restaurant_smileham.agents.CustomerAgent;
-import restaurant.restaurant_smileham.agents.HostAgent;
-
-import java.awt.*;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 
 public class CustomerGui implements Gui{
 
-	private CustomerAgent mCustomer = null;
+	private SmilehamCustomerRole mCustomer = null;
 
 	//private HostAgent host;
 	SmilehamRestaurantGui mGUI;
@@ -20,7 +21,7 @@ public class CustomerGui implements Gui{
 	public static final int cINITIAL_Y_DESTINATION = -40;
 	public static final int cCUSTOMER_LENGTH = 20;
 	
-	private static final int cSPEED = HostAgent.cSPEED_LIMIT;
+	private static final int cSPEED = SmilehamHostRole.cSPEED_LIMIT;
 	
 	private int mPosX, mPosY;
 	private int mDestinationX, mDestinationY;
@@ -29,9 +30,9 @@ public class CustomerGui implements Gui{
 
 	
 
-	public CustomerGui(CustomerAgent c, SmilehamRestaurantGui gui){
+	public CustomerGui(SmilehamCustomerRole customerAgent, SmilehamRestaurantGui gui){
 		mGUI = gui;
-		mCustomer = c;
+		mCustomer = customerAgent;
 		mPosX = cINITIAL_X_POSITION;
 		mPosY = cINITIAL_Y_POSITION;
 		mDestinationX = cINITIAL_X_DESTINATION;

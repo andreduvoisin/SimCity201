@@ -21,14 +21,15 @@ import javax.swing.JTextField;
 
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Agent;
-import restaurant.restaurant_smileham.agents.CashierAgent;
-import restaurant.restaurant_smileham.agents.CookAgent;
-import restaurant.restaurant_smileham.agents.CustomerAgent;
-import restaurant.restaurant_smileham.agents.HostAgent;
-import restaurant.restaurant_smileham.agents.WaiterAgent;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
+import restaurant.restaurant_smileham.roles.SmilehamCookRole;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import base.BaseRole;
 
 /**
  * Subpanel of restaurantPanel.
@@ -165,19 +166,19 @@ public class AgentPanel extends JPanel implements ActionListener {
         if (e.getSource() == mButtonAddCustomer) {
         	print("actionPerformed: mButtonAddCustomer pressed");
         	String name = mAddCustomerField.getText();
-        	HostAgent host = mRestPanel.getHost();
-        	CashierAgent cashier = mRestPanel.getCashier();
-        	CustomerAgent customer = new CustomerAgent(name, host, cashier, mGUI); 
+        	SmilehamHostRole host = mRestPanel.getHost();
+        	SmilehamCashierRole cashier = mRestPanel.getCashier();
+        	SmilehamCustomerRole customer = new SmilehamCustomerRole(name, host, cashier, mGUI); 
         	addPerson(customer);
         }
         else if (e.getSource() == mButtonAddWaiter){
-        	HostAgent host = mRestPanel.getHost();
+        	SmilehamHostRole host = mRestPanel.getHost();
         	if (host.getWaiters().size() >= 3) return;
         	
         	String name = mAddWaiterField.getText();
-        	CookAgent cook = (CookAgent) mGUI.getRestaurantPanel().getCook();
-        	CashierAgent cashier = (CashierAgent) mGUI.getRestaurantPanel().getCashier();
-        	WaiterAgent waiter = new WaiterAgent(name, host, cook, cashier, mGUI);
+        	SmilehamCookRole cook = (SmilehamCookRole) mGUI.getRestaurantPanel().getCook();
+        	SmilehamCashierRole cashier = (SmilehamCashierRole) mGUI.getRestaurantPanel().getCashier();
+        	SmilehamWaiterRole waiter = new SmilehamWaiterRole(name, host, cook, cashier, mGUI);
         	addPerson(waiter);
         }
 		else if (e.getSource() == mButtonPause) {
@@ -189,13 +190,13 @@ public class AgentPanel extends JPanel implements ActionListener {
         //OnClick Customer
 		else if (e.getSource() instanceof CustomerRowButton){
 			CustomerRowButton crb = (CustomerRowButton) e.getSource();
-			CustomerAgent customer = crb.getCustomer();
+			SmilehamCustomerRole customer = crb.getCustomer();
 			customer.msgGotHungry();
 		}
         //OnClick Waiter
 		else if (e.getSource() instanceof WaiterRowButton){
 			final WaiterRowButton wrb = (WaiterRowButton) e.getSource();
-			WaiterAgent waiter = wrb.getWaiter();
+			SmilehamWaiterRole waiter = wrb.getWaiter();
 			Host host = waiter.getHost();
 			if (host.getNumWorkingWaiters() > 1){ //if the answer will be yes
 				wrb.setBackground(Color.GRAY);
@@ -207,39 +208,39 @@ public class AgentPanel extends JPanel implements ActionListener {
 					wrb.setEnabled(true);
 				}
 			},
-			WaiterAgent.cBREAK_LENGTH * 1000);
+			SmilehamWaiterRole.cBREAK_LENGTH * 1000);
 //			host.msgWantToGoOnBreak(waiter);
 			waiter.msgWantBreak();
 		}
     }
     
     public void pauseSimulation(){
-    	Vector<Agent> agents = new Vector<Agent>();
+    	Vector<BaseRole> roles = new Vector<BaseRole>();
     	
-		HostAgent host = mRestPanel.getHost();
-		agents.add(host);
-		agents.add((CookAgent) mGUI.getRestaurantPanel().getCook());
+		SmilehamHostRole host = mRestPanel.getHost();
+		roles.add(host);
+		roles.add((SmilehamCookRole) mGUI.getRestaurantPanel().getCook());
 		for (Customer customer : host.getWaitingCustomers()){
-			CustomerAgent customeragent = (CustomerAgent) customer;
-			agents.add(customeragent);
+			SmilehamCustomerRole customeragent = (SmilehamCustomerRole) customer;
+			roles.add(customeragent);
 		}
     	for (Waiter waiter : host.getWaiters()){
-    		WaiterAgent waiteragent = (WaiterAgent) waiter;
-    		agents.add(waiteragent);
+    		SmilehamWaiterRole waiteragent = (SmilehamWaiterRole) waiter;
+    		roles.add(waiteragent);
     		for (Order order : waiteragent.getOrders()){
-    			agents.add((CustomerAgent) order.mCustomer);
+    			roles.add((SmilehamCustomerRole) order.mCustomer);
     		}
     	}
 
-    	if (!host.isPaused()){
-    		for (Agent agent : agents){
-    			agent.pause();
-    		}
-    	}else{
-    		for (Agent agent : agents){
-    			agent.restart();
-    		}
-    	}
+//    	if (!host.isPaused()){
+//    		for (Agent agent : roles){
+//    			agent.pause();
+//    		}
+//    	}else{
+//    		for (Agent agent : roles){
+//    			agent.restart();
+//    		}
+//    	}
     }
 
     /**
@@ -249,10 +250,10 @@ public class AgentPanel extends JPanel implements ActionListener {
      *
      * @param name name of new person
      */
-    public void addPerson(Agent agent) {
+    public void addPerson(BaseRole role) {
     	
-    	if (agent instanceof CustomerAgent){
-    		CustomerAgent customer = (CustomerAgent) agent;
+    	if (role instanceof SmilehamCustomerRole){
+    		SmilehamCustomerRole customer = (SmilehamCustomerRole) role;
     		String name = mAddCustomerField.getText();
     		boolean hungry = mHungryCB.isSelected();
             if (hungry) customer.msgGotHungry();
@@ -265,8 +266,8 @@ public class AgentPanel extends JPanel implements ActionListener {
             if (hungry) customer.msgGotHungry();
     		mRestPanel.getCustomers().add(customer);
     	}
-    	else if (agent instanceof WaiterAgent){
-    		WaiterAgent waiter = (WaiterAgent) agent;
+    	else if (role instanceof SmilehamWaiterRole){
+    		SmilehamWaiterRole waiter = (SmilehamWaiterRole) role;
     		String name = waiter.getName();
     		Host host = waiter.getHost();
             host.msgAddWaiter((Waiter)waiter);
@@ -285,11 +286,11 @@ public class AgentPanel extends JPanel implements ActionListener {
     //-------------------------------------------------OTHER CLASSES-------------------------------------------------
     
     public class CustomerRowButton extends JButton{
-    	private CustomerAgent mCustomer;
+    	private SmilehamCustomerRole mCustomer;
     	private JLabel mPersonLabel;
 		private JCheckBox mPersonCB;
 		
-		public CustomerRowButton(CustomerAgent customer, String label, boolean hungry) {
+		public CustomerRowButton(SmilehamCustomerRole customer, String label, boolean hungry) {
 			setLayout(new GridLayout(1, 2));
 			setBackground(Color.WHITE);
 			
@@ -312,18 +313,18 @@ public class AgentPanel extends JPanel implements ActionListener {
 //	        add(mPersonCB);
 		}
 		
-		public CustomerAgent getCustomer(){
+		public SmilehamCustomerRole getCustomer(){
 			return mCustomer;
 		}
 		
     }
     
     public class WaiterRowButton extends JButton{
-    	private WaiterAgent mWaiter;
+    	private SmilehamWaiterRole mWaiter;
     	private JLabel mPersonLabel;
 		private JCheckBox mPersonCB;
 		
-		public WaiterRowButton(WaiterAgent waiter, String label) {
+		public WaiterRowButton(SmilehamWaiterRole waiter, String label) {
 			setLayout(new GridLayout(1, 2));
 			setBackground(Color.WHITE);
 			
@@ -345,7 +346,7 @@ public class AgentPanel extends JPanel implements ActionListener {
 //	        add(mPersonCB);
 		}
 		
-		public WaiterAgent getWaiter(){
+		public SmilehamWaiterRole getWaiter(){
 			return mWaiter;
 		}
     }

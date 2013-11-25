@@ -6,12 +6,12 @@ import java.awt.Graphics2D;
 
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
-import restaurant.restaurant_smileham.agents.HostAgent;
-import restaurant.restaurant_smileham.agents.WaiterAgent;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 
 public class WaiterGui implements Gui {
 
-    private WaiterAgent mWaiterAgent;
+    private SmilehamWaiterRole mWaiterAgent;
     private static final int cPOS_DOOR_X = -20;
     private static final int cPOS_DOOR_Y = -20;
     public static final int cWAITER_LENGTH = 20;
@@ -19,7 +19,7 @@ public class WaiterGui implements Gui {
     public static final int cPOS_WAITERS_Y = 60;
     public static final int cWAITER_SPACING = 40;
     
-    private static final int cSPEED = HostAgent.cSPEED_LIMIT;
+    private static final int cSPEED = SmilehamHostRole.cSPEED_LIMIT;
     
     private int mPosX = cPOS_DOOR_X;
     private int mPosY = cPOS_DOOR_Y;
@@ -31,8 +31,8 @@ public class WaiterGui implements Gui {
 
     private static int numWaiter = 0;
     
-    public WaiterGui(WaiterAgent agent) {
-        mWaiterAgent = agent;
+    public WaiterGui(SmilehamWaiterRole waiterAgent) {
+        mWaiterAgent = waiterAgent;
         numWaiter++;
         mPosDefaultX = cPOS_WAITERS_X;
         mPosDefaultY = cPOS_WAITERS_Y + cWAITER_SPACING*numWaiter;

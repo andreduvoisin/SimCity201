@@ -1,4 +1,4 @@
-package restaurant.restaurant_smileham.agents;
+package restaurant.restaurant_smileham.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,13 +8,13 @@ import java.util.Map;
 
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
-import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Market;
+import base.BaseRole;
 
-public class CashierAgent extends Agent implements Cashier{
+public class SmilehamCashierRole extends BaseRole implements Cashier{
 	
 	//Constants
 	public static final int cRESTAURANT_CASH = 100;
@@ -32,7 +32,7 @@ public class CashierAgent extends Agent implements Cashier{
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public CashierAgent(String name, SmilehamRestaurantGui gui){
+	public SmilehamCashierRole(String name, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;

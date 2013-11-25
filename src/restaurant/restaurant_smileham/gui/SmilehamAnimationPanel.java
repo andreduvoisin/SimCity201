@@ -6,7 +6,7 @@ import city.gui.CityCard;
 import city.gui.SimCityGui;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
-import restaurant.restaurant_smileham.agents.HostAgent;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -51,7 +51,7 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
         
         //draw the tables
         g2.setColor(Table.cTABLE_COLOR);
-        for (int iTableNum = 0; iTableNum < HostAgent.cNUM_TABLES; iTableNum++){
+        for (int iTableNum = 0; iTableNum < SmilehamHostRole.cNUM_TABLES; iTableNum++){
         	g2.fillRect(Table.getX(iTableNum), Table.getY(iTableNum), Table.cTABLE_WIDTH, Table.cTABLE_HEIGHT);
         }
         

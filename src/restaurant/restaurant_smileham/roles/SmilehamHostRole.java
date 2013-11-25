@@ -1,22 +1,21 @@
-package restaurant.restaurant_smileham.agents;
+package restaurant.restaurant_smileham.roles;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import restaurant.restaurant_smileham.Table;
-import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.gui.HostGui;
 import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
-import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import base.BaseRole;
 
 /**
  * Restaurant Host Agent
  */
-public class HostAgent extends Agent implements Host{
+public class SmilehamHostRole extends BaseRole implements Host{
 
 	//Constants
 	public static final int cNUM_TABLES = 3;
@@ -36,7 +35,7 @@ public class HostAgent extends Agent implements Host{
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public HostAgent(String name, SmilehamRestaurantGui gui) {
+	public SmilehamHostRole(String name, SmilehamRestaurantGui gui) {
 		super();
 		mName = name;
 		mGUI = gui;
@@ -58,7 +57,7 @@ public class HostAgent extends Agent implements Host{
 			mTables.add(new Table(iTables));
 		}
 		
-		startThread();
+//		startThread();
 	}
 
 	

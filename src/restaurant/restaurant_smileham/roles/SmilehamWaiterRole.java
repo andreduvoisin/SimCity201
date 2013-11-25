@@ -1,4 +1,4 @@
-package restaurant.restaurant_smileham.agents;
+package restaurant.restaurant_smileham.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,12 +9,11 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_smileham.Food;
+import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
-import restaurant.restaurant_smileham.Table;
-import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
-import restaurant.restaurant_smileham.agent.Agent;
+import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.gui.WaiterGui;
@@ -23,11 +22,12 @@ import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import base.BaseRole;
 
 /**
  * Restaurant Host Agent
  */
-public class WaiterAgent extends Agent implements Waiter {
+public class SmilehamWaiterRole extends BaseRole implements Waiter {
 	
 	//Constants
 	public static final int cBREAK_LENGTH = 10; //in seconds
@@ -59,7 +59,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public WaiterAgent(String name, Host host, Cook cook, Cashier cashier, SmilehamRestaurantGui gui) {
+	public SmilehamWaiterRole(String name, Host host, Cook cook, Cashier cashier, SmilehamRestaurantGui gui) {
 		super();
 		mName = name;
 		mGUI = gui;
@@ -79,7 +79,7 @@ public class WaiterAgent extends Agent implements Waiter {
 //		mMenuOutdated = false;
 		mWantBreak = false;
 		
-		startThread();
+//		startThread();
 	}
 
 	

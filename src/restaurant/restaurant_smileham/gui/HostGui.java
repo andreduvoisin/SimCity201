@@ -1,15 +1,16 @@
 package restaurant.restaurant_smileham.gui;
 
 
-import restaurant.restaurant_smileham.Table;
-import restaurant.restaurant_smileham.agents.CustomerAgent;
-import restaurant.restaurant_smileham.agents.HostAgent;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
-import java.awt.*;
+import restaurant.restaurant_smileham.Table;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 
 public class HostGui implements Gui {
 
-    private HostAgent mHostAgent;
+    private SmilehamHostRole mHostAgent;
     private static final int cPOS_DEFAULT_X = -20;
     private static final int cPOS_DEFAULT_Y = -20;
     private static final int cHOST_LENGTH = 20;
@@ -19,8 +20,8 @@ public class HostGui implements Gui {
     private int mDestinationX = cPOS_DEFAULT_X; 
     private int mDestinationY = cPOS_DEFAULT_Y;
 
-    public HostGui(HostAgent agent) {
-        mHostAgent = agent;
+    public HostGui(SmilehamHostRole hostAgent) {
+        mHostAgent = hostAgent;
     }
 
     public void updatePosition() {
@@ -44,7 +45,7 @@ public class HostGui implements Gui {
         return true;
     }
 
-    public void DoBringToTable(CustomerAgent customer, int tableNum) {
+    public void DoBringToTable(SmilehamCustomerRole customer, int tableNum) {
         mDestinationX = Table.getX(tableNum) + cHOST_LENGTH;
         mDestinationY = Table.getY(tableNum) - cHOST_LENGTH;
     }
