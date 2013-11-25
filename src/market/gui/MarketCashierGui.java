@@ -7,9 +7,9 @@ public class MarketCashierGui implements MarketBaseGui {
 	private MarketCashierRole mAgent;
 	
 	private static final int xStart = -20, yStart = -20;
-	private static final int xHome = 200, yHome = 200;
+	private static final int xHome = 100, yHome = 50;
 	
-	private int xPos = 50, yPos = 50;
+	private int xPos = xStart, yPos = yStart;
 	private int xDestination = xHome, yDestination = yHome;
 	private static final int SIZE = 20;
 	
@@ -49,7 +49,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(Color.DARK_GRAY);
+		g.setColor(Color.ORANGE);
 		g.fillRect(xPos, yPos, SIZE, SIZE);
 	}
 	

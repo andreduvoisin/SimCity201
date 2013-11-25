@@ -1,10 +1,10 @@
 package housing.test.mock;
 
 import base.PersonAgent;
+
 import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.MockPerson;
-import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -45,22 +45,11 @@ public class MockLandlord extends Mock implements Role, HousingLandlord {
 		return false;
 	}
 
-	@Override
-	public Person getPerson() {
-		
-		return null;
-	}
 
 	@Override
 	public void setPerson(Person person) {
 		
 		
-	}
-
-	@Override
-	public PersonAgent getPersonAgent() {
-	
-		return null;
 	}
 
 	@Override

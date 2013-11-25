@@ -1,12 +1,10 @@
 package housing.test;
 
-import housing.gui.HousingHouseGuiPanel;
-import housing.gui.HousingResidentGui;
+import housing.gui.HousingPersonGui;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
-import base.Gui;
 import base.PersonAgent;
 
 /*
@@ -42,13 +40,13 @@ public class BasicTest extends TestCase {
 		mPerson2 = new PersonAgent();
 		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
 		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
-		HousingResidentGui gui1 = new HousingResidentGui();
-		HousingResidentGui gui2 = new HousingResidentGui();
+		HousingPersonGui gui1 = new HousingPersonGui();
+		HousingPersonGui gui2 = new HousingPersonGui();
 		renter1.setGui(gui1);
 		renter2.setGui(gui2);
-		HousingHouseGuiPanel housepanel = HousingHouseGuiPanel.getInstance();
+		/*HousingHouseGuiPanel housepanel = HousingHouseGuiPanel.getInstance();
 		housepanel.addGui(gui1);
-		housepanel.addGui(gui2);
+		housepanel.addGui(gui2);*/
 	}
 
 	public void testInstantiatePeopleAndAssignRoles() {

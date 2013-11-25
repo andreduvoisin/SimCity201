@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import restaurant.restaurant_xurex.CookAgent.CookOrder;
+import restaurant.restaurant_xurex.agents.CookAgent.CookOrder;
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;

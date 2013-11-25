@@ -2,8 +2,10 @@ package bank.roles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import bank.BankAction;
+import bank.gui.BankCustomerGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -37,6 +39,10 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	public BankGuard mGuard;
 	public BankTeller mTeller;
 	
+	//GUI
+	BankCustomerGui mGUI;
+	Semaphore atLocation = new Semaphore(0, true);
+	
 	
 	public BankCustomerRole(Person person){
 		mPerson = person;
@@ -55,6 +61,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	public void msgAtLocation(){
 		//from GUI
+		atLocation.release();
 		mEvent = EnumEvent.Arrived;
 		stateChanged();
 	}
@@ -69,7 +76,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		stateChanged();
 	}
 	public void msgStopRobber() {
-		// REX: robber gui interactions	
+		// REX ANDRE: robber gui interactions, non-norm
 	}
 	
 //	SCHEDULER
@@ -105,11 +112,17 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 //	ACTIONS
 	
 	private void waitInLine(){
+		mGUI.DoGoWaitInLine();
 		mGuard.msgNeedService(this);
 	}
 	private void goToTeller(){
-		//Using Teller mTeller.location
 		//GUI Interaction
+		mGUI.DoGoToTeller();
+		try {
+			atLocation.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	private void pickAction(){
 		if (mActions.isEmpty()){
@@ -137,6 +150,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	private void leave(){
 		//GUI Interaction
+		mGUI.DoLeaveBank();
 		mTransaction = -1;
 	}
 	private void processTransaction(){
@@ -156,8 +170,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 			}
 		}
 		else if (action == EnumAction.Payment){
-			//REX: Does the base agent keep track of loan?
-				//yes, personagent has an int loan
+			mPerson.subLoan(mTransaction);
 		}
 		else if (action == EnumAction.Open){
 			mPerson.setCash(mTransaction);
@@ -171,5 +184,11 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	public void setGuard(BankGuard guard){
 		mGuard = guard;
+	}
+	
+//	UTILITIES
+	
+	public void setGui(BankCustomerGui g) {
+		mGUI = g;
 	}
 }

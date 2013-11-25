@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import bank.interfaces.BankMasterTeller;
-import bank.roles.BankMasterTellerRole;
-import bank.test.MasterTellerTest;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -16,46 +14,55 @@ public class ContactList {
 	
 	//----------------------------------------------------------PEOPLE----------------------------------------------------------
 	public static Map<Role, Location> sRoleLocations = new HashMap<Role, Location>();
-	//SHANE: sRestaurantRoleLocations
 	static List<Person> sPeople; //list of people
 	
-//	static Map<BankMasterTellerRole, Location> sBankMasterTellers;
-//	static Map<HousingLandlordRole, Location> sHousingLandlords;
-//	static Map<MarketCashierRole, Location> sMarketCashiers;
-//	static Map<Person, Location> sRestaurantHosts; //REX: 1 Make a host interface and implement a restaurant
-	
-	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
-	static final Location cBANK_LOCATION = new Location(10,10); //JERRY: Bank coordinates go here
-	static final Location cMARKET_LOCATION = new Location(10,10); //JERRY: Market coordinates
-	static List<Location> cHOUSE_LOCATIONS;
-	static List<Location> cRESTAURANT_LOCATIONS;
+	public static final Location cBANK_LOCATION = new Location(200,100);
+	public static final Location cMARKET_LOCATION = new Location(100,400);
+	public static final Location cCARDEALERSHIP_LOCATION = new Location(400,400);
+	public static List<Location> cHOUSE_LOCATIONS;
+	public static List<Location> cRESTAURANT_LOCATIONS;
 	
+	public static final Location cBANK_DOOR = new Location(200,100);
+	public static final Location cMARKET_DOOR = new Location(100,400);
+	public static final Location cCARDEALERSHIP_DOOR = new Location(500,500);
+	public static List<Location> cHOUSE_DOORS;
+	public static List<Location> cRESTAURANT_DOORS;
+	
+	//SHANE: add house doors
 	//setup housing locations
-	static final Location cHOUSE_LOCATION1 = new Location(10,10); //JERRY: Housing locations go here
-	static final Location cHOUSE_LOCATION2 = new Location(10,10);
-	static final Location cHOUSE_LOCATION3 = new Location(10,10);
-	static final Location cHOUSE_LOCATION4 = new Location(10,10);
-	static final Location cHOUSE_LOCATION5 = new Location(10,10);
 	static {
 		List<Location> list = new ArrayList<Location>();
-		list.add(cHOUSE_LOCATION1);
-		list.add(cHOUSE_LOCATION2);
-		list.add(cHOUSE_LOCATION3);
-		list.add(cHOUSE_LOCATION4);
-		list.add(cHOUSE_LOCATION5);
+		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
+			int xCord, yCord = 0;
+			if (iHouse / 20 == 0) {					//North
+				xCord = 100 + 20 * (iHouse % 20);
+				yCord = 0;
+			} else if (iHouse / 20 == 2) {			//South
+				xCord = 100 + 20 * (iHouse % 20);
+				yCord = 580;
+			} else if (iHouse / 20 == 3) {			//West
+				xCord = 0;
+				yCord = 100 + 20 * (iHouse % 20);
+			} else {								//East
+				xCord = 580;
+				yCord = 100 + 20 * (iHouse % 20);
+			}
+			Location houseLocation = new Location(xCord, yCord);
+			list.add(houseLocation);
+		}
 		cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
 	}
 	
 	//setup job locations
-	static final Location cRESTAURANT_LOCATION1 = new Location(0,0); //JERRY: Restaurant locations go here
-	static final Location cRESTAURANT_LOCATION2 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION3 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION4 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION5 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION6 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION7 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION8 = new Location(0,0);
+	static final Location cRESTAURANT_LOCATION1 = new Location(100,100);
+	static final Location cRESTAURANT_LOCATION2 = new Location(100,200);
+	static final Location cRESTAURANT_LOCATION3 = new Location(100,300);
+	static final Location cRESTAURANT_LOCATION4 = new Location(215,420);
+	static final Location cRESTAURANT_LOCATION5 = new Location(310,420);
+	static final Location cRESTAURANT_LOCATION6 = new Location(420,100);
+	static final Location cRESTAURANT_LOCATION7 = new Location(420,200);
+	static final Location cRESTAURANT_LOCATION8 = new Location(420,300);
 	static {
 		List<Location> list = new ArrayList<Location>();
 		list.add(cRESTAURANT_LOCATION1);
@@ -69,10 +76,11 @@ public class ContactList {
 		cRESTAURANT_LOCATIONS = Collections.unmodifiableList(list);
 	}
 	
+	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
 	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
-		BankMasterTeller bankMasterTellerRole = new BankMasterTellerRole();
+		BankMasterTeller bankMasterTellerRole = null;
 		for (Role iRole : sRoleLocations.keySet()){
 			if (iRole instanceof BankMasterTeller){
 				bankMasterTellerRole = (BankMasterTeller) iRole;
@@ -80,11 +88,5 @@ public class ContactList {
 		}
 		bankMasterTellerRole.msgSendPayment(senderSSN, receiverSSN, amount);
 	}
-	
-	
-	//REX ALL: What else do we need here? -Shane
-	// SHANE: consider above maps with location as a key, instead of value
-	// so that we can look up the role-person by location
-	// (finding the location of a role isn't as helpful, methinks)
-	//^^^Why? Who is this?
+	//REX: 5 change list iteration and put bank master teller outside
 }

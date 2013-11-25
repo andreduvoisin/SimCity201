@@ -1,12 +1,12 @@
 package housing.gui;
 
-import housing.House;
 import housing.roles.HousingBaseRole;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
 import base.Gui;
+import city.gui.CityHousing;
 
 /*
  * @author David Carr
@@ -14,12 +14,24 @@ import base.Gui;
 
 public class HousingPersonGui implements Gui {
 
-	HousingBaseRole housingrole;
-
-	private int xPos, yPos = 20;
-	private int xDestination, yDestination = 20;
+	public HousingBaseRole housingrole;
+	
+	//Initial Positions
+	private int xPos = 40; 
+	private int yPos = 40;
+	private int xDestination = 40;
+	private int yDestination = 40;
 	private boolean currentlyAnimating;
+	private boolean present;
 
+	//Person Positions
+	private int eatingXPos = 210; 
+	private int eatingYPos = 280; 
+	private int restingXPos = 200;
+	private int restingYPos = 75; 
+	private int maintenanceXPos = 30; 
+	private int maintenanceYPos = 150; 
+	
 	private static int GUISIZE = 20;
 
 	public void updatePosition() {
@@ -32,6 +44,7 @@ public class HousingPersonGui implements Gui {
 			yPos += 1;
 		else if (yPos > yDestination)
 			yPos -= 1;
+		
 		if (xPos == xDestination && yPos == yDestination && currentlyAnimating) {
 			currentlyAnimating = false;
 			housingrole.msgDoneAnimating();
@@ -45,29 +58,42 @@ public class HousingPersonGui implements Gui {
 
 	@Override
 	public boolean isPresent() {
-		return true;
+		return present;
 	}
 
-	public void DoGoToHouse(House h) {
+	public void DoGoToHouse(CityHousing h) {
 		xDestination = h.xLocation;
 		yDestination = h.yLocation;
 		currentlyAnimating = true;
 	}
 
-	public void DoLeaveHouse(House h) {
+	public void DoLeaveHouse(CityHousing h) {
 		xDestination = -20;
 		yDestination = -20;
 		currentlyAnimating = true;
 	}
 
 	public void DoCookAndEatFood() {
-
+		xDestination = eatingXPos; 
+		yDestination = eatingYPos; 
 		currentlyAnimating = true;
 	}
 
 	public void DoMaintainHouse() {
-
+		xDestination = maintenanceXPos;
+		yDestination = maintenanceYPos; 
 		currentlyAnimating = true;
 	}
 
+	@Override
+	public void setPresent(boolean state) {
+		present = state;
+	}
+	
+	public void DoGoRelax(){
+		xDestination = restingXPos; 
+		yDestination = restingYPos; 
+			
+		currentlyAnimating = true; 
+	}
 }

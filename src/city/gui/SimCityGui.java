@@ -1,59 +1,104 @@
 package city.gui;
 
-import java.awt.*;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.HeadlessException;
+import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+
+import base.ConfigParser;
+import base.PersonAgent;
+import base.Time;
+import base.interfaces.Person;
 
 public class SimCityGui extends JFrame {
-	private static SimCityGui instance = null;
-	
-	CityPanel city;
-	InfoPanel info;
-	CityView view;
+	static SimCityGui instance = null;
+	public CityPanel citypanel;
+	public InfoPanel infopanel;
+	public CityView cityview;
 	CityControlPanel CP;
-	GridBagConstraints c = new GridBagConstraints();
+	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
+	
+	public static SimCityGui getInstance() {
+		return instance;
+	}
 
-	public SimCityGui() throws HeadlessException {
+	public SimCityGui() throws HeadlessException, IOException {
+		instance = this;
 		CP = new CityControlPanel(this);
-		city = new CityPanel(this);
-		view = new CityView(this);
-		info = new InfoPanel(this);
+		cityview = new CityView(this);
+		citypanel = new CityPanel(this);
+		infopanel = new InfoPanel(this);
 		
 		this.setLayout(new GridBagLayout());
 		
-		c.gridx = 0; c.gridy = 0;
-		c.gridwidth = 2; c.gridheight = 6;
-		this.add(CP, c);
+		Time globaltime = new Time(citypanel.masterPersonList);
 		
-		c.gridx = 2; c.gridy = 0;
-		c.gridwidth = 6; c.gridheight = 6;
-		this.add(city, c);
+		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
+		this.add(CP, mGridBagConstraints);
 		
-		c.gridx = 8; c.gridy = 0;
-		c.gridwidth = 5; c.gridheight = 1;
-		this.add(info, c);
+		mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
+		this.add(citypanel, mGridBagConstraints);
+		
+		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
+		this.add(infopanel, mGridBagConstraints);
 
-		c.gridx = 8; c.gridy = 1;
-		c.gridwidth = 5; c.gridheight = 5;
-		this.add(view, c);
+		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
+		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
+		this.add(cityview, mGridBagConstraints);
+		
+		ConfigParser config = ConfigParser.getInstanceOf();
+		config.readFileCreatePersons(this);
+		
+		Person person = citypanel.masterPersonList.get(0);
+		if (person instanceof PersonAgent){
+			((PersonAgent) person).msgAnimationDone();
+			((PersonAgent) person).getCar();
+			((PersonAgent) person).msgAnimationDone();
+		}
+		
+//		if (person instanceof PersonAgent){
+//			((PersonAgent) person).msgAnimationDone();
+//			((PersonAgent) person).getCar();
+//			((PersonAgent) person).msgAnimationDone();
+//			((PersonAgent) person).pickAndExecuteAnAction();
+//			((PersonAgent) person).pickAndExecuteAnAction();
+//		}
+		
+//		if (person instanceof PersonAgent){
+//			Housing
+//			((PersonAgent) person).invokeMaintenance();
+//			((PersonAgent) person).mHouseRole.setHouse(cityview.house1);
+//			((PersonAgent) person).mHouseRole.msgEatAtHome();
+//			((PersonAgent) person).startThread();
+//			((PersonAgent) person).eatFood();
+//		}
+		
+//		for (Person person: city.masterPersonList) {
+//			((PersonAgent) person).msgAnimationDone();
+//			((PersonAgent) person).startThread();
+//			((PersonAgent) person).msgAnimationDone();
+//			((PersonAgent) person).eatFood();
+//			((PersonAgent) person).msgAnimationDone();
+//		}
 	}
 
 	/**
 	 * @param args
+	 * @throws IOException 
+	 * @throws HeadlessException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws HeadlessException, IOException {
 		SimCityGui test = new SimCityGui();
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		test.setResizable(false);
 		test.pack();
 		test.setVisible(true);
-
+		
 	}
 	
-	public static SimCityGui getInstanceOf() {
-		if (instance == null) {
-			instance = new SimCityGui();
-		}
-		return instance;
-	}
 }

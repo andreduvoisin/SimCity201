@@ -27,8 +27,7 @@ public class MockMarket extends Mock implements Market {
 
 	@Override
 	public void HereIsOrder(Map<String, Integer> order) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("HereIsOrder"));
 	}
 
 	@Override

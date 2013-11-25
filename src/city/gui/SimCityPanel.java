@@ -18,14 +18,10 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	protected ArrayList<CityComponent> statics, movings;
 	protected Color background;
 	protected Timer timer;
-	//private PersonAgent person = new PersonAgent(PersonAgent.EnumJobType.NONE, 20, "bob" );
-	//private CityPerson personGui = new CityPerson(person, city);
 	
 	
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
-		//person.SetGui(personGui);
-		//person.startThread();
 		statics = new ArrayList<CityComponent>();
 		movings = new ArrayList<CityComponent>();
 		timer = new Timer(50, this);
@@ -46,12 +42,18 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		}
 		
 		for (CityComponent c:movings) {
-			c.paint(g);
+			if(c.isActive){
+				c.paint(g);
+			}
 		}
 	}
 	
 	public void moveComponents() {
 		for (CityComponent c:movings) {
+			c.updatePosition();
+			c.updatePosition();
+			c.updatePosition();
+			c.updatePosition();
 			c.updatePosition();
 		}
 	}

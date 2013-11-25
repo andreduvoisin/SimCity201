@@ -8,7 +8,7 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 
 public class CustomerGui implements Gui {
 
-	private Customer agent = null;
+	private Customer role = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 	private static int CustomerSize = 20;
@@ -27,7 +27,7 @@ public class CustomerGui implements Gui {
 	private Command command = Command.noCommand;
 
 	public CustomerGui(Customer c, RestaurantGui gui, int home) {
-		agent = c;
+		role = c;
 		xPos = -40;
 		yPos = -40;
 		yHome = 10;
@@ -49,16 +49,16 @@ public class CustomerGui implements Gui {
 			yPos -= 2;
 		if (xPos == xDestination && yPos == yDestination) {
 			if (command == Command.WaitingArea) {
-				agent.msgAnimationFinishedGoToWaitingArea();
+				role.msgAnimationFinishedGoToWaitingArea();
 			}
 			if (command == Command.GoToSeat)
-				agent.msgAnimationFinishedGoToSeat();
+				role.msgAnimationFinishedGoToSeat();
 			else if (command == Command.LeaveRestaurant) {
-				agent.msgAnimationFinishedLeaveRestaurant();
+				role.msgAnimationFinishedLeaveRestaurant();
 				System.out
 						.println("about to call gui.setCustomerEnabled(restaurant_davidmca.agent);");
 				isHungry = false;
-				gui.setCustomerEnabled(agent);
+				gui.setCustomerEnabled(role);
 			}
 			command = Command.noCommand;
 		}
@@ -81,7 +81,7 @@ public class CustomerGui implements Gui {
 
 	public void setHungry() {
 		isHungry = true;
-		agent.gotHungry();
+		role.gotHungry();
 		setPresent(true);
 	}
 

@@ -2,9 +2,13 @@ package base.interfaces;
 
 import java.util.Map;
 
+<<<<<<< HEAD
 import city.gui.CityPerson;
 import bank.interfaces.BankMasterTeller;
+=======
+>>>>>>> 2026c53b8f844162d0c752eac033741c20f440fb
 import base.Item.EnumMarketItemType;
+import city.gui.CityPerson;
 
 public interface Person {
 	void msgTimeShift();
@@ -34,6 +38,16 @@ public interface Person {
 	public void setSSN(int SSN);
 	public Map<Role, Boolean> getRoles();
 	public Role getHousingRole();
+<<<<<<< HEAD
 	public void setComponent(CityPerson pc);
 	
+=======
+
+	void subLoan(double mTransaction);
+	
+	public CityPerson getPersonGui();
+
+	void msgHereIsPayment(int senderSSN, double amount);
+
+>>>>>>> 2026c53b8f844162d0c752eac033741c20f440fb
 }

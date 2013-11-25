@@ -70,7 +70,7 @@ public class CookRole extends BaseRole implements Cook {
 	boolean timeToCheckRevolvingStand = false;
 	TimerTask standTimerTask = new TimerTask() {
 		public void run() {
-			CheckStand();
+//			CheckStand(); //SHANE DAVID: 1 PUT THIS BACK WHEN BUG IS FOUND
 		}
 	};
 

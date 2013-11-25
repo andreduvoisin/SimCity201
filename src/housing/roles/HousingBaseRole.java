@@ -1,11 +1,11 @@
 package housing.roles;
 
-import housing.House;
 import housing.gui.HousingPersonGui;
 
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import city.gui.CityHousing;
 
 public class HousingBaseRole extends BaseRole {
 	
@@ -15,7 +15,13 @@ public class HousingBaseRole extends BaseRole {
 	
 	Semaphore isAnimating = new Semaphore(0, true);
 	HousingPersonGui gui;
-	public House mHouse = null;
+	public CityHousing mHouse = null;
+	
+	public HousingBaseRole() {
+		gui = new HousingPersonGui();
+		gui.housingrole = this;
+		gui.setPresent(true);
+	}
 	
 	public void msgTimeToCheckRent() {
 		mTimeToCheckRent = true;
@@ -23,12 +29,17 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	public void msgTimeToMaintain() {
+		print("msgTimeToMaintain recieved");
 		mTimeToMaintain = true;
+		System.out.println(mPerson.getName());
+		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}
 
 	public void msgEatAtHome() {
 		mHungry = true;
+		System.out.println(mHouse.mHouseNum);
+		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}
 
@@ -38,27 +49,40 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	void EatAtHome() {
-//		gui.DoCookAndEatFood();
-//		try {
-//			isAnimating.acquire();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		gui.DoCookAndEatFood();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoGoRelax(); 
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		print("Action - Eat at Home");
 	}
 
 	void Maintain() {
-//		gui.DoMaintainHouse();
-//		try {
-//			isAnimating.acquire();
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		gui.DoMaintainHouse();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoGoRelax(); 
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		print("Action - Maintain");
 	}
 	
-	public void setGui(HousingPersonGui g) {
-		gui = g;
+	public void setHouse(CityHousing h) {
+		print("set house");
+		this.mHouse = h;
 	}
 
 }

@@ -1,7 +1,6 @@
 package housing.test;
 
 import test.mock.MockPerson;
-import housing.House;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import housing.test.mock.MockLandlord;
@@ -56,7 +55,7 @@ public class RenterTest extends TestCase {
 		ContactList.sRoleLocations.put(mMockMasterTeller, new Location(10,10)); 
 		
 		//Houses
-		mHouse1 = new House(10, 10, 300.00); 
+		//mHouse1 = new CityHousing(10, 10, 300.00); 
 	}
 	
 	public void testRenterObtainsHousing()

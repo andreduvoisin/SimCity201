@@ -28,7 +28,7 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void HereIsFoodAndBill(float bill) {
-
+		log.add(new LoggedEvent("HereIsFoodAndBill: "+bill));
 	}
 
 
@@ -40,14 +40,12 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void FollowMe(Waiter waiter, Map<String, Integer> menu, int table) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("FollowMe: "+table));
 	}
 
 	@Override
 	public void WhatWouldYouLike() {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("WhatWouldYouLike"));
 	}
 
 	@Override

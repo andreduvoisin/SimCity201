@@ -1,6 +1,5 @@
 package restaurant.restaurant_xurex.interfaces;
 
-import restaurant.restaurant_xurex.gui.WaiterGui;
 import restaurant.restaurant_xurex.utilities.*;
 
 
@@ -71,9 +70,9 @@ public interface Waiter {
 
 	void DoServeCustomer(String choice, int table);
 
-	void setGui(WaiterGui gui);
+	void setGui(WaiterGui_ gui);
 
-	WaiterGui getGui();
+	WaiterGui_ getGui();
 
 	void DoDisplayOrder(String choice, int table);
 

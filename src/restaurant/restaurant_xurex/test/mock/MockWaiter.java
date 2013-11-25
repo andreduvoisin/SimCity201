@@ -1,12 +1,12 @@
 package restaurant.restaurant_xurex.test.mock;
 
 
-import restaurant.restaurant_xurex.gui.WaiterGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
+import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 import restaurant.restaurant_xurex.utilities.*;
 
 /**
@@ -50,6 +50,7 @@ public class MockWaiter extends Mock implements Waiter {
 
 	//COOK MESSAGES
 	public void OrderIsReady(String choice, int table, int kitchen) {
+		log.add(new LoggedEvent("OrderIsReady: "+choice+" "+table));
 	}
 
 	public void OutOfFood(int table, String choice) {
@@ -111,10 +112,10 @@ public class MockWaiter extends Mock implements Waiter {
 	public void DoServeCustomer(String choice, int table) {
 	}
 
-	public void setGui(WaiterGui gui) {
+	public void setGui(WaiterGui_ gui) {
 	}
 
-	public WaiterGui getGui() {
+	public WaiterGui_ getGui() {
 		return null;
 	}
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bank.gui.BankGuardGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -20,6 +21,9 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
 	public List<BankCustomer> mCustomers = new ArrayList<BankCustomer>();
 	public List<BankCustomer> mCriminals = new ArrayList<BankCustomer>();
+	
+	//GUI
+	BankGuardGui mGUI;
 	
 	public BankGuardRole(Person person) {
 		mPerson = person;
@@ -74,6 +78,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 	private void killRobber(BankCustomer c){
 		//GUI Interactions
+		// REX ANDRE: robber gui interactions, non-norm
 		c.msgStopRobber();
 	}
 	private void provideService(BankCustomer c, BankTeller t){
@@ -84,5 +89,8 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 	public void msgOffWork(BankTeller t){
 		mTellers.put(t, false);
+	}
+	public void setGui(BankGuardGui g) {
+		mGUI = g;
 	}
 }

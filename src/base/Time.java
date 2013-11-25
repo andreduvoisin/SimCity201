@@ -1,5 +1,6 @@
 package base;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,8 +11,8 @@ public class Time {
 	
 	// ANDRE: add clock (analog or digital) in corner of screen which will tell day/time in sim city
 	
-	static final int cLengthOfDay = 3*60; //seconds
-	static final int cTimeShift = 8;
+//	static final int cLengthOfDay = 2*60; //seconds
+//	static final int cTimeShift = 8;
 	
 	static int sGlobalTimeInt = 0;
 	static int sGlobalHour = 0;
@@ -22,23 +23,25 @@ public class Time {
 	
 	List<Person> mPersons;
 	
-	Timer mTimer = new Timer();
+	Timer mTimer;
 	
-	public Time(){
+	public Time(List<Person> people){
+		mPersons = people;
+		mTimer = new Timer();
 		runTimer();
 	}
 	
 	
 	public void runTimer(){
-		int simShift = cLengthOfDay/3;
-		int simHour = simShift / cTimeShift; //15
-		int realSeconds = ((int) System.currentTimeMillis()) / 1000;
-		int realLengthOfSimHour = realSeconds / simHour;
+//		int simShift = cLengthOfDay/3;
+//		int simHour = simShift / cTimeShift; //15
+//		int realSeconds = ((int) System.currentTimeMillis()) / 1000;
+//		int realLengthOfSimHour = realSeconds / simHour;
 		
-		int timerLength = realLengthOfSimHour;
-		if (sFastForward) timerLength /= 4;
-		
-		mTimer.schedule(new TimerTask() {
+//		int timerLength = realLengthOfSimHour;
+//		if (sFastForward) timerLength /= 4;
+				
+		mTimer.scheduleAtFixedRate(new TimerTask() {
 			
 			@Override
 			//Broadcast time
@@ -47,17 +50,40 @@ public class Time {
 				sGlobalHour = (sGlobalHour + 1) % 24;
 				if (sGlobalHour % 8 == 0){
 					sGlobalShift = (sGlobalShift + 1) % 3;
-					for (Person iPerson : mPersons){
-						iPerson.msgTimeShift();
+					synchronized (mPersons) {
+						for (Person iPerson : mPersons) {
+							iPerson.msgTimeShift();
+						}
 					}
 				}
 				if (sGlobalHour % 24 == 0){
 					sGlobalDate = sGlobalDate + 1;
 				}
+			}
+		}, new Date( System.currentTimeMillis()), 10000);
+		
+		/*mTimer.schedule(new TimerTask() {
+			
+			@Override
+			//Broadcast time
+			public void run() {
+				sGlobalTimeInt++;
+				sGlobalHour = (sGlobalHour + 1) % 24;
+				if (sGlobalHour % 8 == 0) {
+					sGlobalShift = (sGlobalShift + 1) % 3;
+					synchronized (mPersons) {
+						for (Person iPerson : mPersons) {
+							iPerson.msgTimeShift();
+						}
+					}
+				}
+				if (sGlobalHour % 24 == 0) {
+					sGlobalDate = sGlobalDate + 1;
+				}
 				runTimer();
 			}
 		}, 
-		timerLength);
+		3000);*/
 	}
 
 	
