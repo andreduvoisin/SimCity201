@@ -38,7 +38,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	}
 
 	public boolean pickAndExecuteAnAction() {
-		print("paea in generic waiter run");
+		//System.out.println("RestaurantWaiterRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
 	}
 }
