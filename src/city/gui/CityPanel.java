@@ -23,10 +23,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	boolean addingObject = false;
 	CityComponent temp;
 	SimCityGui simcitygui;
-	
-
-	public List<Person> masterPersonList = new ArrayList<Person>();
-	//public List<PersonAgent> masterPersonList = new ArrayList<PersonAgent>();
 
 	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());

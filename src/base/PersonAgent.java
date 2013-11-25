@@ -17,19 +17,17 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
-import restaurant.restaurant_davidmca.astar.AStarTraversal;
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
-import bank.roles.BankMasterTellerRole;
 import bank.roles.BankCustomerRole.EnumAction;
+import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
-import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -62,15 +60,8 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasCar;
-<<<<<<< HEAD
 	Location mWorkLocation;
 	CityPerson personComponent = null;
-	
-	public Semaphore semAnimationDone = new Semaphore(0);
-	private boolean mRoleFinished;
-=======
-	AStarTraversal mAstar;
->>>>>>> 2026c53b8f844162d0c752eac033741c20f440fb
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -155,7 +146,6 @@ public class PersonAgent extends Agent implements Person {
 		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
-		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
 		mPersonGui = new CityPerson(0, 0, mName); //SHANE: Hardcoded start place
@@ -380,11 +370,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 	}
-<<<<<<< HEAD
-
-=======
 	
->>>>>>> 2026c53b8f844162d0c752eac033741c20f440fb
 	private void depositCheck() {
 		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
 		acquireSemaphore(semAnimationDone);
@@ -535,15 +521,13 @@ public class PersonAgent extends Agent implements Person {
 	public Role getHousingRole() {
 		return mHouseRole;
 	}
-<<<<<<< HEAD
 	
 	public void setComponent(CityPerson personGui){
 		personComponent = personGui;
-=======
-
+	}
+	
 	@Override
 	public CityPerson getPersonGui() {
 		return mPersonGui;
->>>>>>> 2026c53b8f844162d0c752eac033741c20f440fb
 	}
 }
