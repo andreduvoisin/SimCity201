@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -17,6 +18,10 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			subRole = RestaurantPanel.getInstance().cash;
+			subRole.setPerson(super.mPerson);
+		}
+		if (restaurantID == 2) {
+			subRole = MaggiyanRestaurantPanel.getRestPanel().cashier;
 			subRole.setPerson(super.mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants

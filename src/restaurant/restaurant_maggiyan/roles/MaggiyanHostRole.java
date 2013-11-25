@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
@@ -53,8 +54,8 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	public enum AgentPos 
 	{atStart}; 
 	
-	public MaggiyanHostRole(String name) {
-		super(); 
+	public MaggiyanHostRole(Person p) {
+		super(p); 
 		this.name = name;
 		
 		// make some tables
@@ -62,6 +63,10 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		for (int ix = 1; ix <= NTABLES; ix++) {
 			tables.add(new Table(ix)); //how you add to a collections
 		}
+	}
+	
+	public MaggiyanHostRole(String n){
+		
 	}
 	
 	public String getMaitreDName() {

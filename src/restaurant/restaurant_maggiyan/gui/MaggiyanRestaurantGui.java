@@ -62,6 +62,7 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
         add(animationPanel); 
         
     }
+    
     /**
      * updateInfoPanel() takes the given customer (or, for v3, Host) object and
      * changes the information panel to hold that person's info.
