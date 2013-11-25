@@ -11,6 +11,7 @@ import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import base.BaseRole;
@@ -19,7 +20,7 @@ import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface {
+public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
 	
 	Role subRole = null;
 	int restaurantID;
