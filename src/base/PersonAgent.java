@@ -153,25 +153,25 @@ public class PersonAgent extends Agent implements Person {
 		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
-		mPersonGui = new CityPerson(400, 100, mName); //SHANE: Hardcoded
+		mPersonGui = new CityPerson(400, 400, mName); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>();
-		//mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-		//mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
+//		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
+//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
 		mEvents.add(new Event(EnumEventType.EAT, 0));
 		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
-		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
-		//mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
+//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
+//		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
-		if (Time.GetShift() == 0) {
-			// resetting of variables?
-		}
+//		if (Time.GetShift() == 0) {
+//			// resetting of variables?
+//		}
 		if (Time.GetShift() == mTimeShift) {
 			for(Role iRole : mRoles.keySet()){
 				if (iRole == mJobRole){
@@ -329,6 +329,7 @@ public class PersonAgent extends Agent implements Person {
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
 		mPersonGui.setPresent(false);		
 		
+		//DAVID: How do you start your rest sim? -Shane
 
 		// work.getHost().msgImHere(job);
 	}
@@ -360,11 +361,11 @@ public class PersonAgent extends Agent implements Person {
 			
 			
 			
-			try {
+//			try {
 				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-			}
-			catch (Exception e) {
-			}
+//			}
+//			catch (Exception e) {
+//			}
 			acquireSemaphore(semAnimationDone);
 		}
 		
