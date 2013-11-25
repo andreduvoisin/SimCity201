@@ -56,6 +56,20 @@ public class CityPerson extends CityComponent{
             yPos++;
         else if (yPos > yDestination)
             yPos--;
+        
+        //Hack A*
+//        boolean xOldInBlock = ((previousX > 95) && (previousX < 500));
+//        boolean yOldInBlock = ((previousY > 95) && (previousY < 500));
+//        boolean xNewInBlock = ((xPos > 95) && (xPos < 500));
+//        boolean yNewInBlock = ((yPos > 95) && (yPos < 500));
+//        
+//        if (xNewInBlock && yNewInBlock){
+//        	if (xOldInBlock && yNewInBlock){
+//        		yPos = previousY;
+//        	}else{
+//        		xPos = previousX;
+//        	}
+//        }
 	}
 	
 	public void paint(Graphics g) {

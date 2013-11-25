@@ -139,14 +139,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		add(housingGUIButton);		
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(addRestaurant)) {
-			city.citypanel.addObject(EnumCityComponents.RESTAURANT);
-		}
-		else if (e.getSource().equals(addBank)) {
-			city.citypanel.addObject(EnumCityComponents.BANK);
-		}
-		else if (e.getSource().equals(housingGUIButton)) {
+	public void actionPerformed(ActionEvent e) { 
+		if (e.getSource().equals(housingGUIButton)) {
 			JFrame HousingGUITest = new JFrame("HousingGUITest");
 			HousingGUITest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			//HousingGUITest.getContentPane().add(HousingHouseGuiPanel.getInstance(), BorderLayout.CENTER);
