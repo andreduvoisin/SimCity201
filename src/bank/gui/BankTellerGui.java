@@ -73,5 +73,4 @@ public class BankTellerGui implements Gui {
 		xDestination = -20;
 		yDestination = -20;
 	}
-	
 }

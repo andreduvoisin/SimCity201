@@ -18,6 +18,7 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.Agent;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent
@@ -79,9 +80,14 @@ public class WaiterRole extends BaseRole implements Waiter {
 		waiterGui = gui;
 	}
 
-	public WaiterRole(String name) {
-		super();
-		this.name = name;
+	public WaiterRole(Person person) {
+		super(person);
+		if (person == null) {
+			this.name = "null";
+		}
+		else {
+			this.name = person.getName();
+		}
 	}
 
 	@Override

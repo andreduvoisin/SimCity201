@@ -35,7 +35,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer{
 	MarketCashier mCashier;
 	
 	public MarketCustomerRole(Person person) {
-		mPerson = person;
+		super(person);
 		
 		mGui = new MarketCustomerGui(this);
 		

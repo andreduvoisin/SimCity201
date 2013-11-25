@@ -16,11 +16,11 @@ public class RestaurantWaiterRole extends BaseRole {
 	int restaurantID;
 
 	public RestaurantWaiterRole(Person person) {
-		mPerson = person;
+		super(person);
 	}
 	
 	public RestaurantWaiterRole(Person person, int restaurantID){
-		mPerson = person;
+		super(person);
 		try {
 			setRestaurant(restaurantID);
 		} catch (IOException e) {
@@ -32,10 +32,10 @@ public class RestaurantWaiterRole extends BaseRole {
 		if (restaurantID == 1) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
-				subRole = new WaiterRole("Waiter");
+				subRole = new WaiterRole(mPerson);
 				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 			} else {
-				subRole = new WaiterRoleShared("Waiter");
+				subRole = new WaiterRoleShared(mPerson);
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
 			}
@@ -44,16 +44,11 @@ public class RestaurantWaiterRole extends BaseRole {
 	}
 	
 	public void setPerson(Person person){
-		mPerson = person;
-		try {
-			setRestaurant(restaurantID);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		subRole.setPerson(person);
+		mPerson = person;		
 	}
 
 	public boolean pickAndExecuteAnAction() {
+		print("paea in generic waiter run");
 		return subRole.pickAndExecuteAnAction();
 	}
 }

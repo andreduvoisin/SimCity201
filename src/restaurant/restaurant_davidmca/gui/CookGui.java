@@ -99,4 +99,10 @@ public class CookGui implements Gui {
 	public int getYPos() {
 		return yPos;
 	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

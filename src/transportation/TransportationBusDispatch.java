@@ -240,11 +240,11 @@ public class TransportationBusDispatch extends Agent {
 
 		for (TransportationBusInstance iBus : mBuses) {
 			if (iBus.isBusy()) {
-				print("False!");
+				//print("False!");
 				return false;
 			}
 		}
-		print("True!");
+		//print("True!");
 		return true;
 	}
 

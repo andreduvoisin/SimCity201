@@ -55,14 +55,14 @@ public class SortingHat {
 
 		//Restaurants
 
-		for (int iRestaurantNum = 1; iRestaurantNum < 2; iRestaurantNum++){
-			sRoleLocations.put(new RestaurantHostRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCashierRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCookRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-				sRoleLocations.put(new RestaurantWaiterRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			}
-		}
+//		for (int iRestaurantNum = 1; iRestaurantNum < 2; iRestaurantNum++){
+//			sRoleLocations.put(new RestaurantHostRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+//			sRoleLocations.put(new RestaurantCashierRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+//			sRoleLocations.put(new RestaurantCookRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+//			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
+//				sRoleLocations.put(new RestaurantWaiterRole(null, iRestaurantNum), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+//			}
+//		}
 		
 		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){

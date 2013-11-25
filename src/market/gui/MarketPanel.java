@@ -64,8 +64,8 @@ public class MarketPanel extends CityCard implements ActionListener {
 	private void addGuis() {
 		guis.add(mItemGui);
 		PersonAgent p = new PersonAgent();
-		MarketCashierRole r = new MarketCashierRole(p);
-		guis.add(new MarketCashierGui(r,mMarketType));
+		MarketCashierRole r = new MarketCashierRole(p,mMarketType);
+		guis.add(new MarketCashierGui(r));
 		p = new PersonAgent();
 		MarketCustomerRole r2 = new MarketCustomerRole(p);
 		guis.add(new MarketCustomerGui(r2));
