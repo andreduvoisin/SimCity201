@@ -33,7 +33,7 @@ public class SortingHat {
 	
 	static int sNumBankTellers = 1;
 	static int sNumMarketWorkers = 1;
-	static int sNumRestaurantWaiters = 1;	
+	static int sNumRestaurantWaiters = 4;	
 	
 	public static void InstantiateBaseRoles(){
 		sRoleLocations = ContactList.sRoleLocations;
@@ -158,7 +158,7 @@ public class SortingHat {
 	//RESTAURANTS
 	public static Role getRestaurantRole(int shift){
 		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
-		
+			
 		//RestaurantHostRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof RestaurantHostRole){
