@@ -8,7 +8,8 @@ import base.Gui;
 
 public abstract class CityComponent implements Gui{
 	//Consider creating a rectangle for every Component for better universal collision detection
-
+	public enum EnumCityComponents {RESTAURANT, ROAD, BANK, HOUSE, MARKET, CAR, BUS, PEOPLE}
+	
 	Rectangle rectangle;
 	int x, y;
 	Color color;
