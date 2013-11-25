@@ -53,15 +53,10 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
-<<<<<<< HEAD
 	public MarketCashierRole(Person person, EnumMarketType type) {
-		mPerson = person;
-		mMarketType = type;
-=======
-	public MarketCashierRole(Person person) {
 		super(person);
+		mMarketType = type;
 		
->>>>>>> 7a0bae0df57bd293c427a988b8176747b8a11f0d
 		//populate inventory
 		if(mMarketType == EnumMarketType.FOOD) {
 		mInventory.put(EnumMarketItemType.STEAK, mBaseInventory);
