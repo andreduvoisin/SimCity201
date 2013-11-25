@@ -37,7 +37,6 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     private Vector<RestaurantWaiterRole_at> mWaiters = new Vector<RestaurantWaiterRole_at>();
     private Vector<RestaurantCustomerRole_at> mCustomers = new Vector<RestaurantCustomerRole_at>();
 
-
     public RestaurantPanel_at(SimCityGui city) {
     	super(city);
     	setBounds(0,0,WINDOWX, WINDOWY);
