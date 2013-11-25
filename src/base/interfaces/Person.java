@@ -40,4 +40,6 @@ public interface Person {
 	
 	public CityPerson getPersonGui();
 
+	void msgHereIsPayment(int senderSSN, double amount);
+
 }

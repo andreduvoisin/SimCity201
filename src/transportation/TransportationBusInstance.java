@@ -21,11 +21,17 @@ public class TransportationBusInstance {
 		mGui = new CityBus(bd, mBusNumber);
 
 		state = enumState.traveling;
+
+		bd.addBus(this);
 	}
 	
 	public boolean isBusy() {
 		return state.equals(enumState.traveling)
 				|| state.equals(enumState.unloading)
 				|| state.equals(enumState.boarding);
+	}
+
+	public CityBus getCityBus() {
+		return mGui;
 	}
 }

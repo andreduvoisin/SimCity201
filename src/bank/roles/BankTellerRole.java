@@ -2,6 +2,8 @@ package bank.roles;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import bank.BankAccount;
 import bank.gui.BankTellerGui;
@@ -10,7 +12,6 @@ import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
-import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 
@@ -33,10 +34,13 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public enum EnumTransaction {None, Deposit, Open, Loan, Payment, Robbery};
 	
+	Timer timer = new Timer();
+	private static int loanTime = 10000;
+	
 	//GUI
 	BankTellerGui mGUI;
 	//GUI Coordinate
-	Location mLocation;
+	int mLocation;
 	//Agent Correspodents
 	BankGuard mGuard;
 	public MyCustomer mCustomer;
@@ -123,11 +127,19 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		double balance = mAccounts.get(accountIndex).balance;
 		if (balance >= (mCustomer.desiredAmount+mAccounts.get(accountIndex).loan)*2.0){
 			mAccounts.get(accountIndex).loan += mCustomer.desiredAmount;
-			mCustomer.customer.msgHereIsLoan(mCustomer.desiredAmount);
+			timer.schedule(new TimerTask(){
+				public void run(){
+					mCustomer.customer.msgHereIsLoan(mCustomer.desiredAmount);
+				}
+			}, loanTime);
 		}
 		else {
 			//Non-normative: Loan Rejected
-			mCustomer.customer.msgHereIsLoan(0);
+			timer.schedule(new TimerTask(){
+				public void run(){
+					mCustomer.customer.msgHereIsLoan(0);
+				}
+			}, loanTime);
 		}
 	}
 	private void payment(){
@@ -150,6 +162,12 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 //	UTILITIES
 	public void addGuard(BankGuard guard){
 		mGuard = guard;
+	}
+	public int getLocation(){
+		return mLocation;
+	}
+	public void setLocation(int location){
+		mLocation = location;
 	}
 	public void setMaster(BankMasterTeller masterTeller) {
 		mMasterTeller = masterTeller;

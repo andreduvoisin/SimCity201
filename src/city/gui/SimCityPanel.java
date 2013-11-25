@@ -42,12 +42,18 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		}
 		
 		for (CityComponent c:movings) {
-			c.paint(g);
+			if(c.isActive){
+				c.paint(g);
+			}
 		}
 	}
 	
 	public void moveComponents() {
 		for (CityComponent c:movings) {
+			c.updatePosition();
+			c.updatePosition();
+			c.updatePosition();
+			c.updatePosition();
 			c.updatePosition();
 		}
 	}

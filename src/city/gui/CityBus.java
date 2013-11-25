@@ -17,16 +17,22 @@ public class CityBus extends CityComponent {
 
 	private int mBusNumber;
 	private int mStopNumber,
-				mSize = 40,
+				mSize = 25,
 				mXDest, mYDest;
 	private boolean mTraveling;
 
 
+	/**
+	 * Creates new CityBus
+	 * @param b Bus "driver"
+	 * @param busNum Index of this instance of bus
+	 */
 	public CityBus(TransportationBusDispatch b, int busNum) {
-		mStopCoords.add(new Location(0, 0));
-		mStopCoords.add(new Location(500, 0));
-		mStopCoords.add(new Location(500, 500));
-		mStopCoords.add(new Location(0, 500));
+		// CHASE: get rid of these
+		mStopCoords.add(new Location(60, 60));
+		mStopCoords.add(new Location(60, 515));
+		mStopCoords.add(new Location(515, 515));
+		mStopCoords.add(new Location(515, 60));
 
 		mBusDispatch = b;
 		mBusNumber = busNum;
@@ -71,6 +77,8 @@ public class CityBus extends CityComponent {
 		g.setColor(color);
 		g.fillRect(x, y, mSize, mSize);
 		g.fill3DRect(x, y, mSize, mSize, true);
+		g.setColor(Color.white);
+		g.drawString("Bus", x + mSize / 2, y + mSize);
 	}
 
 	@Override

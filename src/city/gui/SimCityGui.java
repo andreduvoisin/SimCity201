@@ -112,22 +112,22 @@ public class SimCityGui extends JFrame {
 			//((PersonAgent) person).msgAnimationDone();
 //		}
 		
-/*		if (person instanceof PersonAgent){
-			//((PersonAgent) person).msgAnimationDone();
+//		if (person instanceof PersonAgent){
+//			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).pickAndExecuteAnAction();
 //			((PersonAgent) person).pickAndExecuteAnAction();
-		}*/
+//		}
 		
-/*		if (person instanceof PersonAgent){
-			//Housing
-			//((PersonAgent) person).invokeMaintenance();
-			//((PersonAgent) person).mHouseRole.setHouse(cityview.house1);
-			//((PersonAgent) person).mHouseRole.msgEatAtHome();
-			//((PersonAgent) person).startThread();
+//		if (person instanceof PersonAgent){
+//			Housing
+//			((PersonAgent) person).invokeMaintenance();
+//			((PersonAgent) person).mHouseRole.setHouse(cityview.house1);
+//			((PersonAgent) person).mHouseRole.msgEatAtHome();
+//			((PersonAgent) person).startThread();
 //			((PersonAgent) person).eatFood();
-		}*/
+//		}
 		
 //		for (Person person: city.masterPersonList) {
 //			((PersonAgent) person).msgAnimationDone();

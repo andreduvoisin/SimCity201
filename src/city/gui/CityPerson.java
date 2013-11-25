@@ -11,14 +11,11 @@ import base.PersonAgent;
 public class CityPerson extends CityComponent{
 	
 	private String name = "";
-	private PersonAgent agent = null;
+	private PersonAgent person = null;
 	private boolean atDestination = true;
 	SimCityGui gui;
 	
-	private int xPos = 20, yPos = 20;
 	private int xDestination = 120, yDestination = 35;
-	public int previousX = 0;
-	public int previousY = 0;
 	
 	static final int waiterWidth = 10;
 	static final int waiterHeight = 10;
@@ -29,6 +26,7 @@ public class CityPerson extends CityComponent{
 	
 	public CityPerson(int x, int y){
 		super(x,y, Color.ORANGE, "Unnamed Person");
+		
 		rectangle = new Rectangle(x, y, 5, 5);
 	}
 	
@@ -39,31 +37,50 @@ public class CityPerson extends CityComponent{
 	}
 	
 	public CityPerson(PersonAgent P, SimCityGui gui) {
-		agent = P;
+		person = P;
 		this.gui = gui;
 	}
 
 	@Override
 	public void updatePosition() {
-		previousX = xPos;
-		previousY = yPos;
-		if (xPos < xDestination)
-            xPos++;
-        else if (xPos > xDestination)
-            xPos--;
+		if (x < xDestination)
+            x++;
+        else if (x > xDestination)
+            x--;
 
-        if (yPos < yDestination)
-            yPos++;
-        else if (yPos > yDestination)
-            yPos--;
+        if (y < yDestination)
+            y++;
+        else if (y > yDestination)
+            y--;
+        
+        if(x == xDestination && y == yDestination){
+        	this.disable();
+        	atDestination = true; //SHANE: 0 where is this used?
+//        	person.msgAnimationDone(); //SHANE: Add person then enable this line
+        }
 	}
+
+        //Hack A*
+//        boolean xOldInBlock = ((previousX > 95) && (previousX < 500));
+//        boolean yOldInBlock = ((previousY > 95) && (previousY < 500));
+//        boolean xNewInBlock = ((xPos > 95) && (xPos < 500));
+//        boolean yNewInBlock = ((yPos > 95) && (yPos < 500));
+//        
+//        if (xNewInBlock && yNewInBlock){
+//        	if (xOldInBlock && yNewInBlock){
+//        		yPos = previousY;
+//        	}else{
+//        		xPos = previousX;
+//        	}
+//        }
+
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillRect(xPos, yPos, 5, 5);
+		g.fillRect(x, y, 5, 5);
 		//g.fill3DRect(x, y, 20, 20, false);
 		g.setColor(Color.WHITE);
-		g.drawString(name, xPos - 10, yPos);
+		g.drawString(name, x - 10, y);
 	}
 	/*
 	@Override
@@ -76,22 +93,16 @@ public class CityPerson extends CityComponent{
 	*/
 	public void DoGoToDestination(int x, int y){
 		atDestination = false;
+		this.enable(); 
 		xDestination = x;
 		yDestination = y;
 	}
 	
 	public void DoGoToDestination(Location location){
 		atDestination = false;
+		this.enable();
 		xDestination = location.mX;
 		yDestination = location.mY;
-	}
-	
-	public void setVisible(){
-		visible = true;
-	}
-	
-	public void setInvisible(){
-		visible = false;
 	}
 
 	@Override
@@ -102,14 +113,12 @@ public class CityPerson extends CityComponent{
 
 	@Override
 	public boolean isPresent() {
-		// TODO Auto-generated method stub
-		return false;
+		return visible;
 	}
 
 	@Override
 	public void setPresent(boolean state) {
-		// TODO Auto-generated method stub
-		
+		visible = state;
 	}
 	
 

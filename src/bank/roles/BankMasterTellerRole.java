@@ -48,8 +48,9 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 		BankAccount sender = mAccounts.get(mAccountIndex.get(t.sender));
 		BankAccount receiver = mAccounts.get(mAccountIndex.get(t.receiver));
 		if (sender.balance < t.amount){
-			sender.balance = 0;
 			double excess = t.amount - sender.balance;
+			sender.balance = 0;
+			sender.loan = excess;
 			sender.person.msgOverdrawnAccount(excess);
 		}
 		else{
