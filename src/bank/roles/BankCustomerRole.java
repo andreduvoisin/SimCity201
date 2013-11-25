@@ -41,6 +41,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 	//GUI
 	BankCustomerGui mGUI;
+	int mTellerLocation = 0;
 	Semaphore atLocation = new Semaphore(0, true);
 	
 	
@@ -116,8 +117,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mGuard.msgNeedService(this);
 	}
 	private void goToTeller(){
-		//GUI Interaction
-		mGUI.DoGoToTeller();
+		mGUI.DoGoToTeller(mTeller.getLocation());
 		try {
 			atLocation.acquire();
 		} catch (InterruptedException e) {
