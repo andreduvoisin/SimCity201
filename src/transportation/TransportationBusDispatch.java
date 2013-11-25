@@ -2,6 +2,7 @@ package transportation;
 
 import java.util.*;
 
+import city.gui.CityBus;
 import base.Agent;
 import transportation.interfaces.TransportationRider;
 
@@ -209,12 +210,14 @@ public class TransportationBusDispatch extends Agent {
 		}
 	}
 
-
-
 	private boolean NoBusesBusy() {
 		for (TransportationBusInstance iBus : mBuses) {
 			if (iBus.isBusy()) return false;
 		}
 		return true;
+	}
+
+	public void addBus(TransportationBusInstance tbi) {
+		mBuses.add(tbi);
 	}
 }
