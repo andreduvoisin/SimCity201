@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
 import bank.gui.BankPanel;
 import market.gui.MarketPanel;
+import market.gui.MarketPanel.EnumMarketType;
 
 public class CityView extends JPanel implements MouseListener, ActionListener {
 
@@ -40,9 +41,12 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("R_Maggiyan", new CityCard(city));
 		cards.put("Gringotts Bank", new BankPanel(city));
 		cards.put("Test Restaurant",  new CityCard(city)); 
-		
+
 		cards.put("Costco", new MarketPanel(city));
 		cards.put("Car Dealership", new MarketPanel(city));
+		cards.put("Costco", new MarketPanel(city, EnumMarketType.FOOD));
+		cards.put("Car Dealership", new MarketPanel(city, EnumMarketType.CAR));
+
 		
 		layout = new CardLayout();
 		this.setLayout(layout);
