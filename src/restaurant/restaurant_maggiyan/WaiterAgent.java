@@ -1,18 +1,20 @@
 package restaurant_maggiyan;
 
-import agent.Agent;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.Menu;
+import restaurant_maggiyan.MyCustomer.CustomerState;
 import restaurant_maggiyan.gui.WaiterGui;
 import restaurant_maggiyan.interfaces.Cashier;
 import restaurant_maggiyan.interfaces.Cook;
 import restaurant_maggiyan.interfaces.Customer;
 import restaurant_maggiyan.interfaces.Host;
 import restaurant_maggiyan.interfaces.Waiter;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
+import agent.Agent;
 
 /**
  * Restaurant Waiter Agent
@@ -56,8 +58,6 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	public enum WaiterState {busy, free, askingToGoOnBreak, waitingForBreakResponse, DoneWithBreak}; 
 	public WaiterState wState; 
-	
-	public enum CustomerState{waiting, seated, askedToOrder, readyToOrder, gaveOrder, waitingForFood, orderGiven, foodIsCooking, foodOrderReady, eating, checkReady, receivedCheck, done, finished, needsToReOrder, reordering}; 
 	
 	private boolean reenableBreakButton = false; 
 	
@@ -338,7 +338,7 @@ public class WaiterAgent extends Agent implements Waiter{
 	
 	private void goOnBreak(){
 		print("Going on break");
-		final WaiterAgent w = this; 
+		final restaurant_maggiyan.interfaces.Waiter w = this; 
 		waiterGui.DoGoOnBreak();
 		try{
 			animationReady.acquire(); 
@@ -522,29 +522,5 @@ public class WaiterAgent extends Agent implements Waiter{
 		return waiterGui;
 	}
 	
-	private class MyCustomer {
-		Customer c; 
-		int table; 
-		String choice; 
-		CustomerState s; 
-		Check check;
-		int orderPos; 
-		
-		MyCustomer(Customer customer, int tableNum, CustomerState state){
-			c = customer; 
-			table = tableNum; 
-			s = state; 
-			check = null; 
-		}
-		
-		void setCheck(Check c){
-			check = c; 
-		}
-		
-		//For JUnit Testing
-		public double getTotal(Check check){
-			return check.getCheckTotal(); 
-		}
-	}
 }
 

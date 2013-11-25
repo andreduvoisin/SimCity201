@@ -1,13 +1,16 @@
 package restaurant_maggiyan;
 
-import agent.Agent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.concurrent.Semaphore;
+
 import restaurant_maggiyan.gui.WaiterGui;
 import restaurant_maggiyan.interfaces.Customer;
 import restaurant_maggiyan.interfaces.Host;
 import restaurant_maggiyan.interfaces.Waiter;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
+import agent.Agent;
 
 /**
  * Restaurant Host Agent
@@ -76,6 +79,19 @@ public class HostAgent extends Agent implements Host{
 		}
 		return null; 
 	}
+	
+//	public MyWaiter findLeastBusyWaiter(){
+//		for(MyWaiter waiter: waiters){
+////			if(waiter.onBreak = true){
+////				//Skip waiter
+////			}
+//			if(waiter.w.getCustomersSize() < minCustomer){
+//				leastBusyWaiter = waiter; 
+//				minCustomer = waiter.w.getCustomersSize();
+//			}
+//		}
+//		return leastBusyWaiter;
+//	}
 	
 	// Messages
 	

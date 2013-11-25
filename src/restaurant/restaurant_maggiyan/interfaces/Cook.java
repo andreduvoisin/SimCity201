@@ -29,6 +29,9 @@ public interface Cook {
 		public void msgOutOfAllInventory(Market m);
 
 		public void msgPickedUpOrder(int orderPos);
+
+		public void addRStandOrder(Waiter w,
+				String choice, int table);
 	
 
 }

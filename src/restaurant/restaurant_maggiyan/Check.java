@@ -1,8 +1,5 @@
 package restaurant_maggiyan;
 
-import java.util.*;
-
-import restaurant_maggiyan.Menu;
 import restaurant_maggiyan.interfaces.Customer;
 import restaurant_maggiyan.interfaces.Waiter;
 

@@ -1,17 +1,13 @@
 package restaurant_maggiyan;
 
-import restaurant_maggiyan.Check;
-import restaurant_maggiyan.Menu;
-import restaurant_maggiyan.CookAgent.state;
-import restaurant_maggiyan.gui.CustomerGui;
-import restaurant_maggiyan.gui.RestaurantGui;
-import restaurant_maggiyan.interfaces.Customer;
-import restaurant_maggiyan.interfaces.Waiter;
-import agent.Agent;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
+
+import restaurant_maggiyan.gui.CustomerGui;
+import restaurant_maggiyan.interfaces.Customer;
+import restaurant_maggiyan.interfaces.Waiter;
+import agent.Agent;
 
 /**
  * Restaurant customer agent.

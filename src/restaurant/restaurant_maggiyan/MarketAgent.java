@@ -1,12 +1,17 @@
 package restaurant_maggiyan;
 
-import agent.Agent;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import restaurant_maggiyan.interfaces.Cashier;
 import restaurant_maggiyan.interfaces.Cook;
 import restaurant_maggiyan.interfaces.Market;
+import agent.Agent;
 
 /**
  * Restaurant Host Agent

@@ -1,19 +1,21 @@
 package restaurant_maggiyan.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+import java.util.Vector;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import restaurant_maggiyan.CashierAgent;
 import restaurant_maggiyan.CookAgent;
 import restaurant_maggiyan.CustomerAgent;
 import restaurant_maggiyan.HostAgent;
 import restaurant_maggiyan.MarketAgent;
-import restaurant_maggiyan.SharedDataWaiterAgent;
+import restaurant_maggiyan.SharedWaiterAgent;
 import restaurant_maggiyan.WaiterAgent;
 import restaurant_maggiyan.interfaces.Waiter;
-
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Vector;
 
 /**
  * Panel in frame that contains all the restaurant information,
@@ -117,7 +119,7 @@ public class RestaurantPanel extends JPanel {
     public WaiterGui getWaiterGui(String name){
     	for(Waiter waiter: waiters){
     		if(waiter.getName() == name){
-    			return waiter.waiterGui; 
+    			return waiter.getGui(); 
     		}
     	}
     	return null; 
@@ -192,9 +194,10 @@ public class RestaurantPanel extends JPanel {
     	}
     	
     	else if (type.equals("Waiter")){
-    		int waiterTypeNum = 1 + (int)(Math.random()*10); 
+    		int waiterTypeNum = waiters.size(); 
+    		
     		//Create new waiter agent and gui
-    		if(waiterTypeNum%2 == 0){
+    		if(waiterTypeNum%2 == 1){
 	    		WaiterAgent w = new WaiterAgent(name, cook, host); 
 	    		WaiterGui waiterGui = new WaiterGui(w, gui);
 	    		
@@ -205,7 +208,7 @@ public class RestaurantPanel extends JPanel {
 	    		w.startThread(); 
     		}
     		else{
-    			SharedDataWaiterAgent w = new SharedDataWaiterAgent(name, cook, host); 
+    			SharedWaiterAgent w = new SharedWaiterAgent(name, cook, host); 
 	    		WaiterGui waiterGui = new WaiterGui(w, gui);
 	    		
 	    		gui.animationPanel.addGui(waiterGui);

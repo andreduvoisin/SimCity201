@@ -1,19 +1,20 @@
-package restaurant.restaurant_maggiyan;
+package restaurant_maggiyan;
 
-import agent.Agent;
-import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.MyCustomer;
-import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant.restaurant_maggiyan.gui.WaiterGui;
-import restaurant.restaurant_maggiyan.interfaces.Cashier;
-import restaurant.restaurant_maggiyan.interfaces.Cook;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Host;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
+
+import restaurant_maggiyan.MyCustomer.CustomerState;
+import restaurant_maggiyan.gui.WaiterGui;
+import restaurant_maggiyan.interfaces.Cashier;
+import restaurant_maggiyan.interfaces.Cook;
+import restaurant_maggiyan.interfaces.Customer;
+import restaurant_maggiyan.interfaces.Host;
+import restaurant_maggiyan.interfaces.Waiter;
+import agent.Agent;
 
 
 /**
