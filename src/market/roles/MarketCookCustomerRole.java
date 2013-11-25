@@ -36,7 +36,7 @@ public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 	int mMarketSSN;			///for paying
 	
 	public MarketCookCustomerRole(PersonAgent person) {
-		mPerson = person;
+		super(person);
 	}
 	
 /* Messages */

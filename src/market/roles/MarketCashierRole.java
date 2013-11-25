@@ -12,6 +12,7 @@ import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCashierGui;
+import market.gui.MarketPanel.EnumMarketType;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCook;
 import market.interfaces.MarketCustomer;
@@ -34,6 +35,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	MarketCashierGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
+	EnumMarketType mMarketType;
 	
 	int mNumWorkers = 0;
 	
@@ -51,15 +53,20 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
-	public MarketCashierRole(Person person) {
+	public MarketCashierRole(Person person, EnumMarketType type) {
 		super(person);
+		mMarketType = type;
 		
 		//populate inventory
+		if(mMarketType == EnumMarketType.FOOD) {
 		mInventory.put(EnumMarketItemType.STEAK, mBaseInventory);
 		mInventory.put(EnumMarketItemType.SALAD, mBaseInventory);
 		mInventory.put(EnumMarketItemType.CHICKEN, mBaseInventory);
 		mInventory.put(EnumMarketItemType.PIZZA, mBaseInventory);
-		//ANGELICA: add car
+		}
+		else {
+			mInventory.put(EnumMarketItemType.CAR, mBaseInventory);
+		}
 	}
 	
 //	Messages

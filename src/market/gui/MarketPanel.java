@@ -17,18 +17,24 @@ import java.awt.event.*;
 
 public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
+	public enum EnumMarketType {FOOD, CAR};
 	
 	private List<MarketBaseGui> guis = new ArrayList<MarketBaseGui>();
 	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
 	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
-	private MarketItemsGui mItemGui = new MarketItemsGui();
+	private EnumMarketType mMarketType;
+	
+	private MarketItemsGui mItemGui;
 	private final int TIMERDELAY = 8;
 	
-	public MarketPanel(SimCityGui city) {
+	public MarketPanel(SimCityGui city, EnumMarketType t) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 		setBackground(Color.MAGENTA);
+		
+		mMarketType = t;
+		mItemGui = new MarketItemsGui(mMarketType);
 		
 		Timer timer = new Timer(TIMERDELAY, this);
 		timer.start();
@@ -56,9 +62,9 @@ public class MarketPanel extends CityCard implements ActionListener {
 	}
 	
 	private void addGuis() {
-		guis.add(new MarketItemsGui());
+		guis.add(mItemGui);
 		PersonAgent p = new PersonAgent();
-		MarketCashierRole r = new MarketCashierRole(p);
+		MarketCashierRole r = new MarketCashierRole(p,mMarketType);
 		guis.add(new MarketCashierGui(r));
 		p = new PersonAgent();
 		MarketCustomerRole r2 = new MarketCustomerRole(p);

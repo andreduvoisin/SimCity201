@@ -115,20 +115,15 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Get housing role and location; set active
-//		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-//		Location location = 
-//		
-//		ContactList.sRoleLocations.put(mHouseRole, location);
+		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+		mRoles.put(mHouseRole, true);
 		
-		
-//		mRoles.put(mHouseRole, true);
-//		
-//		//Add customer/rider role possibilities
-//		mRoles.put(new BankCustomerRole(this), false);
-//		mRoles.put(new HousingRenterRole(this), false);
-//		mRoles.put(new MarketCustomerRole(this), false);
-//		mRoles.put(new TransportationBusRiderRole(this), false);
-//		mRoles.put(new RestaurantCustomerRole(this), false);
+		//Add customer/rider role possibilities
+		mRoles.put(new BankCustomerRole(this), false);
+		mRoles.put(new HousingRenterRole(this), false);
+		mRoles.put(new MarketCustomerRole(this), false);
+		mRoles.put(new TransportationBusRiderRole(this), false);
+		mRoles.put(new RestaurantCustomerRole(this), false);
 	}
 	
 	private void initializePerson(){
@@ -153,25 +148,25 @@ public class PersonAgent extends Agent implements Person {
 		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
-		mPersonGui = new CityPerson(400, 100, mName); //SHANE: Hardcoded
+		mPersonGui = new CityPerson(400, 400, mName); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>();
-		//mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-		//mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
+//		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
+//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
 //		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
-		//mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
-		//mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
+//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
+//		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
-		if (Time.GetShift() == 0) {
-			// resetting of variables?
-		}
+//		if (Time.GetShift() == 0) {
+//			// resetting of variables?
+//		}
 		if (Time.GetShift() == mTimeShift) {
 			for(Role iRole : mRoles.keySet()){
 				if (iRole == mJobRole){
@@ -332,17 +327,18 @@ public class PersonAgent extends Agent implements Person {
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
 		mPersonGui.setPresent(false);		
 		
+		//DAVID: How do you start your rest sim? -Shane
 
 		// work.getHost().msgImHere(job);
 	}
 
 	public void eatFood() {
-		/*if (isCheap() && mHouseRole.mHouse != null){
+		if (isCheap() && mHouseRole.mHouse != null){
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum));
 			acquireSemaphore(semAnimationDone);
-		}else{*/
+		}else{
 			//set random restaurant
 			RestaurantCustomerRole restaurantCustomerRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -358,16 +354,16 @@ public class PersonAgent extends Agent implements Person {
 				e1.printStackTrace();
 			}
 			
-			try {
+//			try {
 				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-			}
-			catch (Exception e) {
-			}
+//			}
+//			catch (Exception e) {
+//			}
 			acquireSemaphore(semAnimationDone);
 			
 			//set restaurant customer role to active
 			mRoles.put(restaurantCustomerRole, true);
-		//}
+		}
 		
 	}
 	
@@ -413,7 +409,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return true;
+		return false;
 	}
 	
 
