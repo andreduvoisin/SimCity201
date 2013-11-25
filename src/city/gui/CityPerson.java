@@ -17,8 +17,6 @@ public class CityPerson extends CityComponent{
 	
 	private int xPos = 20, yPos = 20;
 	private int xDestination = 120, yDestination = 35;
-	public int previousX = 0;
-	public int previousY = 0;
 	
 	static final int waiterWidth = 10;
 	static final int waiterHeight = 10;
@@ -45,8 +43,6 @@ public class CityPerson extends CityComponent{
 
 	@Override
 	public void updatePosition() {
-		previousX = xPos;
-		previousY = yPos;
 		if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
