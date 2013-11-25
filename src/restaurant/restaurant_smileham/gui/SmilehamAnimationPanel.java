@@ -25,7 +25,7 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
 
     private List<Gui> guis = new ArrayList<Gui>();
     
-    public SmilehamRestaurantPanel mRestaurantPanel;
+    public static SmilehamRestaurantPanel mRestaurantPanel;
     
     
     //CONSTRUCTOR
@@ -41,7 +41,7 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     	timer.start();
     }
     
-    public void addPerson(BaseRole role) {
+    public static void addPerson(BaseRole role) {
     	
     	if (role instanceof SmilehamCustomerRole){
     		SmilehamCustomerRole customer = (SmilehamCustomerRole) role;

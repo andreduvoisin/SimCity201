@@ -27,8 +27,7 @@ public class SmilehamRestaurantPanel extends JPanel {
     
     private Vector<SmilehamCustomerRole> mCustomers = new Vector<SmilehamCustomerRole>();
 
-    private JPanel mMenuPanel;
-    private SmilehamAgentPanel mAgentPanel;
+//    private SmilehamAgentPanel mAgentPanel;
     
     static public SmilehamAnimationPanel mAnimationPanel; //reference to main gui
 
@@ -46,31 +45,11 @@ public class SmilehamRestaurantPanel extends JPanel {
 		
 		//Add Cashier
 		mCashier = new SmilehamCashierRole("Ke$$$ha", mAnimationPanel);
-//		mCashier.startThread();
-	    
-        //rest label - includes menu, host, and cook info
-        mMenuPanel = new JPanel();
-        	mMenuPanel.setLayout(new BorderLayout());
-        	mMenuPanel.setBorder(BorderFactory.createTitledBorder("Menu Panel"));
-        	
-        	JLabel staffLabel = new JLabel();
-	        staffLabel.setText(
-	                "<html><h3><u>Tonight's Staff</u></h3><table>"
-	                + "<tr><td>Host:</td><td>" + mHost.getName() + "</td></tr></table>"
-	                		+ "<h3><u> Menu</u></h3>"
-	                		+ "<table><tr><td>Steak</td><td>$" + Menu.cSTEAK_PRICE + "</td></tr>"
-	                		+ "<tr><td>Chicken</td><td>$" + Menu.cCHICKEN_PRICE + "</td></tr>"
-	                		+ "<tr><td>Salad</td><td>$" + Menu.cSALAD_PRICE + "</td></tr>"
-	                		+ "<tr><td>Pizza</td><td>$" + Menu.cPIZZA_PRICE + "</td></tr></table><br></html>");
-	        mMenuPanel.add(staffLabel, BorderLayout.CENTER);
-	        mMenuPanel.add(new JLabel("           "), BorderLayout.EAST);
-	        mMenuPanel.add(new JLabel("           "), BorderLayout.WEST);
-        
-	    //mCustomerWrapperPanel
-	    mAgentPanel = new SmilehamAgentPanel(this);
-	        
-        add(mAgentPanel); //on left
-        add(mMenuPanel); //on right
+//        
+//	    //mCustomerWrapperPanel
+//	    mAgentPanel = new SmilehamAgentPanel(this);
+//	        
+//        add(mAgentPanel); //on left
     }
     
     
@@ -85,9 +64,9 @@ public class SmilehamRestaurantPanel extends JPanel {
 		return mCustomers;
 	}
 	
-	public SmilehamAgentPanel getAgentPanel(){
-		return mAgentPanel;
-	}
+//	public SmilehamAgentPanel getAgentPanel(){
+//		return mAgentPanel;
+//	}
 
 	static public SmilehamCookRole getCook() {
 		return mCook;

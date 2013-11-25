@@ -4,7 +4,7 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-import restaurant.restaurant_smileham.gui.SmilehamAgentPanel;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import restaurant.restaurant_tranac.roles.RestaurantCustomerRole_at;
@@ -41,7 +41,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 		// TODO DAVID add if statements for all the other restaurants
 		if (restaurantID == 5) { //Shane's restaurant
 			subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), null);
-			SmilehamAgentPanel.addPerson((SmilehamCustomerRole) subRole);
+			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 		}
 	}
 	
