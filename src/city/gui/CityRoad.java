@@ -9,7 +9,7 @@ public class CityRoad extends CityComponent {
 	
 	private RoadDirection direction;
 	private int ROADWIDTH = 50; 
-	private int ROADLENGTH = 1000; 
+	private int ROADLENGTH = 600;
 	
 	public CityRoad(int x, RoadDirection direction) {
 		super(x, 0, Color.black, "Road");
