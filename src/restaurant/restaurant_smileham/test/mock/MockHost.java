@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.List;
 
 import restaurant.restaurant_smileham.Table;
-import restaurant.restaurant_smileham.agents.CashierAgent;
 import restaurant.restaurant_smileham.gui.HostGui;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 
 public class MockHost extends Mock implements Host{
 

@@ -6,14 +6,14 @@ import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.agents.CookAgent;
-import restaurant.restaurant_smileham.agents.CustomerAgent;
-import restaurant.restaurant_smileham.agents.HostAgent;
 import restaurant.restaurant_smileham.gui.WaiterGui;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Host;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.roles.SmilehamCookRole;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 
 public class MockWaiter extends Mock implements Waiter {
 

@@ -1,4 +1,4 @@
-package restaurant.restaurant_smileham.agents;
+package restaurant.restaurant_smileham.roles;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -11,21 +11,19 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import javax.management.monitor.Monitor;
-
 import restaurant.restaurant_smileham.Food;
-import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
+import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
-import restaurant.restaurant_smileham.agent.Agent;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Market;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import base.BaseRole;
 
-public class CookAgent extends Agent implements Cook {
+public class SmilehamCookRole extends BaseRole implements Cook {
 	//Member Variables
 	private String mName;
 	private Timer mTimer;
@@ -54,7 +52,7 @@ public class CookAgent extends Agent implements Cook {
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public CookAgent(String name, SmilehamRestaurantGui gui){
+	public SmilehamCookRole(String name, SmilehamRestaurantGui gui){
 		super();
 		mName = name;
 		mGUI = gui;
@@ -83,7 +81,7 @@ public class CookAgent extends Agent implements Cook {
 		mNumMarkets = 0;
 		mFoodArrived = false;
 		
-		startThread();
+//		startThread();
 	}
 	
 	// -----------------------------------------------MESSAGES---------------------------------------------------
@@ -211,12 +209,12 @@ public class CookAgent extends Agent implements Cook {
 		}
 		
 		public void addMarket(){
-			Market market = new MarketAgent(
+			Market market = new SmilehamMarketRole(
 	    			"M" + ++mNumMarkets, 
-	    			MarketAgent.cSTEAK_QUANTITY, 
-	    			MarketAgent.cCHICKEN_QUANTITY, 
-	    			MarketAgent.cSALAD_QUANTITY, 
-	    			MarketAgent.cPIZZA_QUANTITY, 
+	    			SmilehamMarketRole.cSTEAK_QUANTITY, 
+	    			SmilehamMarketRole.cCHICKEN_QUANTITY, 
+	    			SmilehamMarketRole.cSALAD_QUANTITY, 
+	    			SmilehamMarketRole.cPIZZA_QUANTITY, 
 	    			mGUI);
 	    	mMarkets.add(market);
 	    	stateChanged();

@@ -1,6 +1,6 @@
 package restaurant.restaurant_smileham.gui;
 
-import restaurant.restaurant_smileham.agents.CustomerAgent;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 
 import javax.swing.*;
 
@@ -103,8 +103,8 @@ public class SmilehamRestaurantGui extends JFrame implements ActionListener {
         mStateCB.setVisible(true);
 //        mSelectedPerson = person;
 
-        if (person instanceof CustomerAgent) {
-            CustomerAgent customer = (CustomerAgent) person;
+        if (person instanceof SmilehamCustomerRole) {
+            SmilehamCustomerRole customer = (SmilehamCustomerRole) person;
             mStateCB.setText("Hungry?");
             //Should checkmark be there? 
             mStateCB.setSelected(customer.isHungry());
