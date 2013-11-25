@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -38,16 +39,16 @@ public class WaiterRole1 extends BaseRole implements Waiter{
 	
 	private WaiterGui_ waiterGui = null;
 
-	public WaiterRole1(String name) {
-		super();
+	public WaiterRole1(String name, Person person) {
+		super(person);
 		this.name = name;
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	public WaiterRole1(String name, Host host, Cook cook){
-		super();
+	public WaiterRole1(String name, Host host, Cook cook, Person person){
+		super(person);
 		this.name = name;
 		this.cook = cook;
 		this.host = host;

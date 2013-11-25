@@ -21,6 +21,12 @@ public class BankCustomerGui implements Gui {
 	static final int STARTPOS = -20;
 	
 	private int positionInLine;
+	
+	
+	static final int INTERACT_X1 = 250;
+	static final int INTERACT_X2 = 200;
+	static final int INTERACT_X3 = 300;
+	static final int INTERACT_Y = 420;
 
 	public BankCustomerGui(BankCustomer bc, BankPanel bp) {
 		agent = bc;
@@ -81,8 +87,20 @@ public class BankCustomerGui implements Gui {
 	}
 
 	public void DoGoToTeller() {
-		xDestination = BankPanel.INTERACT_X;
-		yDestination = BankPanel.INTERACT_Y;
+		xDestination = INTERACT_X1;
+		yDestination = INTERACT_Y;
+		bankPanel.updateCustomerLine();
+		isMovingToTeller = true;
+	}
+	
+	public void DoGoToTeller(int location) {
+		switch (location){
+		case 1: xDestination = INTERACT_X1; 
+		case 2: xDestination = INTERACT_X2;
+		case 3: xDestination = INTERACT_X3;
+		default: xDestination = INTERACT_X1;
+		}
+		yDestination = INTERACT_Y;
 		bankPanel.updateCustomerLine();
 		isMovingToTeller = true;
 	}

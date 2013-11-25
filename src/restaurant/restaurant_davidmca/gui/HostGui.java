@@ -32,4 +32,10 @@ public class HostGui implements Gui {
     public boolean isPresent() {
         return true;
     }
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,21 +1,18 @@
 package restaurant.restaurant_maggiyan;
 
-import java.util.*;
-
-import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import restaurant.restaurant_maggiyan.interfaces.Waiter;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 public class Check{
     
-    Menu menu = new Menu(); 
-    Customer customer;
-    Waiter waiter; 
-    String choice;
-    private double checkTotal;
-    boolean paid;
+	public Menu menu = new Menu(); 
+	public MaggiyanCustomer customer;
+	public MaggiyanWaiter waiter; 
+	public String choice;
+	public double checkTotal;
+	public boolean paid;
     
-    Check(Waiter w, Customer c, String fc){
+	public Check(MaggiyanWaiter w, MaggiyanCustomer c, String fc){
             waiter = w; 
             customer = c;
             choice = fc;

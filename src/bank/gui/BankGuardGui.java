@@ -51,4 +51,10 @@ public class BankGuardGui implements Gui {
 	public void setPresent(boolean state) {
 		isPresent = state;
 	}
+	
+//	MESSAGES
+	public void DoKillRobber () {
+		
+	}
+	
 }

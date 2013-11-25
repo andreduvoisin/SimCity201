@@ -54,6 +54,12 @@ public class ConfigParser {
 			scanPerson.close();
 		}
 		scanFile.close();
+		
+//		for (Role iRole : SortingHat.sRoleLocations.keySet()){
+//			if (iRole.isRestaurantPerson()){
+//				((RestaurantBaseInterface) iRole).setRestaurant(1);
+//			}
+//		}
 
 	}
 

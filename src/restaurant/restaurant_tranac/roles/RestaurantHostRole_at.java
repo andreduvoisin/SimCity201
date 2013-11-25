@@ -195,7 +195,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 				}
 			}
 		}
-		synchronized(waiters) {
+	/*	synchronized(waiters) {
 			for(MyWaiter waiter : waiters) {
 				if(waiter.s == WaiterState.WantToGoOnBreak) {
 					checkIfBreakPossible(waiter);
@@ -203,7 +203,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 				}
 			}
 		}
-		return false;
+	*/	return false;
 	}
 
 	/** Actions */
@@ -287,7 +287,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 			}
 		}
 	}
-
+/*
 	void checkIfBreakPossible(MyWaiter w) {
 		Do("Checking if waiter can go on break.");
 		if(numWaiters == 1) {
@@ -302,7 +302,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 			w.w.msgGoOnBreak();
 		}
 	}
-	
+	*/
 	/** Utilities */
 	public String getName() {
 		return mPerson.getName();

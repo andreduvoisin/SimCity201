@@ -31,9 +31,9 @@ public class RestaurantPanel extends JPanel {
 	static int gridY = 35;
 
 	// Host, cook, waiters and customers
-	private HostRole host = new HostRole("Host");
-	private CookRole cook = new CookRole("Cook", 1);
-	private CashierRole cash = new CashierRole("Cashier");
+	public HostRole host = new HostRole("Host");
+	public CookRole cook = new CookRole("Cook", 1);
+	public CashierRole cash = new CashierRole("Cashier");
 	private HostGui hostGui = new HostGui(host);
 	MarketAgent mkt1, mkt2, mkt3;
 
@@ -135,16 +135,17 @@ public class RestaurantPanel extends JPanel {
 		cust.setHost(host);
 		cust.setCashier(cash);
 		cust.setGui(g);
-//		g.setHungry();
+		g.setHungry();
 		customers.add(cust);
 	}
 
 	public void addWaiter(WaiterRole waiter) {
+		System.out.println("Waiter added");
 		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
 		gui.animationPanel.addGui(g);
 		waiter.setHost(host);
 		waiter.setGui(g);
-//		host.addWaiter(waiter);
+		host.addWaiter(waiter);
 		waiter.setCashier(cash);
 	}
 

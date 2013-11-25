@@ -117,7 +117,7 @@ public class CustomerTest extends TestCase{
 		
 		//Check
 		assertTrue("Customer event is arrived", mCustomer.mEvent == EnumEvent.Arrived);
-		assertTrue("Person cash is set to 100", mCustomer.mPerson.getCash() == 100);
+		assertTrue("Person cash is set to 100", mCustomer.getPerson().getCash() == 100);
 		assertTrue("Customer has no actions", mCustomer.mActions.isEmpty());
 		
 		//10 : p.a.e.a. (leave())

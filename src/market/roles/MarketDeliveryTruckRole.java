@@ -30,7 +30,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
 	
 	public MarketDeliveryTruckRole(PersonAgent person) {
-		setPerson(person);
+		super(person);
 	}
 
 /* Messages */

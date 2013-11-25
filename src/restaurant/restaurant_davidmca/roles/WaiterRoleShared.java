@@ -18,6 +18,7 @@ import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent with Shared Data Uses Revolving Stand instead of
@@ -63,7 +64,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	}
 
 	private String name;
-	public Semaphore isAnimating = new Semaphore(0, true);
+	public Semaphore isAnimating = new Semaphore(500, true);
 	public HostGui hostGui = null;
 
 	@Override
@@ -81,9 +82,13 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 		waiterGui = gui;
 	}
 
-	public WaiterRoleShared(String name) {
-		super();
-		this.name = name;
+	public WaiterRoleShared(Person person) {
+		super(person);
+		if (person == null) {
+			this.name = "null person";
+		} else {
+			this.name = person.getName();
+		}
 	}
 
 	@Override
@@ -212,6 +217,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		//System.out.println("davidmca WaiterRoleShared pAEA run");
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Arrived) {
@@ -478,7 +484,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	@Override
 	public void startThread() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

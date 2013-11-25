@@ -4,7 +4,7 @@ import java.util.Map;
 
 import city.gui.CityPerson;
 import bank.interfaces.BankMasterTeller;
-import base.Item.EnumMarketItemType;
+import base.Item.EnumItemType;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -52,11 +52,11 @@ public class MockPerson extends Mock implements Person {
 		log.add(new LoggedEvent("Added " + amount + " in cash"));
 	}
 
-	public Map<EnumMarketItemType, Integer> getItemsDesired() {
+	public Map<EnumItemType, Integer> getItemsDesired() {
 		return null;
 	}
 
-	public Map<EnumMarketItemType, Integer> getItemInventory() {
+	public Map<EnumItemType, Integer> getItemInventory() {
 		return null;
 	}
 
@@ -103,7 +103,7 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	@Override
-	public void setItemsDesired(Map<EnumMarketItemType, Integer> map) {
+	public void setItemsDesired(Map<EnumItemType, Integer> map) {
 		
 	}
 	

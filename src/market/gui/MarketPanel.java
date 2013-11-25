@@ -6,35 +6,48 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.Timer;
 
+import base.PersonAgent;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 import market.gui.*;
+import market.roles.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
-public class MarketPanel extends JPanel implements ActionListener {
+public class MarketPanel extends CityCard implements ActionListener {
+	private static final int WINDOWX = 500, WINDOWY = 500;
+	public enum EnumMarketType {FOOD, CAR};
+	
 	private List<MarketBaseGui> guis = new ArrayList<MarketBaseGui>();
 	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
 	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
-	private MarketItemsGui mItemGui = new MarketItemsGui();
+	private EnumMarketType mMarketType;
+	
+	private MarketItemsGui mItemGui;
 	private final int TIMERDELAY = 8;
 	
-	public MarketPanel() {
-		setSize(500,500);
+	public MarketPanel(SimCityGui city, EnumMarketType t) {
+		super(city);
+		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
-		setBackground(Color.LIGHT_GRAY);
+		setBackground(Color.MAGENTA);
 		
-		addGuis();
+		mMarketType = t;
+		mItemGui = new MarketItemsGui(mMarketType);
 		
 		Timer timer = new Timer(TIMERDELAY, this);
 		timer.start();
+		addGuis();
+		testGuis();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
 		repaint();
 	}
 	
-	public void paintComponent(Graphics g) {
+	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
-		
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
@@ -49,15 +62,19 @@ public class MarketPanel extends JPanel implements ActionListener {
 	}
 	
 	private void addGuis() {
-		guis.add(new MarketItemsGui());
-		guis.add(new MarketCashierGui(null));
-		guis.add(new MarketCustomerGui(null));
-		guis.add(new MarketWorkerGui(null));
+		guis.add(mItemGui);
+		PersonAgent p = new PersonAgent();
+		MarketCashierRole r = new MarketCashierRole(p,mMarketType);
+		guis.add(new MarketCashierGui(r));
+		p = new PersonAgent();
+		MarketCustomerRole r2 = new MarketCustomerRole(p);
+		guis.add(new MarketCustomerGui(r2));
+		p = new PersonAgent();
+		MarketWorkerRole r3 = new MarketWorkerRole(p);
+		guis.add(new MarketWorkerGui(r3));
 	}
 	
 	public void testGuis() {
-//		MarketWorkerGui m = (MarketWorkerGui)guis.get(3);
-//		m.setItemsGui((MarketItemsGui)guis.get(0));
 		MarketCustomerGui c = (MarketCustomerGui)guis.get(2);
 		c.DoWaitForOrder();
 	}

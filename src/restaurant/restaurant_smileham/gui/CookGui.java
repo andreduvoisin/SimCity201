@@ -4,13 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.concurrent.Semaphore;
 
-import restaurant.restaurant_smileham.WaitingArea;
-import restaurant.restaurant_smileham.agents.CookAgent;
-import restaurant.restaurant_smileham.agents.HostAgent;
+import restaurant.restaurant_smileham.roles.SmilehamCookRole;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+
 
 public class CookGui implements Gui {
 
-    private CookAgent mCookAgent;
+    private SmilehamCookRole mCookAgent;
     public static final int cCOOK_LENGTH = 20;
     
     //PLATING
@@ -51,14 +51,14 @@ public class CookGui implements Gui {
     private int mPosY = 300;
     private int mDestinationX = mPosX;
     private int mDestinationY = mPosY;
-    private static final int cSPEED = HostAgent.cSPEED_LIMIT;
+    private static final int cSPEED = SmilehamHostRole.cSPEED_LIMIT;
     
 	public Semaphore semAtDestination = new Semaphore(0);
 
 
     //CONSTRUCTOR
-    public CookGui(CookAgent cook) {
-    	mCookAgent = cook;
+    public CookGui(SmilehamCookRole cookAgent) {
+    	mCookAgent = cookAgent;
     }
 
 public void updatePosition() {

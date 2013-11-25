@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 import java.util.*;
 
@@ -39,10 +40,20 @@ public class HostRole extends BaseRole implements Host {
 	private String name;
 	private boolean fullRestaurant = true;
 
-	public HostRole(String name) {
-		super();
+	public HostRole(String name, Person person) {
+		super(person);
 
 		this.name = name;
+		tables = new ArrayList<Table>(NTABLES);
+		tables.add(new Table(1));//nw
+		tables.add(new Table(2));//ne
+		tables.add(new Table(3));//sw 
+		tables.add(new Table(4));//se
+	}
+	
+	public HostRole() {
+		super();
+
 		tables = new ArrayList<Table>(NTABLES);
 		tables.add(new Table(1));//nw
 		tables.add(new Table(2));//ne

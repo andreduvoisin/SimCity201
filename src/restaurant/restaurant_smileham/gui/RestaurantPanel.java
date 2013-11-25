@@ -9,10 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import restaurant.restaurant_smileham.Menu;
-import restaurant.restaurant_smileham.agents.CashierAgent;
-import restaurant.restaurant_smileham.agents.CookAgent;
-import restaurant.restaurant_smileham.agents.CustomerAgent;
-import restaurant.restaurant_smileham.agents.HostAgent;
+import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
+import restaurant.restaurant_smileham.roles.SmilehamCookRole;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 
 /**
  * Panel in frame that contains all the restaurant information,
@@ -21,32 +21,32 @@ import restaurant.restaurant_smileham.agents.HostAgent;
 public class RestaurantPanel extends JPanel {
 
     //Host, cook, waiters and customers
-    private HostAgent mHost;
-    private CookAgent mCook;
-    private CashierAgent mCashier;
+    private SmilehamHostRole mHost;
+    private SmilehamCookRole mCook;
+    private SmilehamCashierRole mCashier;
     
-    private Vector<CustomerAgent> mCustomers = new Vector<CustomerAgent>();
+    private Vector<SmilehamCustomerRole> mCustomers = new Vector<SmilehamCustomerRole>();
 
     private JPanel mMenuPanel;
     private AgentPanel mAgentPanel;
     
-    private RestaurantGui mGUI; //reference to main gui
+    private SmilehamRestaurantGui mGUI; //reference to main gui
 
     //CONSTRUCTOR
-    public RestaurantPanel(RestaurantGui gui) {
+    public RestaurantPanel(SmilehamRestaurantGui gui) {
     	//super
     	mGUI = gui;
     	this.setLayout(new GridLayout(1, 2, 20, 20));
     	
     	//Host
-    	mHost = new HostAgent("Shane", mGUI);
+    	mHost = new SmilehamHostRole("Shane", mGUI);
     	
 		//Add Cook
-		mCook = new CookAgent("Mr. Ramen", mGUI);
+		mCook = new SmilehamCookRole("Mr. Ramen", mGUI);
 		
 		//Add Cashier
-		mCashier = new CashierAgent("Ke$$$ha", mGUI);
-		mCashier.startThread();
+		mCashier = new SmilehamCashierRole("Ke$$$ha", mGUI);
+//		mCashier.startThread();
 	    
         //rest label - includes menu, host, and cook info
         mMenuPanel = new JPanel();
@@ -77,15 +77,15 @@ public class RestaurantPanel extends JPanel {
     
     //GETTERS AND SETTERS
 
-	public HostAgent getHost() {
+	public SmilehamHostRole getHost() {
 		return mHost;
 	}
 
-	public Vector<CustomerAgent> getCustomers() {
+	public Vector<SmilehamCustomerRole> getCustomers() {
 		return mCustomers;
 	}
 	
-	public RestaurantGui getGui(){
+	public SmilehamRestaurantGui getGui(){
 		return mGUI;
 	}
 	
@@ -93,11 +93,11 @@ public class RestaurantPanel extends JPanel {
 		return mAgentPanel;
 	}
 
-	public CookAgent getCook() {
+	public SmilehamCookRole getCook() {
 		return mCook;
 	}
 
-	public CashierAgent getCashier() {
+	public SmilehamCashierRole getCashier() {
 		return mCashier;
 	}
 

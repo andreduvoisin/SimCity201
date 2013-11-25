@@ -52,4 +52,14 @@ public class MockGuardRole extends Mock implements BankGuard, Role{
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean isRestaurantPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

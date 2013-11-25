@@ -10,8 +10,14 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
+import market.gui.MarketPanel;
+import market.gui.MarketPanel.EnumMarketType;
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import bank.gui.BankPanel;
 
 public class CityView extends JPanel implements MouseListener, ActionListener {
@@ -36,18 +42,25 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		RestaurantGui davidmca = new RestaurantGui(city);
 		cards.put("R_davidmca", davidmca);
 		
-		cards.put("R_Maggiyan", new CityCard(city));
+		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city);
+		cards.put("R_smileham", smileham);
+		
+		cards.put("R_tranac", new RestaurantPanel_at(city));
+		
+		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
+		cards.put("R_Maggiyan", maggiyan);
 		cards.put("Gringotts Bank", new BankPanel(city));
 		cards.put("Test Restaurant",  new CityCard(city)); 
 		
-		cards.put("Sears!", new CityCard(city));
+		cards.put("Costco", new MarketPanel(city, EnumMarketType.FOOD));
+		cards.put("Car Dealership", new MarketPanel(city, EnumMarketType.CAR));
+		
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {
 			this.add(cards.get(key), key);
 		}
-		
-
+	
 		layout.show(this, "null");
 	}
 	

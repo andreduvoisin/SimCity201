@@ -13,6 +13,7 @@ import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 
+@SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	
 	public static final int CITY_WIDTH = 600, CITY_HEIGHT = 600;
@@ -35,6 +36,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public CityPanel(SimCityGui city) {
 		//Setup
 		super(city);
+		    			
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
@@ -112,8 +114,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		// Add bus
 		transportation.TransportationBusDispatch tbd = new transportation.TransportationBusDispatch();
 		transportation.TransportationBusInstance tbi = new transportation.TransportationBusInstance(tbd, 4);
-		tbd.addBus(tbi);
 		tbd.startThread();
+
 		this.addMoving(tbi.getCityBus());
 
 		//Add Roads
@@ -126,7 +128,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "R_cwagoner"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerrywebb"));
-		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_maggiyang"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(4), "R_davidmca"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "R_smileham"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "R_tranac"));

@@ -7,12 +7,12 @@ import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.agents.CashierAgent;
-import restaurant.restaurant_smileham.gui.RestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Customer;
 import restaurant.restaurant_smileham.interfaces.Market;
 import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import restaurant.restaurant_smileham.test.mock.MockCustomer;
 import restaurant.restaurant_smileham.test.mock.MockMarket;
 import restaurant.restaurant_smileham.test.mock.MockWaiter;
@@ -29,7 +29,7 @@ import restaurant.restaurant_smileham.test.mock.MockWaiter;
 public class CashierTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
-	CashierAgent cashier;
+	SmilehamCashierRole cashier;
 	Waiter waiter;
 	Customer customer;
 	Market market1;
@@ -51,8 +51,8 @@ public class CashierTest extends TestCase
 	 */
 	public void setUp() throws Exception{
 		super.setUp();
-		RestaurantGui gui = new RestaurantGui();
-		cashier = new CashierAgent("real cashier", gui);
+		SmilehamRestaurantGui gui = new SmilehamRestaurantGui();
+		cashier = new SmilehamCashierRole("real cashier", gui);
 		customer = new MockCustomer("mock customer");		
 		waiter = new MockWaiter("mock waiter");
 		market1 = new MockMarket("mock market 1");
@@ -95,14 +95,14 @@ public class CashierTest extends TestCase
 		//2 PAEA - Market Payment
 		//preconditions
 		assertEquals("market paying should be correct market", market1, cashier.getMarketBills().keySet().toArray()[0]);
-		assertEquals("Cash should be correct", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
+		assertEquals("Cash should be correct", SmilehamCashierRole.cRESTAURANT_CASH, cashier.getCash());
 		assertEquals("Market log should be 0", 0, Market.log.size());
 		assertEquals("mMarketBills should have 1 market", 1, cashier.getMarketBills().size());
 		//payMarket
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//postconditions
 		assertTrue("PAEA should return false now", !(cashier.pickAndExecuteAnAction()));
-		assertEquals("Cash should be 50 now", CashierAgent.cRESTAURANT_CASH - 10, cashier.getCash());
+		assertEquals("Cash should be 50 now", SmilehamCashierRole.cRESTAURANT_CASH - 10, cashier.getCash());
 		assertEquals("Market log should be 1 now", 1, Market.log.size());
 		assertEquals("mMarketBills should have no markets", 0, cashier.getMarketBills().size());
 
@@ -137,7 +137,7 @@ public class CashierTest extends TestCase
 		
 		//3 PAEA - Market Payment
 		//preconditions
-		assertEquals("Cash should be correct", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
+		assertEquals("Cash should be correct", SmilehamCashierRole.cRESTAURANT_CASH, cashier.getCash());
 		assertEquals("Market log should be 0", 0, Market.log.size());
 		assertEquals("mMarketBills should have 2 market", 2, cashier.getMarketBills().size());
 		//payMarket
@@ -145,7 +145,7 @@ public class CashierTest extends TestCase
 		int amount = cashier.getMarketBills().get(market);
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//postconditions
-		assertEquals("Cash should be 10 or 20 lower now", CashierAgent.cRESTAURANT_CASH - amount, cashier.getCash());
+		assertEquals("Cash should be 10 or 20 lower now", SmilehamCashierRole.cRESTAURANT_CASH - amount, cashier.getCash());
 		assertEquals("Market log should be 1 now", 1, Market.log.size());
 		assertEquals("mMarketBills should have 1 market1", 1, cashier.getMarketBills().size());
 		
@@ -158,7 +158,7 @@ public class CashierTest extends TestCase
 		amount = cashier.getMarketBills().get(market);
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//postconditions
-		assertEquals("Cash should be 30 lower now", CashierAgent.cRESTAURANT_CASH - 30, cashier.getCash());
+		assertEquals("Cash should be 30 lower now", SmilehamCashierRole.cRESTAURANT_CASH - 30, cashier.getCash());
 		assertEquals("Market log should be 2 now", 2, Market.log.size());
 		assertEquals("mMarketBills should have 0 markets", 0, cashier.getMarketBills().size());
 		assertTrue("PAEA should return false now", !(cashier.pickAndExecuteAnAction()));
@@ -193,14 +193,14 @@ public class CashierTest extends TestCase
 		//3 PAEA - Market Payment
 		//preconditions
 		assertEquals("market paying should be correct market", market1, cashier.getMarketBills().keySet().toArray()[0]);
-		assertEquals("Cash should be correct", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
+		assertEquals("Cash should be correct", SmilehamCashierRole.cRESTAURANT_CASH, cashier.getCash());
 		assertEquals("Market log should be 0", 0, Market.log.size());
 		assertEquals("mMarketBills should have 1 market", 1, cashier.getMarketBills().size());
 		//payMarket
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//postconditions
 		assertTrue("PAEA should return false now", !(cashier.pickAndExecuteAnAction()));
-		assertEquals("Cash should be 30 now", CashierAgent.cRESTAURANT_CASH - 30, cashier.getCash());
+		assertEquals("Cash should be 30 now", SmilehamCashierRole.cRESTAURANT_CASH - 30, cashier.getCash());
 		assertEquals("Market log should be 1 now", 1, Market.log.size());
 		assertEquals("mMarketBills should have no markets", 0, cashier.getMarketBills().size());
 
@@ -253,11 +253,11 @@ public class CashierTest extends TestCase
 		//preconditions
 		assertEquals("Customer should be check.mCustomer", check.mCustomer, customer);
 		assertEquals("Customer log should be 0", 0, Customer.log.size());
-		assertEquals("mCash should be 60", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
+		assertEquals("mCash should be 60", SmilehamCashierRole.cRESTAURANT_CASH, cashier.getCash());
 		//PAEA
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//4 postconditions
-		assertEquals("mCash should be 70", CashierAgent.cRESTAURANT_CASH + 10, cashier.getCash());
+		assertEquals("mCash should be 70", SmilehamCashierRole.cRESTAURANT_CASH + 10, cashier.getCash());
 		assertEquals("Customer log should be 1", 1, Customer.log.size());
 		assertTrue("PAEA should return false now", !(cashier.pickAndExecuteAnAction()));
 		
@@ -316,7 +316,7 @@ public class CashierTest extends TestCase
 		assertEquals("Market log should be empty: ", 0, Market.log.size());
 		assertEquals("mMarketBills should be 1", 1, cashier.getMarketBills().size());
 		//msgMarketBill
-		bill = CashierAgent.cRESTAURANT_CASH;
+		bill = SmilehamCashierRole.cRESTAURANT_CASH;
 		cashier.msgMarketBill(market2, bill);
 		//postconditions
 		assertEquals("mMarketBills should have 2 markets", 2, cashier.getMarketBills().size());
@@ -324,7 +324,7 @@ public class CashierTest extends TestCase
 		
 		//3 PAEA - Market Payment
 		//preconditions
-		assertEquals("Cash should be correct", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
+		assertEquals("Cash should be correct", SmilehamCashierRole.cRESTAURANT_CASH, cashier.getCash());
 		assertEquals("Market log should be 0", 0, Market.log.size());
 		assertEquals("mMarketBills should have 2 market", 2, cashier.getMarketBills().size());
 		//payMarket
@@ -332,7 +332,7 @@ public class CashierTest extends TestCase
 		int amount = cashier.getMarketBills().get(market);
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//postconditions
-		assertEquals("Cash should be 90 or 0 now", CashierAgent.cRESTAURANT_CASH-amount, cashier.getCash());
+		assertEquals("Cash should be 90 or 0 now", SmilehamCashierRole.cRESTAURANT_CASH-amount, cashier.getCash());
 		assertEquals("Market log should be 1 now", 1, Market.log.size());
 		assertEquals("mMarketBills should have 1 market1", 1, cashier.getMarketBills().size());
 		
@@ -395,11 +395,11 @@ public class CashierTest extends TestCase
 		//preconditions
 		assertEquals("Customer should be check.mCustomer", check.mCustomer, customer);
 		assertEquals("Customer log should be 0", 0, Customer.log.size());
-		assertEquals("mCash should be 60", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
+		assertEquals("mCash should be 60", SmilehamCashierRole.cRESTAURANT_CASH, cashier.getCash());
 		//PAEA
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//4 postconditions
-		assertEquals("mCash should be 70", CashierAgent.cRESTAURANT_CASH + 10, cashier.getCash());
+		assertEquals("mCash should be 70", SmilehamCashierRole.cRESTAURANT_CASH + 10, cashier.getCash());
 		assertEquals("Customer log should be 1", 1, Customer.log.size());
 		assertTrue("PAEA should return false now", !(cashier.pickAndExecuteAnAction()));
 		
@@ -419,14 +419,14 @@ public class CashierTest extends TestCase
 		//5 PAEA - Market Payment
 		//preconditions
 		assertEquals("market paying should be correct market", market1, cashier.getMarketBills().keySet().toArray()[0]);
-		assertEquals("Cash should be correct", CashierAgent.cRESTAURANT_CASH + 10, cashier.getCash());
+		assertEquals("Cash should be correct", SmilehamCashierRole.cRESTAURANT_CASH + 10, cashier.getCash());
 		assertEquals("Market log should be 0", 0, Market.log.size());
 		assertEquals("mMarketBills should have 1 market", 1, cashier.getMarketBills().size());
 		//payMarket
 		assertTrue("PAEA should return true", cashier.pickAndExecuteAnAction());
 		//postconditions
 		assertTrue("PAEA should return false now", !(cashier.pickAndExecuteAnAction()));
-		assertEquals("Cash should be 50 now", CashierAgent.cRESTAURANT_CASH, cashier.getCash());
+		assertEquals("Cash should be 50 now", SmilehamCashierRole.cRESTAURANT_CASH, cashier.getCash());
 		assertEquals("Market log should be 1 now", 1, Market.log.size());
 		assertEquals("mMarketBills should have no markets", 0, cashier.getMarketBills().size());
 		
