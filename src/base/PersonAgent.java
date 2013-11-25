@@ -33,19 +33,20 @@ public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
 	private static int sSSN = 0;
-	private static int sTimeSchedule = 0; //0,1,2
-	private static int sEatingTime = 0;
+	//private static int sTimeSchedule = 0; //0,1,2
+	//private static int sEatingTime = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
-	private EnumJobType mJobType;
+	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
+	public Role mJobRole;
 	private Location mJobLocation;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
-	SortedSet<Event> mEvents; // tree set ordered by time of event
+	public SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumMarketItemType, Integer> mItemInventory; // personal inventory
 	Map<EnumMarketItemType, Integer> mItemsDesired; // not ordered yet
 	Set<Location> mHomeLocations; //multiple for landlord
@@ -60,7 +61,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	private CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
+	public CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(1);
@@ -78,26 +79,29 @@ public class PersonAgent extends Agent implements Person {
 		mName = name;
 		initializePerson();
 		
+		//REX: put in for testing
+		SortingHat.InstantiateBaseRoles();
+		
 		//Get job role and location; set active if necessary
-		Role jobRole = null;
+		mJobRole = null;
 		switch (job){
 			case BANK:
-				jobRole = SortingHat.getBankRole(mTimeShift);
+				mJobRole = SortingHat.getBankRole(mTimeShift);
 				break;
 			case MARKET:
-				jobRole = SortingHat.getMarketRole(mTimeShift);
+				mJobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
-				jobRole = SortingHat.getRestaurantRole(mTimeShift);
+				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
 			case NONE: break;
 		}
 		boolean active = (mTimeShift == Time.GetShift());
-		if (jobRole != null){
-			mJobLocation = ContactList.sRoleLocations.get(jobRole);
-			mRoles.put(jobRole, active);
+		if (mJobRole != null){
+			mJobLocation = ContactList.sRoleLocations.get(mJobRole);
+			mRoles.put(mJobRole, active);
 		}
 		
 		if (active){
@@ -138,7 +142,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
-		mTimeShift = (sTimeSchedule++ % 3); // assign time schedule
+		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
 		
@@ -162,6 +166,13 @@ public class PersonAgent extends Agent implements Person {
 	public void msgTimeShift() {
 		if (Time.GetShift() == 0) {
 			// resetting of variables?
+		}
+		if (Time.GetShift() == mTimeShift) {
+			for(Role iRole : mRoles.keySet()){
+				if (iRole == mJobRole){
+					mRoles.put(iRole, true);
+				}
+			}
 		}
 		stateChanged();
 	}
@@ -191,7 +202,8 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		//if not during job shift
-		if ((mRoleFinished) && (Time.GetShift() != mTimeShift)){
+		//SHANE REX: change to if not at job location
+		if ((mRoleFinished) && (Time.GetShift() != mTimeShift) ){
 			// Process events (calendar)
 				Iterator<Event> itr = mEvents.iterator();
 				while (itr.hasNext()) {
@@ -203,7 +215,7 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 		}
-		
+
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
