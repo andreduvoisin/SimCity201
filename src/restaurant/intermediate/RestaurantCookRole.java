@@ -24,10 +24,15 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 	Role subRole = null;
 	int restaurantID;
 	int mRestaurantBankNumber;
-	static int DEFAULT_FOOD_QTY = 5;
+	protected static int DEFAULT_FOOD_QTY = 5;
 	
 	public RestaurantCookRole(Person person){
 		super(person);
+		
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+		mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+		mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+		mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
 	}
 	
 	public RestaurantCookRole() {
@@ -53,8 +58,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 
 	/** MarketCookCustomerRole Data, Actions, Scheduler, etc **/
 
-	Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
-	Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
+	protected Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
+	protected Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
 	
 	Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
 	
