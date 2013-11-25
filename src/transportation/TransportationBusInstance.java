@@ -2,12 +2,13 @@ package transportation;
 
 import java.util.ArrayList;
 
+import city.gui.CityBus;
 import transportation.interfaces.TransportationRider;
 
 public class TransportationBusInstance {
 	static int sBusNumber = 0;
 	int mBusNumber;
-	TransportationBusGui mGui;
+	CityBus mGui;
 	int mCurrentStop;
 	ArrayList<TransportationRider> mRiders = new ArrayList<TransportationRider>();
 	
@@ -17,7 +18,7 @@ public class TransportationBusInstance {
 	public TransportationBusInstance(TransportationBusDispatch bd, int numStops) {
 		mBusNumber = sBusNumber++;
 		mCurrentStop = mBusNumber * numStops / 2;
-		mGui = new TransportationBusGui(bd, mBusNumber);
+		mGui = new CityBus(bd, mBusNumber);
 
 		state = enumState.traveling;
 	}
