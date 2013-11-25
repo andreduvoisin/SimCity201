@@ -23,6 +23,12 @@ public class ContactList {
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	
+	public static final Location cBANK_DOOR = new Location(200,100);
+	public static final Location cMARKET_DOOR = new Location(100,400);
+	public static final Location cCARDEALERSHIP_DOOR = new Location(500,500);
+	public static List<Location> cHOUSE_DOORS;
+	public static List<Location> cRESTAURANT_DOORS;
+	
 	//setup housing locations
 	static {
 		List<Location> list = new ArrayList<Location>();
