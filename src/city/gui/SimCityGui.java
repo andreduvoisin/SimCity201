@@ -18,7 +18,7 @@ public class SimCityGui extends JFrame {
 	public InfoPanel infopanel;
 	public CityView cityview;
 	CityControlPanel CP;
-	GridBagConstraints c = new GridBagConstraints();
+	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
 	
 	public static SimCityGui getInstance() {
 		return instance;
@@ -27,29 +27,29 @@ public class SimCityGui extends JFrame {
 	public SimCityGui() throws HeadlessException, IOException {
 		instance = this;
 		CP = new CityControlPanel(this);
-		citypanel = new CityPanel(this);
 		cityview = new CityView(this);
+		citypanel = new CityPanel(this);
 		infopanel = new InfoPanel(this);
 		
 		this.setLayout(new GridBagLayout());
 		
 		Time globaltime = new Time(citypanel.masterPersonList);
 		
-		c.gridx = 0; c.gridy = 0;
-		c.gridwidth = 2; c.gridheight = 6;
-		this.add(CP, c);
+		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
+		this.add(CP, mGridBagConstraints);
 		
-		c.gridx = 2; c.gridy = 0;
-		c.gridwidth = 6; c.gridheight = 6;
-		this.add(citypanel, c);
+		mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
+		this.add(citypanel, mGridBagConstraints);
 		
-		c.gridx = 8; c.gridy = 0;
-		c.gridwidth = 5; c.gridheight = 1;
-		this.add(infopanel, c);
+		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
+		this.add(infopanel, mGridBagConstraints);
 
-		c.gridx = 8; c.gridy = 1;
-		c.gridwidth = 5; c.gridheight = 5;
-		this.add(cityview, c);
+		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
+		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
+		this.add(cityview, mGridBagConstraints);
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(this);

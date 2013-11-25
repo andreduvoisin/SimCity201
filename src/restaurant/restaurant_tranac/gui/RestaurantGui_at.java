@@ -72,7 +72,7 @@ public class RestaurantGui_at extends JFrame{
      * Message sent from a customer gui to enable that customer's
      * "I'm hungry" checkbox.
      *
-     * @param c reference to the customer
+     * @param mGridBagConstraints reference to the customer
      */
     public void setEnabled(RestaurantWaiterRole_at w) {
     	restPanel.setEnabled(w);

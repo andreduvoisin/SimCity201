@@ -28,9 +28,13 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		addMouseListener(this);
 		this.city = city;
 		
+		//Card Deck
 		cards = new HashMap<String, CityCard>();
 		cards.put("null", new CityCard(city));
 		cards.put("Road", new CityCard(city));
+		
+		
+		
 		
 		RestaurantGui davidmca = new RestaurantGui(city);
 		cards.put("Restaurant 2", davidmca);

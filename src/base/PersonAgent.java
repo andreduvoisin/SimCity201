@@ -61,7 +61,6 @@ public class PersonAgent extends Agent implements Person {
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
 	private CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
-	private SimCityGui mRoleGui; //SHANE JERRY: 1 what type does this need to be? make sure this works
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(1);
@@ -327,6 +326,9 @@ public class PersonAgent extends Agent implements Person {
 	public void eatFood() {
 		if (isCheap()){
 			mHouseRole.msgEatAtHome();
+			System.out.println("Going home to eat...");
+			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum));
+			acquireSemaphore(semAnimationDone);
 		}else{
 			//set random restaurant
 			RestaurantCustomerRole restaurantCustomerRole = null;
