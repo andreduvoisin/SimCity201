@@ -20,8 +20,10 @@ import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.restaurant_davidmca.astar.AStarTraversal;
 import transportation.roles.TransportationBusRiderRole;
+import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
+import bank.roles.BankCustomerRole.EnumAction;
 import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
@@ -154,6 +156,7 @@ public class PersonAgent extends Agent implements Person {
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
 //		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
@@ -173,7 +176,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		//Leave job
-		if (mAtJob){
+		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(mJobRole, false); //set job role to false;
 			mPersonGui.setPresent(true);
@@ -325,18 +328,16 @@ public class PersonAgent extends Agent implements Person {
 		//add desired item
 		mItemsDesired.put(EnumMarketItemType.CAR, 1); //want 1 car
 		//PAEA for role will message market cashier to start transaction
-		
-		//SHANE: 3 When gets car, change mHasCar to true
+		mHasCar = true;
 	}
 	
 	private void goToJob() {
 		mPersonGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);		
+		mPersonGui.setPresent(false);
 		
-		//DAVID: How do you start your rest sim? -Shane
-
-		// work.getHost().msgImHere(job);
+		mJobRole.setPerson(this); //take over job role
+		mRoles.put(mJobRole, true); //set role to active
 	}
 
 	public void eatFood() {
@@ -366,6 +367,8 @@ public class PersonAgent extends Agent implements Person {
 			
 			//set restaurant customer role to active
 			mRoles.put(restaurantCustomerRole, true);
+			
+			//SHANE REX: 1 Create customer and message host
 		}
 		
 	}
@@ -375,8 +378,23 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
-		//SHANE REX: Start bank animation
+		int deposit = 50; //REX: deposit based on job type or constant amount
+		BankCustomerRole bankCustomerRole = null;
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof BankCustomerRole){
+				bankCustomerRole = (BankCustomerRole) iRole;
+			}
+		}
 		
+		//deposit check
+		bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
+		
+		//pay back loan if needed
+		if(mLoan > 0){
+			double payment = Math.max(mCash, mLoan);
+			mCash -= payment;
+			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
+		}
 	}
 
 	private void throwParty() {
