@@ -17,19 +17,17 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
-import restaurant.restaurant_davidmca.astar.AStarTraversal;
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
-import bank.roles.BankMasterTellerRole;
 import bank.roles.BankCustomerRole.EnumAction;
+import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
-import restaurant.intermediate.RestaurantBaseInterface;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -62,7 +60,6 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasCar;
-	AStarTraversal mAstar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -147,7 +144,6 @@ public class PersonAgent extends Agent implements Person {
 		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
-		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
 		mPersonGui = new CityPerson(0, 0, mName); //SHANE: Hardcoded start place
@@ -156,10 +152,10 @@ public class PersonAgent extends Agent implements Person {
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
+//		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
 //		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, 1));
+//		mEvents.add(new Event(EnumEventType.EAT, 1));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 //		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
@@ -231,8 +227,10 @@ public class PersonAgent extends Agent implements Person {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
-				else if (iRole.pickAndExecuteAnAction())
+				else if (iRole.pickAndExecuteAnAction()) {
+					System.out.println(iRole.toString() + "pAEA fired");
 					return true;
+				}
 			}
 		}
 		
@@ -315,6 +313,7 @@ public class PersonAgent extends Agent implements Person {
 	public void getCar(){
 		Location location = ContactList.cCARDEALERSHIP_DOOR;
 		mPersonGui.DoGoToDestination(location);
+		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(95, 255));
 		acquireSemaphore(semAnimationDone);
 		
 		mPersonGui.setPresent(false); //set city person invisible
@@ -334,13 +333,13 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = true;
 	}
 	
-	private void goToJob() {
-		mRoles.put(mJobRole, true);
+	public void goToJob() {
 		//print("goToJob");
 //		mPersonGui.DoGoToDestination(mJobLocation);
+		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(mJobLocation.mX, mJobLocation.mY));
 //		acquireSemaphore(semAnimationDone);
 //		mAtJob = true; //SHANE: This will need to be set to false somewhere
-//		mPersonGui.setPresent(false);		
+//		mPersonGui.setPresent(false);
 		
 		mJobRole.setPerson(this); //take over job role
 		mRoles.put(mJobRole, true); //set role to active
@@ -351,6 +350,7 @@ public class PersonAgent extends Agent implements Person {
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum)); //SHANE: 2 - change these to doors
+			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mX, ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mY));
 			acquireSemaphore(semAnimationDone);
 		}else{
 			System.out.println("Going out to eat...");
@@ -363,12 +363,13 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 1; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 5; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 			((RestaurantBaseInterface) restCustRole).setPerson(this);
 			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
-			
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
+			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mX, ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mY));
 			acquireSemaphore(semAnimationDone);
+			mPersonGui.setPresent(false);
 		}
 		
 	}

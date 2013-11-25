@@ -7,7 +7,8 @@ import java.util.TimerTask;
 
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Menu;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.gui.SmilehamRestaurantPanel;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Cook;
 import restaurant.restaurant_smileham.interfaces.Market;
@@ -32,14 +33,14 @@ public class SmilehamMarketRole extends BaseRole implements Market{
 	private Map<EnumFoodOptions, Integer> mOrderedFood;
 
 	//GUI
-	private SmilehamRestaurantGui mGUI;
+	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamMarketRole(String name, int steak, int chicken, int salad, int pizza, SmilehamRestaurantGui gui){
+	public SmilehamMarketRole(String name, int steak, int chicken, int salad, int pizza, SmilehamAnimationPanel animationPanel){
 		super();
 		mName = name;
-		mGUI = gui;
+		mAnimationPanel = animationPanel;
 		print("Constructor");
     	
     	//Set up inventory map
@@ -50,8 +51,8 @@ public class SmilehamMarketRole extends BaseRole implements Market{
     	mInventory.put(EnumFoodOptions.PIZZA, pizza);
     	mOrderedFood = new HashMap<EnumFoodOptions, Integer>();
     	
-    	mCashier = mGUI.getRestaurantPanel().getCashier();
-    	mCook = mGUI.getRestaurantPanel().getCook();
+    	mCashier = SmilehamRestaurantPanel.getCashier();
+    	mCook = SmilehamRestaurantPanel.getCook();
     	
 		mTimer = new Timer();
 		

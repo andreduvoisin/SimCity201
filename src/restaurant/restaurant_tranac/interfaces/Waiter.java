@@ -20,12 +20,12 @@ public interface Waiter {
 	
 	public abstract void msgOutOfFood(String choice, int table);
 	
-	public abstract void msgWantToGoOnBreak();
+/*	public abstract void msgWantToGoOnBreak();
 	
 	public abstract void msgGoOnBreak();
 	
 	public abstract void msgNoBreak();
-	
+	*/
 	public abstract void msgAskingForCheck(Customer c);
 
 	public abstract void msgHereIsCheck(Check check);

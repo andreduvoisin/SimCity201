@@ -8,15 +8,15 @@ public class LabelGui implements Gui{
 	private String mLabel;
 	private int mPosX;
 	private int mPosY;
-	private SmilehamRestaurantGui mGUI;
+	private SmilehamAnimationPanel mAnimationPanel;
 
-	public LabelGui(String label, int x, int y, SmilehamRestaurantGui gui){
+	public LabelGui(String label, int x, int y, SmilehamAnimationPanel animationPanel){
 		mLabel = label;
 		mPosX = x;
 		mPosY = y;
-		mGUI = gui;
+		mAnimationPanel = animationPanel;
 		
-		mGUI.getAnimationPanel().addGui(this);
+		mAnimationPanel.addGui(this);
 	}
 	
 	@Override
@@ -36,7 +36,7 @@ public class LabelGui implements Gui{
 	}
 	
 	public void remove(){
-		mGUI.getAnimationPanel().removeGui(this);
+		mAnimationPanel.removeGui(this);
 	}
 	
 	public void setLabel(String label){

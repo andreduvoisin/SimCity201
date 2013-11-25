@@ -260,7 +260,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 				}
 			}
 		}
-		if(mState == WaiterState.WantToGoOnBreak) {
+/*		if(mState == WaiterState.WantToGoOnBreak) {
 			askToGoOnBreak();
 			return true;
 		}
@@ -273,7 +273,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 			goOnBreak();
 			return true;
 		}
-		DoGoToHome();
+*/		DoGoToHome();
 		return false;
 	}
 
@@ -351,7 +351,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 		mHost.msgTableIsFree(c.table);
 		customers.remove(c);
 	}
-
+/*
 	private void askToGoOnBreak() {
 		Do("Asking to go on break.");
 		mHost.msgWantToGoOnBreak(this);
@@ -385,7 +385,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	private void setNoBreak() {
 		waiterGui.setBreak();
 	}
-
+*/
 	/** Animation Actions */
 	private void DoGoToWaitingArea(int n) {
 		waiterGui.DoGoToWaitingArea(n);

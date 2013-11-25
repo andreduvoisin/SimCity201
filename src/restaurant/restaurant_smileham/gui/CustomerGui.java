@@ -13,7 +13,7 @@ public class CustomerGui implements Gui{
 	private SmilehamCustomerRole mCustomer = null;
 
 	//private HostAgent host;
-	SmilehamRestaurantGui mGUI;
+//	SmilehamRestaurantGui mGUI;
 
 	public static final int cINITIAL_X_POSITION = -40;
 	public static final int cINITIAL_Y_POSITION = -40;
@@ -30,8 +30,8 @@ public class CustomerGui implements Gui{
 
 	
 
-	public CustomerGui(SmilehamCustomerRole customerAgent, SmilehamRestaurantGui gui){
-		mGUI = gui;
+	public CustomerGui(SmilehamCustomerRole customerAgent){
+//		mGUI = gui;
 		mCustomer = customerAgent;
 		mPosX = cINITIAL_X_POSITION;
 		mPosY = cINITIAL_Y_POSITION;
