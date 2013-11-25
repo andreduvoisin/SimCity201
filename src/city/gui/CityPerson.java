@@ -17,8 +17,6 @@ public class CityPerson extends CityComponent{
 	
 	private int xPos = 20, yPos = 20;
 	private int xDestination = 120, yDestination = 35;
-	public int previousX = 0;
-	public int previousY = 0;
 	
 	static final int waiterWidth = 10;
 	static final int waiterHeight = 10;
@@ -45,8 +43,6 @@ public class CityPerson extends CityComponent{
 
 	@Override
 	public void updatePosition() {
-		previousX = xPos;
-		previousY = yPos;
 		if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
@@ -106,14 +102,6 @@ public class CityPerson extends CityComponent{
 		xDestination = location.mX;
 		yDestination = location.mY;
 	}
-	
-	public void setVisible(){
-		visible = true;
-	}
-	
-	public void setInvisible(){
-		visible = false;
-	}
 
 	@Override
 	public void draw(Graphics2D g) {
@@ -123,14 +111,12 @@ public class CityPerson extends CityComponent{
 
 	@Override
 	public boolean isPresent() {
-		// TODO Auto-generated method stub
-		return false;
+		return visible;
 	}
 
 	@Override
 	public void setPresent(boolean state) {
-		// TODO Auto-generated method stub
-		
+		visible = state;
 	}
 	
 

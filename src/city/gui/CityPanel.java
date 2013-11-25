@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import base.ContactList;
 import base.Location;
@@ -23,12 +24,52 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
 	
+	// A*
+	public static Semaphore[][] grid = new Semaphore[CITY_WIDTH / 5][CITY_HEIGHT / 5];
+	
 	public CityPanel(SimCityGui city) {
 		//Setup
 		super(city);
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
+		
+		// A* Setup
+		try {
+			for(int i = 0; i < (CITY_WIDTH/5); i++) {
+				for(int j = 0; j < (CITY_HEIGHT/5); j++) {
+					grid[i][j] = new Semaphore(1, true);
+				}
+			}
+			// Center (100,100 to 500,500)
+			for(int i = 100/5; i < 500/5; i++) {
+				for(int j = 100/5; j < 500/5; j++) {
+					grid[i][j].acquire();
+				}
+			}
+			// Houses
+			for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
+				int xCord, yCord = 0;
+				if (iHouse / 20 == 0) {					//North
+					xCord = 100 + 20 * (iHouse % 20);
+					yCord = 0;
+				} else if (iHouse / 20 == 2) {			//South
+					xCord = 100 + 20 * (iHouse % 20);
+					yCord = 580;
+				} else if (iHouse / 20 == 3) {			//West
+					xCord = 0;
+					yCord = 100 + 20 * (iHouse % 20);
+				} else {								//East
+					xCord = 580;
+					yCord = 100 + 20 * (iHouse % 20);
+				}
+				for(int i = 0; i < 4; i++)
+					for(int j = 0; j < 4; j++)
+						grid[xCord / 5 + i][yCord / 5 + j].acquire();
+			}
+		} catch (Exception e) {
+			System.out.println("Exception During A* Setup: " + e);
+		}
 
 		//Add Background and city block
 		background = new Color(100,100,100);

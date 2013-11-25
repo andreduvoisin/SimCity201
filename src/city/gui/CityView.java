@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import restaurant.restaurant_davidmca.gui.RestaurantGui;
 import bank.gui.BankPanel;
+import market.gui.MarketPanel;
 
 public class CityView extends JPanel implements MouseListener, ActionListener {
 
@@ -40,7 +41,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("Gringotts Bank", new BankPanel(city));
 		cards.put("Test Restaurant",  new CityCard(city)); 
 		
-		cards.put("Sears!", new CityCard(city));
+		cards.put("Costco", new MarketPanel(city));
+		
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {
