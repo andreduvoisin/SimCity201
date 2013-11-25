@@ -65,7 +65,7 @@ public class CityBus extends CityComponent {
         else if (y > mYDest)	y--;
 
         if (x == mXDest && y == mYDest && mTraveling) {
-        	mBusDispatch.msgGuiArrivedAtStop(mBusNumber);
+        	mBusDispatch.msgGuiArrivedAtStop(mBusNumber); //CHASE: 1 Index out of bounds
 			mTraveling = false;
         }
         

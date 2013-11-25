@@ -31,7 +31,7 @@ public class TransportationBusDispatch extends Agent {
 	 * @param busNum BusInstance.mBusNumber: the number of the bus
 	 */
 	public void msgGuiArrivedAtStop(int busNum) {
-		mBuses.get(busNum).state = TransportationBusInstance.enumState.readyToUnload;
+		mBuses.get(busNum).state = TransportationBusInstance.enumState.readyToUnload; //CHASE: 1 index out of bounds
 
 		// If no buses are busy, run scheduler
 		if (NoBusesBusy()) {
