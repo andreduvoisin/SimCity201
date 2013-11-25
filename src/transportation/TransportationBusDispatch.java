@@ -12,6 +12,11 @@ import transportation.interfaces.TransportationRider;
  */
 public class TransportationBusDispatch extends Agent {
 
+	public TransportationBusDispatch() {
+		for (int i = 0; i < 4; i++) {
+			mBusStops.add(new TransportationBusStop());
+		}
+	}
 	// Reference to the GUIs
 	private ArrayList<TransportationBusInstance> mBuses = new ArrayList<TransportationBusInstance>();
 
@@ -32,7 +37,9 @@ public class TransportationBusDispatch extends Agent {
 	 * @param busNum BusInstance.mBusNumber: the number of the bus
 	 */
 	public void msgGuiArrivedAtStop(int busNum) {
-		mBuses.get(busNum).state = TransportationBusInstance.enumState.readyToUnload; //CHASE: 1 index out of bounds
+		print("msgGuiArrivedAtStop(bus " + busNum + ")");
+
+		mBuses.get(busNum).state = TransportationBusInstance.enumState.readyToUnload;
 
 		// If no buses are busy, run scheduler
 		if (NoBusesBusy()) {
@@ -46,6 +53,8 @@ public class TransportationBusDispatch extends Agent {
 	 * @param riderCurrentStop The stop number the Person is at
 	 */
 	public void msgNeedARide(TransportationRider r, int riderCurrentStop) {
+		print("msgNeedARide(current stop: " + riderCurrentStop + ")");
+
 		mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 		stateChanged();
 	}
@@ -57,6 +66,8 @@ public class TransportationBusDispatch extends Agent {
 	 * @param riderDestination The stop number the Person is going to
 	 */
 	public void msgImOn(TransportationRider r) {
+		print("msgImOn()");
+
 		mBusStops.get(r.getLocation()).mWaitingPeople.remove(r);
 
 		for (TransportationBusInstance iBus : mBuses) {
@@ -80,6 +91,8 @@ public class TransportationBusDispatch extends Agent {
 	 * @param p The Person who got off
 	 */
 	public void msgImOff(TransportationRider r) {
+		print("msgImOff()");
+
 		// Remove rider from correct bus's rider list
 		for (TransportationBusInstance iBus : mBuses) {
 			for (TransportationRider iRider : iBus.mRiders) {
@@ -117,6 +130,9 @@ public class TransportationBusDispatch extends Agent {
 			if (iBus.state.equals(TransportationBusInstance.enumState.readyToUnload)) {
 				if (! iBus.mRiders.isEmpty()) {
 					TellRidersToGetOff();
+				}
+				else {
+					iBus.state = TransportationBusInstance.enumState.readyToBoard;
 					return true;
 				}
 			}
@@ -126,6 +142,10 @@ public class TransportationBusDispatch extends Agent {
 			if (iBus.state.equals(TransportationBusInstance.enumState.readyToBoard)) {
 				if (! mBusStops.get(iBus.mCurrentStop).mWaitingPeople.isEmpty()) {
 					TellRidersToBoard();
+					return true;
+				}
+				else {
+					iBus.state = TransportationBusInstance.enumState.readyToTravel;
 					return true;
 				}
 			}
@@ -152,6 +172,8 @@ public class TransportationBusDispatch extends Agent {
 	 * @param bus BusInstance of which to check rider list
 	 */
 	private void TellRidersToGetOff() {
+		print("TellRIdersToGetOff()");
+
 		for (TransportationBusInstance iBus : mBuses) {
 			iBus.state = TransportationBusInstance.enumState.unloading;
 			boolean needToWait = false;
@@ -177,6 +199,8 @@ public class TransportationBusDispatch extends Agent {
 	 * @param bus BusInstance of which to check current stop's waiting list
 	 */
 	private void TellRidersToBoard() {
+		print("TellRidersToBoard()");
+
 		for (TransportationBusInstance iBus : mBuses) {
 			if (mBusStops.get(iBus.mCurrentStop).mWaitingPeople.isEmpty()) {
 				iBus.state = TransportationBusInstance.enumState.readyToTravel;
@@ -201,6 +225,8 @@ public class TransportationBusDispatch extends Agent {
 	 * @param bus BusInstance to advance
 	 */
 	private void AdvanceToNextStop() {
+		print("AdvanceToNextStop()");
+
 		for (TransportationBusInstance iBus : mBuses) {
 			iBus.state = TransportationBusInstance.enumState.traveling;
 
@@ -211,13 +237,25 @@ public class TransportationBusDispatch extends Agent {
 	}
 
 	private boolean NoBusesBusy() {
+		print("NoBusesBusy?");
+
 		for (TransportationBusInstance iBus : mBuses) {
-			if (iBus.isBusy()) return false;
+			if (iBus.isBusy()) {
+				print("False!");
+				return false;
+			}
 		}
+		print("True!");
 		return true;
 	}
 
 	public void addBus(TransportationBusInstance tbi) {
+		print("addBus()");
+
 		mBuses.add(tbi);
+	}
+
+	public String getName() {
+		return "BusDispatch";
 	}
 }

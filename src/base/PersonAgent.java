@@ -18,6 +18,7 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.restaurant_davidmca.astar.AStarTraversal;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
@@ -25,6 +26,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 
@@ -43,6 +45,7 @@ public class PersonAgent extends Agent implements Person {
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	private Location mJobLocation;
+	private boolean mAtJob;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -58,6 +61,7 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasCar;
+	AStarTraversal mAstar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -132,6 +136,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles = new HashMap<Role, Boolean>();
 		mHouseRole = null;
 		mJobLocation = null;
+		mAtJob = false;
 		
 		//Lists
 		mFriends = new ArrayList<Person>();
@@ -145,10 +150,10 @@ public class PersonAgent extends Agent implements Person {
 		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
+		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
-		mPersonGui = new CityPerson(200, 100, mName); //SHANE: Hardcoded
-		//SHANE REX: ADD TO MOVING IN SIMCITYPANEL
+		mPersonGui = new CityPerson(400, 100, mName); //SHANE: Hardcoded
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>();
@@ -201,9 +206,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
-		//if not during job shift
-		//SHANE REX: change to if not at job location
-		if ((mRoleFinished) && (Time.GetShift() != mTimeShift) ){
+		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
 				Iterator<Event> itr = mEvents.iterator();
 				while (itr.hasNext()) {
@@ -301,13 +304,11 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		
-		//remove current gui (isPresent = false)
-//		mGui.setInvisible();
-		//create new market gui
-		
-		
+		//set city person invisible
+		mPersonGui.setPresent(false);
 		//lock person until role is finished
 		mRoleFinished = false;
+		
 		//activate marketcustomer role
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof MarketCustomerRole){
@@ -325,9 +326,8 @@ public class PersonAgent extends Agent implements Person {
 	private void goToJob() {
 		mPersonGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
-		
-		mPersonGui.setInvisible();
-		
+		mAtJob = true; //SHANE: This will need to be set to false somewhere
+		mPersonGui.setPresent(false);		
 		
 
 		// work.getHost().msgImHere(job);
@@ -356,7 +356,7 @@ public class PersonAgent extends Agent implements Person {
 				restaurantCustomerRole.setRestaurant(restaurantChoice);
 			} catch (IOException e1) {
 				e1.printStackTrace();
-			} // DAVID: 1 This is where it's set
+			}
 			
 			
 			
@@ -399,16 +399,6 @@ public class PersonAgent extends Agent implements Person {
 		if (mHouseRole.mHouse != null) {
 			mHouseRole.msgTimeToMaintain();
 		}
-	}
-	
-	
-	//JERRY 0 FOR TESTING
-	public void move(){
-		mPersonGui.DoGoToDestination(ContactList.cBANK_LOCATION);
-	}
-
-	public void SetGui(CityPerson pGui){
-		mPersonGui = pGui;
 	}
 	
 	
