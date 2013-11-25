@@ -58,7 +58,7 @@ public class CityPerson extends CityComponent{
             yPos--;
         
         if(xPos == xDestination && yPos == yDestination){
-        	visible = false;
+        	this.disable();
         }
 	}
 
@@ -95,14 +95,14 @@ public class CityPerson extends CityComponent{
 	*/
 	public void DoGoToDestination(int x, int y){
 		atDestination = false;
-		visible = true; 
+		this.enable(); 
 		xDestination = x;
 		yDestination = y;
 	}
 	
 	public void DoGoToDestination(Location location){
 		atDestination = false;
-		visible = true; 
+		this.enable();
 		xDestination = location.mX;
 		yDestination = location.mY;
 	}

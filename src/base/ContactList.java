@@ -29,6 +29,7 @@ public class ContactList {
 	public static List<Location> cHOUSE_DOORS;
 	public static List<Location> cRESTAURANT_DOORS;
 	
+	//SHANE: add house doors
 	//setup housing locations
 	static {
 		List<Location> list = new ArrayList<Location>();
