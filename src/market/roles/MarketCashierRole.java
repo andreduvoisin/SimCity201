@@ -13,11 +13,8 @@ import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCashierGui;
 import market.gui.MarketPanel.EnumMarketType;
-import market.interfaces.MarketCashier;
-import market.interfaces.MarketCook;
-import market.interfaces.MarketCustomer;
-import market.interfaces.MarketDeliveryTruck;
-import market.interfaces.MarketWorker;
+import market.interfaces.*;
+import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
@@ -145,8 +142,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		MarketInvoice invoice = new MarketInvoice(order, cost, mBankAccount);
 
 		//if a cook
-		if (personRole instanceof MarketCook){
-			MarketCook cook = (MarketCook) order.mPersonRole;
+		if (personRole instanceof RestaurantCookInterface){
+			RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
 			cook.msgInvoiceToPerson(cannotFulfill, invoice);
 		}
 

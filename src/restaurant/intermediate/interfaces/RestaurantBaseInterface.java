@@ -1,4 +1,4 @@
-package restaurant.intermediate;
+package restaurant.intermediate.interfaces;
 
 import base.interfaces.Person;
 

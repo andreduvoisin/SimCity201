@@ -6,7 +6,6 @@ import java.util.concurrent.Semaphore;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.interfaces.MarketCashier;
-import base.BaseRole;
 import base.Item.EnumItemType;
 import restaurant.intermediate.*;
 import restaurant.restaurant_tranac.gui.CookGui_at;
@@ -38,19 +37,6 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
 	private final int stockThreshold = 1;
 	
 	private Semaphore inTransit = new Semaphore(0, true);
-	
-	/**
-	 * Code added from MarketCookCustomerRole
-	 */
-	Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
-	Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
-	
-	Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
-	
-	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
-	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
-	
-	MarketCashier mMarketCashier;
 
 	public RestaurantCookRole_at() {
 		super();
@@ -259,7 +245,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
 		plates.put(o.n, false);
 		o.n = 0;
 	}
-	
+	/*
 	private void orderFood() {				//order all food items that are lowStock
 		Do("Ordering food");
 		synchronized(inventory) {
@@ -291,7 +277,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
 			}
 		}
 	}
-	
+	*/
 	/** Animation Actions */
 	private void DoGoToHome() {
 		cookGui.DoGoToHome();
