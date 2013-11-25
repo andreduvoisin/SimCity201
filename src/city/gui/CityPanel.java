@@ -61,7 +61,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 			masterHouseList.add(newHouse);
 		}
 		
-		
 		addMouseListener(this);
 		addMouseMotionListener(this);
 		
