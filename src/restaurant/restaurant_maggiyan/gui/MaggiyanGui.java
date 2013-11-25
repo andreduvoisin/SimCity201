@@ -2,7 +2,7 @@ package restaurant.restaurant_maggiyan.gui;
 
 import java.awt.*;
 
-public interface Gui {
+public interface MaggiyanGui {
 
     public void updatePosition();
     public void draw(Graphics2D g);

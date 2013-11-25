@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AnimationPanel extends JPanel implements ActionListener {
+public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 
 	public static int XPOS = 200; 
 	public static int YPOS = 250; 
@@ -22,9 +22,9 @@ public class AnimationPanel extends JPanel implements ActionListener {
     private Image bufferImage;
     private Dimension bufferSize;
 
-    private List<Gui> guis = new ArrayList<Gui>();
+    private List<MaggiyanGui> guis = new ArrayList<MaggiyanGui>();
 
-    public AnimationPanel() {
+    public MaggiyanAnimationPanel() {
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         setBackground(Color.white);
@@ -71,15 +71,15 @@ public class AnimationPanel extends JPanel implements ActionListener {
         g2.setColor(Color.LIGHT_GRAY);
         g2.fillRect(XPOS+350+GWIDTH, YPOS, GWIDTH*3, GHEIGHT*4);
         g2.setColor(Color.DARK_GRAY);
-        g2.fillRect(XPOS+350+GWIDTH+GWIDTH*3-GWIDTH, YPOS, GWIDTH, GWIDTH);
-        g2.fillRect(XPOS+350+GWIDTH+GWIDTH*3-GWIDTH, YPOS + GWIDTH + 25, GWIDTH, GWIDTH);
-        g2.fillRect(XPOS+350+GWIDTH+GWIDTH*3-GWIDTH, YPOS + GHEIGHT*4 - GWIDTH, GWIDTH, GWIDTH);
+        g2.fillRect(GWIDTH*14, YPOS, GWIDTH, GWIDTH);
+        g2.fillRect(GWIDTH*14, YPOS + GWIDTH + 25, GWIDTH, GWIDTH);
+        g2.fillRect(GWIDTH*14, YPOS + GHEIGHT*4 - GWIDTH, GWIDTH, GWIDTH);
         
         //g2.setColor(Color.BLUE);
         //g2.fillRect(XPOS+410, YPOS+50, 20, 20);
         
         
-        for(Gui gui : guis) {
+        for(MaggiyanGui gui : guis) {
             if (gui.isPresent()) {
                 gui.updatePosition();
             }
@@ -91,7 +91,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 //            }
         }
 
-        for(Gui gui : guis) {
+        for(MaggiyanGui gui : guis) {
             if (gui.isPresent()) {
                 gui.draw(g2);
             }
@@ -107,11 +107,16 @@ public class AnimationPanel extends JPanel implements ActionListener {
 //    	gui.customerChoice.setLocation(gui.getXPos(), gui.getYPos() - 10);
 //    }
 
-    public void addGui(CustomerGui gui) {
+    public void addGui(MaggiyanCustomerGui gui) {
         guis.add(gui);
     }
 
-    public void addGui(WaiterGui gui) {
+    public void addGui(MaggyanWaiterGui gui) {
         guis.add(gui);
     }
+
+	public void addGui(MaggiyanCookGui gui) {
+		guis.add(gui); 
+		
+	}
 }

@@ -1,28 +1,28 @@
-package restaurant.restaurant_maggiyan;
+package restaurant.restaurant_maggiyan.roles;
 
-import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.CookAgent.state;
-import restaurant.restaurant_maggiyan.gui.CustomerGui;
-import restaurant.restaurant_maggiyan.gui.RestaurantGui;
-import restaurant.restaurant_maggiyan.interfaces.Customer;
-import base.Agent;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import base.BaseRole;
+import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.gui.MaggiyanCustomerGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer{
+public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	//Customer data
 	private String name;
 	private int tableNumber;
 	private int choiceIndex; 
 	private int hungerLevel = 10;        // determines length of meal
 	private double cash; 
-	private CustomerGui customerGui;
+	private MaggiyanCustomerGui customerGui;
 	private boolean reordering = false; 
 	public static int waitTime = 5000; 
 	Timer timer = new Timer();
@@ -33,10 +33,10 @@ public class CustomerAgent extends Agent implements Customer{
 	private boolean isImpatient = false;
 	
 	// Agent Correspondents
-	private CustomerAgent me; 
-	private HostAgent host;
-	private WaiterAgent waiter; 
-	private CashierAgent cashier;
+	private MaggiyanCustomerRole me; 
+	private MaggiyanHostRole host;
+	private MaggiyanWaiter waiter; 
+	private MaggiyanCashierRole cashier;
 	private Menu menu; 
 	private Check check; 
 	public String choice; 
@@ -57,7 +57,7 @@ public class CustomerAgent extends Agent implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerAgent(String name){
+	public MaggiyanCustomerRole(String name){
 		super();
 		this.name = name;
 		if(name.equals("Smartpoor") || name.equals("Dumbpoor")){
@@ -74,11 +74,11 @@ public class CustomerAgent extends Agent implements Customer{
 	/**
 	 * hack to establish connection to Host agent.
 	 */
-	public void setHost(HostAgent host) {
+	public void setHost(MaggiyanHostRole host) {
 		this.host = host;
 	}
 	
-	public void setCashier(CashierAgent cashier){
+	public void setCashier(MaggiyanCashierRole cashier){
 		this.cashier = cashier;
 	}
 
@@ -101,7 +101,7 @@ public class CustomerAgent extends Agent implements Customer{
 	}
 	
 	//From waiter 
-	public void msgFollowMe(WaiterAgent w, Menu m, int tableNumber){
+	public void msgFollowMe(MaggiyanWaiter w, Menu m, int tableNumber){
 		print("Received msgFollowMe");
 		event = AgentEvent.followHost;
 		this.tableNumber = tableNumber;
@@ -162,7 +162,7 @@ public class CustomerAgent extends Agent implements Customer{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
 		
 		//Non-Normative
@@ -355,11 +355,11 @@ public class CustomerAgent extends Agent implements Customer{
 		return "customer " + getName();
 	}
 
-	public void setGui(CustomerGui g) {
+	public void setGui(MaggiyanCustomerGui g) {
 		customerGui = g;
 	}
 
-	public CustomerGui getGui() {
+	public MaggiyanCustomerGui getGui() {
 		return customerGui;
 	}
 	
