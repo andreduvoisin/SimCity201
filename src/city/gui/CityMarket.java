@@ -10,20 +10,22 @@ import base.Location;
 public class CityMarket extends CityComponent{
 	private String marketName = "";
 	
+	private static final int sMARKET_SIZE = 100;
+	
 	public CityMarket(int x, int y) {
 		super(x, y, Color.blue, "Market 1");
-		rectangle = new Rectangle(x, y, 90, 90);
+		rectangle = new Rectangle(x, y, sMARKET_SIZE, sMARKET_SIZE);
 	}
 	
 	public CityMarket(int x, int y, String ID) {
 		super(x, y, Color.blue, ID);
-		rectangle = new Rectangle(x, y, 90, 90);
+		rectangle = new Rectangle(x, y, sMARKET_SIZE, sMARKET_SIZE);
 		marketName = ID;
 	}
 	
 	public CityMarket(Location location, String ID) {
 		super(location.mX, location.mY, Color.blue, ID);
-		rectangle = new Rectangle(x, y, 90, 90);
+		rectangle = new Rectangle(x, y, sMARKET_SIZE, sMARKET_SIZE);
 		marketName = ID;
 	}
 
@@ -34,10 +36,9 @@ public class CityMarket extends CityComponent{
 	
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillOval(x, y, 90, 90);
-		g.fill3DRect(x, y, 90, 90, true);
+		g.fill3DRect(x, y, sMARKET_SIZE, sMARKET_SIZE, true);
 		g.setColor(Color.WHITE);
-		g.drawString(marketName,x + 25 , y + 50);
+		g.drawString(marketName, x + 10 , y + 50);
 	}
 
 	@Override

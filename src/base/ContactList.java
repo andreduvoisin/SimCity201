@@ -17,9 +17,9 @@ public class ContactList {
 	static List<Person> sPeople; //list of people
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
-	public static final Location cBANK_LOCATION = new Location(10,10); //SHANE: Bank coordinates go here
-	public static final Location cMARKET_LOCATION = new Location(300,300); //SHANE: Market coordinates
-	public static final Location cCARDEALERSHIP_LOCATION = new Location(400,300); //SHANE: Market coordinates
+	public static final Location cBANK_LOCATION = new Location(200,100); //SHANE: Bank coordinates go here
+	public static final Location cMARKET_LOCATION = new Location(100,400); //SHANE: Market coordinates
+	public static final Location cCARDEALERSHIP_LOCATION = new Location(400,400); //SHANE: Market coordinates
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	
@@ -49,13 +49,13 @@ public class ContactList {
 	
 	//setup job locations
 	static final Location cRESTAURANT_LOCATION1 = new Location(100,100); //SHANE: Restaurant locations go here
-	static final Location cRESTAURANT_LOCATION2 = new Location(200,0);
-	static final Location cRESTAURANT_LOCATION3 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION4 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION5 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION6 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION7 = new Location(0,0);
-	static final Location cRESTAURANT_LOCATION8 = new Location(0,0);
+	static final Location cRESTAURANT_LOCATION2 = new Location(100,200);
+	static final Location cRESTAURANT_LOCATION3 = new Location(100,300);
+	static final Location cRESTAURANT_LOCATION4 = new Location(215,420);
+	static final Location cRESTAURANT_LOCATION5 = new Location(310,420);
+	static final Location cRESTAURANT_LOCATION6 = new Location(420,100);
+	static final Location cRESTAURANT_LOCATION7 = new Location(420,200);
+	static final Location cRESTAURANT_LOCATION8 = new Location(420,300);
 	static {
 		List<Location> list = new ArrayList<Location>();
 		list.add(cRESTAURANT_LOCATION1);

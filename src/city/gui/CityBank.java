@@ -13,7 +13,7 @@ import base.Location;
 public class CityBank extends CityComponent {
 	private String bankName = "";
 	private int BANKWIDTH = 200;
-	private int BANKHEIGHT = 100; 
+	private int BANKHEIGHT = 80; 
 
 	public CityBank(int x, int y) {
 		super(x, y, Color.green, "Unnamed Bank");

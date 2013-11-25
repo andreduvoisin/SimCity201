@@ -29,8 +29,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 
-		//Add Background
-		background = new Color(30, 30, 30);
+		//Add Background and city block
+		background = new Color(100,100,100);
+		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
 		
 		//Add Roads
 		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
@@ -50,8 +51,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(ContactList.cBANK_LOCATION, "Gringotts Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cCARDEALERSHIP_LOCATION, "Car Dealership"));
-		
-		
 		
 		//Create Houses		
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
