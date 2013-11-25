@@ -18,7 +18,8 @@ import java.util.Vector;
 import restaurant.restaurant_tranac.roles.*;
 
 public class RestaurantPanel_at extends CityCard implements ActionListener {
-
+	static RestaurantPanel_at instance;
+	
 	private final int WINDOWX = 626;
 	private final int WINDOWY = 507;
     private final int TIMERDELAY = 8;
@@ -41,6 +42,8 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     	super(city);
     	setBounds(0,0,WINDOWX, WINDOWY);
     	setBackground(Color.white);
+    	
+    	this.instance = this;
     	
     	guis.add(hostGui);
     	guis.add(cookGui);
@@ -92,5 +95,9 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     public void addWaiter(RestaurantWaiterRole_at w) {
     	mWaiters.add(w);
     	mHost.addWaiter(w);
+    }
+    
+    public static RestaurantPanel_at getInstance() {
+    	return instance;
     }
 }

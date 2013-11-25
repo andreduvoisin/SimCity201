@@ -4,6 +4,8 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_tranac.roles.RestaurantCustomerRole_at;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -27,6 +29,12 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 		if (restaurantID == 2) {
 			subRole = new MaggiyanCustomerRole(super.mPerson);
 			//MaggiyanRestaurantPanel.getRestPanel().addCustomer((CustomerRole) subRole);
+		}
+		
+		//Angelica
+		if (restaurantID == 3) {
+			subRole = new RestaurantCustomerRole_at(mPerson);
+			RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
 		}
 		// TODO DAVID add if statements for all the other restaurants
 	}
