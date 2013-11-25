@@ -18,6 +18,7 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.restaurant_davidmca.astar.AStarTraversal;
 import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankMasterTellerRole;
@@ -25,6 +26,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumMarketItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 
@@ -59,6 +61,7 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	boolean mHasCar;
+	AStarTraversal mAstar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -147,6 +150,7 @@ public class PersonAgent extends Agent implements Person {
 		mTimeShift = (mSSN % 3); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
+		mAstar = new AStarTraversal(CityPanel.grid);
 		
 		//Role References
 		mPersonGui = new CityPerson(200, 100, mName); //SHANE: Hardcoded
