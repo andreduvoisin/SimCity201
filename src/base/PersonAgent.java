@@ -83,7 +83,7 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 		
 		//REX: put in for testing
-		SortingHat.InstantiateBaseRoles();
+		//SortingHat.InstantiateBaseRoles();
 		
 		//Get job role and location; set active if necessary
 		mJobRole = null;
@@ -96,6 +96,7 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case RESTAURANT:
 				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				//System.out.println(mJobRole.toString());
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 				((RestaurantBaseInterface) mJobRole).setRestaurant(1);
 				//DAVID set proper restaurant
@@ -158,7 +159,7 @@ public class PersonAgent extends Agent implements Person {
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-//		mEvents.add(new Event(EnumEventType.EAT, 0));
+		mEvents.add(new Event(EnumEventType.EAT, 1));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 //		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
@@ -225,6 +226,7 @@ public class PersonAgent extends Agent implements Person {
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
+				print(iRole.toString());
 				if (((BaseRole) iRole).getPerson() == null) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
@@ -335,6 +337,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void goToJob() {
 		mRoles.put(mJobRole, true);
+		//print("goToJob");
 //		mPersonGui.DoGoToDestination(mJobLocation);
 //		acquireSemaphore(semAnimationDone);
 //		mAtJob = true; //SHANE: This will need to be set to false somewhere
@@ -352,23 +355,23 @@ public class PersonAgent extends Agent implements Person {
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum)); //SHANE: 2 - change these to doors
 			acquireSemaphore(semAnimationDone);
 		}else{
+			System.out.println("Going out to eat...");
 			//set random restaurant
-			RestaurantCustomerRole restaurantCustomerRole = null;
+			Role restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
 				if (iRole instanceof RestaurantCustomerRole){
-					restaurantCustomerRole = (RestaurantCustomerRole) iRole;
+					restCustRole = iRole;
 				}
 			}
+			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 1; // SHANE DAVID: Make random later
-			restaurantCustomerRole.setRestaurant(restaurantChoice);
+			int restaurantChoice = 1; // SHANE DAVID: Make random later			
+			((RestaurantBaseInterface) restCustRole).setPerson(this);
+			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
 			
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
-			
-			//set restaurant customer role to active
-			mRoles.put(restaurantCustomerRole, true);
-		}
+			}
 		
 	}
 	
