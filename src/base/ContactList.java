@@ -34,13 +34,13 @@ public class ContactList {
 		List<Location> list = new ArrayList<Location>();
 		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
 			int xCord, yCord = 0;
-			if (iHouse % 20 == 0) {
+			if (iHouse / 20 == 0) {
 				xCord = 50 + (20 * iHouse % 20);
 				yCord = 0;
-			} else if (iHouse % 20 == 2) {
+			} else if (iHouse / 20 == 2) {
 				xCord = 50 + (20 * iHouse % 20);
 				yCord = 480;
-			} else if (iHouse % 20 == 3) {
+			} else if (iHouse / 20 == 3) {
 				xCord = 0;
 				yCord = 50 + 20 * (iHouse % 20);
 			} else {
