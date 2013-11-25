@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex.agents;
 
 import base.Agent;
+import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.gui.RestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
@@ -22,7 +23,7 @@ public class CookAgent extends Agent implements Cook {
 	{pending, ready, completed}; //Can use boolean instead
 	
 	private Semaphore atLocation = new Semaphore(100,true);
-	private CookGui_ cookGui = null;
+	private CookGui cookGui = null;
 	RestaurantGui gui;
 	
 	public class CookOrder{
@@ -338,10 +339,6 @@ public class CookAgent extends Agent implements Cook {
 	public void setGui(RestaurantGui gui){
 		this.gui = gui;
 	}
-	
-	public void setGui(CookGui_ cookGui){
-		this.cookGui = cookGui;
-	}
 	private void runTimer(){
 		standTimer.schedule(new TimerTask(){
 			public void run(){
@@ -350,9 +347,12 @@ public class CookAgent extends Agent implements Cook {
 			}
 		}, 25000);
 	}
-	@Override
+
 	public void addToStand(Waiter w, String choice, int table) {
 		revolvingStand.add(new CookOrder(w, choice, table));
+	}
+	public void setGui(CookGui cookGui) {
+		this.cookGui = cookGui;
 	}
 
 }
