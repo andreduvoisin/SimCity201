@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -22,7 +23,7 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 		}
 		//Maggi's Restaurant 
 		if (restaurantID == 2) {
-			subRole = RestaurantPanel.getInstance().host;
+			subRole = MaggiyanRestaurantPanel.getRestPanel().host;
 			subRole.setPerson(super.mPerson);
 		}
 		//TODO DAVID add if statements for all the other restaurants

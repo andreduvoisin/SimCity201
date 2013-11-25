@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCustomerGui;
@@ -57,18 +58,9 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public MaggiyanCustomerRole(String name){
-		super();
+	public MaggiyanCustomerRole(Person p){
+		super(p);
 		this.name = name;
-		if(name.equals("Smartpoor") || name.equals("Dumbpoor")){
-			cash = 0.0; 
-		}
-		else if(name.equals("Cheapskate")){
-			cash = minCashAmt; 
-		}
-		else{
-			cash = normCashAmt; 
-		}
 	}
 	
 	/**
