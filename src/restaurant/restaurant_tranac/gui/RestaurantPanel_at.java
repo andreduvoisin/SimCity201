@@ -41,8 +41,6 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     public RestaurantPanel_at(SimCityGui city) {
     	super(city);
     	setBounds(0,0,WINDOWX, WINDOWY);
-   // 	setSize(WINDOWX, WINDOWY);
-   //   setVisible(true);
     	setBackground(Color.white);
     	
     	guis.add(hostGui);
@@ -94,5 +92,6 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     
     public void addWaiter(RestaurantWaiterRole_at w) {
     	mWaiters.add(w);
+    	mHost.addWaiter(w);
     }
 }
