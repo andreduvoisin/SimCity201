@@ -3,7 +3,6 @@ package base;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,7 +27,6 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
-import city.gui.SimCityGui;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -348,11 +346,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 			
 			int restaurantChoice = 1; // SHANE DAVID: Make random later
-			try {
-				restaurantCustomerRole.setRestaurant(restaurantChoice);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			restaurantCustomerRole.setRestaurant(restaurantChoice);
 			
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);

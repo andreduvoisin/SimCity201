@@ -5,7 +5,7 @@ import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantHostRole extends BaseRole {
+public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterface {
 	
 	Role subRole = null;
 	int restaurantID;

@@ -1,6 +1,5 @@
 package restaurant.intermediate;
 
-import java.io.IOException;
 import java.util.Random;
 
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
@@ -10,7 +9,7 @@ import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantWaiterRole extends BaseRole {
+public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInterface {
 
 	Role subRole = null;
 	int restaurantID;
@@ -19,7 +18,7 @@ public class RestaurantWaiterRole extends BaseRole {
 		super(person);
 	}
 
-	public void setRestaurant(int restaurantID) throws IOException {
+	public void setRestaurant(int restaurantID) {
 		if (restaurantID == 1) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {

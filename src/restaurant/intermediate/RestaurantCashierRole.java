@@ -1,12 +1,11 @@
 package restaurant.intermediate;
 
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
-import restaurant.restaurant_davidmca.roles.CashierRole;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantCashierRole extends BaseRole {
+public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInterface {
 	
 	Role subRole = null;
 	int restaurantID;
