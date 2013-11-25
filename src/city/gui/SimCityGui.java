@@ -120,13 +120,13 @@ public class SimCityGui extends JFrame {
 //		testCook.addRole(cookRole, true);
 //		testCook.startThread();
 		
-		Person person = citypanel.masterPersonList.get(0);
-		if (person instanceof PersonAgent){
-			((PersonAgent) person).msgAnimationDone();
+//		Person person = citypanel.masterPersonList.get(0);
+//		if (person instanceof PersonAgent){
+//			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
-			((PersonAgent) person).eatFood();
-			((PersonAgent) person).msgAnimationDone();
-		}
+//			((PersonAgent) person).eatFood();
+//			((PersonAgent) person).msgAnimationDone();
+//		}
 		
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
@@ -145,13 +145,13 @@ public class SimCityGui extends JFrame {
 //			((PersonAgent) person).eatFood();
 //		}
 		
-//		for (Person person: city.masterPersonList) {
-//			((PersonAgent) person).msgAnimationDone();
-//			((PersonAgent) person).startThread();
-//			((PersonAgent) person).msgAnimationDone();
-//			((PersonAgent) person).eatFood();
-//			((PersonAgent) person).msgAnimationDone();
-//		}
+		for (int i=0; i<10; i++) {
+			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
+		}
+		
+		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
+			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
+		}
 	}
 
 	/**

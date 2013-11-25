@@ -156,10 +156,10 @@ public class PersonAgent extends Agent implements Person {
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
+//		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
 //		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, 1));
+//		mEvents.add(new Event(EnumEventType.EAT, 1));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 //		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
@@ -231,8 +231,10 @@ public class PersonAgent extends Agent implements Person {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
-				else if (iRole.pickAndExecuteAnAction())
+				else if (iRole.pickAndExecuteAnAction()) {
+					System.out.println(iRole.toString() + "pAEA fired");
 					return true;
+				}
 			}
 		}
 		
@@ -334,8 +336,7 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = true;
 	}
 	
-	private void goToJob() {
-		mRoles.put(mJobRole, true);
+	public void goToJob() {
 		//print("goToJob");
 //		mPersonGui.DoGoToDestination(mJobLocation);
 //		acquireSemaphore(semAnimationDone);
