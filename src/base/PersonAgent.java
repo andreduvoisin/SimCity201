@@ -218,17 +218,16 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
-	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
+	public void msgRoleFinished(Role role){ //SHANE: 3 Call at end of role
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
-	}
-	public void msgRoleInactive(){
 		for (Role iRole : mRoles.keySet()){
 			if(!(iRole instanceof HousingBase)){
 				mRoles.put(iRole, false);
 			}
 		}
 	}
+
 	public void msgHereIsPayment(int senderSSN, double amount){
 		mCash += amount;
 	}
