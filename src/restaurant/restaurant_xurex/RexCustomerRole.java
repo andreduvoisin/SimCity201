@@ -325,8 +325,9 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		customerGui.DoGoToSeat(5);
 	}
 	private void leaveTable() {
-		Do("Leaving."); cash+=15;
+		Do("Leaving.");
 		waiter.Leaving(this);
+		customerGui.animationPanel.removeCustomer(this);
 		customerGui.DoExitRestaurant();
 	}
 	
@@ -376,6 +377,10 @@ public class RexCustomerRole extends BaseRole implements Customer{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setCash(double cash){
+		cash = this.cash;
 	}
 }
 

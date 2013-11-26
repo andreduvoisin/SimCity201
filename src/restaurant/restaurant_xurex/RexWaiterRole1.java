@@ -107,7 +107,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 	//HOST MESSAGES
 	public void PleaseSeatCustomer(Customer c, int table){
 		customers.add(new MyCustomer(c,table));
-		Do("PleaseSeatCustomer received");
+		Do("Seating customer "+c.getName()+" at "+table);
 		state = WaiterState.working;
 		stateChanged();
 	}

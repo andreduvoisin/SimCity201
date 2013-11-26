@@ -185,6 +185,10 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	guis.remove(gui);
     }
     
+    public void removeCustomer(Customer customer){
+    	customers.remove(customer);
+    }
+    
     public static void addPerson(BaseRole role) {
     	if (role instanceof RexCustomerRole){
     		RexCustomerRole customer = (RexCustomerRole) role;
