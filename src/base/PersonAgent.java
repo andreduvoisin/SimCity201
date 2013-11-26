@@ -28,6 +28,7 @@ import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
+import city.gui.SimCityGui;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -66,7 +67,7 @@ public class PersonAgent extends Agent implements Person {
 	public CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
 
 	//PAEA Helpers
-	public Semaphore semAnimationDone = new Semaphore(1);
+	public Semaphore semAnimationDone = new Semaphore(0);
 	private boolean mRoleFinished = true;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
@@ -151,16 +152,17 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(0, 0, mName); //SHANE: Hardcoded start place
+		mPersonGui = new CityPerson(this, SimCityGui.getInstance()); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
+		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
-		mEvents.add(new Event(EnumEventType.JOB, 0));
+//		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, 1));
+//		mEvents.add(new Event(EnumEventType.EAT, 1)); //THIS IS A PROBLEM
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 //		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
@@ -219,6 +221,7 @@ public class PersonAgent extends Agent implements Person {
 					//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 					if (event.mTime > Time.GetTime())
 						break; // don't do future calendar events
+					mRoleFinished = false;
 					processEvent(event);
 					return true;
 				}
@@ -254,7 +257,7 @@ public class PersonAgent extends Agent implements Person {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
-			getCar(); //SHANE: 1 get car
+			getCar();
 		}
 		
 		//Daily Recurring Events (Job, Eat)
@@ -322,10 +325,7 @@ public class PersonAgent extends Agent implements Person {
 		Location location = ContactList.cCARDEALERSHIP_DOOR;
 		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
-		
 		mPersonGui.setPresent(false); //set city person invisible
-		//lock person until role is finished
-		mRoleFinished = false;
 		
 		//activate marketcustomer role
 		for (Role iRole : mRoles.keySet()){
@@ -341,8 +341,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-
-		//print("goToJob");
 		mPersonGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
@@ -371,13 +369,15 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 3; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 5; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 
-			((RestaurantBaseInterface) restCustRole).setPerson(this);
-			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
+			
+			((RestaurantBaseInterface) restCustRole).setPerson(this);
+			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
+			
 		}
 		
 	}

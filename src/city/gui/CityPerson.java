@@ -18,7 +18,7 @@ import base.PersonAgent;
 public class CityPerson extends CityComponent{
 	
 	private String name = "";
-	PersonAgent person = null;
+	PersonAgent mPerson = null;
 	boolean atDestination = true;
 	SimCityGui gui;
 	
@@ -40,24 +40,26 @@ public class CityPerson extends CityComponent{
 	Queue<Position> goToPosition = new LinkedList<Position>();
 	static int numTicks = 0;
 	
-	public CityPerson(int x, int y){
-		super(x,y, Color.ORANGE, "Unnamed Person");
-		
-		rectangle = new Rectangle(x, y, 5, 5);
-		
-		setUpAStar();
-	}
+//	public CityPerson(int x, int y){
+//		super(x,y, Color.ORANGE, "Unnamed Person");
+//		
+//		rectangle = new Rectangle(x, y, 5, 5);
+//		
+//		setUpAStar();
+//	}
+//	
+//	public CityPerson(int x, int y, String ID){
+//		super(x,y, Color.ORANGE, ID);
+//		rectangle = new Rectangle(x, y, 5, 5);
+//		name = ID;
+//		
+//		setUpAStar();
+//	}
 	
-	public CityPerson(int x, int y, String ID){
-		super(x,y, Color.ORANGE, ID);
-		rectangle = new Rectangle(x, y, 5, 5);
-		name = ID;
-		
-		setUpAStar();
-	}
-	
-	public CityPerson(PersonAgent P, SimCityGui gui) {
-		person = P;
+	public CityPerson(PersonAgent person, SimCityGui gui) {
+		super(0,0, Color.ORANGE, person.getName());
+		rectangle = new Rectangle(0, 0, 5, 5);
+		mPerson = person;
 		this.gui = gui;
 		
 		setUpAStar();
@@ -93,7 +95,7 @@ public class CityPerson extends CityComponent{
         if(x == xDestination && y == yDestination){
         	this.disable();
         	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
-//        	person.msgAnimationDone(); //SHANE: Add person then enable this line
+        	mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
         }
         
 //        if(numTicks % 5 == 0) {
@@ -105,7 +107,7 @@ public class CityPerson extends CityComponent{
 //        }
 
 
-        //B* Algorithm
+        //B* Algorithm :)
         
         boolean xOldInBlock = 	(((previousX > ContactList.cGRID_POINT1-5) && (previousX < ContactList.cGRID_POINT2)) || 
 								((previousX > ContactList.cGRID_POINT3-5) && (previousX < ContactList.cGRID_POINT4)) ||
