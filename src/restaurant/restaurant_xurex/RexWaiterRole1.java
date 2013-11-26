@@ -2,6 +2,8 @@ package restaurant.restaurant_xurex;
 
 import base.BaseRole;
 import base.interfaces.Person;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
+import restaurant.restaurant_xurex.gui.WaiterGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -39,36 +41,36 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 	
 	private WaiterGui_ waiterGui = null;
 	
-	public RexWaiterRole1(){
-		super();
+	private void initializeMenu(){
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
+	public RexWaiterRole1(){
+		super();
+		initializeMenu();
+	}
 
 	public RexWaiterRole1(String name, Person person) {
 		super(person);
 		this.name = name;
-		menu.put("Steak", new Integer(16));
-		menu.put("Chicken", new Integer(11));
-		menu.put("Salad", new Integer(6));
-		menu.put("Pizza", new Integer(9));
+		initializeMenu();
 	}
 	public RexWaiterRole1(String name, Host host, Cook cook, Person person){
 		super(person);
 		this.name = name;
 		this.cook = cook;
 		this.host = host;
-		menu.put("Steak", new Integer(16));
-		menu.put("Chicken", new Integer(11));
-		menu.put("Salad", new Integer(6));
-		menu.put("Pizza", new Integer(9));
+		initializeMenu();
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#getName()
-	 */
-	@Override
+	public RexWaiterRole1(RexAnimationPanel animationPanel){
+		super();
+		WaiterGui gui = new WaiterGui(this, animationPanel);
+		gui.setRole(this);
+		this.setGui(gui);
+		animationPanel.addGui(gui);
+	}
 	public String getName() {
 		return name;
 	}

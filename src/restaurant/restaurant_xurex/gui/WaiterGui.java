@@ -9,7 +9,7 @@ import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
 public class WaiterGui implements Gui, WaiterGui_ {
 
-    private Waiter agent = null;
+    private Waiter role = null;
     RexAnimationPanel animationPanel;
     
     private boolean msgSent = true;
@@ -25,7 +25,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private int xDestination = home, yDestination = home;//default start position
 
     public WaiterGui(Waiter agent, RexAnimationPanel animationPanel) {
-        this.agent = agent;
+        this.role = agent;
         this.animationPanel = animationPanel;
         places.put(new Integer(1), new Point(200,150));
 		places.put(new Integer(2), new Point(300,150));
@@ -41,7 +41,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
 		places.put(new Integer(11), new Point(25,50));   ///cashier
 		
 		//Creates unique position for WaiterGui
-		xBase = 200 + agent.getNumber()*30;
+		xBase = 200 + role.getNumber()*30;
     }
 
     public void updatePosition() {
@@ -56,7 +56,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
             yPos--;
        
         if (xPos == xDestination && yPos == yDestination && !msgSent) {
-           agent.msgAtLocation(); msgSent=true;
+           role.msgAtLocation(); msgSent=true;
         }
     }
 
@@ -127,15 +127,18 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
     
     public void setBreak(){
-    	agent.wantBreak();
+    	role.wantBreak();
     }
     
     public void backToWork(){
-    	agent.backToWork();
+    	role.backToWork();
     }
     
     public void setWaiterEnabled(){
     	//gui.setWaiterEnabled(agent);
+    }
+    public void setRole(Waiter role){
+    	this.role = role;
     }
     
     public void setWaiterEnabled(String name){
