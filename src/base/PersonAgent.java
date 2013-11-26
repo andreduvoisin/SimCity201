@@ -314,7 +314,6 @@ public class PersonAgent extends Agent implements Person {
 	public void getCar(){
 		Location location = ContactList.cCARDEALERSHIP_DOOR;
 		mPersonGui.DoGoToDestination(location);
-		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(95, 255));
 		acquireSemaphore(semAnimationDone);
 		
 		mPersonGui.setPresent(false); //set city person invisible
@@ -335,12 +334,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		//print("goToJob");
-//		mPersonGui.DoGoToDestination(mJobLocation);
-		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(mJobLocation.mX, mJobLocation.mY));
-//		acquireSemaphore(semAnimationDone);
-//		mAtJob = true; //SHANE: This will need to be set to false somewhere
-//		mPersonGui.setPresent(false);
+		mPersonGui.DoGoToDestination(mJobLocation);
+		acquireSemaphore(semAnimationDone);
+		mAtJob = true; //SHANE: This will need to be set to false somewhere
+		mPersonGui.setPresent(false);
 		
 		mJobRole.setPerson(this); //take over job role
 		mRoles.put(mJobRole, true); //set role to active
@@ -348,13 +345,14 @@ public class PersonAgent extends Agent implements Person {
 
 	public void eatFood() {
 		if (isCheap() && mHouseRole.mHouse != null){
-			System.out.println("Going home to eat...");
+			System.out.println("Going to eat at home");
 			mHouseRole.msgEatAtHome();
-			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(mHouseRole.mHouse.mHouseNum)); //SHANE: 2 - change these to doors
-			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mX, ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mY));
+			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(mHouseRole.mHouse.mHouseNum));
 			acquireSemaphore(semAnimationDone);
+			
+			//SHANE REX: 1 what else needs to be done here?
 		}else{
-			System.out.println("Going out to eat...");
+			System.out.println("Going to restaurant");
 			//set random restaurant
 			Role restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -364,11 +362,10 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 4; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 5; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 			((RestaurantBaseInterface) restCustRole).setPerson(this);
 			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
-			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mX, ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mY));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
 		}
