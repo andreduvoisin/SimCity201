@@ -14,19 +14,19 @@ import javax.swing.JPanel;
 
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import restaurant.restaurant_davidmca.roles.CustomerRole;
-import restaurant.restaurant_davidmca.roles.WaiterRole;
+import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
 /**
  * Main GUI class. Contains the main frame and subsequent panels
  */
-public class RestaurantGui extends CityCard implements ActionListener {
+public class DavidRestaurantGui extends CityCard implements ActionListener {
 
 	AnimationPanel animationPanel = new AnimationPanel();
 
-	private RestaurantPanel restPanel = new RestaurantPanel(this);
+	private DavidRestaurantPanel restPanel = new DavidRestaurantPanel(this);
 
 	/* infoPanel holds information about the clicked customer, if there is one */
 	boolean currentlyPaused = false;
@@ -54,7 +54,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
 	 * @throws IOException
 	 */
 
-	public RestaurantGui(SimCityGui city) throws IOException {
+	public DavidRestaurantGui(SimCityGui city) throws IOException {
 		super(city);
 		int WINDOWX = 500;
 		int WINDOWY = 500;
@@ -175,7 +175,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
 		breakCB.setVisible(false);
 		currentPerson = person;
 
-		if (person instanceof CustomerRole) {
+		if (person instanceof DavidCustomerRole) {
 			Customer customer = (Customer) person;
 			stateCB.setVisible(true);
 			stateCB.setText("Hungry?");
@@ -184,7 +184,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
 			infoLabel.setText("<html><pre>     Name: " + customer.getName()
 					+ " </pre></html>");
 		}
-		if (person instanceof WaiterRole) {
+		if (person instanceof DavidWaiterRole) {
 			Waiter waiter = (Waiter) person;
 			breakCB.setVisible(true);
 			breakCB.setText("Break?");
@@ -203,14 +203,14 @@ public class RestaurantGui extends CityCard implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == stateCB) {
-			if (currentPerson instanceof CustomerRole) {
+			if (currentPerson instanceof DavidCustomerRole) {
 				Customer c = (Customer) currentPerson;
 				c.getGui().setHungry();
 				stateCB.setEnabled(false);
 			}
 		}
 		if (e.getSource() == breakCB) {
-			if (currentPerson instanceof WaiterRole) {
+			if (currentPerson instanceof DavidWaiterRole) {
 				Waiter w = (Waiter) currentPerson;
 				w.getGui().wantsBreak();
 				breakCB.setEnabled(false);
@@ -226,7 +226,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
 	 *            reference to the customer
 	 */
 	public void setCustomerEnabled(Customer c) {
-		if (currentPerson instanceof CustomerRole) {
+		if (currentPerson instanceof DavidCustomerRole) {
 			Customer cust = (Customer) currentPerson;
 			if (c.equals(cust)) {
 				stateCB.setEnabled(true);

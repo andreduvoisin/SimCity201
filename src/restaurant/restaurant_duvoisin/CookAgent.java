@@ -14,7 +14,8 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
  */
 public class CookAgent extends Agent implements Cook {
 	List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
-	enum OrderState { Pending, Cooking, Done };
+	List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
+	public enum OrderState { Pending, Cooking, Done };
 	Map<String, Food> foods = new HashMap<String, Food>();
 	private String name;
 	Boolean paused = false;
@@ -26,9 +27,14 @@ public class CookAgent extends Agent implements Cook {
 	Boolean cookHere[] = new Boolean[26];
 	Boolean plateHere[] = new Boolean[26];
 	
+	Boolean checkRevolvingStand;
+	
+	Timer timer = new Timer();
+	
 	private Semaphore atFridge = new Semaphore(0, true);
 	private Semaphore atGrill = new Semaphore(0, true);
 	private Semaphore atPlating = new Semaphore(0, true);
+	private Semaphore atStand = new Semaphore(0, true);
 
 	public CookAgent(String name) {
 		super();
@@ -47,6 +53,18 @@ public class CookAgent extends Agent implements Cook {
 			cookHere[i] = false;
 		for(int i = 0; i < plateHere.length; i++)
 			plateHere[i] = false;
+		
+		checkRevolvingStand = false;
+		runStandTimer();
+	}
+	
+	public void runStandTimer() {
+		timer.schedule(new TimerTask() {
+			public void run() {
+				checkRevolvingStand = true;
+				stateChanged();
+			}
+		}, 12500);
 	}
 	
 	public String getName() {
@@ -55,13 +73,13 @@ public class CookAgent extends Agent implements Cook {
 
 	// Messages
 	public void msgHereIsOrder(Waiter w, String choice, int table) {
-		print("msgHereIsOrder received");
+		//print("msgHereIsOrder received");
 		orders.add(new Order(w, choice, table, OrderState.Pending));
 		stateChanged();
 	}
 	
 	public void msgFailedToFulfillRequest(Market ma, String item, int amount) {
-		print("msgFailedToFulfillRequest received");
+		//print("msgFailedToFulfillRequest received");
 		foods.get(item).state = FoodState.Rejected;
 		foods.get(item).rejectedAmount = amount;
 		foods.get(item).rejectedMarkets.add(ma);
@@ -69,7 +87,7 @@ public class CookAgent extends Agent implements Cook {
 	}
 	
 	public void msgReplenishFood(String item, int amount) {
-		print("msgReplenishFood received");
+		//print("msgReplenishFood received");
 		foods.get(item).state = FoodState.None;
 		foods.get(item).amount += amount;
 		foods.get(item).rejectedAmount = 0;
@@ -104,6 +122,11 @@ public class CookAgent extends Agent implements Cook {
 	
 	public void msgAtPlating() {
 		atPlating.release();
+		stateChanged();
+	}
+	
+	public void msgAtStand() {
+		atStand.release();
 		stateChanged();
 	}
 	
@@ -144,6 +167,10 @@ public class CookAgent extends Agent implements Cook {
 						return true;
 					}
 			}
+			if(checkRevolvingStand) {
+				CheckRevolvingStand();
+				return true;
+			}
 		}
 		return false;
 	}
@@ -180,13 +207,13 @@ public class CookAgent extends Agent implements Cook {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		cookGui.DoGoWait();
 		o.cookThisOrder();
 		cookGui.setCurrentOrder("");
-		cookGui.DoGoWait();
 	}
 	
 	void PlateFood(Order o) {
-		print("Doing PlateFood");
+		//print("Doing PlateFood");
 		cookGui.DoCooking(o.position);
 		try {
 			atGrill.acquire();
@@ -207,14 +234,14 @@ public class CookAgent extends Agent implements Cook {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		cookGui.DoGoWait();
 		o.waiter.msgOrderIsReady(o.choice, o.table, o.position);
 		orders.remove(o);
 		cookGui.setCurrentOrder("");
-		cookGui.DoGoWait();
 	}
 	
 	void OrderFoodThatIsLow() {
-		print("Doing OrderFoodThatIsLow");
+		//print("Doing OrderFoodThatIsLow");
 		Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
 		for(Food f : foods.values())
 			if(f.amount <= f.low) {
@@ -230,7 +257,7 @@ public class CookAgent extends Agent implements Cook {
 	}
 	
 	void OrderRejectedFood(Food f) {
-		print("Doing OrderRejectedFood");
+		//print("Doing OrderRejectedFood");
 		/*
 		if(f.rejectedMarkets.size() == markets.size()) {
 			f.state = FoodState.None;
@@ -247,15 +274,36 @@ public class CookAgent extends Agent implements Cook {
 			}
 		f.state = FoodState.None;
 	}
-
-	// The animation DoXYZ() routines
+	
+	void CheckRevolvingStand() {
+		//print("Doing CheckRevolvingStand");
+		checkRevolvingStand = false;
+		cookGui.DoGoToRevolvingStand();
+		try {
+			atStand.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		synchronized(revolvingStand) {
+			synchronized(orders) {
+				while(!revolvingStand.isEmpty()) {
+					orders.add(revolvingStand.remove(0));
+					print("o: " + orders.size() + " && rS: " + revolvingStand.size());
+				}
+			}
+		}
+		cookGui.DoGoWait();
+		runStandTimer();
+	}
 	
 	//utilities
 	public void addMarket(Market m) { markets.add(m); }
 	
 	public void setGui(CookGui cg) { cookGui = cg; }
 	
-	class Order {
+	public List<Order> getRevolvingStand() { return revolvingStand; }
+	
+	public class Order {
 		Waiter waiter;
 		String choice;
 		int table;

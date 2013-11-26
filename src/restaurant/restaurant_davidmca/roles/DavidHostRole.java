@@ -17,18 +17,18 @@ import base.BaseRole;
  * Restaurant Host Agent
  */
 
-public class HostRole extends BaseRole implements Host {
+public class DavidHostRole extends BaseRole implements Host {
 	static final int NTABLES = 4;// a global for the number of tables.
-	public List<CustomerRole> waitingCustomers = Collections
-			.synchronizedList(new ArrayList<CustomerRole>());
-	public List<CustomerRole> indecisiveCustomers = Collections
-			.synchronizedList(new ArrayList<CustomerRole>());
+	public List<DavidCustomerRole> waitingCustomers = Collections
+			.synchronizedList(new ArrayList<DavidCustomerRole>());
+	public List<DavidCustomerRole> indecisiveCustomers = Collections
+			.synchronizedList(new ArrayList<DavidCustomerRole>());
 	public Collection<Table> tables;
 	public Collection<MyWaiter> waiters = Collections
 			.synchronizedList(new ArrayList<MyWaiter>());
 	private int workingWaiters = 0;
 	private int index = 0;
-	public CookRole cook = null;
+	public DavidCookRole cook = null;
 
 	private String name;
 	// Table positions
@@ -41,7 +41,7 @@ public class HostRole extends BaseRole implements Host {
 
 	public HostGui hostGui = null;
 
-	public HostRole(String name) {
+	public DavidHostRole(String name) {
 		super(null);
 
 		this.name = name;
@@ -67,7 +67,7 @@ public class HostRole extends BaseRole implements Host {
 		stateChanged();
 	}
 
-	public List<CustomerRole> getWaitingCustomers() {
+	public List<DavidCustomerRole> getWaitingCustomers() {
 		return waitingCustomers;
 	}
 
@@ -131,12 +131,12 @@ public class HostRole extends BaseRole implements Host {
 
 	// Messages
 
-	public void msgCheckAvailability(CustomerRole cust) {
+	public void msgCheckAvailability(DavidCustomerRole cust) {
 		indecisiveCustomers.add(cust);
 		stateChanged();
 	}
 
-	public void msgIWantFood(CustomerRole cust) {
+	public void msgIWantFood(DavidCustomerRole cust) {
 		index++;
 		waitingCustomers.add(cust);
 		stateChanged();
@@ -178,7 +178,7 @@ public class HostRole extends BaseRole implements Host {
 	public boolean pickAndExecuteAnAction() {
 		//System.out.println("davidmca HostRole pAEA run");
 		synchronized (indecisiveCustomers) {
-			for (CustomerRole cust : indecisiveCustomers) {
+			for (DavidCustomerRole cust : indecisiveCustomers) {
 				cust.msgAvailability(getAvailability());
 				indecisiveCustomers.remove(cust);
 				return true;
@@ -232,7 +232,7 @@ public class HostRole extends BaseRole implements Host {
 		return hostGui;
 	}
 
-	public void setCook(CookRole cook) {
+	public void setCook(DavidCookRole cook) {
 		this.cook = cook;
 
 	}

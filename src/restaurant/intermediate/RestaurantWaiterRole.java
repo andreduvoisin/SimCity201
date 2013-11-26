@@ -3,9 +3,9 @@ package restaurant.intermediate;
 import java.util.Random;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import restaurant.restaurant_davidmca.gui.RestaurantPanel;
-import restaurant.restaurant_davidmca.roles.WaiterRole;
-import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -21,23 +21,23 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	}
 
 	public void setRestaurant(int restaurantID) {
-		if (restaurantID == 1) {
+		if (restaurantID == 4) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
-				subRole = new WaiterRole(super.mPerson);
-				RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
+				subRole = new DavidWaiterRole(super.mPerson);
+				DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
 			} else {
-				subRole = new WaiterRoleShared(super.mPerson);
-				RestaurantPanel.getInstance().addSharedWaiter(
-						(WaiterRoleShared) subRole);
+				subRole = new DavidWaiterRoleShared(super.mPerson);
+				DavidRestaurantPanel.getInstance().addSharedWaiter(
+						(DavidWaiterRoleShared) subRole);
 			}
 		}
 		else if (restaurantID == 5){
 			subRole = new SmilehamWaiterRole(mPerson);
 		}
 		else{ //just for now to remove null pointer errors
-			subRole = new WaiterRole(super.mPerson);
-			RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
+			subRole = new DavidWaiterRole(super.mPerson);
+			DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
 		}
 		// TODO DAVID add if statements for all the other restaurants
 	}
