@@ -19,6 +19,7 @@ import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 //import restaurant.restaurant_tranac.gui.TranacRestaurantPanel; // ANGELICA: error here
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.gui.BankPanel;
@@ -58,7 +59,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		JerrywebRestaurantGui jerryweb = new JerrywebRestaurantGui(city);
 		cards.put("R_jerryweb", jerryweb);
 		
-	//	cards.put("R_tranac", new TranacRestaurantPanel(city));
+		cards.put("R_tranac", new TranacRestaurantPanel(city));
 		
 		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
 		cards.put("R_Maggiyan", maggiyan);
