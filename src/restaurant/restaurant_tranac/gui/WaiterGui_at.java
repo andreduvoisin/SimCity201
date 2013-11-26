@@ -92,6 +92,55 @@ public class WaiterGui_at implements Gui {
     	}
     }
 
+    public WaiterGui_at(RestaurantWaiterRole_at agent, int i) {
+        this.agent = agent;
+        this.gui = RestaurantPanel_at.getInstance();
+        
+        //home coordinates based off of what num waiter is
+        xHome = xBase + 30*(i % 10);
+        yHome = yBase + 40*(int)(i/10);
+        
+        //table coordinates are matched to the animationPanel table coordinates
+        tableLocations.put(1, new Coordinates(100,325));
+        tableLocations.put(2, new Coordinates(220,320));
+        tableLocations.put(3, new Coordinates(400,320));
+        tableLocations.put(4, new Coordinates(528,320));
+        
+        //plate coordinates
+        plateLocations.put(1, new Coordinates(410,20));
+        plateLocations.put(2, new Coordinates(410,80));
+        plateLocations.put(3, new Coordinates(508,165));
+        plateLocations.put(4, new Coordinates(568,165));
+        
+    	image = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/blue-rhapsody.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	check = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/check.png");
+    	check = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	
+    	askingBubble = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-question.png");
+    	askingBubble = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    }
+
     public void updatePosition() {
         if (xPos < xDestination)
             xPos++;
