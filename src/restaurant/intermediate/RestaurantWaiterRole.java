@@ -6,6 +6,9 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.WaiterRole;
 import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
+import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -20,7 +23,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	}
 
 	public void setRestaurant(int restaurantID) {
-		if (restaurantID == 1) {
+		if (restaurantID == 4) {
 			int rn = new Random().nextInt();
 			if (rn % 2 == 0) {
 				subRole = new WaiterRole(super.mPerson);
@@ -29,6 +32,17 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				subRole = new WaiterRoleShared(super.mPerson);
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
+			}
+		}
+		if (restaurantID == 3) {
+			int rn = new Random().nextInt();
+			
+			if (rn % 2 == 0) {
+				subRole = new MaggiyanWaiterRole(super.mPerson);
+				MaggiyanRestaurantPanel.getRestPanel().addWaiter((MaggiyanWaiterRole) subRole);
+			} else {
+				subRole = new MaggiyanSharedWaiterRole(super.mPerson);
+				MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
 			}
 		}
 		// TODO DAVID add if statements for all the other restaurants

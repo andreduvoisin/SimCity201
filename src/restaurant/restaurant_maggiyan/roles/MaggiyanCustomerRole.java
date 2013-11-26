@@ -139,6 +139,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	
 	public void gotHungry() {
 		print("I'm hungry");
+		customerGui.setPresent(true);
 		event = AgentEvent.gotHungry;
 		stateChanged();
 	}

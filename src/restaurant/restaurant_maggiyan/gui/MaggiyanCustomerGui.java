@@ -20,6 +20,9 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 	//private HostAgent host;
 	MaggiyanRestaurantGui gui;
 
+	//Line up positions 
+	
+	
 	private int xPos, yPos, prevXPos, prevYPos;
 	private int xDestination, yDestination;
 	private enum Command {noCommand, GoToSeat, LeaveRestaurant};

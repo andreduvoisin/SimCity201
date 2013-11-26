@@ -91,10 +91,10 @@ public class PersonAgent extends Agent implements Person {
 				mJobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
-				//mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 				//System.out.println(mJobRole.toString());
-				//((RestaurantBaseInterface) mJobRole).setPerson(this);
-				//((RestaurantBaseInterface) mJobRole).setRestaurant(2);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(3); //HACK
 				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
@@ -153,9 +153,9 @@ public class PersonAgent extends Agent implements Person {
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
-//		mEvents.add(new Event(EnumEventType.JOB, 0));
+		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-//		mEvents.add(new Event(EnumEventType.EAT, 1));
+		mEvents.add(new Event(EnumEventType.EAT, 1));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 //		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
@@ -206,6 +206,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
+		System.out.println("DOES CALL PAEA"); 
 		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
 				Iterator<Event> itr = mEvents.iterator();

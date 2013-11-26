@@ -66,6 +66,17 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	
 	private boolean reenableBreakButton = false; 
 	
+	public MaggiyanSharedWaiterRole(Person p){
+		super(p);
+		
+		if (p == null) {
+			this.name = "NULL Waiter";
+		}
+		else {
+			this.name = p.getName();
+		}
+	}
+	
 	public MaggiyanSharedWaiterRole(String n, MaggiyanCook cook, MaggiyanHost host) {
 		
 	}
@@ -312,7 +323,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 				}
 			}
 			waiterGui.DoLeaveCustomer();
-			host.msgWaiterFree(this);
+			//host.msgWaiterFree(this);
 			return false;	
 		}catch(ConcurrentModificationException e){
 			return true; 

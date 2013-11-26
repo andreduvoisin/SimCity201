@@ -67,6 +67,17 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	private boolean reenableBreakButton = false; 
 	
+	public MaggiyanWaiterRole(Person p){
+		super(p);
+		
+		if (p == null) {
+			this.name = "NULL Waiter";
+		}
+		else {
+			this.name = p.getName();
+		}
+	}
+	
 	public MaggiyanWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
 		super();
 		

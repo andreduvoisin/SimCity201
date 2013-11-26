@@ -3,6 +3,7 @@ package restaurant.intermediate;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
@@ -23,18 +24,18 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 
 	public void setRestaurant(int restaurantID) {
 		//David
-		if (restaurantID == 1) {
+		if (restaurantID == 4) {
 			subRole = new CustomerRole(super.mPerson);
 			RestaurantPanel.getInstance().addCustomer((CustomerRole) subRole);
 		}
 		//Maggi
-		if (restaurantID == 2) {
+		if (restaurantID == 3) {
 			subRole = new MaggiyanCustomerRole(super.mPerson);
-			//MaggiyanRestaurantPanel.getRestPanel().addCustomer((CustomerRole) subRole);
+			MaggiyanRestaurantPanel.getRestPanel().addCustomer((MaggiyanCustomerRole) subRole);
 		}
 		
 		//Angelica
-		if (restaurantID == 3) {
+		if (restaurantID == 1) {
 			subRole = new RestaurantCustomerRole_at(mPerson);
 			RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
 		}
