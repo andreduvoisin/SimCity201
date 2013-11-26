@@ -15,9 +15,8 @@ public class ConfigParser {
 
 	private static ConfigParser instance = null;
 
-	public void readFileCreatePersons(SimCityGui simcitygui) throws FileNotFoundException {
-//		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/config.txt"));
-		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/test" + SimCityGui.TESTNUM + ".txt"));
+	public void readFileCreatePersons(SimCityGui simcitygui, int fileNum) throws FileNotFoundException {
+		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/config"+fileNum+".txt"));
 		
 		//Instantiate the base roles before creating the people
 		SortingHat.InstantiateBaseRoles();
