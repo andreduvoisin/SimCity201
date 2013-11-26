@@ -11,6 +11,7 @@ import java.util.*;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_tranac.gui.CookGui_at;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_tranac.roles.RestaurantCookRole_at;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 
@@ -35,7 +36,10 @@ public class CookCustomerTest extends TestCase {
  		
  		mPerson = new PersonAgent();
  		mCookCustomer = new RestaurantCookRole(mPerson);
- 	//	mCookCustomer.setRestaurant(6);
+ 		mCookCustomer.setRestaurant(6);
+ 		mCookGui = new CookGui_at((RestaurantCookRole_at) mCookCustomer.subRole);
+ 		RestaurantCookRole_at r = (RestaurantCookRole_at)(mCookCustomer.subRole);
+ 		r.setGui(mCookGui);
  		
  		mMockCashier = new MockCashier();
  		mMockWorker = new MockWorker();
