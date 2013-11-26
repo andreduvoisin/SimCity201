@@ -35,19 +35,18 @@ public class CustomerGui implements Gui {
                 xDestination = -40;
                 yDestination = -40;
                 this.gui = gui;
-                System.out.println("customer gui created, placing at "+xHome+" ,"+yHome);
         }
 
         public void updatePosition() {
                 if (xPos < xDestination)
-                        xPos += 2;
+                        xPos += 1;
                 else if (xPos > xDestination)
-                        xPos -= 2;
+                        xPos -= 1;
 
                 if (yPos < yDestination)
-                        yPos += 2;
+                        yPos += 1;
                 else if (yPos > yDestination)
-                        yPos -= 2;
+                        yPos -= 1;
                 if (xPos == xDestination && yPos == yDestination) {
                         if (command == Command.WaitingArea) {
                                 agent.msgAnimationFinishedGoToWaitingArea();
