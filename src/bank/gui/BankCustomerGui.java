@@ -5,6 +5,10 @@ import base.Gui;
 import base.Location;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class BankCustomerGui implements Gui {
 
@@ -18,10 +22,13 @@ public class BankCustomerGui implements Gui {
 	private boolean isMovingToTeller = false;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOS = -20;
+	static final int STARTPOSX = 235;
+	static final int STARTPOSY = -50;
 	
 	private int positionInLine;
 	
+	//Animation Upgrades 
+	private BufferedImage image;
 	
 	static final int INTERACT_X1 = 250;
 	static final int INTERACT_X2 = 200;
@@ -31,10 +38,19 @@ public class BankCustomerGui implements Gui {
 	public BankCustomerGui(BankCustomer bc, BankPanel bp) {
 		agent = bc;
 		bankPanel = bp;
-		xPos = STARTPOS;
-		yPos = STARTPOS;
-		xDestination = STARTPOS;
-		yDestination = STARTPOS;
+		xPos = STARTPOSX;
+		yPos = STARTPOSY;
+		xDestination = STARTPOSX;
+		yDestination = STARTPOSY;
+		
+		image = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 
 	public void updatePosition() {
@@ -55,8 +71,7 @@ public class BankCustomerGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, CUSTOMERSIZE, CUSTOMERSIZE);
+		g.drawImage(image, xPos, yPos, null);
 	}
 
 	public boolean isPresent() {
@@ -81,8 +96,8 @@ public class BankCustomerGui implements Gui {
 	}
 	
 	public void DoLeaveBank() {
-		xDestination = -20;
-		yDestination = -20;
+		xDestination = 225;
+		yDestination = -50;
 	}
 
 	public void DoGoToTeller() {

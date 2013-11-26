@@ -43,6 +43,7 @@ public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
 	public static int sSSN = 0;
+	public static int sRestaurantCounter = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
@@ -70,7 +71,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	public PersonGuiInterface mPersonGui;
+	public CityPerson mPersonGui;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -123,7 +124,7 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
 					break;
-				case TRANSPORTATION://CHASE: transportation jobType
+				case TRANSPORTATION:
 					mJobRole = SortingHat.getTransportationRole();
 					break;
 				case HOUSING: break;
@@ -138,12 +139,10 @@ public class PersonAgent extends Agent implements Person {
 			mJobRole = new RestaurantCustomerRole(this);
 			((RestaurantBaseInterface) mJobRole).setPerson(this);
 			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
-			
-			/*
-			mJobRole = new BankCustomerRole(this);
-			mJobRole.setPerson(this);
-			BankPanel.getInstance().addPerson(mJobRole);
-			*/
+
+//			mJobRole = new BankCustomerRole(this);
+//			mJobRole.setPerson(this);
+//			BankPanel.getInstance().addPerson(mJobRole);
 		}
 		
 		boolean active = (mTimeShift == Time.GetShift());
@@ -354,7 +353,9 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
 			throwParty((EventParty)event);
-			planParty(Time.GetTime()+24);
+			if(((EventParty)event).mHost == this){
+				planParty(Time.GetTime()+24);
+			}
 			/*
 			int inviteNextDelay = 24*mSSN;
 			EventParty party = (EventParty) event;
@@ -363,6 +364,14 @@ public class PersonAgent extends Agent implements Person {
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
 			*/
 			//SHANE: 3 check event classes
+		}
+
+		//Transportation
+		else if (event.mEventType == EnumEventType.BOARD_BUS) {
+			boardBus();
+		}
+		else if (event.mEventType == EnumEventType.EXIT_BUS) {
+			exitBus();
 		}
 		
 		mEvents.remove(event);
@@ -548,7 +557,23 @@ public class PersonAgent extends Agent implements Person {
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
 		return false;
 	}
-	
+
+
+	private void boardBus() {
+		int boardAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		int exitAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mFinalDestination);
+
+		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
+		acquireSemaphore(semAnimationDone);
+
+		((TransportationBusRiderRole) mJobRole).msgReset(boardAtStop, exitAtStop);
+		
+	}
+
+	private void exitBus() {
+		mRoleFinished = true;
+		mPersonGui.NewDestination(new Location(mPersonGui.mFinalDestination.mX, mPersonGui.mFinalDestination.mY));
+	}
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
@@ -642,9 +667,9 @@ public class PersonAgent extends Agent implements Person {
 		return (CityPerson)mPersonGui;
 	}
 
-	public void setGui(MockPersonGui gui) {
+	/*public void setGui(MockPersonGui gui) {
 		mPersonGui = gui;
-	}
+	}*/
 
 	@Override
 	public CityHousing getHouse() {

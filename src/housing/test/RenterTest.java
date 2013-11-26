@@ -146,6 +146,8 @@ public class RenterTest extends TestCase {
 		mHousingRenter.mTimeToMaintain = true;  
 		mHousingRenter.isAnimating.release();
 		mHousingRenter.isAnimating.release();
+		mHousingRenter.isAnimating.release();
+		mHousingRenter.isAnimating.release();
 
 		//Check
 		assertTrue("PAEA: return true and does action", mHousingRenter.pickAndExecuteAnAction()); 

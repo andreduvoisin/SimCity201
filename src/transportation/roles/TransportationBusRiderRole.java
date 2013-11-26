@@ -24,11 +24,11 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ------------------------------------- DATA ---------------------------------------
 	// ==================================================================================
 
-	private TransportationBusDispatch mBusDispatch;
-	private TransportationBusRiderGui mGui;
+	public TransportationBusDispatch mBusDispatch;
+	public TransportationBusRiderGui mGui;
 
-	private int mCurrentLocation;
-	private int mDestination;
+	public int mCurrentLocation;
+	public int mDestination;
 	
 	private enum enumState { none, askForRide, waiting, toldToBoard, boarding, boarded,
 								riding, atDestination, exiting }
@@ -38,6 +38,11 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ==================================================================================
 	// ----------------------------------- MESSAGES -------------------------------------
 	// ==================================================================================
+
+	public void msgReset(int currentStop, int destinationStop) {
+		state = enumState.askForRide;
+		stateChanged();
+	}
 
 	/**
 	 * From GUI
@@ -107,20 +112,24 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ==================================================================================
 
 	private void AskForRide() {
+		System.out.println("AskForRide from " + mCurrentLocation);
 		mBusDispatch.msgNeedARide(this, mCurrentLocation);
 		state = enumState.waiting;
 	}
 
 	private void BoardBus() {
+		System.out.println("BoardBus()");
 		mGui.DoBoardBus();
 		state = enumState.boarding;
 	}
 
 	private void TellBusBoarded() {
+		System.out.println("TellBusBoarded()");
 		mBusDispatch.msgImOn(this);
 	}
 
 	private void ExitBus() {
+		System.out.println("ExitBus()");
 		mGui.DoExitBus();
 		state = enumState.exiting;
 	}

@@ -27,7 +27,8 @@ public class ConfigParser {
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
 			
 			//Job
-			String jobString = scanPerson.next();
+			String jobString = scanPerson.next();			
+
 //			EnumJobType jobType = null;
 //			if (jobString.equals("BANK")) {
 //				jobType = EnumJobType.BANK;

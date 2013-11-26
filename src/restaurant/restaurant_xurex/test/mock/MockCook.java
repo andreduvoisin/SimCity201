@@ -54,12 +54,6 @@ public class MockCook extends Mock implements Cook {
 	}
 
 	@Override
-	public int getQuantity(String food) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void msgAtLocation() {
 		// TODO Auto-generated method stub
 		

@@ -6,7 +6,6 @@ import java.util.concurrent.Semaphore;
 
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
-import bank.gui.BankPanel;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;

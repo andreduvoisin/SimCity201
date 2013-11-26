@@ -55,6 +55,7 @@ public class SortingHat {
 		}
 
 		//Restaurants
+
 		for (int iRestaurantNum = SimCityGui.TESTNUM; iRestaurantNum < SimCityGui.TESTNUM + 1; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
 			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));

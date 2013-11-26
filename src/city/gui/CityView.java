@@ -20,7 +20,6 @@ import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
-import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 //import restaurant.restaurant_tranac.gui.TranacRestaurantPanel; // ANGELICA: error here
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.gui.BankPanel;
