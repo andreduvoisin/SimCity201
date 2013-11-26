@@ -25,30 +25,33 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 
 	public void setRestaurant(int restaurantID) {
 		// TODO ALL add if statements for all the other restaurants
-		//Andre
-		if (restaurantID == 0) {
-			subRole = new AndreCustomerRole(super.mPerson);
-			AndreRestaurantPanel.getInstance().addPerson((AndreCustomerRole)subRole);
-		}
-		//Maggi
-		if (restaurantID == 2) {
-			subRole = new MaggiyanCustomerRole(super.mPerson);
-			//MaggiyanRestaurantPanel.getRestPanel().addCustomer((CustomerRole) subRole);
-		}
-		//Angelica
-		if (restaurantID == 3) {
-			subRole = new RestaurantCustomerRole_at(mPerson);
-			RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
-		}
-		//David
-		if (restaurantID == 4) {
-			subRole = new DavidCustomerRole(super.mPerson);
-			DavidRestaurantPanel.getInstance().addCustomer((DavidCustomerRole) subRole);
-		}
-		//Shane
-		if (restaurantID == 5) {
-			subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), SmilehamAnimationPanel.mInstance);
-			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
+		switch(restaurantID){
+			case 0: //andre
+				subRole = new AndreCustomerRole(super.mPerson);
+				AndreRestaurantPanel.getInstance().addPerson((AndreCustomerRole)subRole);
+				break;
+			case 1: //chase
+				break;
+			case 2: //jerry
+				break;
+			case 3: //maggi
+				subRole = new MaggiyanCustomerRole(super.mPerson);
+				//MaggiyanRestaurantPanel.getRestPanel().addCustomer((CustomerRole) subRole);
+				break;
+			case 4: //david
+				subRole = new DavidCustomerRole(super.mPerson);
+				DavidRestaurantPanel.getInstance().addCustomer((DavidCustomerRole) subRole);
+				break;
+			case 5: //shane
+				subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), SmilehamAnimationPanel.mInstance);
+				SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
+				break;
+			case 6: //angelica
+				subRole = new RestaurantCustomerRole_at(mPerson);
+				RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
+				break;
+			case 7: //rex
+				break;
 		}
 	}
 	

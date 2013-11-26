@@ -19,10 +19,10 @@ import base.Item.EnumItemType;
 public class MarketItemsGui implements MarketBaseGui {
 	MarketCashierRole mCashier;
 	private EnumMarketType mMarketType;
-	private Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
+	public Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
 	private int xBase = 300, yBase = 30;
 	private static final int SIZE = 20;
-	private static final int sBaseInventory = 5;
+	public static final int sBaseInventory = 5;
 	
 	public MarketItemsGui(EnumMarketType t) {
 		mMarketType = t;
@@ -53,10 +53,12 @@ public class MarketItemsGui implements MarketBaseGui {
 	}
 	
 /* Utilities */
-	public void decreaseItemCount(EnumItemType i) {
+	public void decreaseItemCount(EnumItemType i, int n) {
+		System.out.println(n);
 		for(ItemGui item : mItems.keySet()) {
 			if(item.mItem == i) {
-				item.mNumber--;
+				item.mNumber = item.mNumber-n;
+				System.out.println(n + " " + item.mNumber);
 			}
 		}
 	}
@@ -68,6 +70,17 @@ public class MarketItemsGui implements MarketBaseGui {
 			}
 		}
 		return null;
+	}
+	
+	public int getNum(EnumItemType item) {
+		int n = 0;
+		for(ItemGui i : mItems.keySet()) {
+			if(i.mItem == item) {
+				n = i.mNumber;
+				System.out.println("Test " + n);
+			}
+		}
+		return n;
 	}
 	
 	public boolean isPresent() {

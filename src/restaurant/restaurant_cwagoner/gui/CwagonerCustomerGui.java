@@ -1,21 +1,21 @@
 package restaurant.restaurant_cwagoner.gui;
 
-import restaurant.restaurant_cwagoner.CustomerAgent;
-import restaurant.restaurant_cwagoner.WaiterAgent;
+import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 
 import java.awt.*;
 
-public class CustomerGui implements Gui {
+public class CwagonerCustomerGui implements CwagonerGui {
 
 	private final int PLATE = 20;
 	private static int customerNum = 0;
 	
-	private CustomerAgent agent = null;
+	private CwagonerCustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 
-	WaiterAgent waiter; 
-	RestaurantGui restaurantGui;
+	CwagonerWaiterRole waiter; 
+	CwagonerRestaurantGui RestaurantGui;
 
 	private int size = 20,
 				GONE_X = -2 * size, GONE_Y = -2 * size,
@@ -29,10 +29,10 @@ public class CustomerGui implements Gui {
 	private Command command = Command.noCommand;
 	
 	private String food = "";
-	
-	public CustomerGui(CustomerAgent c, RestaurantGui g){
+
+	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerRestaurantGui g) {
 		agent = c;
-		restaurantGui = g;
+		RestaurantGui = g;
 		WAITING_X = size;
 		WAITING_Y = 100 - (customerNum % 4) * (size + 10);
 		customerNum++;
@@ -42,7 +42,7 @@ public class CustomerGui implements Gui {
 	}
 	
 	public void setTableLocation(int tableNum) {
-		Dimension tableLoc = restaurantGui.getTableLocation(tableNum);
+		Dimension tableLoc = RestaurantGui.getTableLocation(tableNum);
 		TABLE_X = tableLoc.width;
 		TABLE_Y = tableLoc.height;
 	}
@@ -74,7 +74,6 @@ public class CustomerGui implements Gui {
 					&& xDestination == GONE_X && yDestination == GONE_Y) {
 				agent.msgGuiLeftRestaurant();
 				isHungry = false;
-				restaurantGui.setCustomerEnabled(agent);
 			}
 			command = Command.noCommand;
 		}

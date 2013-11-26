@@ -53,7 +53,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		stateChanged();
 	}
 	
-	public void msgAnimationLeftRestaurant() {
+	public void msgAnimationLeftMarket() {
 		inTransit.release();
 	}
 	

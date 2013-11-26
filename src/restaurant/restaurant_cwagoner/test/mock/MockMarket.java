@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import restaurant.restaurant_cwagoner.interfaces.*;
 
-public class MockMarket extends Mock implements Market {
+public class MockMarket extends Mock implements CwagonerMarket {
 
-	public Cashier cashier;
+	public CwagonerCashier cwagonerCashier;
 
 	public EventLog log;
 
@@ -15,11 +15,11 @@ public class MockMarket extends Mock implements Market {
 		log = new EventLog();
 	}
 	
-	public void msgNeedFood(Cook c, Cashier ca, HashMap<String, Integer> orderedStock) {
+	public void msgNeedFood(CwagonerCook c, CwagonerCashier ca, HashMap<String, Integer> orderedStock) {
 		log.add(new LoggedEvent("Received msgNeedFood"));
 	}
 	
-	public void msgPayment(Cashier ca, double payment) {
+	public void msgPayment(CwagonerCashier ca, double payment) {
 		log.add(new LoggedEvent("Received msgPayment; payment = " + payment));
 	}
 	

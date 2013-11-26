@@ -86,13 +86,13 @@ public class ContactList {
 	}
 	
 	static final Location cRESTAURANT_DOOR1 = new Location(cGRID_POINT1-5,cGRID_POINT1-5); //aduvoisin	0
-	static final Location cRESTAURANT_DOOR2= new Location(cGRID_POINT1-5,cGRID_POINT3-5); //cwagoner	1
-	static final Location cRESTAURANT_DOOR3= new Location(cGRID_POINT1-5,cGRID_POINT5-5); //jerrywebb	2
-	static final Location cRESTAURANT_DOOR4= new Location(cGRID_POINT3-5,cGRID_POINT7-5); //maggiyang	3
-	static final Location cRESTAURANT_DOOR5= new Location(cGRID_POINT5-5,cGRID_POINT7-5); //davidmca	4
-	static final Location cRESTAURANT_DOOR6= new Location(cGRID_POINT7-5,cGRID_POINT5-5); //smileham	5
-	static final Location cRESTAURANT_DOOR7= new Location(cGRID_POINT7-5,cGRID_POINT3-5); //tranac		6
-	static final Location cRESTAURANT_DOOR8= new Location(cGRID_POINT7-5,cGRID_POINT1-5); //xurex		7
+	static final Location cRESTAURANT_DOOR2 = new Location(cGRID_POINT1-5,cGRID_POINT3-5); //cwagoner	1
+	static final Location cRESTAURANT_DOOR3 = new Location(cGRID_POINT1-5,cGRID_POINT5-5); //jerrywebb	2
+	static final Location cRESTAURANT_DOOR4 = new Location(cGRID_POINT3-5,cGRID_POINT7-5); //maggiyang	3
+	static final Location cRESTAURANT_DOOR5 = new Location(cGRID_POINT5-5,cGRID_POINT7-5); //davidmca	4
+	static final Location cRESTAURANT_DOOR6 = new Location(cGRID_POINT7-5,cGRID_POINT5-5); //smileham	5
+	static final Location cRESTAURANT_DOOR7 = new Location(cGRID_POINT7-5,cGRID_POINT3-5); //tranac		6
+	static final Location cRESTAURANT_DOOR8 = new Location(cGRID_POINT7-5,cGRID_POINT1-5); //xurex		7
 	static {
 		List<Location> list = new ArrayList<Location>();
 		list.add(cRESTAURANT_DOOR1);

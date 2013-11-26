@@ -1,9 +1,12 @@
 package restaurant.restaurant_xurex.gui;
 
-import restaurant.restaurant_xurex.agents.CustomerAgent;
-import restaurant.restaurant_xurex.interfaces.Waiter;
+//import restaurant.restaurant_xurex.agents.CustomerAgent;
+//import restaurant.restaurant_xurex.interfaces.Waiter;
 
-import javax.swing.*;
+//import javax.swing.*;
+
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -11,7 +14,7 @@ import java.awt.event.*;
  * Main GUI class.
  * Contains the main frame and subsequent panels
  */
-public class RestaurantGui extends JFrame implements ActionListener {
+public class RexRestaurantGui extends CityCard implements ActionListener {
     /**
 	 * 
 	 */
@@ -23,10 +26,10 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */    
-    private RestaurantPanel restPanel = new RestaurantPanel(this);
+    //private RestaurantPanel restPanel = new RestaurantPanel(this);
     
-	private JLabel label = new JLabel();
-    private JLabel inventoryLabel = new JLabel();
+	//private JLabel label = new JLabel();
+    //private JLabel inventoryLabel = new JLabel();
     
     /* infoPanel holds information about the clicked customer, if there is one
     private JPanel infoPanel;
@@ -45,9 +48,10 @@ public class RestaurantGui extends JFrame implements ActionListener {
      * Constructor for RestaurantGui class.
      * Sets up all the gui components.
      */
-    public RestaurantGui() {
-        int WINDOWX = 1200;
-        int WINDOWY = 350;
+    public RexRestaurantGui(SimCityGui city) {
+    	super(city);
+        int WINDOWX = 500;
+        int WINDOWY = 500;
         /*
         animationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         animationFrame.setBounds(100+WINDOWX, 50 , WINDOWX+100, WINDOWY+100);
@@ -57,10 +61,9 @@ public class RestaurantGui extends JFrame implements ActionListener {
         
     	setBounds(50, 50, WINDOWX, WINDOWY);
 
-        setLayout(new BoxLayout((Container) getContentPane(), 
-        		BoxLayout.X_AXIS));
+        setLayout(new GridLayout (1,2));
 
-    	
+    	/*
         Dimension restDim = new Dimension(550, (int) (WINDOWY));
         restPanel.setPreferredSize(restDim);
         restPanel.setMinimumSize(restDim);
@@ -152,7 +155,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
             }
         }*/
     }
-    
+    /*
     public void updateInventory(){
     	label.setText(
                 "<html><h3><u>Inventory</u></h3><table>"
@@ -178,7 +181,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
                 +restPanel.getMarket(3).getQuantity("Pizza")
                 +"</td></tr></table><br></html>");
     }
-    
+    /*
     private void InitInventoryLabel(){
         //restLabel.setLayout(new BoxLayout((Container)restLabel, BoxLayout.Y_AXIS));
         inventoryLabel.setLayout(new BorderLayout());
@@ -211,20 +214,22 @@ public class RestaurantGui extends JFrame implements ActionListener {
         inventoryLabel.add(new JLabel("               "), BorderLayout.EAST);
         inventoryLabel.add(new JLabel("               "), BorderLayout.WEST);
     }
+    */
     /**
      * Message sent from a customer gui to enable that customer's
      * "I'm hungry" checkbox.
      *
      * @param c reference to the customer
      */
+    /*
     public void setCustomerEnabled(CustomerAgent c) {
-        /*if (currentPerson instanceof CustomerAgent) {
+        if (currentPerson instanceof CustomerAgent) {
             CustomerAgent cust = (CustomerAgent) currentPerson;
             if (c.equals(cust)) {
                 stateCB.setEnabled(true);
                 stateCB.setSelected(false);
             }
-        }*/
+        }
         //Extra Code added to enable ListC CheckBoxes
         restPanel.getCustomerPanel().setCustomerEnabled(c);
     }
@@ -236,10 +241,11 @@ public class RestaurantGui extends JFrame implements ActionListener {
     public void setWaiterEnabled(Waiter w, String name){
     	restPanel.getWaiterPanel().setWaiterEnabled(w, name);
     }
-    
+    */
     /**
      * Main routine to get gui started
      */
+    /*
     public static void main(String[] args) {
         RestaurantGui gui = new RestaurantGui();
         gui.setTitle("Rex's Rad Restaurant");
@@ -247,5 +253,5 @@ public class RestaurantGui extends JFrame implements ActionListener {
         gui.setResizable(false);
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-
+	*/
 }

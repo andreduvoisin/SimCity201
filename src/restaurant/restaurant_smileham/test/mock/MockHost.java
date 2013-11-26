@@ -5,40 +5,33 @@ import java.util.List;
 
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.gui.HostGui;
-import restaurant.restaurant_smileham.interfaces.Cook;
-import restaurant.restaurant_smileham.interfaces.Customer;
-import restaurant.restaurant_smileham.interfaces.Host;
-import restaurant.restaurant_smileham.interfaces.Waiter;
-import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
+import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 
-public class MockHost extends Mock implements Host{
+public class MockHost extends Mock implements SmilehamHost{
 
 	public MockHost(String name) {
 		super(name);
 	}
 
 	@Override
-	public void msgAddWaiter(Waiter waiter) {
+	public void msgAddWaiter(SmilehamWaiter waiter) {
 		
 	}
 
 	@Override
-	public void msgIWantFood(Customer customer) {
+	public void msgIWantFood(SmilehamCustomer customer) {
 		
 	}
 
 	@Override
-	public void msgLeavingTable(Customer cust) {
+	public void msgLeavingTable(SmilehamCustomer cust) {
 
 	}
 
 	@Override
-	public void msgLeavingRestaurant(Customer customer) {
-		
-	}
-
-	@Override
-	public void msgWantToGoOnBreak(Waiter waiter) {
+	public void msgLeavingRestaurant(SmilehamCustomer customer) {
 		
 	}
 
@@ -48,7 +41,7 @@ public class MockHost extends Mock implements Host{
 	}
 
 	@Override
-	public List<Customer> getWaitingCustomers() {
+	public List<SmilehamCustomer> getWaitingCustomers() {
 		return null;
 	}
 
@@ -69,7 +62,7 @@ public class MockHost extends Mock implements Host{
 
 
 	@Override
-	public List<Waiter> getWaiters() {
+	public List<SmilehamWaiter> getWaiters() {
 		return null;
 	}
 

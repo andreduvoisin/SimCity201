@@ -9,7 +9,7 @@ import restaurant.restaurant_davidmca.interfaces.Waiter;
 
 public class WaiterGui implements Gui {
 
-	private Waiter agent = null;
+	private Waiter role = null;
 
 	private int xPos, yPos = -20;
 	private int xHome, yHome;
@@ -21,7 +21,7 @@ public class WaiterGui implements Gui {
 
 	public WaiterGui(Waiter agent, int home) {
 		currentlyAnimating = false;
-		this.agent = agent;
+		this.role = agent;
 		xHome = 10;
 		yHome = 30*(3+home);
 		xPos = xHome;
@@ -33,23 +33,22 @@ public class WaiterGui implements Gui {
 			xPos += 2;
 		else if (xPos > xDestination)
 			xPos -= 2;
-
 		if (yPos < yDestination)
 			yPos += 2;
 		else if (yPos > yDestination)
 			yPos -= 2;
 		if (xPos == xDestination && yPos == yDestination && currentlyAnimating) {
 			currentlyAnimating = false;
-			agent.msgDoneAnimating();
+			role.msgDoneAnimating();
 		}
 	}
 
 	public void wantsBreak() {
-		agent.RequestBreak();
+		role.RequestBreak();
 	}
 
 	public boolean isOnBreak() {
-		return agent.isOnBreak();
+		return role.isOnBreak();
 	}
 
 	public void draw(Graphics2D g) {
