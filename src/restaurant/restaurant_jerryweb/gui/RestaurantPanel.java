@@ -1,5 +1,6 @@
 package restaurant.restaurant_jerryweb.gui;
 
+
 import restaurant.restaurant_jerryweb.CashierRole;
 import restaurant.restaurant_jerryweb.CookRole;
 import restaurant.restaurant_jerryweb.CustomerRole;
@@ -184,7 +185,7 @@ public class RestaurantPanel extends JPanel {
     		sel++;
     		if((sel)%2 == 0){
     			RSWaiterRole rsw = new RSWaiterRole(name);
-    			WaiterGui wg = new WaiterGui(rsw, gui);//may need to fix this
+    			WaiterGui wg = new WaiterGui(rsw, gui, host);//may need to fix this
     			rsw.setGui(wg);
     			host.addWaiter(rsw);//hack to add one waiter
     			rsw.setHost(host);
@@ -196,7 +197,7 @@ public class RestaurantPanel extends JPanel {
     		}
     		else{ 
     			WaiterRole w = new WaiterRole(name);
-    			WaiterGui wg = new WaiterGui(w, gui);//may need to fix this
+    			WaiterGui wg = new WaiterGui(w, gui, host);//may need to fix this
     			w.setGui(wg);
     			host.addWaiter(w);//hack to add one waiter
     			w.setHost(host);

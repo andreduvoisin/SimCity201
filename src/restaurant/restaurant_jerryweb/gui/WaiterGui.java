@@ -1,6 +1,7 @@
 package restaurant.restaurant_jerryweb.gui;
 
 
+import restaurant.restaurant_jerryweb.HostRole;
 import restaurant.restaurant_jerryweb.CustomerRole;
 import restaurant.restaurant_jerryweb.WaiterRole;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
@@ -11,6 +12,7 @@ import java.awt.*;
 public class WaiterGui implements Gui {
 
     private Waiter agent = null;
+    private HostRole host = null;
     private boolean AtOrigin = true;
     private boolean AtCustomerQue = false;
     RestaurantGui gui;
@@ -45,6 +47,7 @@ public class WaiterGui implements Gui {
 	
 	public int previousX = 0;
 	public int previousY = 0;
+	int idleSpotX = 0;
 	
 	static final int waiterWidth = 20;
 	static final int waiterHeight = 20;
@@ -70,10 +73,11 @@ public class WaiterGui implements Gui {
 	public String plate2 = "";
 	public String plate3 = "";
 	
-    public WaiterGui(Waiter w, RestaurantGui gui) {
+    public WaiterGui(Waiter w, RestaurantGui gui, HostRole h) {
        agent = w;
-
+       host = h;
         this.gui = gui;
+        idleSpotX = 25*host.Waiters.size();
     }
 
     public void updatePosition() {
@@ -239,8 +243,8 @@ public class WaiterGui implements Gui {
     
     public void GoToIdleSpot() {
     	
-        xDestination = 120;
-        yDestination = 35;
+		xDestination = 145 - idleSpotX;
+		        yDestination = 35;
     }
     
     public void DoLeaveCustomer() {
