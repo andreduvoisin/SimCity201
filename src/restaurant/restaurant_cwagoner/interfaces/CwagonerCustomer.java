@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 public interface CwagonerCustomer {
 
-	public abstract void msgGuiGotHungry();
 	public abstract void msgRestaurantFull();
 	public abstract void msgSitAtTable(CwagonerWaiter w, int table, HashMap<String, Integer> menuOptions);
 	public abstract void msgWhatDoYouWant();
