@@ -19,7 +19,7 @@ public class RexRestaurantGui extends CityCard implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	AnimationPanel animationPanel = new AnimationPanel();
+	public AnimationPanel animationPanel = new AnimationPanel();
 	
     /* restPanel holds 2 panels
      * 1) the staff listing, menu, and lists of current customers all constructed
@@ -62,15 +62,21 @@ public class RexRestaurantGui extends CityCard implements ActionListener {
     	setBounds(50, 50, WINDOWX, WINDOWY);
 
         setLayout(new GridLayout (1,2));
-
+        
+        Dimension animationDim = new Dimension(500, 500);
+		animationPanel.setPreferredSize(animationDim);
+		animationPanel.setMinimumSize(animationDim);
+		animationPanel.setMaximumSize(animationDim);
+		add(animationPanel);
     	/*
         Dimension restDim = new Dimension(550, (int) (WINDOWY));
         restPanel.setPreferredSize(restDim);
         restPanel.setMinimumSize(restDim);
         restPanel.setMaximumSize(restDim);
         add(restPanel);
-        add(animationPanel);
-        
+        */
+       // add(animationPanel);
+        /*
         InitInventoryLabel();
         Dimension inventoryDim = new Dimension(200,350);
         inventoryLabel.setPreferredSize(inventoryDim);
@@ -247,7 +253,7 @@ public class RexRestaurantGui extends CityCard implements ActionListener {
      */
     /*
     public static void main(String[] args) {
-        RestaurantGui gui = new RestaurantGui();
+        RexRestaurantGui gui = new RexRestaurantGui();
         gui.setTitle("Rex's Rad Restaurant");
         gui.setVisible(true);
         gui.setResizable(false);

@@ -136,11 +136,11 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
     
     public void setWaiterEnabled(){
-    	gui.setWaiterEnabled(agent);
+    	//gui.setWaiterEnabled(agent);
     }
     
     public void setWaiterEnabled(String name){
-    	gui.setWaiterEnabled(agent, name);
+    	//gui.setWaiterEnabled(agent, name);
     }
     
     public void setGui(RexRestaurantGui gui){
