@@ -4,6 +4,10 @@ import housing.roles.HousingBaseRole;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import base.Gui;
 import city.gui.CityHousing;
@@ -17,23 +21,61 @@ public class HousingPersonGui implements Gui {
 	public HousingBaseRole housingrole;
 	
 	//Initial Positions
-	private int xPos = 40; 
-	private int yPos = 40;
-	private int xDestination = 40;
-	private int yDestination = 40;
+	private int xPos = 250; 
+	private int yPos = -50;
+	private int xDestination = 75;
+	private int yDestination = 265;
 	private boolean currentlyAnimating;
 	private boolean present;
 
+	//Furniture Positions
+	private int CHAIRXPOS = 280; 
+	private int CHAIRYPOS = 210; 
+	private int DiningTableDim = 50; 
+
 	//Person Positions
-	private int eatingXPos = 210; 
-	private int eatingYPos = 280; 
-	private int restingXPos = 200;
-	private int restingYPos = 75; 
+	private int COUCHXPOS = 75;
+	private int COUCHYPOS = 265;
+	
+	//Animation Images
+	private BufferedImage image;
+	
+	//----Person Positions----
+	
+	//Dining table chair Position
+	private int eatingXPos = 280; 
+	private int eatingYPos = 210; 
+	
+	//Couch or Rest Position
+	private int restingXPos = 75;
+	private int restingYPos = 265; 
+	
+	//Maintenance Positions
+	private int CORNERONEX = 115; 
+	private int CORNERONEY = 120;
+	private int CORNER2X = 420; 
+	private int CORNER2Y = 110;
+	private int CORNER3X = 445; 
+	private int CORNER3Y = 275;
+	
 	private int maintenanceXPos = 30; 
 	private int maintenanceYPos = 150; 
 	
 	private static int GUISIZE = 20;
 
+	public HousingPersonGui(){ 
+		super(); 
+		
+		image = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+	}
+	
 	public void updatePosition() {
 		if (xPos < xDestination)
 			xPos += 1;
@@ -52,8 +94,9 @@ public class HousingPersonGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLUE);
-		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
+		g.drawImage(image, xPos, yPos, null);
+//		g.setColor(Color.BLUE);
+//		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
 	}
 
 	@Override
@@ -82,6 +125,24 @@ public class HousingPersonGui implements Gui {
 	public void DoMaintainHouse() {
 		xDestination = maintenanceXPos;
 		yDestination = maintenanceYPos; 
+		currentlyAnimating = true;
+	}
+	
+	public void DoMaintainHouseC1() {
+		xDestination = CORNERONEX;
+		yDestination = CORNERONEY; 
+		currentlyAnimating = true;
+	}
+	
+	public void DoMaintainHouseC2() {
+		xDestination = CORNER2X;
+		yDestination = CORNER2Y; 
+		currentlyAnimating = true;
+	}
+	
+	public void DoMaintainHouseC3() {
+		xDestination = CORNER3X;
+		yDestination = CORNER3Y; 
 		currentlyAnimating = true;
 	}
 
