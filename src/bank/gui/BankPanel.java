@@ -5,17 +5,22 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.Timer;
 
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
+import bank.interfaces.BankGuard;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
+import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.Gui;
 import base.PersonAgent;
 import base.interfaces.Person;
+import base.interfaces.Role;
 
 
 public class BankPanel extends CityCard implements ActionListener{
@@ -41,6 +46,11 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
 	
+	public static BankGuardRole guard = new BankGuardRole();
+	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole();
+	public static BankTellerRole teller = new BankTellerRole();
+	public static Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
+	
 	public BankPanel(SimCityGui city) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
@@ -51,7 +61,18 @@ public class BankPanel extends CityCard implements ActionListener{
 		timer = new Timer(TIMERDELAY, this);
     	timer.start();
     	
-    	testBankGui();
+    	instance = this;
+    	
+    	guard.mGUI = new BankGuardGui(guard, this);
+    	//addGui(guard.mGUI);
+    	teller.mGUI = new BankTellerGui(teller, this);
+    	//addGui(teller.mGUI);
+    	
+    	//testBankGui();
+	}
+	
+	public static BankPanel getInstance() {
+		return instance;
 	}
 	
 	public void testBankGui() {
@@ -105,7 +126,7 @@ public class BankPanel extends CityCard implements ActionListener{
 		bcg2.DoGoToTeller(2);
 		bcg3.DoGoToTeller(3);
 	}
-
+	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		
@@ -149,5 +170,15 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	public void addGui(Gui gui) {
 		guis.add(gui);
+	}
+	
+	public void addPerson(Role role) {
+		if(role instanceof BankCustomerRole) {
+			customers.add((BankCustomerRole)role);
+			((BankCustomerRole)role).setGuard(guard);
+			((BankCustomerRole)role).setTeller(teller);
+			((BankCustomerRole)role).mGUI = new BankCustomerGui((BankCustomerRole)role, this);
+			addGui(((BankCustomerRole)role).mGUI);
+		}
 	}
 }
