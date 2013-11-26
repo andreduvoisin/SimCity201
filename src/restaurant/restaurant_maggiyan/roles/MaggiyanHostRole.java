@@ -38,7 +38,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	public boolean amReady = true; 
 	public enum WaiterState {busy, free, askedToGoOnBreak, onBreak};
 	private MaggiyanWaiterGui hostGui = null;
-	private MaggiyanCookRole cook; 
+	private MaggiyanCook cook; 
 	private int minWaiters = 1; 
 	private int minCustomer = Integer.MAX_VALUE; 
 	private MyWaiter leastBusyWaiter = null; 

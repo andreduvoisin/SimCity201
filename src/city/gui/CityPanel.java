@@ -118,7 +118,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 
 		// Add bus
 		busDispatch = new TransportationBusDispatch(ContactList.cBUS_STOPS);
-		this.addMoving(busDispatch.getBusGui());
+		//this.addMoving(busDispatch.getBusGui());
 		busDispatch.startThread();
 
 		//Add Roads

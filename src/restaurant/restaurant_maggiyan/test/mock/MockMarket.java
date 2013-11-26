@@ -5,8 +5,8 @@ import java.util.Map;
 
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCookRole;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
