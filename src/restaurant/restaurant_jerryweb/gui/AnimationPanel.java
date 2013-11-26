@@ -2,6 +2,7 @@ package restaurant.restaurant_jerryweb.gui;
 
 import javax.swing.*;
 
+import base.Time;
 import restaurant.restaurant_maggiyan.gui.MaggiyanGui;
 
 import java.awt.*;
@@ -45,7 +46,6 @@ public class AnimationPanel extends JPanel implements ActionListener {
 	
 	static final int panelXpos = 0;
 	static final int panelYpos = 0;
-	static final int timerCount = 10;
 	
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
@@ -60,7 +60,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
         
         bufferSize = this.getSize();
  
-    	Timer timer = new Timer(timerCount, this );
+    	Timer timer = new Timer(Time.cSYSCLK/20, this );
     	timer.start();
     }
 

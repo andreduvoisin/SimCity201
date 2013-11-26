@@ -15,6 +15,8 @@ public class Time {
 	public static int sGlobalShift = 0;
 	public static int sGlobalDate = 0;
 	
+	public final static int cSYSCLK = 200;
+	
 	static boolean sFastForward = false;
 	
 	List<Person> mPersons;
@@ -35,10 +37,10 @@ public class Time {
 			@Override
 			//Broadcast time
 			public void run() {
-				sGlobalTimeInt++;
 				sGlobalMinute++;
 				
 				if (sGlobalMinute == 60){
+					sGlobalTimeInt++;
 					sGlobalMinute = 0;
 					sGlobalHour++;
 				}
@@ -55,7 +57,7 @@ public class Time {
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), 200);
+		}, new Date( System.currentTimeMillis()), cSYSCLK);
 		
 		/*mTimer.schedule(new TimerTask() {
 			

@@ -46,6 +46,6 @@ public class EventParty extends Event{
 		mAttendees = party.mAttendees;
 	}
 	
-	Person mHost;
-	Map<Person, Boolean> mAttendees; //1 is attending, 0 unknown (remove if not coming)
+	public Person mHost;
+	public Map<Person, Boolean> mAttendees; //1 is attending, 0 unknown (remove if not coming)
 }
