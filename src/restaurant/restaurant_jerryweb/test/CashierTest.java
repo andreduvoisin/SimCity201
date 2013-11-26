@@ -52,7 +52,7 @@ public class CashierTest extends TestCase
 		market = new MockMarket("K-Mart");
 		market2 = new MockMarket("Sams Club");
 		market3 = new MockMarket("Albertson's");
-		cook = new JerrywebCookRole("Cook");
+		cook = new JerrywebCookRole();
 	}	
 
 	/**

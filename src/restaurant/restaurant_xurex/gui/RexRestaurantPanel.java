@@ -68,7 +68,7 @@ public class RexRestaurantPanel extends JPanel{
     	allAgents.add(market2);
     	allAgents.add(market3);
     	*/
-    	cookGui.setGui(gui);
+    	//cookGui.setGui(gui);
     	
     	//cook.setGui(gui);
     	cook.setGui(cookGui);
@@ -76,7 +76,7 @@ public class RexRestaurantPanel extends JPanel{
     	cook.addMarket(market2);
     	cook.addMarket(market3);
     	
-    	gui.animationPanel.addGui(cookGui); 
+    	//gui.animationPanel.addGui(cookGui); 
     	/*
         host.startThread();
         cook.startThread();
@@ -176,12 +176,12 @@ public class RexRestaurantPanel extends JPanel{
 
     	if (type.equals("Customers")) {
     		RexCustomerRole c = new RexCustomerRole();	
-    		CustomerGui g = new CustomerGui(c, gui);
+    		//CustomerGui g = new CustomerGui(c, gui);
 
-    		gui.animationPanel.addGui(g);// dw
+    		//gui.animationPanel.addGui(g);// dw
     		c.setHost(host);
     		c.setCashier(cashier);
-    		c.setGui(g);
+    		//c.setGui(g);
     		customers.add(c);
     		//c.startThread();
     		//allAgents.add(c);
@@ -192,10 +192,10 @@ public class RexRestaurantPanel extends JPanel{
     			WaiterAgent1 w = new WaiterAgent1 (name, host, cook);
         		w.setNumber(host.getWaiterNumber());
         		
-        		WaiterGui g = new WaiterGui(w, gui);
+        		//WaiterGui g = new WaiterGui(w, gui);
         		
-        		gui.animationPanel.addGui(g);
-        		w.setGui(g);
+        		//gui.animationPanel.addGui(g);
+        		//w.setGui(g);
         		
         		waiters.add(w);
         		w.startThread();
@@ -208,10 +208,10 @@ public class RexRestaurantPanel extends JPanel{
     			WaiterAgent2 w = new WaiterAgent2 (name, host, cook);
         		w.setNumber(host.getWaiterNumber());
         		
-        		WaiterGui g = new WaiterGui(w, gui);
+        		//WaiterGui g = new WaiterGui(w, gui);
         		
-        		gui.animationPanel.addGui(g);
-        		w.setGui(g);
+        		//gui.animationPanel.addGui(g);
+        		//w.setGui(g);
         		
         		waiters.add(w);
         		w.startThread();

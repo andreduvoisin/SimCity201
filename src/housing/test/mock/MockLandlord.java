@@ -1,7 +1,10 @@
 package housing.test.mock;
 
-import base.PersonAgent;
+import java.util.ArrayList;
+import java.util.List;
 
+import city.gui.CityHousing;
+import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.MockPerson;
@@ -16,8 +19,11 @@ import housing.interfaces.HousingRenter;
  */
 public class MockLandlord extends Mock implements Role, HousingLandlord {
 
+	public List<CityHousing> mHousesList = new ArrayList<CityHousing>(); 
+	
 	public MockLandlord(String name) {
 		super();
+		
 
 	}
 
@@ -56,6 +62,18 @@ public class MockLandlord extends Mock implements Role, HousingLandlord {
 	public int getSSN() {
 		
 		return 0;
+	}
+
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isRestaurantPerson() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

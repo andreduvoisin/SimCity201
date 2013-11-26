@@ -22,6 +22,7 @@ public abstract class CityComponent implements Gui{
 		color = Color.black;
 		ID = "";
 		isActive = true;
+		rectangle = new Rectangle(x, y);
 	}
 	
 	public CityComponent(int x, int y) {
@@ -30,6 +31,7 @@ public abstract class CityComponent implements Gui{
 		color = Color.black;
 		ID = "";
 		isActive = true;
+		rectangle = new Rectangle(x, y);
 	}
 	
 	public CityComponent(int x, int y, Color c) {
@@ -38,6 +40,7 @@ public abstract class CityComponent implements Gui{
 		color = c;
 		ID = "";
 		isActive = true;
+		rectangle = new Rectangle(x, y);
 	}
 	
 	public CityComponent(int x, int y, Color c, String I) {
@@ -46,6 +49,7 @@ public abstract class CityComponent implements Gui{
 		color = c;
 		ID = I;
 		isActive = true;
+		rectangle = new Rectangle(x, y);
 	}
 	
 	public abstract void updatePosition();

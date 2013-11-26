@@ -52,12 +52,12 @@ public class Time {
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
-							iPerson.msgTimeShift();
+							//iPerson.msgTimeShift();
 						}
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), cSYSCLK);
+		}, new Date( System.currentTimeMillis()), 10000);
 		
 		/*mTimer.schedule(new TimerTask() {
 			

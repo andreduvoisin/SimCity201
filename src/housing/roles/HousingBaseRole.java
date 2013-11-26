@@ -12,8 +12,8 @@ public class HousingBaseRole extends BaseRole {
 	public boolean mHungry = false;
 	public boolean mTimeToMaintain = false;
 	public boolean mTimeToCheckRent = false;
-	
-	Semaphore isAnimating = new Semaphore(0, true);
+
+	public Semaphore isAnimating = new Semaphore(0, true);
 	public HousingPersonGui gui;
 	public CityHousing mHouse = null;
 	
@@ -66,6 +66,7 @@ public class HousingBaseRole extends BaseRole {
 	}
 
 	void Maintain() {
+		print("MaintainingHouse"); 
 		gui.DoMaintainHouse();
 		try {
 			isAnimating.acquire();

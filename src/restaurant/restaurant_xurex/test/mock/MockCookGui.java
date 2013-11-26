@@ -3,6 +3,7 @@ package restaurant.restaurant_xurex.test.mock;
 
 import java.awt.Graphics2D;
 
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
 
@@ -92,12 +93,6 @@ public class MockCookGui extends Mock implements CookGui_ {
 	}
 
 	@Override
-	public void setGui(RexRestaurantGui gui) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public int getXPos() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -107,6 +102,12 @@ public class MockCookGui extends Mock implements CookGui_ {
 	public int getYPos() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public void setAnimationPanel(RexAnimationPanel animationPanel) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	
