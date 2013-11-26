@@ -59,14 +59,14 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 			case 1: 
 				break;
 			case 2:
-				int rn2 = new Random().nextInt();
-				if (rn2 % 2 == 0) {
+//				int rn2 = new Random().nextInt();
+//				if (rn2 % 2 == 0) {
 					subRole = new JerrywebWaiterRole(super.mPerson);
 					JerrywebRestaurantPanel.addWaiter((JerrywebWaiterRole) subRole);
-				}else {
-					subRole = new JerrywebRSWaiterRole(super.mPerson);
-					JerrywebRestaurantPanel.addRSWaiter((JerrywebRSWaiterRole) subRole);
-				}
+//				}else {
+//					subRole = new JerrywebRSWaiterRole(super.mPerson);
+//					JerrywebRestaurantPanel.addRSWaiter((JerrywebRSWaiterRole) subRole);
+//				}
 				break;
 			case 3: //maggi
 //				int rn1 = new Random().nextInt();
