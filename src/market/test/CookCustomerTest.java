@@ -143,12 +143,8 @@ public class CookCustomerTest extends TestCase {
  	  //set up the test
  		SmilehamAnimationPanel mPanel = new SmilehamAnimationPanel(null);
  		mCookCustomer.setRestaurant(5);
- 		
- /*	  //assert preconditions
- 		CookGui_at mCookGui = new CookGui_at((RestaurantCookRole_at) mCookCustomer.subRole);
- 		mCookCustomer.setRestaurant(6);
- 		RestaurantCookRole_at r = (RestaurantCookRole_at)(mCookCustomer.subRole);
- 		r.setGui(mCookGui);
+	
+ 	  //assert preconditions
  		
  		
  		
@@ -226,5 +222,5 @@ public class CookCustomerTest extends TestCase {
  				(int)(mCookCustomer.mItemInventory.get(EnumItemType.STEAK)),5);		
  		assertEquals("Cook should have 5 pizzas.",
  				(int)(mCookCustomer.mItemInventory.get(EnumItemType.PIZZA)),5);			
- */	}
+ 	}
 }

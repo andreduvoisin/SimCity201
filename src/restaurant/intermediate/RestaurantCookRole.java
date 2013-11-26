@@ -102,6 +102,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
         public List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
         
+        protected static final int sBaseNeed = 3;
+        
         MarketCashier mMarketCashier;
         
         /* Messages */
@@ -186,7 +188,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         private void completeOrder(MarketOrder o) {
                 for(EnumItemType item : o.mItems.keySet()) {
-                	System.out.println(mItemInventory.get(item) + " " + o.mItems.get(item));
                         mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
                 }
                 mOrders.remove(o);
@@ -195,5 +196,9 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 /* Utilities */
         public void setMarketCashier(MarketCashier c) {
                 mMarketCashier = c;
+        }
+        
+        public void decreaseInventory(EnumItemType i) {
+        	mItemInventory.put(i,mItemInventory.get(i)-1);
         }
 }
