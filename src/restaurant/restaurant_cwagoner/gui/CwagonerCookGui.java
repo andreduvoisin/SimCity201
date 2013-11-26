@@ -19,10 +19,12 @@ public class CwagonerCookGui implements CwagonerGui {
 
     // GUI is a square. While not busy, wait in home position
     private int size = 20, plateSize = 20;
-    private Location position, destination, homePos,
-    				fridgePos = new Location(200, 100),
-    				cookingPos = new Location(300, 150),
-    				platingPos = new Location(180, 150);
+    private Location position = new Location(0, 0),
+    				destination = new Location(0, 0),
+    				homePos = new Location(200, 350),
+    				fridgePos = new Location(200, 300),
+    				cookingPos = new Location(300, 350),
+    				platingPos = new Location(180, 350);
     private Dimension fridgeDim = new Dimension(100, 50),
     				cookingDim = new Dimension(40, 100),
     				platingDim = new Dimension(20, 100);
@@ -31,8 +33,8 @@ public class CwagonerCookGui implements CwagonerGui {
     	state = State.idle;
         agent = c;
         cwagoner_RestaurantGui = g;
-        homePos = new Location(200, 150);
-        position = destination = new Location(homePos.mX, homePos.mY);
+        position.setTo(homePos);
+        destination.setTo(homePos);
     }
 
     public void updatePosition() {
@@ -60,8 +62,8 @@ public class CwagonerCookGui implements CwagonerGui {
     	g.fillRect(position.mX, position.mY, size, size);
     	
     	// Fridge
-        g.setColor(Color.GRAY);
-		g.fillRect(fridgePos.mY, fridgePos.mY, fridgeDim.width, fridgeDim.height);
+        g.setColor(Color.GREEN);
+		g.fillRect(fridgePos.mX, fridgePos.mY, fridgeDim.width, fridgeDim.height);
 		
 		// Cooking area
 		g.setColor(Color.RED);

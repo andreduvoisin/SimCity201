@@ -1,5 +1,6 @@
 package restaurant.restaurant_cwagoner.gui;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import city.gui.SimCityGui;
 public class CwagonerRestaurantGui extends CityCard {
 	private int numTables = 4;
 
-	CwagonerAnimationPanel animationPanel;
+	CwagonerAnimationPanel animationPanel = new CwagonerAnimationPanel(CARD_WIDTH, CARD_HEIGHT);
     CwagonerRestaurantPanel restPanel = new CwagonerRestaurantPanel(this, numTables);
     ArrayList<Location> tableLocations = new ArrayList<Location>();
 
@@ -28,7 +29,8 @@ public class CwagonerRestaurantGui extends CityCard {
 
     	setVisible(true);
 
-    	animationPanel = new CwagonerAnimationPanel(CARD_WIDTH, CARD_HEIGHT);
+        this.setBounds(0, 0, CARD_WIDTH, CARD_HEIGHT);
+        this.setLayout(new FlowLayout());
 
         tableLocations.add(new Location(100, 100));
         tableLocations.add(new Location(300, 100));
@@ -38,9 +40,6 @@ public class CwagonerRestaurantGui extends CityCard {
         for (Location iL : tableLocations) {
         	animationPanel.addTable(iL);
         }
-
-        this.setBounds(0, 0, CARD_WIDTH, CARD_HEIGHT);
-        this.setLayout(new GridLayout(2, 1));
 
         add(animationPanel);
     	add(restPanel);
