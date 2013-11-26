@@ -1,13 +1,13 @@
 package restaurant.restaurant_cwagoner.test;
 
-import restaurant.restaurant_cwagoner.CashierAgent;
+import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
 import restaurant.restaurant_cwagoner.test.mock.*;
 import junit.framework.*;
 
 public class CashierTest extends TestCase {
 	
 	//these are instantiated for each test separately via the setUp() method.
-	CashierAgent cashier;
+	CwagonerCashierRole cashier;
 	MockWaiter waiter;
 	MockCustomer customer;
 	MockMarket market1, market2;
@@ -19,7 +19,7 @@ public class CashierTest extends TestCase {
 	 */
 	public void setUp() throws Exception {
 		super.setUp();		
-		cashier = new CashierAgent();		
+		cashier = new CwagonerCashierRole();		
 		customer = new MockCustomer("mockcustomer");		
 		waiter = new MockWaiter("mockwaiter");
 		market1 = new MockMarket("mockmarket1");
@@ -99,7 +99,7 @@ public class CashierTest extends TestCase {
 	public void testOneNormalCustomerScenario() {
 		//setUp() runs first before this test!
 		
-		customer.cashier = cashier;//You can do almost anything in a unit test.			
+		customer.cwagonerCashier = cashier;//You can do almost anything in a unit test.			
 		
 		//check preconditions
 		assertEquals("Cashier should have 0 bills in it. It doesn't.", cashier.Bills.size(), 0);		
@@ -108,7 +108,7 @@ public class CashierTest extends TestCase {
 		
 		//step 1 of the test
 		//public Bill(Customer customer, double price) {
-		CashierAgent.Bill bill = new CashierAgent.Bill(waiter, customer, 7.98);
+		CwagonerCashierRole.Bill bill = new CwagonerCashierRole.Bill(waiter, customer, 7.98);
 		cashier.HereIsBill(bill);//send the message from a waiter
 
 		//check postconditions for step 1 and preconditions for step 2
@@ -135,7 +135,7 @@ public class CashierTest extends TestCase {
 		
 		//check postconditions for step 2 / preconditions for step 3
 		assertTrue("CashierBill should contain a bill with state == customerApproached. It doesn't.",
-				cashier.Bills.get(0).state == CashierAgent.Bill.State.customerApproached);
+				cashier.Bills.get(0).state == CwagonerCashierRole.Bill.State.customerApproached);
 		
 		assertTrue("Cashier should have logged \"Received msgReadyToPay\" but didn't. His log reads instead: " 
 				+ cashier.log.getLastLoggedEvent().toString(), cashier.log.containsString("Received msgReadyToPay"));

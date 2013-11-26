@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
-public class AnimationPanel extends JPanel implements ActionListener {
+public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
     private int ANIMATIONX = 1000;
     private int ANIMATIONY = 1000;
 
-    private List<Gui> guis = new ArrayList<Gui>();
+    private List<CwagonerGui> guis = new ArrayList<CwagonerGui>();
     
     private ArrayList<Dimension> tableLocations = new ArrayList<Dimension>();
 
-    public AnimationPanel() {
+    public CwagonerAnimationPanel() {
     	super();
     	setSize(ANIMATIONX, ANIMATIONY);
 
@@ -49,20 +49,20 @@ public class AnimationPanel extends JPanel implements ActionListener {
         	
         }
 
-        for (Gui gui : guis) {
+        for (CwagonerGui gui : guis) {
             if (gui.isPresent()) {
                 gui.updatePosition();
             }
         }
 
-        for (Gui gui : guis) {
+        for (CwagonerGui gui : guis) {
             if (gui.isPresent()) {
                 gui.draw(g2);
             }
         }
     }
 
-    public void addGui(Gui gui) {
+    public void addGui(CwagonerGui gui) {
         guis.add(gui);
     }
 }
