@@ -23,6 +23,10 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	
 	public CwagonerCashierRole() {
 		// CHASE: placeholder cashier
+		PriceList.put("Steak",		8.0);
+		PriceList.put("Chicken",	6.0);
+		PriceList.put("Salad",		2.0);
+		PriceList.put("Pizza",		4.0);
 	}
 
 	CwagonerCook cwagonerCook;

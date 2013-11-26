@@ -28,7 +28,7 @@ public class CwagonerRestaurantPanel extends JPanel {
 	public CwagonerRestaurantPanel(CwagonerRestaurantGui g, int numTables) {
     	super();
 
-        this.instance = this;
+        instance = this;
 
         mainGui = g;
 
@@ -64,9 +64,11 @@ public class CwagonerRestaurantPanel extends JPanel {
     	else if (subRole instanceof CwagonerWaiterRole) {
     		((CwagonerWaiterRole) subRole).setHost(host);
     		((CwagonerWaiterRole) subRole).setCashier(cashier);
+    		((CwagonerWaiterRole) subRole).setCook(cook);
     		((CwagonerWaiterRole) subRole).setGui(new CwagonerWaiterGui((CwagonerWaiterRole) subRole, mainGui));	
     		Waiters.add((CwagonerWaiterRole) subRole);
     		mainGui.animationPanel.addGui(((CwagonerWaiterRole) subRole).getGui());
+    		host.addWaiter((CwagonerWaiterRole)subRole);
     	}
     	// CHASE add other roles
     }
