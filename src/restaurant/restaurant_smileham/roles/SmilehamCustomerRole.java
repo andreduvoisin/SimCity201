@@ -308,7 +308,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		mCustomerGui.DoGoToWaitingArea();
 		WaitingArea.addWaitingCustomer();
 		
-		mHost.msgIWantFood((SmilehamCustomer)this);
+//		mHost.msgIWantFood((SmilehamCustomer)this); //SHANE: 2 put this in after testing
 	}
 
 	private void sitDown() {

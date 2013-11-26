@@ -4,10 +4,10 @@ import java.util.List;
 
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.interfaces.Cashier;
-import restaurant.restaurant_smileham.interfaces.Market;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 
-public class MockCashier extends Mock implements Cashier{
+public class MockCashier extends Mock implements SmilehamCashier{
 
 	public MockCashier(String name) {
 		super(name);
@@ -44,7 +44,7 @@ public class MockCashier extends Mock implements Cashier{
 	}
 
 	@Override
-	public void msgMarketBill(Market market, int amount) {
+	public void msgMarketBill(SmilehamMarket market, int amount) {
 		
 	}
 
@@ -54,7 +54,7 @@ public class MockCashier extends Mock implements Cashier{
 	}
 
 	@Override
-	public void payMarket(Market market, int amount) {
+	public void payMarket(SmilehamMarket market, int amount) {
 		
 	}
 }
