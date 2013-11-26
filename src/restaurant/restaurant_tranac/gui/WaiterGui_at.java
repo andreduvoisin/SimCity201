@@ -186,7 +186,7 @@ public class WaiterGui_at implements Gui {
     public void setWantToGoOnBreak() {
     	agent.msgWantToGoOnBreak();
     }
-   */ 
+ */   
     public boolean isPresent() {
         return true;
     }

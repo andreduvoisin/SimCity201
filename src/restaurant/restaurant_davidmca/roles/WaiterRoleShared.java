@@ -64,7 +64,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	}
 
 	private String name;
-	public Semaphore isAnimating = new Semaphore(0, true);
+	public Semaphore isAnimating = new Semaphore(500, true);
 	public HostGui hostGui = null;
 
 	@Override

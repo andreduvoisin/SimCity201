@@ -7,14 +7,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCashierGui;
 import market.gui.MarketPanel.EnumMarketType;
-import market.interfaces.*;
-import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import market.interfaces.MarketCashier;
+import market.interfaces.MarketCook;
+import market.interfaces.MarketCustomer;
+import market.interfaces.MarketDeliveryTruck;
+import market.interfaces.MarketWorker;
 import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
@@ -84,7 +88,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 	
 /* Animation Messages */
-	public void msgAnimationLeftRestaurant() {
+	public void msgAnimationLeftMarket() {
 		inTransit.release();
 	}
 	
@@ -142,11 +146,11 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		MarketInvoice invoice = new MarketInvoice(order, cost, mBankAccount);
 
 		//if a cook
-		if (personRole instanceof RestaurantCookInterface){
-			RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
-			cook.msgInvoiceToPerson(cannotFulfill, invoice);
-		}
-
+        if (personRole instanceof RestaurantCookInterface){
+            RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
+            cook.msgInvoiceToPerson(cannotFulfill, invoice);
+        }
+        
 		//if a customer
 		else if (personRole instanceof MarketCustomer){
 			MarketCustomer customer = (MarketCustomer) order.mPersonRole;

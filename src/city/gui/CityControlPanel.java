@@ -26,7 +26,7 @@ import city.gui.CityComponent.EnumCityComponents;
 public class CityControlPanel extends JPanel implements ActionListener{
 	
 	SimCityGui city;
-	public static final int CP_WIDTH = 200, CP_HEIGHT = 700;
+	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
 	JButton addRestaurant, addBank, housingGUIButton;
 	
 	// Title & Pause Button
@@ -131,22 +131,9 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		addBank = new JButton("Add Bank");
 		addBank.addActionListener(this);
 		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(addBank);
-		//Hack for Testing: DAVID 
-		housingGUIButton = new JButton("Start Housing GUI");
-		housingGUIButton.addActionListener(this);
-		housingGUIButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(housingGUIButton);		
+		add(addBank);	
 	}
 	
 	public void actionPerformed(ActionEvent e) { 
-		if (e.getSource().equals(housingGUIButton)) {
-			JFrame HousingGUITest = new JFrame("HousingGUITest");
-			HousingGUITest.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//HousingGUITest.getContentPane().add(HousingHouseGuiPanel.getInstance(), BorderLayout.CENTER);
-			HousingGUITest.setLayout(new GridLayout(1, 1));
-			HousingGUITest.setSize(300,400);
-			HousingGUITest.setVisible(true);
-		}
 	}
 }

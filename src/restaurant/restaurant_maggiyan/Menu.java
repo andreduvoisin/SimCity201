@@ -1,13 +1,14 @@
 package restaurant.restaurant_maggiyan;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Menu{
 	
-	List<FoodChoice> MenuOptions = new ArrayList<FoodChoice>(); 
-	int cheapFoodIndex = 2; 
+	public List<FoodChoice> MenuOptions = new ArrayList<FoodChoice>(); 
+	public int cheapFoodIndex = 2; 
 	
-	Menu(){
+	public Menu(){
 		FoodChoice Steak = new FoodChoice("Steak", 15.99);
 		FoodChoice Chicken = new FoodChoice("Chicken", 10.99);
 		FoodChoice Salad = new FoodChoice("Salad", 5.99);
@@ -29,11 +30,11 @@ public class Menu{
 	}
 	
 	public class FoodChoice{
-		String name;
-		double price;
-		boolean available; 
+		public String name;
+		public double price;
+		public boolean available; 
 		
-		FoodChoice(String n, double p){
+		public FoodChoice(String n, double p){
 			name = n;
 			price = p;
 			available = true; 

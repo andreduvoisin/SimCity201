@@ -1,27 +1,23 @@
 package restaurant.restaurant_davidmca.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import city.gui.CityCard;
-import city.gui.CityPanel;
-import city.gui.SimCityGui;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import restaurant.restaurant_davidmca.roles.CustomerRole;
 import restaurant.restaurant_davidmca.roles.WaiterRole;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 /**
  * Main GUI class. Contains the main frame and subsequent panels
@@ -157,6 +153,14 @@ public class RestaurantGui extends CityCard implements ActionListener {
 		animationPanel.setMinimumSize(animDim);
 		animationPanel.setMaximumSize(animDim);
 		add(animationPanel);
+		
+//		Timer updateAnimationTimer = new Timer();
+//		TimerTask animationTask = new TimerTask() {
+//			public void run() {
+//				animationPanel.paintComponent(animationPanel.getGraphics());
+//			}
+//		};
+//		updateAnimationTimer.schedule(animationTask, 1000, 30);
 	}
 
 	/**

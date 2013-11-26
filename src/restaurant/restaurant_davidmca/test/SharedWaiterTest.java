@@ -5,7 +5,6 @@ import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
 import restaurant.restaurant_davidmca.test.mock.MockCook;
 import restaurant.restaurant_davidmca.test.mock.MockCustomer;
-import base.PersonAgent;
 
 public class SharedWaiterTest extends TestCase {
 	WaiterRoleShared waiter;
@@ -16,9 +15,7 @@ public class SharedWaiterTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		PersonAgent testPerson = new PersonAgent();
-		testPerson.setName("Test Person");
-		waiter = new WaiterRoleShared(testPerson);
+		waiter = new WaiterRoleShared("Shared Data Waiter");
 		customer1 = new MockCustomer("c1");
 		customer2 = new MockCustomer("c2");
 		customer3 = new MockCustomer("c3");

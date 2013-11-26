@@ -3,7 +3,11 @@ package city.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
@@ -43,7 +47,7 @@ public class SimCityGui extends JFrame {
 		Time globaltime = new Time(citypanel.masterPersonList);
 		
 		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 7;
+		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
 		this.add(CP, mGridBagConstraints);
 		
 		mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
@@ -60,6 +64,17 @@ public class SimCityGui extends JFrame {
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(this);
+		
+//		Timer updateAnimationTimer = new Timer();
+//		updateAnimationTimer.scheduleAtFixedRate(new TimerTask() {
+//			public void run() {
+//				for (CityCard card : cityview.cards.values()) {
+//					if (!card.isVisible()) {
+//						card.update(card.getGraphics());
+//					}
+//				}
+//			}
+//		}, 1000, 30);
 		
 		/*
 		 * Hack Restaurant DAVID
@@ -105,13 +120,13 @@ public class SimCityGui extends JFrame {
 //		testCook.addRole(cookRole, true);
 //		testCook.startThread();
 		
-		Person person = citypanel.masterPersonList.get(0);
-		if (person instanceof PersonAgent){
-			((PersonAgent) person).msgAnimationDone();
+//		Person person = citypanel.masterPersonList.get(0);
+//		if (person instanceof PersonAgent){
+//			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
-			((PersonAgent) person).eatFood();
-			((PersonAgent) person).msgAnimationDone();
-		}
+//			((PersonAgent) person).eatFood();
+//			((PersonAgent) person).msgAnimationDone();
+//		}
 		
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
@@ -130,13 +145,13 @@ public class SimCityGui extends JFrame {
 //			((PersonAgent) person).eatFood();
 //		}
 		
-//		for (Person person: city.masterPersonList) {
-//			((PersonAgent) person).msgAnimationDone();
-//			((PersonAgent) person).startThread();
-//			((PersonAgent) person).msgAnimationDone();
-//			((PersonAgent) person).eatFood();
-//			((PersonAgent) person).msgAnimationDone();
-//		}
+		for (int i=0; i<10; i++) {
+			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
+		}
+		
+		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
+			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
+		}
 	}
 
 	/**

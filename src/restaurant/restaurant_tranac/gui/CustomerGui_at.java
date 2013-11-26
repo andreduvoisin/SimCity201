@@ -111,7 +111,7 @@ public class CustomerGui_at implements Gui{
 				}
 				case LeaveRestaurant: {
 					agent.msgAnimationFinishedLeaveRestaurant();
-	//				gui.setEnabled(agent);
+		//			gui.setEnabled(agent);
 					break;
 				}
 				default:
@@ -161,12 +161,12 @@ public class CustomerGui_at implements Gui{
     	else
     		food = "PIZ";
 	}
-	
+	/*
 	public void setHungry() {
 		agent.msgGotHungry();
 		setPresent(true);
 	}
-	
+	*/
 	public boolean isPresent() {
 		return isPresent;
 	}

@@ -9,7 +9,7 @@ import java.util.Map;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantGui;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.Cashier;
 import restaurant.restaurant_smileham.interfaces.Market;
 import base.BaseRole;
@@ -28,14 +28,14 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 	private Map<Market, Integer> mMarketBills;
 
 	//GUI
-	private SmilehamRestaurantGui mGUI;
+	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamCashierRole(String name, SmilehamRestaurantGui gui){
+	public SmilehamCashierRole(String name, SmilehamAnimationPanel animationPanel){
 		super();
 		mName = name;
-		mGUI = gui;
+		mAnimationPanel = animationPanel;
 		print("Constructor");
 		
 		mCash = cRESTAURANT_CASH;
@@ -128,7 +128,7 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 			//can't pay
 			if (mCash < amount){
 				//Extra Credit!
-				mGUI.popupExit("Extra Credit! The cashier must now become a freelance programmer to pay for the things he bought from the market.");
+//				mGUI.popupExit("Extra Credit! The cashier must now become a freelance programmer to pay for the things he bought from the market.");
 				
 			}
 			
@@ -182,13 +182,5 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 
 		public void setMarketBills(Map<Market, Integer> mMarketBills) {
 			this.mMarketBills = mMarketBills;
-		}
-
-		public SmilehamRestaurantGui getGUI() {
-			return mGUI;
-		}
-
-		public void setGUI(SmilehamRestaurantGui mGUI) {
-			this.mGUI = mGUI;
 		}
 }
