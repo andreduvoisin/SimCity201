@@ -23,8 +23,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	
 	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 
-	//ANGELICA: FIX THIS MAP!!!
-	Map<String, MarketCookCustomerRole>	mRestaurants = new HashMap<String, MarketCookCustomerRole>();
+	Map<Integer, MarketCookCustomerRole>	mRestaurants = new HashMap<Integer, MarketCookCustomerRole>();
 	
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
@@ -39,9 +38,9 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		o.mEvent = EnumOrderEvent.TOLD_TO_DELIVER;
 	}
 	
-	public void msgAnimationAtRestaurant(String r) {
+	public void msgAnimationAtRestaurant(int n) {
 		for(MarketOrder d : mDeliveries) {
-			if(d.mPersonRole == mRestaurants.get(r))
+			if(d.mPersonRole == mRestaurants.get(n))
 			d.mEvent = EnumOrderEvent.READY_TO_DELIVER;
 		}
 		inTransit.release();
@@ -88,14 +87,14 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Actions */
 	private void goToDeliverOrder(MarketOrder o) {
-		String r = null;;
-		for(String iR : mRestaurants.keySet()) {
-			if(mRestaurants.get(iR) == o.mPersonRole) {
-				r = iR;
+		int n = 0;
+		for(int r : mRestaurants.keySet()) {
+			if(mRestaurants.get(n) == o.mPersonRole) {
+				n = r;
 				break;
 			}
 		}
-		DoGoToRestaurant(r);
+		DoGoToRestaurant(n);
 	}
 	
 	private void deliverOrder(MarketOrder o) {
@@ -109,8 +108,8 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 /* Animation Actions */
-	public void DoGoToRestaurant(String restaurant) {
-		mGui.DoGoToRestaurant(restaurant);
+	public void DoGoToRestaurant(int n) {
+//		mGui.DoGoToRestaurant(restaurant);
 		try {
 			inTransit.acquire();
 		}
@@ -142,5 +141,11 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 /* Utilities */
 	public void setGui(MarketDeliveryTruckGui g) {
 		mGui = g;
+	}
+
+	@Override
+	public void msgAnimationAtRestaurant(String r) {
+		// TODO Auto-generated method stub
+		
 	}
 }

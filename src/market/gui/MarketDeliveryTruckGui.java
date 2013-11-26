@@ -11,12 +11,11 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	
 	private String mDestination;
 	
-	private static final int xStart = -20, yStart = -20;
 	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-20, yMarketBase = ContactList.cMARKET_LOCATION.mY;
-//	private int xMarket = xMarketBase, yMarket = yMarketBase;
+	//	private int xMarket = xMarketBase, yMarket = yMarketBase;
 	
-	private int xPos = 50, yPos = 50;
-	private int xDestination = xStart, yDestination = yStart;
+	private int xPos = xMarketBase, yPos = yMarketBase;
+	private int xDestination = xMarketBase, yDestination = yMarketBase;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, goToRestaurant, leaveMarket};
@@ -83,8 +82,8 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	}
 	
 	public void DoLeaveMarket() {
-		xDestination = xStart;
-		yDestination = yStart;
+		xDestination = xMarketBase;
+		yDestination = yMarketBase;
 		mCommand = EnumCommand.leaveMarket;
 	}
 	
