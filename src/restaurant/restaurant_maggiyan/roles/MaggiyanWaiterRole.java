@@ -330,7 +330,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 				}
 			}
 			waiterGui.DoLeaveCustomer();
-			host.msgWaiterFree(this);
+			//host.msgWaiterFree(this);
 			return false;	
 		}catch(ConcurrentModificationException e){
 			return true; 

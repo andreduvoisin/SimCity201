@@ -49,9 +49,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		//David
                 if (restaurantID == 4) {
                         subRole = DavidRestaurantPanel.getInstance().cook;
-
-                if (restaurantID == 4) {
-                        subRole = DavidRestaurantPanel.getInstance().cook;
                         subRole.setPerson(super.mPerson);
                         //ANGELICA: get restaurant SSN
                 }
@@ -60,7 +57,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                     subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
                     subRole.setPerson(super.mPerson);
                 }
-            }
+            
                 //TODO DAVID add if statements for all the other restaurants
         }
         

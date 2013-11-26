@@ -97,7 +97,7 @@ public class PersonAgent extends Agent implements Person {
 
 				((RestaurantBaseInterface) mJobRole).setRestaurant(3); //HACK
 
-				((RestaurantBaseInterface) mJobRole).setRestaurant(4);
+				//((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
 
 				//DAVID set proper restaurant
@@ -211,7 +211,6 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
-		System.out.println("DOES CALL PAEA"); 
 		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
 				Iterator<Event> itr = mEvents.iterator();
@@ -341,14 +340,14 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void goToJob() {
 		//print("goToJob");
-//		mPersonGui.DoGoToDestination(mJobLocation);
-		//mPersonGui.guiMoveFromCurrentPostionTo(new Position(mJobLocation.mX, mJobLocation.mY));
-//		acquireSemaphore(semAnimationDone);
-//		mAtJob = true; //SHANE: This will need to be set to false somewhere
-//		mPersonGui.setPresent(false);
+		mPersonGui.DoGoToDestination(mJobLocation);
+		mPersonGui.guiMoveFromCurrentPostionTo(new Position(mJobLocation.mX, mJobLocation.mY));
+		acquireSemaphore(semAnimationDone);
+		mAtJob = true; //SHANE: This will need to be set to false somewhere
+		mPersonGui.setPresent(false);
 		
-//		mJobRole.setPerson(this); //take over job role
-//		mRoles.put(mJobRole, true); //set role to active
+		mJobRole.setPerson(this); //take over job role
+		mRoles.put(mJobRole, true); //set role to active
 	}
 
 	public void eatFood() {
@@ -369,7 +368,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 4; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 3; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 			((RestaurantBaseInterface) restCustRole).setPerson(this);
 			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
