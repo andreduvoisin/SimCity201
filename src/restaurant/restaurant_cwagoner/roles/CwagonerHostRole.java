@@ -1,6 +1,7 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import base.Agent;
+import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
 import java.util.*;
@@ -10,16 +11,20 @@ import java.util.*;
  * Decides which empty table each customer will occupy.
  * Assigns waiting customers to a waiter
  */
-public class CwagonerHostRole extends Agent implements CwagonerHost {
+public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 
-	public CwagonerHostRole(String hostName) {
-		name = hostName;
+	public CwagonerHostRole() {
+		// CHASE Auto-generated constructor stub
+		// placeholder host when role not yet filled
+	}
+
+	public CwagonerHostRole(Person person) {
+		super(person);
 	}
 	
 	
 	// DATA
 
-	private String name;
 	private List<Table> Tables =
 			Collections.synchronizedList(new ArrayList<Table>());
 	private List<MyCustomer> Customers =
@@ -105,7 +110,7 @@ public class CwagonerHostRole extends Agent implements CwagonerHost {
 	 * the host assigns the customer to that table, and
 	 * marks the table occupied
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		
 		synchronized(Waiters) {
 			for (MyWaiter w: Waiters) {
@@ -216,7 +221,7 @@ public class CwagonerHostRole extends Agent implements CwagonerHost {
 	// ACCESSORS
 	
 	public String getName() {
-		return name;
+		return "CwagonerHost " + mPerson.getName();
 	}
 	
 	public void addWaiter(CwagonerWaiterRole w) {

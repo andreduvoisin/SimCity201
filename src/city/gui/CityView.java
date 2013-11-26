@@ -19,6 +19,7 @@ import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.gui.BankPanel;
 
@@ -41,7 +42,10 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards = new HashMap<String, CityCard>();
 		cards.put("null", new CityCard(city));
 		cards.put("Road", new CityCard(city));
-		
+
+		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
+		cards.put("R_cwagoner", cwagoner);
+
 		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
 		cards.put("R_aduvoisin", aduvoisin);
 		
