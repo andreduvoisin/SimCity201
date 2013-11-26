@@ -353,7 +353,9 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
 			throwParty((EventParty)event);
-			planParty(Time.GetTime()+24);
+			if(((EventParty)event).mHost == this){
+				planParty(Time.GetTime()+24);
+			}
 			/*
 			int inviteNextDelay = 24*mSSN;
 			EventParty party = (EventParty) event;

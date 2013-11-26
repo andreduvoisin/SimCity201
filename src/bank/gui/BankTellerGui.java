@@ -4,6 +4,10 @@ import bank.interfaces.BankTeller;
 import base.Gui;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class BankTellerGui implements Gui {
 
@@ -23,11 +27,23 @@ public class BankTellerGui implements Gui {
 	public BankTellerGui(BankTeller bt, BankPanel bp) {
 		agent = bt;
 		bankPanel = bp;
-		xPos = -20;
-		yPos = -20;
+		xPos =  235;
+		yPos = 0;
 		xDestination = STARTPOSX1;
 		yDestination = STARTPOSY;
+		
+		bankTellerImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/goblin.png");
+    		bankTellerImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
+	
+	//Animation Upgrades
+	private BufferedImage bankTellerImage;
 	
 	public BankTellerGui(BankTeller bt, BankPanel bp, int position) {
 		agent = bt;
@@ -35,6 +51,8 @@ public class BankTellerGui implements Gui {
 		xPos = -20;
 		yPos = -20;
 		yDestination = STARTPOSY;
+		
+		
 		switch (position){
 		case 1:	xDestination = STARTPOSX1; break;
 		case 2: xDestination = STARTPOSX2; break;
@@ -56,8 +74,11 @@ public class BankTellerGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLUE);
-		g.fillRect(xPos, yPos, CUSTOMERSIZE, CUSTOMERSIZE);
+		
+//		g.setColor(Color.BLUE);
+//		g.fillRect(xPos, yPos, CUSTOMERSIZE, CUSTOMERSIZE);
+//		
+		g.drawImage(bankTellerImage, xPos, yPos, null);
 	}
 
 	public boolean isPresent() {
@@ -70,7 +91,7 @@ public class BankTellerGui implements Gui {
 	
 //	MESSAGES
 	public void DoLeaveBank() {
-		xDestination = -20;
-		yDestination = -20;
+		xDestination = 220;
+		yDestination = -50;
 	}
 }
