@@ -1,7 +1,12 @@
 package restaurant.restaurant_duvoisin.gui;
 
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
+import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
+
 import java.awt.*;
+
+import base.BaseRole;
 
 public class WaiterGui implements Gui {
 
@@ -45,8 +50,21 @@ public class WaiterGui implements Gui {
     private String currentOrder;
     int foodPosition;
 
-    public WaiterGui(Waiter agent, AndreRestaurantGui gui) {
-        this.agent = agent;
+    public WaiterGui(AndreSharedWaiterRole role, AndreRestaurantGui gui) {
+        this.agent = role;
+        this.gui = gui;
+        currentOrder = "";
+        
+        for(int i = 0; i < gui.idleHere.length; i++)
+			if(gui.idleHere[i] == false) {
+				IDLE_Y += IDLE_INCREMENT * i;
+				gui.idleHere[i] = true;
+				break;
+			}
+    }
+    
+    public WaiterGui(AndreWaiterRole role, AndreRestaurantGui gui) {
+        this.agent = role;
         this.gui = gui;
         currentOrder = "";
         

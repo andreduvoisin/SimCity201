@@ -1,5 +1,6 @@
 package restaurant.restaurant_duvoisin.roles;
 
+import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
@@ -12,6 +13,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent
@@ -43,17 +45,18 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	static final long breakTime = 20000;
 	Timer timer = new Timer();
 
-	public AndreWaiterRole(Host h, Cook c, Cashier cash, String name) {
-		super();
-		this.name = name;
-		this.host = h;
-		this.cashier = cash;
-		this.cook = c;
+	public AndreWaiterRole(Person person) {
+		super(person);
+		this.name = person.getName();
 	}
 
 	public String getName() {
 		return name;
 	}
+	
+	public void setHost(AndreHostRole host) { this.host = host; }
+	public void setCashier(AndreCashierRole cashier) { this.cashier = cashier; }
+	public void setCook(AndreCookRole cook) { this.cook = cook; }
 	// Messages
 	
 	public void msgSitAtTable(Customer c, int table, int waitingPosition) {

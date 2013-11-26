@@ -2,6 +2,7 @@ package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
@@ -21,6 +22,8 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 	public void setRestaurant(int restaurantID) {
 		switch(restaurantID){
 			case 0: //andre
+				subRole = AndreRestaurantPanel.getInstance().cashier;
+				subRole.setPerson(super.mPerson);
 				break;
 			case 1: //chase
 				break;

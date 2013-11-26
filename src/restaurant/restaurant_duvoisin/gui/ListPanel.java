@@ -158,7 +158,7 @@ public class ListPanel extends JPanel implements ActionListener {
 	    	listCB.add(tempCB);
 	    	temp.add(tempCB, BorderLayout.EAST);
 	    	view.add(temp);
-	        restPanel.addPerson(type, name);//puts customer on list
+	        //restPanel.addPerson(type, name);//puts customer on list
 	        restPanel.showCustomerInfo(type, name, listCB);//puts hungry button on panel
 	        //list.get(list.size() - 1).doClick();	//automatically activates hungry button
 	        validate();
@@ -176,7 +176,7 @@ public class ListPanel extends JPanel implements ActionListener {
 	    	listBU.add(tempBU);
 	    	temp.add(tempBU, BorderLayout.EAST);
 	    	view2.add(temp);
-	        restPanel.addPerson(type, name);
+	        //restPanel.addPerson(type, name);
 	        restPanel.showWaiterInfo(type, name, listBU);
 	        validate();
     	}

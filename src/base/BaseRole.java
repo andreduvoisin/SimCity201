@@ -22,7 +22,7 @@ public class BaseRole implements Role {
 	}
 
 	// NEEDED METHODS
-	protected void stateChanged() {
+	public void stateChanged() {
 		((PersonAgent) mPerson).stateChanged();
 	}
 

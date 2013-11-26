@@ -17,7 +17,9 @@ import java.util.concurrent.Semaphore;
 
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
@@ -81,7 +83,7 @@ public class PersonAgent extends Agent implements Person {
 		mCash = cash;
 		mName = name;
 		initializePerson();
-		
+		System.out.println("mTS: " + mTimeShift);
 		//Get job role and location; set active if necessary
 		mJobRole = null;
 		switch (job){
@@ -96,7 +98,9 @@ public class PersonAgent extends Agent implements Person {
 				//System.out.println(mJobRole.toString());
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 
-				((RestaurantBaseInterface) mJobRole).setRestaurant(3); //HACK
+				((RestaurantBaseInterface) mJobRole).setRestaurant(0); //HACK
+				
+				print("BALLS: " + mJobRole.toString());
 
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
@@ -105,7 +109,11 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
-			case NONE: break;
+			case NONE: 
+				mJobRole = new RestaurantCustomerRole(this);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(0);
+				break;
 		}
 		boolean active = (mTimeShift == Time.GetShift());
 		if (mJobRole != null){
@@ -156,9 +164,9 @@ public class PersonAgent extends Agent implements Person {
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
-		mEvents.add(new Event(EnumEventType.EAT, 0));
+//		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+		mEvents.add(new Event(EnumEventType.JOB, mTimeShift * 3));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
 //		mEvents.add(new Event(EnumEventType.JOB, 0));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
@@ -341,7 +349,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		mPersonGui.DoGoToDestination(mJobLocation);
+		//mPersonGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
 		mPersonGui.setPresent(false);
@@ -369,7 +377,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 5; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 0; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);

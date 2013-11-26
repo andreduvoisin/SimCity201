@@ -8,13 +8,14 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
-
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
+import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
-
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -30,7 +31,15 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 
 	public void setRestaurant(int restaurantID) {
 		switch(restaurantID){
-			case 0:
+			case 0: //andre
+				//int rn0 = new Random().nextInt();
+				//if (rn0 % 2 == 0) {
+					subRole = new AndreWaiterRole(super.mPerson);
+					AndreRestaurantPanel.getInstance().addPerson((AndreWaiterRole) subRole);
+//				} else {
+//					subRole = new AndreSharedWaiterRole(super.mPerson);
+//					AndreRestaurantPanel.getInstance().addPerson((AndreSharedWaiterRole) subRole);
+//				}
 				break;
 			case 1: 
 				break;
