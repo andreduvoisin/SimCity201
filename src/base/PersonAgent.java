@@ -100,7 +100,7 @@ public class PersonAgent extends Agent implements Person {
 				
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 
-				((RestaurantBaseInterface) mJobRole).setRestaurant(0); //HACK ANDRE ALL
+				((RestaurantBaseInterface) mJobRole).setRestaurant(7); //HACK ANDRE ALL
 				
 				print("BALLS: " + mJobRole.toString());
 
