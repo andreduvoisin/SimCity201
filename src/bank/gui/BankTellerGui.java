@@ -31,6 +31,15 @@ public class BankTellerGui implements Gui {
 		yPos = 0;
 		xDestination = STARTPOSX1;
 		yDestination = STARTPOSY;
+		
+		bankTellerImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/goblin.png");
+    		bankTellerImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 	
 	//Animation Upgrades
@@ -43,14 +52,6 @@ public class BankTellerGui implements Gui {
 		yPos = -20;
 		yDestination = STARTPOSY;
 		
-		bankTellerImage = null;
-    	try {
-    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/girl1.png");
-    		bankTellerImage = ImageIO.read(imageURL);
-    	}
-    	catch (IOException e) {
-    		System.out.println(e.getMessage());
-    	}
 		
 		switch (position){
 		case 1:	xDestination = STARTPOSX1; break;
