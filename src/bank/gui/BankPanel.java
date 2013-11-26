@@ -2,11 +2,13 @@ package bank.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
@@ -29,7 +31,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	private int WINDOWY = 500;
 	static final int TIMERDELAY = 5;
 	
-	private Image bufferImage;
+	private Image image;
     private Dimension bufferSize;
     public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
@@ -41,7 +43,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int COUNTER_SIZE_X = 500;
 	static final int COUNTER_SIZE_Y = 15;
 	
-	static final int LINE_X = 250;
+	static final int LINE_X = 235;
 	static final int LINE_Y = 350;
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
@@ -69,6 +71,15 @@ public class BankPanel extends CityCard implements ActionListener{
     	//addGui(teller.mGUI);
     	
     	//testBankGui();
+    	
+    	image = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/bankbg.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 	
 	public static BankPanel getInstance() {
@@ -133,13 +144,14 @@ public class BankPanel extends CityCard implements ActionListener{
         //Clear the screen by painting a rectangle the size of the frame
         g2.setColor(getBackground());
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
+        g2.drawImage(image, 0, 0, null); 
         
-        //Counter
-        g2.setColor(Color.GRAY);
-        g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
+//        //Counter
+//        g2.setColor(Color.GRAY);
+//        g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
         
         // temp square, showing beginning of line
-        g2.fillRect(LINE_X, LINE_Y, 20, 20);
+       // g2.fillRect(LINE_X, LINE_Y, 20, 20);
         
         for(Gui gui : guis) {
             if (gui.isPresent()) {

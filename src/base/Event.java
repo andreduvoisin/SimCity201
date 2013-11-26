@@ -2,11 +2,12 @@ package base;
 
 
 public class Event implements Comparable<Event> {
-	public enum EnumEventType {GET_CAR, 									//One time event
+	public enum EnumEventType {GET_CAR, 							//One time event
 						JOB, EAT, 									//Daily Recurring Events
 						DEPOSIT_CHECK, 								//Intermittent Events
 						ASK_FOR_RENT, MAINTAIN_HOUSE,				//Housing Events
-						INVITE1, INVITE2, RSVP1, RSVP2, PARTY};		//Party Events
+						INVITE1, INVITE2, RSVP1, RSVP2, PARTY,		//Party Events
+						BOARD_BUS, EXIT_BUS};						//Transportation Events
 
 	EnumEventType mEventType;
 	public int mTime;

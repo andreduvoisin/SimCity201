@@ -1,9 +1,6 @@
 package restaurant.restaurant_cwagoner.gui;
 
 import restaurant.restaurant_cwagoner.roles.*;
-import base.PersonAgent;
-import base.PersonAgent.EnumJobType;
-import base.interfaces.Person;
 import base.interfaces.Role;
 
 import javax.swing.*;
@@ -24,7 +21,6 @@ public class CwagonerRestaurantPanel extends JPanel {
     private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
     private List<CwagonerWaiterRole> Waiters = new ArrayList<CwagonerWaiterRole>();
 
-    @SuppressWarnings("static-access")
 	public CwagonerRestaurantPanel(CwagonerRestaurantGui g, int numTables) {
     	super();
 

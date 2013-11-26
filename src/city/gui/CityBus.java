@@ -13,7 +13,6 @@ public class CityBus extends CityComponent {
 
 	private TransportationBusDispatch mBusDispatch;
 
-	// CHASE: get list from main GUI
 	List<Location> mStopCoords;
 
 	private static int sBusNumber = 0;
@@ -86,7 +85,10 @@ public class CityBus extends CityComponent {
 
 
 	public void DoAdvanceToNextStop() {
+		System.out.println("current stop " + mStopNumber);
         mStopNumber = (mStopNumber + 1) % mStopCoords.size();
+
+		System.out.println("new stop " + mStopNumber);
         mTraveling = true;
 
         destination.mX = mStopCoords.get(mStopNumber).mX;
