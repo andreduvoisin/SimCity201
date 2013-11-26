@@ -19,7 +19,6 @@ import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -35,11 +34,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	JButton addRestaurant, addBank, housingGUIButton;
 	JPanel configList;
 	List<JButton> configOptions;
-	int configChoice = -1;
 	
 	// Title & Pause Button
 	JLabel title = new JLabel("Control Panel");
-	JButton startButton = new JButton("Start SimCity201");
+//	JButton startButton = new JButton("Start SimCity201");
 	
 	/* ANDRE JERRY No days of week - discuss w/Shane
 	// Select Day
@@ -76,13 +74,13 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		add(title);
 		
 		// Pause Button
-		Dimension pauseBtnDim = new Dimension(CP_WIDTH - 10, 30);
-		startButton.setPreferredSize(pauseBtnDim);
-		startButton.setMinimumSize(pauseBtnDim);
-		startButton.setMaximumSize(pauseBtnDim);
-		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		startButton.addActionListener(this);
-		add(startButton);
+//		Dimension pauseBtnDim = new Dimension(CP_WIDTH - 10, 30);
+//		startButton.setPreferredSize(pauseBtnDim);
+//		startButton.setMinimumSize(pauseBtnDim);
+//		startButton.setMaximumSize(pauseBtnDim);
+//		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		startButton.addActionListener(this);
+//		add(startButton);
 		
 //		// Select Day
 //		dayTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -159,21 +157,15 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		for (int i = 1; i < numConfigs; i++) {
 			if (((JButton) e.getSource()).getText()
 					.equals("Configuration " + i)) {
-				configChoice = i;
-			}
-			for (JButton b : configOptions) {
-				b.setEnabled(false);
-			}
-		}
-		if (e.getSource() == startButton) {
-			if (configChoice > 0) {
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
-					config.readFileCreatePersons(city, configChoice);
+					config.readFileCreatePersons(city, i);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
-				startButton.setEnabled(false);
+			}
+			for (JButton b : configOptions) {
+				b.setEnabled(false);
 			}
 		}
 	}
