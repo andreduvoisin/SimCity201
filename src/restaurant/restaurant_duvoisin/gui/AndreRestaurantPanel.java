@@ -29,7 +29,7 @@ public class AndreRestaurantPanel extends JPanel {
     //Host, cook, waiters and customers
 	public AndreHostRole host = new AndreHostRole("Kevin G");
 	public AndreCookRole cook = new AndreCookRole("Cooking Mama");
-	private Vector<AndreWaiterRole> waiters = new Vector<AndreWaiterRole>();
+	private Vector<Waiter> waiters = new Vector<Waiter>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     private Vector<AndreMarketRole> markets = new Vector<AndreMarketRole>();
     public AndreCashierRole cashier = new AndreCashierRole("Cashier");
@@ -133,12 +133,15 @@ public class AndreRestaurantPanel extends JPanel {
     		//c.startThread();
     	} else if(role instanceof AndreSharedWaiterRole) {	//if(waiters.size() % 2 == 0) { // Odd = Shared, Even = Normal
     			//AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
-    			WaiterGui g = new WaiterGui(((AndreSharedWaiterRole)role), gui);
-	    		
-	    		gui.animationPanel.addGui(g);
-	    		((AndreSharedWaiterRole)role).setGui(g);
-	    		//waiters.add(((AndreSharedWaiterRole)role));
-	    		//host.addWaiter(((AndreSharedWaiterRole)role));
+				WaiterGui g = new WaiterGui(((AndreSharedWaiterRole)role), gui);
+				
+				gui.animationPanel.addGui(g);
+				((AndreSharedWaiterRole)role).setGui(g);
+				waiters.add(((AndreSharedWaiterRole)role));
+				host.addWaiter(((AndreSharedWaiterRole)role));
+				((AndreSharedWaiterRole)role).setHost(host);
+				((AndreSharedWaiterRole)role).setCook(cook);
+				((AndreSharedWaiterRole)role).setCashier(cashier);
 	            //w.startThread();
     	} else if(role instanceof AndreWaiterRole) {	//} else {
 	    		//AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
