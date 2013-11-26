@@ -4,6 +4,7 @@ import java.util.Map;
 
 import base.Event;
 import base.Item.EnumItemType;
+import city.gui.CityHousing;
 import city.gui.CityPerson;
 
 public interface Person {
@@ -41,6 +42,8 @@ public interface Person {
 	void subLoan(double mTransaction);
 	
 	public CityPerson getPersonGui();
+	
+	public CityHousing getHouse();
 
 	void msgHereIsPayment(int senderSSN, double amount);
 

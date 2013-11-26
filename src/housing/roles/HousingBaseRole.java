@@ -14,7 +14,7 @@ public class HousingBaseRole extends BaseRole {
 	public boolean mTimeToCheckRent = false;
 	
 	Semaphore isAnimating = new Semaphore(0, true);
-	HousingPersonGui gui;
+	public HousingPersonGui gui;
 	public CityHousing mHouse = null;
 	
 	public HousingBaseRole() {
