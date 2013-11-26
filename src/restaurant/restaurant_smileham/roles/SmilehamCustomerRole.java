@@ -210,8 +210,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		//WaitingInRestaurant + followHost = BeingSeated
 		if (mState == EnumAgentState.WaitingInRestaurant && mEvent == EnumAgentEvent.restaurantFullLeave ){
 			mState = EnumAgentState.Leaving;
-//			leaveRestaurant(); //SHANE: 2 put this back after testing
-//			leaveTable(); or something like this
+			leaveRestaurant(); 
 			return true;
 		}
 		
@@ -289,7 +288,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		mCustomerGui.DoGoToWaitingArea();
 		WaitingArea.addWaitingCustomer();
 		
-//		mHost.msgIWantFood((SmilehamCustomer)this); //SHANE: 2 put this in after testing
+		mHost.msgIWantFood((SmilehamCustomer)this);
 	}
 
 	private void sitDown() {
@@ -390,6 +389,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	private void leaveRestaurant(){
 		print("Action: leaveRestaurant()");
 		mHost.msgLeavingRestaurant((SmilehamCustomer)this);
+		//SHANE: 2 Make sure to tell person I'm leaving
 	}
 
 	//-----------------------------------------------ACCESSORS-----------------------------------------------
