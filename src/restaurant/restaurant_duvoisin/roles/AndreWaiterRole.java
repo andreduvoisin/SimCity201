@@ -141,7 +141,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgRequestCheck(Customer c) {
-		print("msgRequestCheck received");
+		//print("msgRequestCheck received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.customer == c)
@@ -151,7 +151,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgHereIsCheck(Customer c, double amount) {
-		print("msgHereIsCheck received");
+		//print("msgHereIsCheck received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.customer == c) {
@@ -344,13 +344,13 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void AskCashierToComputeCheck(MyCustomer c) {
-		print("Doing AskCashierToComputeCheck");
+		//print("Doing AskCashierToComputeCheck");
 		cashier.msgComputeBill(this, c.customer, c.choice);
 		c.state = CustomerState.WaitingForCheck;
 	}
 	
 	private void GiveCustomerCheck(MyCustomer c) {
-		print("Doing GiveCustomerCheck");
+		//print("Doing GiveCustomerCheck");
 		waiterGui.DoGoToCashier();
 		try {
 			atCashier.acquire();
