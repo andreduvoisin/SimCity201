@@ -34,9 +34,7 @@ import city.gui.SimCityGui;
 public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
-	private static int sSSN = 0;
-	//private static int sTimeSchedule = 0; //0,1,2
-	//private static int sEatingTime = 0;
+	public static int sSSN = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
@@ -64,7 +62,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	public CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
+	public CityPerson mPersonGui;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -152,11 +150,11 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(this, SimCityGui.getInstance()); //SHANE: Hardcoded start place
+		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), 0, sSSN*10); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
-		mEvents.add(new Event(EnumEventType.EAT, 0));
+		mEvents.add(new Event(EnumEventType.EAT, 1));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
@@ -331,6 +329,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof MarketCustomerRole){
 				mRoles.put(iRole, true); //set active
+				iRole.setPerson(this);
 			}
 		}
 		

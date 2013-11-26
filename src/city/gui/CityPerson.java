@@ -56,8 +56,8 @@ public class CityPerson extends CityComponent{
 //		setUpAStar();
 //	}
 	
-	public CityPerson(PersonAgent person, SimCityGui gui) {
-		super(0,0, Color.ORANGE, person.getName());
+	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
+		super(x, y, Color.ORANGE, person.getName());
 		rectangle = new Rectangle(0, 0, 5, 5);
 		mPerson = person;
 		this.gui = gui;
