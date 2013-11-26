@@ -7,9 +7,11 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.Semaphore;
 
-import astar.*;
+import astar.AStarNode;
+import astar.AStarTraversal;
+import astar.Position;
+import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 
@@ -75,6 +77,9 @@ public class CityPerson extends CityComponent{
 	public void updatePosition() {
 		numTicks++;
 		
+		int previousX = x;
+		int previousY = y;
+		
 		if (x < xDestination)
             x++;
         else if (x > xDestination)
@@ -98,22 +103,39 @@ public class CityPerson extends CityComponent{
 //        		yPos = temp.getY() * CityPanel.ASC;
 //        	}
 //        }
+
+
+        //B* Algorithm
+        
+        boolean xOldInBlock = 	(((previousX > ContactList.cGRID_POINT1-5) && (previousX < ContactList.cGRID_POINT2)) || 
+								((previousX > ContactList.cGRID_POINT3-5) && (previousX < ContactList.cGRID_POINT4)) ||
+								((previousX > ContactList.cGRID_POINT5-5) && (previousX < ContactList.cGRID_POINT6)) ||
+        						((previousX > ContactList.cGRID_POINT7-5) && (previousX < ContactList.cGRID_POINT8))
+        						);
+        boolean yOldInBlock = 	(((previousY > ContactList.cGRID_POINT1-5) && (previousY < ContactList.cGRID_POINT2)) || 
+								((previousY > ContactList.cGRID_POINT3-5) && (previousY < ContactList.cGRID_POINT4)) ||
+								((previousY > ContactList.cGRID_POINT5-5) && (previousY < ContactList.cGRID_POINT6)) ||
+								((previousY > ContactList.cGRID_POINT7-5) && (previousY < ContactList.cGRID_POINT8))
+								);
+        boolean xNewInBlock = 	(((x > ContactList.cGRID_POINT1-5) && (x < ContactList.cGRID_POINT2)) || 
+								((x > ContactList.cGRID_POINT3-5) && (x < ContactList.cGRID_POINT4)) ||
+								((x > ContactList.cGRID_POINT5-5) && (x < ContactList.cGRID_POINT6)) ||
+								((x > ContactList.cGRID_POINT7-5) && (x < ContactList.cGRID_POINT8))
+								);
+		boolean yNewInBlock = 	(((y > ContactList.cGRID_POINT1-5) && (y < ContactList.cGRID_POINT2)) || 
+								((y > ContactList.cGRID_POINT3-5) && (y < ContactList.cGRID_POINT4)) ||
+								((y > ContactList.cGRID_POINT5-5) && (y < ContactList.cGRID_POINT6)) ||
+								((y > ContactList.cGRID_POINT7-5) && (y < ContactList.cGRID_POINT8))
+								);
+        
+        if (xNewInBlock && yNewInBlock){
+        	if (xOldInBlock && yNewInBlock){
+        		y = previousY;
+        	}else{
+        		x = previousX;
+        	}
+        }
 	}
-
-        //Hack A*
-//        boolean xOldInBlock = ((previousX > 95) && (previousX < 500));
-//        boolean yOldInBlock = ((previousY > 95) && (previousY < 500));
-//        boolean xNewInBlock = ((xPos > 95) && (xPos < 500));
-//        boolean yNewInBlock = ((yPos > 95) && (yPos < 500));
-//        
-//        if (xNewInBlock && yNewInBlock){
-//        	if (xOldInBlock && yNewInBlock){
-//        		yPos = previousY;
-//        	}else{
-//        		xPos = previousX;
-//        	}
-//        }
-
 	
 	public void paint(Graphics g) {
 		// A* TEST DO NOT DELETE :D

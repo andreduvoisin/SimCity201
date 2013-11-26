@@ -1,16 +1,13 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.CookAgent;
-import restaurant.restaurant_duvoisin.WaiterAgent;
+import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import city.gui.SimCityGui;
-
 public class CookGui implements Gui {
-    private CookAgent agent = null;
+    private AndreCookRole agent = null;
     static final int COOKSIZE = 20;	// Size of each side of host (square).
     static final int STARTPOS_X = 225;
     static final int STARTPOS_Y = 328;
@@ -44,7 +41,7 @@ public class CookGui implements Gui {
     Map<Integer, String> grilledItems = new HashMap<Integer, String>();
     Map<Integer, String> platedItems = new HashMap<Integer, String>();
 
-    public CookGui(CookAgent agent, RestaurantGui gui) {
+    public CookGui(AndreCookRole agent, RestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         currentOrder = "";

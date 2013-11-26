@@ -1,8 +1,9 @@
-package restaurant.restaurant_duvoisin;
+package restaurant.restaurant_duvoisin.roles;
 
 import java.util.*;
 
-import restaurant.restaurant_duvoisin.agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_duvoisin.MarketPrices;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Market;
@@ -10,7 +11,7 @@ import restaurant.restaurant_duvoisin.interfaces.Market;
 /**
  * Restaurant Market Agent
  */
-public class MarketAgent extends Agent implements Market {
+public class AndreMarketRole extends BaseRole implements Market {
 	private String name;
 	Boolean paused = false;
 	Cook cook;
@@ -22,7 +23,7 @@ public class MarketAgent extends Agent implements Market {
 	MarketPrices marketPrices = new MarketPrices();
 	List<MyCheck> myChecks = Collections.synchronizedList(new ArrayList<MyCheck>());
 
-	public MarketAgent(String name, Cook c) {
+	public AndreMarketRole(String name, Cook c) {
 		super();
 		
 		this.name = name;
@@ -84,7 +85,7 @@ public class MarketAgent extends Agent implements Market {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		if(!paused) {
 			synchronized(marketOrders) {
 				for(MarketOrder mo : marketOrders)

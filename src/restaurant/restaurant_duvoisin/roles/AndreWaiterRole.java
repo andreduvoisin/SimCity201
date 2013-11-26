@@ -1,6 +1,6 @@
-package restaurant.restaurant_duvoisin;
+package restaurant.restaurant_duvoisin.roles;
 
-import restaurant.restaurant_duvoisin.agent.Agent;
+import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
@@ -11,10 +11,12 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+import base.BaseRole;
+
 /**
  * Restaurant Waiter Agent
  */
-public class WaiterAgent extends Agent implements Waiter {	
+public class AndreWaiterRole extends BaseRole implements Waiter {	
 	List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	
 	enum CustomerState { Waiting, Seated, ReadyToOrder, AskedToOrder, Ordered, OutOfFood, FoodCooking, FoodReady, Eating, RequestedCheck, WaitingForCheck, CheckComputed, Paying, Done };
@@ -41,7 +43,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	static final long breakTime = 20000;
 	Timer timer = new Timer();
 
-	public WaiterAgent(Host h, Cook c, Cashier cash, String name) {
+	public AndreWaiterRole(Host h, Cook c, Cashier cash, String name) {
 		super();
 		this.name = name;
 		this.host = h;
@@ -192,7 +194,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		try {
 			if(!paused) {
 				if(state == MyState.RequestBreak) {
@@ -426,5 +428,17 @@ public class WaiterAgent extends Agent implements Waiter {
 
 	public WaiterGui getGui() {
 		return waiterGui;
+	}
+
+	@Override
+	public void pauseBaseAgent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resumeBaseAgent() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -1,12 +1,12 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.CustomerAgent;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 
 import java.awt.*;
 
 public class CustomerGui implements Gui{
 
-	private CustomerAgent agent = null;
+	private AndreCustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 
@@ -33,7 +33,7 @@ public class CustomerGui implements Gui{
 	
 	Boolean notifiedAtWait = false;
 
-	public CustomerGui(CustomerAgent c, RestaurantGui gui){ //HostAgent m) {
+	public CustomerGui(AndreCustomerRole c, RestaurantGui gui){ //HostAgent m) {
 		agent = c;
 		xPos = STARTPOS;
 		yPos = STARTPOS;
