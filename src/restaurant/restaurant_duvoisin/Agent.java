@@ -1,4 +1,4 @@
-package restaurant.restaurant_duvoisin.agent;
+package restaurant.restaurant_duvoisin;
 
 import java.util.concurrent.*;
 

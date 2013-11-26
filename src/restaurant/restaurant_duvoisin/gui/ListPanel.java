@@ -1,6 +1,7 @@
 package restaurant.restaurant_duvoisin.gui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  * Subpanel of restaurantPanel.
  * This holds the scroll panes for the customers and, later, for waiters
  */
+@SuppressWarnings("serial")
 public class ListPanel extends JPanel implements ActionListener {
 	
 	public JScrollPane pane =

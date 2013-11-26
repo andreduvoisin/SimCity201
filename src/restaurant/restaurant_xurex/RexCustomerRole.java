@@ -18,7 +18,7 @@ import java.util.Random;
 /**
  * Restaurant customer agent.
  */
-public class CustomerRole extends BaseRole implements Customer{
+public class RexCustomerRole extends BaseRole implements Customer{
 	
 	private String name;
 	private int hungerLevel = 10;
@@ -56,7 +56,7 @@ public class CustomerRole extends BaseRole implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerRole(String name, Person person){
+	public RexCustomerRole(String name, Person person){
 		super(person);
 		this.name = name;
 		if(IsInt(name)){
@@ -255,7 +255,7 @@ public class CustomerRole extends BaseRole implements Customer{
 			RandomChoice();
 		}
 		
-		final CustomerRole temp = this;
+		final RexCustomerRole temp = this;
 		timer.schedule(new TimerTask() {
 			public void run() {
 				waiter.ReadyToOrder(temp);

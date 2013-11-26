@@ -19,7 +19,7 @@ import base.ContactList;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 
-public class MarketCustomerRole extends BaseRole implements MarketCustomer{
+public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	//DATA
 	//mCash accessed from Person
 	private MarketCustomerGui mGui;
@@ -67,7 +67,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer{
 		inTransit.release();
 	}
 	
-	public void msgAnimationLeftRestaurant() {
+	public void msgAnimationLeftMarket() {
 		inTransit.release();
 	}
 	

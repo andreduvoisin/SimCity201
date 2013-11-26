@@ -50,6 +50,10 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		stateChanged();
 	}
 
+	public void msgAnimationAtMarket() {
+		inTransit.release();
+	}
+	
 	public void msgAnimationAtDeliveryTruck() {
 		inTransit.release();
 	}
@@ -98,13 +102,13 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	}
 	
 	private void fulfillOrder(MarketOrder o) {
-		DoGoToFront();
+		DoGoToCustomer();
 		((MarketCustomer)(o.mPersonRole)).msgHereIsCustomerOrder(o);
 		mOrders.remove(o);
 	}
 	
 	private void sendOrder(MarketOrder o) {
-		DoGoToDeliveryTruck(o.mDeliveryTruck);
+		DoGoToDeliveryTruck();
 		o.mDeliveryTruck.msgDeliverOrderToCook(o);
 		mOrders.remove(o);
 	}
@@ -120,7 +124,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		}
 	}
 	
-	private void DoGoToFront() {
+	private void DoGoToMarket() {
 		mGui.DoGoToMarket();
 		try {
 			inTransit.acquire();
@@ -130,8 +134,16 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		}
 	}
 	
-	private void DoGoToDeliveryTruck(MarketDeliveryTruck d) {
-		//check to pass DeliveryTruck or MarketDeliveryTruckRole
+	private void DoGoToCustomer() {
+		mGui.DoGoToCustomer();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	private void DoGoToDeliveryTruck() {
 		mGui.DoGoToDeliveryTruck();
 		try {
 			inTransit.acquire();

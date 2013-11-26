@@ -32,7 +32,12 @@ public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
 	
 	public MaggiyanCashierRole(Person p){
 		super(p); 
-		this.n = p.getName();
+		if(p == null){
+			this.n = "null"; 
+		}
+		else{
+			this.n = p.getName();
+		}
 	}
 	
 	public String getName(){

@@ -2,43 +2,40 @@ package restaurant.restaurant_smileham.test.mock;
 
 import java.util.List;
 
+import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Table;
-import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.WaiterGui;
-import restaurant.restaurant_smileham.interfaces.Cook;
-import restaurant.restaurant_smileham.interfaces.Customer;
-import restaurant.restaurant_smileham.interfaces.Host;
-import restaurant.restaurant_smileham.interfaces.Waiter;
-import restaurant.restaurant_smileham.roles.SmilehamCookRole;
-import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
-import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import restaurant.restaurant_smileham.interfaces.SmilehamCook;
+import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 
-public class MockWaiter extends Mock implements Waiter {
+public class MockWaiter extends Mock implements SmilehamWaiter {
 
 	public MockWaiter(String name) {
 		super(name);
 	}
 
 	@Override
-	public void msgSeatCustomer(Table table, Customer customer) {
+	public void msgSeatCustomer(Table table, SmilehamCustomer customer) {
 		log.add(new LoggedEvent("msgSeatCustomer(" + table + ", " + customer + ")"));
 		
 	}
 
 	@Override
-	public void msgReadyToOrder(Customer customer) {
+	public void msgReadyToOrder(SmilehamCustomer customer) {
 		
 	}
 
 	@Override
-	public void msgHereIsMyChoice(Customer customer, EnumFoodOptions choice) {
+	public void msgHereIsMyChoice(SmilehamCustomer customer, EnumFoodOptions choice) {
 		
 	}
 
 	@Override
-	public void msgNotGettingFood(Customer customer) {
+	public void msgNotGettingFood(SmilehamCustomer customer) {
 		
 	}
 
@@ -53,7 +50,7 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 
 	@Override
-	public void msgDoneEating(Customer customer) {
+	public void msgDoneEating(SmilehamCustomer customer) {
 		
 	}
 
@@ -68,23 +65,17 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 
 	@Override
-	public void msgWantBreak() {
+	public void msgReadyForCheck(EnumFoodOptions choice, SmilehamCustomer customer) {
 		
 	}
 
 	@Override
-	public void msgReadyForCheck(EnumFoodOptions choice, Customer customer) {
-		
-	}
-
-	@Override
-	public void msgCustomerLeaving(Customer customer) {
+	public void msgCustomerLeaving(SmilehamCustomer customer) {
 		
 	}
 
 	@Override
 	public void msgHereIsCheck(Order order, Check check) {
-		log.add(new LoggedEvent("msgHereIsCheck(" + order + ", " + check + ")"));
 		
 	}
 
@@ -109,12 +100,12 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 
 	@Override
-	public Host getHost() {
+	public SmilehamHost getHost() {
 		return null;
 	}
 
 	@Override
-	public Cook getCook() {
+	public SmilehamCook getCook() {
 		return null;
 	}
 
@@ -122,5 +113,6 @@ public class MockWaiter extends Mock implements Waiter {
 	public boolean isWorking() {
 		return false;
 	}
+
 
 }

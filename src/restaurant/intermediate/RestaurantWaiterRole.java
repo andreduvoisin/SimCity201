@@ -28,38 +28,47 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	}
 
 	public void setRestaurant(int restaurantID) {
-		if (restaurantID == 4) {
-			int rn = new Random().nextInt();
-			if (rn % 2 == 0) {
-				subRole = new DavidWaiterRole(super.mPerson);
-				DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
-			} else {
-				subRole = new DavidWaiterRoleShared(super.mPerson);
-				DavidRestaurantPanel.getInstance().addSharedWaiter(
-						(DavidWaiterRoleShared) subRole);
-			}
+		switch(restaurantID){
+			case 0:
+				break;
+			case 1: //maggi
+				break;
+			case 2:
+				break;
+			case 3:
+				int rn1 = new Random().nextInt();
+				
+				if (rn1 % 2 == 0) {
+					subRole = new MaggiyanWaiterRole(super.mPerson);
+					MaggiyanRestaurantPanel.getRestPanel().addWaiter((MaggiyanWaiterRole) subRole);
+				}else {
+					subRole = new MaggiyanSharedWaiterRole(super.mPerson);
+					MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
+				}
+				break;
+			case 4: //david
+				int rn = new Random().nextInt();
+				if (rn % 2 == 0) {
+					subRole = new DavidWaiterRole(super.mPerson);
+					DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
+				} else {
+					subRole = new DavidWaiterRoleShared(super.mPerson);
+					DavidRestaurantPanel.getInstance().addSharedWaiter(
+							(DavidWaiterRoleShared) subRole);
+				}
+				break;
+			case 5: //shane
+				subRole = new SmilehamWaiterRole(mPerson);
+				//SHANE: add waiter here
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
 		}
-
-		if (restaurantID == 3) {
-			int rn = new Random().nextInt();
-			
-			if (rn % 2 == 0) {
-				subRole = new MaggiyanWaiterRole(super.mPerson);
-				MaggiyanRestaurantPanel.getRestPanel().addWaiter((MaggiyanWaiterRole) subRole);
-			} else {
-				subRole = new MaggiyanSharedWaiterRole(super.mPerson);
-				MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
-			}
-		}
-		else if (restaurantID == 5){
-			subRole = new SmilehamWaiterRole(mPerson);
-		}
-		else{ //just for now to remove null pointer errors
-			subRole = new DavidWaiterRole(super.mPerson);
-			DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
-
-		}
+		
 		// TODO DAVID add if statements for all the other restaurants
+
 	}
 	
 	public void setPerson(Person person){

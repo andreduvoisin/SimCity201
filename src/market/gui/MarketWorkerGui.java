@@ -5,10 +5,10 @@ import java.util.concurrent.Semaphore;
 
 import base.Item.EnumItemType;
 import market.*;
-import market.roles.MarketWorkerRole;
+import market.interfaces.MarketWorker;
 
 public class MarketWorkerGui implements MarketBaseGui {
-	private MarketWorkerRole mAgent;
+	private MarketWorker mAgent;
 	private MarketItemsGui mItems;
 	
 	private MarketOrder mOrder = null;
@@ -19,7 +19,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private int xCustomer = 100, yCustomer = 250;
 	
 	private int xPos = xStart, yPos = yStart;
-	private int xDestination = xHome, yDestination = yHome;
+	private int xDestination = xStart, yDestination = yStart;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToItem, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
@@ -27,7 +27,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	private Semaphore gettingItem = new Semaphore(0,true);
 	
-	public MarketWorkerGui(MarketWorkerRole agent) {
+	public MarketWorkerGui(MarketWorker agent) {
 		mAgent = agent;
 	}
 	
@@ -50,12 +50,7 @@ public class MarketWorkerGui implements MarketBaseGui {
         		break;
         	}
         	case goToMarket: {
-        		mCommand = EnumCommand.noCommand;
-        		break;
-        	}
-        	case fulFillOrder: {
-        		mAgent.msgOrderFulfilled(mOrder);
-        		mOrder = null;
+        		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -109,8 +104,10 @@ public class MarketWorkerGui implements MarketBaseGui {
 			catch(InterruptedException e) {
 				e.printStackTrace();
 			}
-			mItems.decreaseItemCount(item);		
+			mItems.decreaseItemCount(item, mOrder.mItems.get(item));		
 		}
+		mAgent.msgOrderFulfilled(mOrder);
+		mOrder = null;
 	}
 	
 	//ANGELICA: add in parameter

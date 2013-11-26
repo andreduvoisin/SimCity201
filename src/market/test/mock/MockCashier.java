@@ -1,7 +1,5 @@
 package market.test.mock;
 
-import java.util.concurrent.Semaphore;
-
 import market.gui.MarketCashierGui;
 import market.interfaces.MarketCashier;
 import test.mock.*;
