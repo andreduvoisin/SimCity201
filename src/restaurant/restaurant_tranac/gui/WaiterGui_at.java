@@ -123,7 +123,7 @@ public class WaiterGui_at implements Gui {
     	
     	check = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/check.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/check.png");
     	check = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
@@ -133,7 +133,7 @@ public class WaiterGui_at implements Gui {
     	
     	askingBubble = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-question.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/speech-question.png");
     	askingBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
