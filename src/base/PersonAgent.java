@@ -1,5 +1,6 @@
 package base;
 
+import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
 
@@ -99,9 +100,7 @@ public class PersonAgent extends Agent implements Person {
 				//System.out.println(mJobRole.toString());
 				
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
-
 				((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
-				
 				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
@@ -206,7 +205,13 @@ public class PersonAgent extends Agent implements Person {
 	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
 		mRoleFinished = true;
 	}
-	
+	public void msgRoleInactive(){
+		for (Role iRole : mRoles.keySet()){
+			if(!(iRole instanceof HousingBase)){
+				mRoles.put(iRole, false);
+			}
+		}
+	}
 	public void msgHereIsPayment(int senderSSN, double amount){
 		mCash += amount;
 	}

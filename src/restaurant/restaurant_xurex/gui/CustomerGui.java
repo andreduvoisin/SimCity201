@@ -119,6 +119,10 @@ public class CustomerGui implements Gui{
                 }
         }
         
+        public void setRole(RexCustomerRole role){
+        	this.role = role;
+        }
+        
         public void SetCustomerEnabled() {
                 //gui.setCustomerEnabled(agent);
         }

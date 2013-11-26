@@ -13,6 +13,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -69,7 +70,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 	                 subRole.setPerson(super.mPerson);
 					break;
 				case 4: //david
-           //         subRole = DavidRestaurantPanel.getInstance().cook;
+                    subRole = DavidRestaurantPanel.getInstance().cook;
                     subRole.setPerson(super.mPerson);
                     //ANGELICA: get restaurant SSN
 					break;
