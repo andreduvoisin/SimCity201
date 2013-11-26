@@ -16,6 +16,9 @@ import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import javax.swing.*;
 
 import base.BaseRole;
+import base.PersonAgent;
+import base.PersonAgent.EnumJobType;
+import base.interfaces.Person;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -34,6 +37,7 @@ public class JerrywebRestaurantPanel extends JPanel {
     //Host, cook, waiters and customers
     public static JerrywebHostRole host = new JerrywebHostRole("Sarah");
     public HostGui hostGui = new HostGui(host);
+    //public PersonAgent mPerson = new PersonAgent(EnumJobType.RESTAURANT,20,"Joe");
 
     
 	public static JerrywebCookRole cook = new JerrywebCookRole("Bob Sagget");
@@ -73,7 +77,10 @@ public class JerrywebRestaurantPanel extends JPanel {
         //cook.startThread();
         //cashier.startThread();
         
+        //JerrywebWaiterRole w = new JerrywebWaiterRole(mPerson);
+        //this.addWaiter(w);
         
+
         setLayout(new GridLayout(rows, cols,  hSpacing,  vSpacing));
         group.setLayout(new GridLayout(rows, cols,  hSpacing,  vSpacing));
         group2.setLayout(new GridLayout(rows, cols,  hSpacing,  vSpacing));
@@ -86,28 +93,7 @@ public class JerrywebRestaurantPanel extends JPanel {
         add(group);
         
     }
-   /* public void pauseAgents(){
-    	host.pausePrint();
-	if(!host.paused){
- 
-    		for(CustomerAgent c: customers){
-    			c.paused();
-    		}
-    		for(WaiterAgent w: waiters){
-    			w.paused();
-    		}
-    		host.paused();
-    	}
-    	else{
-    		host.restart();
-        	for(CustomerAgent c: customers){
-        		c.restart();
-        	}
-        	for(WaiterAgent w: waiters){
-    			w.restart();
-    		}
-    	}
-    }*/
+
    public JCheckBox getLpChbx (){
 	   	return customerPanel.getChbx();
    }
@@ -210,7 +196,7 @@ public class JerrywebRestaurantPanel extends JPanel {
     		c.setGui(g);
     		customers.add(c);
 
-    	}/*
+    	}
     	else if(role instanceof JerrywebWaiterRole){
     		sel++;
     		if((sel)%2 == 0){
@@ -234,7 +220,8 @@ public class JerrywebRestaurantPanel extends JPanel {
     			w.setCashier(cashier);
     			gui.animationPanel.addGui(wg);
     
-    		}*/
+    		}
+    	}
     	
     	else if (role instanceof JerrywebHostRole){
     		host = (JerrywebHostRole) role;
