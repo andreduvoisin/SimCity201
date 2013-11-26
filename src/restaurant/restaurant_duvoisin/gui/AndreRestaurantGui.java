@@ -5,42 +5,24 @@ import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 
 import javax.swing.*;
 
+import city.gui.CityCard;
+import city.gui.SimCityGui;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Vector;
-/*
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-*/
 
 /**
  * Main GUI class.
  * Contains the main frame and subsequent panels
  */
 @SuppressWarnings("serial")
-public class RestaurantGui extends JFrame implements ActionListener {
-    /* The GUI has two frames, the control frame (in variable gui) 
-     * and the animation frame, (in variable animationFrame within gui)
-     */
-	//JFrame animationFrame = new JFrame("Restaurant Animation");
-	AnimationPanel animationPanel = new AnimationPanel();
+public class AndreRestaurantGui extends CityCard implements ActionListener {
+	AndreAnimationPanel animationPanel = new AndreAnimationPanel();
 	
-    /* restPanel holds 2 panels
-     * 1) the staff listing, menu, and lists of current customers all constructed
-     *    in RestaurantPanel()
-     * 2) the infoPanel about the clicked Customer (created just below)
-     */    
-    private RestaurantPanel restPanel = new RestaurantPanel(this);
+    private AndreRestaurantPanel restPanel = new AndreRestaurantPanel(this);
     
-    /* infoPanel holds information about the clicked customer, if there is one*/
-    /*
-    private JPanel infoPanel;
-    private JLabel infoLabel; //part of infoPanel
-    private JCheckBox stateCB;//part of infoLabel
-    */
     private ArrayList<JCheckBox> listCB = new ArrayList<JCheckBox>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     Boolean waitHere[] = new Boolean[17];
@@ -50,10 +32,10 @@ public class RestaurantGui extends JFrame implements ActionListener {
     
     static final int WINDOWX = 825;
     static final int WINDOWY = 438;
-    static final int RESTPANEL_X = 355;
-    static final int RESTPANEL_Y = 400;
-    static final int ANIMPANEL_X = 450;
-    static final int ANIMPANEL_Y = 370;
+    static final int RESTPANEL_X = 0;
+    static final int RESTPANEL_Y = 0;
+    static final int ANIMPANEL_X = 500;
+    static final int ANIMPANEL_Y = 500;
     
     private JButton pauseButton = new JButton("Pause");
     
@@ -61,35 +43,13 @@ public class RestaurantGui extends JFrame implements ActionListener {
      * Constructor for RestaurantGui class.
      * Sets up all the gui components.
      */
-    public RestaurantGui() {
-    	/*
-        animationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        animationFrame.setBounds(WINDOWX+100, 50 , WINDOWX+100, WINDOWY+100);
-        animationFrame.setVisible(true);
-    	animationFrame.add(animationPanel); 
-    	*/
+    public AndreRestaurantGui(SimCityGui gui) {
+    	super(gui);
+    	
     	setBounds(50, 50, WINDOWX, WINDOWY);
     	
-        setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        /*
-        JPanel picPanel = new JPanel();
-        picPanel.setLayout(new BorderLayout(5, 5));
+        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         
-        pauseButton.addActionListener(this);
-        picPanel.add(pauseButton, BorderLayout.SOUTH);
-        
-        try {
-	        BufferedImage myPicture;
-	        myPicture = ImageIO.read(new File("andreduvoisin.jpeg"));
-			//myPicture = ImageIO.read(new File("C:\\Users\\Andre\\Desktop\\College\\Maestros\\andreduvoisin.jpeg"));
-	        JLabel picLabel = new JLabel(new ImageIcon(myPicture.getScaledInstance(84, 112, Image.SCALE_SMOOTH)));
-	        picPanel.add(picLabel, BorderLayout.CENTER);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        add(picPanel);
-        */
         Dimension restDim = new Dimension(RESTPANEL_X, RESTPANEL_Y);
         restPanel.setPreferredSize(restDim);
         restPanel.setMinimumSize(restDim);
@@ -102,32 +62,10 @@ public class RestaurantGui extends JFrame implements ActionListener {
         animationPanel.setPreferredSize(animDim);
         animationPanel.setMinimumSize(animDim);
         animationPanel.setMaximumSize(animDim);
-        animationPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         animGroup.add(animationPanel, BorderLayout.CENTER);
         pauseButton.addActionListener(this);
         animGroup.add(pauseButton, BorderLayout.SOUTH);
         add(animGroup);
-        // Now, setup the info panel
-        /*
-        Dimension infoDim = new Dimension(WINDOWX, (int) (WINDOWY * .25));
-        infoPanel = new JPanel();
-        infoPanel.setPreferredSize(infoDim);
-        infoPanel.setMinimumSize(infoDim);
-        infoPanel.setMaximumSize(infoDim);
-        infoPanel.setBorder(BorderFactory.createTitledBorder("Information"));
-
-        stateCB = new JCheckBox();
-        stateCB.setVisible(false);
-        stateCB.addActionListener(this);
-
-        infoPanel.setLayout(new GridLayout(1, 2, 30, 0));
-        
-        infoLabel = new JLabel(); 
-        infoLabel.setText("<html><pre><i>Click Add to make customers</i></pre></html>");
-        infoPanel.add(infoLabel);
-        infoPanel.add(stateCB);
-        add(infoPanel, BorderLayout.NORTH);
-        */
         
         for(int i = 0; i < waitHere.length; i++)
         	waitHere[i] = false;
@@ -242,10 +180,12 @@ public class RestaurantGui extends JFrame implements ActionListener {
      * Main routine to get gui started
      */
     public static void main(String[] args) {
-        RestaurantGui gui = new RestaurantGui();
+    	/*
+        AndreRestaurantGui gui = new AndreRestaurantGui();
         gui.setTitle("csci201 Restaurant");
         gui.setVisible(true);
         gui.setResizable(false);
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        */
     }
 }

@@ -10,7 +10,7 @@ public class WaiterGui implements Gui {
     static final int STARTPOS = -20;
     private int currentTable = 0;
     
-    RestaurantGui gui;
+    AndreRestaurantGui gui;
     
     private int xPos = STARTPOS, yPos = STARTPOS;//default waiter position
     private int xDestination = STARTPOS, yDestination = STARTPOS;//default start position
@@ -45,7 +45,7 @@ public class WaiterGui implements Gui {
     private String currentOrder;
     int foodPosition;
 
-    public WaiterGui(Waiter agent, RestaurantGui gui) {
+    public WaiterGui(Waiter agent, AndreRestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         currentOrder = "";

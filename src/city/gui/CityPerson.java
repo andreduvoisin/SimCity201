@@ -18,8 +18,8 @@ import base.PersonAgent;
 public class CityPerson extends CityComponent{
 	
 	private String name = "";
-	private PersonAgent person = null;
-	private boolean atDestination = true;
+	PersonAgent person = null;
+	boolean atDestination = true;
 	SimCityGui gui;
 	
 	private int xDestination = 120, yDestination = 35;

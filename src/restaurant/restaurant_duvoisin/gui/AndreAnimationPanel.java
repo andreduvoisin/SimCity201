@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
-public class AnimationPanel extends JPanel implements ActionListener {
+public class AndreAnimationPanel extends JPanel implements ActionListener {
 
-    private final int WINDOWX = 900;
-    private final int WINDOWY = 900;
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
     static final int TIMERDELAY = 5;
     static final int IDLE_X = 10;
     static final int IDLE_Y = 52;
@@ -45,7 +45,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
     
     Timer timer;
 
-    public AnimationPanel() {
+    public AndreAnimationPanel() {
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         

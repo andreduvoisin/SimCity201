@@ -30,7 +30,7 @@ public class ListPanel extends JPanel implements ActionListener {
     private JPanel view2 = new JPanel();
     public JScrollPane pane2 = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
-    private RestaurantPanel restPanel;
+    private AndreRestaurantPanel restPanel;
     private String type;
     
     private ArrayList<JCheckBox> listCB = new ArrayList<JCheckBox>();
@@ -42,7 +42,7 @@ public class ListPanel extends JPanel implements ActionListener {
      * @param rp   reference to the restaurant panel
      * @param type indicates if this is for customers or waiters
      */
-    public ListPanel(RestaurantPanel rp) {
+    public ListPanel(AndreRestaurantPanel rp) {
         restPanel = rp;
 
         //setLayout(new BoxLayout((Container) this, BoxLayout.Y_AXIS));
