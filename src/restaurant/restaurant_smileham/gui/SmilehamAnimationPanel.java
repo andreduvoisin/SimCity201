@@ -77,6 +77,13 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     
 
 	public void actionPerformed(ActionEvent e) {
+		synchronized (guis) {
+        	for(Gui gui : guis) {
+                if (gui.isPresent()) {
+                    gui.updatePosition();
+                }
+            }
+		}
 		repaint();  //Will have paintComponent called
 	}
 
@@ -111,12 +118,6 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
         
         //animation
         synchronized (guis) {
-        	for(Gui gui : guis) {
-                if (gui.isPresent()) {
-                    gui.updatePosition();
-                }
-            }
-
             for(Gui gui : guis) {
                 if (gui.isPresent()) {
                     gui.draw(g2);
