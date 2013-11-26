@@ -62,8 +62,10 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				break;
 			case 7: //rex
 				subRole = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getHost());
+				//creates CustomerGui and adds to animationPanels
 				subRole.setPerson(super.mPerson);
 				RexAnimationPanel.addPerson((RexCustomerRole)subRole);
+				//calls gotHungry when addPerson for CustomerRole
 				break;
 
 		}

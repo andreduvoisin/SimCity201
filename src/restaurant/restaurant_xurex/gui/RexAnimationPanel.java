@@ -125,13 +125,11 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2.drawRect(75,  225, TABLEDIM, TABLEDIM);
         g2.drawRect(75,  250, TABLEDIM, TABLEDIM);
 
-        if(!p){
-        	for(Gui gui : guis) {
-            	if (gui.isPresent()) {
-                	gui.updatePosition();
-            	}
+    	for(Gui gui : guis) {
+        	if (gui.isPresent()) {
+            	gui.updatePosition();
         	}
-        }
+    	}
         
         for(Gui gui : guis) {
             if (gui.isPresent()) {

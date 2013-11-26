@@ -247,7 +247,7 @@ public class PersonAgent extends Agent implements Person {
 					print("getPerson in iRole was null");
 				}
 				else if (iRole.pickAndExecuteAnAction()) {
-					System.out.println(iRole.toString() + "pAEA fired");
+	//				System.out.println(iRole.toString() + "pAEA fired");
 					return true;
 				}
 			}
