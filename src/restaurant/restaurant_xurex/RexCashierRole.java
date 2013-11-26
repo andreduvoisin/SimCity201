@@ -40,7 +40,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 		}
 	}
 	//Public for use in test case
-	public Map<Customer, Bill> bills = new HashMap<Customer,Bill>();
+	public Map<Customer, Bill> bills = Collections.synchronizedMap(new HashMap<Customer,Bill>());
 	Map<String, Integer> menu = new HashMap<String, Integer>();
 	Map<Market, Float> marketBills = new HashMap<Market, Float>();
 	
@@ -63,9 +63,9 @@ public class RexCashierRole extends BaseRole implements Cashier {
 
 	// MESSAGES //
 	public void ComputeBill(Waiter waiter, Customer customer){
-		/*if(bills.containsKey(customer.getName())){
-			bills.get(customer.getName()).order = customer.getChoice();
-			bills.get(customer.getName()).state = BillState.pendingWaiter;
+		/*if(bills.containsKey(customer)){
+			bills.get(customer).order = customer.getChoice();
+			bills.get(customer).state = BillState.pendingWaiter;
 		}
 		else{*/
 			Bill bill = new Bill(waiter, customer);
@@ -96,18 +96,20 @@ public class RexCashierRole extends BaseRole implements Cashier {
 				return true;
 			}
 		}
+		synchronized(bills){
 		for(Bill bill : bills.values()){
 			if(bill.state == BillState.pendingCustomer){
 				ComputeChange(bill);
 				return true;
 			}
-		}
+		}}
+		synchronized(bills){
 		for(Bill bill : bills.values()){
 			if(bill.state == BillState.pendingWaiter){
 				SendBill(bill);
 				return true;
 			}
-		}
+		}}
 		return false;
 	}
 
@@ -140,7 +142,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 			bill.customer.HereIsChange(change);
 			Do(bill.customer.getName()+" paid and change is "+change);
 		}
-		bill.state = BillState.ignore;
+		bills.remove(bill);
 	}
 	
 	//UTILITIES

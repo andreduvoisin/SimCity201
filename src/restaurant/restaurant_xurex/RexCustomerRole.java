@@ -268,13 +268,13 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		/*
 		if(state == AgentState.decidingAgain && cash>5 && cash<9){
 			leaveTable();
-		}*/
+		}
 		if((name.equals("Steak")||name.equals("Chicken")||name.equals("Salad")||name.equals("Pizza")) && !(state==AgentState.decidingAgain))
 			choice = name;
 		else if (cash>5 && cash<9){
 			// NON NORM: Poor Customer //
 			choice = "Salad";
-		}	/*
+		}	
 		else if (cash<6){
 			int stay = generator.nextInt(2);
 			if(stay == 0){
@@ -283,10 +283,12 @@ public class RexCustomerRole extends BaseRole implements Customer{
 			else{
 				RandomChoice();
 			}
-		}*/
+		}
 		else {
 			RandomChoice();
-		}
+		}*/
+		
+		RandomChoice();
 		
 		final RexCustomerRole temp = this;
 		timer.schedule(new TimerTask() {
