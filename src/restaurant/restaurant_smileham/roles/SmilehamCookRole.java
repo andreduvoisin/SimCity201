@@ -18,12 +18,13 @@ import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_smileham.interfaces.Cook;
-import restaurant.restaurant_smileham.interfaces.Market;
-import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.interfaces.SmilehamCook;
+import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
-public class SmilehamCookRole extends BaseRole implements Cook {
+public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 	//Member Variables
 	private String mName;
 	private Timer mTimer;
@@ -31,8 +32,8 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 	private Map<EnumFoodOptions, Food> mInventory;
 	private Map<EnumFoodOptions, Integer> mIncomingInventory;
 	private List<EnumFoodOptions> mFoodsOut;
-	private List<Market> mMarkets;
-	private Set<Waiter> mWaiters;
+	private List<SmilehamMarket> mMarkets;
+	private Set<SmilehamWaiter> mWaiters;
 	private int mNumMarkets;
 	private boolean mFoodArrived; //change this to states next version
 	
@@ -52,10 +53,10 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamCookRole(String name, SmilehamAnimationPanel animationPanel){
-		super();
-		mName = name;
-		mAnimationPanel = animationPanel;
+	public SmilehamCookRole(Person person){
+		super(person);
+		mName = person.getName();
+		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Constructor");
 		
 		//Set up Cook
@@ -70,8 +71,8 @@ public class SmilehamCookRole extends BaseRole implements Cook {
     	mInventory.put(EnumFoodOptions.PIZZA, new Food(EnumFoodOptions.PIZZA, Food.cCOOKTIME_PIZZA, Food.sQuantityPizza, Food.cTHRESHOLD, Food.cCAPACITY));
     	mIncomingInventory = new HashMap<EnumFoodOptions, Integer>(); 
     	mFoodsOut = new ArrayList<EnumFoodOptions>();
-    	mMarkets = new ArrayList<Market>();
-    	mWaiters = new HashSet<Waiter>();
+    	mMarkets = new ArrayList<SmilehamMarket>();
+    	mWaiters = new HashSet<SmilehamWaiter>();
     	
     	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y, mAnimationPanel);
     	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y, mAnimationPanel);
@@ -135,8 +136,7 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 			//new food arrived
 			if (mFoodArrived){
 				synchronized(mOrders){
-					for (Waiter iWaiter : mWaiters){
-	//					iWaiter.msgFoodArrived();
+					for (SmilehamWaiter iWaiter : mWaiters){
 						iWaiter.msgNewMenu(mFoodsOut);
 					}
 				}
@@ -172,11 +172,11 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 			}
 			
 			//Remove Markets without food
-			List<Market> marketsToRemove = new ArrayList<Market>();
-			for (Market iMarket : mMarkets){
+			List<SmilehamMarket> marketsToRemove = new ArrayList<SmilehamMarket>();
+			for (SmilehamMarket iMarket : mMarkets){
 				if (iMarket.isOut()) marketsToRemove.add(iMarket);
 			}
-			for (Market iMarket : marketsToRemove){
+			for (SmilehamMarket iMarket : marketsToRemove){
 				mMarkets.remove(iMarket);
 			}
 			
@@ -208,17 +208,17 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 			}
 		}
 		
-		public void addMarket(){
-			Market market = new SmilehamMarketRole(
-	    			"M" + ++mNumMarkets, 
-	    			SmilehamMarketRole.cSTEAK_QUANTITY, 
-	    			SmilehamMarketRole.cCHICKEN_QUANTITY, 
-	    			SmilehamMarketRole.cSALAD_QUANTITY, 
-	    			SmilehamMarketRole.cPIZZA_QUANTITY, 
-	    			mAnimationPanel);
-	    	mMarkets.add(market);
-	    	stateChanged();
-		}
+//		public void addMarket(){ //SHANE: Add market integration
+//			Market market = new SmilehamMarketRole(
+//	    			"M" + ++mNumMarkets, 
+//	    			SmilehamMarketRole.cSTEAK_QUANTITY, 
+//	    			SmilehamMarketRole.cCHICKEN_QUANTITY, 
+//	    			SmilehamMarketRole.cSALAD_QUANTITY, 
+//	    			SmilehamMarketRole.cPIZZA_QUANTITY, 
+//	    			mAnimationPanel);
+//	    	mMarkets.add(market);
+//	    	stateChanged();
+//		}
 	
 		private void cookFood(final Food food){
 			print("Action: cookFood(" + food + ")");
@@ -290,7 +290,7 @@ public class SmilehamCookRole extends BaseRole implements Cook {
 			print("Action: orderFood(" + food + ")");
 			Food stock = mInventory.get(food);
 			
-			for (Market iMarket : mMarkets){
+			for (SmilehamMarket iMarket : mMarkets){
 				//precondition: market isn't out
 				int orderAmount = stock.mCapacity - stock.mQuantity; //amount needed to reach capacity
 				iMarket.msgOrderFood(food, orderAmount);

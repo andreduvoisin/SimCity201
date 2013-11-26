@@ -5,7 +5,9 @@ import restaurant.restaurant_duvoisin.CookAgent;
 import restaurant.restaurant_duvoisin.CustomerAgent;
 import restaurant.restaurant_duvoisin.HostAgent;
 import restaurant.restaurant_duvoisin.MarketAgent;
+import restaurant.restaurant_duvoisin.SharedWaiterAgent;
 import restaurant.restaurant_duvoisin.WaiterAgent;
+import restaurant.restaurant_duvoisin.interfaces.Waiter;
 
 import javax.swing.*;
 
@@ -22,7 +24,7 @@ public class RestaurantPanel extends JPanel {
     //Host, cook, waiters and customers
 	private HostAgent host = new HostAgent("Kevin G");
 	private CookAgent cook = new CookAgent("Cooking Mama");
-	private Vector<WaiterAgent> waiters = new Vector<WaiterAgent>();
+	private Vector<Waiter> waiters = new Vector<Waiter>();
     private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
     private Vector<MarketAgent> markets = new Vector<MarketAgent>();
     private CashierAgent cashier = new CashierAgent("Cashier");
@@ -97,7 +99,7 @@ public class RestaurantPanel extends JPanel {
     
     public void showWaiterInfo(String type, String name, ArrayList<JButton> list) {
         for (int i = 0; i < waiters.size(); i++) {
-            WaiterAgent temp = waiters.get(i);
+            Waiter temp = waiters.get(i);
             if (temp.getName() == name) { }
                 gui.updateWaiterPanel(temp, list, waiters);
         }
@@ -120,20 +122,32 @@ public class RestaurantPanel extends JPanel {
     		customers.add(c);
     		c.startThread();
     	} else if(type.equals("Waiter")) {
-    		WaiterAgent w = new WaiterAgent(host, cook, cashier, name);
-    		WaiterGui g = new WaiterGui(w, gui);
-    		
-    		gui.animationPanel.addGui(g);
-    		w.setGui(g);
-    		waiters.add(w);
-    		host.addWaiter(w);
-            w.startThread();
+    		// Odd = Shared, Even = Normal
+    		if(waiters.size() % 2 == 0) {
+    			SharedWaiterAgent w = new SharedWaiterAgent(host, cook, cashier, name);
+    			WaiterGui g = new WaiterGui(w, gui);
+	    		
+	    		gui.animationPanel.addGui(g);
+	    		w.setGui(g);
+	    		waiters.add(w);
+	    		host.addWaiter(w);
+	            w.startThread();
+    		} else {
+	    		WaiterAgent w = new WaiterAgent(host, cook, cashier, name);
+	    		WaiterGui g = new WaiterGui(w, gui);
+	    		
+	    		gui.animationPanel.addGui(g);
+	    		w.setGui(g);
+	    		waiters.add(w);
+	    		host.addWaiter(w);
+	            w.startThread();
+    		}
     	}
     }
     
     public void pauseAgents() {
     	host.pauseBaseAgent();
-    	for(WaiterAgent w : waiters)
+    	for(Waiter w : waiters)
     		w.pauseBaseAgent();
 		cook.pauseBaseAgent();
 		for(CustomerAgent c : customers)
@@ -143,7 +157,7 @@ public class RestaurantPanel extends JPanel {
 		cashier.pauseBaseAgent();
 		
 		host.msgPauseScheduler();
-		for(WaiterAgent w : waiters)
+		for(Waiter w : waiters)
 			w.msgPauseScheduler();
 		cook.msgPauseScheduler();
 		for(CustomerAgent c : customers)
@@ -155,7 +169,7 @@ public class RestaurantPanel extends JPanel {
     
     public void resumeAgents() {
     	host.resumeBaseAgent();
-    	for(WaiterAgent w : waiters)
+    	for(Waiter w : waiters)
     		w.resumeBaseAgent();
 		cook.resumeBaseAgent();
 		for(CustomerAgent c : customers)
@@ -165,7 +179,7 @@ public class RestaurantPanel extends JPanel {
 		cashier.resumeBaseAgent();
 		
 		host.msgResumeScheduler();
-		for(WaiterAgent w : waiters)
+		for(Waiter w : waiters)
 			w.msgResumeScheduler();
 		cook.msgResumeScheduler();
 		for(CustomerAgent c : customers)

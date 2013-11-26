@@ -95,6 +95,7 @@ public class PersonAgent extends Agent implements Person {
 				//System.out.println(mJobRole.toString());
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 				((RestaurantBaseInterface) mJobRole).setRestaurant(4);
+				//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
 				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
