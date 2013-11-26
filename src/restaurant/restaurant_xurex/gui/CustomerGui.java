@@ -10,7 +10,7 @@ import java.util.Map;
 public class CustomerGui implements Gui{
 
         private RexCustomerRole role = null;
-        private boolean isPresent = false;
+        private boolean isPresent = true;
         private boolean isHungry = false;
         
         public RexAnimationPanel animationPanel;
@@ -70,7 +70,7 @@ public class CustomerGui implements Gui{
         }
 
         public void draw(Graphics2D g) {
-                g.setColor(Color.GREEN);
+                g.setColor(Color.BLACK);
                 g.fillRect(xPos, yPos, custDim, custDim);
         }
 
