@@ -73,11 +73,10 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	}
 
 	public void DoGoToRestaurant(int n) {
-		//fill in;
 		mDestinationRestaurant = n;
-		//must consider parameters
-		//proper way to get to restaurant
-		//mCommand = EnumCommand.goToRestaurant;
+		xDestination = ContactList.cRESTAURANT_LOCATIONS.get(n).mX;
+		yDestination = ContactList.cRESTAURANT_LOCATIONS.get(n).mY;
+		mCommand = EnumCommand.goToRestaurant;
 	}
 	
 	public void DoLeaveMarket() {
