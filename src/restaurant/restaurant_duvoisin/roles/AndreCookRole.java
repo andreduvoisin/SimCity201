@@ -47,7 +47,8 @@ public class AndreCookRole extends BaseRole implements Cook {
 		foods.put("pizza", new Food("pizza", 10000, 2, 1, 3, FoodState.None));
 		
 		orderFood = true;
-		stateChanged();
+		// ANDRE: stateChanged cook
+		//stateChanged();
 		
 		for(int i = 0; i < cookHere.length; i++)
 			cookHere[i] = false;
@@ -62,7 +63,8 @@ public class AndreCookRole extends BaseRole implements Cook {
 		timer.schedule(new TimerTask() {
 			public void run() {
 				checkRevolvingStand = true;
-				stateChanged();
+				// ANDRE: stateChanged cook
+				//stateChanged();
 			}
 		}, 12500);
 	}

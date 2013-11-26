@@ -60,12 +60,15 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	 */
 	public MaggiyanCustomerRole(Person p){
 		super(p);
-		this.name = name;
+		this.name = p.getName();
 	}
 	
-	/**
-	 * hack to establish connection to Host agent.
-	 */
+	//-----UTILITIES-----
+	
+	public void print(String msg){
+		System.out.println("[" + name + "]: " + msg );
+	}
+	
 	public void setHost(MaggiyanHostRole host) {
 		this.host = host;
 	}
@@ -136,6 +139,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	
 	public void gotHungry() {
 		print("I'm hungry");
+		customerGui.setPresent(true);
 		event = AgentEvent.gotHungry;
 		stateChanged();
 	}
@@ -167,6 +171,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 		//Normative 
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
 			state = AgentState.WaitingInRestaurant;
+			print("here");
 			goToRestaurant();
 			return true;
 		}
@@ -224,7 +229,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	}
 
 	private void goToRestaurant() {
-		Do("Going to restaurant");
+		print("Maggi Going to restaurant");
 		host.msgIWantFood(this);//send our instance, so he can respond to us
 	}
 
@@ -329,7 +334,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 		customerGui.DoExitRestaurant();
 	}
 
-	// Accessors, etc.
+	// Accessors
 
 	public String getName() {
 		return name;

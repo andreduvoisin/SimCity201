@@ -1,5 +1,6 @@
 package restaurant.restaurant_duvoisin.gui;
 
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
@@ -11,6 +12,8 @@ import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 
 import javax.swing.*;
 
+import base.BaseRole;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -20,7 +23,8 @@ import java.util.Vector;
  * including host, cook, waiters, and customers.
  */
 @SuppressWarnings("serial")
-public class RestaurantPanel extends JPanel {
+public class AndreRestaurantPanel extends JPanel {
+	static AndreRestaurantPanel instance;
 
     //Host, cook, waiters and customers
 	private AndreHostRole host = new AndreHostRole("Kevin G");
@@ -34,11 +38,11 @@ public class RestaurantPanel extends JPanel {
     private ListPanel addMembers = new ListPanel(this);
     private JPanel group = new JPanel();
 
-    private RestaurantGui gui; //reference to main gui
+    private AndreRestaurantGui gui; //reference to main gui
 
-    public RestaurantPanel(RestaurantGui gui) {
+    public AndreRestaurantPanel(AndreRestaurantGui gui) {
         this.gui = gui;
-
+        this.instance = this;
         setLayout(new GridLayout(1, 2, 20, 20));
         group.setLayout(new GridLayout(1, 2, 10, 10));
 
@@ -64,6 +68,10 @@ public class RestaurantPanel extends JPanel {
         	cook.addMarket(market);
         }
     }
+    
+    public static AndreRestaurantPanel getInstance() {
+		return instance;
+	}
 
     /**
      * Sets up the restaurant label that includes the menu,
@@ -112,37 +120,38 @@ public class RestaurantPanel extends JPanel {
      * @param type indicates whether the person is a customer or waiter (later)
      * @param name name of person
      */
-    public void addPerson(String type, String name) {
-    	if (type.equals("Customer")) {
-    		AndreCustomerRole c = new AndreCustomerRole(name);	
-    		CustomerGui g = new CustomerGui(c, gui);
+    public void addPerson(BaseRole role) {
+    	//ANDRE: Fix Waiter Adding
+    	if (role instanceof AndreCustomerRole) {
+    		//AndreCustomerRole c = new AndreCustomerRole(name);	
+    		CustomerGui g = new CustomerGui((AndreCustomerRole) role, gui);
 
     		gui.animationPanel.addGui(g);
-    		c.setHost(host);
-    		c.setGui(g);
-    		customers.add(c);
+    		((AndreCustomerRole)role).setHost(host);
+    		((AndreCustomerRole)role).setGui(g);
+    		customers.add(((AndreCustomerRole)role));
     		//c.startThread();
-    	} else if(type.equals("Waiter")) {
+    	} else if(role instanceof AndreWaiterRole || role instanceof AndreSharedWaiterRole) {
     		// Odd = Shared, Even = Normal
-    		if(waiters.size() % 2 == 0) {
-    			AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
-    			WaiterGui g = new WaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(g);
-	    		w.setGui(g);
-	    		waiters.add(w);
-	    		host.addWaiter(w);
-	            //w.startThread();
-    		} else {
-	    		AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
-	    		WaiterGui g = new WaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(g);
-	    		w.setGui(g);
-	    		waiters.add(w);
-	    		host.addWaiter(w);
-	            //w.startThread();
-    		}
+//    		if(waiters.size() % 2 == 0) {
+//    			AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
+//    			WaiterGui g = new WaiterGui(w, gui);
+//	    		
+//	    		gui.animationPanel.addGui(g);
+//	    		w.setGui(g);
+//	    		waiters.add(w);
+//	    		host.addWaiter(w);
+//	            //w.startThread();
+//    		} else {
+//	    		AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
+//	    		WaiterGui g = new WaiterGui(w, gui);
+//	    		
+//	    		gui.animationPanel.addGui(g);
+//	    		w.setGui(g);
+//	    		waiters.add(w);
+//	    		host.addWaiter(w);
+//	            //w.startThread();
+//    		}
     	}
     }
     

@@ -3,26 +3,16 @@ package city.gui;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
-import restaurant.intermediate.RestaurantCashierRole;
-import restaurant.intermediate.RestaurantCookRole;
-import restaurant.intermediate.RestaurantCustomerRole;
-import restaurant.intermediate.RestaurantHostRole;
-import restaurant.intermediate.RestaurantWaiterRole;
-import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import base.ConfigParser;
-import base.PersonAgent;
-import base.PersonAgent.EnumJobType;
 import base.Time;
 import base.interfaces.Person;
+//import base.Time;
 
+@SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
 	static SimCityGui instance = null;
 	public CityPanel citypanel;

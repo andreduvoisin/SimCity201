@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
@@ -27,6 +28,16 @@ public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
 	
 	public MaggiyanCashierRole(String name, boolean isTest){
 		this.n = name;
+	}
+	
+	public MaggiyanCashierRole(Person p){
+		super(p); 
+		if(p == null){
+			this.n = "null"; 
+		}
+		else{
+			this.n = p.getName();
+		}
 	}
 	
 	public String getName(){

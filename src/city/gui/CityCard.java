@@ -11,6 +11,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
 public class CityCard extends JPanel implements ActionListener, MouseListener {
 
 	protected SimCityGui city;

@@ -1,5 +1,9 @@
 package restaurant.restaurant_xurex.gui;
 
+import restaurant.restaurant_xurex.RexCashierRole;
+import restaurant.restaurant_xurex.RexCookRole;
+import restaurant.restaurant_xurex.RexCustomerRole;
+import restaurant.restaurant_xurex.RexHostRole;
 import restaurant.restaurant_xurex.agents.CashierAgent;
 import restaurant.restaurant_xurex.agents.CookAgent;
 import restaurant.restaurant_xurex.agents.CustomerAgent;
@@ -7,7 +11,10 @@ import restaurant.restaurant_xurex.agents.HostAgent;
 import restaurant.restaurant_xurex.agents.MarketAgent;
 import restaurant.restaurant_xurex.agents.WaiterAgent1;
 import restaurant.restaurant_xurex.agents.WaiterAgent2;
+import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
+import restaurant.restaurant_xurex.interfaces.Customer;
+import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 
@@ -23,15 +30,15 @@ import java.util.Vector;
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
-public class RestaurantPanel extends JPanel{
+public class RexRestaurantPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	//Reference to Main Gui
     private RexRestaurantGui gui; 
 	//Agents upon Creation
-    private HostAgent host = new HostAgent("Willis");
-    private CookAgent cook = new CookAgent("Ramsay"); 
-    private CashierAgent cashier = new CashierAgent("Alec");
+    private Host host = new RexHostRole();
+    private Cook cook = new RexCookRole(); 
+    private Cashier cashier = new RexCashierRole();
     
     private CookGui cookGui = new CookGui(cook);
     
@@ -40,45 +47,46 @@ public class RestaurantPanel extends JPanel{
     private MarketAgent market2 = new MarketAgent("Market2", cook, cashier, 8, 8, 8, 8);
     private MarketAgent market3 = new MarketAgent("Market3", cook, cashier, 4, 4, 9, 4);
 
-    private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
+    private Vector<Customer> customers = new Vector<Customer>();
     private Vector<Waiter> waiters = new Vector<Waiter>();
     
-    private Vector<Agent> allAgents = new Vector<Agent>();
-
+    //private Vector<Agent> allAgents = new Vector<Agent>();
+    /*
     private JPanel restLabel = new JPanel();
     private ListPanel customerPanel = new ListPanel(this, "Customers");
     private ListPanel waiterPanel = new ListPanel(this, "Waiters");
     private JPanel group = new JPanel();
     private JButton pause = new JButton("Pause");
-    
-    public RestaurantPanel(RexRestaurantGui gui) {
+    */
+    public RexRestaurantPanel(RexRestaurantGui gui) {
         this.gui = gui;
-        
+        /*
     	allAgents.add(host);
     	allAgents.add(cook);
     	allAgents.add(cashier);
     	allAgents.add(market1);
     	allAgents.add(market2);
     	allAgents.add(market3);
-    	
+    	*/
     	cookGui.setGui(gui);
     	
-    	cook.setGui(gui);
+    	//cook.setGui(gui);
     	cook.setGui(cookGui);
     	cook.addMarket(market1);
     	cook.addMarket(market2);
     	cook.addMarket(market3);
     	
     	gui.animationPanel.addGui(cookGui); 
-    	
+    	/*
         host.startThread();
         cook.startThread();
         cashier.startThread();
         market1.startThread();
         market2.startThread();
         market3.startThread();
-
+		*/
         setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        /*
         group.setLayout(new GridLayout(1, 2, 10, 10));
 
         group.add(getCustomerPanel());
@@ -91,12 +99,14 @@ public class RestaurantPanel extends JPanel{
         restLabel.setMaximumSize(restLabelDim);
         add(restLabel);
         add(group);
+        */
     }
 
     /**
      * Sets up the restaurant label that includes the menu,
      * and host and cook information
      */
+    /*
     private void initRestLabel() {
         JLabel label = new JLabel();
         //restLabel.setLayout(new BoxLayout((Container)restLabel, BoxLayout.Y_AXIS));
@@ -129,13 +139,13 @@ public class RestaurantPanel extends JPanel{
 		        		}
 		        	}	
 			}
-		});*/
+		});
         restLabel.add(pause, BorderLayout.NORTH);
         restLabel.add(label, BorderLayout.CENTER);
         restLabel.add(new JLabel("               "), BorderLayout.EAST);
         restLabel.add(new JLabel("               "), BorderLayout.WEST);
     }
-
+	*/
     /**
      * When a customer or waiter is clicked, this function calls
      * updatedInfoPanel() from the main gui so that person's information
@@ -165,7 +175,7 @@ public class RestaurantPanel extends JPanel{
     public void addPerson(String type, String name) {
 
     	if (type.equals("Customers")) {
-    		CustomerAgent c = new CustomerAgent(name);	
+    		RexCustomerRole c = new RexCustomerRole();	
     		CustomerGui g = new CustomerGui(c, gui);
 
     		gui.animationPanel.addGui(g);// dw
@@ -173,8 +183,8 @@ public class RestaurantPanel extends JPanel{
     		c.setCashier(cashier);
     		c.setGui(g);
     		customers.add(c);
-    		c.startThread();
-    		allAgents.add(c);
+    		//c.startThread();
+    		//allAgents.add(c);
     	}
     	
     	if (type.equals("Waiters")) {
@@ -192,7 +202,7 @@ public class RestaurantPanel extends JPanel{
         		w.setHost(host); 
         		w.setCashier(cashier);
         		host.addWaiter(w); //creates connection between Waiter and Host
-        		allAgents.add(w);
+        		//allAgents.add(w);
     		}
     		else{
     			WaiterAgent2 w = new WaiterAgent2 (name, host, cook);
@@ -208,7 +218,7 @@ public class RestaurantPanel extends JPanel{
         		w.setHost(host); 
         		w.setCashier(cashier);
         		host.addWaiter(w); //creates connection between Waiter and Host
-        		allAgents.add(w);
+        		//allAgents.add(w);
     		}
     	}
     }
@@ -217,7 +227,7 @@ public class RestaurantPanel extends JPanel{
      * @param i location of desired customer in vector
      * @return
      */
-    public CustomerAgent getCustomer(int i){
+    public Customer getCustomer(int i){
     	if(i<0||i>customers.size())
     		return null;
     	return customers.get(i);
@@ -237,22 +247,22 @@ public class RestaurantPanel extends JPanel{
     /**
      * Allows RestaurantGui to change ListPanel via RestaurantPanel
      * @return
-     */
+     
 	public ListPanel getCustomerPanel() {
 		return customerPanel;
 	}
 	
-	/**
+	
 	 * Allows RestaurantGui to change ListPanel via RestaurantPanel
 	 * @return
-	 */
+	 
 	public ListPanel getWaiterPanel() {
 		return waiterPanel;
 	}
-	/**
+	
 	 * Allows RestaurantGui to get cook to track Inventory
 	 * @return cook
-	 */
+	*/
 	public Cook getCook(){
 		return cook;
 	}

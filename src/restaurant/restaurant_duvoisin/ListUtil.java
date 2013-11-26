@@ -64,7 +64,8 @@ public class ListUtil {
     /**
      * Create a list containing the elements of an iterator
      */
-    public static List<Object> fromIterator(Iterator iterator) {
+    @SuppressWarnings("rawtypes")
+	public static List<Object> fromIterator(Iterator iterator) {
         List<Object> l = list();
         while (iterator.hasNext()) {
             l.add(iterator.next());
@@ -96,7 +97,8 @@ public class ListUtil {
      *                              is null
      * @throws ClassCastException   if an item is not of the proper type
      */
-    public static List<Object> immutableListOfType(List<Object> list, Class type) {
+    @SuppressWarnings("rawtypes")
+	public static List<Object> immutableListOfType(List<Object> list, Class type) {
         return immutableListOfType(list, type, false);
     }
 
@@ -111,11 +113,13 @@ public class ListUtil {
      * @throws NullPointerException if the list is null
      * @throws ClassCastException   if an item is not of the proper type
      */
-    public static List<Object> immutableListOfTypeOrNull(List<Object> list, Class type) {
+    @SuppressWarnings("rawtypes")
+	public static List<Object> immutableListOfTypeOrNull(List<Object> list, Class type) {
         return immutableListOfType(list, type, true);
     }
 
-    private static List<Object> immutableListOfType(List<Object> list, Class type,
+    @SuppressWarnings("rawtypes")
+	private static List<Object> immutableListOfType(List<Object> list, Class type,
                                                     boolean nullOk) {
         List<Object> l = new ArrayList<Object>(list.size());
         for (Iterator iter = list.iterator(); iter.hasNext(); ) {

@@ -40,7 +40,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
-		System.out.println("hi");
+
 		// A* Setup
 		try {
 			for(int i = 0; i < (CITY_WIDTH/ASC); i++) {
@@ -106,7 +106,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		} catch (Exception e) {
 			System.out.println("Exception During A* Setup: " + e);
 		}
-		System.out.println("bye");
+
 		//Add Background and city block
 		background = new Color(100,100,100);
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));

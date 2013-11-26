@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import base.PersonAgent;
-
+@SuppressWarnings("serial")
 public abstract class SimCityPanel extends JPanel implements ActionListener, MouseListener {
 
 	protected SimCityGui city;

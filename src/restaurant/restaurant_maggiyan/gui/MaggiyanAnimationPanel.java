@@ -20,8 +20,6 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 	
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-    private Image bufferImage;
-    private Dimension bufferSize;
 
     private List<MaggiyanGui> guis = new ArrayList<MaggiyanGui>();
 
@@ -29,15 +27,13 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         setBackground(Color.white);
-        
-        bufferSize = this.getSize();
  
     	Timer timer = new Timer(FRAMESPEED, this );
     	timer.start();
     }
 
 	public void actionPerformed(ActionEvent e) {
-		repaint();  //Will have paintComponent called
+		repaint();  
 	}
 
     public void paintComponent(Graphics g) {
@@ -49,12 +45,8 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 
         //Waiting area for customers 
         g2.setColor(Color.RED);
-        g2.fillRect(50, 0, GWIDTH*10, GHEIGHT);
+        g2.fillRect(XPOS, 0, GWIDTH*10, GHEIGHT);
 
-        
-        
-        
-        
         //Here is the table
         g2.setColor(Color.ORANGE);
         g2.fillRect(XPOS, YPOS, GWIDTH, GHEIGHT);//200 and 250 need to be table params
@@ -112,7 +104,7 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
         guis.add(gui);
     }
 
-    public void addGui(MaggyanWaiterGui gui) {
+    public void addGui(MaggiyanWaiterGui gui) {
         guis.add(gui);
     }
 

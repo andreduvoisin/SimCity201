@@ -1,19 +1,19 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
-import restaurant.restaurant_cwagoner.CookAgent.Order;
-import restaurant.restaurant_cwagoner.agent.Agent;
-import restaurant.restaurant_cwagoner.gui.WaiterGui;
+import base.Agent;
+import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 
 import java.util.*;
 import java.util.concurrent.*;
 
-public class WaiterAgent extends Agent implements Waiter {
+public class CwagonerWaiterRole extends Agent implements CwagonerWaiter {
 
 	private static boolean DirectCookAccess = false;
 	private final boolean accessCook;
 
-	public WaiterAgent(String waiterName) {
+	public CwagonerWaiterRole(String waiterName) {
 		name = waiterName;
 		// Initialize menu
 		menu.put("Steak", 8);
@@ -29,9 +29,9 @@ public class WaiterAgent extends Agent implements Waiter {
 	// DATA
 
 	private String name;
-	Host host;
-	Cook cook;
-	Cashier cashier;
+	CwagonerHost host;
+	CwagonerCook cwagonerCook;
+	CwagonerCashier cwagonerCashier;
 	
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
 	
@@ -40,7 +40,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	
 	// Pauses agent's thread while GUI is doing an animation
 	private Semaphore animationFinished = new Semaphore(0, true);
-	public WaiterGui gui = null;
+	public CwagonerWaiterGui gui = null;
 	private enum State { working, askForBreak, asked, onBreak }
 	State state = State.working;
 	Timer breakTimer = new Timer();
@@ -75,7 +75,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	}
 	
 	// From host
-	public void msgSeatCustomer(Customer c, int table) {
+	public void msgSeatCustomer(CwagonerCustomer c, int table) {
 		print("Received msgSeatCustomer(" + c.getName() + ", table " + table + ")");
 		
 		Customers.add(new AssignedCustomer(c, table));
@@ -84,7 +84,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	}
 	
 	// From customer
-	public void msgReadyToOrder(Customer c) {
+	public void msgReadyToOrder(CwagonerCustomer c) {
 		print("Received msgReadyToOrder(" + c.getName() + ")");
 		
 		synchronized(Customers) {
@@ -101,7 +101,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	}
 	
 	// From customer
-	public void msgHeresMyOrder(Customer c, String choice) {
+	public void msgHeresMyOrder(CwagonerCustomer c, String choice) {
 		print("Received msgHeresMyOrder(" + c.getName() + ", " + choice + ")");
 		
 		for (AssignedCustomer cust : Customers) {
@@ -150,7 +150,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	}
 	
 	// From customer
-	public void msgLeavingTable(Customer c) {
+	public void msgLeavingTable(CwagonerCustomer c) {
 		print("Received msgLeavingTable(" + c.getName() + ")");
 		
 		synchronized(Customers) {
@@ -169,11 +169,6 @@ public class WaiterAgent extends Agent implements Waiter {
 	// SCHEDULER
 
 	protected boolean pickAndExecuteAnAction() {
-		
-		if (state.equals(State.askForBreak)) {
-			AskForBreak();
-			return true;
-		}
 
 		synchronized(Customers) {
 			// Tell cashier to prepare check, and tell host table empty
@@ -235,14 +230,6 @@ public class WaiterAgent extends Agent implements Waiter {
 			}
 		}
 		
-		// If break has been allowed, take it once all tasks are completed
-		if (state.equals(State.onBreak)) {
-			TakeBreak();
-		}
-		else {
-			gui.onBreak(false);
-		}
-		
 		return false;
 	}
 
@@ -256,7 +243,7 @@ public class WaiterAgent extends Agent implements Waiter {
 		gui.DoGoToCashier();
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
-		cashier.msgCustomerOrdered(this, c.customer, c.food);
+		cwagonerCashier.msgCustomerOrdered(this, c.customer, c.food);
 		
 		gui.DoGoToTable(c.tableNum);
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
@@ -330,11 +317,11 @@ public class WaiterAgent extends Agent implements Waiter {
 
 		if (accessCook) {
 			print("Adding order to cook's revolving stand");
-			Cook.Orders.add(new Order(this, c.tableNum, c.food));
+			CwagonerCook.Orders.add(new Order(this, c.tableNum, c.food));
 		}
 		else {
 			print("Messaging cook with order");
-			cook.msgHeresAnOrder(this, c.tableNum, c.food);
+			cwagonerCook.msgHeresAnOrder(this, c.tableNum, c.food);
 		}
 
 		c.state = AssignedCustomer.State.orderDeliveredToCook;
@@ -366,58 +353,28 @@ public class WaiterAgent extends Agent implements Waiter {
 		
 		stateChanged();
 	}
-	
-	private void AskForBreak() {
-		print("AskForBreak()");
-		
-		host.msgCanIGoOnBreak(this);
-		state = State.asked;
-		
-		stateChanged();
-	}
-	
-	private void TakeBreak() {
-		print("TakeBreak()");
-		
-		gui.onBreak(true);
-		
-		breakTimer.schedule(new TimerTask() {
-			public void run() {
-				state = State.working;
-				GoOffBreak();
 
-				stateChanged();
-			}
-		}, 10000);
-	}
-	
-	// Necessary because host.msgOffBreak can't be put in run() above
-	private void GoOffBreak() {
-		print("GoOffBreak()");
-		host.msgOffBreak(this);
-		gui.onBreak(false);
-	}
-	
+
 	// ACCESSORS
 	
 	public String getName() {
 		return name;
 	}
 	
-	public void setGui(WaiterGui waiterGui) {
+	public void setGui(CwagonerWaiterGui waiterGui) {
 		gui = waiterGui;
 	}
 
-	public void setHost(Host h) {
+	public void setHost(CwagonerHost h) {
 		host = h;
 	}
 
-	public void setCook(Cook c) {
-		cook = c;
+	public void setCook(CwagonerCook c) {
+		cwagonerCook = c;
 	}
 	
-	public void setCashier(Cashier c) {
-		cashier = c;
+	public void setCashier(CwagonerCashier c) {
+		cwagonerCashier = c;
 	}
 
 	// For host to determine which waiter has fewest customers
@@ -434,7 +391,7 @@ public class WaiterAgent extends Agent implements Waiter {
 	// CLASSES
 	
 	private static class AssignedCustomer {
-		Customer customer;
+		CwagonerCustomer customer;
 		int tableNum;
 		public enum State { waitingToBeSeated, readingMenu, readyToOrder, ordered,
 							orderDeliveredToCook, orderDifferent, foodReady,
@@ -442,7 +399,7 @@ public class WaiterAgent extends Agent implements Waiter {
 		private State state;
 		private String food;
 		
-		AssignedCustomer(Customer c, int table) {
+		AssignedCustomer(CwagonerCustomer c, int table) {
 			customer = c;
 			tableNum = table;
 			state = State.waitingToBeSeated;

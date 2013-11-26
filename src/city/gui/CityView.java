@@ -10,18 +10,19 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 import market.gui.MarketPanel;
 import market.gui.MarketPanel.EnumMarketType;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantGui;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import bank.gui.BankPanel;
 
+@SuppressWarnings("serial")
 public class CityView extends JPanel implements MouseListener, ActionListener {
-
+	
 	public HashMap<String, CityCard> cards;
 	SimCityGui city;
 	public static final int VIEW_WIDTH = 500, VIEW_HEIGHT = 500;
@@ -38,6 +39,9 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards = new HashMap<String, CityCard>();
 		cards.put("null", new CityCard(city));
 		cards.put("Road", new CityCard(city));
+		
+		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
+		cards.put("R_aduvoisin", aduvoisin);
 		
 		DavidRestaurantGui davidmca = new DavidRestaurantGui(city);
 		cards.put("R_davidmca", davidmca);

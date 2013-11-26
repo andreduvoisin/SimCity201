@@ -98,7 +98,8 @@ public class StringUtil {
      * @param separator - String to put between elements
      * @return Concatenated string
      */
-    public static String separatedString(Collection c, String separator) {
+    @SuppressWarnings("rawtypes")
+	public static String separatedString(Collection c, String separator) {
         return separatedString(c, "", separator, "",
                 new StringBuffer()).toString();
     }
@@ -123,7 +124,8 @@ public class StringUtil {
      * @param sb        - StringBuffer to write result into
      * @return sb
      */
-    public static StringBuffer separatedString(Collection c, String separator,
+    @SuppressWarnings("rawtypes")
+	public static StringBuffer separatedString(Collection c, String separator,
                                                StringBuffer sb) {
         return separatedString(c, "", separator, "", sb);
     }
@@ -137,7 +139,8 @@ public class StringUtil {
      * @param delimiter - String with which to surround each element
      * @return Concatenated string
      */
-    public static String separatedDelimitedString(Collection c, String separator,
+    @SuppressWarnings("rawtypes")
+	public static String separatedDelimitedString(Collection c, String separator,
                                                   String delimiter) {
         return separatedString(c, delimiter,
                 delimiter + separator + delimiter, delimiter,
@@ -154,7 +157,8 @@ public class StringUtil {
      * @param delimiter2 - String with which to suffix each element
      * @return Concatenated string
      */
-    public static String separatedDelimitedString(Collection c, String separator,
+    @SuppressWarnings("rawtypes")
+	public static String separatedDelimitedString(Collection c, String separator,
                                                   String delimiter1,
                                                   String delimiter2) {
         return separatedString(c, delimiter1,
@@ -171,7 +175,8 @@ public class StringUtil {
      * @param terminator - String with which to terminate result
      * @return Concatenated string
      */
-    public static String terminatedSeparatedString(Collection c, String separator,
+    @SuppressWarnings("rawtypes")
+	public static String terminatedSeparatedString(Collection c, String separator,
                                                    String terminator) {
         return separatedString(c, "", separator, terminator,
                 new StringBuffer()).toString();
@@ -188,7 +193,8 @@ public class StringUtil {
      * @param separatorLast  - String to place after last element
      * @return Concatenated string
      */
-    public static StringBuffer separatedString(Collection c, String separatorFirst,
+    @SuppressWarnings("rawtypes")
+	public static StringBuffer separatedString(Collection c, String separatorFirst,
                                                String separatorInner,
                                                String separatorLast,
                                                StringBuffer sb) {
@@ -264,7 +270,8 @@ public class StringUtil {
      *                            at the start or end of the string, or adjacent delimiters) will not be
      *                            included in the result.
      */
-    public static Vector breakAt(String s, char sep,
+    @SuppressWarnings("rawtypes")
+	public static Vector breakAt(String s, char sep,
                                  int maxItems,
                                  boolean discardEmptyStrings) {
         return breakAt(s, sep, maxItems, discardEmptyStrings, false);
@@ -274,7 +281,8 @@ public class StringUtil {
      * Break a string at a separator char, returning a vector of strings.
      * Include any empty strings in the result.
      */
-    public static Vector breakAt(String s, char sep) {
+    @SuppressWarnings("rawtypes")
+	public static Vector breakAt(String s, char sep) {
         return breakAt(s, sep, 0);
     }
 
@@ -282,7 +290,8 @@ public class StringUtil {
      * Break a string at a separator char, returning a vector of at most
      * maxItems strings.  Include any empty strings in the result.
      */
-    public static Vector breakAt(String s, char sep, int maxItems) {
+    @SuppressWarnings("rawtypes")
+	public static Vector breakAt(String s, char sep, int maxItems) {
         return breakAt(s, sep, maxItems, false);
     }
 
@@ -347,7 +356,8 @@ public class StringUtil {
     }
 
     /* Return the non-qualified name of the class */
-    public static String shortName(Class clazz) {
+    @SuppressWarnings("rawtypes")
+	public static String shortName(Class clazz) {
         String className = clazz.getName();
         return className.substring(className.lastIndexOf('.') + 1);
     }

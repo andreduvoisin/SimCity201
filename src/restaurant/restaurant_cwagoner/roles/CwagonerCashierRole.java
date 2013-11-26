@@ -1,6 +1,6 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
-import restaurant.restaurant_cwagoner.agent.Agent;
+import base.Agent;
 import restaurant.restaurant_cwagoner.interfaces.*;
 import restaurant.restaurant_cwagoner.test.mock.*;
 
@@ -9,16 +9,16 @@ import java.util.*;
 /**
  * Restaurant cashier agent.
  */
-public class CashierAgent extends Agent implements Cashier {
+public class CwagonerCashierRole extends Agent implements CwagonerCashier {
 	
-	public CashierAgent() {
+	public CwagonerCashierRole() {
 		PriceList.put("Steak",		8.0);
 		PriceList.put("Chicken",	6.0);
 		PriceList.put("Salad",		2.0);
 		PriceList.put("Pizza",		4.0);
 	}
 	
-	Cook cook;
+	CwagonerCook cwagonerCook;
 	
 	public EventLog log = new EventLog();
 	
@@ -29,14 +29,14 @@ public class CashierAgent extends Agent implements Cashier {
 	HashMap<String, Double> PriceList = new HashMap<String, Double>();
 	public List<Bill> Bills =
 			Collections.synchronizedList(new ArrayList<Bill>());
-	public HashMap<Market, Double> MarketInteractions = new HashMap<Market, Double>();
+	public HashMap<CwagonerMarket, Double> MarketInteractions = new HashMap<CwagonerMarket, Double>();
 	// Values: 0 - don't order again; otherwise - pay that amount
 	
 	
 	// MESSAGES
 
 	// From waiter - telling cashier to prepare bill for leaving customer
-	public void msgCustomerOrdered(Waiter w, Customer c, String food) {
+	public void msgCustomerOrdered(CwagonerWaiter w, CwagonerCustomer c, String food) {
 		log.add(new LoggedEvent("Received msgCustomerOrdered(" + w.getName() + ", " + c.getName() + ", " + food + ")"));
 
 		Bills.add(new Bill(w, c, PriceList.get(food)));
@@ -44,7 +44,7 @@ public class CashierAgent extends Agent implements Cashier {
 	}
 	
 	// From customer at cashier's desk
-	public void msgReadyToPay(Customer c) {
+	public void msgReadyToPay(CwagonerCustomer c) {
 		print("Received msgReadyToPay(" + c.getName() + ")");
 		log.add(new LoggedEvent("Received msgReadyToPay(" + c.getName() + ")"));
 		
@@ -61,7 +61,7 @@ public class CashierAgent extends Agent implements Cashier {
 	}
 	
 	// From customer
-	public void msgPayment(Customer c, double cashTendered) {
+	public void msgPayment(CwagonerCustomer c, double cashTendered) {
 		log.add(new LoggedEvent("Received msgPayment(" + c.getName() + ", $" + cashTendered + ")"));
 		print("Received msgPayment(" + c.getName() + ", $" + cashTendered + ")");
 		
@@ -93,7 +93,7 @@ public class CashierAgent extends Agent implements Cashier {
 	}
 	
 	// From market - pay for delivered order
-	public void msgPayForOrder(Market m, double total) {
+	public void msgPayForOrder(CwagonerMarket m, double total) {
 		log.add(new LoggedEvent("Received msgPayForOrder, total = " + total));
 		print("Received msgPayForOrder(" + m.getName() + ", $" + total + ")");
 		
@@ -102,7 +102,7 @@ public class CashierAgent extends Agent implements Cashier {
 	}
 	
 	// From market - couldn't pay
-	public void msgDontOrderAgain(Market m) {
+	public void msgDontOrderAgain(CwagonerMarket m) {
 		log.add(new LoggedEvent("Received msgDontOrderAgain"));
 		print("Received msgDontOrderAgain(" + m.getName() + ")");
 		
@@ -169,10 +169,10 @@ public class CashierAgent extends Agent implements Cashier {
 	private void HandleMarkets() {
 		print("HandleMarkets()");
 		
-		for (Market m : MarketInteractions.keySet()) {
+		for (CwagonerMarket m : MarketInteractions.keySet()) {
 			double total = MarketInteractions.get(m);
 			if (total == 0.0) {
-				cook.msgDontOrderFrom(m);
+				cwagonerCook.msgDontOrderFrom(m);
 			}
 			else {
 				if (money >= total) {
@@ -224,8 +224,8 @@ public class CashierAgent extends Agent implements Cashier {
 	// Classes
 	
 	public static class Bill {
-		public Customer customer;
-		public Waiter waiter;
+		public CwagonerCustomer customer;
+		public CwagonerWaiter waiter;
 		
 		public enum State { received, customerApproached, awaitingPayment,
 							paid, overpaid, underpaid }
@@ -233,7 +233,7 @@ public class CashierAgent extends Agent implements Cashier {
 		public double changeDue;
 		public double netCost;
 
-		public Bill(Waiter w, Customer c, double total) {
+		public Bill(CwagonerWaiter w, CwagonerCustomer c, double total) {
 			waiter = w;
 			customer = c;
 			netCost = total;
@@ -246,7 +246,7 @@ public class CashierAgent extends Agent implements Cashier {
 		Bills.add(bill);
 	}
 	
-	public void setCook(Cook c) {
-		cook = c;
+	public void setCook(CwagonerCook c) {
+		cwagonerCook = c;
 	}
 }

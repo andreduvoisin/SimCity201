@@ -127,6 +127,17 @@ public class AnimationPanel extends JPanel implements ActionListener {
 		drawFood();
     }
     
+    public void updateCustomerLine() {
+        CustomerGui.LINE_POSITION--;
+        for(Gui gui : guis) {
+        	if (gui.isPresent()) {
+        			if(gui instanceof CustomerGui) {
+        				((CustomerGui) gui).moveForwardInLine();
+        			}
+        	}
+        }
+    }
+
     private void drawFood(){
     	synchronized(foodIcons){
     	if(!foodIcons.isEmpty()){

@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.Order.state;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
@@ -49,8 +50,13 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Order> rStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
-	public MaggiyanCookRole(String name){
-		this.n = name;
+	public MaggiyanCookRole(String n){
+		
+	}
+	
+	public MaggiyanCookRole(Person p){
+		super(p);
+		this.n = p.getName();
 		
 		Food steak = new Food("Steak", inventoryLOW, foodCookingTime* 50);
 		Food chicken = new Food("Chicken", maxFoodQty, foodCookingTime*75);

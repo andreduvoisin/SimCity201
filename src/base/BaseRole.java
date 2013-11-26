@@ -23,7 +23,6 @@ public class BaseRole implements Role {
 
 	// NEEDED METHODS
 	protected void stateChanged() {
-		//print("statechanged called");
 		((PersonAgent) mPerson).stateChanged();
 	}
 

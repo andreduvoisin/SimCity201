@@ -1,9 +1,18 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
+
+
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
@@ -22,8 +31,13 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public void setRestaurant(int restaurantID) {
+
+		// TODO ALL add if statements for all the other restaurants
+
 		switch(restaurantID){
 			case 0: //andre
+				subRole = new AndreCustomerRole(super.mPerson);
+				AndreRestaurantPanel.getInstance().addPerson((AndreCustomerRole)subRole);
 				break;
 			case 1: //chase
 				break;
@@ -31,7 +45,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				break;
 			case 3: //maggi
 				subRole = new MaggiyanCustomerRole(super.mPerson);
-				//MaggiyanRestaurantPanel.getRestPanel().addCustomer((CustomerRole) subRole);
+				MaggiyanRestaurantPanel.getRestPanel().addCustomer((MaggiyanCustomerRole) subRole);
 				break;
 			case 4: //david
 				subRole = new DavidCustomerRole(super.mPerson);
@@ -47,6 +61,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				break;
 			case 7: //rex
 				break;
+
 		}
 	}
 	

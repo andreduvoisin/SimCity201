@@ -10,7 +10,7 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 /**
  * A sample Customer interface built to unit test a CashierAgent.
  *
- * @author Monroe Ekilah
+ * @author Maggi Yang 
  *
  */
 public interface MaggiyanCashier {

@@ -18,8 +18,8 @@ import base.PersonAgent;
 public class CityPerson extends CityComponent{
 	
 	private String name = "";
-	private PersonAgent person = null;
-	private boolean atDestination = true;
+	PersonAgent person = null;
+	boolean atDestination = true;
 	SimCityGui gui;
 	
 	private int xDestination = 120, yDestination = 35;
@@ -92,7 +92,7 @@ public class CityPerson extends CityComponent{
         
         if(x == xDestination && y == yDestination){
         	this.disable();
-        	atDestination = true; //SHANE: 0 where is this used?
+        	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
 //        	person.msgAnimationDone(); //SHANE: Add person then enable this line
         }
         

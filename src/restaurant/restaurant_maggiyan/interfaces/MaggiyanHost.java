@@ -9,7 +9,7 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole.WaiterState;
 /**
  * A sample Customer interface built to unit test a CashierAgent.
  *
- * @author Monroe Ekilah
+ * @author Maggi Yang 
  *
  */
 public interface MaggiyanHost {
