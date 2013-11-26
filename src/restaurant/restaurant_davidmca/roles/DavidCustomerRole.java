@@ -141,8 +141,7 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 	public void msgAnimationFinishedLeaveRestaurant() {
 		// from animation
 		event = AgentEvent.doneLeaving;
-		((PersonAgent) mPerson).msgRoleFinished();
-		((PersonAgent) mPerson).msgRoleInactive();
+		((PersonAgent) mPerson).msgRoleFinished(this);
 		stateChanged();
 	}
 
@@ -279,8 +278,7 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 				Do("Restaurant full, decided to leave");
 				event = AgentEvent.ReadyToLeave;
 				customerGui.DoExitRestaurant();
-				((PersonAgent) mPerson).msgRoleFinished();
-				((PersonAgent) mPerson).msgRoleInactive();
+				((PersonAgent) mPerson).msgRoleFinished(this);
 				break;
 			}
 		}
@@ -366,8 +364,8 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 
 	private void DoneAndPaying() {
 		print("Done and Paying");
-		ContactList.SendPayment(mPerson.getSSN(), ((BaseRole) cash).getSSN(), mycheck.total);
-//		cash.msgPayment(mycheck, mymoney);
+//		ContactList.SendPayment(mPerson.getSSN(), ((BaseRole) cash).getSSN(), mycheck.total);
+		cash.msgPayment(mycheck, mymoney);
 		mymoney = 0;
 		waiter.msgDoneAndPaying(this);
 		event = AgentEvent.donePaying;

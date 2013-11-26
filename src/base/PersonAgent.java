@@ -84,9 +84,9 @@ public class PersonAgent extends Agent implements Person {
 		mName = name;
 		initializePerson();
 		
-		//Get job role and location; set active if necessary
-		mJobRole = null;
-		if(mTimeShift == 1) {
+		if (mTimeShift == 1){
+			//Get job role and location; set active if necessary
+			mJobRole = null;
 			switch (job){
 				case BANK:
 					mJobRole = SortingHat.getBankRole(mTimeShift);
@@ -97,16 +97,8 @@ public class PersonAgent extends Agent implements Person {
 				case RESTAURANT:
 					mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 					//System.out.println(mJobRole.toString());
-					
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
-	
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
-					
-					print("BALLS: " + mJobRole.toString());
-	
-					//((RestaurantBaseInterface) mJobRole).setRestaurant(4);
-					//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
-					//DAVID set proper restaurant
 					break;
 				case TRANSPORTATION: break;
 				case HOUSING: break;
@@ -116,7 +108,7 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 					break;
 			}
-		} else {
+		}else{
 			mJobRole = new RestaurantCustomerRole(this);
 			((RestaurantBaseInterface) mJobRole).setPerson(this);
 			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
@@ -144,6 +136,26 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
+		
+		//Add events
+		mEvents.add(new Event(EnumEventType.JOB, 0));
+		
+//		if (mJobType != EnumJobType.NONE){
+//		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
+//			mEvents.add(new Event(EnumEventType.JOB, 0));
+//		}
+//		mEvents.add(new Event(EnumEventType.EAT, 1)); // ANDRE ALL HACK
+
+//		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
+//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+		
+//		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
+//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift*2));
+//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
+//		mEvents.add(new Event(EnumEventType.EAT, 1)); //THIS IS A PROBLEM
+//		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
+//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
+//		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 	private void initializePerson(){
@@ -171,17 +183,6 @@ public class PersonAgent extends Agent implements Person {
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
-//		mEvents.add(new Event(EnumEventType.EAT, 0)); // ANDRE ALL HACK
-//		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		mEvents.add(new Event(EnumEventType.JOB, 1));
-//		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift*2));
-//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-//		mEvents.add(new Event(EnumEventType.EAT, 1)); //THIS IS A PROBLEM
-//		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
-//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
-//		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 
@@ -362,7 +363,12 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		//mPersonGui.DoGoToDestination(mJobLocation);
+		System.out.println("Going to Job");
+		if (mJobLocation != null){
+			mPersonGui.DoGoToDestination(mJobLocation);
+		}else{
+			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(SimCityGui.TESTNUM));
+		}
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
 		mPersonGui.setPresent(false);
@@ -374,7 +380,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void eatFood() {
 		if (isCheap() && mHouseRole.mHouse != null){
-			System.out.println("Going to eat at home");
+			System.out.println(this + ": Going to eat at home");
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(mHouseRole.mHouse.mHouseNum));
 			acquireSemaphore(semAnimationDone);
