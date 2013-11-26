@@ -20,15 +20,28 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 	}
 	
 	public void setRestaurant(int restaurantID) {
-		if (restaurantID == 4) {
-			subRole = DavidRestaurantPanel.getInstance().cash;
-			subRole.setPerson(super.mPerson);
+		switch(restaurantID){
+			case 0: //andre
+				break;
+			case 1: //chase
+				break;
+			case 2: //jerry
+				break;
+			case 3: //maggi
+				subRole = MaggiyanRestaurantPanel.getRestPanel().cashier;
+				subRole.setPerson(super.mPerson);
+				break;
+			case 4: //david
+				subRole = DavidRestaurantPanel.getInstance().cash;
+				subRole.setPerson(super.mPerson);
+				break;
+			case 5: //shane
+				break;
+			case 6: //angelica
+				break;
+			case 7: //rex
+				break;
 		}
-		if (restaurantID == 2) {
-			subRole = MaggiyanRestaurantPanel.getRestPanel().cashier;
-			subRole.setPerson(super.mPerson);
-		}
-		//TODO DAVID add if statements for all the other restaurants
 	}
 	
 	public void setPerson(Person person){

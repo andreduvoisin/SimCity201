@@ -45,20 +45,32 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         public void setRestaurant(int restaurantID) {
-
-        		//David
-                if (restaurantID == 4) {
-                        subRole = DavidRestaurantPanel.getInstance().cook;
-                        subRole.setPerson(super.mPerson);
-                        //ANGELICA: get restaurant SSN
-                }
-                //Maggi 
-                if (restaurantID == 3) {
-                    subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
-                    subRole.setPerson(super.mPerson);
-                }
             
                 //TODO DAVID add if statements for all the other restaurants
+        	switch(restaurantID){
+				case 0: //andre
+					break;
+				case 1: //chase
+					break;
+				case 2: //jerry
+					break;
+				case 3: //maggi
+					 subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
+	                 subRole.setPerson(super.mPerson);
+					break;
+				case 4: //david
+                    subRole = DavidRestaurantPanel.getInstance().cook;
+                    subRole.setPerson(super.mPerson);
+                    //ANGELICA: get restaurant SSN
+					break;
+				case 5: //shane
+					break;
+				case 6: //angelica
+					break;
+				case 7: //rex
+					break;
+			}
+
         }
         
         public void setPerson(Person person){

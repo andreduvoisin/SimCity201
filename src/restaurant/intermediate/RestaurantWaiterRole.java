@@ -31,7 +31,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 		switch(restaurantID){
 			case 0:
 				break;
-			case 1: //maggi
+			case 1: 
 				break;
 			case 2:
 				break;
@@ -59,7 +59,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				break;
 			case 5: //shane
 				subRole = new SmilehamWaiterRole(mPerson);
-				//SHANE: add waiter here
+				//SHANE: 1 add waiter here
 				break;
 			case 6:
 				break;
