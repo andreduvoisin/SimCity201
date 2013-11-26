@@ -1,14 +1,14 @@
 package restaurant.restaurant_smileham.test.mock;
 
 
-import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
+import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
-import restaurant.restaurant_smileham.interfaces.Cashier;
-import restaurant.restaurant_smileham.interfaces.Customer;
-import restaurant.restaurant_smileham.interfaces.Host;
-import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -16,12 +16,12 @@ import restaurant.restaurant_smileham.interfaces.Waiter;
  * @author Monroe Ekilah
  *
  */
-public class MockCustomer extends Mock implements Customer {
+public class MockCustomer extends Mock implements SmilehamCustomer {
 
 	/**
 	 * Reference to the Cashier under test that can be set by the unit test.
 	 */
-	public Cashier mCashier;
+	public SmilehamCashier mCashier;
 
 	public MockCustomer(String name) {
 		super(name);
@@ -39,7 +39,7 @@ public class MockCustomer extends Mock implements Customer {
 	}
 
 	@Override
-	public void msgSitAtTable(Waiter waiter, int tableNum, Menu menu) {
+	public void msgSitAtTable(SmilehamWaiter waiter, int tableNum, Menu menu) {
 		
 	}
 
@@ -79,7 +79,7 @@ public class MockCustomer extends Mock implements Customer {
 	}
 
 	@Override
-	public void setHost(Host host) {
+	public void setHost(SmilehamHost host) {
 		
 	}
 

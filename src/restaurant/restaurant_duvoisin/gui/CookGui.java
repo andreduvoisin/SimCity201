@@ -15,7 +15,7 @@ public class CookGui implements Gui {
     static final int IDLE_X = 225;
     static final int IDLE_Y = 328;
     
-    RestaurantGui gui;
+    AndreRestaurantGui gui;
     
     private int xPos = STARTPOS_X, yPos = STARTPOS_Y;//default waiter position
     private int xDestination = STARTPOS_X, yDestination = STARTPOS_Y;//default start position
@@ -41,7 +41,7 @@ public class CookGui implements Gui {
     Map<Integer, String> grilledItems = new HashMap<Integer, String>();
     Map<Integer, String> platedItems = new HashMap<Integer, String>();
 
-    public CookGui(AndreCookRole agent, RestaurantGui gui) {
+    public CookGui(AndreCookRole agent, AndreRestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         currentOrder = "";

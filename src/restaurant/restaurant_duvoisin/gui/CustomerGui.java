@@ -11,7 +11,7 @@ public class CustomerGui implements Gui{
 	private boolean isHungry = false;
 
 	//private HostAgent host;
-	RestaurantGui gui;
+	AndreRestaurantGui gui;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -33,7 +33,7 @@ public class CustomerGui implements Gui{
 	
 	Boolean notifiedAtWait = false;
 
-	public CustomerGui(AndreCustomerRole c, RestaurantGui gui){ //HostAgent m) {
+	public CustomerGui(AndreCustomerRole c, AndreRestaurantGui gui){ //HostAgent m) {
 		agent = c;
 		xPos = STARTPOS;
 		yPos = STARTPOS;

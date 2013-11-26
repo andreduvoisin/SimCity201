@@ -1,6 +1,6 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
-import restaurant.restaurant_cwagoner.agent.Agent;
+import base.Agent;
 import restaurant.restaurant_cwagoner.gui.*;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
@@ -8,9 +8,9 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 
-public class CookAgent extends Agent implements Cook {
+public class CwagonerCookRole extends Agent implements CwagonerCook {
 	
-	public CookAgent() {
+	public CwagonerCookRole() {
 		// Name of food, cooking time (ms), initial quantity of food, maximum capacity of food
 		addMenuItem("Steak",	8000, 1, 5);
 		addMenuItem("Chicken",	6000, 1, 4);
@@ -22,8 +22,8 @@ public class CookAgent extends Agent implements Cook {
 		return "Cook";
 	}
 	
-	Cashier cashier;
-	CookGui gui;
+	CwagonerCashier cwagonerCashier;
+	CwagonerCookGui gui;
 	private Semaphore animationFinished = new Semaphore(0, true);
 	
 	// Remembers which market was previously ordered from
@@ -38,8 +38,8 @@ public class CookAgent extends Agent implements Cook {
 	// Orders uses try-catch (method 2) instead of 'synchronized'
 	public List<Order> Orders = new ArrayList<Order>();
 	HashMap<String, MenuItem> MenuItems = new HashMap<String, MenuItem>();
-	List<Market> Markets =
-			Collections.synchronizedList(new ArrayList<Market>());
+	List<CwagonerMarket> Markets =
+			Collections.synchronizedList(new ArrayList<CwagonerMarket>());
 	
 	Timer cookingTimer = new Timer();
 	
@@ -52,7 +52,7 @@ public class CookAgent extends Agent implements Cook {
 	}
 	
 	// From waiter delivering customer's order
-	public void msgHeresAnOrder(Waiter w, int tableNum, String food) {
+	public void msgHeresAnOrder(CwagonerWaiter w, int tableNum, String food) {
 		print("Received msgHeresAnOrder(" + w.getName() + ", table " + tableNum + ", " + food + ")");
 		
 		Orders.add(new Order(w, tableNum, food));
@@ -60,7 +60,7 @@ public class CookAgent extends Agent implements Cook {
 	}
 	
 	// From market (completely out of food - remove from list)
-	public void msgOutOfFood(Market m) {
+	public void msgOutOfFood(CwagonerMarket m) {
 		print("Received msgOutOfFood(" + m.getName() + ")");
 		
 		Markets.remove(m);
@@ -69,7 +69,7 @@ public class CookAgent extends Agent implements Cook {
 	}
 	
 	// From market (can't fulfill order)
-	public void msgCantFulfillOrder(Market m) {
+	public void msgCantFulfillOrder(CwagonerMarket m) {
 		print("Received msgCantFulfillOrder(" + m.getName() + ")");
 
 		ordering = false;
@@ -89,7 +89,7 @@ public class CookAgent extends Agent implements Cook {
 	}
 	
 	// From cashier - didn't pay market for order, so remove from list
-	public void msgDontOrderFrom(Market m) {
+	public void msgDontOrderFrom(CwagonerMarket m) {
 		Markets.remove(m);
 		if (marketNum == Markets.size()) {
 			marketNum = 0;
@@ -156,7 +156,7 @@ public class CookAgent extends Agent implements Cook {
 			}
 		}
 		
-		Markets.get(marketNum % Markets.size()).msgNeedFood(this, cashier, request);
+		Markets.get(marketNum % Markets.size()).msgNeedFood(this, cwagonerCashier, request);
 		
 		marketNum++;
 		stateChanged();
@@ -226,13 +226,13 @@ public class CookAgent extends Agent implements Cook {
 	// CLASSES
 	
 	public static class Order {
-		private Waiter waiter;
+		private CwagonerWaiter waiter;
 		private int tableNum;
 		private String food;
 		public enum State { received, cooking, readyToDeliver };
 		private State state;
 		
-		public Order(Waiter w, int table, String choice) {
+		public Order(CwagonerWaiter w, int table, String choice) {
 			waiter = w;
 			tableNum = table;
 			food = choice;
@@ -289,16 +289,16 @@ public class CookAgent extends Agent implements Cook {
 	
 	
 	// Market-adding hack (from GUI)
-	public void addMarket(Market m) {
+	public void addMarket(CwagonerMarket m) {
 		Markets.add(m);
 		stateChanged();
 	}
 	
-	public void setCashier(Cashier c) {
-		cashier = c;
+	public void setCashier(CwagonerCashier c) {
+		cwagonerCashier = c;
 	}
 	
-	public void setGui(CookGui g) {
+	public void setGui(CwagonerCookGui g) {
 		gui = g;
 	}
 }
