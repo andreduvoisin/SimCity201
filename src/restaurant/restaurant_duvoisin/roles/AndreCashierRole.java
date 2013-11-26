@@ -1,8 +1,10 @@
-package restaurant.restaurant_duvoisin;
+package restaurant.restaurant_duvoisin.roles;
 
 import java.util.*;
 
-import restaurant.restaurant_duvoisin.agent.Agent;
+import base.BaseRole;
+import restaurant.restaurant_duvoisin.MarketPrices;
+import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Market;
@@ -13,7 +15,7 @@ import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 /**
  * Restaurant Cashier Agent
  */
-public class CashierAgent extends Agent implements Cashier {
+public class AndreCashierRole extends BaseRole implements Cashier {
 	public double money = 15.00;
 	
 	private String name;
@@ -26,7 +28,7 @@ public class CashierAgent extends Agent implements Cashier {
 	
 	public EventLog log = new EventLog();
 
-	public CashierAgent(String name) {
+	public AndreCashierRole(String name) {
 		super();
 		this.name = name;
 	}

@@ -1,8 +1,6 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.WaiterAgent;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
-
 import java.awt.*;
 
 public class WaiterGui implements Gui {

@@ -1,12 +1,14 @@
 package restaurant.restaurant_duvoisin.gui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class AnimationPanel extends JPanel implements ActionListener {
 
     private final int WINDOWX = 900;
