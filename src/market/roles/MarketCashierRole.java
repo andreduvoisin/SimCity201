@@ -88,7 +88,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 	
 /* Animation Messages */
-	public void msgAnimationLeftRestaurant() {
+	public void msgAnimationLeftMarket() {
 		inTransit.release();
 	}
 	

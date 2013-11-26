@@ -59,4 +59,52 @@ public class MockWaiter extends Mock implements Waiter {
 	public void msgHereIsCheck(Customer c, double amount) {
 		
 	}
+
+	@Override
+	public void pauseBaseAgent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgPauseScheduler() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resumeBaseAgent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgResumeScheduler() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtTable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtCustomer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtCook() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtCashier() {
+		// TODO Auto-generated method stub
+		
+	}
 }

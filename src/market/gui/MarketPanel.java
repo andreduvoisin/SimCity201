@@ -25,6 +25,7 @@ public class MarketPanel extends CityCard implements ActionListener {
 	private EnumMarketType mMarketType;
 	
 	private MarketItemsGui mItemGui;
+	private Timer timer;
 	private final int TIMERDELAY = 8;
 	
 	public MarketPanel(SimCityGui city, EnumMarketType t) {
@@ -36,24 +37,25 @@ public class MarketPanel extends CityCard implements ActionListener {
 		mMarketType = t;
 		mItemGui = new MarketItemsGui(mMarketType);
 		
-		Timer timer = new Timer(TIMERDELAY, this);
+		timer = new Timer(TIMERDELAY, this);
 		timer.start();
-		addGuis();
-		testGuis();
+//		addGuis();
+//		testGuis();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		repaint();
-	}
-	
-	public void paint(Graphics g) {
-		Graphics2D g2 = (Graphics2D)g;
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
 			}
 		}
-		
+	
+		repaint();
+	}
+	
+	public void paint(Graphics g) {
+		Graphics2D g2 = (Graphics2D)g;
+	
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.draw(g2);

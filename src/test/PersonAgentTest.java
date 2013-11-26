@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import city.gui.SimCityGui;
-import restaurant.restaurant_davidmca.gui.RestaurantGui;
-import restaurant.restaurant_davidmca.gui.RestaurantPanel;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantGui;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import junit.framework.TestCase;
 import base.PersonAgent;
 import base.PersonAgent.EnumJobType;
@@ -18,11 +18,11 @@ import housing.roles.HousingRenterRole;
 public class PersonAgentTest extends TestCase {
 
 	PersonAgent mPerson;
-	RestaurantPanel restaurantPanel;
+	DavidRestaurantPanel davidRestaurantPanel;
 	
 	public void setUp() throws Exception {
 		super.setUp();
-		restaurantPanel = new RestaurantPanel(new RestaurantGui(new SimCityGui()));
+		davidRestaurantPanel = new DavidRestaurantPanel(new DavidRestaurantGui(new SimCityGui()));
 		List<Person> mPersons = new ArrayList<Person>();
 		mPersons.add(mPerson);
 		Time time = new Time(mPersons);

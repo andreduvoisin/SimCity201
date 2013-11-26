@@ -14,25 +14,24 @@ import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantPanel;
-import restaurant.restaurant_smileham.interfaces.Cashier;
-import restaurant.restaurant_smileham.interfaces.Customer;
-import restaurant.restaurant_smileham.interfaces.Host;
-import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
 import base.interfaces.Person;
 
 /**
  * Restaurant customer agent.
  */
-public class SmilehamCustomerRole extends BaseRole implements Customer{
+public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	
 	//Constants
 	private static final int cHUNGER_LEVEL = 5;
 	private static final int cMAX_CASH = 20;
 	
 	//Agents
-	private Cashier mCashier;
+	private SmilehamCashier mCashier;
 	
 	//Regular Member Variables
 	private String mName;
@@ -46,8 +45,8 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 	
 	
 	private Timer mTimer;
-	private SmilehamHostRole mHost;
-	private SmilehamWaiterRole mWaiter;
+	private SmilehamHost mHost;
+	private SmilehamWaiter mWaiter;
 
 	// States and Events
 	public enum EnumAgentState {DoingNothing, WaitingInRestaurant, BeingSeated, Seated, Ordering, WaitingForFood, Eating, AwaitingCheck, Paying, Leaving};
@@ -78,13 +77,12 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 	public SmilehamCustomerRole(Person person, String name, SmilehamAnimationPanel animationPanel){
 		super(person);
 
-		mAnimationPanel = SmilehamRestaurantPanel.mAnimationPanel;
-//		mAnimationPanel = animationPanel;
+		mAnimationPanel = animationPanel;
 
 		//SHANE: 5 grabbing at thin air...
 		mName = "Customer";
-		mHost = SmilehamRestaurantPanel.getHost();
-		mCashier = SmilehamRestaurantPanel.getCashier();
+		mHost = SmilehamAnimationPanel.getHost();
+		mCashier = SmilehamAnimationPanel.getCashier();
 		
 		
 //		mName = name;
@@ -142,7 +140,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		stateChanged();
 	}
 
-	public void msgSitAtTable(Waiter waiter, int tableNum, Menu menu) {
+	public void msgSitAtTable(SmilehamWaiter waiter, int tableNum, Menu menu) {
 		print("Message: msgSitAtTable()");
 		mTableNum = tableNum;
 		mMenu = menu;
@@ -231,7 +229,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		//WaitingInRestaurant + followHost = BeingSeated
 		if (mState == EnumAgentState.WaitingInRestaurant && mEvent == EnumAgentEvent.restaurantFullLeave ){
 			mState = EnumAgentState.Leaving;
-			leaveRestaurant();
+//			leaveRestaurant(); //SHANE: 2 put this back after testing
 //			leaveTable(); or something like this
 			return true;
 		}
@@ -310,7 +308,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		mCustomerGui.DoGoToWaitingArea();
 		WaitingArea.addWaitingCustomer();
 		
-		mHost.msgIWantFood((Customer)this);
+//		mHost.msgIWantFood((SmilehamCustomer)this); //SHANE: 2 put this in after testing
 	}
 
 	private void sitDown() {
@@ -325,7 +323,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 	
 	private void getWaitersAttention(){
 		print("Action: getWaitersAttention()");
-		mWaiter.msgReadyToOrder((Customer)this);
+		mWaiter.msgReadyToOrder((SmilehamCustomer)this);
 	}
 	
 	private void orderFood(){
@@ -346,7 +344,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		//If nothing available to buy (or can't pay), leave restaurant
 		if (mMenu.numChoices() == 0){
 			leaveTable();
-			mWaiter.msgNotGettingFood((Customer)this);
+			mWaiter.msgNotGettingFood((SmilehamCustomer)this);
 			return;
 		}
 		
@@ -356,7 +354,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		
 		if (mFoodLabelGui != null) mFoodLabelGui.remove();
 		mFoodLabelGui = new LabelGui(mChoice.toString() + "?", mCustomerGui.getX(), mCustomerGui.getY(), mAnimationPanel);
-		mWaiter.msgHereIsMyChoice((Customer)this, mChoice);
+		mWaiter.msgHereIsMyChoice((SmilehamCustomer)this, mChoice);
 	}
 
 	private void eatFood() {
@@ -384,7 +382,7 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 	
 	private void askForCheck(){
 		print("Action: askForCheck()");
-		mWaiter.msgReadyForCheck(mChoice, (Customer)this);
+		mWaiter.msgReadyForCheck(mChoice, (SmilehamCustomer)this);
 	}
 	
 	private void payCheck(){
@@ -405,17 +403,17 @@ public class SmilehamCustomerRole extends BaseRole implements Customer{
 		if (mFoodLabelGui != null) mFoodLabelGui.remove();
 		mCustomerGui.DoExitRestaurant();
 		acquireSemaphore(semLeftRestaurant);
-		mWaiter.msgCustomerLeaving((Customer)this);
+		mWaiter.msgCustomerLeaving((SmilehamCustomer)this);
 	}
 	
 	private void leaveRestaurant(){
 		print("Action: leaveRestaurant()");
-		mHost.msgLeavingRestaurant((Customer)this);
+		mHost.msgLeavingRestaurant((SmilehamCustomer)this);
 	}
 
 	//-----------------------------------------------ACCESSORS-----------------------------------------------
 	
-	public void setHost(Host host) {
+	public void setHost(SmilehamHost host) {
 		mHost = (SmilehamHostRole) host;
 	}
 

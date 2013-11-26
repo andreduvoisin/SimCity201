@@ -16,7 +16,7 @@ import base.BaseRole;
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CashierRole extends BaseRole implements Cashier {
+public class DavidCashierRole extends BaseRole implements Cashier {
 
 	private String name;
 	public double totalCash;
@@ -48,7 +48,7 @@ public class CashierRole extends BaseRole implements Cashier {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CashierRole(String name) {
+	public DavidCashierRole(String name) {
 		super(null);
 		this.name = name;
 		totalCash = 100.00;

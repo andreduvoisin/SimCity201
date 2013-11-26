@@ -9,24 +9,23 @@ import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.WaiterGui;
 import restaurant.restaurant_smileham.test.mock.EventLog;
 
-public interface Waiter {
+public interface SmilehamWaiter {
 	
 	public EventLog log = new EventLog(); //SHANE: 3 is this allowed?
 	
 	//Messages
-	public abstract void msgSeatCustomer(Table table, Customer customer);
-	public abstract void msgReadyToOrder(Customer customer);
-	public abstract void msgHereIsMyChoice(Customer customer, EnumFoodOptions choice);
-	public abstract void msgNotGettingFood(Customer customer);
+	public abstract void msgSeatCustomer(Table table, SmilehamCustomer customer);
+	public abstract void msgReadyToOrder(SmilehamCustomer customer);
+	public abstract void msgHereIsMyChoice(SmilehamCustomer customer, EnumFoodOptions choice);
+	public abstract void msgNotGettingFood(SmilehamCustomer customer);
 	public abstract void msgOrderIsReady(Order order, List<EnumFoodOptions> foods);
 	public abstract void msgOutOfFood(Order order, List<EnumFoodOptions> foods);
-	public abstract void msgDoneEating(Customer customer);
+	public abstract void msgDoneEating(SmilehamCustomer customer);
 	public abstract void msgBreakReply(boolean reply);
 	public abstract void msgNewMenu(List<EnumFoodOptions> foods);
-	public abstract void msgWantBreak();
-	public abstract void msgReadyForCheck(EnumFoodOptions choice, Customer customer);
+	public abstract void msgReadyForCheck(EnumFoodOptions choice, SmilehamCustomer customer);
 	public abstract void msgHereIsCheck(Order order, Check check);
-	public abstract void msgCustomerLeaving(Customer customer);
+	public abstract void msgCustomerLeaving(SmilehamCustomer customer);
 	
 	//Scheduler
 	public abstract boolean pickAndExecuteAnAction();
@@ -50,7 +49,7 @@ public interface Waiter {
 	public abstract WaiterGui getGui();
 	public abstract String toString(); 
 	public abstract List<Order> getOrders();
-	public abstract Host getHost();
-	public abstract Cook getCook();
+	public abstract SmilehamHost getHost();
+	public abstract SmilehamCook getCook();
 	public abstract boolean isWorking();
 }

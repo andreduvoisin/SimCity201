@@ -3,7 +3,7 @@ package restaurant.restaurant_smileham.interfaces;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.test.mock.EventLog;
 
-public interface Market {
+public interface SmilehamMarket {
 	
 	public EventLog log = new EventLog();
 	

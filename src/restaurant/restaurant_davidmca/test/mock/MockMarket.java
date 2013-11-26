@@ -5,12 +5,12 @@ import java.util.Map;
 import restaurant.restaurant_davidmca.Menu;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
-import restaurant.restaurant_davidmca.roles.CashierRole;
+import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 
 public class MockMarket implements Market {
 	
 	String name;
-	CashierRole cashier;
+	DavidCashierRole cashier;
 	public double totalRevenue = 0;
 	
 	public double orderTotal = 0;
@@ -25,7 +25,7 @@ public class MockMarket implements Market {
 	}
 
 	@Override
-	public void setCashier(CashierRole cash) {
+	public void setCashier(DavidCashierRole cash) {
 		this.cashier = cash;
 
 	}

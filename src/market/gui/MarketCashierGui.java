@@ -1,22 +1,22 @@
 package market.gui;
 
 import java.awt.*;
-import market.roles.MarketCashierRole;
+import market.interfaces.MarketCashier;
 
 public class MarketCashierGui implements MarketBaseGui {
-	private MarketCashierRole mAgent;
+	private MarketCashier mAgent;
 	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xHome = 100, yHome = 50;
 	
 	private int xPos = xStart, yPos = yStart;
-	private int xDestination = xHome, yDestination = yHome;
+	private int xDestination = xStart, yDestination = yStart;
 	private static final int SIZE = 20;
 	
-	private enum EnumCommand {noCommand, goToPosition, leaveMarket};
-	private EnumCommand mCommand = EnumCommand.noCommand;
+	public enum EnumCommand {noCommand, goToPosition, leaveMarket};
+	public EnumCommand mCommand = EnumCommand.noCommand;
 	
-	public MarketCashierGui(MarketCashierRole agent) {
+	public MarketCashierGui(MarketCashier agent) {
 		mAgent = agent;
 	}
 	
@@ -34,13 +34,14 @@ public class MarketCashierGui implements MarketBaseGui {
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToPosition: {
-        		mAgent.msgAnimationAtPosition();
         		mCommand = EnumCommand.noCommand;
+        		mAgent.msgAnimationAtPosition();
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftRestaurant();
         		mCommand = EnumCommand.noCommand;
+         		mAgent.msgAnimationLeftMarket();
+         		break;
         	}
         	default:
         		break;

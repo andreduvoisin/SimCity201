@@ -1,10 +1,13 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import restaurant.restaurant_davidmca.gui.RestaurantPanel;
-import restaurant.restaurant_davidmca.roles.CustomerRole;
+
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
+
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
@@ -25,8 +28,13 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	public void setRestaurant(int restaurantID) {
 		//David
 		if (restaurantID == 4) {
-			subRole = new CustomerRole(super.mPerson);
-			RestaurantPanel.getInstance().addCustomer((CustomerRole) subRole);
+
+			subRole = new DavidCustomerRole(super.mPerson);
+			DavidRestaurantPanel.getInstance().addCustomer((DavidCustomerRole) subRole);
+
+			subRole = new DavidCustomerRole(super.mPerson);
+			DavidRestaurantPanel.getInstance().addCustomer((DavidCustomerRole) subRole);
+
 		}
 		//Maggi
 		if (restaurantID == 3) {
@@ -41,7 +49,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 		}
 		// TODO DAVID add if statements for all the other restaurants
 		if (restaurantID == 5) { //Shane's restaurant
-			subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), null);
+			subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), SmilehamAnimationPanel.mInstance);
 			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 		}
 	}

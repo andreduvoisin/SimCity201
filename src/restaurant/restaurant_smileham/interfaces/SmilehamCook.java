@@ -5,7 +5,7 @@ import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.test.mock.EventLog;
 
-public interface Cook {
+public interface SmilehamCook {
 	
 	public EventLog log = new EventLog();
 	
@@ -18,9 +18,7 @@ public interface Cook {
 	public abstract boolean pickAndExecuteAnAction();
 	
 	//Actions
-	public abstract void addMarket();
-//	private void cookFood(final Food food);
-//	private void orderFood(EnumFoodOptions food);
+//	public abstract void addMarket();
 	public abstract void refreshLabels();
 	
 	//Accessors

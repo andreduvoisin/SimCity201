@@ -5,13 +5,13 @@ import restaurant.restaurant_davidmca.Order;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.gui.WaiterGui;
-import restaurant.restaurant_davidmca.roles.HostRole;
+import restaurant.restaurant_davidmca.roles.DavidHostRole;
 
 public interface Waiter {
 
 	public abstract boolean isOnBreak();
 
-	public abstract void setHost(HostRole host);
+	public abstract void setHost(DavidHostRole host);
 
 	public abstract void setCashier(Cashier cash);
 

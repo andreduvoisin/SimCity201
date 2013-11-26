@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +14,10 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-import restaurant.restaurant_davidmca.gui.RestaurantPanel;
+
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -42,9 +45,13 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         public void setRestaurant(int restaurantID) {
+
         		//David
                 if (restaurantID == 4) {
-                        subRole = RestaurantPanel.getInstance().cook;
+                        subRole = DavidRestaurantPanel.getInstance().cook;
+
+                if (restaurantID == 4) {
+                        subRole = DavidRestaurantPanel.getInstance().cook;
                         subRole.setPerson(super.mPerson);
                         //ANGELICA: get restaurant SSN
                 }
@@ -52,6 +59,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 if (restaurantID == 3) {
                     subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
                     subRole.setPerson(super.mPerson);
+                }
             }
                 //TODO DAVID add if statements for all the other restaurants
         }

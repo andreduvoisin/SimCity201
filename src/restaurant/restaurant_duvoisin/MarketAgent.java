@@ -41,7 +41,7 @@ public class MarketAgent extends Agent implements Market {
 	// Messages
 	
 	public void msgOrderFood(Map<String, Integer> orders) {
-		print("msgOrderFood received");
+		//print("msgOrderFood received");
 		//currentOrders.putAll(orders);
 		String[] keys = orders.keySet().toArray(new String[0]);
 		Integer[] values = orders.values().toArray(new Integer[0]);
@@ -51,7 +51,7 @@ public class MarketAgent extends Agent implements Market {
 	}
 	
 	public void msgFoodPayment(String type, double payment) {
-		print("msgFoodPayment received");
+		//print("msgFoodPayment received");
 		synchronized(myChecks) {
 			for(MyCheck mc : myChecks)
 				if (mc.type.equals(type) && mc.amount == payment) {
@@ -62,7 +62,7 @@ public class MarketAgent extends Agent implements Market {
 	}
 	
 	public void msgNotEnoughMoney(String type, double payment) {
-		print("msgNotEnoughMoney received");
+		//print("msgNotEnoughMoney received");
 		synchronized(myChecks) {
 			for(MyCheck mc : myChecks)
 				if(mc.type.equals(type) && mc.amount > payment) {
@@ -106,7 +106,7 @@ public class MarketAgent extends Agent implements Market {
 
 	// Actions
 	void ProcessOrder(MarketOrder mo) {
-		print("Doing ProcessOrder");
+		//print("Doing ProcessOrder");
 		if(inventory.get(mo.type) <= 0) {
 			cook.msgFailedToFulfillRequest(this, mo.type, mo.amount);
 			marketOrders.remove(mo);
@@ -124,7 +124,7 @@ public class MarketAgent extends Agent implements Market {
 	}
 	
 	void FinishOrder(MarketOrder mo) {
-		print("Doing FinishOrder");
+		//print("Doing FinishOrder");
 		cook.msgReplenishFood(mo.type, mo.amount);
 		myChecks.add(new MyCheck(mo.type, marketPrices.currentRate.get(mo.type) * mo.amount));
 		cashier.msgComputeMarketBill(this, mo.type, mo.amount);
