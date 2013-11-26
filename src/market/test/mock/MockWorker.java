@@ -18,6 +18,7 @@ public class MockWorker extends Mock implements MarketWorker {
 	
 	public void msgOrderFulfilled(MarketOrder o) {
 		log.add(new LoggedEvent("Received msgOrderFulfilled."));
+		inTransit.release();
 	}
 	
 /** Animation Functions and Messages */
