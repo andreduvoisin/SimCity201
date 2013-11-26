@@ -2,6 +2,8 @@ package restaurant.restaurant_xurex.gui;
 
 import javax.swing.*;
 
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.RexHostRole;
@@ -19,7 +21,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class AnimationPanel extends JPanel implements ActionListener {
+public class AnimationPanel extends CityCard implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -59,7 +61,8 @@ public class AnimationPanel extends JPanel implements ActionListener {
     	}
     };
     
-    public AnimationPanel() {
+    public AnimationPanel(SimCityGui city) {
+    	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         
