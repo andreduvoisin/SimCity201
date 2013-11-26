@@ -75,10 +75,9 @@ public class BankCustomerGui implements Gui {
 	*/
 	public void DoGoWaitInLine() {
 		isPresent = true;
+		positionInLine = BankPanel.LINE_POSITION++;
 		xDestination = BankPanel.LINE_X;
-		yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
-		positionInLine = BankPanel.LINE_POSITION;
-		BankPanel.LINE_POSITION++;
+		yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * positionInLine);
 	}
 	
 	public void DoLeaveBank() {
@@ -109,7 +108,7 @@ public class BankCustomerGui implements Gui {
 		positionInLine--;
 		if(positionInLine >= 0) {
 			xDestination = BankPanel.LINE_X;
-			yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
+			yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * positionInLine);
 		}
 	}
 }

@@ -5,8 +5,11 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -17,7 +20,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	protected ArrayList<CityComponent> statics, movings;
 	protected Color background;
 	protected Timer timer;
-	
+	private BufferedImage backgroundImage;
+
 	
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
@@ -25,6 +29,15 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		movings = new ArrayList<CityComponent>();
 		timer = new Timer(10, this);
 		timer.start();
+		
+		backgroundImage = null;
+		try {
+			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/background.png");
+			backgroundImage = ImageIO.read(imageURL);
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void paint(Graphics g) {
@@ -37,6 +50,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	
 	public void drawComponents(Graphics g) {
+		g.drawImage(backgroundImage,0,0,null);
 		for (CityComponent c:statics) {
 			c.paint(g);
 			

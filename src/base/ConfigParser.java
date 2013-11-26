@@ -3,9 +3,7 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import base.Item.EnumItemType;
 import base.PersonAgent.EnumJobType;
-import base.PersonAgent.EnumScenarioType;
 import base.interfaces.Person;
 import city.gui.SimCityGui;
 
@@ -49,11 +47,11 @@ public class ConfigParser {
 			String name = scanPerson.next();
 			
 			//Scenario
-			String scenarioString = scanPerson.next();
-			EnumScenarioType scenarioType = EnumScenarioType.valueOf(scenarioString);
+//			String scenarioString = scanPerson.next();
+//			EnumScenarioType scenarioType = EnumScenarioType.valueOf(scenarioString);
 			
 			//Person
-			Person person = new PersonAgent(jobType, scenarioType, cash, name); //adds role automatically
+			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			synchronized (person) {
 				simcitygui.citypanel.masterPersonList.add(person);
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
