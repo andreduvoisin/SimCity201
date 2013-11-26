@@ -107,7 +107,7 @@ public class CityPerson extends CityComponent{
 //        }
 
 
-        //B* Algorithm
+        //B* Algorithm :)
         
         boolean xOldInBlock = 	(((previousX > ContactList.cGRID_POINT1-5) && (previousX < ContactList.cGRID_POINT2)) || 
 								((previousX > ContactList.cGRID_POINT3-5) && (previousX < ContactList.cGRID_POINT4)) ||
