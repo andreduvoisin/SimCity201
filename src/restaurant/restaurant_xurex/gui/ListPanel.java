@@ -27,7 +27,7 @@ public class ListPanel extends JPanel implements ActionListener {
     private List<JButton> list = new ArrayList<JButton>();
     //private JButton addPersonB = new JButton("Add");
 
-    private RestaurantPanel restPanel;
+    private RexRestaurantPanel restPanel;
     private String type;
     private JTextField input; //customer name entry
 
@@ -37,7 +37,7 @@ public class ListPanel extends JPanel implements ActionListener {
      * @param rp   reference to the restaurant panel
      * @param type indicates if this is for customers or waiters
      */
-    public ListPanel(RestaurantPanel rp, String type) {
+    public ListPanel(RexRestaurantPanel rp, String type) {
         restPanel = rp;
         this.type = type;
 
