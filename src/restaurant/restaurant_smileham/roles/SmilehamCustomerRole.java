@@ -19,6 +19,7 @@ import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
 import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.PersonAgent;
 import base.interfaces.Person;
 
 /**
@@ -389,7 +390,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	private void leaveRestaurant(){
 		print("Action: leaveRestaurant()");
 		mHost.msgLeavingRestaurant((SmilehamCustomer)this);
-		//SHANE: 2 Make sure to tell person I'm leaving
+		((PersonAgent) mPerson).msgRoleFinished(this);
 	}
 
 	//-----------------------------------------------ACCESSORS-----------------------------------------------
