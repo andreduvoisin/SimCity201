@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -29,7 +30,7 @@ import city.gui.SimCityGui;
 public class SmilehamAnimationPanel extends CityCard implements ActionListener {
 	private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-    private List<Gui> guis = new ArrayList<Gui>();
+    private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     
     //Data
     private static SmilehamHostRole mHost;

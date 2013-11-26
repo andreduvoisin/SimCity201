@@ -95,13 +95,18 @@ public class CityPerson extends CityComponent {
         if (x == xDestination && y == yDestination) {
         	// Arrived at a bus stop
         	if (mFinalDestination != null) {
-        		// CHASE: board bus!
-        		mPerson.msgAddEvent(new Event(EnumEventType.BOARD_BUS, 0));
-        		System.out.println("added BOARD_BUS");
+        		if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
+	        		// CHASE: board bus!
+	        		mPerson.msgAddEvent(new Event(EnumEventType.BOARD_BUS, 0));
+	        		System.out.println("added BOARD_BUS");
+        		}else{
+        			DoGoToDestination(mFinalDestination);
+        		}
+        	}else{
+	        	this.disable();
+	        	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
+	        	mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
         	}
-        	this.disable();
-        	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
-        	mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
         }
         
 //        if(numTicks % 5 == 0) {
@@ -212,26 +217,38 @@ public class CityPerson extends CityComponent {
 		}
 	}
 	*/
-	public void DoGoToDestination(int x, int y){
-		atDestination = false;
-		this.enable(); 
-		xDestination = x;
-		yDestination = y;
-	}
+//	public void DoGoToDestination(int x, int y){
+//		atDestination = false;
+//		this.enable(); 
+//		xDestination = x;
+//		yDestination = y;
+//	}
 	
 	public void DoGoToDestination(Location location){
 		atDestination = false;
 		this.enable();
-
-		if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
-			mFinalDestination = new Location(location.mX, location.mY);
-			int boardAtStop = gui.citypanel.busDispatch.getBusStopClosestTo(new Location(x, y));
-			xDestination = ContactList.cBUS_STOPS.get(boardAtStop).mX;
-			yDestination = ContactList.cBUS_STOPS.get(boardAtStop).mY;
+		if (mFinalDestination == null){
+			if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
+				mFinalDestination = new Location(location.mX, location.mY);
+				int boardAtStop = gui.citypanel.busDispatch.getBusStopClosestTo(new Location(x, y));
+				xDestination = ContactList.cBUS_STOPS.get(boardAtStop).mX;
+				yDestination = ContactList.cBUS_STOPS.get(boardAtStop).mY;
+			}
+			else{
+				mFinalDestination = location;
+				if ((location.mX < 180) || (location.mY < 180)){
+					xDestination = 95;
+					yDestination = 95;
+				}else{
+					xDestination = 500;
+					yDestination = 500;
+				}
+			}
 		}
 		else {
-			xDestination = location.mX;
-			yDestination = location.mY;
+			xDestination = mFinalDestination.mX;
+			yDestination = mFinalDestination.mY;
+			mFinalDestination = null;
 		}
 	}
 

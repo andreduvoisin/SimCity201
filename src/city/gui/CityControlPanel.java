@@ -99,7 +99,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		view.setLayout(new BoxLayout((Container)view, BoxLayout.Y_AXIS));
         pane.setViewportView(view);
         
-        Dimension scrollPaneDim = new Dimension(CP_WIDTH - 10, 100);
+        Dimension scrollPaneDim = new Dimension(CP_WIDTH - 10, 500);
         pane.setPreferredSize(scrollPaneDim);
         pane.setMinimumSize(scrollPaneDim);
         pane.setMaximumSize(scrollPaneDim);
@@ -115,19 +115,32 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	configList.setMaximumSize(panelSize);
     	configList.setLayout(new FlowLayout());
     	
-    	Dimension buttonDim = new Dimension(panelSize.width, panelSize.height/numConfigs);
-    	for (int i=1; i<numConfigs; i++) {
-	    	JButton config = new JButton("Configuration "+i);
+    	Dimension buttonDim = new Dimension(panelSize.width, 20);
+    	for (int i=0; i<8; i++) {
+    		JButton config = new JButton("Restaurant "+i);
 	    	config.addActionListener(this);
-	    	config.putClientProperty("configFile", i);
 	    	config.setPreferredSize(buttonDim);
 	    	config.setMinimumSize(buttonDim);
 	    	config.setMaximumSize(buttonDim);
 	    	configList.add(config);
 	    	configOptions.add(config);
     	}
+    	JButton bankBtn = new JButton("Bank");
+    	bankBtn.addActionListener(this);
+    	bankBtn.setPreferredSize(buttonDim);
+    	bankBtn.setMinimumSize(buttonDim);
+    	bankBtn.setMaximumSize(buttonDim);
+    	configList.add(bankBtn);
+    	configOptions.add(bankBtn);
     	view.add(configList);
-    	
+    	JButton houseBtn = new JButton("Housing");
+    	houseBtn.addActionListener(this);
+    	houseBtn.setPreferredSize(buttonDim);
+    	houseBtn.setMinimumSize(buttonDim);
+    	houseBtn.setMaximumSize(buttonDim);
+    	configList.add(houseBtn);
+    	configOptions.add(houseBtn);
+    	view.add(configList);
         add(pane);
         
         // Tabs
@@ -154,12 +167,28 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		for (int i = 1; i < numConfigs; i++) {
+		for (int i = 0; i < 8; i++) {
 			if (((JButton) e.getSource()).getText()
-					.equals("Configuration " + i)) {
+					.equals("Restaurant " + i)) {
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
-					config.readFileCreatePersons(city, i);
+					config.readFileCreatePersons(city, "restConfig"+i+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Bank")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "BankConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Housing")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "HouseConfig"+".txt");
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}

@@ -127,7 +127,9 @@ public class PersonAgent extends Agent implements Person {
 				case TRANSPORTATION:
 					mJobRole = SortingHat.getTransportationRole();
 					break;
-				case HOUSING: break;
+				case HOUSING: 
+					mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+					break;
 				case NONE:
 					mJobRole = new RestaurantCustomerRole(this);
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
@@ -143,6 +145,7 @@ public class PersonAgent extends Agent implements Person {
 			mJobRole = new BankCustomerRole(this);
 			mJobRole.setPerson(this);
 			BankPanel.getInstance().addPerson(mJobRole);
+
 		}
 		
 		boolean active = (mTimeShift == Time.GetShift());
@@ -156,10 +159,6 @@ public class PersonAgent extends Agent implements Person {
 				iRole.setPerson(this);
 			}
 		}
-		
-		//Get housing role and location; set active
-		//mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-		//mRoles.put(mHouseRole, true);
 		
 		//Add customer/rider role possibilities
 		mRoles.put(new BankCustomerRole(this), false);

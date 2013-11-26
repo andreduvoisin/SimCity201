@@ -34,7 +34,7 @@ public class SortingHat {
 	
 	static int sNumBankTellers = 1;
 	static int sNumMarketWorkers = 1;
-	static int sNumRestaurantWaiters = 3;
+	static int sNumRestaurantWaiters = 3;	
 	
 	public static void InstantiateBaseRoles(){
 		sRoleLocations = ContactList.sRoleLocations;
@@ -55,7 +55,8 @@ public class SortingHat {
 		}
 
 		//Restaurants
-		for (int iRestaurantNum = 0; iRestaurantNum < 1; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
+
+		for (int iRestaurantNum = SimCityGui.TESTNUM; iRestaurantNum < SimCityGui.TESTNUM + 1; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
 			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
