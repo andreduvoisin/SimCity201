@@ -133,7 +133,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 		c.setHost(host);
 		c.setGui(g);
 		g.setHungry(customerCounter);
-		if(customerCounter == 10){
+		if(customerCounter == 18){
 			customerCounter = 0; 
 		}
 		else{

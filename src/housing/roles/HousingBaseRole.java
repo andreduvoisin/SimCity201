@@ -2,7 +2,11 @@ package housing.roles;
 
 import housing.gui.HousingPersonGui;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.concurrent.Semaphore;
+
+import javax.imageio.ImageIO;
 
 import base.BaseRole;
 import city.gui.CityHousing;
@@ -12,9 +16,9 @@ public class HousingBaseRole extends BaseRole {
 	public boolean mHungry = false;
 	public boolean mTimeToMaintain = false;
 	public boolean mTimeToCheckRent = false;
-	
-	Semaphore isAnimating = new Semaphore(0, true);
-	HousingPersonGui gui;
+
+	public Semaphore isAnimating = new Semaphore(0, true);
+	public HousingPersonGui gui;
 	public CityHousing mHouse = null;
 	
 	public HousingBaseRole() {
@@ -22,6 +26,7 @@ public class HousingBaseRole extends BaseRole {
 		gui = new HousingPersonGui();
 		gui.housingrole = this;
 		gui.setPresent(true);
+	
 	}
 	
 	public void msgTimeToCheckRent() {
@@ -66,7 +71,20 @@ public class HousingBaseRole extends BaseRole {
 	}
 
 	void Maintain() {
-		gui.DoMaintainHouse();
+		print("MaintainingHouse"); 
+		gui.DoMaintainHouseC1();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoMaintainHouseC2();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		gui.DoMaintainHouseC3();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {

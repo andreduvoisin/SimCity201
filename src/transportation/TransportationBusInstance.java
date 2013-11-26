@@ -15,9 +15,9 @@ public class TransportationBusInstance {
 	enum enumState { readyToTravel, traveling, readyToUnload, unloading, readyToBoard, boarding }
 	enumState state;
 
-	public TransportationBusInstance(TransportationBusDispatch bd, int numStops) {
+	public TransportationBusInstance(TransportationBusDispatch bd) {
+		mCurrentStop = 0;
 		mBusNumber = sBusNumber++;
-		mCurrentStop = mBusNumber * numStops / 2;
 		mGui = new CityBus(bd, base.ContactList.cBUS_STOPS);
 
 		state = enumState.traveling;

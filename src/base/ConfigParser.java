@@ -26,19 +26,49 @@ public class ConfigParser {
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
 			
 			//Job
-			String jobString = scanPerson.next();
-			EnumJobType jobType = null;
-			if (jobString.equals("BANK")) {
-				jobType = EnumJobType.BANK;
-			}
-			if (jobString.equals("RESTAURANT")) {
-				jobType = EnumJobType.RESTAURANT;
-			}
-			if (jobString.equals("NONE")) {
-				jobType = EnumJobType.NONE;
-			}
-			//EnumJobType jobType = EnumJobType.valueOf(jobString);	
+			String jobString = scanPerson.next();			
+
+//			EnumJobType jobType = null;
+//			if (jobString.equals("BANK")) {
+//				jobType = EnumJobType.BANK;
+//			}
+//			if (jobString.equals("RESTAURANT")) {
+//				jobType = EnumJobType.RESTAURANT;
+//			}
+//			if (jobString.equals("NONE")) {
+//				jobType = EnumJobType.NONE;
+//			}
+			EnumJobType jobType = EnumJobType.valueOf(jobString);
 			
+			if (jobType == EnumJobType.RESTAURANT) {
+				String restaurant = scanPerson.next();
+				switch (restaurant) {
+				case "0":
+					SimCityGui.TESTNUM = 0;
+					break;
+				case "1":
+					SimCityGui.TESTNUM = 1;
+					break;
+				case "2":
+					SimCityGui.TESTNUM = 2;
+					break;
+				case "3":
+					SimCityGui.TESTNUM = 3;
+					break;
+				case "4":
+					SimCityGui.TESTNUM = 4;
+					break;
+				case "5":
+					SimCityGui.TESTNUM = 5;
+					break;
+				case "6":
+					SimCityGui.TESTNUM = 6;
+					break;
+				case "7":
+					SimCityGui.TESTNUM = 7;
+					break;
+				}
+			}
 
 			//Cash
 			String cashString = scanPerson.next();
@@ -46,6 +76,10 @@ public class ConfigParser {
 			
 			//Name
 			String name = scanPerson.next();
+			
+			//Scenario
+//			String scenarioString = scanPerson.next();
+//			EnumScenarioType scenarioType = EnumScenarioType.valueOf(scenarioString);
 			
 			//Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically

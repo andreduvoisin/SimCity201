@@ -61,7 +61,7 @@ public class JerrywebWaiterRole extends BaseRole implements Waiter {
 
 	public JerrywebWaiterRole(Person mPerson) {
 		super(mPerson);
-		this.name = mPerson.getName();
+		this.name = "jerrywaiter";
 
 	}
 

@@ -5,6 +5,12 @@ import base.Gui;
 import base.Location;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.imageio.ImageIO;
 
 public class BankCustomerGui implements Gui {
 
@@ -12,16 +18,21 @@ public class BankCustomerGui implements Gui {
 	private boolean isPresent = false;
 	private BankPanel bankPanel;
 
+	private Timer timer = new Timer(); 
+	
 	private int xPos, yPos;
 	private int xDestination, yDestination;
 	
 	private boolean isMovingToTeller = false;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOS = -20;
+	static final int STARTPOSX = 235;
+	static final int STARTPOSY = -50;
 	
 	private int positionInLine;
 	
+	//Animation Upgrades 
+	private BufferedImage image;
 	
 	static final int INTERACT_X1 = 250;
 	static final int INTERACT_X2 = 200;
@@ -31,10 +42,19 @@ public class BankCustomerGui implements Gui {
 	public BankCustomerGui(BankCustomer bc, BankPanel bp) {
 		agent = bc;
 		bankPanel = bp;
-		xPos = STARTPOS;
-		yPos = STARTPOS;
-		xDestination = STARTPOS;
-		yDestination = STARTPOS;
+		xPos = STARTPOSX;
+		yPos = STARTPOSY;
+		xDestination = STARTPOSX;
+		yDestination = STARTPOSY;
+		
+		image = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 
 	public void updatePosition() {
@@ -50,13 +70,16 @@ public class BankCustomerGui implements Gui {
 		
 		if(xPos == xDestination && yPos == yDestination == isMovingToTeller) {
 			isMovingToTeller = false;
-			agent.msgAtLocation();
+			timer.schedule(new TimerTask(){
+				public void run(){
+					agent.msgAtLocation();
+				}
+			}, 1000); 
 		}
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, CUSTOMERSIZE, CUSTOMERSIZE);
+		g.drawImage(image, xPos, yPos, null);
 	}
 
 	public boolean isPresent() {
@@ -75,15 +98,14 @@ public class BankCustomerGui implements Gui {
 	*/
 	public void DoGoWaitInLine() {
 		isPresent = true;
+		positionInLine = BankPanel.LINE_POSITION++;
 		xDestination = BankPanel.LINE_X;
-		yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
-		positionInLine = BankPanel.LINE_POSITION;
-		BankPanel.LINE_POSITION++;
+		yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * positionInLine);
 	}
 	
 	public void DoLeaveBank() {
-		xDestination = -20;
-		yDestination = -20;
+		xDestination = 225;
+		yDestination = -50;
 	}
 
 	public void DoGoToTeller() {
@@ -94,12 +116,7 @@ public class BankCustomerGui implements Gui {
 	}
 	
 	public void DoGoToTeller(int location) {
-		switch (location){
-		case 1: xDestination = INTERACT_X1; 
-		case 2: xDestination = INTERACT_X2;
-		case 3: xDestination = INTERACT_X3;
-		default: xDestination = INTERACT_X1;
-		}
+		xDestination = INTERACT_X1;
 		yDestination = INTERACT_Y;
 		bankPanel.updateCustomerLine();
 		isMovingToTeller = true;
@@ -109,7 +126,7 @@ public class BankCustomerGui implements Gui {
 		positionInLine--;
 		if(positionInLine >= 0) {
 			xDestination = BankPanel.LINE_X;
-			yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * BankPanel.LINE_POSITION);
+			yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * positionInLine);
 		}
 	}
 }

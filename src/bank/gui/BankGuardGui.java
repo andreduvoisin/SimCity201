@@ -5,6 +5,10 @@ import bank.interfaces.BankGuard;
 import base.Gui;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class BankGuardGui implements Gui {
 
@@ -16,15 +20,28 @@ public class BankGuardGui implements Gui {
 	private int xDestination, yDestination;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOS = 0;
+	static final int STARTPOSX = 200;
+	static final int STARTPOSY = 40;
+	
+	//Animation upgrades
+	private BufferedImage bankguardimage;
 
 	public BankGuardGui(BankGuard bg, BankPanel bp) {
 		agent = bg;
 		bankPanel = bp;
-		xPos = STARTPOS;
-		yPos = STARTPOS;
-		xDestination = STARTPOS;
-		yDestination = STARTPOS;
+		xPos = STARTPOSX;
+		yPos = STARTPOSY;
+		xDestination = STARTPOSX;
+		yDestination = STARTPOSY;
+		
+		bankguardimage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/dad1.png");
+    		bankguardimage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 
 	public void updatePosition() {
@@ -40,8 +57,7 @@ public class BankGuardGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.RED);
-		g.fillRect(xPos, yPos, CUSTOMERSIZE, CUSTOMERSIZE);
+		g.drawImage(bankguardimage, xPos, yPos, null);
 	}
 
 	public boolean isPresent() {

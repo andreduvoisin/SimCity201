@@ -2,20 +2,27 @@ package bank.gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
+import bank.interfaces.BankGuard;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
+import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.Gui;
 import base.PersonAgent;
 import base.interfaces.Person;
+import base.interfaces.Role;
 
 
 public class BankPanel extends CityCard implements ActionListener{
@@ -24,7 +31,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	private int WINDOWY = 500;
 	static final int TIMERDELAY = 5;
 	
-	private Image bufferImage;
+	private Image image;
     private Dimension bufferSize;
     public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
@@ -36,10 +43,15 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int COUNTER_SIZE_X = 500;
 	static final int COUNTER_SIZE_Y = 15;
 	
-	static final int LINE_X = 250;
-	static final int LINE_Y = 350;
+	static final int LINE_X = 225;
+	static final int LINE_Y = 320;
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
+	
+	public static BankGuardRole guard = new BankGuardRole();
+	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole();
+	public static BankTellerRole teller = new BankTellerRole();
+	public static Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
 	
 	public BankPanel(SimCityGui city) {
 		super(city);
@@ -51,7 +63,27 @@ public class BankPanel extends CityCard implements ActionListener{
 		timer = new Timer(TIMERDELAY, this);
     	timer.start();
     	
-    	testBankGui();
+    	instance = this;
+    	
+    	guard.mGUI = new BankGuardGui(guard, this);
+    	//addGui(guard.mGUI);
+    	teller.mGUI = new BankTellerGui(teller, this);
+    	//addGui(teller.mGUI);
+    	
+    	//testBankGui();
+    	
+    	image = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/bankbg.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+	}
+	
+	public static BankPanel getInstance() {
+		return instance;
 	}
 	
 	public void testBankGui() {
@@ -105,20 +137,21 @@ public class BankPanel extends CityCard implements ActionListener{
 		bcg2.DoGoToTeller(2);
 		bcg3.DoGoToTeller(3);
 	}
-
+	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		
         //Clear the screen by painting a rectangle the size of the frame
         g2.setColor(getBackground());
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
+        g2.drawImage(image, 0, 0, null); 
         
-        //Counter
-        g2.setColor(Color.GRAY);
-        g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
+//        //Counter
+//        g2.setColor(Color.GRAY);
+//        g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
         
         // temp square, showing beginning of line
-        g2.fillRect(LINE_X, LINE_Y, 20, 20);
+       // g2.fillRect(LINE_X, LINE_Y, 20, 20);
         
         for(Gui gui : guis) {
             if (gui.isPresent()) {
@@ -149,5 +182,15 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	public void addGui(Gui gui) {
 		guis.add(gui);
+	}
+	
+	public void addPerson(Role role) {
+		if(role instanceof BankCustomerRole) {
+			customers.add((BankCustomerRole)role);
+			((BankCustomerRole)role).setGuard(guard);
+			((BankCustomerRole)role).setTeller(teller);
+			((BankCustomerRole)role).mGUI = new BankCustomerGui((BankCustomerRole)role, this);
+			addGui(((BankCustomerRole)role).mGUI);
+		}
 	}
 }

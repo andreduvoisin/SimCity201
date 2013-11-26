@@ -14,13 +14,15 @@ public class Order {
 		table = tableNum; 
 		s = state.pending;
 		pickedUp = false; 
-		if(cookingPosition < 3){
-			cookingPos = cookingPosition; 
-			cookingPosition++; 
-		}
-		else{
-			cookingPos = 0; 
-		}
+		cookingPos = cookingPosition %3; 
+		cookingPosition++; 
+//		if(cookingPosition < 3){
+//			cookingPos = cookingPosition; 
+//			cookingPosition++; 
+//		}
+//		else{
+//			cookingPos = 0; 
+//		}
 		
 	}
 	

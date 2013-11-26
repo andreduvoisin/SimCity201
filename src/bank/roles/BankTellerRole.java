@@ -38,7 +38,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	private static int loanTime = 10000;
 	
 	//GUI
-	BankTellerGui mGUI;
+	public BankTellerGui mGUI;
 	//GUI Coordinate
 	int mLocation;
 	//Agent Correspodents
@@ -80,6 +80,10 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public void msgRobbery(BankCustomer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Robbery);
+		stateChanged();
+	}
+	public void msgLeaving(){
+		mGuard.msgReadyToWork(this);
 		stateChanged();
 	}
 
