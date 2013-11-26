@@ -29,8 +29,6 @@ public interface Cook {
 
 	public abstract void addMarket(Market market);
 
-	public abstract int getQuantity(String food);
-
 	public abstract String getName();
 
 	void setGui(CookGui cookGui);

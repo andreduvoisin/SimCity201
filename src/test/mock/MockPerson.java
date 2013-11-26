@@ -2,6 +2,7 @@ package test.mock;
 
 import java.util.Map;
 
+import city.gui.CityHousing;
 import city.gui.CityPerson;
 import bank.interfaces.BankMasterTeller;
 import base.Event;
@@ -151,6 +152,12 @@ public class MockPerson extends Mock implements Person {
 	public void msgAddEvent(Event event) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public CityHousing getHouse() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

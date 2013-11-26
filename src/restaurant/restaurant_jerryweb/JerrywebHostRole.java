@@ -88,7 +88,7 @@ public class JerrywebHostRole extends BaseRole {
 	public JerrywebHostRole(String name) {
 		super();
 		
-		this.name = name;
+		this.name = "jerryhost";
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
@@ -106,8 +106,8 @@ public class JerrywebHostRole extends BaseRole {
 	
 	public void addWaiter(Waiter w){
 		Waiters.add(new MyWaiter(w, WaiterState.free));
-		print("Added waiter " + w.getName());
-		print("" + Waiters.size());
+//		print("Added waiter " + w.getName());
+//		print("" + Waiters.size());
 		stateChanged();
 	}
 

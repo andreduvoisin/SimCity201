@@ -85,7 +85,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public boolean pickAndExecuteAnAction() {
-	//	print("generic pAEA called");
+		// print("generic pAEA called");
 		return subRole.pickAndExecuteAnAction();
 	}
 }
