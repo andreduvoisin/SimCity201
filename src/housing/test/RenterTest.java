@@ -47,6 +47,7 @@ public class RenterTest extends TestCase {
 		//Renter 
 		mPerson = new PersonAgent();
 		mHousingRenter = new HousingRenterRole(); 
+		mHousingRenter.setPerson(mPerson); 
 		mPerson.addRole((Role) mHousingRenter, true); 
 		mHousingRenter.setLandlord(mHousingLandlord);
 	
@@ -139,11 +140,13 @@ public class RenterTest extends TestCase {
 		
 		//Preconditions
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
-		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
+		assertTrue("HousingRenter should have House", mHousingRenter.mHouse != null); 
 		
-		//Set time to maintain
+		//Set time to maintain and release gui semaphores
 		mHousingRenter.mTimeToMaintain = true;  
-		
+		mHousingRenter.isAnimating.release();
+		mHousingRenter.isAnimating.release();
+
 		//Check
 		assertTrue("PAEA: return true and does action", mHousingRenter.pickAndExecuteAnAction()); 
 		assertEquals("Should no longer be time to maintain", mHousingRenter.mTimeToMaintain, false); 
@@ -158,8 +161,10 @@ public class RenterTest extends TestCase {
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
 		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
 		
-		//Set renter hungry
+		//Set renter hungry and release appropriate semaphores
 		mHousingRenter.mHungry = true;  
+		mHousingRenter.isAnimating.release();
+		mHousingRenter.isAnimating.release();
 		
 		//Check
 		assertTrue("PAEA: return true and does action", mHousingRenter.pickAndExecuteAnAction()); 
