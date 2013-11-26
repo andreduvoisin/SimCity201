@@ -69,7 +69,7 @@ public class CwagonerRestaurantPanel extends JPanel {
     		w.setHost(host);
     		w.setCook(cook);
     		w.setCashier(cashier);
-    		CwagonerWaiterGui g = new CwagonerWaiterGui(w, mainGui, Waiters.size());
+    		CwagonerWaiterGui g = new CwagonerWaiterGui(w, mainGui);
     		w.setGui(g);
     		
     		mainGui.animationPanel.addGui(g);
