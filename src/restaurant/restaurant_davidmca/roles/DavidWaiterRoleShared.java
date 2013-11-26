@@ -64,7 +64,7 @@ public class DavidWaiterRoleShared extends BaseRole implements Waiter {
 	}
 
 	private String name;
-	public Semaphore isAnimating = new Semaphore(500, true);
+	public Semaphore isAnimating = new Semaphore(1, true);
 	public HostGui hostGui = null;
 
 	@Override
@@ -210,6 +210,7 @@ public class DavidWaiterRoleShared extends BaseRole implements Waiter {
 
 	@Override
 	public void msgDoneAnimating() {
+		System.out.println("msgDoneAnimating - Waiter");
 		isAnimating.release();
 	}
 

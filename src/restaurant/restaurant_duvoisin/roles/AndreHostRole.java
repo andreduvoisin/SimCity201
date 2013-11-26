@@ -1,8 +1,8 @@
-package restaurant.restaurant_duvoisin;
+package restaurant.restaurant_duvoisin.roles;
 
 import java.util.*;
 
-import restaurant.restaurant_duvoisin.agent.Agent;
+import base.BaseRole;
 import restaurant.restaurant_duvoisin.gui.TableGui;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
@@ -15,7 +15,7 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class HostAgent extends Agent implements Host {
+public class AndreHostRole extends BaseRole implements Host {
 	TableGui tgui = new TableGui();
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
@@ -32,7 +32,7 @@ public class HostAgent extends Agent implements Host {
 	
 	Boolean paused = false;
 
-	public HostAgent(String name) {
+	public AndreHostRole(String name) {
 		super();
 
 		this.name = name;
@@ -129,7 +129,7 @@ public class HostAgent extends Agent implements Host {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		/* Think of this next rule as:
             Does there exist a table and customer,
             so that table is unoccupied and customer is waiting.

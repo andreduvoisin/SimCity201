@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class MarketPrices {
 	// Array of Items
-	Map<String, Double> currentRate = new HashMap<String, Double>();
+	public Map<String, Double> currentRate = new HashMap<String, Double>();
 	
 	public MarketPrices() {
 		currentRate.put("steak", 10.00);

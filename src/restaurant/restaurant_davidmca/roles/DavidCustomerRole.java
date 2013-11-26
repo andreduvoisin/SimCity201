@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.Menu;
@@ -39,6 +40,8 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 
 	private String mychoice;
 	private boolean availability;
+	
+	private Semaphore isAnimating = new Semaphore(1, true);
 
 	// private boolean isHungry = false; //hack for gui
 	public enum AgentState {
@@ -114,23 +117,30 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		stateChanged();
 	}
 
-	@Override
-	public void msgAnimationFinishedGoToSeat() {
-		// from animation
-		event = AgentEvent.seated;
-		stateChanged();
-	}
+//	@Override
+//	public void msgAnimationFinishedGoToSeat() {
+//		// from animation
+//		event = AgentEvent.seated;
+//		stateChanged();
+//	}
+//	
+//	@Override
+//	public void msgAnimationFinishedLeaveRestaurant() {
+//		// from animation
+//		event = AgentEvent.doneLeaving;
+//		stateChanged();
+//	}
+//	
+//	@Override
+//	public void msgAnimationFinishedGoToWaitingArea() {
+//		event = AgentEvent.arrived;
+//		stateChanged();
+//	}
 	
 	@Override
-	public void msgAnimationFinishedLeaveRestaurant() {
-		// from animation
-		event = AgentEvent.doneLeaving;
-		stateChanged();
-	}
-	
-	@Override
-	public void msgAnimationFinishedGoToWaitingArea() {
-		event = AgentEvent.arrived;
+	public void msgDoneAnimating() {
+		System.out.println("msgDoneAnimating - Customer");
+		isAnimating.release();
 		stateChanged();
 	}
 
@@ -230,6 +240,12 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 
 	private void goToRestaurant() {
 		customerGui.DoGoToWaitingArea();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		event = AgentEvent.arrived;
 		if (this.getName().startsWith("hack")) {
 			String moneyhack = this.getName().substring(4,
 					this.getName().length());
@@ -261,15 +277,26 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 				Do("Restaurant full, decided to leave");
 				event = AgentEvent.ReadyToLeave;
 				customerGui.DoExitRestaurant();
+				try {
+					isAnimating.acquire();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				event = AgentEvent.doneLeaving;
 				break;
 			}
 		}
-
 	}
 
 	private void SitDown() {
 		Do("Being seated. Going to table");
 		customerGui.DoGoToSeat(table.getX(), table.getY());
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		event = AgentEvent.seated;
 	}
 
 	private void callWaiter() {
@@ -321,7 +348,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 				break;
 			}
 		}
-		stateChanged();
 	}
 
 	private void EatFood() {
@@ -352,7 +378,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		mymoney = 0;
 		waiter.msgDoneAndPaying(this);
 		event = AgentEvent.donePaying;
-		stateChanged();
 	}
 
 	private void leaveTable() {
@@ -360,7 +385,12 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		Do("Leaving.");
 		waiter.msgDoneEating(this);
 		customerGui.DoExitRestaurant();
-		stateChanged();
+		try {
+			isAnimating.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		event = AgentEvent.doneLeaving;
 	}
 
 	// Accessors, etc.

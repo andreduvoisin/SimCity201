@@ -1,13 +1,13 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.CashierAgent;
-import restaurant.restaurant_duvoisin.CookAgent;
-import restaurant.restaurant_duvoisin.CustomerAgent;
-import restaurant.restaurant_duvoisin.HostAgent;
-import restaurant.restaurant_duvoisin.MarketAgent;
-import restaurant.restaurant_duvoisin.SharedWaiterAgent;
-import restaurant.restaurant_duvoisin.WaiterAgent;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
+import restaurant.restaurant_duvoisin.roles.AndreCookRole;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import restaurant.restaurant_duvoisin.roles.AndreHostRole;
+import restaurant.restaurant_duvoisin.roles.AndreMarketRole;
+import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
+import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 
 import javax.swing.*;
 
@@ -19,15 +19,16 @@ import java.util.Vector;
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
+@SuppressWarnings("serial")
 public class RestaurantPanel extends JPanel {
 
     //Host, cook, waiters and customers
-	private HostAgent host = new HostAgent("Kevin G");
-	private CookAgent cook = new CookAgent("Cooking Mama");
+	private AndreHostRole host = new AndreHostRole("Kevin G");
+	private AndreCookRole cook = new AndreCookRole("Cooking Mama");
 	private Vector<Waiter> waiters = new Vector<Waiter>();
-    private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
-    private Vector<MarketAgent> markets = new Vector<MarketAgent>();
-    private CashierAgent cashier = new CashierAgent("Cashier");
+    private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
+    private Vector<AndreMarketRole> markets = new Vector<AndreMarketRole>();
+    private AndreCashierRole cashier = new AndreCashierRole("Cashier");
 
     private JPanel restLabel = new JPanel();
     private ListPanel addMembers = new ListPanel(this);
@@ -51,13 +52,13 @@ public class RestaurantPanel extends JPanel {
 		gui.animationPanel.addGui(g);
 		cook.setGui(g);
         
-        host.startThread();
-        cook.startThread();
-        cashier.startThread();
+        //host.startThread();
+        //cook.startThread();
+        //cashier.startThread();
         
         for(int i = 1; i <= 3; i++) {
-        	MarketAgent market = new MarketAgent("Market #" + i, cook);
-        	market.startThread();
+        	AndreMarketRole market = new AndreMarketRole("Market #" + i, cook);
+        	//market.startThread();
         	market.setCashier(cashier);
         	markets.add(market);
         	cook.addMarket(market);
@@ -91,7 +92,7 @@ public class RestaurantPanel extends JPanel {
      */
     public void showCustomerInfo(String type, String name, ArrayList<JCheckBox> list) {
         for (int i = 0; i < customers.size(); i++) {
-            CustomerAgent temp = customers.get(i);
+            AndreCustomerRole temp = customers.get(i);
             if (temp.getName() == name)
                 gui.updateCustomerPanel(temp, list, customers);
         }
@@ -113,78 +114,80 @@ public class RestaurantPanel extends JPanel {
      */
     public void addPerson(String type, String name) {
     	if (type.equals("Customer")) {
-    		CustomerAgent c = new CustomerAgent(name);	
+    		AndreCustomerRole c = new AndreCustomerRole(name);	
     		CustomerGui g = new CustomerGui(c, gui);
 
     		gui.animationPanel.addGui(g);
     		c.setHost(host);
     		c.setGui(g);
     		customers.add(c);
-    		c.startThread();
+    		//c.startThread();
     	} else if(type.equals("Waiter")) {
     		// Odd = Shared, Even = Normal
     		if(waiters.size() % 2 == 0) {
-    			SharedWaiterAgent w = new SharedWaiterAgent(host, cook, cashier, name);
+    			AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
     			WaiterGui g = new WaiterGui(w, gui);
 	    		
 	    		gui.animationPanel.addGui(g);
 	    		w.setGui(g);
 	    		waiters.add(w);
 	    		host.addWaiter(w);
-	            w.startThread();
+	            //w.startThread();
     		} else {
-	    		WaiterAgent w = new WaiterAgent(host, cook, cashier, name);
+	    		AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
 	    		WaiterGui g = new WaiterGui(w, gui);
 	    		
 	    		gui.animationPanel.addGui(g);
 	    		w.setGui(g);
 	    		waiters.add(w);
 	    		host.addWaiter(w);
-	            w.startThread();
+	            //w.startThread();
     		}
     	}
     }
     
     public void pauseAgents() {
+    	/*
     	host.pauseBaseAgent();
     	for(Waiter w : waiters)
     		w.pauseBaseAgent();
 		cook.pauseBaseAgent();
-		for(CustomerAgent c : customers)
+		for(AndreCustomerRole c : customers)
 			c.pauseBaseAgent();
-		for(MarketAgent m : markets)
+		for(AndreMarketRole m : markets)
 			m.pauseBaseAgent();
 		cashier.pauseBaseAgent();
-		
+		*/
 		host.msgPauseScheduler();
 		for(Waiter w : waiters)
 			w.msgPauseScheduler();
 		cook.msgPauseScheduler();
-		for(CustomerAgent c : customers)
+		for(AndreCustomerRole c : customers)
 			c.msgPauseScheduler();
-		for(MarketAgent m : markets)
+		for(AndreMarketRole m : markets)
 			m.msgPauseScheduler();
 		cashier.msgPauseScheduler();
     }
     
     public void resumeAgents() {
+    	/*
     	host.resumeBaseAgent();
     	for(Waiter w : waiters)
     		w.resumeBaseAgent();
 		cook.resumeBaseAgent();
-		for(CustomerAgent c : customers)
+		for(AndreCustomerRole c : customers)
 			c.resumeBaseAgent();
-		for(MarketAgent m : markets)
+		for(AndreMarketRole m : markets)
 			m.resumeBaseAgent();
 		cashier.resumeBaseAgent();
-		
+		*/
 		host.msgResumeScheduler();
 		for(Waiter w : waiters)
 			w.msgResumeScheduler();
 		cook.msgResumeScheduler();
-		for(CustomerAgent c : customers)
+		for(AndreCustomerRole c : customers)
 			c.msgResumeScheduler();
-		for(MarketAgent m : markets)
+		for(AndreMarketRole m : markets)
 			m.msgResumeScheduler();
 		cashier.msgResumeScheduler();
     }

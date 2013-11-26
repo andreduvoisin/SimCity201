@@ -19,10 +19,6 @@ public interface Customer {
 
 	public abstract void gotHungry();
 
-	public abstract void msgAnimationFinishedGoToSeat();
-
-	public abstract void msgAnimationFinishedLeaveRestaurant();
-
 	public abstract void msgFollowMe(Waiter w, Table t);
 
 	public abstract void msgWhatWouldYouLike(Menu m);
@@ -43,6 +39,7 @@ public interface Customer {
 
 	public abstract void setCashier(Cashier ca);
 
-	public abstract void msgAnimationFinishedGoToWaitingArea();
+	public abstract void msgDoneAnimating();
+
 
 }

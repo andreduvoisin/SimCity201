@@ -1,7 +1,7 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.CustomerAgent;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 
 import javax.swing.*;
 
@@ -20,6 +20,7 @@ import java.io.IOException;
  * Main GUI class.
  * Contains the main frame and subsequent panels
  */
+@SuppressWarnings("serial")
 public class RestaurantGui extends JFrame implements ActionListener {
     /* The GUI has two frames, the control frame (in variable gui) 
      * and the animation frame, (in variable animationFrame within gui)
@@ -41,7 +42,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
     private JCheckBox stateCB;//part of infoLabel
     */
     private ArrayList<JCheckBox> listCB = new ArrayList<JCheckBox>();
-    private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
+    private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     Boolean waitHere[] = new Boolean[17];
     private Vector<Waiter> waiters = new Vector<Waiter>();
     Boolean idleHere[] = new Boolean[12];
@@ -139,14 +140,14 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param person customer (or waiter) object
      */
-    public void updateCustomerPanel(Object person, ArrayList<JCheckBox> myCB, Vector<CustomerAgent> cust) {
+    public void updateCustomerPanel(Object person, ArrayList<JCheckBox> myCB, Vector<AndreCustomerRole> cust) {
         //stateCB.setVisible(true);
         //currentPerson = person;
     	listCB = myCB;
     	listCB.get(listCB.size() - 1).addActionListener(this);	// ***** All that's being done.
     	customers = cust;
-        if (person instanceof CustomerAgent) {
-            CustomerAgent customer = (CustomerAgent) person;
+        if (person instanceof AndreCustomerRole) {
+            AndreCustomerRole customer = (AndreCustomerRole) person;
             //stateCB.setText("Hungry?");
             for(int i = 0; i < customers.size(); i++)
             	if(customers.get(i).equals(customer)) {
@@ -216,7 +217,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      * @param c reference to the customer
      */
     
-    public void setCustomerEnabled(CustomerAgent c) {
+    public void setCustomerEnabled(AndreCustomerRole c) {
         //if (currentPerson instanceof CustomerAgent) {
             //CustomerAgent cust = (CustomerAgent) currentPerson;
             //if (c.equals(cust)) {
