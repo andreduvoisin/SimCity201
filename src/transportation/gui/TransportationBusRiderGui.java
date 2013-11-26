@@ -3,15 +3,19 @@ package transportation.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import transportation.roles.TransportationBusRiderRole;
+
 // CHASE: gui
 public class TransportationBusRiderGui {
 
 	boolean mBoarded;
+	TransportationBusRiderRole role;
 
 	/**
 	 * Created in TransportationBusRiderRole when person arrives at BusStop
 	 */
-	public TransportationBusRiderGui() {
+	public TransportationBusRiderGui(TransportationBusRiderRole role) {
+		this.role = role;
 		mBoarded = false;
 	}
 
@@ -26,9 +30,11 @@ public class TransportationBusRiderGui {
 
 	public void DoBoardBus() {
 		mBoarded = true;
+		role.msgGuiDone();
 	}
 
 	public void DoExitBus() {
 		mBoarded = false;
+		role.msgGuiDone();
 	}
 }

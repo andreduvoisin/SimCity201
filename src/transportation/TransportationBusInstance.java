@@ -18,7 +18,7 @@ public class TransportationBusInstance {
 	public TransportationBusInstance(TransportationBusDispatch bd, int numStops) {
 		mBusNumber = sBusNumber++;
 		mCurrentStop = mBusNumber * numStops / 2;
-		mGui = new CityBus(bd, mBusNumber);
+		mGui = new CityBus(bd, base.ContactList.cBUS_STOPS);
 
 		state = enumState.traveling;
 

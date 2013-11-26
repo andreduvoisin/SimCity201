@@ -18,6 +18,7 @@ import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
+import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
@@ -237,5 +238,10 @@ public class SortingHat {
 		return newOwnerRole;
 	}
 
-	
+
+	// TRANSPORTATION
+	public static Role getTransportationRole() {
+		TransportationBusRiderRole newBusRiderRole = new TransportationBusRiderRole();
+		return newBusRiderRole;
+	}
 }

@@ -213,9 +213,6 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
                 }
                 */
                 
-                if(mItemInventory.keySet().contains(food))
-                	System.out.println("Cool.");
-            
                 if(mItemInventory.get(food) == 0) {
                         Do("Out of choice " + food);
                         o.waiter.msgOutOfFood(o.choice.toString(), o.table);

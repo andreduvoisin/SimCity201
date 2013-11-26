@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import transportation.TransportationBusDispatch;
 import market.gui.MarketDeliveryTruckGui;
 import base.ContactList;
 import base.Location;
@@ -22,6 +23,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	boolean addingObject = false;
 	CityComponent temp;
 	SimCityGui simcitygui;
+
+	TransportationBusDispatch busDispatch;
 	
 	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
@@ -114,11 +117,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
 
 		// Add bus
-		transportation.TransportationBusDispatch tbd = new transportation.TransportationBusDispatch();
-		transportation.TransportationBusInstance tbi = new transportation.TransportationBusInstance(tbd, 4);
-		tbd.startThread();
-
-		this.addMoving(tbi.getCityBus());
+		busDispatch = new TransportationBusDispatch(ContactList.cBUS_STOPS);
+		this.addMoving(busDispatch.getBusGui());
+		busDispatch.startThread();
 
 		//Add Roads
 		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));

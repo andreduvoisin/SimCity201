@@ -100,7 +100,9 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
 					break;
-				case TRANSPORTATION: break;
+				case TRANSPORTATION://CHASE: transportation jobType
+					mJobRole = SortingHat.getTransportationRole();
+					break;
 				case HOUSING: break;
 				case NONE:
 					mJobRole = new RestaurantCustomerRole(this);
