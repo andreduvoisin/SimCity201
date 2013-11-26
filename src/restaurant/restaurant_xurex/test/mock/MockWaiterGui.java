@@ -109,12 +109,6 @@ public class MockWaiterGui extends Mock implements WaiterGui_ {
 	}
 
 	@Override
-	public void setGui(RexRestaurantGui gui) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public int getXPos() {
 		// TODO Auto-generated method stub
 		return 0;

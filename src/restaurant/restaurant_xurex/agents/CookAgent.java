@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex.agents;
 
 import base.Agent;
+import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
@@ -236,7 +237,7 @@ public class CookAgent extends Agent implements Cook {
 			orders.remove(o); return;
 		}
 		f.quantity--;
-		gui.updateInventory();
+		//gui.updateInventory();
 		CheckInventory();
 		o.s = OrderState.cooking;
 		DoCooking(o);
@@ -256,7 +257,7 @@ public class CookAgent extends Agent implements Cook {
 			newValue.orderState= false;
 			Inventory.put(food, newValue);
 		}
-		gui.updateInventory();
+		//gui.updateInventory();
 	}
 	
 	//ANIMATIONS
@@ -353,6 +354,11 @@ public class CookAgent extends Agent implements Cook {
 	@Override
 	public void addToStand(Waiter w, String choice, int table) {
 		revolvingStand.add(new CookOrder(w, choice, table));
+	}
+	@Override
+	public void setGui(CookGui cookGui) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

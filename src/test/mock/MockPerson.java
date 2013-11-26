@@ -2,7 +2,9 @@ package test.mock;
 
 import java.util.Map;
 
+import city.gui.CityPerson;
 import bank.interfaces.BankMasterTeller;
+import base.Event;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 import base.interfaces.Person;
@@ -140,9 +142,15 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	@Override
-	public PersonGuiInterface getPersonGui() {
+	public CityPerson getPersonGui() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void msgAddEvent(Event event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

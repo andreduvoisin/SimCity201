@@ -18,16 +18,6 @@ public class MockCook extends Mock implements Cook {
 	}
 
 	@Override
-	public void msgFailedToFulfillRequest(Market ma, String item, int amount) {
-		
-	}
-
-	@Override
-	public void msgReplenishFood(String item, int amount) {
-		
-	}
-
-	@Override
 	public void msgGotFood(int position) {
 		
 	}

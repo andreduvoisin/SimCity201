@@ -58,6 +58,18 @@ public class MockLandlord extends Mock implements Role, HousingLandlord {
 		return 0;
 	}
 
+	@Override
+	public Person getPerson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isRestaurantPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 
 }
