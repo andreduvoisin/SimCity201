@@ -2,10 +2,10 @@ package market.gui;
 
 import java.awt.*;
 
-import market.roles.MarketDeliveryTruckRole;
+import market.interfaces.MarketDeliveryTruck;
 
 public class MarketDeliveryTruckGui implements MarketBaseGui {
-	private MarketDeliveryTruckRole mAgent;
+	private MarketDeliveryTruck mAgent;
 	
 	private String mDestination;
 	
@@ -20,7 +20,7 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
 	private enum EnumCommand {noCommand, goToMarket, goToRestaurant, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
 	
-	public MarketDeliveryTruckGui(MarketDeliveryTruckRole agent) {
+	public MarketDeliveryTruckGui(MarketDeliveryTruck agent) {
 		mAgent = agent;
 		//add in functionality to choose distinct
 		//market spots
@@ -50,7 +50,7 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftRestaurant();
+        		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}

@@ -33,6 +33,8 @@ public class MarketGuiTest extends TestCase {
 		mCashier.setGui(mCashierGui);
 		mMarketPanel.addGui(mCashierGui);
 		
+		//assert preconditions
+		
 		mCashier.DoGoToPosition();
 	  //wait for animation to finish
 		try {
@@ -57,6 +59,26 @@ public class MarketGuiTest extends TestCase {
 	  //assert cashier received the message
 		assertTrue("Cashier should have received msgAnimationLeftMarket. Instead " + mCashier.log.getLastLoggedEvent().toString(),
 				mCashier.log.containsString("Received msgAnimationLeftMarket."));
-
+	}
+	
+	public void testCustomerGui() {
+		MockCustomer mCustomer = new MockCustomer();
+		MarketCustomerGui mCustomerGui = new MarketCustomerGui(mCustomer);
+		mCustomer.setGui(mCustomerGui);
+		
+	}
+	
+	public void testWorkerGui() {
+		MockWorker mWorker = new MockWorker();
+		MarketWorkerGui mWorkerGui = new MarketWorkerGui(mWorker);
+		mWorker.setGui(mWorkerGui);
+		
+	}
+	
+	// ANGELICA: Finish deliveryTruckGui
+	public void testDeliveryTruckGui() {
+		MockDeliveryTruck mDeliveryTruck = new MockDeliveryTruck();
+		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck);
+		mDeliveryTruck.setGui(mDeliveryTruckGui);
 	}
 }

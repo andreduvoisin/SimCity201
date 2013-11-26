@@ -19,7 +19,7 @@ import base.ContactList;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 
-public class MarketCustomerRole extends BaseRole implements MarketCustomer{
+public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	//DATA
 	//mCash accessed from Person
 	private MarketCustomerGui mGui;

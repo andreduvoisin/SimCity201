@@ -2,10 +2,10 @@ package market.gui;
 
 import java.awt.*;
 
-import market.roles.MarketCustomerRole;
+import market.interfaces.MarketCustomer;
 
 public class MarketCustomerGui implements MarketBaseGui {
-	private MarketCustomerRole mAgent;
+	private MarketCustomer mAgent;
 
 	private static final int xStart = -20, yStart = -20;
 	private static final int xMarket = 70, yMarket = 50;
@@ -18,7 +18,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 	private enum EnumCommand {noCommand, goToMarket, goToWaitingArea, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
 	
-	public MarketCustomerGui(MarketCustomerRole agent) {
+	public MarketCustomerGui(MarketCustomer agent) {
 		mAgent = agent;
 	}
 	

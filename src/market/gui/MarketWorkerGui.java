@@ -5,10 +5,10 @@ import java.util.concurrent.Semaphore;
 
 import base.Item.EnumItemType;
 import market.*;
-import market.roles.MarketWorkerRole;
+import market.interfaces.MarketWorker;
 
 public class MarketWorkerGui implements MarketBaseGui {
-	private MarketWorkerRole mAgent;
+	private MarketWorker mAgent;
 	private MarketItemsGui mItems;
 	
 	private MarketOrder mOrder = null;
@@ -27,7 +27,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	private Semaphore gettingItem = new Semaphore(0,true);
 	
-	public MarketWorkerGui(MarketWorkerRole agent) {
+	public MarketWorkerGui(MarketWorker agent) {
 		mAgent = agent;
 	}
 	
