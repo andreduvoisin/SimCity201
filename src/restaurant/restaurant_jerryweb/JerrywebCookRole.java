@@ -86,14 +86,14 @@ public class JerrywebCookRole extends BaseRole {
 		foodMap.put("salad",new Food("salad", FoodState.delivered, 2000, 10, 10, 4));
 		foodMap.put("pizza",new Food("pizza", FoodState.delivered, 14000, 8, 3, 3));
 		
-		checkRevolvingStand.schedule(new TimerTask() {
+		/*checkRevolvingStand.schedule(new TimerTask() {
 			public void run() {
 				
 				moveRevlovingStandOrders();
 //				stateChanged(); //JERRY: 1 Add this back in with your restaurant
 			}
 		},
-		25000);
+		25000);*/
 	}
 
 	public String getMaitreDName() {

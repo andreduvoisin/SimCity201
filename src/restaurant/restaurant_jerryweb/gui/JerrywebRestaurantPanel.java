@@ -35,7 +35,7 @@ public class JerrywebRestaurantPanel extends JPanel {
 	static final int vSpacing = 5;
 	int sel = 0;
     //Host, cook, waiters and customers
-    public static JerrywebHostRole host = new JerrywebHostRole("Sarah");
+    public static JerrywebHostRole host; //= new JerrywebHostRole("Sarah");
     public HostGui hostGui = new HostGui(host);
     //public PersonAgent mPerson = new PersonAgent(EnumJobType.RESTAURANT,20,"Joe");
 
@@ -58,7 +58,8 @@ public class JerrywebRestaurantPanel extends JPanel {
     public static JerrywebRestaurantPanel getInstance(){
     	return instance;
     }
-    public JerrywebRestaurantPanel(JerrywebRestaurantGui gui) {
+    public JerrywebRestaurantPanel(JerrywebRestaurantGui gui,JerrywebHostRole h) {
+    	host = h;
         this.gui = gui;
         this.instance = this;
         host.setGui(hostGui);
