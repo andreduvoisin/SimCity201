@@ -218,6 +218,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
 		mRoleFinished = true;
+		mPersonGui.setPresent(true);
 	}
 	public void msgRoleInactive(){
 		for (Role iRole : mRoles.keySet()){
