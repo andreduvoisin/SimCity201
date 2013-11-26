@@ -20,9 +20,9 @@ public class CwagonerCookGui implements CwagonerGui {
     // GUI is a square. While not busy, wait in home position
     private int size = 20, plateSize = 20;
     private Location position, destination, homePos,
-    				fridgePos = new Location(500, 100),
-    				cookingPos = new Location(600, 150),
-    				platingPos = new Location(480, 150);
+    				fridgePos = new Location(200, 100),
+    				cookingPos = new Location(300, 150),
+    				platingPos = new Location(180, 150);
     private Dimension fridgeDim = new Dimension(100, 50),
     				cookingDim = new Dimension(40, 100),
     				platingDim = new Dimension(20, 100);
@@ -31,7 +31,7 @@ public class CwagonerCookGui implements CwagonerGui {
     	state = State.idle;
         agent = c;
         cwagoner_RestaurantGui = g;
-        homePos = new Location(500, 150);
+        homePos = new Location(200, 150);
         position = destination = new Location(homePos.mX, homePos.mY);
     }
 
@@ -90,8 +90,7 @@ public class CwagonerCookGui implements CwagonerGui {
 
 	public void DoGoToHomePosition() {
     	state = State.idle; // Prevents updatePosition() from calling animationFinished.release()
-        destination.mX = position.mX;
-        destination.mY = position.mY;
+        destination.setTo(homePos);
     }
     
     public void DoGoToFridge() {

@@ -37,14 +37,12 @@ public class CwagonerCustomerGui implements CwagonerGui {
 		RestaurantGui = g;
 		customerNum++;
 
-        position.mX = destination.mX = gonePos.mX;
-        position.mY = destination.mY = gonePos.mY;
+        position.setTo(destination.setTo(gonePos));
 	}
 	
 	public void setTableLocation(int tableNum) {
 		Location tableLoc = RestaurantGui.getTableLocation(tableNum);
-		tablePos.mX = tableLoc.mX;
-		tablePos.mY = tableLoc.mY;
+		tablePos.setTo(tableLoc);
 	}
 
 	public void updatePosition() {
@@ -120,26 +118,22 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	// Position changes
 	
 	public void DoGoToRestaurant() {
-		destination.mX = waitingPos.mX;
-		destination.mY = waitingPos.mY;
+		destination.setTo(waitingPos);
 		command = Command.GoToRestaurant;
 	}
 	
 	public void DoGoToSeat(int seatNumber) {
-		destination.mX = tablePos.mX;
-		destination.mY = tablePos.mY;
+		destination.setTo(tablePos);
 		command = Command.GoToSeat;
 	}
 	
 	public void DoGoToCashier() {
-		destination.mX = cashierPos.mX;
-		destination.mY = cashierPos.mY;
+		destination.setTo(cashierPos);
 		command = Command.PayCashier;
 	}
 
 	public void DoExitRestaurant() {
-		destination.mX = gonePos.mX;
-		destination.mY = gonePos.mY;
+		destination.setTo(gonePos);
 		command = Command.LeaveRestaurant;
 	}
 	
