@@ -60,16 +60,16 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
 		for(MarketOrder delivery : mDeliveries) {
-			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
-				delivery.mStatus = EnumOrderStatus.BEING_DELIVERED;
-				goToDeliverOrder(delivery);
+			if(delivery.mStatus == EnumOrderStatus.BEING_DELIVERED && delivery.mEvent == EnumOrderEvent.READY_TO_DELIVER) {
+				delivery.mStatus = EnumOrderStatus.FULFILLING;
+				deliverOrder(delivery);
 				return true;
 			}
 		}
 		for(MarketOrder delivery : mDeliveries) {
-			if(delivery.mStatus == EnumOrderStatus.BEING_DELIVERED && delivery.mEvent == EnumOrderEvent.READY_TO_DELIVER) {
-				delivery.mStatus = EnumOrderStatus.FULFILLING;
-				deliverOrder(delivery);
+			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
+				delivery.mStatus = EnumOrderStatus.BEING_DELIVERED;
+				goToDeliverOrder(delivery);
 				return true;
 			}
 		}
@@ -103,6 +103,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		mDeliveries.remove(o);
 	}
 	
+	//not necessary for V1?
 	private void notifyCashier() {
 		//ANGELICA: message cashier that deliveryTruck is active
 	}

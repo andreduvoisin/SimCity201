@@ -47,6 +47,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	static int mWorkerIndex;
 	
 	List<MarketDeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<MarketDeliveryTruck>());
+//	Map<MarketDeliveryTruck,Boolean> mDeliveryTrucks = new HashMap<MarketDeliveryTruck,Boolean>();
 	
 	int mBankAccount;
 
@@ -78,12 +79,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 
 	public void msgPayingForOrder(MarketInvoice invoice){
-		if (invoice.mTotal == invoice.mPayment){
+		if (invoice.mTotal == invoice.mPayment)
 			invoice.mOrder.mEvent = EnumOrderEvent.ORDER_PAID;
-		}
-		else{
-			//SHANE ANGELICA: What do we do if they can't pay? throw error?
-		}
 		stateChanged();
 	}
 	
@@ -147,6 +144,9 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 
 		//if a cook
         if (personRole instanceof RestaurantCookInterface){
+        	//ANGELICA: hack; add in functionality for mulitple delivery trucks
+        	MarketDeliveryTruck d = mDeliveryTrucks.get(0);
+        	order.mDeliveryTruck = d;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
             cook.msgInvoiceToPerson(cannotFulfill, invoice);
         }
@@ -207,5 +207,9 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	public void setBankAccount(int n) {
 		mBankAccount = n;
+	}
+	
+	public void addDeliveryTruck(MarketDeliveryTruck d) {
+		mDeliveryTrucks.add(d);
 	}
 }

@@ -1,13 +1,13 @@
 package  restaurant.restaurant_jerryweb.gui;
 
-import  restaurant.restaurant_jerryweb.CustomerRole;
-import  restaurant.restaurant_jerryweb.HostRole;
+import  restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import  restaurant.restaurant_jerryweb.JerrywebHostRole;
 
 import java.awt.*;
 
 public class CustomerGui implements Gui{
 
-	private CustomerRole agent = null;
+	private JerrywebCustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 
@@ -36,7 +36,7 @@ public class CustomerGui implements Gui{
 	static final int custWidth = 20;
 	static final int custHeight = 20;
 	
-	public CustomerGui(CustomerRole c, JerrywebRestaurantGui gui){ //HostAgent m) {
+	public CustomerGui(JerrywebCustomerRole c, JerrywebRestaurantGui gui){ //HostAgent m) {
 		agent = c;
 		xPos = -40;
 		yPos = -40;

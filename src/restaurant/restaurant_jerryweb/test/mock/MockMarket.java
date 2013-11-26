@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import restaurant.restaurant_jerryweb.MarketRole;
+import restaurant.restaurant_jerryweb.JerrywebMarketRole;
 
-import restaurant.restaurant_jerryweb.MarketRole.Order;
+import restaurant.restaurant_jerryweb.JerrywebMarketRole.Order;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
 import restaurant.restaurant_jerryweb.interfaces.Cook;
-import  restaurant.restaurant_jerryweb.CookRole;
+import  restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.interfaces.Market;
 
 public class MockMarket extends Mock implements Market {
@@ -38,7 +38,7 @@ public class MockMarket extends Mock implements Market {
 	}
 	
 	@Override
-	public void msgGiveMeOrder(String choice, Map<String, CookRole.Food> foodMap){
+	public void msgGiveMeOrder(String choice, Map<String, JerrywebCookRole.Food> foodMap){
 		log.add(new LoggedEvent("Cook is ordering more " + choice));
 	}
 	

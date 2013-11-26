@@ -1,7 +1,7 @@
 package  restaurant.restaurant_jerryweb.gui;
 
-import  restaurant.restaurant_jerryweb.CustomerRole;
-import  restaurant.restaurant_jerryweb.HostRole;
+import  restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import  restaurant.restaurant_jerryweb.JerrywebHostRole;
 
 import javax.swing.*;
 
@@ -33,7 +33,7 @@ public class WaiterListPanel extends JPanel implements ActionListener {
     static final int hSpacing = 20;
 	static final int vSpacing = 10;
     
-    private RestaurantPanel restPanel;
+    private JerrywebRestaurantPanel restPanel;
     private String type;
 
     /**
@@ -42,7 +42,7 @@ public class WaiterListPanel extends JPanel implements ActionListener {
      * @param rp   reference to the restaurant panel
      * @param type indicates if this is for customers or waiters
      */
-    public WaiterListPanel(RestaurantPanel rp, String type) {
+    public WaiterListPanel(JerrywebRestaurantPanel rp, String type) {
         restPanel = rp;
         this.type = type;
 

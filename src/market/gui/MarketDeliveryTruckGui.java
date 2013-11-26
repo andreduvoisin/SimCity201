@@ -2,16 +2,18 @@ package market.gui;
 
 import java.awt.*;
 
+import city.gui.CityComponent;
+import base.ContactList;
 import market.interfaces.MarketDeliveryTruck;
 
-public class MarketDeliveryTruckGui implements MarketBaseGui {
+public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseGui {
 	private MarketDeliveryTruck mAgent;
 	
 	private String mDestination;
 	
 	private static final int xStart = -20, yStart = -20;
-	private static final int xMarketBase = 20, yMarketBase = 20;
-	private int xMarket = xMarketBase, yMarket = yMarketBase;
+	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-20, yMarketBase = ContactList.cMARKET_LOCATION.mY;
+//	private int xMarket = xMarketBase, yMarket = yMarketBase;
 	
 	private int xPos = 50, yPos = 50;
 	private int xDestination = xStart, yDestination = yStart;
@@ -67,8 +69,8 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
 	
 /* Action Calls */
 	public void DoGoToMarket() {
-		xDestination = xMarket;
-		yDestination = yMarket;
+		xDestination = xMarketBase;
+		yDestination = yMarketBase;
 		mCommand = EnumCommand.goToMarket;
 	}
 
@@ -98,4 +100,7 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
 	public int getYPos() {
 		return yPos;
 	}
+
+	@Override
+	public void setPresent(boolean state) {	}
 }
