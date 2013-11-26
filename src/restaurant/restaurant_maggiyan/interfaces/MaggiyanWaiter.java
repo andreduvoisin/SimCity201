@@ -1,7 +1,7 @@
 package restaurant.restaurant_maggiyan.interfaces;
 
 import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 
 
 /**
@@ -11,7 +11,7 @@ import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
  *
  */
 public interface MaggiyanWaiter {
-	MaggyanWaiterGui waiterGui = null;
+	MaggiyanWaiterGui waiterGui = null;
 
 	public void msgPleaseSeatCustomer(MaggiyanCustomer cust, int table);
 	
@@ -55,7 +55,7 @@ public interface MaggiyanWaiter {
 
 	public void msgWaiterFree();
 
-	public MaggyanWaiterGui getGui();
+	public MaggiyanWaiterGui getGui();
 
 
 }

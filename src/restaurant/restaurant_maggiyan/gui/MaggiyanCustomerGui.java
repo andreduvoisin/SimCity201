@@ -20,6 +20,9 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 	//private HostAgent host;
 	MaggiyanRestaurantGui gui;
 
+	//Line up positions 
+	
+	
 	private int xPos, yPos, prevXPos, prevYPos;
 	private int xDestination, yDestination;
 	private enum Command {noCommand, GoToSeat, LeaveRestaurant};
@@ -97,7 +100,7 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 			else if (command==Command.LeaveRestaurant) {
 				agent.msgAnimationFinishedLeaveRestaurant();
 				isHungry = false;
-				gui.setCustomerEnabled(agent);
+				//gui.setCustomerEnabled(agent);
 			}
 			command=Command.noCommand;
 		}

@@ -62,6 +62,7 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
         add(animationPanel); 
         
     }
+    
     /**
      * updateInfoPanel() takes the given customer (or, for v3, Host) object and
      * changes the information panel to hold that person's info.
@@ -106,33 +107,33 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(MaggiyanCustomerRole c) {
-    	for(int i = 0; i<restPanel.getCustPanel().getCheckBoxList().size(); i++){
-    		JCheckBox tempBox = restPanel.getCustPanel().getCheckBoxList().get(i); 
-    		if(c.getName() == tempBox.getText()){
-    			tempBox.setEnabled(true);
-    			tempBox.setSelected(false);
-    		}
-    	}
-    	
-        if (currentPerson instanceof MaggiyanCustomerRole) {
-            MaggiyanCustomerRole cust = (MaggiyanCustomerRole) currentPerson;
-            if (c.equals(cust)) {
-                stateCB.setEnabled(true);
-                stateCB.setSelected(false);
-            }
-        }
-    }
+//    public void setCustomerEnabled(MaggiyanCustomerRole c) {
+//    	for(int i = 0; i<restPanel.getCustPanel().getCheckBoxList().size(); i++){
+//    		JCheckBox tempBox = restPanel.getCustPanel().getCheckBoxList().get(i); 
+//    		if(c.getName() == tempBox.getText()){
+//    			tempBox.setEnabled(true);
+//    			tempBox.setSelected(false);
+//    		}
+//    	}
+//    	
+//        if (currentPerson instanceof MaggiyanCustomerRole) {
+//            MaggiyanCustomerRole cust = (MaggiyanCustomerRole) currentPerson;
+//            if (c.equals(cust)) {
+//                stateCB.setEnabled(true);
+//                stateCB.setSelected(false);
+//            }
+//        }
+//    }
     
-    public void setWaiterEnabled(MaggiyanWaiter w){
-    	for(int i = 0; i<restPanel.getCustPanel().getWaiterCBList().size(); i++){
-    		JCheckBox tempBox = restPanel.getCustPanel().getWaiterCBList().get(i); 
-    		if(w.getName() == tempBox.getText()){
-    			tempBox.setEnabled(true);
-    			tempBox.setSelected(false);
-    		}
-    	}
-    }
+//    public void setWaiterEnabled(MaggiyanWaiter w){
+//    	for(int i = 0; i<restPanel.getCustPanel().getWaiterCBList().size(); i++){
+//    		JCheckBox tempBox = restPanel.getCustPanel().getWaiterCBList().get(i); 
+//    		if(w.getName() == tempBox.getText()){
+//    			tempBox.setEnabled(true);
+//    			tempBox.setSelected(false);
+//    		}
+//    	}
+//    }
     
     /**
      * Main routine to get gui started

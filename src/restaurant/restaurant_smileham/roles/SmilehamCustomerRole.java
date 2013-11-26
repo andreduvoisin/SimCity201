@@ -67,27 +67,15 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	/**
-	 * Constructor for CustomerAgent class
-	 * @param person 
-	 *
-	 * @param name name of the customer
-	 * @param mGUI  reference to the customergui so the customer can send it messages
-	 */
-	public SmilehamCustomerRole(Person person, String name, SmilehamAnimationPanel animationPanel){
+	public SmilehamCustomerRole(Person person){
 		super(person);
+		mName = person.getName();
 
-		mAnimationPanel = animationPanel;
+		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 
 		//SHANE: 5 grabbing at thin air...
-		mName = "Customer";
 		mHost = SmilehamAnimationPanel.getHost();
 		mCashier = SmilehamAnimationPanel.getCashier();
-		
-		
-//		mName = name;
-//		mGUI = gui;
-		print("Constructor");
 		
 		//set up customer
 		mCustomerGui = new CustomerGui(this);
@@ -98,8 +86,6 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		mTimer = new Timer();
 		mState = EnumAgentState.DoingNothing;
 		mEvent = EnumAgentEvent.none;
-//		mHost = host;
-//		mCashier = cashier;
 		mIsHungry = false;
 		
 		//Money
@@ -111,10 +97,6 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		mCash = cash;
 		
 		mCheck = null; //error checking
-		
-		
-		
-//		startThread();
 	}
 
 	

@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
-import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import base.interfaces.Person;
+import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
@@ -36,7 +37,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	public boolean isWaiter = true; 
 	public boolean amReady = true; 
 	public enum WaiterState {busy, free, askedToGoOnBreak, onBreak};
-	private MaggyanWaiterGui hostGui = null;
+	private MaggiyanWaiterGui hostGui = null;
 	private MaggiyanCookRole cook; 
 	private int minWaiters = 1; 
 	private int minCustomer = Integer.MAX_VALUE; 
@@ -53,15 +54,19 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	public enum AgentPos 
 	{atStart}; 
 	
-	public MaggiyanHostRole(String name) {
-		super(); 
-		this.name = name;
+	public MaggiyanHostRole(Person p) {
+		super(p); 
+		this.name = p.getName();
 		
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
 			tables.add(new Table(ix)); //how you add to a collections
 		}
+	}
+	
+	public MaggiyanHostRole(String n){
+		
 	}
 	
 	public String getMaitreDName() {
@@ -98,6 +103,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	
 	//From Customer 
 	public void msgIWantFood(MaggiyanCustomer cust) {
+		print("Hello Customer"); 
 		waitingCustomers.add(cust);
 		stateChanged();
 	}
@@ -108,7 +114,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	}
 	//From Waiter
 	public void msgIAmHere(MaggiyanWaiter waiter){
-		print("I am here");
+		print("Hello " + waiter.getName());
 		addWaiter(waiter); 
 		stateChanged(); 
 	}
@@ -265,13 +271,16 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		
 	}
 
-	//utilities
+	//Utilities
+	public void print(String msg){
+		System.out.println("[" + name + "]: " + msg );
+	}
 
-	public void setGui(MaggyanWaiterGui gui) {
+	public void setGui(MaggiyanWaiterGui gui) {
 		hostGui = gui;
 	}
 
-	public MaggyanWaiterGui getGui() {
+	public MaggiyanWaiterGui getGui() {
 		return hostGui;
 	}
 

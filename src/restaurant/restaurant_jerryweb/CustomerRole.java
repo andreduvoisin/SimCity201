@@ -2,7 +2,7 @@ package restaurant.restaurant_jerryweb;
 
 import restaurant.restaurant_jerryweb.gui.CustomerGui;
 import restaurant.restaurant_jerryweb.gui.Menu;
-import restaurant.restaurant_jerryweb.gui.RestaurantGui;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Host;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
@@ -86,7 +86,7 @@ public class CustomerRole extends Agent implements Customer {
 	// Messages
 
 	public void gotHungry() {//from animation
-		print("I'm hungry");
+		////print("I'm hungry");
 		event = AgentEvent.gotHungry;
 		stateChanged();
 	}
@@ -125,10 +125,10 @@ public class CustomerRole extends Agent implements Customer {
 
 	public void msgSitAtTable(int tableNumber, Menu m, Waiter w) {
 		customerGui.customerString = "";
-		print("I have " + cash + " dollars.");
+		////print("I have " + cash + " dollars.");
 		this.waiter = w;
 		tableN = tableNumber;
-		print("Received msgSitAtTable");
+		////print("Received msgSitAtTable");
 		
 		event = AgentEvent.followWaiter;
 		stateChanged();
@@ -142,15 +142,15 @@ public class CustomerRole extends Agent implements Customer {
 	
 	public void msgOrderNotAvailable(String choice){
 		event = AgentEvent.outOfChoice;
-		print("My state is: " + this.state);		
-		print("Ok I won't order " + choice);
+		//print("My state is: " + this.state);		
+		//print("Ok I won't order " + choice);
 		m.menuItems.remove(choice);
 		
 		stateChanged();
 	}
 	
 	public void msgHereIsYourFood(){
-		print("Thank You");
+		//print("Thank You");
 		event = AgentEvent.recievedFood;
 		stateChanged();
 	}
@@ -169,7 +169,7 @@ public class CustomerRole extends Agent implements Customer {
 	}
 	
 	public void msgHereIsCheck(){
-		print("thanks for check");
+		//print("thanks for check");
 		hasCheck = true;
 		stateChanged();
 	}
@@ -178,7 +178,7 @@ public class CustomerRole extends Agent implements Customer {
 			stateChanged();
 	}
 	public void msgHereIsChange(double change){
-		print("Thank you for the change");
+		//print("Thank you for the change");
 		cash = change;
 		event = AgentEvent.recievedChange;
 		stateChanged();
@@ -189,7 +189,7 @@ public class CustomerRole extends Agent implements Customer {
 	 */
 	protected boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
-		//print(""+ state);
+		////print(""+ state);
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
 			state = AgentState.WaitingInRestaurant;
 			goToRestaurant();
@@ -285,10 +285,10 @@ public class CustomerRole extends Agent implements Customer {
 	}
 	
 	public void pay(){
-		print("paying");
+		//print("paying");
 		timer.schedule(new TimerTask() {
 			public void run() {
-				//print("What do I want ");
+				////print("What do I want ");
 				
 				Paid();
 			}
@@ -314,7 +314,7 @@ public class CustomerRole extends Agent implements Customer {
 		timer.schedule(new TimerTask() {
 			
 			public void run() {
-				//print("Done eating, cookie=" + cookie);
+				////print("Done eating, cookie=" + cookie);
 				event = AgentEvent.doneEating;
 				//isHungry = false;
 				stateChanged();
@@ -332,7 +332,7 @@ public class CustomerRole extends Agent implements Customer {
 	public void readMenu(){
 		timer.schedule(new TimerTask() {
 			public void run() {
-				//print("What do I want ");
+				////print("What do I want ");
 				event = AgentEvent.reading;
 				
 				stateChanged();
@@ -343,7 +343,7 @@ public class CustomerRole extends Agent implements Customer {
 	}
 	
 	public void callWaiter(){
-		print("WAITER!");
+		//print("WAITER!");
 		customerGui.customerString = "?";
 		waiter.msgReadyToOrder(this);
 		
@@ -369,25 +369,25 @@ public class CustomerRole extends Agent implements Customer {
 	public void givingOrder(){
 		if(this.getName().equals("steak") && cash >= 15.99){
 			 waiter.msgHereIsMyOrder(this, m.menuItems.get(3));
-			 print("Give me the " + m.menuItems.get(3));
+			 //print("Give me the " + m.menuItems.get(3));
 			 event = AgentEvent.ordered;
 			 stateChanged();
 		}
 		else if(this.getName().equals("chicken") && cash >= 10.99){
 			 waiter.msgHereIsMyOrder(this, m.menuItems.get(2));
-			 print("Give me the " + m.menuItems.get(2));
+			 //print("Give me the " + m.menuItems.get(2));
 			 event = AgentEvent.ordered;
 			 stateChanged();
 		}
 		else if(this.getName().equals("salad") && cash >= 5.99 ){
 			 waiter.msgHereIsMyOrder(this, m.menuItems.get(0));
-			 print("Give me the " + m.menuItems.get(0));
+			 //print("Give me the " + m.menuItems.get(0));
 			 event = AgentEvent.ordered;
 			 stateChanged();
 		}
 		else if(this.getName().equals("pizza") && cash >= 8.99){
 			 waiter.msgHereIsMyOrder(this, m.menuItems.get(1));
-			 print("Give me the " + m.menuItems.get(1));
+			 //print("Give me the " + m.menuItems.get(1));
 			 event = AgentEvent.ordered;
 			 stateChanged();
 		}
@@ -405,7 +405,7 @@ public class CustomerRole extends Agent implements Customer {
 			int selection = rand.nextInt(m.menuItems.size());
 		 	if(selection == 3  && cash >= 15.99|| this.getName().equals("flake")){
 		 		waiter.msgHereIsMyOrder(this, m.menuItems.get(selection));
-		 		print("Give me the " + m.menuItems.get(selection));
+		 		//print("Give me the " + m.menuItems.get(selection));
 		 		event = AgentEvent.ordered;
 		 		//state = AgentState.waitingForFood;
 				customerGui.customerString = "";
@@ -414,7 +414,7 @@ public class CustomerRole extends Agent implements Customer {
 		 	
 		 	else if(selection == 2 && cash >= 10.99 || this.getName().equals("flake")){
 		 		waiter.msgHereIsMyOrder(this, m.menuItems.get(selection));
-		 		 print("Give me the " + m.menuItems.get(selection));
+		 		 //print("Give me the " + m.menuItems.get(selection));
 		 		event = AgentEvent.ordered;
 		 		//state = AgentState.waitingForFood;
 				customerGui.customerString = "";
@@ -424,7 +424,7 @@ public class CustomerRole extends Agent implements Customer {
 		 	
 		 	else if(selection == 1 && cash >= 8.99 || this.getName().equals("flake")){
 		 		waiter.msgHereIsMyOrder(this, m.menuItems.get(selection));
-		 		 print("Give me the " + m.menuItems.get(selection));
+		 		 //print("Give me the " + m.menuItems.get(selection));
 		 		event = AgentEvent.ordered;
 		 		//state = AgentState.waitingForFood;
 				customerGui.customerString = "";
@@ -432,14 +432,14 @@ public class CustomerRole extends Agent implements Customer {
 		 	}	
 		 	else if(selection == 0 && cash >= 5.99 || this.getName().equals("flake")){
 		 		waiter.msgHereIsMyOrder(this, m.menuItems.get(selection));
-		 		 print("Give me the " + m.menuItems.get(selection));
+		 		 //print("Give me the " + m.menuItems.get(selection));
 		 		event = AgentEvent.ordered;
 		 		 //state = AgentState.waitingForFood;
 				customerGui.customerString = "";
 				stateChanged();
 		 	}
 		 	else if(cash <= 5.99){ 
-			  print("I can't afford anything");
+			  //print("I can't afford anything");
 			  event = AgentEvent.recievedChange;
 			  state = AgentState.paying;
 			  waiter.msgHereIsMyOrder(this, "nothing");

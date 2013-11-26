@@ -9,7 +9,7 @@ import market.interfaces.MarketWorker;
 
 public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorker mAgent;
-	private MarketItemsGui mItems;
+	public MarketItemsGui mItems;
 	
 	private MarketOrder mOrder = null;
 	
@@ -29,6 +29,11 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public MarketWorkerGui(MarketWorker agent) {
 		mAgent = agent;
+	}
+	
+	public MarketWorkerGui(MarketWorker agent, MarketItemsGui g) {
+		mAgent = agent;
+		mItems = g;
 	}
 	
 	public void updatePosition() {
@@ -105,7 +110,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 				e.printStackTrace();
 			}
 			mItems.decreaseItemCount(item, mOrder.mItems.get(item));		
-		}
+	}
 		mAgent.msgOrderFulfilled(mOrder);
 		mOrder = null;
 	}

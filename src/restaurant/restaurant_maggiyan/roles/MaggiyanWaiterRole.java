@@ -8,16 +8,18 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole.WaiterState;
 
 
 /**
@@ -52,7 +54,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	private MaggiyanCook cook; 
 	private MaggiyanHost host; 
 	private MaggiyanCashier cashier; 
-	public MaggyanWaiterGui waiterGui = null;
+	public MaggiyanWaiterGui waiterGui = null;
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
@@ -65,10 +67,31 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	private boolean reenableBreakButton = false; 
 	
+	public MaggiyanWaiterRole(Person p){
+		super(p);
+		
+		if (p == null) {
+			this.name = "NULL Waiter";
+		}
+		else {
+			this.name = p.getName();
+		}
+	}
+	
 	public MaggiyanWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
 		super();
 		
 		this.name = name;
+		this.wState = WaiterState.free; 
+		this.cook = cook; 
+		this.host = host; 
+
+	}
+	
+	public MaggiyanWaiterRole(Person p, MaggiyanCook cook, MaggiyanHost host) {
+		super(p);
+		
+		this.name = p.getName();
 		this.wState = WaiterState.free; 
 		this.cook = cook; 
 		this.host = host; 
@@ -307,7 +330,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 				}
 			}
 			waiterGui.DoLeaveCustomer();
-			host.msgWaiterFree(this);
+			//host.msgWaiterFree(this);
 			return false;	
 		}catch(ConcurrentModificationException e){
 			return true; 
@@ -518,11 +541,11 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 
 	//utilities
 
-	public void setGui(MaggyanWaiterGui gui) {
+	public void setGui(MaggiyanWaiterGui gui) {
 		waiterGui = gui;
 	}
 
-	public MaggyanWaiterGui getGui() {
+	public MaggiyanWaiterGui getGui() {
 		return waiterGui;
 	}
 	

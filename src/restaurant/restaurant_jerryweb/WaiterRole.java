@@ -101,8 +101,8 @@ public class WaiterRole extends Agent implements Waiter {
 	
 	public void msgPleaseSitCustomer(Customer cust, int tablenum) {
 		Customers.add(new MyCustomer(cust, tablenum, CustomerState.waiting));
-		print("Adding " + cust.getName() + " to MyCustomer list. The table for this customer is " + tablenum);
-		//print("" + Customers.size());
+		////print("Adding " + cust.getName() + " to MyCustomer list. The table for this customer is " + tablenum);
+		//////print("" + Customers.size());
 		stateChanged();
 	}
 
@@ -115,10 +115,10 @@ public class WaiterRole extends Agent implements Waiter {
 				findString("", Customers.get(i).table);
 				Customers.get(i).s = CustomerState.leaving;
 				//Customers.get(i).s = CustomerState.payingBill;
-				print(Customers.get(i).c.getName() + " is in leaving state");
+				////print(Customers.get(i).c.getName() + " is in leaving state");
 				host.msgCustLeavingTable(c);
 				Customers.remove(i);
-				//print("" + Customers.size());
+				////print("" + Customers.size());
 				stateChanged();
 			}
 		}
@@ -126,7 +126,7 @@ public class WaiterRole extends Agent implements Waiter {
 	}
 	
 	public void msgCanGoOnBreak(){
-		print("I am going on Break");
+		//print("I am going on Break");
 	}	
 	public void msgOutOfFood(String choice, int t){
 		synchronized(Customers){
@@ -141,19 +141,19 @@ public class WaiterRole extends Agent implements Waiter {
 	}
 
 	public void msgAtTable() {//from animation
-		//print("msgAtTable() called");
+		////print("msgAtTable() called");
 		atTable.release();// = true;
 		stateChanged();
 	}
 
 	public void msgAtCook() {//from animation
-		//print("msgAtCook() called");
+		////print("msgAtCook() called");
 		atCook.release();// = true;
 		stateChanged();
 	}
 	
 	public void msgAtCashier(){//from animation
-		print("here");
+		//print("here");
 		atCashier.release();
 		stateChanged();
 		
@@ -180,7 +180,7 @@ public class WaiterRole extends Agent implements Waiter {
 		int x = find(customer);
 		Customers.get(x).choice = order;
 		Customers.get(x).s = CustomerState.askedToOrder;
-		print("Alright so you would like the " + order);
+		//print("Alright so you would like the " + order);
 		waitingForOrder.release();
 
 		stateChanged();
@@ -190,7 +190,7 @@ public class WaiterRole extends Agent implements Waiter {
 		findCookingString("", t);
 		findPlateString(meal, t);
 		
-		print("Ok, coming to get " + meal);
+		//print("Ok, coming to get " + meal);
 		synchronized(Customers){
 			for(int i = 0; i <Customers.size(); i++){
 				if(Customers.get(i).table == t){
@@ -208,7 +208,7 @@ public class WaiterRole extends Agent implements Waiter {
 	}
 
 	public void msgTakeFood(String meal, int t){
-		print("Taking " + meal + "to table " + t);
+		//print("Taking " + meal + "to table " + t);
 	synchronized(Customers){
 		for(int i = 0; i <Customers.size(); i++){
 			if(Customers.get(i).table == t){
@@ -225,7 +225,7 @@ public class WaiterRole extends Agent implements Waiter {
 	}
 	
 	public void msgHereIsBill(Customer customer, double check){
-		print("thanks for the bill");
+		//print("thanks for the bill");
 		int x = find(customer);
 		Customers.get(x).s = CustomerState.waitingForBill;
 		stateChanged();
@@ -246,7 +246,7 @@ public class WaiterRole extends Agent implements Waiter {
 		try {
 		//synchronized(Customers){
 			for(int i =0; i < Customers.size(); i++){
-			//print("" + Customers.get(i).s );
+			////print("" + Customers.get(i).s );
 				if(Customers.get(i).s == CustomerState.waiting){
 					seatCustomer(Customers.get(i));
 					return true;
@@ -328,7 +328,7 @@ public class WaiterRole extends Agent implements Waiter {
 		}
 		catch (InterruptedException e) {
 
-			e.printStackTrace();
+			e.//printStackTrace();
 		}*/
 		host.msgCustomerSeated(this);
 		}
@@ -337,9 +337,9 @@ public class WaiterRole extends Agent implements Waiter {
 
 	// The animation DoXYZ() routines
 	private void DoSeatCustomer(MyCustomer customer) {
-		//Notice how we print "customer" directly. It's toString method will do it.
+		//Notice how we //print "customer" directly. It's toString method will do it.
 		//Same with "table"
-		print("Seating " + customer.c + " at " + customer.table);
+		//print("Seating " + customer.c + " at " + customer.table);
 		waiterGui.DoBringToTable(customer.c, customer.table); 
 
 	}
@@ -354,7 +354,7 @@ public class WaiterRole extends Agent implements Waiter {
 
 			e.printStackTrace();
 		}
-		print("What would you like?");
+		//print("What would you like?");
 		customer.c.msgWhatDoYouWant();		
 		try {
 			waitingForOrder.acquire();
@@ -372,7 +372,7 @@ public class WaiterRole extends Agent implements Waiter {
 	public void sendOrder(MyCustomer customer){
 		customer.s = CustomerState.waitingForFood;
 		cook.msgCookThis(this, customer.choice, customer.table);
-		print("Cook! Customer " + customer.c.getName() + " wants " + customer.choice);
+		//print("Cook! Customer " + customer.c.getName() + " wants " + customer.choice);
 
 		waiterGui.DoGoToCook();
 		try{
@@ -419,7 +419,7 @@ public class WaiterRole extends Agent implements Waiter {
 
 		//waiterGui.waiterString = "";
 		findString(customer.choice, customer.table);
-		print("Here is your " + customer.choice + ", enjoy!");
+		//print("Here is your " + customer.choice + ", enjoy!");
 		customer.c.msgHereIsYourFood();
 		customer.s = CustomerState.eating;
 		
@@ -445,7 +445,7 @@ public class WaiterRole extends Agent implements Waiter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		print("" + cashier.getName() + " please compute check for customer " + customer.c.getName());
+		//print("" + cashier.getName() + " please compute check for customer " + customer.c.getName());
 		cashier.msgComputeBill(this, customer.c, customer.choice);
 		
 		waiterGui.DoGoToTable(customer.c, customer.table);
@@ -474,7 +474,7 @@ public class WaiterRole extends Agent implements Waiter {
 				}
 			}
 		//}
-		print("Can't find customer in waiter find function!");
+		//print("Can't find customer in waiter find function!");
 		return 0;
 	}
 	

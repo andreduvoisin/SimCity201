@@ -133,25 +133,25 @@ public class AndreRestaurantPanel extends JPanel {
     		//c.startThread();
     	} else if(role instanceof AndreWaiterRole || role instanceof AndreSharedWaiterRole) {
     		// Odd = Shared, Even = Normal
-    		if(waiters.size() % 2 == 0) {
-    			AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
-    			WaiterGui g = new WaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(g);
-	    		w.setGui(g);
-	    		waiters.add(w);
-	    		host.addWaiter(w);
-	            //w.startThread();
-    		} else {
-	    		AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
-	    		WaiterGui g = new WaiterGui(w, gui);
-	    		
-	    		gui.animationPanel.addGui(g);
-	    		w.setGui(g);
-	    		waiters.add(w);
-	    		host.addWaiter(w);
-	            //w.startThread();
-    		}
+//    		if(waiters.size() % 2 == 0) {
+//    			AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
+//    			WaiterGui g = new WaiterGui(w, gui);
+//	    		
+//	    		gui.animationPanel.addGui(g);
+//	    		w.setGui(g);
+//	    		waiters.add(w);
+//	    		host.addWaiter(w);
+//	            //w.startThread();
+//    		} else {
+//	    		AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
+//	    		WaiterGui g = new WaiterGui(w, gui);
+//	    		
+//	    		gui.animationPanel.addGui(g);
+//	    		w.setGui(g);
+//	    		waiters.add(w);
+//	    		host.addWaiter(w);
+//	            //w.startThread();
+//    		}
     	}
     }
     

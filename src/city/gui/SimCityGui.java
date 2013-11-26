@@ -8,7 +8,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import base.ConfigParser;
-import base.PersonAgent;
+import base.Time;
+import base.interfaces.Person;
 //import base.Time;
 
 @SuppressWarnings("serial")
@@ -33,23 +34,24 @@ public class SimCityGui extends JFrame {
 		
 		this.setLayout(new GridBagLayout());
 		
-		//Time globaltime = new Time(citypanel.masterPersonList);
+		Time globaltime = new Time(citypanel.masterPersonList); //starts the static timer
 		
-		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
-		this.add(CP, mGridBagConstraints);
-		
-		mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
-		this.add(citypanel, mGridBagConstraints);
-		
-		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
-		this.add(infopanel, mGridBagConstraints);
-
-		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
-		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
-		this.add(cityview, mGridBagConstraints);
+		//Create Grid/Gui
+			mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
+			mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
+			this.add(CP, mGridBagConstraints);
+			
+			mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
+			mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
+			this.add(citypanel, mGridBagConstraints);
+			
+			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
+			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
+			this.add(infopanel, mGridBagConstraints);
+	
+			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
+			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
+			this.add(cityview, mGridBagConstraints);
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(this);
@@ -109,7 +111,7 @@ public class SimCityGui extends JFrame {
 //		testCook.addRole(cookRole, true);
 //		testCook.startThread();
 		
-//		Person person = citypanel.masterPersonList.get(0);
+		Person person = citypanel.masterPersonList.get(0);
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
@@ -133,14 +135,14 @@ public class SimCityGui extends JFrame {
 //			((PersonAgent) person).startThread();
 //			((PersonAgent) person).eatFood();
 //		}
-		
-		for (int i=0; i<10; i++) {
-			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
-		}
-		
-		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
-			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
-		}
+//		
+//		for (int i=0; i<10; i++) {
+//			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
+//		}
+//		
+//		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
+//			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
+//		}
 	}
 
 	/**

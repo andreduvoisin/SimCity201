@@ -45,7 +45,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 	static final int panelYpos = 0;
 	static final int timerCount = 5;
 	
-    private final int WINDOWX = 450;
+    private final int WINDOWX = 500;
     private final int WINDOWY = 500;
     private Image bufferImage;
     private Dimension bufferSize;

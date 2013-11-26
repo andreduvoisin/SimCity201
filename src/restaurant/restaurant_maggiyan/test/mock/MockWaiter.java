@@ -2,7 +2,7 @@ package restaurant.restaurant_maggiyan.test.mock;
 
 
 import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
@@ -131,7 +131,7 @@ public void msgWaiterFree() {
 
 
 @Override
-public MaggyanWaiterGui getGui() {
+public MaggiyanWaiterGui getGui() {
 	// TODO Auto-generated method stub
 	return null;
 }

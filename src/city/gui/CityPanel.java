@@ -40,7 +40,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
-		System.out.println("hi");
+
 		// A* Setup
 		try {
 			for(int i = 0; i < (CITY_WIDTH/ASC); i++) {
@@ -106,7 +106,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		} catch (Exception e) {
 			System.out.println("Exception During A* Setup: " + e);
 		}
-		System.out.println("bye");
+
 		//Add Background and city block
 		background = new Color(100,100,100);
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
@@ -127,7 +127,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "R_cwagoner"));
-		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerrywebb"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerryweb"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(4), "R_davidmca"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "R_smileham"));

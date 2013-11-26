@@ -13,7 +13,7 @@ import java.awt.event.*;
  * Main GUI class.
  * Contains the main frame and subsequent panels
  */
-public class RestaurantGui extends CityCard implements ActionListener {
+public class JerrywebRestaurantGui extends CityCard implements ActionListener {
     /* The GUI has two frames, the control frame (in variable gui) 
      * and the animation frame, (in variable animationFrame within gui)
      */
@@ -49,9 +49,9 @@ public class RestaurantGui extends CityCard implements ActionListener {
      * Constructor for RestaurantGui class.
      * Sets up all the gui components.
      */
-    public RestaurantGui(SimCityGui city) {
+    public JerrywebRestaurantGui(SimCityGui city) {
     	super(city);
-        int WINDOWX = 450;
+        int WINDOWX = 500;
         int WINDOWY = 500;
 
         animationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,8 +61,7 @@ public class RestaurantGui extends CityCard implements ActionListener {
     	
     	setBounds(xIndexing, yIndexing, WINDOWX, WINDOWY);
 
-        setLayout(new BoxLayout((Container) getRootPane(), 
-        		BoxLayout.Y_AXIS));
+        setLayout(new GridLayout(1,2));
     }
         /*
         Dimension restDim = new Dimension(WINDOWX+150, (int) (WINDOWY * .6));
