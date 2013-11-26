@@ -71,6 +71,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         setVisible(true);
         
         cook.setGui(cookGui);
+        guis.add(cookGui);
         //bufferSize = this.getSize();
  
     	Timer timer = new Timer(10, this );
@@ -85,7 +86,6 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame
-        g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
         g2.setColor(Color.ORANGE);

@@ -41,8 +41,8 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 			case 1: //chase
 				break;
 			case 2: //jerry
-				subRole = new JerrywebCustomerRole(super.mPerson);
-				JerrywebRestaurantPanel.getInstance().addPerson((JerrywebCustomerRole) subRole);
+	//			subRole = new JerrywebCustomerRole(super.mPerson);
+	//			JerrywebRestaurantPanel.getInstance().addPerson((JerrywebCustomerRole) subRole);
 				break;
 			case 3: //maggi
 				subRole = new MaggiyanCustomerRole(super.mPerson);

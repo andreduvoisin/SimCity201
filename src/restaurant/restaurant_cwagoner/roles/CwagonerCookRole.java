@@ -1,6 +1,7 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import base.Agent;
+import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.gui.*;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
@@ -8,9 +9,11 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 
-public class CwagonerCookRole extends Agent implements CwagonerCook {
+public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 	
-	public CwagonerCookRole() {
+	public CwagonerCookRole(Person person) {
+		super(person);
+
 		// Name of food, cooking time (ms), initial quantity of food, maximum capacity of food
 		addMenuItem("Steak",	8000, 1, 5);
 		addMenuItem("Chicken",	6000, 1, 4);
@@ -19,7 +22,7 @@ public class CwagonerCookRole extends Agent implements CwagonerCook {
 	}
 	
 	public String getName() {
-		return "Cook";
+		return "CwagonerCook " + mPerson.getName();
 	}
 	
 	CwagonerCashier cwagonerCashier;
@@ -99,7 +102,7 @@ public class CwagonerCookRole extends Agent implements CwagonerCook {
 	
 	// SCHEDULER
 	
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		
 		// If not ordering/already ordered
 		if (! ordering) {
