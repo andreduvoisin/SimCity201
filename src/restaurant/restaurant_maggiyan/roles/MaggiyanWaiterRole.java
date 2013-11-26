@@ -43,7 +43,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	private Semaphore atTable = new Semaphore(0,true);
 	private Semaphore goingToKitchen = new Semaphore(0,true); 
 	private Semaphore waiterReady = new Semaphore(0, true);
-	private Semaphore animationReady = new Semaphore(0, true); 
+	private Semaphore animationReady = new Semaphore(1, true); 
 
 	public boolean justGotToWork = false;
 	public boolean needToGoToKitchen = true; 
@@ -104,6 +104,10 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setHost(MaggiyanHost h){
+		host = h; 
 	}
 	
 	public void setCashier(MaggiyanCashier c){
@@ -217,6 +221,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	public void msgAnimationReady(){
 		animationReady.release();
+		print("Welp. Hope this works"); 
 		stateChanged(); 
 	}
 	
@@ -394,44 +399,44 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	private void seatCustomer(MyCustomer myCust) {
 		host.msgWaiterBusy(this); 
-		print("Customer table num in seatcustomer: " + myCust.table);
+		print("Seating Customer at table " + myCust.table); 
 		waiterGui.DoGoToSeatCustomer(); 
-		try{
-			print("1");
-			animationReady.acquire(); 
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
+//		try{
+//			print("1");
+//			animationReady.acquire(); 
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		myCust.c.msgFollowMe(this, menu, myCust.table);
-		try{
-			print("2");
-			animationReady.acquire(); 
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
+//		try{
+//			print("2");
+//			animationReady.acquire(); 
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		DoSeatCustomer(myCust.c, myCust.table);
 		myCust.s = CustomerState.seated; 
 		alreadyAtTable = true; 
-		try{ 
-			print("At Table acquire"); 
-			atTable.acquire(); 
-		}
-		catch(Exception e){
-			print("giveCustomerFood exception");
-		}
+//		try{ 
+//			print("At Table acquire"); 
+//			atTable.acquire(); 
+//		}
+//		catch(Exception e){
+//			print("giveCustomerFood exception");
+//		}
 		waiterGui.DoLeaveCustomer();
 		//Leave customer while customer orders
 		//waiterIsReady = true;
-		try{
-			animationReady.acquire(); 
-			//waiterReady.acquire(); 
-
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
+//		try{
+//			animationReady.acquire(); 
+//			//waiterReady.acquire(); 
+//
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		host.msgWaiterFree(this);
 //		}
 	}

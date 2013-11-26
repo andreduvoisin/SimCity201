@@ -56,17 +56,16 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	
 	public MaggiyanHostRole(Person p) {
 		super(p); 
-		this.name = p.getName();
+		if(p == null){
+			this.name = "Host"; 
+		}
+		//this.name = p.getName();
 		
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
 			tables.add(new Table(ix)); //how you add to a collections
 		}
-	}
-	
-	public MaggiyanHostRole(String n){
-		
 	}
 	
 	public String getMaitreDName() {
@@ -196,11 +195,9 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 							for(MaggiyanCustomer customer: waitingCustomers){
 								for(Table table: tables){
 									if(!table.isOccupied()){
-										if(!waiter.onBreak){
-											callWaiter(waiter, customer, table);
-											minCustomer++;
-											return true;
-										}
+										callWaiter(waiter, customer, table);
+										return true;
+										
 									}
 								}
 								for(Table table: tables){
@@ -266,7 +263,6 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		table.setOccupant(cust);
 		waitingCustomers.remove(0);
 		waiter.w.msgPleaseSeatCustomer(cust, table.tableNumber);
-		System.out.println("add cust table " + table.tableNumber);
 		waiter.s = WaiterState.busy; 
 		
 	}

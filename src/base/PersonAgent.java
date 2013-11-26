@@ -15,9 +15,14 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
+import market.interfaces.MarketCustomer;
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
+import test.mock.MockPersonGui;
+import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
@@ -28,14 +33,13 @@ import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
+import city.gui.SimCityGui;
 
 
 public class PersonAgent extends Agent implements Person {
 	//----------------------------------------------------------DATA----------------------------------------------------------
 	//Static data
-	private static int sSSN = 0;
-	//private static int sTimeSchedule = 0; //0,1,2
-	//private static int sEatingTime = 0;
+	public static int sSSN = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
@@ -44,13 +48,13 @@ public class PersonAgent extends Agent implements Person {
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	private Location mJobLocation;
-	private boolean mAtJob;
+	public boolean mAtJob;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
 	public SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumItemType, Integer> mItemInventory; // personal inventory
-	Map<EnumItemType, Integer> mItemsDesired; // not ordered yet
+	public Map<EnumItemType, Integer> mItemsDesired; // not ordered yet
 	Set<Location> mHomeLocations; //multiple for landlord
 	
 	//Personal Variables
@@ -59,15 +63,15 @@ public class PersonAgent extends Agent implements Person {
 	int mTimeShift;
 	double mCash;
 	double mLoan;
-	boolean mHasCar;
+	public boolean mHasCar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	public CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
+	public PersonGuiInterface mPersonGui;
 
 	//PAEA Helpers
-	public Semaphore semAnimationDone = new Semaphore(1);
-	private boolean mRoleFinished = true;
+	public Semaphore semAnimationDone = new Semaphore(0);
+	public boolean mRoleFinished = true;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -80,7 +84,7 @@ public class PersonAgent extends Agent implements Person {
 		mCash = cash;
 		mName = name;
 		initializePerson();
-		
+		System.out.println("mTS: " + mTimeShift);
 		//Get job role and location; set active if necessary
 		mJobRole = null;
 		switch (job){
@@ -93,18 +97,24 @@ public class PersonAgent extends Agent implements Person {
 			case RESTAURANT:
 				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 				//System.out.println(mJobRole.toString());
+				
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 
-				((RestaurantBaseInterface) mJobRole).setRestaurant(3); //HACK
+				((RestaurantBaseInterface) mJobRole).setRestaurant(0); //HACK ANDRE ALL
+				
+				print("BALLS: " + mJobRole.toString());
 
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
-
 				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
-			case NONE: break;
+			case NONE: 
+				mJobRole = new RestaurantCustomerRole(this);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(0);
+				break;
 		}
 		boolean active = (mTimeShift == Time.GetShift());
 		if (mJobRole != null){
@@ -151,16 +161,17 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(0, 0, mName); //SHANE: Hardcoded start place
+		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), 0, sSSN*10); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
+		mEvents.add(new Event(EnumEventType.EAT, 0)); // ANDRE ALL HACK
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
+		mEvents.add(new Event(EnumEventType.JOB, mTimeShift * 3));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
-		mEvents.add(new Event(EnumEventType.JOB, 0));
+//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift*2));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, 1));
+//		mEvents.add(new Event(EnumEventType.EAT, 1)); //THIS IS A PROBLEM
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 //		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
@@ -219,6 +230,7 @@ public class PersonAgent extends Agent implements Person {
 					//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 					if (event.mTime > Time.GetTime())
 						break; // don't do future calendar events
+					mRoleFinished = false;
 					processEvent(event);
 					return true;
 				}
@@ -228,12 +240,9 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
 				//print(iRole.toString());
-				if (((BaseRole) iRole).getPerson() == null) {
+				if (iRole.getPerson() == null) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
-				}
-				else if(iRole == null){
-					return true; 
 				}
 				else if (iRole.pickAndExecuteAnAction()) {
 					System.out.println(iRole.toString() + "pAEA fired");
@@ -254,7 +263,7 @@ public class PersonAgent extends Agent implements Person {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
-			getCar(); //SHANE: 1 get car
+			getCar();
 		}
 		
 		//Daily Recurring Events (Job, Eat)
@@ -322,15 +331,13 @@ public class PersonAgent extends Agent implements Person {
 		Location location = ContactList.cCARDEALERSHIP_DOOR;
 		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
-		
 		mPersonGui.setPresent(false); //set city person invisible
-		//lock person until role is finished
-		mRoleFinished = false;
 		
 		//activate marketcustomer role
 		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof MarketCustomerRole){
+			if (iRole instanceof MarketCustomer){
 				mRoles.put(iRole, true); //set active
+				iRole.setPerson(this);
 			}
 		}
 		
@@ -341,9 +348,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-
-		//print("goToJob");
-		mPersonGui.DoGoToDestination(mJobLocation);
+		//mPersonGui.DoGoToDestination(mJobLocation);
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
 		mPersonGui.setPresent(false);
@@ -371,13 +376,15 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 3; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 0; // SHANE DAVID ANDRE ALL: HACK Make random later (smileham = 5, davidmca = 4)
 
-			((RestaurantBaseInterface) restCustRole).setPerson(this);
-			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
+			
+			((RestaurantBaseInterface) restCustRole).setPerson(this);
+			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
+			
 		}
 		
 	}
@@ -535,6 +542,10 @@ public class PersonAgent extends Agent implements Person {
 
 	@Override
 	public CityPerson getPersonGui() {
-		return mPersonGui;
+		return (CityPerson)mPersonGui;
+	}
+
+	public void setGui(MockPersonGui gui) {
+		mPersonGui = gui;
 	}
 }

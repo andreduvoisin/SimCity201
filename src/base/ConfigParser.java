@@ -34,7 +34,11 @@ public class ConfigParser {
 			if (jobString.equals("RESTAURANT")) {
 				jobType = EnumJobType.RESTAURANT;
 			}
-			
+
+			if (jobString.equals("NONE")) {
+				jobType = EnumJobType.NONE;
+			}
+			//EnumJobType jobType = EnumJobType.valueOf(jobString);	
 			//Cash
 			String cashString = scanPerson.next();
 			double cash = Double.valueOf(cashString);

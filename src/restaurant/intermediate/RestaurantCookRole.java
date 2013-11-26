@@ -25,7 +25,9 @@ import base.interfaces.Role;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
-        Role subRole = null;
+        static int totalCooks = 0;
+        
+		Role subRole = null;
         int restaurantID;
         int mRestaurantBankNumber;
         protected static int DEFAULT_FOOD_QTY = 5;
@@ -44,7 +46,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         public void setRestaurant(int restaurantID) {
-            
                 //TODO DAVID add if statements for all the other restaurants
         	switch(restaurantID){
 				case 0: //andre
@@ -71,8 +72,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 7: //rex
 					break;
 			}
-
-        }
+       }
         
         public void setPerson(Person person){
                 super.mPerson = person;
