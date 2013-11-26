@@ -62,7 +62,7 @@ public class CustomerGui_at implements Gui{
     	
     	alertBubble = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-attention.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/speech-attention.png");
     	alertBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
@@ -71,7 +71,7 @@ public class CustomerGui_at implements Gui{
     	
     	askingBubble = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-question.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/speech-question.png");
     	askingBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
@@ -108,7 +108,7 @@ public class CustomerGui_at implements Gui{
     	
     	alertBubble = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-attention.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/speech-attention.png");
     	alertBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
@@ -117,7 +117,7 @@ public class CustomerGui_at implements Gui{
     	
     	askingBubble = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-question.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/speech-question.png");
     	askingBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {

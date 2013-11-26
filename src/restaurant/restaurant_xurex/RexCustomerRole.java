@@ -237,6 +237,8 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		Do("goToRestaurant called");
 	}
 	private void StayOrNot() {
+		host.IWillWait(this);
+		/*
 		int stay = generator.nextInt(2);
 		if(stay==1){
 			host.IWillWait(this);
@@ -251,6 +253,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 				}
 			}, 1000);
 		}
+		*/
 	}
 	private void SitDown() {
 		customerGui.DoGoToSeat(table);
