@@ -16,8 +16,8 @@ public class Time {
 	
 	static int sGlobalTimeInt = 0;
 	static int sGlobalHour = 0;
-	static int sGlobalShift = 0;
-	static int sGlobalDate = 0;
+	public static int sGlobalShift = 0;
+	public static int sGlobalDate = 0;
 	
 	static boolean sFastForward = false;
 	

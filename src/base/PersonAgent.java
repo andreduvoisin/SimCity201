@@ -15,9 +15,12 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
+import market.interfaces.MarketCustomer;
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import test.mock.MockPersonGui;
+import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
@@ -45,13 +48,13 @@ public class PersonAgent extends Agent implements Person {
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	private Location mJobLocation;
-	private boolean mAtJob;
+	public boolean mAtJob;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
 	public SortedSet<Event> mEvents; // tree set ordered by time of event
 	Map<EnumItemType, Integer> mItemInventory; // personal inventory
-	Map<EnumItemType, Integer> mItemsDesired; // not ordered yet
+	public Map<EnumItemType, Integer> mItemsDesired; // not ordered yet
 	Set<Location> mHomeLocations; //multiple for landlord
 	
 	//Personal Variables
@@ -60,15 +63,15 @@ public class PersonAgent extends Agent implements Person {
 	int mTimeShift;
 	double mCash;
 	double mLoan;
-	boolean mHasCar;
+	public boolean mHasCar;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	public CityPerson mPersonGui; //SHANE JERRY: 2 instantiate this
+	public PersonGuiInterface mPersonGui; //SHANE JERRY: 2 instantiate this
 
 	//PAEA Helpers
-	public Semaphore semAnimationDone = new Semaphore(0);
-	private boolean mRoleFinished = true;
+	public Semaphore semAnimationDone = new Semaphore(1000);
+	public boolean mRoleFinished = true;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -156,7 +159,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
-		mEvents.add(new Event(EnumEventType.EAT, 0));
+//		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
@@ -231,7 +234,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
 				//print(iRole.toString());
-				if (((BaseRole) iRole).getPerson() == null) {
+				if (iRole.getPerson() == null) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
@@ -329,7 +332,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//activate marketcustomer role
 		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof MarketCustomerRole){
+			if (iRole instanceof MarketCustomer){
 				mRoles.put(iRole, true); //set active
 			}
 		}
@@ -535,6 +538,10 @@ public class PersonAgent extends Agent implements Person {
 
 	@Override
 	public CityPerson getPersonGui() {
-		return mPersonGui;
+		return (CityPerson)mPersonGui;
+	}
+
+	public void setGui(MockPersonGui gui) {
+		mPersonGui = gui;
 	}
 }
