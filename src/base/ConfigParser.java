@@ -15,8 +15,9 @@ public class ConfigParser {
 
 	private static ConfigParser instance = null;
 
-	public void readFileCreatePersons(SimCityGui simcitygui, int fileNum) throws FileNotFoundException {
-		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/config"+fileNum+".txt"));
+	public void readFileCreatePersons(SimCityGui simcitygui, String fileName) throws FileNotFoundException {
+		System.out.println(fileName);
+		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+fileName));
 		
 		//Instantiate the base roles before creating the people
 		SortingHat.InstantiateBaseRoles();
@@ -38,6 +39,36 @@ public class ConfigParser {
 //				jobType = EnumJobType.NONE;
 //			}
 			EnumJobType jobType = EnumJobType.valueOf(jobString);
+			
+			if (jobType == EnumJobType.RESTAURANT) {
+				String restaurant = scanPerson.next();
+				switch (restaurant) {
+				case "0":
+					SimCityGui.TESTNUM = 0;
+					break;
+				case "1":
+					SimCityGui.TESTNUM = 1;
+					break;
+				case "2":
+					SimCityGui.TESTNUM = 2;
+					break;
+				case "3":
+					SimCityGui.TESTNUM = 3;
+					break;
+				case "4":
+					SimCityGui.TESTNUM = 4;
+					break;
+				case "5":
+					SimCityGui.TESTNUM = 5;
+					break;
+				case "6":
+					SimCityGui.TESTNUM = 6;
+					break;
+				case "7":
+					SimCityGui.TESTNUM = 7;
+					break;
+				}
+			}
 
 			//Cash
 			String cashString = scanPerson.next();

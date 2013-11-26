@@ -45,6 +45,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	}
 
 	public void setRestaurant(int restaurantID) {
+		print("does it get waiter");
 		switch(restaurantID){
 			case 0: //andre
 				int rn0 = new Random().nextInt();
@@ -55,6 +56,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 					subRole = new AndreSharedWaiterRole(super.mPerson);
 					AndreRestaurantPanel.getInstance().addPerson((AndreSharedWaiterRole) subRole);
 				}
+				
 				break;
 			case 1: //chase
 				subRole = new CwagonerWaiterRole(super.mPerson);

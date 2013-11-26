@@ -120,7 +120,6 @@ public class PersonAgent extends Agent implements Person {
 					break;
 				case RESTAURANT:
 					mJobRole = SortingHat.getRestaurantRole(mTimeShift);
-					//System.out.println(mJobRole.toString());
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
 					break;
@@ -135,14 +134,16 @@ public class PersonAgent extends Agent implements Person {
 					break;
 			}
 		}else{
-			/*
+			
 			mJobRole = new RestaurantCustomerRole(this);
 			((RestaurantBaseInterface) mJobRole).setPerson(this);
 			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
-			*/
+			
+			/*
 			mJobRole = new BankCustomerRole(this);
 			mJobRole.setPerson(this);
 			BankPanel.getInstance().addPerson(mJobRole);
+			*/
 		}
 		
 		boolean active = (mTimeShift == Time.GetShift());
