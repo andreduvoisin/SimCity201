@@ -25,7 +25,7 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
  */
 public class DavidRestaurantPanel extends JPanel {
 	static DavidRestaurantPanel instance;
-
+	static int customerCount = 0;
 	// animation grid
 	static int gridX = 25;
 	static int gridY = 35;
@@ -130,7 +130,8 @@ public class DavidRestaurantPanel extends JPanel {
 	 */
 
 	public void addCustomer(DavidCustomerRole cust) {
-		CustomerGui g = new CustomerGui(cust, gui, host.getCustomerIndex());
+		CustomerGui g = new CustomerGui(cust, gui, customerCount);
+		customerCount++;
 		gui.animationPanel.addGui(g);
 		cust.setHost(host);
 		cust.setCashier(cash);

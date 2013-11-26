@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.Menu;
@@ -40,8 +39,20 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 
 	private String mychoice;
 	private boolean availability;
-	
-	private Semaphore isAnimating = new Semaphore(1, true);
+
+	// private Semaphore isAnimating = new Semaphore(1, true);
+
+	// public void acquireAnimationSemaphore() {
+	// try {
+	// isAnimating.acquire();
+	// System.out.println("isAnimating acquired in DavidCustomerRole");
+	// } catch (InterruptedException e) {
+	// e.printStackTrace();
+	// }
+	// if (isAnimating.availablePermits() == 0) {
+	// isAnimating.release();
+	// }
+	// }
 
 	// private boolean isHungry = false; //hack for gui
 	public enum AgentState {
@@ -117,32 +128,32 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		stateChanged();
 	}
 
-//	@Override
-//	public void msgAnimationFinishedGoToSeat() {
-//		// from animation
-//		event = AgentEvent.seated;
-//		stateChanged();
-//	}
-//	
-//	@Override
-//	public void msgAnimationFinishedLeaveRestaurant() {
-//		// from animation
-//		event = AgentEvent.doneLeaving;
-//		stateChanged();
-//	}
-//	
-//	@Override
-//	public void msgAnimationFinishedGoToWaitingArea() {
-//		event = AgentEvent.arrived;
-//		stateChanged();
-//	}
-	
 	@Override
-	public void msgDoneAnimating() {
-		System.out.println("msgDoneAnimating - Customer");
-		isAnimating.release();
+	public void msgAnimationFinishedGoToSeat() {
+		// from animation
+		event = AgentEvent.seated;
 		stateChanged();
 	}
+
+	@Override
+	public void msgAnimationFinishedLeaveRestaurant() {
+		// from animation
+		event = AgentEvent.doneLeaving;
+		stateChanged();
+	}
+
+	@Override
+	public void msgAnimationFinishedGoToWaitingArea() {
+		event = AgentEvent.arrived;
+		stateChanged();
+	}
+
+	// @Override
+	// public void msgDoneAnimating() {
+	// isAnimating.release();
+	// System.out.println("DavidCustomerRole - isAnimatingReleased in msgDoneAnimating");
+	// stateChanged();
+	// }
 
 	@Override
 	public void msgFollowMe(Waiter w, Table t) {
@@ -240,12 +251,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 
 	private void goToRestaurant() {
 		customerGui.DoGoToWaitingArea();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		event = AgentEvent.arrived;
 		if (this.getName().startsWith("hack")) {
 			String moneyhack = this.getName().substring(4,
 					this.getName().length());
@@ -277,12 +282,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 				Do("Restaurant full, decided to leave");
 				event = AgentEvent.ReadyToLeave;
 				customerGui.DoExitRestaurant();
-				try {
-					isAnimating.acquire();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				event = AgentEvent.doneLeaving;
 				break;
 			}
 		}
@@ -291,12 +290,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 	private void SitDown() {
 		Do("Being seated. Going to table");
 		customerGui.DoGoToSeat(table.getX(), table.getY());
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		event = AgentEvent.seated;
 	}
 
 	private void callWaiter() {
@@ -385,12 +378,7 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		Do("Leaving.");
 		waiter.msgDoneEating(this);
 		customerGui.DoExitRestaurant();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		event = AgentEvent.doneLeaving;
+		stateChanged();
 	}
 
 	// Accessors, etc.
@@ -410,11 +398,10 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		this.hungerLevel = hungerLevel;
 	}
 
-
-//	@Override
-//	public String toString() {
-//		return "customer " + getName();
-//	}
+	// @Override
+	// public String toString() {
+	// return "customer " + getName();
+	// }
 
 	@Override
 	public void setGui(CustomerGui g) {

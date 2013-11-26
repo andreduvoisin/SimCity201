@@ -16,6 +16,7 @@ import base.interfaces.Role;
 
 public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterface {
 	
+	static int totalHosts = 0;
 	Role subRole = null;
 	int restaurantID;
 	
