@@ -46,7 +46,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sRestaurantCounter = 0;
 	
 	//Roles and Job
-	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -116,6 +116,11 @@ public class PersonAgent extends Agent implements Person {
 					}
 					mJobRole.setPerson(this);
 					break;
+				case BANKCUSTOMER:
+					mJobRole = new BankCustomerRole(this);
+					mJobRole.setPerson(this);
+					BankPanel.getInstance().addPerson(mJobRole);
+					break;
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
 					break;
@@ -124,6 +129,11 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
 					break;
+				case RESTAURANTCUSTOMER:
+					mJobRole = new RestaurantCustomerRole(this);
+					((RestaurantBaseInterface) mJobRole).setPerson(this);
+					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
+					break;
 				case TRANSPORTATION:
 					mJobRole = SortingHat.getTransportationRole();
 					break;
@@ -131,21 +141,8 @@ public class PersonAgent extends Agent implements Person {
 					mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 					break;
 				case NONE:
-					mJobRole = new RestaurantCustomerRole(this);
-					((RestaurantBaseInterface) mJobRole).setPerson(this);
-					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 					break;
 			}
-		}else{
-			
-//			mJobRole = new RestaurantCustomerRole(this);
-//			((RestaurantBaseInterface) mJobRole).setPerson(this);
-//			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
-			
-			mJobRole = new BankCustomerRole(this);
-			mJobRole.setPerson(this);
-			BankPanel.getInstance().addPerson(mJobRole);
-
 		}
 		
 		boolean active = (mTimeShift == Time.GetShift());
