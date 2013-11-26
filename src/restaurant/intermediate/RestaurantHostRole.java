@@ -7,6 +7,9 @@ import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import restaurant.restaurant_xurex.RexHostRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -43,8 +46,13 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 				SmilehamAnimationPanel.addPerson((SmilehamHostRole) subRole);
 				break;
 			case 6: //angelica
+				subRole = RestaurantPanel_at.getInstance().mHost;
+				subRole.setPerson(mPerson);
 				break;
 			case 7: //rex
+				subRole = RexAnimationPanel.getHost();
+				subRole.setPerson(super.mPerson);
+				RexAnimationPanel.addPerson((RexHostRole)subRole);
 				break;
 		}
 	}

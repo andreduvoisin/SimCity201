@@ -40,27 +40,26 @@ public class SortingHat {
 		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
 		//Bank
-		sRoleLocations.put(new BankMasterTellerRole(null), ContactList.cBANK_LOCATION);
-		sRoleLocations.put(new BankGuardRole(null), ContactList.cBANK_LOCATION);
+		sRoleLocations.put(new BankMasterTellerRole(null), ContactList.cBANK_DOOR);
+		sRoleLocations.put(new BankGuardRole(null), ContactList.cBANK_DOOR);
 		for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
-			sRoleLocations.put(new BankTellerRole(null), ContactList.cBANK_LOCATION);
+			sRoleLocations.put(new BankTellerRole(null), ContactList.cBANK_DOOR);
 		}
 		
 		//Market
-		sRoleLocations.put(new MarketCashierRole(null,EnumMarketType.FOOD), ContactList.cMARKET_LOCATION);
-		sRoleLocations.put(new MarketDeliveryTruckRole(null), ContactList.cMARKET_LOCATION);
+		sRoleLocations.put(new MarketCashierRole(null,EnumMarketType.FOOD), ContactList.cMARKET_DOOR);
+		sRoleLocations.put(new MarketDeliveryTruckRole(null), ContactList.cMARKET_DOOR);
 		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
-			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_LOCATION);
+			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_DOOR);
 		}
 
 		//Restaurants
-		
-		for (int iRestaurantNum = 4; iRestaurantNum < 6; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
-			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+		for (int iRestaurantNum = 5; iRestaurantNum < 6; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
+			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-				sRoleLocations.put(new RestaurantWaiterRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
+				sRoleLocations.put(new RestaurantWaiterRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			}
 		}
 		

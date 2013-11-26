@@ -18,11 +18,16 @@ public class MarketOrder {
 	public MarketWorker mWorker;
 	public MarketCashier mCashier;
 	public MarketDeliveryTruck mDeliveryTruck;
+	public int mRestaurantNumber;
 	
 	public MarketOrder(Map<EnumItemType, Integer> items, Role person) {
 		mItems = items;
 		mPersonRole = person;
 		mStatus = EnumOrderStatus.CARTED;
 		mEvent = EnumOrderEvent.NONE;
+	}
+	
+	public void setRestaurantNumber(int n) {
+		mRestaurantNumber = n;
 	}
 }

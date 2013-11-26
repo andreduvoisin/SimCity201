@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import test.mock.PersonGuiInterface;
 import astar.AStarNode;
 import astar.AStarTraversal;
 import astar.Position;
@@ -15,7 +16,7 @@ import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 
-public class CityPerson extends CityComponent{
+public class CityPerson extends CityComponent implements PersonGuiInterface {
 	
 	private String name = "";
 	PersonAgent mPerson = null;
@@ -56,8 +57,8 @@ public class CityPerson extends CityComponent{
 //		setUpAStar();
 //	}
 	
-	public CityPerson(PersonAgent person, SimCityGui gui) {
-		super(0,0, Color.ORANGE, person.getName());
+	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
+		super(x, y, Color.ORANGE, person.getName());
 		rectangle = new Rectangle(0, 0, 5, 5);
 		mPerson = person;
 		this.gui = gui;

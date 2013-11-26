@@ -18,8 +18,8 @@ public class MockDeliveryTruck extends Mock implements MarketDeliveryTruck {
 	}
 	
 /** Animation Functions and Messages */
-	public void msgAnimationAtRestaurant(String r) {
-		log.add(new LoggedEvent("Received msgAnimationAtRestaurant for " + r));
+	public void msgAnimationAtRestaurant(int n) {
+		log.add(new LoggedEvent("Received msgAnimationAtRestaurant for " + n));
 		inTransit.release();
 	}
 	
@@ -37,8 +37,8 @@ public class MockDeliveryTruck extends Mock implements MarketDeliveryTruck {
 		mDeliveryTruckGui = g;
 	}
 	
-	public void DoGoToRestaurant(String restaurant) {
-		mDeliveryTruckGui.DoGoToRestaurant(restaurant);
+	public void DoGoToRestaurant(int n) {
+		mDeliveryTruckGui.DoGoToRestaurant(n);
 	}
 	
 	public void DoGoToMarket() {

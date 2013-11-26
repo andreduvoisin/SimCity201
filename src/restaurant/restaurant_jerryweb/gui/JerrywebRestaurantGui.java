@@ -1,6 +1,6 @@
 package  restaurant.restaurant_jerryweb.gui;
 
-import  restaurant.restaurant_jerryweb.CustomerRole;
+import  restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 
 import javax.swing.*;
 
@@ -25,7 +25,7 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */    
-    private RestaurantPanel restPanel = new RestaurantPanel(this);
+    private JerrywebRestaurantPanel restPanel = new JerrywebRestaurantPanel(this);
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;
@@ -118,8 +118,8 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
         stateCB.setVisible(true);
         currentPerson = person;
        
-        if (person instanceof CustomerRole) {
-            CustomerRole customer = (CustomerRole) person;
+        if (person instanceof JerrywebCustomerRole) {
+            JerrywebCustomerRole customer = (JerrywebCustomerRole) person;
             stateCB.setText("Hungry?");
           //Should checkmark be there? 
 
@@ -141,8 +141,8 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == stateCB) {
     	//if( restPanel.getListPanel() ){
-            if (currentPerson instanceof CustomerRole) {
-                CustomerRole c = (CustomerRole) currentPerson;
+            if (currentPerson instanceof JerrywebCustomerRole) {
+                JerrywebCustomerRole c = (JerrywebCustomerRole) currentPerson;
                 c.getGui().setHungry();
                 stateCB.setEnabled(false);
             }
@@ -153,8 +153,8 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
     
     public void originalChbx() {
 
-            if (currentPerson instanceof CustomerRole) {
-                CustomerRole c = (CustomerRole) currentPerson;
+            if (currentPerson instanceof JerrywebCustomerRole) {
+                JerrywebCustomerRole c = (JerrywebCustomerRole) currentPerson;
                 c.getGui().setHungry();
                 stateCB.setEnabled(false);
             }
@@ -167,9 +167,9 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(CustomerRole c) {
-        if (currentPerson instanceof CustomerRole) {
-            CustomerRole cust = (CustomerRole) currentPerson;
+    public void setCustomerEnabled(JerrywebCustomerRole c) {
+        if (currentPerson instanceof JerrywebCustomerRole) {
+            JerrywebCustomerRole cust = (JerrywebCustomerRole) currentPerson;
             if (c.equals(cust)) {
             	restPanel.getLpChbx().setEnabled(true);
             	restPanel.getLpChbx().setSelected(false);

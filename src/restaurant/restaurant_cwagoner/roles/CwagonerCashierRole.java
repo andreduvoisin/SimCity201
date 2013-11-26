@@ -1,6 +1,7 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import base.Agent;
+import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.interfaces.*;
 import restaurant.restaurant_cwagoner.test.mock.*;
 
@@ -9,9 +10,11 @@ import java.util.*;
 /**
  * Restaurant cashier agent.
  */
-public class CwagonerCashierRole extends Agent implements CwagonerCashier {
+public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	
-	public CwagonerCashierRole() {
+	public CwagonerCashierRole(Person person) {
+		super(person);
+
 		PriceList.put("Steak",		8.0);
 		PriceList.put("Chicken",	6.0);
 		PriceList.put("Salad",		2.0);
@@ -218,7 +221,7 @@ public class CwagonerCashierRole extends Agent implements CwagonerCashier {
 	// Accessors
 	
 	public String getName() {
-		return "Cashier";
+		return "CwagonerCashier " + mPerson.getName();
 	}
 	
 	// Classes

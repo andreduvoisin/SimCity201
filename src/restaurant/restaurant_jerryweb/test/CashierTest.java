@@ -2,9 +2,9 @@ package restaurant.restaurant_jerryweb.test;
 
 import java.util.Map;
 
-import restaurant.restaurant_jerryweb.CashierRole;
-import restaurant.restaurant_jerryweb.CashierRole.mBillState;
-import restaurant.restaurant_jerryweb.CookRole;
+import restaurant.restaurant_jerryweb.JerrywebCashierRole;
+import restaurant.restaurant_jerryweb.JerrywebCashierRole.mBillState;
+import restaurant.restaurant_jerryweb.JerrywebCookRole;
 //import restaurant.CashierAgent.cashierBillState;
 //import restaurant.WaiterAgent.Bill;
 import restaurant.restaurant_jerryweb.test.mock.MockCustomer;
@@ -23,7 +23,7 @@ import junit.framework.*;
 public class CashierTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
-	CashierRole cashier;
+	JerrywebCashierRole cashier;
 	MockWaiter waiter;
 	
 	MockCustomer customer;
@@ -35,7 +35,7 @@ public class CashierTest extends TestCase
 	MockMarket market2;
 	MockMarket market3;
 	
-	CookRole cook;
+	JerrywebCookRole cook;
 	
 	/**
 	 * This method is run before each test. You can use it to instantiate the class variables
@@ -43,7 +43,7 @@ public class CashierTest extends TestCase
 	 */
 	public void setUp() throws Exception{
 		super.setUp();		
-		cashier = new CashierRole("cashier");		
+		cashier = new JerrywebCashierRole("cashier");		
 		customer = new MockCustomer("mock customer");
 		customer1 = new MockCustomer("mock customer1");
 		customer2 = new MockCustomer("mock customer2");
@@ -52,7 +52,7 @@ public class CashierTest extends TestCase
 		market = new MockMarket("K-Mart");
 		market2 = new MockMarket("Sams Club");
 		market3 = new MockMarket("Albertson's");
-		cook = new CookRole("Cook");
+		cook = new JerrywebCookRole("Cook");
 	}	
 
 	/**
