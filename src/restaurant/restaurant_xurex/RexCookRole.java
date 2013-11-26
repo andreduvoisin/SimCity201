@@ -80,10 +80,10 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	//CONSTRUCTORS
 	private void initializeInventory(){
 		//Food Constructor(String food, Low Threshold, Initial Quantity, Capacity, Cook Time)//
-		Inventory.put("Steak", 	 new Food("Steak",   5, 10, 15, 15));
-		Inventory.put("Chicken", new Food("Chicken", 5, 10, 15, 10));
-		Inventory.put("Salad", 	 new Food("Salad",   5, 2, 15, 5));
-		Inventory.put("Pizza",	 new Food("Pizza",   5, 10, 15, 20));
+		Inventory.put("Steak", 	 new Food("Steak",   5, 50, 15, 15));
+		Inventory.put("Chicken", new Food("Chicken", 5, 50, 15, 10));
+		Inventory.put("Salad", 	 new Food("Salad",   5, 50, 15, 5));
+		Inventory.put("Pizza",	 new Food("Pizza",   5, 50, 15, 20));
 	}
 	public RexCookRole(){
 		super();

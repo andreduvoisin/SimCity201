@@ -64,10 +64,11 @@ public class RexRestaurantGui extends CityCard implements ActionListener {
         setLayout(new GridLayout (1,2));
         
         Dimension animationDim = new Dimension(500, 500);
+        /*
 		animationPanel.setPreferredSize(animationDim);
 		animationPanel.setMinimumSize(animationDim);
 		animationPanel.setMaximumSize(animationDim);
-		add(animationPanel);
+		add(animationPanel);*/
     	/*
         Dimension restDim = new Dimension(550, (int) (WINDOWY));
         restPanel.setPreferredSize(restDim);

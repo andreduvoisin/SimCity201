@@ -11,8 +11,8 @@ public class CwagonerWaiterGui implements CwagonerGui {
 
 	private static int waiterNum = 0;
 
-    private CwagonerWaiterRole agent = null;
-    CwagonerRestaurantGui RestaurantGui = null;
+    private CwagonerWaiterRole agent;
+    CwagonerRestaurantGui RestaurantGui;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
     						movingToCashier, onBreak }
@@ -33,8 +33,8 @@ public class CwagonerWaiterGui implements CwagonerGui {
         RestaurantGui = g;
         waiterNum++;
 
-        position.mX = destination.mX = homePos.mX;
-        position.mY = destination.mY = homePos.mY;
+        position = new Location(homePos.mX, homePos.mY);
+        destination = new Location(homePos.mX, homePos.mY);
     }
 
     public void updatePosition() {

@@ -39,9 +39,9 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     private static Vector<Waiter> waiters = new Vector<Waiter>();
     private static Vector<Customer> customers = new Vector<Customer>();
     //Initial
-    private static Host host = new RexHostRole();
-    private static Cook cook = new RexCookRole(); 
-    private static Cashier cashier = new RexCashierRole();
+    public static RexHostRole host = new RexHostRole();
+    public static RexCookRole cook = new RexCookRole(); 
+    public static RexCashierRole cashier = new RexCashierRole();
     
     private CookGui cookGui = new CookGui(cook);
 
@@ -76,6 +76,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         setVisible(true);
         instance = this;
         
+        cookGui.setAnimationPanel(this);
         cook.setGui(cookGui);
         guis.add(cookGui);
         //bufferSize = this.getSize();
@@ -185,11 +186,16 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	guis.remove(gui);
     }
     
+    public void removeCustomer(Customer customer){
+    	customers.remove(customer);
+    }
+    
     public static void addPerson(BaseRole role) {
     	if (role instanceof RexCustomerRole){
     		RexCustomerRole customer = (RexCustomerRole) role;
     		customers.add(customer);
-    		customer.gotHungry();
+    		//customer.gotHungry();
+    		((RexCustomerRole) role).getGui().setHungry();
     	}
     	else if (role instanceof RexWaiterRole1){
     		RexWaiterRole1 waiter = (RexWaiterRole1) role;

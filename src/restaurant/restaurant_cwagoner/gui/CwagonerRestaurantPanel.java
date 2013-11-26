@@ -1,6 +1,8 @@
 package restaurant.restaurant_cwagoner.gui;
 
 import restaurant.restaurant_cwagoner.roles.*;
+import base.PersonAgent;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -16,9 +18,9 @@ public class CwagonerRestaurantPanel extends JPanel {
 
     private CwagonerRestaurantGui mainGui; // Reference to main GUI
     
-    private CwagonerHostRole host = new CwagonerHostRole();
-    private CwagonerCashierRole cashier = new CwagonerCashierRole();
-    private CwagonerCookRole cook = new CwagonerCookRole();
+    public CwagonerHostRole host = new CwagonerHostRole();
+    public CwagonerCashierRole cashier = new CwagonerCashierRole();
+    public CwagonerCookRole cook = new CwagonerCookRole();
     private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
     private List<CwagonerWaiterRole> Waiters = new ArrayList<CwagonerWaiterRole>();
 
@@ -50,32 +52,22 @@ public class CwagonerRestaurantPanel extends JPanel {
      * @param name name of person
      */
     public void addPerson(Role subRole) {
-    	Person person = subRole.getPerson();
 
-    	if (person instanceof CwagonerCustomerRole) {
-    		CwagonerCustomerRole c = new CwagonerCustomerRole(person);	
-    		c.setHost(host);
-    		c.setCashier(cashier);
-    		CwagonerCustomerGui g = new CwagonerCustomerGui(c, mainGui);
-    		c.setGui(g);
-    		
-    		Customers.add(c);
-
-    		mainGui.animationPanel.addGui(g);
+    	if (subRole instanceof CwagonerCustomerRole) {
+    		((CwagonerCustomerRole) subRole).setHost(host);
+    		((CwagonerCustomerRole) subRole).setCashier(cashier);
+    		((CwagonerCustomerRole) subRole).setGui(new CwagonerCustomerGui((CwagonerCustomerRole) subRole, mainGui));	
+    		((CwagonerCustomerRole) subRole).getGui().setPresent(true);
+    		Customers.add((CwagonerCustomerRole) subRole);
+    		mainGui.animationPanel.addGui(((CwagonerCustomerRole) subRole).getGui());
     	}
-    	
-    	else if (person instanceof CwagonerWaiterRole) {
-    		CwagonerWaiterRole w = new CwagonerWaiterRole(person);
-    		w.setHost(host);
-    		w.setCook(cook);
-    		w.setCashier(cashier);
-    		CwagonerWaiterGui g = new CwagonerWaiterGui(w, mainGui);
-    		w.setGui(g);
-    		
-    		mainGui.animationPanel.addGui(g);
-    		Waiters.add(w);
-    		
-    		host.addWaiter(w);
+    	else if (subRole instanceof CwagonerWaiterRole) {
+    		((CwagonerWaiterRole) subRole).setHost(host);
+    		((CwagonerWaiterRole) subRole).setCashier(cashier);
+    		((CwagonerWaiterRole) subRole).setGui(new CwagonerWaiterGui((CwagonerWaiterRole) subRole, mainGui));	
+    		Waiters.add((CwagonerWaiterRole) subRole);
+    		mainGui.animationPanel.addGui(((CwagonerWaiterRole) subRole).getGui());
     	}
+    	// CHASE add other roles
     }
 }
