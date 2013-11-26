@@ -37,7 +37,7 @@ public class ListPanel extends JPanel implements ActionListener {
 
 	private JTextField personName = new JTextField(12);
 
-	private RestaurantPanel restPanel;
+	private DavidRestaurantPanel restPanel;
 
 	/**
 	 * Constructor for ListPanel. Sets up all the gui
@@ -47,7 +47,7 @@ public class ListPanel extends JPanel implements ActionListener {
 	 * @param type
 	 *            indicates if this is for customers or waiters
 	 */
-	public ListPanel(RestaurantPanel rp, String type) {
+	public ListPanel(DavidRestaurantPanel rp, String type) {
 		restPanel = rp;
 		this.type = type;
 

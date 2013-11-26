@@ -9,7 +9,7 @@ import base.Location;
 
 public class CityBank extends CityComponent {
 	private String bankName = "";
-	private int BANKWIDTH = 200;
+	private int BANKWIDTH = 190;
 	private int BANKHEIGHT = 80; 
 
 	public CityBank(int x, int y) {

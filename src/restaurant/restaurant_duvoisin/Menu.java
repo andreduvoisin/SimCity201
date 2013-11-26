@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class Menu {
 	// Array of Items
-	Map<String, Double> menuItems = new HashMap<String, Double>();
+	public Map<String, Double> menuItems = new HashMap<String, Double>();
 	
 	public Menu() {
 		menuItems.put("salad", 5.99);

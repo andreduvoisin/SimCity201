@@ -1,7 +1,7 @@
 package restaurant.restaurant_davidmca.test;
 
 import junit.framework.TestCase;
-import restaurant.restaurant_davidmca.roles.CookRole;
+import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_davidmca.test.mock.MockCustomer;
 import restaurant.restaurant_davidmca.test.mock.MockWaiter;
 
@@ -10,7 +10,7 @@ public class CookTest extends TestCase {
 	MockCustomer customer1;
 	MockCustomer customer2;
 	MockCustomer customer3;
-	CookRole cook;
+	DavidCookRole cook;
 
 	public void setUp() throws Exception {
 		super.setUp();
@@ -18,7 +18,7 @@ public class CookTest extends TestCase {
 		customer1 = new MockCustomer("c1");
 		customer2= new MockCustomer("c2");
 		customer3 = new MockCustomer("c3");
-		cook = new CookRole("Cook", 5);
+		cook = new DavidCookRole("Cook", 5);
 	}
 
 	public void testSingleCustomer() {

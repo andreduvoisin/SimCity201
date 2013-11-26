@@ -2,12 +2,12 @@ package restaurant.restaurant_davidmca.test;
 
 import junit.framework.TestCase;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_davidmca.test.mock.MockCook;
 import restaurant.restaurant_davidmca.test.mock.MockCustomer;
 
 public class SharedWaiterTest extends TestCase {
-	WaiterRoleShared waiter;
+	DavidWaiterRoleShared waiter;
 	MockCustomer customer1;
 	MockCustomer customer2;
 	MockCustomer customer3;
@@ -15,7 +15,7 @@ public class SharedWaiterTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		waiter = new WaiterRoleShared("Shared Data Waiter");
+		waiter = new DavidWaiterRoleShared("Shared Data Waiter");
 		customer1 = new MockCustomer("c1");
 		customer2 = new MockCustomer("c2");
 		customer3 = new MockCustomer("c3");

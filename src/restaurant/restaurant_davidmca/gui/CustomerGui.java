@@ -14,7 +14,7 @@ public class CustomerGui implements Gui {
 	private static int CustomerSize = 20;
 	private String labelText = "";
 
-	RestaurantGui gui;
+	DavidRestaurantGui gui;
 
 	private int xPos, yPos;
 	private int xHome, yHome;
@@ -26,7 +26,7 @@ public class CustomerGui implements Gui {
 
 	private Command command = Command.noCommand;
 
-	public CustomerGui(Customer c, RestaurantGui gui, int home) {
+	public CustomerGui(Customer c, DavidRestaurantGui gui, int home) {
 		role = c;
 		xPos = -40;
 		yPos = -40;

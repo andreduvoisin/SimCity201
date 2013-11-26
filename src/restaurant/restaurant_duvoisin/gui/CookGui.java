@@ -1,15 +1,13 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.CookAgent;
-import restaurant.restaurant_duvoisin.WaiterAgent;
+import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class CookGui implements Gui {
-
-    private CookAgent agent = null;
+    private AndreCookRole agent = null;
     static final int COOKSIZE = 20;	// Size of each side of host (square).
     static final int STARTPOS_X = 225;
     static final int STARTPOS_Y = 328;
@@ -31,6 +29,9 @@ public class CookGui implements Gui {
     static final int PLATE_Y = 325;
     static final int INCREMENT = 20;
     
+    static final int STAND_X = 385 - COOKSIZE;
+	static final int STAND_Y = 329;
+    
     int currentPosition;
     String currentOrder;
     
@@ -40,7 +41,7 @@ public class CookGui implements Gui {
     Map<Integer, String> grilledItems = new HashMap<Integer, String>();
     Map<Integer, String> platedItems = new HashMap<Integer, String>();
 
-    public CookGui(CookAgent agent, RestaurantGui gui) {
+    public CookGui(AndreCookRole agent, RestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         currentOrder = "";
@@ -74,6 +75,10 @@ public class CookGui implements Gui {
         	agent.msgAtPlating();
         	if(!currentOrder.equals(""))
         		platedItems.put(currentPosition, currentOrder);
+        }
+        if (xPos == xDestination && yPos == yDestination
+        		& (xDestination == STAND_X) & (yDestination == STAND_Y)) {
+        	agent.msgAtStand();
         }
     }
 
@@ -118,6 +123,11 @@ public class CookGui implements Gui {
     	currentPosition = position;
     	xDestination = PLATE_X + (INCREMENT * position);
     	yDestination = PLATE_Y;
+    }
+    
+    public void DoGoToRevolvingStand() {
+    	xDestination = STAND_X;
+    	yDestination = STAND_Y;
     }
 
     public int getXPos() {

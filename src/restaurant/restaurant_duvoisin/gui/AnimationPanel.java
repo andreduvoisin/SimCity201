@@ -1,17 +1,19 @@
 package restaurant.restaurant_duvoisin.gui;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class AnimationPanel extends JPanel implements ActionListener {
 
     private final int WINDOWX = 900;
     private final int WINDOWY = 900;
-    static final int TIMERDELAY = 20;
+    static final int TIMERDELAY = 5;
     static final int IDLE_X = 10;
     static final int IDLE_Y = 52;
     static final int IDLE_SIZE_X = 30;
@@ -29,6 +31,11 @@ public class AnimationPanel extends JPanel implements ActionListener {
     static final int FRIDGE_X = 425;
     static final int FRIDGE_Y = 328;
     static final int FRIDGESIZE = 20;
+    
+    static final int STAND_X = 385;
+    static final int STAND_Y = 305;
+    static final int STAND_SIZE = 24;
+    
     /*
     private Image bufferImage;
     private Dimension bufferSize;
@@ -88,6 +95,10 @@ public class AnimationPanel extends JPanel implements ActionListener {
         // Refrigerator
         g2.setColor(Color.BLACK);
         g2.fillRect(FRIDGE_X, FRIDGE_Y, FRIDGESIZE, FRIDGESIZE);
+        
+        // Stand
+        g2.setColor(Color.PINK);
+        g2.fillRect(STAND_X, STAND_Y, STAND_SIZE, STAND_SIZE);
 
         for(Gui gui : guis) {
             if (gui.isPresent()) {
