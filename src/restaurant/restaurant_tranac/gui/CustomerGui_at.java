@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 public class CustomerGui_at implements Gui{
 
 	private RestaurantCustomerRole_at agent = null;
-	private boolean isPresent = false;
+	private boolean isPresent = true;
 	private String food;
 
 	RestaurantPanel_at gui;
