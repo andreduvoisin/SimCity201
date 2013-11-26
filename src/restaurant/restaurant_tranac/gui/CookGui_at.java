@@ -169,7 +169,6 @@ public class CookGui_at implements Gui {
     public void FoodPickedUp(int n, String c) {
 
     	String s = getString(c);
-    	System.out.println(s);
     	synchronized(foodItems) {
     	for(Food f : foodItems) {
     		if(f.f.equals(s) && f.s == FoodState.Plating) {

@@ -183,7 +183,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         private void payAndProcessOrder(MarketInvoice i) {
                 i.mPayment = i.mTotal;
                 
-                //ANGELICA: HACK FOR UNIT TESTING
                	ContactList.SendPayment(mPerson.getSSN(), i.mMarketBankNumber, i.mPayment);
                 
                 for(EnumItemType item : mCannotFulfill.keySet()) {

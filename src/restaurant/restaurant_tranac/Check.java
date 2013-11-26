@@ -9,14 +9,16 @@ public class Check {
 	double amount;
 	double payment;
 	double change;
+	private int restaurantSSN;
 	
-	public Check(Waiter w, Customer c, String i) {
+	public Check(Waiter w, Customer c, String i, int n) {
 		waiter = w;
 		customer = c;
 		item = i;
 		amount = 0;
 		payment = 0;
 		change = 0;
+		restaurantSSN = n;
 	}
 	
 	public void setAmount(double a) {
@@ -29,6 +31,10 @@ public class Check {
 	
 	public void setChange(double c) {
 		change = c;
+	}
+	
+	public void setSSN(int s) {
+		setSsn(s);
 	}
 	
 	public void addOutstandingBill(double a) {
@@ -57,5 +63,13 @@ public class Check {
 	
 	public Customer getCustomer() {
 		return customer;
+	}
+
+	public int getSsn() {
+		return restaurantSSN;
+	}
+
+	public void setSsn(int ssn) {
+		this.restaurantSSN = ssn;
 	}
 }

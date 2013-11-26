@@ -5,6 +5,7 @@ import restaurant.restaurant_tranac.Menu;
 import restaurant.restaurant_tranac.gui.CashierGui_at;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
+import base.ContactList;
 
 import java.util.*;
 
@@ -16,21 +17,21 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 	private Menu menu = new Menu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
 	public List<Bill> bills = Collections.synchronizedList(new ArrayList<Bill>());
-	public double money;	//ANGELICA: switch to bank ssn?
+	//public double money;	//ANGELICA: switch to bank ssn?
 	
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
 	public RestaurantCashierRole_at() {
 		super();
-		money = 5000;	//ANGELICA: no longer initialize
+	//	money = 5000;	//ANGELICA: no longer initialize
 	}
 
 	/** Messages */
 
 	public void msgComputeCheck(Waiter w, Customer c, String item) {
 		synchronized(checks) {
-			checks.add(new MyCheck(w,c,item));
+			checks.add(new MyCheck(w,c,item, getSSN()));
 		}
 		stateChanged();
 	}
@@ -75,7 +76,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 				}
 			}
 		}
-		synchronized(bills) {
+/*		synchronized(bills) {
 			for(Bill b : bills) {
 				if(b.s == BillStatus.Outstanding) {
 					tryToFulfillBill(b);
@@ -90,7 +91,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 				}
 			}
 		}
-		return false;
+*/		return false;
 	}
 
 	/** Actions */
@@ -123,7 +124,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 		
 		//check if customer paid the entire bill
 		if(p >= a) {
-			money += p;
+	//		money += p;
 			c.c.setChange(p-a);
 			c.s = CheckStatus.Finished;
 			Do("Thank you and come again!");
@@ -136,7 +137,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 			customer.msgPayNextTime();
 		}
 	}
-	
+	/*
 	private void tryToFulfillBill(Bill b) {
 		Do("Trying to fulfill outstanding bill.");
 		if(money >= b.cost) {
@@ -164,7 +165,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 		b.s = BillStatus.Fulfilled;
 		b.market.msgHereIsPayment(b.item, b.cost);
 	}
-	
+	*/
 	/** Utilities */
 
 	public String getName() {
@@ -187,17 +188,14 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 		return bills.size();
 	}
 
-	public void setMoney(double m) {
-		money = m;
-	}
 	/** Classes */
 	
 	public class MyCheck {
 		Check c;
 		CheckStatus s;
 		
-		MyCheck(Waiter w, Customer c, String i) {
-			this.c = new Check(w,c,i);
+		MyCheck(Waiter w, Customer c, String i, int n) {
+			this.c = new Check(w,c,i,n);
 			s = CheckStatus.Pending;
 		}
 		

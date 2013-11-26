@@ -6,6 +6,7 @@ import restaurant.restaurant_tranac.gui.CustomerGui_at;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
+import base.ContactList;
 import base.interfaces.Person;
 
 import java.util.ArrayList;
@@ -406,6 +407,7 @@ public class RestaurantCustomerRole_at extends BaseRole implements Customer{
 		//check if customer can afford payment. if he can't, he must be a flake
 		if(check.getAmount() <= money) {
 			money -= check.getAmount();
+			ContactList.SendPayment(getSSN(), check.getSsn(), check.getAmount());
 			cashier.msgHereIsPayment(this, check.getAmount());
 		}
 		else {
