@@ -1,5 +1,7 @@
 package test;
 
+import market.roles.MarketCustomerRole;
+import market.test.mock.MockCustomer;
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import test.mock.MockPersonGui;
@@ -8,6 +10,7 @@ import junit.framework.TestCase;
 import bank.test.mock.MockTellerRole;
 import base.Event;
 import base.Event.EnumEventType;
+import base.Item.EnumItemType;
 import base.PersonAgent;
 import base.Time;
 import base.interfaces.Role;
@@ -17,6 +20,7 @@ public class PersonAgentTest extends TestCase {
 	PersonAgent mPerson;
 	HousingBase mRenterRole;
 	MockTellerRole mTellerRole;
+	MockCustomer mCustomerRole;
 	MockPersonGui mGui;
 	
 	
@@ -25,6 +29,7 @@ public class PersonAgentTest extends TestCase {
 		mPerson = new PersonAgent();
 		mRenterRole = new MockRenterRole();
 		mTellerRole = new MockTellerRole();
+		mCustomerRole = new MockCustomer();
 		mGui = new MockPersonGui();
 		mPerson.setGui(mGui);
 	}
@@ -60,7 +65,7 @@ public class PersonAgentTest extends TestCase {
 		mPerson.setName("Joe");
 		assertTrue("Person is named Joe", mPerson.getName().equals("Joe"));
 		
-		//Paea: processEvent() -> goToJob()
+		//paea: processEvent() -> goToJob()
 		assertTrue("paea: processEvent", mPerson.pickAndExecuteAnAction());
 		
 		assertTrue("New event in 24", mPerson.mEvents.first().mTime == 24);
@@ -91,7 +96,29 @@ public class PersonAgentTest extends TestCase {
 		assertTrue("paea: return false (break)", !mPerson.pickAndExecuteAnAction());
 		
 		//New Event after Job
-		//mPerson.mEvents.add(new Event())
+		mPerson.mEvents.add(new Event(EnumEventType.GET_CAR, 0));
+		assertTrue("Person now has two events", mPerson.mEvents.size() == 2);
+		mPerson.mRoles.put(mCustomerRole, false);
+		assertTrue("Person now has two roles", mPerson.mRoles.size() == 2);
+		assertTrue("Desired items is empty", mPerson.mItemsDesired.isEmpty());
+		mGui.log.clear();
+		
+		//paea: processEvent() -> getCar()
+		assertTrue("paea: processEvent()", mPerson.pickAndExecuteAnAction());
+		
+		assertTrue("Person moved to location", mGui.log.containsString("DoGoToDestination"));
+		assertTrue("Person is invisible at location", mGui.log.containsString("setPresent: false"));
+		assertTrue("Role finished is false", mPerson.mRoleFinished == false);
+		assertTrue("Market Customer role is active", mPerson.mRoles.get(mCustomerRole) == true);
+		assertTrue("Person now has a car?", mPerson.mHasCar);
+		assertTrue("There is a car in desired items", mPerson.mItemsDesired.get(EnumItemType.CAR) == 1);
+		
+		//Conditions for continual PAEA
+		assertTrue("Should continually paea role", mPerson.pickAndExecuteAnAction());
+		assertTrue("Should continually paea role", mPerson.pickAndExecuteAnAction());
+		assertTrue("Should continually paea role", mPerson.pickAndExecuteAnAction());
+		
+		
 		
 		/*mPerson.mEvents.add(new Event(EnumEventType.EAT, 0));
 		assertTrue("Person has one event", mPerson.mEvents.size() == 1);
