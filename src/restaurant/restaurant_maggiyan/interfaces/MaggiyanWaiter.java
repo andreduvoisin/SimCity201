@@ -56,6 +56,12 @@ public interface MaggiyanWaiter {
 	public void msgWaiterFree();
 
 	public MaggiyanWaiterGui getGui();
+	
+	public void setHost(MaggiyanHost h); 
+	
+	public void setCook(MaggiyanCook c);
+	
+	public void setCashier(MaggiyanCashier c); 
 
 
 }

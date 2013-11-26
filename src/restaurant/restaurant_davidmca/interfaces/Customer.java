@@ -39,7 +39,11 @@ public interface Customer {
 
 	public abstract void setCashier(Cashier ca);
 
-	public abstract void msgDoneAnimating();
+	public abstract void msgAnimationFinishedGoToWaitingArea();
+
+	public abstract void msgAnimationFinishedLeaveRestaurant();
+
+	public abstract void msgAnimationFinishedGoToSeat();
 
 
 }

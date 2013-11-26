@@ -10,7 +10,7 @@ import java.util.Map;
 public class CustomerGui implements Gui{
 
         private RexCustomerRole role = null;
-        private boolean isPresent = false;
+        private boolean isPresent = true;
         private boolean isHungry = false;
         
         public RexAnimationPanel animationPanel;
@@ -70,7 +70,7 @@ public class CustomerGui implements Gui{
         }
 
         public void draw(Graphics2D g) {
-                g.setColor(Color.GREEN);
+                g.setColor(Color.BLACK);
                 g.fillRect(xPos, yPos, custDim, custDim);
         }
 
@@ -85,9 +85,8 @@ public class CustomerGui implements Gui{
         public boolean isHungry() {
                 return isHungry;
         }
-
-        public void setPresent(boolean p) {
-                isPresent = p;
+        public void setPresent(boolean present){
+        		isPresent = present;
         }
 
         public void DoGoToSeat(int seatnumber) {
@@ -117,6 +116,10 @@ public class CustomerGui implements Gui{
                         xDestination = LINE_X  + (LINE_INCREMENT * positionInLine);
                         yDestination = LINE_Y;
                 }
+        }
+        
+        public void setRole(RexCustomerRole role){
+        	this.role = role;
         }
         
         public void SetCustomerEnabled() {

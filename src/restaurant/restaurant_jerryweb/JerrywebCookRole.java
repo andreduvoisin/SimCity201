@@ -90,7 +90,7 @@ public class JerrywebCookRole extends BaseRole {
 			public void run() {
 				
 				moveRevlovingStandOrders();
-				//stateChanged();
+//				stateChanged(); //JERRY: 1 Add this back in with your restaurant
 			}
 		},
 		25000);

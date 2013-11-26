@@ -1,14 +1,11 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
-import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
-import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
@@ -22,6 +19,8 @@ import base.interfaces.Role;
 
 public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseInterface {
 
+	static int totalCustomers = 0;
+	
 	Role subRole = null;
 	int restaurantID;
 
@@ -30,6 +29,8 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public void setRestaurant(int restaurantID) {
+
+		// TODO ALL add if statements for all the other restaurants
 
 		switch(restaurantID){
 			case 0: //andre
@@ -60,9 +61,13 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
 				break;
 			case 7: //rex
-				subRole = new RexCustomerRole();
+				RexCustomerRole temp = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getHost());
+				temp.setName("Joe");
+				subRole = temp;
+				//creates CustomerGui and adds to animationPanels
 				subRole.setPerson(super.mPerson);
 				RexAnimationPanel.addPerson((RexCustomerRole)subRole);
+				//calls gotHungry when addPerson for CustomerRole
 				break;
 
 		}
@@ -73,6 +78,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public boolean pickAndExecuteAnAction() {
+	//	print("generic pAEA called");
 		return subRole.pickAndExecuteAnAction();
 	}
 }

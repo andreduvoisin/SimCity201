@@ -11,9 +11,9 @@ public class WaiterGui implements Gui {
 
 	private Waiter role = null;
 
-	private int xPos, yPos = -20;
+	private int xPos, yPos = 20;
 	private int xHome, yHome;
-	private int xDestination = -20, yDestination = -20;
+	private int xDestination = 20, yDestination = 20;
 	private static int WaiterSize = 20;
 	private String labelText = "";
 
@@ -75,7 +75,7 @@ public class WaiterGui implements Gui {
 	public void DoGoToCustomer(int loc) {
 		currentlyAnimating = true;
 		xDestination = loc;
-		yDestination = -10;
+		yDestination = 30;
 	}
 
 	public void DoGoToKitchen() {

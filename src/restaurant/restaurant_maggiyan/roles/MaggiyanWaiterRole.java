@@ -77,26 +77,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 			this.name = p.getName();
 		}
 	}
-	
-	public MaggiyanWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
-		super();
-		
-		this.name = name;
-		this.wState = WaiterState.free; 
-		this.cook = cook; 
-		this.host = host; 
-
-	}
-	
-	public MaggiyanWaiterRole(Person p, MaggiyanCook cook, MaggiyanHost host) {
-		super(p);
-		
-		this.name = p.getName();
-		this.wState = WaiterState.free; 
-		this.cook = cook; 
-		this.host = host; 
-
-	}
 
 	public String getMaitreDName() {
 		return name;
@@ -104,6 +84,14 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setCook(MaggiyanCook c){
+		cook = c; 
+	}
+	
+	public void setHost(MaggiyanHost h){
+		host = h; 
 	}
 	
 	public void setCashier(MaggiyanCashier c){
@@ -217,6 +205,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	public void msgAnimationReady(){
 		animationReady.release();
+		print("Welp. Hope this works"); 
 		stateChanged(); 
 	}
 	
@@ -264,8 +253,8 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	public boolean pickAndExecuteAnAction() {
 		try{
 			if(justGotToWork){
-				startWork();
 				justGotToWork = false;
+				startWork();
 				return true;
 			}
 			
@@ -394,7 +383,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	private void seatCustomer(MyCustomer myCust) {
 		host.msgWaiterBusy(this); 
-		print("Customer table num in seatcustomer: " + myCust.table);
+		print("Seating Customer at table " + myCust.table); 
 		waiterGui.DoGoToSeatCustomer(); 
 		try{
 			print("1");
@@ -425,7 +414,8 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		//Leave customer while customer orders
 		//waiterIsReady = true;
 		try{
-			animationReady.acquire(); 
+			animationReady.acquire();
+			 
 			//waiterReady.acquire(); 
 
 		}
@@ -479,13 +469,14 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	private void giveCustomerFood(MyCustomer mc){
 		host.msgWaiterBusy(this); 
-		DoGiveOrderToCook();
+		waiterGui.DoGoToCook();
+		print("Getting customer food");
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 
 		}
 		catch(Exception e){
-			print("giveCustomerFood exception"); 
+			print ("giveOrderToCook exception");
 		}
 		cook.msgPickedUpOrder(mc.orderPos); 
 		waiterGui.showCustomerOrder(mc.choice);

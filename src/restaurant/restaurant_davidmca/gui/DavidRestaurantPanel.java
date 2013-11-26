@@ -1,7 +1,6 @@
 package restaurant.restaurant_davidmca.gui;
 
 import java.awt.BorderLayout;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.Vector;
 
@@ -25,7 +24,10 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
  */
 public class DavidRestaurantPanel extends JPanel {
 	static DavidRestaurantPanel instance;
-
+	static int customerCount = 0;
+	final static int customerMax = 100;
+	static int waiterCount = 0;
+	final static int waiterMax = 100;
 	// animation grid
 	static int gridX = 25;
 	static int gridY = 35;
@@ -130,32 +132,41 @@ public class DavidRestaurantPanel extends JPanel {
 	 */
 
 	public void addCustomer(DavidCustomerRole cust) {
-		CustomerGui g = new CustomerGui(cust, gui, host.getCustomerIndex());
-		gui.animationPanel.addGui(g);
-		cust.setHost(host);
-		cust.setCashier(cash);
-		cust.setGui(g);
-		g.setHungry();
-		customers.add(cust);
+		if (customerCount < customerMax) {
+			CustomerGui g = new CustomerGui(cust, gui, customerCount);
+			customerCount++;
+			System.out.println(customerCount);
+			gui.animationPanel.addGui(g);
+			cust.setHost(host);
+			cust.setCashier(cash);
+			cust.setGui(g);
+			g.setHungry();
+			customers.add(cust);
+		}
 	}
 
 	public void addWaiter(DavidWaiterRole waiter) {
-		System.out.println("Waiter added");
-		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
-		gui.animationPanel.addGui(g);
-		waiter.setHost(host);
-		waiter.setGui(g);
-		host.addWaiter(waiter);
-		waiter.setCashier(cash);
+		if (waiterCount < waiterMax) {
+			WaiterGui g = new WaiterGui(waiter, waiterCount);
+			waiterCount++;
+			gui.animationPanel.addGui(g);
+			waiter.setHost(host);
+			waiter.setGui(g);
+			host.addWaiter(waiter);
+			waiter.setCashier(cash);
+		}
 	}
 
 	public void addSharedWaiter(DavidWaiterRoleShared waiter) {
-		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
-		gui.animationPanel.addGui(g);
-		waiter.setHost(host);
-		waiter.setGui(g);
-		host.addWaiter(waiter);
-		waiter.setCashier(cash);
+		if (waiterCount < waiterMax) {
+			WaiterGui g = new WaiterGui(waiter, waiterCount);
+			waiterCount++;
+			gui.animationPanel.addGui(g);
+			waiter.setHost(host);
+			waiter.setGui(g);
+			host.addWaiter(waiter);
+			waiter.setCashier(cash);
+		}
 	}
 
 	/*

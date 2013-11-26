@@ -34,8 +34,12 @@ public class Item {
 	
     public static EnumItemType stringToEnum(String t) {
         for(EnumItemType iType : EnumItemType.values()) {
-                if(iType.toString().equalsIgnoreCase(t))
+        	System.out.println(iType.toString() + " " + t);
+
+                if(iType.toString().equalsIgnoreCase(t)) {
+                	System.out.println("Yay. " + iType.toString() + " " + t);
                         return iType;
+                }
         }
         return null;
     }

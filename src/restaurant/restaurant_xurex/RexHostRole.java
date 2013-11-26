@@ -144,10 +144,11 @@ public class RexHostRole extends BaseRole implements Host {
 				fullRestaurant = false;
 			}
 		}
+		/*
 		if(fullRestaurant){
 			informCustomers();
 		}
-		else{
+		else{*/
 		for (Table table : tables) {
 			if (!table.isOccupied()) {
 				for(Waiter waiter:waiters){
@@ -162,7 +163,7 @@ public class RexHostRole extends BaseRole implements Host {
 					}
 				}
 			}
-		}
+		//}
 		}
 		return false;
 	}

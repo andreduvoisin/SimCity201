@@ -29,6 +29,12 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
+	static RexAnimationPanel instance;
+	
+	public static RexAnimationPanel getInstance(){
+		return instance;
+	}
+	
 //	ROLES
     private static Vector<Waiter> waiters = new Vector<Waiter>();
     private static Vector<Customer> customers = new Vector<Customer>();
@@ -50,7 +56,6 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     static final int CASHIERY = 50;
     
     Graphics2D g2 = null; 
-    private boolean p = false;
     //private Image bufferImage;
     //private Dimension bufferSize;
     private List<Gui> guis = new ArrayList<Gui>();
@@ -69,6 +74,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
+        instance = this;
         
         cook.setGui(cookGui);
         guis.add(cookGui);
@@ -118,13 +124,11 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2.drawRect(75,  225, TABLEDIM, TABLEDIM);
         g2.drawRect(75,  250, TABLEDIM, TABLEDIM);
 
-        if(!p){
-        	for(Gui gui : guis) {
-            	if (gui.isPresent()) {
-                	gui.updatePosition();
-            	}
+    	for(Gui gui : guis) {
+        	if (gui.isPresent()) {
+            	gui.updatePosition();
         	}
-        }
+    	}
         
         for(Gui gui : guis) {
             if (gui.isPresent()) {
