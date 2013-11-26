@@ -3,11 +3,11 @@ package restaurant.restaurant_cwagoner.interfaces;
 import java.awt.Dimension;
 import java.util.HashMap;
 
-public interface Customer {
+public interface CwagonerCustomer {
 
 	public abstract void msgGuiGotHungry();
 	public abstract void msgRestaurantFull();
-	public abstract void msgSitAtTable(Waiter w, int table, HashMap<String, Integer> menuOptions);
+	public abstract void msgSitAtTable(CwagonerWaiter w, int table, HashMap<String, Integer> menuOptions);
 	public abstract void msgWhatDoYouWant();
 	public abstract void msgPickSomethingElse(HashMap<String, Integer> newMenu);
 	public abstract void msgHeresYourFood();

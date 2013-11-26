@@ -1,14 +1,14 @@
 package restaurant.restaurant_cwagoner.gui;
 
 
-import restaurant.restaurant_cwagoner.WaiterAgent;
+import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 
 import java.awt.*;
 
-public class WaiterGui implements Gui {
+public class CwagonerWaiterGui implements CwagonerGui {
 
-    private WaiterAgent agent = null;
-    RestaurantGui restaurantGui = null;
+    private CwagonerWaiterRole agent = null;
+    CwagonerRestaurantGui RestaurantGui = null;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
     						movingToCashier, onBreak }
@@ -24,10 +24,10 @@ public class WaiterGui implements Gui {
     	    	xPos, yPos,
     	    	xDestination, yDestination;
 
-    public WaiterGui(WaiterAgent w, RestaurantGui g, int waiterNum) {
+    public CwagonerWaiterGui(CwagonerWaiterRole w, CwagonerRestaurantGui g, int waiterNum) {
     	state = State.idle;
         agent = w;
-        restaurantGui = g;
+        RestaurantGui = g;
         HOME_X = 100 + waiterNum * (size + 10);
         HOME_Y = size;
         xPos = xDestination = HOME_X;
@@ -79,7 +79,7 @@ public class WaiterGui implements Gui {
     // and returning to table to take order or deliver food
     public void DoGoToTable(int tableNum) {
     	state = State.movingToTable;
-    	Dimension tableLoc = restaurantGui.getTableLocation(tableNum);
+    	Dimension tableLoc = RestaurantGui.getTableLocation(tableNum);
         xDestination = tableLoc.width + size;
         yDestination = tableLoc.height - size;
     }
@@ -115,21 +115,5 @@ public class WaiterGui implements Gui {
     // Removes food from waiter's GUI (dropped off at customer)
     public void DoClearFood() {
     	food = "";
-    }
-    
-    public void onBreak(boolean allowed) {
-    	if (allowed) {
-	    	state = State.onBreak;
-	    	xDestination = HOME_X;
-	    	yDestination = HOME_Y;
-    	}
-    	else {
-        	state = State.idle;
-    	}
-    	restaurantGui.waiterOnBreak(allowed, (WaiterAgent) agent);
-    }
-    
-    public boolean isOnBreak() {
-    	return state.equals(State.onBreak);
     }
 }

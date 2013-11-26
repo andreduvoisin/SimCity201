@@ -2,12 +2,12 @@ package restaurant.restaurant_cwagoner.test.mock;
 
 import restaurant.restaurant_cwagoner.interfaces.*;
 
-public class MockWaiter extends Mock implements Waiter {
+public class MockWaiter extends Mock implements CwagonerWaiter {
 
 	/**
 	 * Reference to the Cashier under test that can be set by the unit test.
 	 */
-	public Cashier cashier;
+	public CwagonerCashier cwagonerCashier;
 
 	public EventLog log = new EventLog();
 
@@ -21,17 +21,17 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 	
 	// From host
-	public void msgSeatCustomer(Customer c, int table) {
+	public void msgSeatCustomer(CwagonerCustomer c, int table) {
 		//print("Received msgSeatCustomer(" + c.getName() + ", table " + table + ")");
 	}
 	
 	// From customer
-	public void msgReadyToOrder(Customer c) {
+	public void msgReadyToOrder(CwagonerCustomer c) {
 		//print("Received msgReadyToOrder(" + c.getName() + ")");
 	}
 	
 	// From customer
-	public void msgHeresMyOrder(Customer c, String choice) {
+	public void msgHeresMyOrder(CwagonerCustomer c, String choice) {
 		//print("Received msgHeresMyOrder(" + c.getName() + ", " + choice + ")");
 	}
 	
@@ -46,17 +46,17 @@ public class MockWaiter extends Mock implements Waiter {
 	}
 	
 	// From customer
-	public void msgCheckPlease(Customer c) {
+	public void msgCheckPlease(CwagonerCustomer c) {
 		//print("Received msgCheckPlease(" + c.getName() + ")");
 	}
 	
 	// From cashier
-	public void msgCheckReady(Customer c) {
+	public void msgCheckReady(CwagonerCustomer c) {
 		//print("Received msgCheckReady(" + c.getName() + ")");
 	}
 	
 	// From customer
-	public void msgLeavingTable(Customer c) {
+	public void msgLeavingTable(CwagonerCustomer c) {
 		//print("Received msgLeavingTable(" + c.getName() + ")");
 	}
 	

@@ -1,6 +1,6 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
-import restaurant.restaurant_cwagoner.agent.Agent;
+import base.Agent;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
 import java.util.*;
@@ -10,9 +10,9 @@ import java.util.*;
  * Decides which empty table each customer will occupy.
  * Assigns waiting customers to a waiter
  */
-public class HostAgent extends Agent implements Host {
+public class CwagonerHostRole extends Agent implements CwagonerHost {
 
-	public HostAgent(String hostName) {
+	public CwagonerHostRole(String hostName) {
 		name = hostName;
 	}
 	
@@ -35,7 +35,7 @@ public class HostAgent extends Agent implements Host {
 	 * Indicates to the host that he/she is hungry.
 	 * @param cust CustomerAgent that gets placed on host's customer list.
 	 */
-	public void msgIWantFood(Customer c) {
+	public void msgIWantFood(CwagonerCustomer c) {
 		print("Received msgIWantFood(" + c.getName() + ")");
 
 		Customers.add(new MyCustomer(c));
@@ -48,7 +48,7 @@ public class HostAgent extends Agent implements Host {
 	 * @param c CustomerAgent who has left the restaurant
 	 * @param tableNum Table number of that customer
 	 */
-	public void msgCustomerGoneTableEmpty(Customer c, int tableNum) {
+	public void msgCustomerGoneTableEmpty(CwagonerCustomer c, int tableNum) {
 		print("Received msgCustomerGoneTableEmpty(" + c.getName() + ", table " + tableNum + ")");
 		
 		synchronized(Customers) {
@@ -66,7 +66,7 @@ public class HostAgent extends Agent implements Host {
 	/** From a waiter asking to go on break ("Ask for break" button has been triggered)
 	 * @param w WaiterAgent asking for a break
 	 */
-	public void msgCanIGoOnBreak(Waiter w) {
+	public void msgCanIGoOnBreak(CwagonerWaiter w) {
 		print("Received msgCanIGoOnBreak(" + w.getName() + ")");
 		
 		synchronized(Waiters) {
@@ -80,7 +80,7 @@ public class HostAgent extends Agent implements Host {
 		}
 	}
 	
-	public void msgOffBreak(Waiter w) {
+	public void msgOffBreak(CwagonerWaiter w) {
 		print("Received msgOffBreak(" + w.getName() + ")");
 		
 		synchronized(Waiters) {
@@ -219,7 +219,7 @@ public class HostAgent extends Agent implements Host {
 		return name;
 	}
 	
-	public void addWaiter(WaiterAgent w) {
+	public void addWaiter(CwagonerWaiterRole w) {
 		Waiters.add(new MyWaiter(w));
 		stateChanged();
 	}
@@ -256,22 +256,22 @@ public class HostAgent extends Agent implements Host {
 	 * and those who have left the restaurant. 
 	 */
 	private static class MyCustomer {
-		Customer customer;
+		CwagonerCustomer customer;
 		public enum State { waiting, toldRestaurantFull, assignedToWaiter }
 		State state;
 		
-		MyCustomer(Customer c) {
+		MyCustomer(CwagonerCustomer c) {
 			customer = c;
 			state = State.waiting;
 		}
 	}
 	
 	private static class MyWaiter {
-		Waiter waiter;
+		CwagonerWaiter waiter;
 		public enum State { working, askedForBreak, onBreak }
 		State state;
 		
-		MyWaiter(Waiter w) {
+		MyWaiter(CwagonerWaiter w) {
 			waiter = w;
 			state = State.working;
 		}

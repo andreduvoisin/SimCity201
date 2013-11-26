@@ -1,7 +1,7 @@
-package restaurant.restaurant_cwagoner;
+package restaurant.restaurant_cwagoner.roles;
 
-import restaurant.restaurant_cwagoner.agent.Agent;
-import restaurant.restaurant_cwagoner.gui.CustomerGui;
+import base.Agent;
+import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
 import java.awt.Dimension;
@@ -10,14 +10,14 @@ import java.util.*;
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer {
+public class CwagonerCustomerRole extends Agent implements CwagonerCustomer {
 	
 	// DATA
 	
 	private String name;
-	private Host host;
-	private Waiter waiter;
-	private Cashier cashier;
+	private CwagonerHost host;
+	private CwagonerWaiter waiter;
+	private CwagonerCashier cwagonerCashier;
 	
 	private int hungerLevel = 5;        // determines length of meal
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
@@ -27,7 +27,7 @@ public class CustomerAgent extends Agent implements Customer {
 	private Random rand = new Random();
 	
 	Timer customerTimer = new Timer();
-	private CustomerGui gui;
+	private CwagonerCustomerGui gui;
 
 	public enum State { doingNothing, goingToRestaurant, inRestaurant, waitingToBeSeated,
 						goingToSeat, lookingAtMenu, readyToOrder, ordering, ordered,
@@ -44,7 +44,7 @@ public class CustomerAgent extends Agent implements Customer {
 	 * Constructor for CustomerAgent class
 	 * @param name Customer's name
 	 */
-	public CustomerAgent(String customerName) {
+	public CwagonerCustomerRole(String customerName) {
 		name = customerName;
 		moneyOwed = 0;
 	}
@@ -78,7 +78,7 @@ public class CustomerAgent extends Agent implements Customer {
 	}
 
 	// From waiter this customer is assigned to
-	public void msgSitAtTable(Waiter w, int table, HashMap<String, Integer> menuOptions) {
+	public void msgSitAtTable(CwagonerWaiter w, int table, HashMap<String, Integer> menuOptions) {
 		print("Received msgSitAtTable(" + w.getName() + ", table " + table + ")");
 		
 		waiter = w;
@@ -429,7 +429,7 @@ public class CustomerAgent extends Agent implements Customer {
 		print("TellCashierReady()");
 
 		state = State.waitingAtCashier;
-		cashier.msgReadyToPay(this);
+		cwagonerCashier.msgReadyToPay(this);
 	}
 	
 	private void PayCashier() {
@@ -447,7 +447,7 @@ public class CustomerAgent extends Agent implements Customer {
 		}
 		
 		state = State.paid;
-		cashier.msgPayment(this, amountPaid);
+		cwagonerCashier.msgPayment(this, amountPaid);
 		stateChanged();
 	}
 	
@@ -477,19 +477,19 @@ public class CustomerAgent extends Agent implements Customer {
 		// need to eat until hunger lever is > 5?
 	}
 
-	public void setGui(CustomerGui g) {
+	public void setGui(CwagonerCustomerGui g) {
 		gui = g;
 	}
 
-	public CustomerGui getGui() {
+	public CwagonerCustomerGui getGui() {
 		return gui;
 	}
 	
-	public void setCashier(Cashier c) {
-		cashier = c;
+	public void setCashier(CwagonerCashier c) {
+		cwagonerCashier = c;
 	}
 	
-	public void setHost(Host h) {
+	public void setHost(CwagonerHost h) {
 		host = h;
 	}
 	

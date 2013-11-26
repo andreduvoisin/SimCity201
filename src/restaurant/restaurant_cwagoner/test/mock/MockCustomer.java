@@ -6,12 +6,12 @@ import java.awt.Dimension;
 import java.util.HashMap;
 
 
-public class MockCustomer extends Mock implements Customer {
+public class MockCustomer extends Mock implements CwagonerCustomer {
 
 	/**
 	 * Reference to the Cashier under test that can be set by the unit test.
 	 */
-	public Cashier cashier;
+	public CwagonerCashier cwagonerCashier;
 
 	public EventLog log;
 
@@ -28,7 +28,7 @@ public class MockCustomer extends Mock implements Customer {
 		
 	}
 
-	public void msgSitAtTable(Waiter w, int table, HashMap<String, Integer> menuOptions) {
+	public void msgSitAtTable(CwagonerWaiter w, int table, HashMap<String, Integer> menuOptions) {
 		
 	}
 
@@ -61,17 +61,17 @@ public class MockCustomer extends Mock implements Customer {
 
         // Non-normative: customer doesn't have enough money
         if (name.toLowerCase().contains("thief")) {
-        	cashier.msgPayment(this, Math.floor(total - 1));
+        	cwagonerCashier.msgPayment(this, Math.floor(total - 1));
 
         }
         // Non-normative: customer overpays
         else if (name.toLowerCase().contains("rich")) {
-    		cashier.msgPayment(this, Math.ceil(total + 1));
+    		cwagonerCashier.msgPayment(this, Math.ceil(total + 1));
 
         }
         // Normative: pays correct amount
         else {
-        	cashier.msgPayment(this, total);
+        	cwagonerCashier.msgPayment(this, total);
         }
 	}
 
