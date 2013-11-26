@@ -2,6 +2,8 @@ package restaurant.restaurant_maggiyan.gui;
 
 import javax.swing.*;
 
+import base.Time;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +17,6 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 	private static int YPOS = 175; 
 	private static int GWIDTH = 50;
 	private static int GHEIGHT = 50; 
-	private static int FRAMESPEED = 5; 
 	
 	private static int CookingAreaX = 275;
 	
@@ -29,7 +30,7 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
         setVisible(true);
         setBackground(Color.white);
  
-    	Timer timer = new Timer(FRAMESPEED, this );
+    	Timer timer = new Timer(Time.cSYSCLK/40, this );
     	timer.start();
     }
 

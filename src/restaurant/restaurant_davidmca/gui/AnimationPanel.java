@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import base.Gui;
+import base.Time;
 
 public class AnimationPanel extends JPanel implements ActionListener {
 
@@ -25,7 +26,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
 		this.getSize();
 
-		Timer timer = new Timer(5, this);
+		Timer timer = new Timer(Time.cSYSCLK/40, this);
 		timer.start();
 	}
 

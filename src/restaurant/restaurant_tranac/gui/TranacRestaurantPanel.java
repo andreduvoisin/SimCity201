@@ -3,6 +3,7 @@ package restaurant.restaurant_tranac.gui;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -23,7 +24,6 @@ public class TranacRestaurantPanel extends CityCard implements ActionListener {
 	
 	private final int WINDOWX = 626;
 	private final int WINDOWY = 507;
-    private final int TIMERDELAY = 8;
     private BufferedImage background;
 
     private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
@@ -54,7 +54,7 @@ public class TranacRestaurantPanel extends CityCard implements ActionListener {
     	guis.add(cookGui);
     	guis.add(cashierGui);
  
-    	Timer timer = new Timer(TIMERDELAY, this );
+    	Timer timer = new Timer(Time.cSYSCLK/25, this );
     	timer.start();
     	
     	background = null;
