@@ -45,6 +45,10 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     	
     	this.instance = this;
     	
+    	mCashier.setGui(cashierGui);
+    	mCook.setGui(cookGui);
+    	mHost.setGui(hostGui);
+    	
     	guis.add(hostGui);
     	guis.add(cookGui);
     	guis.add(cashierGui);
@@ -91,6 +95,10 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     
     public void addCustomer(RestaurantCustomerRole_at c) {
     	mCustomers.add(c);
+    	c.setHost(mHost);
+    	c.setCashier(mCashier);
+
+    	c.msgGotHungry();
     }
     
     public void addWaiter(RestaurantWaiterRole_at w) {
