@@ -65,7 +65,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	
 	private String name;
 	
-	public Map<String, Food> Inventory = new HashMap<String, Food>();
+	public Map<String, Integer> cookTimes = new HashMap<String, Integer>();
 	private Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
 	
 	private Map<Integer, Boolean> Kitchen = new HashMap<Integer, Boolean>();
@@ -78,16 +78,23 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	public List<Market> markets = new ArrayList<Market>();
 
 	//CONSTRUCTORS
-	private void initializeInventory(){
+	/*private void initializeInventory(){
 		//Food Constructor(String food, Low Threshold, Initial Quantity, Capacity, Cook Time)//
 		Inventory.put("Steak", 	 new Food("Steak",   5, 50, 15, 15));
 		Inventory.put("Chicken", new Food("Chicken", 5, 50, 15, 10));
 		Inventory.put("Salad", 	 new Food("Salad",   5, 50, 15, 5));
 		Inventory.put("Pizza",	 new Food("Pizza",   5, 50, 15, 20));
+	}*/
+	private void makeCookTimes(){
+		cookTimes.put("Steak", 10);
+		cookTimes.put("Chicken", 10);
+		cookTimes.put("Salad", 5);
+		cookTimes.put("Pizza", 15);
 	}
 	public RexCookRole(){
 		super();
-		initializeInventory();
+		//initializeInventory();
+		makeCookTimes();
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
@@ -96,29 +103,8 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	public RexCookRole(String name, Person person) {
 		super(person);
 		this.name = name;
-		initializeInventory();
-		for(int i=1; i<11; i++){
-			Kitchen.put(new Integer(i), false);
-		}
-		//runTimer();
-	}
-	public RexCookRole(String name, String food, Person person) {
-		super(person);
-		this.name = name;
-		initializeInventory();
-		Food changedQuantity = Inventory.get(food);
-		changedQuantity.quantity = 1;
-		if(food.equals("Steak"))
-			Inventory.put("Steak", changedQuantity);
-		else if(food.equals("Chicken"))
-			Inventory.put("Chicken", changedQuantity);
-		else if(food.equals("Salad"))
-			Inventory.put("Salad", changedQuantity);
-		else if(food.equals("Pizza"))
-			Inventory.put("Pizza", changedQuantity);
-		else{
-			//String food is not a food type
-		}
+		//initializeInventory();
+		makeCookTimes();
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
@@ -202,14 +188,14 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 			}
 		}
 		}
-		synchronized(marketOrders){
+		/*synchronized(marketOrders){
 		for (MarketOrder marketOrder : marketOrders){
 			if(marketOrder.state == MarketOrderState.ready){
 				RefillInventory(marketOrder);
 				return true;
 			}
 		}
-		}
+		}*/
 		
 		synchronized(revolvingStand){
 			if(!revolvingStand.isEmpty()){
@@ -236,15 +222,15 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	}
 	
 	private void TryToCookOrder(CookOrder o){ 
-		Food f = Inventory.get(o.choice);
+		/*Food f = Inventory.get(o.choice);
 		if(f.quantity == 0){
 			Do("Out of Food message sent"); 
 			o.w.OutOfFood(o.table, o.choice);
 			orders.remove(o); return;
 		}
-		f.quantity--;
+		f.quantity--;*/
 		//gui.updateInventory();
-		CheckInventory();
+		//CheckInventory();
 		o.s = OrderState.cooking;
 		DoCooking(o);
 		final CookOrder temp = o; //Need final variable to use in TimerTask.run()
@@ -252,10 +238,10 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 			public void run(){
 				TimerDone(temp);
 			}
-		}, Inventory.get(o.choice).cookingTime*500);
+		}, cookTimes.get(o.choice)*500);
 	}
 	
-	private void RefillInventory(MarketOrder mo){
+	/*private void RefillInventory(MarketOrder mo){
 		mo.state = MarketOrderState.completed;
 		for(String food : mo.provided.keySet()){
 			Food newValue = Inventory.get(food);
@@ -264,7 +250,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 			Inventory.put(food, newValue);
 		}
 		//gui.updateInventory();
-	}
+	}*/
 	
 	//ANIMATIONS
 	private void DoServe(CookOrder o){
@@ -315,7 +301,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	}
 	
 	//UTILITIES
-	private void CheckInventory(){
+	/*private void CheckInventory(){
 		boolean foodNeeded = false;
 		for(Food f : Inventory.values()){
 			if(f.quantity<=f.low&&f.orderState==false){
@@ -330,15 +316,15 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 			marketOrders.add(new MarketOrder(markets.get(0)));
 			markets.get(0).HereIsOrder(foodToOrder);
 		}
-	}
+	}*/
 	
 	public void addMarket(Market market){
 		markets.add(market);
 	}
 
-	public int getQuantity(String food){
+	/*public int getQuantity(String food){
 		return Inventory.get(food).quantity;
-	}
+	}*/
 	public String getName() {
 		return name;
 	}

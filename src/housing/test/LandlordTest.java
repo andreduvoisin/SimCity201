@@ -1,5 +1,7 @@
 package housing.test;
 
+import city.gui.CityHousing;
+import city.gui.SimCityGui;
 import housing.roles.HousingLandlordRole;
 import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
@@ -23,6 +25,11 @@ public class LandlordTest extends TestCase {
 	MockRenter mHousingRenter1;
 	MockRenter mHousingRenter2;
 	MockRenter mHousingRenter3;
+	
+	SimCityGui city;
+	CityHousing mHouse1;
+	CityHousing mHouse2;
+	
 
 	/**
 	 * This method is run before each test. You can use it to instantiate the
@@ -32,16 +39,23 @@ public class LandlordTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		
+		city = new SimCityGui(); 
+		
 		//Landlord 
 		mPerson = new PersonAgent();
 		mHousingLandlord = new HousingLandlordRole();
 		mPerson.addRole((Role) mHousingLandlord, true); 
+		mHousingLandlord.setPerson(mPerson);
 	
 		//Mock Interfaces 
 		mHousingRenter1 = new MockRenter("Mockrenter1");
 		mHousingRenter2 = new MockRenter("Mockrenter2");
 		mHousingRenter3 = new MockRenter("Mockrenter3");
-			
+		
+		mHouse1 = new CityHousing(city, 10, 10, 1, 300.00);
+		mHouse2 = new CityHousing(city, 20, 20, 2, 200.00);
+		mHousingLandlord.mHousesList.add(mHouse1);
+		mHousingLandlord.mHousesList.add(mHouse2);
 	}
 	
 	public void testNormativeScenario1()
@@ -56,7 +70,7 @@ public class LandlordTest extends TestCase {
 		assertTrue("HousingLandlord has 2 potential houses for rent", mHousingLandlord.mHousesList.size() == 2);
 		assertTrue("HousingRenter1 has an empty log", mHousingRenter1.log.size() == 0); 
 		
-		//HousingRenter1 messages HousingLandlord to apply for housing
+//		//HousingRenter1 messages HousingLandlord to apply for housing
 		mHousingLandlord.msgIWouldLikeToLiveHere(mHousingRenter1, 500.00, 1);
 		
 		//Check 1
@@ -139,7 +153,7 @@ public class LandlordTest extends TestCase {
 		mHousingLandlord.msgHereIsPayment(1, 100.00);
 		mHousingLandlord.mTimeToCheckRent = true; 	
 		
-		//Check 3: HousingLandlord properly conducts second rent collection 
+		//Check 3: HousingLandlord properly conducts third rent collection 
 		mHousingRenter1.log.clear(); //clear in order to check whether or not HousingLandlord receives RentDue again
 		assertTrue("PAEA: return true and execute action", mHousingLandlord.pickAndExecuteAnAction());
 		assertTrue("HousingRenter1 should receive another message", mHousingRenter1.log.size() ==  1); 

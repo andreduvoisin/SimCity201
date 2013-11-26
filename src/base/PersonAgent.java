@@ -34,6 +34,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityHousing;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 
@@ -351,7 +352,7 @@ public class PersonAgent extends Agent implements Person {
 			respondToRSVP(); //SHANE: 1 respond to rsvp (same)
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
-			throwParty(); //SHANE: 1 throw party
+			throwParty((EventParty)event); //SHANE: 1 throw party
 			int inviteNextDelay = 24*mSSN;
 			EventParty party = (EventParty) event;
 			mEvents.add(new EventParty(party, inviteNextDelay + 2));
@@ -461,10 +462,18 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
+		
+		//REX SHANE: add customerRole and gui to bank animation panel
 	}
 
-	private void throwParty() {
-
+	private void throwParty(EventParty event) {
+		mPersonGui.DoGoToDestination(event.mLocation);
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+		
+		mHouseRole.gui.setPresent(true);
+		event.mHost.getHouse().mPanel.addGui((Gui)mHouseRole.gui);
+		mHouseRole.gui.DoParty();
 	}
 
 	private void inviteToParty() {
@@ -625,5 +634,10 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setGui(MockPersonGui gui) {
 		mPersonGui = gui;
+	}
+
+	@Override
+	public CityHousing getHouse() {
+		return mHouseRole.mHouse;
 	}
 }

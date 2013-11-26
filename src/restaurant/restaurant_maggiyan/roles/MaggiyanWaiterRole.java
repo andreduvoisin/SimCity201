@@ -204,6 +204,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	}
 	
 	public void msgAnimationReady(){
+		print("does release"); 
 		animationReady.release();
 		stateChanged(); 
 	}
@@ -385,7 +386,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		print("Seating Customer at table " + myCust.table); 
 		waiterGui.DoGoToSeatCustomer(); 
 		try{
-			print("1");
 			animationReady.acquire(); 
 		}
 		catch(Exception e){
@@ -393,7 +393,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		} 
 		myCust.c.msgFollowMe(this, menu, myCust.table);
 		try{
-			print("2");
 			animationReady.acquire(); 
 		}
 		catch(Exception e){
