@@ -92,7 +92,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		runTimer();
+		//runTimer();
 	}
 	public RexCookRole(String name, Person person) {
 		super(person);
@@ -101,7 +101,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		runTimer();
+		//runTimer();
 	}
 	public RexCookRole(String name, String food, Person person) {
 		super(person);
@@ -123,7 +123,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		runTimer();
+		//runTimer();
 	}
 
 	// MESSAGES
