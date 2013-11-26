@@ -16,5 +16,5 @@ public interface MarketCustomer{
 	
 	public abstract void msgAnimationAtWaitingArea();
 	
-	public abstract void msgAnimationLeftRestaurant();
+	public abstract void msgAnimationLeftMarket();
 }

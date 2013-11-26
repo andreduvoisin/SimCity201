@@ -33,12 +33,12 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 	}
 	
 	public void msgAnimationAtWaitingArea() {
-		log.add(new LoggedEvent("Received msgAniamtionAtWaitingArea."));
+		log.add(new LoggedEvent("Received msgAnimationAtWaitingArea."));
 		inTransit.release();
 	}
 	
-	public void msgAnimationLeftRestaurant() {
-		log.add(new LoggedEvent("Received msgAnimationLeftRestaurant."));
+	public void msgAnimationLeftMarket() {
+		log.add(new LoggedEvent("Received msgAnimationLeftMarket."));
 		inTransit.release();
 	}
 	

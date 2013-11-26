@@ -67,7 +67,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		inTransit.release();
 	}
 	
-	public void msgAnimationLeftRestaurant() {
+	public void msgAnimationLeftMarket() {
 		inTransit.release();
 	}
 	

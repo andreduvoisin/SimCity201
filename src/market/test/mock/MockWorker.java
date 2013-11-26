@@ -32,7 +32,7 @@ public class MockWorker extends Mock implements MarketWorker {
 	}
 	
 	public void msgAnimationAtDeliveryTruck() {
-		log.add(new LoggedEvent("Receivd msgAnimationAtDeliveryTruck."));
+		log.add(new LoggedEvent("Received msgAnimationAtDeliveryTruck."));
 		inTransit.release();
 	}
 	

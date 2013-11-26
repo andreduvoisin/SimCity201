@@ -14,7 +14,7 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
 	private int xMarket = xMarketBase, yMarket = yMarketBase;
 	
 	private int xPos = 50, yPos = 50;
-	private int xDestination = xMarket, yDestination = yMarket;
+	private int xDestination = xStart, yDestination = yStart;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, goToRestaurant, leaveMarket};

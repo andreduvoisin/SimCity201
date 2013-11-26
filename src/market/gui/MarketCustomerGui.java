@@ -12,7 +12,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 	private static final int xWaitingArea = 70, yWaitingArea = 200;
 	
 	private int xPos = xStart, yPos = yStart;
-	private int xDestination = xMarket, yDestination = yMarket;
+	private int xDestination = xStart, yDestination = yStart;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, goToWaitingArea, leaveMarket};
@@ -46,7 +46,7 @@ public class MarketCustomerGui implements MarketBaseGui {
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftRestaurant();
+        		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
