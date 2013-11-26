@@ -2,6 +2,8 @@ package restaurant.restaurant_cwagoner.roles;
 
 import base.BaseRole;
 import base.interfaces.Person;
+import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
@@ -26,6 +28,30 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		DirectCookAccess = !(DirectCookAccess);
 	}
 
+	public CwagonerWaiterRole(Person person, CwagonerHostRole host,
+			CwagonerCookRole cook, CwagonerCashierRole cashier,
+			CwagonerRestaurantGui mainGui) {
+		super(person);
+		// Initialize menu
+		menu.put("Steak", 8);
+		menu.put("Chicken", 6);
+		menu.put("Salad", 2);
+		menu.put("Pizza", 4);
+		
+		accessCook = DirectCookAccess;
+		DirectCookAccess = !(DirectCookAccess);
+
+		this.host = host;
+		this.cook = cook;
+		this.cashier = cashier;
+
+		this.setGui(new CwagonerWaiterGui(this, mainGui));
+
+		mainGui.animationPanel.addGui(gui);
+
+		host.addWaiter(this);
+	}
+
 	public String getName() {
 		return "CwagonerWaiter " + mPerson.getName();
 	}
@@ -34,8 +60,8 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 	// DATA
 
 	CwagonerHost host;
-	CwagonerCook cwagonerCook;
-	CwagonerCashier cwagonerCashier;
+	CwagonerCook cook;
+	CwagonerCashier cashier;
 	
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
 	
@@ -247,7 +273,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		gui.DoGoToCashier();
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
-		cwagonerCashier.msgCustomerOrdered(this, c.customer, c.food);
+		cashier.msgCustomerOrdered(this, c.customer, c.food);
 		
 		gui.DoGoToTable(c.tableNum);
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
@@ -325,7 +351,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		}
 		else {
 			print("Messaging cook with order");
-			cwagonerCook.msgHeresAnOrder(this, c.tableNum, c.food);
+			cook.msgHeresAnOrder(this, c.tableNum, c.food);
 		}
 
 		c.state = AssignedCustomer.State.orderDeliveredToCook;
@@ -365,16 +391,16 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		gui = waiterGui;
 	}
 
-	public void setHost(CwagonerHost h) {
-		host = h;
+	public void setHost(CwagonerHost host) {
+		this.host = host;
 	}
 
-	public void setCook(CwagonerCook c) {
-		cwagonerCook = c;
+	public void setCook(CwagonerCook cook) {
+		this.cook = cook;
 	}
 	
-	public void setCashier(CwagonerCashier c) {
-		cwagonerCashier = c;
+	public void setCashier(CwagonerCashier cashier) {
+		this.cashier = cashier;
 	}
 
 	// For host to determine which waiter has fewest customers
@@ -387,6 +413,9 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		return Customers.get(i).customer.getName();
 	}
 
+	public CwagonerWaiterGui getGui() {
+		return gui;
+	}
 
 	// CLASSES
 	

@@ -45,7 +45,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
 		
 		mNum = sNum++;
 		//Creates unique position for WaiterGui
-		xBase = 200 + mNum;
+		xBase = 200 + mNum*25;
 		DoGoBase();
     }
 

@@ -10,9 +10,9 @@ import java.util.*;
 
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_tranac.gui.CookGui_at;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
-import restaurant.restaurant_tranac.roles.RestaurantCookRole_at;
+import restaurant.restaurant_tranac.gui.TranacCookGui;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 
@@ -53,10 +53,10 @@ public class CookCustomerTest extends TestCase {
  	 */
  	public void testTranacRestaurant() {
  	  //set up the test
- 		RestaurantPanel_at mPanel = new RestaurantPanel_at(null);
- 		CookGui_at mCookGui = new CookGui_at((RestaurantCookRole_at) mCookCustomer.subRole);
+ 		TranacRestaurantPanel mPanel = new TranacRestaurantPanel(null);
+ 		TranacCookGui mCookGui = new TranacCookGui((TranacRestaurantCookRole) mCookCustomer.subRole);
  		mCookCustomer.setRestaurant(6);
- 		RestaurantCookRole_at r = (RestaurantCookRole_at)(mCookCustomer.subRole);
+ 		TranacRestaurantCookRole r = (TranacRestaurantCookRole)(mCookCustomer.subRole);
  		r.setGui(mCookGui);
  		
  	//assert preconditions

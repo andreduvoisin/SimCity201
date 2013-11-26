@@ -28,7 +28,7 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
     	this.setBounds(0, 0, width, height);
         this.setPreferredSize(new Dimension(width, height));
 
-    	Timer timer = new Timer(12, this);
+    	Timer timer = new Timer(5, this);
     	timer.addActionListener(this);
     	timer.start();
     }

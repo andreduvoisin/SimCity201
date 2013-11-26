@@ -1,6 +1,8 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
+import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
@@ -11,8 +13,8 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
-import restaurant.restaurant_tranac.roles.RestaurantCustomerRole_at;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
 import restaurant.restaurant_xurex.RexCustomerRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
@@ -40,6 +42,8 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				AndreRestaurantPanel.getInstance().addPerson((AndreCustomerRole)subRole);
 				break;
 			case 1: //chase
+				subRole = new CwagonerCustomerRole(super.mPerson);
+				CwagonerRestaurantPanel.getInstance().addPerson(subRole);
 				break;
 			case 2: //jerry
 				subRole = new JerrywebCustomerRole(super.mPerson);
@@ -59,12 +63,13 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 				break;
 			case 6: //angelica
-				subRole = new RestaurantCustomerRole_at(mPerson);
-				RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
+				subRole = new TranacRestaurantCustomerRole(mPerson);
+				TranacRestaurantPanel.getInstance().addCustomer((TranacRestaurantCustomerRole) subRole);
 				break;
 			case 7: //rex
 				RexCustomerRole temp = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getHost());
 				temp.setName("Joe");
+				temp.setCashier(RexAnimationPanel.cashier);
 				subRole = temp;
 				//creates CustomerGui and adds to animationPanels
 				subRole.setPerson(super.mPerson);

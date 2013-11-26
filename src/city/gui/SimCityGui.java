@@ -7,12 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import base.ConfigParser;
-import base.Event;
-import base.Event.EnumEventType;
 import base.Time;
-import base.interfaces.Person;
-//import base.Time;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
@@ -23,9 +18,7 @@ public class SimCityGui extends JFrame {
 	CityControlPanel CP;
 	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
 	
-
-	public static int TESTNUM = 2; //ALL SHANE: 0TESTNUM
-	//public static int TESTNUM = 3; //ALL SHANE: 0TESTNUM
+	public static int TESTNUM = 1; //ALL SHANE: 0TESTNUM
 	
 	public static SimCityGui getInstance() {
 		return instance;
@@ -58,9 +51,6 @@ public class SimCityGui extends JFrame {
 			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
 			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
 			this.add(cityview, mGridBagConstraints);
-		
-		ConfigParser config = ConfigParser.getInstanceOf();
-		config.readFileCreatePersons(this);
 		
 //		Timer updateAnimationTimer = new Timer();
 //		updateAnimationTimer.scheduleAtFixedRate(new TimerTask() {
@@ -117,8 +107,8 @@ public class SimCityGui extends JFrame {
 //		testCook.addRole(cookRole, true);
 //		testCook.startThread();
 		
-		Person person = citypanel.masterPersonList.get(0);
-		person.msgAddEvent(new Event(EnumEventType.JOB, 0));
+//		Person person = citypanel.masterPersonList.get(0);
+//		person.msgAddEvent(new Event(EnumEventType.JOB, 0));
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
