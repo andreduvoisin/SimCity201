@@ -70,7 +70,7 @@ public class DavidCookRole extends BaseRole implements Cook {
 	boolean timeToCheckRevolvingStand = false;
 	TimerTask standTimerTask = new TimerTask() {
 		public void run() {
-//			CheckStand(); //SHANE DAVID: 1 PUT THIS BACK WHEN BUG IS FOUND
+			stateChanged();
 		}
 	};
 
@@ -155,6 +155,10 @@ public class DavidCookRole extends BaseRole implements Cook {
 	// Scheduler
 
 	public boolean pickAndExecuteAnAction() {
+		if (revolvingStand.size() > 0) {
+			CheckStand();
+			return true;
+		}
 		if (reorder) {
 			reorder = false;
 			DoOrderFood();
@@ -270,7 +274,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 	}
 
 	private void CheckStand() {
-		print("Checking Revolving Stand");
 		cookGui.setLabelText("Checking Revolving Stand");
 		cookGui.DoGoToPlating();
 		try {

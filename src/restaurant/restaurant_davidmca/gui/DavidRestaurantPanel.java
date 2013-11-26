@@ -25,9 +25,7 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 public class DavidRestaurantPanel extends JPanel {
 	static DavidRestaurantPanel instance;
 	static int customerCount = 0;
-	final static int customerMax = 100;
 	static int waiterCount = 0;
-	final static int waiterMax = 100;
 	// animation grid
 	static int gridX = 25;
 	static int gridY = 35;
@@ -132,7 +130,6 @@ public class DavidRestaurantPanel extends JPanel {
 	 */
 
 	public void addCustomer(DavidCustomerRole cust) {
-		if (customerCount < customerMax) {
 			CustomerGui g = new CustomerGui(cust, gui, customerCount);
 			customerCount++;
 			System.out.println(customerCount);
@@ -142,11 +139,9 @@ public class DavidRestaurantPanel extends JPanel {
 			cust.setGui(g);
 			g.setHungry();
 			customers.add(cust);
-		}
 	}
 
 	public void addWaiter(DavidWaiterRole waiter) {
-		if (waiterCount < waiterMax) {
 			WaiterGui g = new WaiterGui(waiter, waiterCount);
 			waiterCount++;
 			gui.animationPanel.addGui(g);
@@ -154,37 +149,18 @@ public class DavidRestaurantPanel extends JPanel {
 			waiter.setGui(g);
 			host.addWaiter(waiter);
 			waiter.setCashier(cash);
-		}
 	}
 
 	public void addSharedWaiter(DavidWaiterRoleShared waiter) {
-		if (waiterCount < waiterMax) {
 			WaiterGui g = new WaiterGui(waiter, waiterCount);
 			waiterCount++;
 			gui.animationPanel.addGui(g);
 			waiter.setHost(host);
+			waiter.setCook(cook);
 			waiter.setGui(g);
 			host.addWaiter(waiter);
 			waiter.setCashier(cash);
-		}
 	}
-
-	/*
-	 * public void addPerson(String type, String name, boolean isHungry) {
-	 * 
-	 * if (type.equals("Customers")) { CustomerRole c = new CustomerRole(name);
-	 * CustomerGui g = new CustomerGui(c, gui, host.getCustomerIndex());
-	 * 
-	 * gui.animationPanel.addGui(g); c.setHost(host); c.setCashier(cash);
-	 * c.setGui(g); customers.add(c); if (isHungry) { g.setHungry(); } }
-	 * 
-	 * if (type.equals("Waiters")) { int rn = new Random().nextInt(); Waiter w;
-	 * if (rn % 2 == 0) { w = new WaiterAgent(name); } else { w = new
-	 * WaiterRoleShared(name); ((WaiterRoleShared) w).setCook(cook); } WaiterGui
-	 * g = new WaiterGui(w, host.getWaitersList().size());
-	 * gui.animationPanel.addGui(g); w.setHost(host); w.setGui(g);
-	 * host.addWaiter(w); w.setCashier(cash); w.startThread(); } }
-	 */
 
 	public void addTable(int x, int y, int seats) {
 		Table newTable = new Table(host.tables.size() + 1, x, y, seats);
