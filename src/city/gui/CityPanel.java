@@ -11,6 +11,7 @@ import java.util.concurrent.Semaphore;
 
 import transportation.TransportationBusDispatch;
 import market.gui.MarketDeliveryTruckGui;
+import market.roles.MarketDeliveryTruckRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
@@ -117,9 +118,14 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
 
 		// Add bus
+
+/*		busDispatch = new TransportationBusDispatch(ContactList.cBUS_STOPS);
+		this.addMoving(busDispatch.getBusGui());
+
 		busDispatch = new TransportationBusDispatch(ContactList.cBUS_STOPS);
 		//this.addMoving(busDispatch.getBusGui());
 		busDispatch.startThread();
+*/
 
 		//Add Roads
 		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
