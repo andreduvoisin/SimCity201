@@ -15,6 +15,7 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
@@ -62,8 +63,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 1: //chase
 					break;
 				case 2: //jerry
-	//				subRole = JerrywebRestaurantPanel.getInstance().cook;
-	//				subRole.setPerson(super.mPerson);
+					subRole = JerrywebRestaurantPanel.getInstance().cook;
+					subRole.setPerson(super.mPerson);
 					break;
 				case 3: //maggi
 					 subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
@@ -72,7 +73,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 4: //david
                     subRole = DavidRestaurantPanel.getInstance().cook;
                     subRole.setPerson(super.mPerson);
-                    //ANGELICA: get restaurant SSN
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson);

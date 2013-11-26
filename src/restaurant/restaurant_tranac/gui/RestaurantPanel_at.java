@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -25,7 +26,7 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     private final int TIMERDELAY = 8;
     private BufferedImage background;
 
-    private List<Gui> guis = new ArrayList<Gui>();
+    private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     
     public RestaurantCashierRole_at mCashier = new RestaurantCashierRole_at();
     public RestaurantCookRole_at mCook = new RestaurantCookRole_at();
@@ -45,6 +46,10 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     	
     	this.instance = this;
     	
+    	mCashier.setGui(cashierGui);
+    	mCook.setGui(cookGui);
+    	mHost.setGui(hostGui);
+    	
     	guis.add(hostGui);
     	guis.add(cookGui);
     	guis.add(cashierGui);
@@ -63,12 +68,14 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
+		synchronized(guis) {
         for(Gui gui : guis) {
             if (gui.isPresent()) {
                 gui.updatePosition();
             }
         }
-        
+		}
+		
 		repaint();
 	}
 
@@ -78,19 +85,27 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
         if(background != null)
         	g2.drawImage(background,0,0,null);
 
+        synchronized(guis) {
         for(Gui gui : guis) {
             if (gui.isPresent()) {
                 gui.draw(g2);
             }
         }
+        }
     }
 
     public void addGui(Gui gui) {
+    	synchronized(guis) {
         guis.add(gui);
+    	}
     }
     
     public void addCustomer(RestaurantCustomerRole_at c) {
     	mCustomers.add(c);
+    	c.setHost(mHost);
+    	c.setCashier(mCashier);
+
+    	c.msgGotHungry();
     }
     
     public void addWaiter(RestaurantWaiterRole_at w) {
@@ -100,5 +115,9 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     
     public static RestaurantPanel_at getInstance() {
     	return instance;
+    }
+    
+    public int getWaiters() {
+    	return mWaiters.size();
     }
 }

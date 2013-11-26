@@ -181,7 +181,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
         /** Actions */
 
         private void tryToCookIt(final Order o) {
-                EnumItemType food = null;
+                EnumItemType food = o.choice;
                 /*
                 synchronized(inventory) {
                         for(Food i : inventory) {
