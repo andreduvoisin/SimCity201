@@ -263,37 +263,40 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
-		if ((mRoleFinished) && (!mAtJob) ){
-			// Process events (calendar)
-				Iterator<Event> itr = mEvents.iterator();
-				while (itr.hasNext()) {
-					Event event = itr.next();
-					//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
-					if (event.mTime > Time.GetTime())
-						break; // don't do future calendar events
-					mRoleFinished = false;
-					processEvent(event);
-					return true;
-				}
-		}
-
-		// Do role actions
-		for (Role iRole : mRoles.keySet()) {
-			if (mRoles.get(iRole)) {
-				//print(iRole.toString());
-				if (iRole.getPerson() == null) {
-					print(iRole.toString());
-					print("getPerson in iRole was null");
-				}
-				else if (iRole.pickAndExecuteAnAction()) {
-					//System.out.println(iRole.toString() + "pAEA fired");
-					return true;
+		if(mTimeShift == 1) {
+			if ((mRoleFinished) && (!mAtJob) ){
+				// Process events (calendar)
+					Iterator<Event> itr = mEvents.iterator();
+					while (itr.hasNext()) {
+						Event event = itr.next();
+						//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
+						if (event.mTime > Time.GetTime())
+							break; // don't do future calendar events
+						mRoleFinished = false;
+						processEvent(event);
+						return true;
+					}
+			}
+	
+			// Do role actions
+			for (Role iRole : mRoles.keySet()) {
+				if (mRoles.get(iRole)) {
+					//print(iRole.toString());
+					if (iRole.getPerson() == null) {
+						print(iRole.toString());
+						print("getPerson in iRole was null");
+					}
+					else if (iRole.pickAndExecuteAnAction()) {
+						//System.out.println(iRole.toString() + "pAEA fired");
+						return true;
+					}
 				}
 			}
+			
+			//SHANE: 4 last choice - go home
+		} else {
+			mPersonGui.disable();
 		}
-		
-		//SHANE: 4 last choice - go home
-		
 		return false;
 	}
 
