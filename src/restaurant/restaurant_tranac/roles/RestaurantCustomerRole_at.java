@@ -3,6 +3,7 @@ package restaurant.restaurant_tranac.roles;
 import restaurant.restaurant_tranac.Check;
 import restaurant.restaurant_tranac.Menu;
 import restaurant.restaurant_tranac.gui.CustomerGui_at;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -61,6 +62,8 @@ public class RestaurantCustomerRole_at extends BaseRole implements Customer{
 		money = baseMoney;	//ANGELICA: no longer necessary; will get from person
 		num = 0;
 		
+		customerGui = new CustomerGui_at(this);
+		RestaurantPanel_at.getInstance().addGui(customerGui);
 		//randomly chooses waiting unless set later
 		if(rGenerator.nextInt() % 2 == 0)
 			willWait = false;
@@ -73,6 +76,8 @@ public class RestaurantCustomerRole_at extends BaseRole implements Customer{
 		money = baseMoney;
 		num = 0;
 		
+		customerGui = new CustomerGui_at(this);
+		RestaurantPanel_at.getInstance().addGui(customerGui);
 		//randomly chooses waiting unless set later
 		if(rGenerator.nextInt() % 2 == 0)
 			willWait = false;
