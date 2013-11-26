@@ -70,17 +70,17 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToMarket: {
-        		mAgent.msgAnimationAtMarket();
+   //     		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToRestaurant: {
-        		mAgent.msgAnimationAtRestaurant(mDestinationRestaurant);
+  //      		mAgent.msgAnimationAtRestaurant(mDestinationRestaurant);
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftMarket();
+    //    		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
