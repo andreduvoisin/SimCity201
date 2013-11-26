@@ -1,39 +1,39 @@
 package restaurant.restaurant_davidmca.roles;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import base.Item;
+import base.Item.EnumItemType;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_davidmca.Order;
 import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.agents.MarketAgent;
 import restaurant.restaurant_davidmca.gui.CookGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import base.BaseRole;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class DavidCookRole extends BaseRole implements Cook {
+public class DavidCookRole extends RestaurantCookRole implements Cook {
 
 	private CookGui cookGui;
 	private Semaphore isAnimating = new Semaphore(1, true);
 	private boolean ordering;
 	private boolean reorder;
 	private Request currentRequest;
+	private final static int orderThreshold = 1;
 
 	private class Request {
 		Map<String, Integer> stuffToBuy;
@@ -51,17 +51,15 @@ public class DavidCookRole extends BaseRole implements Cook {
 			.synchronizedList(new ArrayList<Order>());
 	public List<Order> revolvingStand = Collections
 			.synchronizedList(new ArrayList<Order>());
-	List<MarketAgent> marketList = Collections
-			.synchronizedList(new ArrayList<MarketAgent>());
+//	List<MarketAgent> marketList = Collections
+//			.synchronizedList(new ArrayList<MarketAgent>());
 	int cooktime = 5000; // hack
-
-	private static int defaultqty = 5;
 
 	public enum OrderState {
 		Received, Cooking, Finished
 	};
 
-	Map<String, Stock> foodList = new HashMap<String, Stock>();
+//	Map<String, Stock> foodList = new HashMap<String, Stock>();
 
 	private String name;
 
@@ -81,15 +79,19 @@ public class DavidCookRole extends BaseRole implements Cook {
 	 * @param name
 	 *            name of the customer
 	 */
-	public DavidCookRole(String name, int qty) {
+	public DavidCookRole(String name) {
 		super(null);
 		this.name = name;
 		ordering = false;
 		reorder = false;
-		foodList.put("Steak", new Stock("Steak", qty));
-		foodList.put("Salad", new Stock("Salad", qty));
-		foodList.put("Chicken", new Stock("Chicken", qty));
-		foodList.put("Pizza", new Stock("Pizza", qty));
+//		foodList.put("Steak", new Stock("Steak", qty));
+//		foodList.put("Salad", new Stock("Salad", qty));
+//		foodList.put("Chicken", new Stock("Chicken", qty));
+//		foodList.put("Pizza", new Stock("Pizza", qty));
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
 		standTimer.scheduleAtFixedRate(standTimerTask, new Date( System.currentTimeMillis() + 10000), 10000);
 	}
 
@@ -101,9 +103,9 @@ public class DavidCookRole extends BaseRole implements Cook {
 		cookGui = g;
 	}
 
-	public void addMarket(MarketAgent mkt) {
-		marketList.add(mkt);
-	}
+//	public void addMarket(MarketAgent mkt) {
+//		marketList.add(mkt);
+//	}
 
 	// Messages
 
@@ -117,40 +119,40 @@ public class DavidCookRole extends BaseRole implements Cook {
 		stateChanged();
 	}
 
-	public void msgOrderFullFillment(Market mkt, List<Stock> recieved) {
-		synchronized (recieved) {
-			for (Stock stock : recieved) {
-				Iterator<Entry<String, Integer>> it = currentRequest.stuffToBuy
-						.entrySet().iterator();
-				while (it.hasNext()) {
-					Entry<String, Integer> r = it.next();
-					if (stock.getChoice() == r.getKey()) {
-						if (stock.getQuantity() == 0) {
-							print(mkt.getName()
-									+ " didn't have "
-									+ stock.getChoice()
-									+ ", adding this market to blacklist so we order elsewhere");
-							currentRequest.askedMarkets.add(mkt);
-						} else {
-							foodList.get(stock.getChoice()).setQuantity(
-									stock.getQuantity());
-							print("Quantity in stock of " + stock.getChoice()
-									+ " is now " + stock.getQuantity());
-							it.remove();
-						}
-					}
-				}
-			}
-		}
-		if (currentRequest.stuffToBuy.size() > 0) {
-			reorder = true;
-		} else {
-			ordering = false;
-			reorder = false;
-			currentRequest = null;
-		}
-		stateChanged();
-	}
+//	public void msgOrderFullFillment(Market mkt, List<Stock> recieved) {
+//		synchronized (recieved) {
+//			for (Stock stock : recieved) {
+//				Iterator<Entry<String, Integer>> it = currentRequest.stuffToBuy
+//						.entrySet().iterator();
+//				while (it.hasNext()) {
+//					Entry<String, Integer> r = it.next();
+//					if (stock.getChoice() == r.getKey()) {
+//						if (stock.getQuantity() == 0) {
+//							print(mkt.getName()
+//									+ " didn't have "
+//									+ stock.getChoice()
+//									+ ", adding this market to blacklist so we order elsewhere");
+//							currentRequest.askedMarkets.add(mkt);
+//						} else {
+//							foodList.get(stock.getChoice()).setQuantity(
+//									stock.getQuantity());
+//							print("Quantity in stock of " + stock.getChoice()
+//									+ " is now " + stock.getQuantity());
+//							it.remove();
+//						}
+//					}
+//				}
+//			}
+//		}
+//		if (currentRequest.stuffToBuy.size() > 0) {
+//			reorder = true;
+//		} else {
+//			ordering = false;
+//			reorder = false;
+//			currentRequest = null;
+//		}
+//		stateChanged();
+//	}
 
 	// Scheduler
 
@@ -159,24 +161,24 @@ public class DavidCookRole extends BaseRole implements Cook {
 			CheckStand();
 			return true;
 		}
-		if (reorder) {
-			reorder = false;
-			DoOrderFood();
-			return true;
-		}
-		if (!ordering) {
-			ordering = true;
-			currentRequest = new Request();
-			for (Map.Entry<String, Stock> f : foodList.entrySet()) {
-				if (f.getValue().getQuantity() == 0) {
-					currentRequest.stuffToBuy.put(f.getKey(), defaultqty);
-				}
-			}
-			if (currentRequest.stuffToBuy.size() > 0) {
-				DoOrderFood();
-			}
-			return true;
-		}
+//		if (reorder) {
+//			reorder = false;
+//			DoOrderFood();
+//			return true;
+//		}
+//		if (!ordering) {
+//			ordering = true;
+//			currentRequest = new Request();
+//			for (Map.Entry<String, Stock> f : foodList.entrySet()) {
+//				if (f.getValue().getQuantity() == 0) {
+//					currentRequest.stuffToBuy.put(f.getKey(), defaultqty);
+//				}
+//			}
+//			if (currentRequest.stuffToBuy.size() > 0) {
+//				DoOrderFood();
+//			}
+//			return true;
+//		}
 		if (!pendingOrders.isEmpty()) {
 			if (pendingOrders.get(0).status == OrderState.Finished) {
 				Notify(pendingOrders.get(0));
@@ -185,6 +187,7 @@ public class DavidCookRole extends BaseRole implements Cook {
 			if (pendingOrders.get(0).status == OrderState.Received) {
 				pendingOrders.get(0).status = OrderState.Cooking;
 				Cook(pendingOrders.get(0));
+				print("cooking order...");
 				return true;
 			}
 		}
@@ -193,15 +196,15 @@ public class DavidCookRole extends BaseRole implements Cook {
 
 	// Actions
 
-	private void DoOrderFood() {
-		for (Market mkt : marketList) {
-			if (!currentRequest.askedMarkets.contains(mkt)) {
-				print("Ordering from " + mkt.getName());
-				mkt.msgWantToBuy(this, currentRequest.stuffToBuy);
-				break;
-			}
-		}
-	}
+//	private void DoOrderFood() {
+//		for (Market mkt : marketList) {
+//			if (!currentRequest.askedMarkets.contains(mkt)) {
+//				print("Ordering from " + mkt.getName());
+//				mkt.msgWantToBuy(this, currentRequest.stuffToBuy);
+//				break;
+//			}
+//		}
+//	}
 
 	private void Cook(Order order) {
 		cookGui.setLabelText("Picking up order");
@@ -229,7 +232,7 @@ public class DavidCookRole extends BaseRole implements Cook {
 			e.printStackTrace();
 		}
 		final String thischoice = order.choice;
-		if (foodList.get(thischoice).getQuantity() == 0) {
+		if (mItemInventory.get(Item.stringToEnum(thischoice)) == 0) {
 			order.waiter.msgOutOfFood(thischoice);
 			pendingOrders.remove(order);
 			return;
@@ -250,7 +253,11 @@ public class DavidCookRole extends BaseRole implements Cook {
 					e.printStackTrace();
 				}
 				pendingOrders.get(0).status = OrderState.Finished;
-				foodList.get(thischoice).decrementQuantity();
+//				foodList.get(thischoice).decrementQuantity();
+				mItemInventory.put(Item.stringToEnum(thischoice), mItemInventory.get(Item.stringToEnum(thischoice))-1);
+				if (mItemInventory.get(Item.stringToEnum(thischoice)) < orderThreshold) {
+					mItemsDesired.put(Item.stringToEnum(thischoice), 5);
+				}
 				cookGui.setLabelText("");
 				cookGui.removeFood();
 				cookGui.DoGoToHome();
@@ -300,9 +307,9 @@ public class DavidCookRole extends BaseRole implements Cook {
 		}
 	}
 
-	public Collection<MarketAgent> getMarketList() {
-		return marketList;
-	}
+//	public Collection<MarketAgent> getMarketList() {
+//		return marketList;
+//	}
 
 	@Override
 	public List<Order> getRevolvingStand() {
