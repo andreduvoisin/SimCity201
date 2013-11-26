@@ -7,8 +7,9 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CookGui implements Gui {
+import city.gui.SimCityGui;
 
+public class CookGui implements Gui {
     private CookAgent agent = null;
     static final int COOKSIZE = 20;	// Size of each side of host (square).
     static final int STARTPOS_X = 225;
@@ -30,6 +31,9 @@ public class CookGui implements Gui {
     static final int PLATE_X = 50;
     static final int PLATE_Y = 325;
     static final int INCREMENT = 20;
+    
+    static final int STAND_X = 385 - COOKSIZE;
+	static final int STAND_Y = 329;
     
     int currentPosition;
     String currentOrder;
@@ -75,6 +79,10 @@ public class CookGui implements Gui {
         	if(!currentOrder.equals(""))
         		platedItems.put(currentPosition, currentOrder);
         }
+        if (xPos == xDestination && yPos == yDestination
+        		& (xDestination == STAND_X) & (yDestination == STAND_Y)) {
+        	agent.msgAtStand();
+        }
     }
 
     public void draw(Graphics2D g) {
@@ -118,6 +126,11 @@ public class CookGui implements Gui {
     	currentPosition = position;
     	xDestination = PLATE_X + (INCREMENT * position);
     	yDestination = PLATE_Y;
+    }
+    
+    public void DoGoToRevolvingStand() {
+    	xDestination = STAND_X;
+    	yDestination = STAND_Y;
     }
 
     public int getXPos() {

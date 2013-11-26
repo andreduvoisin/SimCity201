@@ -1,7 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import restaurant.restaurant_davidmca.gui.RestaurantPanel;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -18,8 +18,8 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 	
 	public void setRestaurant(int restaurantID) {
 		//David's Restaurant 
-		if (restaurantID == 1) {
-			subRole = RestaurantPanel.getInstance().host;
+		if (restaurantID == 4) {
+			subRole = DavidRestaurantPanel.getInstance().host;
 			subRole.setPerson(super.mPerson);
 		}
 		//Maggi's Restaurant 

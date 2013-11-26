@@ -21,7 +21,7 @@ import base.interfaces.Person;
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CustomerRole extends BaseRole implements Customer {
+public class DavidCustomerRole extends BaseRole implements Customer {
 	private String name;
 	private int hungerLevel = 4000; // determines length of meal
 	private double mymoney = 0;
@@ -59,7 +59,7 @@ public class CustomerRole extends BaseRole implements Customer {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CustomerRole(Person person) {
+	public DavidCustomerRole(Person person) {
 		super(person);
 		this.name = person.getName();
 		this.availability = true;

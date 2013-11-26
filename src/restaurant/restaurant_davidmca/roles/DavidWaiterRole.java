@@ -14,26 +14,24 @@ import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.gui.WaiterGui;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
-import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import base.Agent;
 import base.BaseRole;
 import base.interfaces.Person;
 
 /**
- * Restaurant Waiter Agent with Shared Data Uses Revolving Stand instead of
- * messaging cook
+ * Restaurant Waiter Agent
  */
 
-public class WaiterRoleShared extends BaseRole implements Waiter {
+public class DavidWaiterRole extends BaseRole implements Waiter {
 	public List<MyCustomer> myCustomers = Collections
 			.synchronizedList(new ArrayList<MyCustomer>());
 	private List<Check> pendingChecks = Collections
 			.synchronizedList(new ArrayList<Check>());
 	public WaiterGui waiterGui = null;
 	private Cashier cashier;
-	public Cook cook;
-	private HostRole host;
+	private DavidHostRole host;
 	private Semaphore isOnBreak = new Semaphore(1, true);
 	private boolean breakRequested;
 	private boolean breakResponse;
@@ -64,11 +62,11 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	}
 
 	private String name;
-	public Semaphore isAnimating = new Semaphore(500, true);
+	private Semaphore isAnimating = new Semaphore(500, true);
 	public HostGui hostGui = null;
 
 	@Override
-	public void setHost(HostRole host) {
+	public void setHost(DavidHostRole host) {
 		this.host = host;
 	}
 
@@ -82,11 +80,12 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 		waiterGui = gui;
 	}
 
-	public WaiterRoleShared(Person person) {
+	public DavidWaiterRole(Person person) {
 		super(person);
 		if (person == null) {
-			this.name = "null person";
-		} else {
+			this.name = "null";
+		}
+		else {
 			this.name = person.getName();
 		}
 	}
@@ -132,8 +131,8 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	}
 
 	@Override
-	public void msgSeatAtTable(Customer c, Table t, int homeLocation) {
-		myCustomers.add(new MyCustomer(c, t, homeLocation));
+	public void msgSeatAtTable(Customer c, Table t, int home) {
+		myCustomers.add(new MyCustomer(c, t, home));
 		stateChanged();
 	}
 
@@ -217,7 +216,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		//System.out.println("davidmca WaiterRoleShared pAEA run");
+		//System.out.println("davidmca WaiterRole pAEA run");
 		synchronized (myCustomers) {
 			for (MyCustomer myc : myCustomers) {
 				if (myc.state == CustomerState.Arrived) {
@@ -288,10 +287,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 			TakeABreak();
 			return true;
 		}
-		try {
-			waiterGui.DoGoToFront();
-		} catch (Exception e) {
-		}
+		waiterGui.DoGoToFront();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -320,8 +316,8 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 			e.printStackTrace();
 		}
 		Check thischk = null;
-		synchronized (pendingChecks) {
-			for (Check chk : pendingChecks) {
+		synchronized(pendingChecks) {
+			for (Check chk: pendingChecks) {
 				if (chk.cust == myc.c) {
 					thischk = chk;
 				}
@@ -333,19 +329,13 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 
 	private void FollowMe(MyCustomer myc) {
 		print("Follow me");
-		try {
-			waiterGui.DoGoToCustomer(myc.loc);
-		} catch (Exception e) {
-		}
+		waiterGui.DoGoToCustomer(myc.loc);
 		try {
 			isAnimating.acquire();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-		try {
-			waiterGui.DoGoToTable(myc.t);
-		} catch (Exception e) {
-		}
+		waiterGui.DoGoToTable(myc.t);
 		myc.c.msgFollowMe(this, myc.t);
 		try {
 			isAnimating.acquire();
@@ -382,10 +372,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 
 	private void WhatWouldYouLike(MyCustomer myc) {
 		print("What Would You Like?");
-		try {
-			waiterGui.DoGoToTable(myc.t);
-		} catch (Exception e) {
-		}
+		waiterGui.DoGoToTable(myc.t);
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -412,39 +399,25 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 	}
 
 	private void HereIsAnOrder(MyCustomer myc) {
-		try {
-			waiterGui.DoGoToKitchen();
-		} catch (Exception e) {
-
-		}
+		waiterGui.DoGoToKitchen();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		myc.state = CustomerState.WaitingForFood;
-		synchronized (cook.getRevolvingStand()) {
-			cook.getRevolvingStand().add(new Order(this, myc.choice, myc.t));
-		}
+		host.cook.msgHereIsAnOrder(this, myc.choice, myc.t);
 	}
 
 	private void HereIsYourOrder(MyCustomer myc) {
-		try {
-			waiterGui.DoGoToKitchen();
-		} catch (Exception e) {
-
-		}
+		waiterGui.DoGoToKitchen();
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		try {
-			waiterGui.setLabelText(myc.choice);
-			waiterGui.DoGoToTable(myc.t);
-		} catch (Exception e) {
-
-		}
+		waiterGui.setLabelText(myc.choice);
+		waiterGui.DoGoToTable(myc.t);
 		try {
 			isAnimating.acquire();
 		} catch (InterruptedException e) {
@@ -452,11 +425,7 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 		}
 		myc.c.msgHereIsYourOrder();
 		myc.state = CustomerState.Eating;
-		try {
-			waiterGui.setLabelText("");
-		} catch (Exception e) {
-
-		}
+		waiterGui.setLabelText("");
 	}
 
 	private void ClearTable(MyCustomer myc) {
@@ -477,14 +446,10 @@ public class WaiterRoleShared extends BaseRole implements Waiter {
 		return waiterGui;
 	}
 
-	public void setCook(Cook c) {
-		cook = c;
-	}
-
 	@Override
 	public void startThread() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

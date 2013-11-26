@@ -16,7 +16,7 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
-import restaurant.restaurant_davidmca.gui.RestaurantPanel;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import base.ConfigParser;
 import base.PersonAgent;
 import base.PersonAgent.EnumJobType;

@@ -1,12 +1,13 @@
 package restaurant.restaurant_duvoisin.gui;
 
 import restaurant.restaurant_duvoisin.WaiterAgent;
+import restaurant.restaurant_duvoisin.interfaces.Waiter;
 
 import java.awt.*;
 
 public class WaiterGui implements Gui {
 
-    private WaiterAgent agent = null;
+    private Waiter agent = null;
     static final int WAITERSIZE = 20;	// Size of each side of host (square).
     static final int STARTPOS = -20;
     private int currentTable = 0;
@@ -37,13 +38,16 @@ public class WaiterGui implements Gui {
 	static final int CUSTOMER_WAIT_Y = 15;
 	static final int CUSTOMER_WAIT_INCREMENT = 25;
 	int CUSTOMER_WAIT_POSITION;
+	
+	static final int STAND_X = 385 - WAITERSIZE;
+	static final int STAND_Y = 305 - WAITERSIZE;
     
     TableGui myTables;
     
     private String currentOrder;
     int foodPosition;
 
-    public WaiterGui(WaiterAgent agent, RestaurantGui gui) {
+    public WaiterGui(Waiter agent, RestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         currentOrder = "";
@@ -81,6 +85,10 @@ public class WaiterGui implements Gui {
         }
         if (xPos == xDestination && yPos == yDestination
         		& (xDestination == COOK_DELIVER_X) & (yDestination == COOK_DELIVER_Y)) {
+        	agent.msgAtCook();
+        }
+        if (xPos == xDestination && yPos == yDestination
+        		& (xDestination == STAND_X) & (yDestination == STAND_Y)) {
         	agent.msgAtCook();
         }
         if (xPos == xDestination && yPos == yDestination
@@ -142,6 +150,11 @@ public class WaiterGui implements Gui {
     	xDestination = IDLE_X;
     	yDestination = IDLE_Y;
     	enableButton();
+    }
+    
+    public void DoGoToRevolvingStand() {
+    	xDestination = STAND_X;
+    	yDestination = STAND_Y;
     }
     
     public void enableButton() { gui.setWaiterEnabled(agent); }
