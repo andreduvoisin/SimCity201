@@ -28,13 +28,13 @@ public class MarketItemsGui implements MarketBaseGui {
 		mMarketType = t;
 		//populate list of items; hack right now
 		if(t == EnumMarketType.FOOD) {
-			mItems.put(new ItemGui(EnumItemType.STEAK,Color.RED), new MarketCoordinates(xBase, yBase));
-			mItems.put(new ItemGui(EnumItemType.CHICKEN,Color.RED), new MarketCoordinates(xBase, yBase+100));
-			mItems.put(new ItemGui(EnumItemType.SALAD,Color.RED), new MarketCoordinates(xBase, yBase+200));
-			mItems.put(new ItemGui(EnumItemType.PIZZA,Color.RED), new MarketCoordinates(xBase, yBase+300));
+			mItems.put(new ItemGui(EnumItemType.STEAK,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase));
+			mItems.put(new ItemGui(EnumItemType.CHICKEN,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+100));
+			mItems.put(new ItemGui(EnumItemType.SALAD,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+200));
+			mItems.put(new ItemGui(EnumItemType.PIZZA,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+300));
 		}
 		else
-			mItems.put(new ItemGui(EnumItemType.CAR,Color.RED), new MarketCoordinates(xBase, yBase+400));
+			mItems.put(new ItemGui(EnumItemType.CAR,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+400));
 	}
 	
 	public void updatePosition() {
@@ -54,11 +54,9 @@ public class MarketItemsGui implements MarketBaseGui {
 	
 /* Utilities */
 	public void decreaseItemCount(EnumItemType i, int n) {
-		System.out.println(n);
 		for(ItemGui item : mItems.keySet()) {
 			if(item.mItem == i) {
 				item.mNumber = item.mNumber-n;
-				System.out.println(n + " " + item.mNumber);
 			}
 		}
 	}
@@ -77,7 +75,6 @@ public class MarketItemsGui implements MarketBaseGui {
 		for(ItemGui i : mItems.keySet()) {
 			if(i.mItem == item) {
 				n = i.mNumber;
-				System.out.println("Test " + n);
 			}
 		}
 		return n;
@@ -93,10 +90,10 @@ public class MarketItemsGui implements MarketBaseGui {
 		int mNumber;
 		Color mColor;
 		
-		ItemGui(EnumItemType i, Color c) {
+		ItemGui(EnumItemType i, Color c, int n) {
 			mItem = i;
 			mColor = c;
-			mNumber = sBaseInventory;
+			mNumber = n;
 		}
 	}
 }
