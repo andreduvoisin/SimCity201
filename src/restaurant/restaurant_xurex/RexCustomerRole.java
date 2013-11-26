@@ -373,5 +373,9 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	public void setHost(RexHostRole host){
 		this.host = host;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
 
