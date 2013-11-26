@@ -1,6 +1,6 @@
 package restaurant.restaurant_tranac.gui;
 
-import restaurant.restaurant_tranac.roles.RestaurantHostRole_at;
+import restaurant.restaurant_tranac.roles.TranacRestaurantHostRole;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,16 +8,16 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class HostGui_at implements Gui {
+public class TranacHostGui implements Gui {
 
-    private RestaurantHostRole_at agent = null;
+    private TranacRestaurantHostRole agent = null;
 
     private int xPos = 50, yPos = 20;					//static host position
     private int xDestination = 50, yDestination = 20;	//static host position
 
     private BufferedImage image;
     
-    public HostGui_at(RestaurantHostRole_at agent) {
+    public TranacHostGui(TranacRestaurantHostRole agent) {
         this.agent = agent;
         
     	image = null;

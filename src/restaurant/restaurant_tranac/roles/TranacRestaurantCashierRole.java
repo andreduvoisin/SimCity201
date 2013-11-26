@@ -1,41 +1,42 @@
 package restaurant.restaurant_tranac.roles;
 
-import restaurant.restaurant_tranac.Check;
-import restaurant.restaurant_tranac.Menu;
-import restaurant.restaurant_tranac.gui.CashierGui_at;
+import restaurant.restaurant_tranac.TranacCheck;
+import restaurant.restaurant_tranac.TranacMenu;
+import restaurant.restaurant_tranac.gui.TranacCashierGui;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
+import base.ContactList;
 
 import java.util.*;
 
 /**
  * Restaurant Cook Agent
  */
-public class RestaurantCashierRole_at extends BaseRole implements Cashier {
-	private CashierGui_at cashierGui;
-	private Menu menu = new Menu();
+public class TranacRestaurantCashierRole extends BaseRole implements TranacCashier {
+	private TranacCashierGui cashierGui;
+	private TranacMenu menu = new TranacMenu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
 	public List<Bill> bills = Collections.synchronizedList(new ArrayList<Bill>());
-	public double money;	//ANGELICA: switch to bank ssn?
+	//public double money;	//ANGELICA: switch to bank ssn?
 	
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
-	public RestaurantCashierRole_at() {
+	public TranacRestaurantCashierRole() {
 		super();
-		money = 5000;	//ANGELICA: no longer initialize
+	//	money = 5000;	//ANGELICA: no longer initialize
 	}
 
 	/** Messages */
 
-	public void msgComputeCheck(Waiter w, Customer c, String item) {
+	public void msgComputeCheck(TranacWaiter w, TranacCustomer c, String item) {
 		synchronized(checks) {
-			checks.add(new MyCheck(w,c,item));
+			checks.add(new MyCheck(w,c,item, getSSN()));
 		}
 		stateChanged();
 	}
 
-	public void msgHereIsPayment(Customer c, double p) {
+	public void msgHereIsPayment(TranacCustomer c, double p) {
 		synchronized(checks) {
 			for(MyCheck check : checks) {
 				if(check.c.getCustomer() == c) {
@@ -47,7 +48,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 		}
 	}
 	
-	public void msgHereIsBill(Market m, String i, double c) {
+	public void msgHereIsBill(TranacMarket m, String i, double c) {
 		synchronized(bills) {
 			bills.add(new Bill(m,i,c));
 		}
@@ -75,7 +76,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 				}
 			}
 		}
-		synchronized(bills) {
+/*		synchronized(bills) {
 			for(Bill b : bills) {
 				if(b.s == BillStatus.Outstanding) {
 					tryToFulfillBill(b);
@@ -90,13 +91,13 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 				}
 			}
 		}
-		return false;
+*/		return false;
 	}
 
 	/** Actions */
 
 	private void computeCheck(MyCheck chk) {
-		Check c = chk.c;
+		TranacCheck c = chk.c;
 		Do("Computing check.");
 		chk.s = CheckStatus.Computed;
 		c.setAmount(menu.getCost(c.getItem()));
@@ -118,12 +119,12 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 	private void payCheck(MyCheck c) {
 		double p = c.c.getPayment();
 		double a = c.c.getAmount();
-		Customer customer = c.c.getCustomer();
+		TranacCustomer customer = c.c.getCustomer();
 		Do("Recieved payment of " + p + " for " + a);
 		
 		//check if customer paid the entire bill
 		if(p >= a) {
-			money += p;
+	//		money += p;
 			c.c.setChange(p-a);
 			c.s = CheckStatus.Finished;
 			Do("Thank you and come again!");
@@ -136,7 +137,7 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 			customer.msgPayNextTime();
 		}
 	}
-	
+	/*
 	private void tryToFulfillBill(Bill b) {
 		Do("Trying to fulfill outstanding bill.");
 		if(money >= b.cost) {
@@ -164,18 +165,18 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 		b.s = BillStatus.Fulfilled;
 		b.market.msgHereIsPayment(b.item, b.cost);
 	}
-	
+	*/
 	/** Utilities */
 
 	public String getName() {
 		return mPerson.getName();
 	}
 	
-	public void setGui(CashierGui_at c) {
+	public void setGui(TranacCashierGui c) {
 		this.cashierGui = c;
 	}
 	
-	public CashierGui_at getCashierGui() {
+	public TranacCashierGui getCashierGui() {
 		return cashierGui;
 	}
 	
@@ -187,17 +188,14 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 		return bills.size();
 	}
 
-	public void setMoney(double m) {
-		money = m;
-	}
 	/** Classes */
 	
 	public class MyCheck {
-		Check c;
+		TranacCheck c;
 		CheckStatus s;
 		
-		MyCheck(Waiter w, Customer c, String i) {
-			this.c = new Check(w,c,i);
+		MyCheck(TranacWaiter w, TranacCustomer c, String i, int n) {
+			this.c = new TranacCheck(w,c,i,n);
 			s = CheckStatus.Pending;
 		}
 		
@@ -210,9 +208,9 @@ public class RestaurantCashierRole_at extends BaseRole implements Cashier {
 		String item;
 		double cost;
 		BillStatus s;
-		Market market;
+		TranacMarket market;
 		
-		Bill(Market m, String i, double c) {
+		Bill(TranacMarket m, String i, double c) {
 			item = i;
 			market = m;
 			cost = c;

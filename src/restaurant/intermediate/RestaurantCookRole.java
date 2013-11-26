@@ -13,13 +13,14 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
@@ -56,6 +57,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					subRole.setPerson(super.mPerson);
 					break;
 				case 1: //chase
+					subRole = CwagonerRestaurantPanel.getInstance().cook;
+					subRole.setPerson(super.mPerson);
 					break;
 				case 2: //jerry
 					subRole = JerrywebRestaurantPanel.getInstance().cook;
@@ -74,7 +77,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
 				case 6: //angelica
-					subRole= RestaurantPanel_at.getInstance().mCook;
+					subRole= TranacRestaurantPanel.getInstance().mCook;
 					subRole.setPerson(mPerson);
 					break;
 				case 7: //rex
@@ -183,7 +186,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         private void payAndProcessOrder(MarketInvoice i) {
                 i.mPayment = i.mTotal;
                 
-                //ANGELICA: HACK FOR UNIT TESTING
                	ContactList.SendPayment(mPerson.getSSN(), i.mMarketBankNumber, i.mPayment);
                 
                 for(EnumItemType item : mCannotFulfill.keySet()) {

@@ -15,6 +15,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Market Agent
@@ -28,6 +29,7 @@ public class JerrywebMarketRole extends BaseRole implements Market {
 	public Menu m = new Menu();
 	public Map<String,Food> stockMap = new HashMap<String,Food>(4);	
 	private JerrywebCookRole cook;	
+	
 	private JerrywebCashierRole cashier;
 	double bill = 0;
 	
@@ -67,15 +69,18 @@ public class JerrywebMarketRole extends BaseRole implements Market {
 	//private Semaphore atTable = new Semaphore(semaphoreCerts,true);
 
 	//public HostGui hostGui = null;
+    private Semaphore inTransit = new Semaphore(0, true);
 
-	public JerrywebMarketRole(String name) {
-		super();
-		this.name = name;
+	public JerrywebMarketRole(Person person) {
+		super(person);
+		this.name = person.getName();
 		//if(name.equals())
+		/*
 		stockMap.put("steak",new Food("steak", 15, 7));
 		stockMap.put("chicken",new Food("chicken", 21, 5));
 		stockMap.put("salad",new Food("salad", 30, 3));
-		stockMap.put("pizza",new Food("pizza", 24, 4));
+		stockMap.put("pizza",new Food("pizza", 24, 4));*/
+		
 	}
 	
 	public void setCook(JerrywebCookRole myCook) {

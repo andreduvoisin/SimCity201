@@ -1,6 +1,6 @@
 package restaurant.restaurant_tranac.gui;
 
-import restaurant.restaurant_tranac.roles.RestaurantCustomerRole_at;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -8,13 +8,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class CustomerGui_at implements Gui{
+public class TranacCustomerGui implements Gui{
 
-	private RestaurantCustomerRole_at agent = null;
+	private TranacRestaurantCustomerRole agent = null;
 	private boolean isPresent = true;
 	private String food;
 
-	RestaurantPanel_at gui;
+	TranacRestaurantPanel gui;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -33,7 +33,7 @@ public class CustomerGui_at implements Gui{
     BufferedImage alertBubble;
     BufferedImage askingBubble;
 
-	public CustomerGui_at(RestaurantCustomerRole_at c, RestaurantPanel_at gui){
+	public TranacCustomerGui(TranacRestaurantCustomerRole c, TranacRestaurantPanel gui){
 		agent = c;
 		xPos = -40;
 		yPos = -40;
@@ -79,13 +79,13 @@ public class CustomerGui_at implements Gui{
     	}
 	}
 	
-	public CustomerGui_at(RestaurantCustomerRole_at c){
+	public TranacCustomerGui(TranacRestaurantCustomerRole c){
 		agent = c;
 		xPos = -40;
 		yPos = -40;
 		xDestination = -40;
 		yDestination = -40;
-		this.gui = RestaurantPanel_at.getInstance();
+		this.gui = TranacRestaurantPanel.getInstance();
 		
 		//grabs the correct image using relative file paths
     	image = null;

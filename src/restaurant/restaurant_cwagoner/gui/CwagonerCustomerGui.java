@@ -23,7 +23,7 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	private Location gonePos = new Location(-2 * size, -2 * size),
 					cashierPos = new Location(-size, 100),
 					waitingPos = new Location(size, 100 - (customerNum % 4) * (size + 10)),
-					tablePos,
+					tablePos = new Location(0, 0),
 					position,
 					destination;
 	
@@ -37,8 +37,8 @@ public class CwagonerCustomerGui implements CwagonerGui {
 		RestaurantGui = g;
 		customerNum++;
 
-        position.setTo(gonePos);
-        destination.setTo(gonePos);
+        position = new Location(waitingPos.mX, waitingPos.mY);
+        destination = new Location(waitingPos.mX, waitingPos.mY);
 	}
 	
 	public void setTableLocation(int tableNum) {

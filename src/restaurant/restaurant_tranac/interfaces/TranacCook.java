@@ -6,10 +6,10 @@ package restaurant.restaurant_tranac.interfaces;
  * @author Angelica Huyen Tran
  */
 
-public interface Cook {
-	public abstract void msgHereIsOrder(Waiter w, String c, int t);
+public interface TranacCook {
+	public abstract void msgHereIsOrder(TranacWaiter w, String c, int t);
 	
-	public abstract void msgOrderPickedUp(Waiter w, String c);
+	public abstract void msgOrderPickedUp(TranacWaiter w, String c);
 	
 /*	public abstract void msgCanFulfillInventory(String f, int n);
 	

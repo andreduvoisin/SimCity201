@@ -1,19 +1,17 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
-
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
-
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
-
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import restaurant.restaurant_xurex.RexHostRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -35,6 +33,8 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 				subRole.setPerson(super.mPerson);
 				break;
 			case 1: //chase
+				subRole = CwagonerRestaurantPanel.getInstance().host;
+				subRole.setPerson(super.mPerson);
 				break;
 			case 2: //jerry
 				subRole = JerrywebRestaurantPanel.getInstance().host;
@@ -53,7 +53,7 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 				SmilehamAnimationPanel.addPerson((SmilehamHostRole) subRole);
 				break;
 			case 6: //angelica
-				subRole = RestaurantPanel_at.getInstance().mHost;
+				subRole = TranacRestaurantPanel.getInstance().mHost;
 				subRole.setPerson(mPerson);
 				break;
 			case 7: //rex

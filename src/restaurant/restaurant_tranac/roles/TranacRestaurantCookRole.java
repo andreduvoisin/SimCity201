@@ -9,14 +9,14 @@ import market.interfaces.MarketCashier;
 import base.Item;
 import base.Item.EnumItemType;
 import restaurant.intermediate.*;
-import restaurant.restaurant_tranac.gui.CookGui_at;
+import restaurant.restaurant_tranac.gui.TranacCookGui;
 import restaurant.restaurant_tranac.interfaces.*;
 
 /**
  * Restaurant Cook Agent
  */
-public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
-        private CookGui_at cookGui;
+public class TranacRestaurantCookRole extends RestaurantCookRole implements TranacCook {
+        private TranacCookGui cookGui;
         
         public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
         public enum FoodState {Good, LowStock, Ordered, NoStock};
@@ -40,7 +40,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
         
         private Semaphore inTransit = new Semaphore(0, true);
 
-        public RestaurantCookRole_at() {
+        public TranacRestaurantCookRole() {
                 super();
                 /*
                 //create inventory
@@ -70,12 +70,12 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
 
         /** Messages */
 
-        public void msgHereIsOrder(Waiter w, String c, int t) {
+        public void msgHereIsOrder(TranacWaiter w, String c, int t) {
                 orders.add(new Order(w,c,t));
                 stateChanged();
         }
         
-        public void msgOrderPickedUp(Waiter w, String c) {
+        public void msgOrderPickedUp(TranacWaiter w, String c) {
                 synchronized(orders) {
                         for(Order o : orders) {
                                 if(o.waiter == w && o.choice.toString().equalsIgnoreCase(c)) {
@@ -213,7 +213,6 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                 }
                 */
                 
-                System.out.println(mItemInventory.keySet().size());
                 if(mItemInventory.keySet().contains(food))
                 	System.out.println("Cool.");
             
@@ -347,15 +346,15 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                 return mPerson.getName();
         }
         
-        public void setGui(CookGui_at c) {
+        public void setGui(TranacCookGui c) {
                 setCookGui(c);
         }
         
-        public CookGui_at getCookGui() {
+        public TranacCookGui getCookGui() {
                 return cookGui;
         }
 
-        public void setCookGui(CookGui_at cookGui) {
+        public void setCookGui(TranacCookGui cookGui) {
                 this.cookGui = cookGui;
         }
         /*
@@ -392,14 +391,14 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
         /** Classes */
         
         private class Order {                //holds all relevant information for the order
-                Waiter waiter;
+                TranacWaiter waiter;
 //                String choice;
                 EnumItemType choice;
                 int table;
                 int n;
                 OrderState s;
                 
-                Order(Waiter w, String c, int t) {
+                Order(TranacWaiter w, String c, int t) {
                         this.waiter = w;
                         choice = Item.stringToEnum(c);
                         table = t;
@@ -414,7 +413,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                 int stock;
                 int numNeeded;
                 FoodState s;
-                List<Market> outOfItem = new ArrayList<Market> ();
+                List<TranacMarket> outOfItem = new ArrayList<TranacMarket> ();
                 
                 Food(String n, int c, int s) {
                         name = n;
@@ -424,7 +423,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                         numNeeded = 0;
                 }
                 
-                public void addMarketOutOfItem(Market m) {
+                public void addMarketOutOfItem(TranacMarket m) {
                         outOfItem.add(m);
                 }
         } 

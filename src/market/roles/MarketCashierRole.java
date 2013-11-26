@@ -58,6 +58,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		super(person);
 		mPerson = person;
 		mMarketType = type;
+		if(person != null)
+			mBankAccount = person.getSSN();
 		
 		//populate inventory
 		if(mMarketType == EnumMarketType.FOOD) {

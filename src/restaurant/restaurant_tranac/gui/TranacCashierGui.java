@@ -1,6 +1,6 @@
 package restaurant.restaurant_tranac.gui;
 
-import restaurant.restaurant_tranac.roles.RestaurantCashierRole_at;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -10,16 +10,16 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-public class CashierGui_at implements Gui {
+public class TranacCashierGui implements Gui {
 
-    private RestaurantCashierRole_at agent;
+    private TranacRestaurantCashierRole agent;
 
     private int xPos = 230, yPos = 130;					//static host position
     private int xDestination = 230, yDestination = 130;	//static cashier position
 
     private BufferedImage image;
     
-    public CashierGui_at(RestaurantCashierRole_at agent) {
+    public TranacCashierGui(TranacRestaurantCashierRole agent) {
         this.agent = agent;
         
     	image = null;

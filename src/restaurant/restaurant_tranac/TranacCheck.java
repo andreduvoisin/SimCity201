@@ -2,21 +2,23 @@ package restaurant.restaurant_tranac;
 
 import restaurant.restaurant_tranac.interfaces.*;
 
-public class Check {
-	Waiter waiter;
-	Customer customer;
+public class TranacCheck {
+	TranacWaiter waiter;
+	TranacCustomer customer;
 	String item;
 	double amount;
 	double payment;
 	double change;
+	private int restaurantSSN;
 	
-	public Check(Waiter w, Customer c, String i) {
+	public TranacCheck(TranacWaiter w, TranacCustomer c, String i, int n) {
 		waiter = w;
 		customer = c;
 		item = i;
 		amount = 0;
 		payment = 0;
 		change = 0;
+		restaurantSSN = n;
 	}
 	
 	public void setAmount(double a) {
@@ -29,6 +31,10 @@ public class Check {
 	
 	public void setChange(double c) {
 		change = c;
+	}
+	
+	public void setSSN(int s) {
+		setSsn(s);
 	}
 	
 	public void addOutstandingBill(double a) {
@@ -51,11 +57,19 @@ public class Check {
 		return item;
 	}
 	
-	public Waiter getWaiter() {
+	public TranacWaiter getWaiter() {
 		return waiter;
 	}
 	
-	public Customer getCustomer() {
+	public TranacCustomer getCustomer() {
 		return customer;
+	}
+
+	public int getSsn() {
+		return restaurantSSN;
+	}
+
+	public void setSsn(int ssn) {
+		this.restaurantSSN = ssn;
 	}
 }

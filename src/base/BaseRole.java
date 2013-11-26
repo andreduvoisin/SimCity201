@@ -64,8 +64,7 @@ public class BaseRole implements Role {
 	 */
 	protected void print(String msg, Throwable e) {
 		StringBuffer sb = new StringBuffer();
-		// sb.append(mPerson.getName());
-		sb.append(this);
+		sb.append(mPerson.getName());
 		sb.append(": ");
 		sb.append(msg);
 		sb.append("\n");

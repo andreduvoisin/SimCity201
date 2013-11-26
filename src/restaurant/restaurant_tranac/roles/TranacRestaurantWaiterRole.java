@@ -1,8 +1,8 @@
 package restaurant.restaurant_tranac.roles;
 
 import restaurant.restaurant_tranac.*;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
-import restaurant.restaurant_tranac.gui.WaiterGui_at;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.gui.TranacWaiterGui;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -14,14 +14,14 @@ import java.util.concurrent.Semaphore;
  * Restaurant Waiter Agent
  */
 
-public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
-	public WaiterGui_at waiterGui = null;
+public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter{
+	public TranacWaiterGui waiterGui = null;
 	private Timer timer = new Timer();	//used for breaks
 	
 	//agent correspondents
-	private Host mHost = null; 
-	private Cook mCook = null;
-	private Cashier mCashier = null;
+	private TranacHost mHost = null; 
+	private TranacCook mCook = null;
+	private TranacCashier mCashier = null;
 	
 	//synchronized list to make it "thread-safe"
 	private List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
@@ -36,36 +36,36 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	private Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
 	private Semaphore askingForBreak = new Semaphore(0,true);
 	
-	public RestaurantWaiterRole_at() {
+	public TranacRestaurantWaiterRole() {
 		super();
 
-		waiterGui = new WaiterGui_at(this, RestaurantPanel_at.getInstance().getWaiters());
-		RestaurantPanel_at.getInstance().addGui(waiterGui);
-		mHost = RestaurantPanel_at.getInstance().mHost;
-		mCook = RestaurantPanel_at.getInstance().mCook;
-		mCashier = RestaurantPanel_at.getInstance().mCashier;
+		waiterGui = new TranacWaiterGui(this, TranacRestaurantPanel.getInstance().getWaiters());
+		TranacRestaurantPanel.getInstance().addGui(waiterGui);
+		mHost = TranacRestaurantPanel.getInstance().mHost;
+		mCook = TranacRestaurantPanel.getInstance().mCook;
+		mCashier = TranacRestaurantPanel.getInstance().mCashier;
 	}
 	
-	public RestaurantWaiterRole_at(Person p) {
+	public TranacRestaurantWaiterRole(Person p) {
 		super(p);
 
-		waiterGui = new WaiterGui_at(this, RestaurantPanel_at.getInstance().getWaiters());
-		RestaurantPanel_at.getInstance().addGui(waiterGui);
-		mHost = RestaurantPanel_at.getInstance().mHost;
-		mCook = RestaurantPanel_at.getInstance().mCook;
-		mCashier = RestaurantPanel_at.getInstance().mCashier;
+		waiterGui = new TranacWaiterGui(this, TranacRestaurantPanel.getInstance().getWaiters());
+		TranacRestaurantPanel.getInstance().addGui(waiterGui);
+		mHost = TranacRestaurantPanel.getInstance().mHost;
+		mCook = TranacRestaurantPanel.getInstance().mCook;
+		mCashier = TranacRestaurantPanel.getInstance().mCashier;
 	}
 	
 	/** Messages */
 
-	public void msgPleaseSeatCustomer(Customer c, int n, int table) {
+	public void msgPleaseSeatCustomer(TranacCustomer c, int n, int table) {
 		synchronized(customers) {
 			customers.add(new MyCustomer(c,n,table,CustomerState.Waiting));
 		}
 		stateChanged();
 	}
 
-	public void msgReadyToOrder(Customer c) {
+	public void msgReadyToOrder(TranacCustomer c) {
 		synchronized(customers) {
 			for(MyCustomer mc : customers) {
 				if(mc.c == c) {
@@ -87,7 +87,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 		}
 	}
 	
-	public void msgReceivedOrder(Customer c, String choice) {
+	public void msgReceivedOrder(TranacCustomer c, String choice) {
 	//no synchronization because of the semaphore
 			for(MyCustomer mc : customers) {
 				if(mc.c == c) {
@@ -111,7 +111,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 		}
 	}
 	
-	public void msgAskingForCheck(Customer c) {
+	public void msgAskingForCheck(TranacCustomer c) {
 		synchronized(customers) {
 			for(MyCustomer mc : customers) {
 				if(mc.c == c) {
@@ -122,7 +122,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 		}
 	}
 	
-	public void msgHereIsCheck(Check c) {
+	public void msgHereIsCheck(TranacCheck c) {
 		synchronized(customers) {
 			for(MyCustomer mc : customers) {
 				if(mc.c == c.getCustomer()) {
@@ -134,7 +134,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 		}
 	}
 	
-	public void msgDoneEating(Customer c) {
+	public void msgDoneEating(TranacCustomer c) {
 		synchronized(customers) {
 			for(MyCustomer mc : customers) {
 				if(mc.c == c) {
@@ -295,7 +295,7 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	private void seatCustomer(MyCustomer c) {
 		Do("Seating customer");
 		DoGoToWaitingArea(c.n);
-		c.c.msgFollowMe(new Menu(), this);	//tell customer to follow
+		c.c.msgFollowMe(new TranacMenu(), this);	//tell customer to follow
 		mHost.msgCustomerSeated(c.c);		//tell host customer is seated
 		DoSeatCustomer(c);
 		c.s = CustomerState.Seated;
@@ -479,23 +479,23 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 		return mPerson.getName();
 	}
 	
-	public void setGui(WaiterGui_at gui) {
+	public void setGui(TranacWaiterGui gui) {
 		waiterGui = gui;
 	}
 
-	public WaiterGui_at getGui() {
+	public TranacWaiterGui getGui() {
 		return waiterGui;
 	}
 
-	public void setHost(Host h) {
+	public void setHost(TranacHost h) {
 		mHost = h;
 	}
 	
-	public void setCook(Cook c) {
+	public void setCook(TranacCook c) {
 		mCook = c;
 	}
 
-	public void setCashier(Cashier c) {
+	public void setCashier(TranacCashier c) {
 		mCashier = c;
 	}
 	public List<MyCustomer> getCustomers() {
@@ -504,15 +504,15 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	
 	/** Classes */
 	private class MyCustomer {
-		Customer c;
+		TranacCustomer c;
 		int n;
 		int table;
 		String choice;
 		int orderNum;
 		CustomerState s;
-		Check check;
+		TranacCheck check;
 		
-		MyCustomer(Customer c, int n, int t, CustomerState s) {
+		MyCustomer(TranacCustomer c, int n, int t, CustomerState s) {
 			this.c = c;
 			this.n = n;
 			this.table = t;

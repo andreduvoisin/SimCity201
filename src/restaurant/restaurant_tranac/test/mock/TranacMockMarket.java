@@ -9,9 +9,9 @@ import test.mock.*;
  * @author Angelica Huyen Tran
  */
 
-public class MockMarket extends Mock implements Market {
+public class TranacMockMarket extends Mock implements TranacMarket {
 	
-	public MockMarket() {
+	public TranacMockMarket() {
 		super();
 	}
 
@@ -23,5 +23,5 @@ public class MockMarket extends Mock implements Market {
 		log.add(new LoggedEvent("Received msgWillPaySoon from cashier. Item = " + i + ". Payment = " + p));
 	}
 //empty messages; not necessary to test cashier
-	public void msgOrderFood(Cook c, String f, int n) {	}
+	public void msgOrderFood(TranacCook c, String f, int n) {	}
 }

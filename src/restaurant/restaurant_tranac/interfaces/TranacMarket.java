@@ -6,8 +6,8 @@ package restaurant.restaurant_tranac.interfaces;
  * @author Angelica Huyen Tran
  */
 
-public interface Market {
-	public abstract void msgOrderFood(Cook c, String f, int n);
+public interface TranacMarket {
+	public abstract void msgOrderFood(TranacCook c, String f, int n);
 	
 	public abstract void msgHereIsPayment(String i, double p);
 	
