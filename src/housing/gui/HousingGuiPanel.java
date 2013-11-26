@@ -112,8 +112,6 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 		for (Gui gui : guis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
-				gui.updatePosition();
-				gui.updatePosition();
 			}
 		}
 		for (Gui gui : guis) {
