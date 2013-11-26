@@ -87,8 +87,6 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
         g2.setColor(getBackground());
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
 
-        
-        
         //draw the tables
         g2.setColor(Table.cTABLE_COLOR);
         for (int iTableNum = 0; iTableNum < SmilehamHostRole.cNUM_TABLES; iTableNum++){

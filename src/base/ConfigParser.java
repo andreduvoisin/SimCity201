@@ -47,7 +47,7 @@ public class ConfigParser {
 			synchronized (person) {
 				simcitygui.citypanel.masterPersonList.add(person);
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
-//				((PersonAgent) person).startThread();
+				((PersonAgent) person).startThread();
 			}
 			
 			scanPerson.close();
