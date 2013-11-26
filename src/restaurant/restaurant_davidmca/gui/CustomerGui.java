@@ -20,21 +20,23 @@ public class CustomerGui implements Gui {
 	private int xHome, yHome;
 	private int xDestination, yDestination;
 
-	private enum Command {
-		noCommand, GoToSeat, LeaveRestaurant, WaitingArea
-	};
+//	private enum Command {
+//		noCommand, GoToSeat, LeaveRestaurant, WaitingArea
+//	};
 
-	private Command command = Command.noCommand;
+//	private Command command = Command.noCommand;
+	private boolean currentlyAnimating = false;
 
 	public CustomerGui(Customer c, DavidRestaurantGui gui, int home) {
-		role = c;
+		currentlyAnimating = false;
+		this.role = c;
 		xPos = -40;
 		yPos = -40;
 		yHome = 10;
 		xHome = 30*(home);
 		xDestination = -40;
 		yDestination = -40;
-		this.gui = gui;
+		//this.gui = gui;
 	}
 
 	public void updatePosition() {
@@ -47,21 +49,26 @@ public class CustomerGui implements Gui {
 			yPos += 2;
 		else if (yPos > yDestination)
 			yPos -= 2;
-		if (xPos == xDestination && yPos == yDestination) {
-			if (command == Command.WaitingArea) {
-				role.msgAnimationFinishedGoToWaitingArea();
-			}
-			if (command == Command.GoToSeat)
-				role.msgAnimationFinishedGoToSeat();
-			else if (command == Command.LeaveRestaurant) {
-				role.msgAnimationFinishedLeaveRestaurant();
-				System.out
-						.println("about to call gui.setCustomerEnabled(restaurant_davidmca.agent);");
-				isHungry = false;
-				gui.setCustomerEnabled(role);
-			}
-			command = Command.noCommand;
+		if (xPos == xDestination && yPos == yDestination && currentlyAnimating) {
+			currentlyAnimating = false;
+			role.msgDoneAnimating();
 		}
+//		if (xPos == xDestination && yPos == yDestination) {
+//			if (command == Command.WaitingArea) {
+//				role.msgAnimationFinishedGoToWaitingArea();
+//			}
+//			if (command == Command.GoToSeat) {
+//				role.msgAnimationFinishedGoToSeat();
+//			}
+//			else if (command == Command.LeaveRestaurant) {
+//				role.msgAnimationFinishedLeaveRestaurant();
+//				System.out
+//						.println("about to call gui.setCustomerEnabled(restaurant_davidmca.agent);");
+//				isHungry = false;
+//				gui.setCustomerEnabled(role);
+//			}
+//			command = Command.noCommand;
+//		}
 	}
 
 	public void draw(Graphics2D g) {
@@ -96,19 +103,20 @@ public class CustomerGui implements Gui {
 	public void DoGoToWaitingArea() {
 		xDestination = xHome;
 		yDestination = yHome;
-		command = Command.WaitingArea;
+		currentlyAnimating = true;
 	}
 
 	public void DoGoToSeat(int tablex, int tabley) {
+		System.out.println("DoGoToSeat");
 		xDestination = tablex;
 		yDestination = tabley;
-		command = Command.GoToSeat;
+		currentlyAnimating = true;
 	}
 
 	public void DoExitRestaurant() {
 		xDestination = -40;
 		yDestination = -40;
-		command = Command.LeaveRestaurant;
+		currentlyAnimating = true;
 	}
 
 	public int getHomeLocation() {
