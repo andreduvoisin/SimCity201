@@ -410,12 +410,12 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		}
 		waiterGui.DoLeaveCustomer();
 		//Leave customer while customer orders
-		try{
-			animationReady.acquire();
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
+//		try{
+//			animationReady.acquire();
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		host.msgWaiterFree(this);
 //		}
 	}
@@ -471,7 +471,12 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		host.msgWaiterBusy(this); 
 		waiterGui.DoGoToCook();
 		print("Getting customer food");
-		
+		try{
+			animationReady.acquire();
+		}
+		catch(Exception e){
+			print("Animation release exception");
+		} 
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 
