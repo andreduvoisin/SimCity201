@@ -52,39 +52,6 @@ public class SimCityGui extends JFrame {
 			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
 			this.add(cityview, mGridBagConstraints);	
 		
-//		Person person = citypanel.masterPersonList.get(0);
-//		person.msgAddEvent(new Event(EnumEventType.JOB, 0));
-//		if (person instanceof PersonAgent){
-//			((PersonAgent) person).msgAnimationDone();
-//			((PersonAgent) person).getCar();
-//			((PersonAgent) person).eatFood();
-//			((PersonAgent) person).msgAnimationDone();
-//		}
-		
-//		if (person instanceof PersonAgent){
-//			((PersonAgent) person).msgAnimationDone();
-//			((PersonAgent) person).getCar();
-//			((PersonAgent) person).msgAnimationDone();
-//			((PersonAgent) person).pickAndExecuteAnAction();
-//			((PersonAgent) person).pickAndExecuteAnAction();
-//		}
-		
-//		if (person instanceof PersonAgent){
-//			Housing
-//			((PersonAgent) person).invokeMaintenance();
-//			((PersonAgent) person).mHouseRole.setHouse(cityview.house1);
-//			((PersonAgent) person).mHouseRole.msgEatAtHome();
-//			((PersonAgent) person).startThread();
-//			((PersonAgent) person).eatFood();
-//		}
-//		
-//		for (int i=0; i<10; i++) {
-//			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
-//		}
-//		
-//		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
-//			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
-//		}
 	}
 
 	/**

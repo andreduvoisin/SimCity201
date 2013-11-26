@@ -56,11 +56,26 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	public MarketCashierRole(Person person, EnumMarketType type) {
 		super(person);
-		mPerson = person;
 		mMarketType = type;
 		if(person != null)
 			mBankAccount = person.getSSN();
 		
+		//populate inventory
+		if(mMarketType == EnumMarketType.FOOD) {
+		mInventory.put(EnumItemType.STEAK, mBaseInventory);
+		mInventory.put(EnumItemType.SALAD, mBaseInventory);
+		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);
+		mInventory.put(EnumItemType.PIZZA, mBaseInventory);
+		}
+		else {
+			mInventory.put(EnumItemType.CAR, mBaseInventory);
+		}
+	}
+	
+	public MarketCashierRole(EnumMarketType type) {
+		super();
+		mMarketType = type;
+
 		//populate inventory
 		if(mMarketType == EnumMarketType.FOOD) {
 		mInventory.put(EnumItemType.STEAK, mBaseInventory);
@@ -213,5 +228,10 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	public void addDeliveryTruck(MarketDeliveryTruck d) {
 		mDeliveryTrucks.add(d);
+	}
+	
+	public void setPerson(Person p) {
+		mPerson = p;
+		mBankAccount = p.getSSN();
 	}
 }

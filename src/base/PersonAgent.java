@@ -46,7 +46,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sRestaurantCounter = 0;
 	
 	//Roles and Job
-	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -124,6 +124,10 @@ public class PersonAgent extends Agent implements Person {
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
 					break;
+				case MARKETCUSTOMER:
+					mJobRole = new MarketCustomerRole(this);
+					((RestaurantBaseInterface) mJobRole).setPerson(this);
+					break;	
 				case RESTAURANT:
 					mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
@@ -138,7 +142,8 @@ public class PersonAgent extends Agent implements Person {
 					mJobRole = SortingHat.getTransportationRole();
 					break;
 				case HOUSING: 
-					mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+					mJobRole.setPerson(this);
 					break;
 				case NONE:
 					break;
@@ -158,11 +163,11 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Add customer/rider role possibilities
-		mRoles.put(new BankCustomerRole(this), false);
-		mRoles.put(new HousingRenterRole(this), false);
-		mRoles.put(new MarketCustomerRole(this), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false);
+//		mRoles.put(new BankCustomerRole(this), false);
+//		mRoles.put(new HousingRenterRole(this), false);
+//		mRoles.put(new MarketCustomerRole(this), false);
+//		mRoles.put(new TransportationBusRiderRole(this), false);
+//		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 		//Add events
 		mEvents.add(new Event(EnumEventType.JOB, 0));
@@ -407,8 +412,10 @@ public class PersonAgent extends Agent implements Person {
 	public void goToJob() {
 		System.out.println("Going to Job");
 		if (mJobLocation != null){
+			System.out.println("yes");
 			mPersonGui.DoGoToDestination(mJobLocation);
 		}else{
+			System.out.println("no");
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(SimCityGui.TESTNUM));
 		}
 		acquireSemaphore(semAnimationDone);
