@@ -62,8 +62,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 1: //chase
 					break;
 				case 2: //jerry
-	//				subRole = JerrywebRestaurantPanel.getInstance().cook;
-	//				subRole.setPerson(super.mPerson);
+					subRole = JerrywebRestaurantPanel.getInstance().cook;
+					subRole.setPerson(super.mPerson);
 					break;
 				case 3: //maggi
 					 subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
