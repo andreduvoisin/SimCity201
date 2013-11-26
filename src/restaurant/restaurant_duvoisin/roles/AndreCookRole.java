@@ -1,9 +1,9 @@
-package restaurant.restaurant_duvoisin;
+package restaurant.restaurant_duvoisin.roles;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import restaurant.restaurant_duvoisin.agent.Agent;
+import base.BaseRole;
 import restaurant.restaurant_duvoisin.gui.CookGui;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Market;
@@ -12,7 +12,7 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 /**
  * Restaurant Cook Agent
  */
-public class CookAgent extends Agent implements Cook {
+public class AndreCookRole extends BaseRole implements Cook {
 	List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
 	public enum OrderState { Pending, Cooking, Done };
@@ -36,7 +36,7 @@ public class CookAgent extends Agent implements Cook {
 	private Semaphore atPlating = new Semaphore(0, true);
 	private Semaphore atStand = new Semaphore(0, true);
 
-	public CookAgent(String name) {
+	public AndreCookRole(String name) {
 		super();
 		
 		this.name = name;
@@ -142,7 +142,7 @@ public class CookAgent extends Agent implements Cook {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		if(!paused) {
 			if(orderFood) {
 				OrderFoodThatIsLow();

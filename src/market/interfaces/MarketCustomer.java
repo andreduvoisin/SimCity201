@@ -12,11 +12,9 @@ public interface MarketCustomer{
 	
 	public abstract void msgHereIsCustomerOrder(MarketOrder order);
 	
-	//Animation
+	public abstract void msgAnimationAtMarket();
 	
-	//Scheduler
-//	public abstract boolean pickAndExecuteAnAction();
-	//Actions
+	public abstract void msgAnimationAtWaitingArea();
 	
-	//Accessors
+	public abstract void msgAnimationLeftMarket();
 }

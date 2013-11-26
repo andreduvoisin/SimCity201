@@ -2,7 +2,7 @@ package restaurant.restaurant_duvoisin.interfaces;
 
 import java.util.List;
 
-import restaurant.restaurant_duvoisin.CookAgent.Order;
+import restaurant.restaurant_duvoisin.roles.AndreCookRole.Order;
 
 public interface Cook {
 	public abstract void msgHereIsOrder(Waiter w, String choice, int table);

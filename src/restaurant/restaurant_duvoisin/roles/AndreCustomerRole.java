@@ -1,6 +1,6 @@
-package restaurant.restaurant_duvoisin;
+package restaurant.restaurant_duvoisin.roles;
 
-import restaurant.restaurant_duvoisin.agent.Agent;
+import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.CustomerGui;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
@@ -13,10 +13,12 @@ import java.util.TimerTask;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+import base.BaseRole;
+
 /**
  * Restaurant customer agent.
  */
-public class CustomerAgent extends Agent implements Customer {
+public class AndreCustomerRole extends BaseRole implements Customer {
 	// Hacks for Name:
 	// ST = Will Order Steak
 	// CH = Will Order Chicken
@@ -67,7 +69,7 @@ public class CustomerAgent extends Agent implements Customer {
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerAgent(String name){
+	public AndreCustomerRole(String name){
 		super();
 		this.name = name;
 		amountOwed = 0.00;
@@ -181,7 +183,7 @@ public class CustomerAgent extends Agent implements Customer {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
 		if(!paused) {
 			if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){

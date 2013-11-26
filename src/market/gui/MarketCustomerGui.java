@@ -2,23 +2,23 @@ package market.gui;
 
 import java.awt.*;
 
-import market.roles.MarketCustomerRole;
+import market.interfaces.MarketCustomer;
 
 public class MarketCustomerGui implements MarketBaseGui {
-	private MarketCustomerRole mAgent;
+	private MarketCustomer mAgent;
 
 	private static final int xStart = -20, yStart = -20;
 	private static final int xMarket = 70, yMarket = 50;
 	private static final int xWaitingArea = 70, yWaitingArea = 200;
 	
 	private int xPos = xStart, yPos = yStart;
-	private int xDestination = xMarket, yDestination = yMarket;
+	private int xDestination = xStart, yDestination = yStart;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, goToWaitingArea, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
 	
-	public MarketCustomerGui(MarketCustomerRole agent) {
+	public MarketCustomerGui(MarketCustomer agent) {
 		mAgent = agent;
 	}
 	
@@ -46,7 +46,7 @@ public class MarketCustomerGui implements MarketBaseGui {
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftRestaurant();
+        		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
