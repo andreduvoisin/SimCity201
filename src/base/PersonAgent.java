@@ -46,7 +46,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sRestaurantCounter = 0;
 	
 	//Roles and Job
-	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -124,6 +124,10 @@ public class PersonAgent extends Agent implements Person {
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
 					break;
+				case MARKETCUSTOMER:
+					mJobRole = new MarketCustomerRole(this);
+					((RestaurantBaseInterface) mJobRole).setPerson(this);
+					break;	
 				case RESTAURANT:
 					mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
