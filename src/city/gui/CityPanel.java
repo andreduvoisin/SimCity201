@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+
+import javax.imageio.ImageIO;
 
 import transportation.TransportationBusDispatch;
 import market.gui.MarketDeliveryTruckGui;
@@ -46,8 +50,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
+		
 
-		// A* Setup
 		try {
 			for(int i = 0; i < (CITY_WIDTH/ASC); i++) {
 				for(int j = 0; j < (CITY_HEIGHT/ASC); j++) {
@@ -112,7 +116,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		} catch (Exception e) {
 			System.out.println("Exception During A* Setup: " + e);
 		}
-
+/*
 		//Add Background and city block
 		background = new Color(100,100,100);
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
@@ -125,14 +129,14 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		busDispatch = new TransportationBusDispatch(ContactList.cBUS_STOPS);
 		//this.addMoving(busDispatch.getBusGui());
 		busDispatch.startThread();
-*/
+
 
 		//Add Roads
 		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
 		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
 		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL));
 		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL));
-		
+		*/
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "R_cwagoner"));
