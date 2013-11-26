@@ -2,7 +2,7 @@ package restaurant.restaurant_smileham;
 
 import java.awt.Color;
 
-import restaurant.restaurant_smileham.interfaces.Customer;
+import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
 
 
 
@@ -15,7 +15,7 @@ public class Table {
 	public static final int cTABLE_SPACING = 100;
 	public static final int cNUM_ROWS = 3;
 
-	private Customer mOccupiedBy;
+	private SmilehamCustomer mOccupiedBy;
 
 	private int mTableNumber;
 
@@ -35,11 +35,11 @@ public class Table {
 		return mTableNumber;
 	}
 
-	public Customer getOccupiedBy() {
+	public SmilehamCustomer getOccupiedBy() {
 		return mOccupiedBy;
 	}
 	
-	public void setOccupant(Customer cust) {
+	public void setOccupant(SmilehamCustomer cust) {
 		mOccupiedBy = cust;
 	}
 
@@ -47,7 +47,7 @@ public class Table {
 		mOccupiedBy = null;
 	}
 
-	public Customer getOccupant() {
+	public SmilehamCustomer getOccupant() {
 		return mOccupiedBy;
 	}
 

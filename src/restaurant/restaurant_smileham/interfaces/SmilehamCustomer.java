@@ -6,14 +6,14 @@ import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
 import restaurant.restaurant_smileham.test.mock.EventLog;
 
-public interface Customer{
+public interface SmilehamCustomer{
 	
 	public EventLog log = new EventLog();
 	
 	//Messages
 	public abstract void msgGotHungry();
 	public abstract void msgRestaurantFull();
-	public abstract void msgSitAtTable(Waiter waiter, int tableNum, Menu menu);
+	public abstract void msgSitAtTable(SmilehamWaiter waiter, int tableNum, Menu menu);
 	public abstract void msgAnimationFinishedGoToSeat();
 	public abstract void msgWhatWouldYouLike(Menu menu);
 	public abstract void msgHereIsYourFood(EnumFoodOptions choice);
@@ -40,7 +40,7 @@ public interface Customer{
 	//Actions
 	
 	//Accessors
-	public abstract void setHost(Host host);
+	public abstract void setHost(SmilehamHost host);
 	public abstract String getCustomerName();
 	public abstract String getName();
 	public abstract int getHungerLevel();
