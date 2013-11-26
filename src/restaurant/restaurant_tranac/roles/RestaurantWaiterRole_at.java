@@ -330,7 +330,6 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	private void deliverFood(MyCustomer c) {
 		Do("Delivering food to " + c.getName() + ".");
 		DoGoToGetOrder(c.orderNum);
-		Do("Testing");
 		mCook.msgOrderPickedUp(this, c.choice);
 		
 		waiterGui.setFood(c.choice);	//set gui to show food

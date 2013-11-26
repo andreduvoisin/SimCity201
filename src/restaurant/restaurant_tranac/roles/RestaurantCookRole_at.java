@@ -50,7 +50,11 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                 inventory.add(new Food("Pizza",(int)(baseTime*1.5),DEFAULT_FOOD_QTY));
                 */
                 //inventory created in restaurantCookRole
-                
+                mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+                mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+                mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+                mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+
                 //create cook times
                 mCookTimes.put(EnumItemType.STEAK,(int)(baseTime*2));
                 mCookTimes.put(EnumItemType.CHICKEN,(int)(baseTime*1.75));
@@ -74,7 +78,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
         public void msgOrderPickedUp(Waiter w, String c) {
                 synchronized(orders) {
                         for(Order o : orders) {
-                                if(o.waiter == w && o.choice.equals(c)) {
+                                if(o.waiter == w && o.choice.toString().equalsIgnoreCase(c)) {
                                         o.s = OrderState.PickedUp;
                                 }
                         }
@@ -153,24 +157,25 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                                 return true;
                         }
                 }
-        */        for(Order o : orders) {
+        */
+            for(Order o : orders) {
+                if(o.s == OrderState.PickedUp) {
+                        removeOrder(o);
+                        return true;
+                }
+            }
+            for(Order o : orders) {
+                if(o.s == OrderState.Done) {
+                        plateIt(o);
+                        return true;
+                }
+            }for(Order o : orders) {
                         if(o.s == OrderState.Pending) {
                                 tryToCookIt(o);
                                 return true;
                         }
                 }
-                for(Order o : orders) {
-                        if(o.s == OrderState.PickedUp) {
-                                removeOrder(o);
-                                return true;
-                        }
-                }
-                for(Order o : orders) {
-                        if(o.s == OrderState.Done) {
-                                plateIt(o);
-                                return true;
-                        }
-                }
+
                 //ordering food items
  //               if(marketPickAndExecuteAnAction())
  //                       return true;
@@ -181,7 +186,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
         /** Actions */
 
         private void tryToCookIt(final Order o) {
-                EnumItemType food = null;
+                EnumItemType food = o.choice;
                 /*
                 synchronized(inventory) {
                         for(Food i : inventory) {
@@ -208,6 +213,10 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                 }
                 */
                 
+                System.out.println(mItemInventory.keySet().size());
+                if(mItemInventory.keySet().contains(food))
+                	System.out.println("Cool.");
+            
                 if(mItemInventory.get(food) == 0) {
                         Do("Out of choice " + food);
                         o.waiter.msgOutOfFood(o.choice.toString(), o.table);

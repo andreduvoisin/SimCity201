@@ -111,7 +111,7 @@ public class AndreSharedWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgOutOfFood(int table, String choice) {
-		print("msgOutOfFood received");
+		//print("msgOutOfFood received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.table == table && mc.choice == choice) {
@@ -345,13 +345,13 @@ public class AndreSharedWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void AskCashierToComputeCheck(MyCustomer c) {
-		print("Doing AskCashierToComputeCheck");
+		//print("Doing AskCashierToComputeCheck");
 		cashier.msgComputeBill(this, c.customer, c.choice);
 		c.state = CustomerState.WaitingForCheck;
 	}
 	
 	private void GiveCustomerCheck(MyCustomer c) {
-		print("Doing GiveCustomerCheck");
+		//print("Doing GiveCustomerCheck");
 		waiterGui.DoGoToCashier();
 		try {
 			atCashier.acquire();

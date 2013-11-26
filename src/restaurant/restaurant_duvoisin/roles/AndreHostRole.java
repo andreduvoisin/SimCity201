@@ -22,7 +22,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	//with List semantics.
 	public List<MyCustomer> waitingCustomers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	List<MyWaiter> waiters = Collections.synchronizedList(new ArrayList<MyWaiter>());
-	public Collection<Table> tables;
+	public List<Table> tables;
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
 	
@@ -38,9 +38,11 @@ public class AndreHostRole extends BaseRole implements Host {
 
 		this.name = name;
 		// make some tables
-		tables = new ArrayList<Table>(tgui.getNumTables());
-		for (int ix = 1; ix <= tgui.getNumTables(); ix++) {
-			tables.add(new Table(ix));//how you add to a collections
+		tables = Collections.synchronizedList(new ArrayList<Table>(tgui.getNumTables()));
+		synchronized(tables) {
+			for (int ix = 1; ix <= tgui.getNumTables(); ix++) {
+				tables.add(new Table(ix));//how you add to a collections
+			}
 		}
 	}
 
@@ -72,7 +74,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	public void msgLeavingBecauseRestaurantFull(Customer cust) {
-		print("msgLeavingBecauseRestaurantFull received");
+		//print("msgLeavingBecauseRestaurantFull received");
 		synchronized(waitingCustomers) {
 			for(MyCustomer mc : waitingCustomers)
 				if(mc.customer == cust) {
@@ -86,16 +88,18 @@ public class AndreHostRole extends BaseRole implements Host {
 	public void msgTableIsFree(Waiter w, int table) {
 		//print("msgTableIsFree received");
 		//Free table.
-		for(Table t : tables)
-			if(t.tableNum == table) {
-				t.isOccupied = false;
-				synchronized(waiters) {
-					for(MyWaiter mw : waiters)
-						if(mw.waiter == w)
-							mw.numCustomers--;
+		synchronized(tables) {
+			for(Table t : tables)
+				if(t.tableNum == table) {
+					t.isOccupied = false;
+					synchronized(waiters) {
+						for(MyWaiter mw : waiters)
+							if(mw.waiter == w)
+								mw.numCustomers--;
+					}
+					stateChanged();
 				}
-				stateChanged();
-			}
+		}
 	}
 	
 	public void msgRequestGoOnBreak(Waiter w) {
@@ -146,12 +150,14 @@ public class AndreHostRole extends BaseRole implements Host {
 			}
 			if(!waiters.isEmpty()) {
 				synchronized(waitingCustomers) {
-					for(MyCustomer c : waitingCustomers)
-						for(Table t : tables)
-							if(t.isOccupied == false) {
-								SeatCustomer(c, t);
-								return true;
-							}
+					synchronized(tables) {
+						for(MyCustomer c : waitingCustomers)
+							for(Table t : tables)
+								if(t.isOccupied == false) {
+									SeatCustomer(c, t);
+									return true;
+								}
+					}
 				}
 			} else {
 				stateChanged();
@@ -199,7 +205,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	private void NotifyRestaurantFull(MyCustomer mc) {
-		print("Doing NotifyRestaurantFull");
+		//print("Doing NotifyRestaurantFull");
 		mc.customer.msgRestaurantFull();
 		mc.state = CustomerState.NotifiedFull;
 	}
@@ -225,9 +231,11 @@ public class AndreHostRole extends BaseRole implements Host {
 
 	//utilities
 	private Boolean checkTables() {
-		for(Table t : tables)
-			if(t.isOccupied == false)
-				return false;
+		synchronized(tables) {
+			for(Table t : tables)
+				if(t.isOccupied == false)
+					return false;
+		}
 		return true;
 	}
 	
@@ -243,7 +251,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	
 	private class MyWaiter {
 		AndreWaiterRole waiter;
-		int numCustomers;
+		public int numCustomers;
 		WaiterState state;
 		
 		MyWaiter(AndreWaiterRole w, WaiterState ws) {

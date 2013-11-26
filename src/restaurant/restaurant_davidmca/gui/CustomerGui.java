@@ -31,7 +31,7 @@ public class CustomerGui implements Gui {
                 xPos = -40;
                 yPos = -40;
                 yHome = 10;
-                xHome = 30*(home);
+                xHome = 10+30*(home);
                 xDestination = -40;
                 yDestination = -40;
                 this.gui = gui;
@@ -39,14 +39,14 @@ public class CustomerGui implements Gui {
 
         public void updatePosition() {
                 if (xPos < xDestination)
-                        xPos += 2;
+                        xPos += 1;
                 else if (xPos > xDestination)
-                        xPos -= 2;
+                        xPos -= 1;
 
                 if (yPos < yDestination)
-                        yPos += 2;
+                        yPos += 1;
                 else if (yPos > yDestination)
-                        yPos -= 2;
+                        yPos -= 1;
                 if (xPos == xDestination && yPos == yDestination) {
                         if (command == Command.WaitingArea) {
                                 agent.msgAnimationFinishedGoToWaitingArea();

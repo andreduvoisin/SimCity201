@@ -167,7 +167,9 @@ public class CookGui_at implements Gui {
     }
     
     public void FoodPickedUp(int n, String c) {
+
     	String s = getString(c);
+    	System.out.println(s);
     	synchronized(foodItems) {
     	for(Food f : foodItems) {
     		if(f.f.equals(s) && f.s == FoodState.Plating) {
@@ -189,11 +191,11 @@ public class CookGui_at implements Gui {
     }
     
     public String getString(String f) {					//sets the correct food icon for delivery
-    	if(f.equals("Steak"))
+    	if(f.equalsIgnoreCase("Steak"))
     		return "STK";
-    	else if(f.equals("Chicken"))
+    	else if(f.equalsIgnoreCase("Chicken"))
     		return "CHK";
-    	else if(f.equals("Salad"))
+    	else if(f.equalsIgnoreCase("Salad"))
     		return "SLD";
     	else
     		return "PIZ";

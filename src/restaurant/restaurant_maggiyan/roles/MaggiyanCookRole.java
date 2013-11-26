@@ -269,6 +269,11 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		}
 		cookGui.DoCookFood(o.c, o.cookingPos);
 		cookGui.GoToHomePosition(); 
+		try{
+			animationReady.acquire(); 
+		}catch(Exception e){
+			print("DoCookFood exception thrown"); 
+		}
 		timer.schedule(new TimerTask() {
 			public void run() {
 				print("DONE!!");

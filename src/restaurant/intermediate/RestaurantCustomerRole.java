@@ -61,7 +61,9 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
 				break;
 			case 7: //rex
-				subRole = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getHost());
+				RexCustomerRole temp = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getHost());
+				temp.setName("Joe");
+				subRole = temp;
 				//creates CustomerGui and adds to animationPanels
 				subRole.setPerson(super.mPerson);
 				RexAnimationPanel.addPerson((RexCustomerRole)subRole);
@@ -76,7 +78,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public boolean pickAndExecuteAnAction() {
-		print("generic pAEA called");
+	//	print("generic pAEA called");
 		return subRole.pickAndExecuteAnAction();
 	}
 }

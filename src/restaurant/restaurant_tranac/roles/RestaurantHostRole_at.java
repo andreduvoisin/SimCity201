@@ -238,7 +238,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		if(waiters.isEmpty())
 			return;
 		//checks if there is an available waiter
-		Do("Seating " + c.getName());
+		Do("Seating " + c.getName() + " at " + t.tableNumber);
 		c.s = CustomerState.Seating;
 		t.setOccupant(c);
 		//finds waiter with the lowest customer count

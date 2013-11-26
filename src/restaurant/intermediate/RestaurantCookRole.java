@@ -40,11 +40,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         public RestaurantCookRole(Person person){
                 super(person);
-                
-                mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-                mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-                mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-                mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
         }
         
         public RestaurantCookRole() {

@@ -120,8 +120,8 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 		isHungry = true;
 		agent.gotHungry();
 		setPresent(true);
-		xDestination = 50*pos;
-		yDestination = (int) (Math.random()*(20)); 
+		xDestination = 50+ 25*pos;
+		yDestination = 10; 
 	}
 	public boolean isHungry() {
 		return isHungry;

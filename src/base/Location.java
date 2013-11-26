@@ -8,4 +8,9 @@ public class Location {
 		mX = x;
 		mY = y;
 	}
+
+	public void setTo(Location newLocation) {
+		this.mX = newLocation.mX;
+		this.mY = newLocation.mY;
+	}
 }

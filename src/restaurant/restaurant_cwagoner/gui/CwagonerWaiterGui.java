@@ -5,7 +5,11 @@ import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 
 import java.awt.*;
 
+import base.Location;
+
 public class CwagonerWaiterGui implements CwagonerGui {
+
+	private static int waiterNum = 0;
 
     private CwagonerWaiterRole agent = null;
     CwagonerRestaurantGui RestaurantGui = null;
@@ -16,32 +20,31 @@ public class CwagonerWaiterGui implements CwagonerGui {
     private String food = "";
 
     // GUI is a square. While not busy, wait in home position
-    private int size = 20;
-    private int HOME_X, HOME_Y,
-    			COOK_X = 460, COOK_Y = 150,
-    			CASHIER_X = -size, CASHIER_Y = 100,
-    			PLATE_SIZE = 20,
-    	    	xPos, yPos,
-    	    	xDestination, yDestination;
+    private int size = 20, plateSize = 20;
+    private Location homePos = new Location(100 + waiterNum * (size + 10), 2 * size),
+    				cookPos = new Location(460, 150),
+    				cashierPos = new Location(-size, 100),
+    				position,
+    				destination;
 
-    public CwagonerWaiterGui(CwagonerWaiterRole w, CwagonerRestaurantGui g, int waiterNum) {
+    public CwagonerWaiterGui(CwagonerWaiterRole w, CwagonerRestaurantGui g) {
     	state = State.idle;
         agent = w;
         RestaurantGui = g;
-        HOME_X = 100 + waiterNum * (size + 10);
-        HOME_Y = size;
-        xPos = xDestination = HOME_X;
-        yPos = yDestination = HOME_Y;
+        waiterNum++;
+
+        position.mX = destination.mX = homePos.mX;
+        position.mY = destination.mY = homePos.mY;
     }
 
     public void updatePosition() {
-        if (xPos < xDestination)		xPos++;
-        else if (xPos > xDestination)	xPos--;
+        if (position.mX < destination.mX)		position.mX++;
+        else if (position.mX > destination.mX)	position.mX--;
 
-        if (yPos < yDestination)		yPos++;
-        else if (yPos > yDestination)	yPos--;
+        if (position.mY < destination.mY)		position.mY++;
+        else if (position.mY > destination.mY)	position.mY--;
 
-        if (xPos == xDestination && yPos == yDestination) {
+        if (position.mX == destination.mX && position.mY == destination.mY) {
 			if (! state.equals(State.idle)) {
         		state = State.idle;
         		agent.msgAnimationFinished();
@@ -51,17 +54,17 @@ public class CwagonerWaiterGui implements CwagonerGui {
 
     public void draw(Graphics2D g) {
         g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(xPos, yPos, size, size);
+		g.fillRect(position.mX, position.mY, size, size);
 		
 		if (food.equals("")) {
 	    	g.setColor(Color.LIGHT_GRAY);
-	    	g.fillRect(xPos, yPos, size, size);
+	    	g.fillRect(position.mX, position.mY, size, size);
 		}
 		else {	// Waiter is carrying food
 			g.setColor(Color.WHITE);
-    		g.fillOval(xPos + size / 4, yPos + size / 4, PLATE_SIZE, PLATE_SIZE);
+    		g.fillOval(position.mX + size / 4, position.mY + size / 4, plateSize, plateSize);
     		g.setColor(Color.BLACK);
-    		g.drawString(food, (int) (xPos + size / 2), yPos + size);
+    		g.drawString(food, (int) (position.mX + size / 2), position.mY + size);
 		}
     }
 
@@ -71,29 +74,29 @@ public class CwagonerWaiterGui implements CwagonerGui {
 
     public void DoGoGetCustomer(Dimension custPos) {
     	state = State.gettingCustomer;
-    	xDestination = custPos.width + size;
-    	yDestination = custPos.height - size;
+    	destination.mX = custPos.width + size;
+    	destination.mY = custPos.height - size;
     }
     
     // Used for bringing customer to table,
     // and returning to table to take order or deliver food
     public void DoGoToTable(int tableNum) {
     	state = State.movingToTable;
-    	Dimension tableLoc = RestaurantGui.getTableLocation(tableNum);
-        xDestination = tableLoc.width + size;
-        yDestination = tableLoc.height - size;
+    	Location tableLoc = RestaurantGui.getTableLocation(tableNum);
+        destination.mX = tableLoc.mX + size;
+        destination.mY = tableLoc.mY - size;
     }
 
     public void DoGoToHomePosition() {
     	state = State.idle; // Prevents updatePosition() from calling animationFinished.release()
-        xDestination = HOME_X;
-        yDestination = HOME_Y;
+        destination.mX = homePos.mX;
+        destination.mY = homePos.mY;
     }
 
     public void DoGoToCook() {
     	state = State.movingToCook;
-    	xDestination = COOK_X;
-    	yDestination = COOK_Y;
+    	destination.mX = cookPos.mX;
+    	destination.mY = cookPos.mY;
     }
     
     public void DoDeliverFood(int tableNum) {
@@ -103,8 +106,8 @@ public class CwagonerWaiterGui implements CwagonerGui {
     
     public void DoGoToCashier() {
     	state = State.movingToCashier;
-    	xDestination = CASHIER_X;
-    	yDestination = CASHIER_Y;
+    	destination.mX = cashierPos.mX;
+    	destination.mY = cashierPos.mY;
     }
     
     // Adds food to waiter's GUI (to drop it off at customer)
