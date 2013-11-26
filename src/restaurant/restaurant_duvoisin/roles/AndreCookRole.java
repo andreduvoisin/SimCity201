@@ -179,7 +179,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 
 	// Actions
 	void TryToCookFood(Order o) {
-		print("Doing TryToCookFood");
+		//print("Doing TryToCookFood");
 		Food f = foods.get(o.choice);
 		if(f.amount <= 0) {
 			o.waiter.msgOutOfFood(o.table, o.choice);
@@ -290,7 +290,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 			synchronized(orders) {
 				while(!revolvingStand.isEmpty()) {
 					orders.add(revolvingStand.remove(0));
-					print("o: " + orders.size() + " && rS: " + revolvingStand.size());
+					//print("o: " + orders.size() + " && rS: " + revolvingStand.size());
 				}
 			}
 		}

@@ -205,7 +205,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	public void msgAnimationReady(){
 		animationReady.release();
-		print("Welp. Hope this works"); 
 		stateChanged(); 
 	}
 	
@@ -319,7 +318,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 				}
 			}
 			waiterGui.DoLeaveCustomer();
-			//host.msgWaiterFree(this);
+			host.msgWaiterFree(this);
 			return false;	
 		}catch(ConcurrentModificationException e){
 			return true; 
@@ -412,12 +411,8 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		}
 		waiterGui.DoLeaveCustomer();
 		//Leave customer while customer orders
-		//waiterIsReady = true;
 		try{
 			animationReady.acquire();
-			 
-			//waiterReady.acquire(); 
-
 		}
 		catch(Exception e){
 			print("Animation release exception");
@@ -457,6 +452,12 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		DoGiveOrderToCook();  
 		print("Giving order to cook");
 		cust.s = CustomerState.foodIsCooking; 
+//		try{
+//			animationReady.acquire();
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 
@@ -471,6 +472,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		host.msgWaiterBusy(this); 
 		waiterGui.DoGoToCook();
 		print("Getting customer food");
+		
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 

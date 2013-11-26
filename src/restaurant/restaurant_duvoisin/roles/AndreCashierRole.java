@@ -40,13 +40,13 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 	// Messages
 	
 	public void msgComputeBill(Waiter w, Customer c, String choice) {
-		print("msgComputeBill received");
+		//print("msgComputeBill received");
 		openChecks.add(new Check(w, c, choice, CheckState.Created));
 		stateChanged();
 	}
 	
 	public void msgPayment(Customer c, double amount) {
-		print("msgPayment received");
+		//print("msgPayment received");
 		log.add(new LoggedEvent("msgPayment received"));
 		synchronized(openChecks) {
 			for(Check ch : openChecks)
@@ -59,7 +59,7 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 	}
 	
 	public void msgComputeMarketBill(Market m, String type, int amount) {
-		print("msgComputeMarketBill received");
+		//print("msgComputeMarketBill received");
 		log.add(new LoggedEvent("msgComputeMarketBill received"));
 		openMarketChecks.add(new MarketCheck(m, type, amount));
 		stateChanged();
@@ -105,26 +105,26 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 
 	// Actions
 	void ComputeCheck(Check c) {
-		print("Doing ComputeCheck");
+		//print("Doing ComputeCheck");
 		c.amountOwed = menu.menuItems.get(c.choice);
 		c.waiter.msgHereIsCheck(c.customer, c.amountOwed);
 		c.state = CheckState.GivenToPeople;
 	}
 	
 	void MakeChange(Check c) {
-		print("Doing MakeChange");
+		//print("Doing MakeChange");
 		c.change = c.amountPayed - c.amountOwed;
 		c.customer.msgHereIsChange(c.change);
 		openChecks.remove(c);
 	}
 	
 	void HandleMarketCheck(MarketCheck mc) {
-		print("Doing HandleMarketCheck");
+		//print("Doing HandleMarketCheck");
 		log.add(new LoggedEvent("Doing HandleMarketCheck"));
 		mc.amountOwed = marketPrices.currentRate.get(mc.type) * mc.amount;
 		if(mc.amountOwed <= money) {
 			money -= mc.amountOwed;
-			print("Paying " + mc.market);
+			//print("Paying " + mc.market);
 			mc.market.msgFoodPayment(mc.type, mc.amountOwed);
 			openMarketChecks.remove(mc);
 		} else if(mc.amountOwed > money) {

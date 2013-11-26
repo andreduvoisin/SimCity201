@@ -9,10 +9,6 @@ import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * Panel in frame that contains all the restaurant information,
- * including host, cook, waiters, and customers.
- */
 @SuppressWarnings("serial")
 public class CwagonerRestaurantPanel extends JPanel {
 	// THIS!
@@ -21,8 +17,8 @@ public class CwagonerRestaurantPanel extends JPanel {
     private CwagonerRestaurantGui mainGui; // Reference to main GUI
     
     private CwagonerHostRole host = new CwagonerHostRole();
-    private CwagonerCashierRole cashier;
-    private CwagonerCookRole cook;
+    private CwagonerCashierRole cashier = new CwagonerCashierRole();
+    private CwagonerCookRole cook = new CwagonerCookRole();
     private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
     private List<CwagonerWaiterRole> Waiters = new ArrayList<CwagonerWaiterRole>();
 
@@ -31,17 +27,17 @@ public class CwagonerRestaurantPanel extends JPanel {
     	super();
 
         this.instance = this;
-		
+
         mainGui = g;
+
+        host.setNumTables(numTables);
         
-//        host.setNumTables(numTables);
-//        
-//        CwagonerCookGui cg = new CwagonerCookGui(cook, mainGui);
-//        mainGui.animationPanel.addGui(cg);
-////        cook.setGui(cg);
-//        
-////        cashier.setCook(cook);
-//        cook.setCashier(cashier);
+        CwagonerCookGui cg = new CwagonerCookGui(cook, mainGui);
+        mainGui.animationPanel.addGui(cg);
+        cook.setGui(cg);
+        
+        cashier.setCook(cook);
+        cook.setCashier(cashier);
     }
 
     public static CwagonerRestaurantPanel getInstance() {
@@ -73,7 +69,7 @@ public class CwagonerRestaurantPanel extends JPanel {
     		w.setHost(host);
     		w.setCook(cook);
     		w.setCashier(cashier);
-    		CwagonerWaiterGui g = new CwagonerWaiterGui(w, mainGui, Waiters.size());
+    		CwagonerWaiterGui g = new CwagonerWaiterGui(w, mainGui);
     		w.setGui(g);
     		
     		mainGui.animationPanel.addGui(g);

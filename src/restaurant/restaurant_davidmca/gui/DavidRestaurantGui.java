@@ -153,14 +153,6 @@ public class DavidRestaurantGui extends CityCard implements ActionListener {
 		animationPanel.setMinimumSize(animDim);
 		animationPanel.setMaximumSize(animDim);
 		add(animationPanel);
-		
-//		Timer updateAnimationTimer = new Timer();
-//		TimerTask animationTask = new TimerTask() {
-//			public void run() {
-//				animationPanel.paintComponent(animationPanel.getGraphics());
-//			}
-//		};
-//		updateAnimationTimer.schedule(animationTask, 1000, 30);
 	}
 
 	/**
@@ -234,17 +226,4 @@ public class DavidRestaurantGui extends CityCard implements ActionListener {
 			}
 		}
 	}
-
-	/**
-	 * Main routine to get gui started
-	 * 
-	 * @throws IOException
-	 */
-	/*public static void main(String[] args) throws IOException {
-		RestaurantGui gui = new RestaurantGui();
-		gui.setTitle("csci201 Restaurant");
-		gui.setVisible(true);
-		gui.setResizable(false);
-		gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}*/
 }

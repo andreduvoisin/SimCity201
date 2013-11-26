@@ -59,36 +59,36 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 			case 1: 
 				break;
 			case 2:
-				int rn2 = new Random().nextInt();
-				if (rn2 % 2 == 0) {
+//				int rn2 = new Random().nextInt();
+//				if (rn2 % 2 == 0) {
 					subRole = new JerrywebWaiterRole(super.mPerson);
 					JerrywebRestaurantPanel.addWaiter((JerrywebWaiterRole) subRole);
-				}else {
-					subRole = new JerrywebRSWaiterRole(super.mPerson);
-					JerrywebRestaurantPanel.addRSWaiter((JerrywebRSWaiterRole) subRole);
-				}
+//				}else {
+//					subRole = new JerrywebRSWaiterRole(super.mPerson);
+//					JerrywebRestaurantPanel.addRSWaiter((JerrywebRSWaiterRole) subRole);
+//				}
 				break;
 			case 3: //maggi
-				int rn1 = new Random().nextInt();
-				
-				if (rn1 % 2 == 0) {
+//				int rn1 = new Random().nextInt();
+//				
+//				if (rn1 % 2 == 0) {
 					subRole = new MaggiyanWaiterRole(super.mPerson);
 					MaggiyanRestaurantPanel.getRestPanel().addWaiter((MaggiyanWaiterRole) subRole);
-				}else {
-					subRole = new MaggiyanSharedWaiterRole(super.mPerson);
-					MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
-				}
+//				}else {
+//					subRole = new MaggiyanSharedWaiterRole(super.mPerson);
+//					MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
+//				}
 				break;
 			case 4: //david
-//				int rn = new Random().nextInt();
-//				if (rn % 2 == 0) {
+				int rn = new Random().nextInt();
+				if (rn % 2 == 0) {
 					subRole = new DavidWaiterRole(super.mPerson);
 					DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
-//				} else {
-//					subRole = new DavidWaiterRoleShared(super.mPerson);
-//					DavidRestaurantPanel.getInstance().addSharedWaiter(
-//							(DavidWaiterRoleShared) subRole);
-//				}
+				} else {
+					subRole = new DavidWaiterRoleShared(super.mPerson);
+					DavidRestaurantPanel.getInstance().addSharedWaiter(
+							(DavidWaiterRoleShared) subRole);
+				}
 				break;
 			case 5: //shane
 				subRole = new SmilehamWaiterRole(mPerson);

@@ -140,6 +140,8 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 	public void msgAnimationFinishedLeaveRestaurant() {
 		// from animation
 		event = AgentEvent.doneLeaving;
+		((PersonAgent) mPerson).msgRoleFinished();
+		((PersonAgent) mPerson).msgRoleInactive();
 		stateChanged();
 	}
 
@@ -148,13 +150,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		event = AgentEvent.arrived;
 		stateChanged();
 	}
-
-	// @Override
-	// public void msgDoneAnimating() {
-	// isAnimating.release();
-	// System.out.println("DavidCustomerRole - isAnimatingReleased in msgDoneAnimating");
-	// stateChanged();
-	// }
 
 	@Override
 	public void msgFollowMe(Waiter w, Table t) {

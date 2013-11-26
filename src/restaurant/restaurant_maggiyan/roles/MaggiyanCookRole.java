@@ -97,7 +97,9 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	public void msgHereIsOrder(MaggiyanWaiter w, String choice, int table)
 	{
 		Order order = new Order(w, choice, table); 
-		orders.add(order);
+		synchronized(orders){
+			orders.add(order);
+		}
 		stateChanged(); 
 		
 	}
@@ -208,8 +210,12 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 
 	// Actions
 	private void AddOrder(Order order){
-		orders.add(order); 
-		rStandOrders.remove(order);
+		synchronized(orders){
+			orders.add(order); 
+		}
+		synchronized(rStandOrders){
+			rStandOrders.remove(order);
+		}
 	}
 	
 	private void StockInventory(){
@@ -269,6 +275,12 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		}
 		cookGui.DoCookFood(o.c, o.cookingPos);
 		cookGui.GoToHomePosition(); 
+		try{
+			animationReady.acquire(); 
+		}catch(Exception e){
+			print("DoCookFood exception thrown"); 
+		}
+		print("STARTS COOKING"); 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				print("DONE!!");

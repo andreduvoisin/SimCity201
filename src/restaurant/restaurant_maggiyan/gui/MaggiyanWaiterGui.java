@@ -105,6 +105,12 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
         			//agent.msgReady();
         		}
         		else if((xDestination == xKitchen) & (yDestination == yKitchen)){	
+//        			if(xPos != prevXPos){
+//        				prevXPos = xPos;
+//        				prevYPos = yPos;
+//                		System.out.println("Release animation"); 
+//                		agent.msgAnimationReady(); 
+//                	}
         			agent.msgReachedKitchen(); 
         		}
         		else if((xDestination == xBreak) & (yDestination == yBreak)){

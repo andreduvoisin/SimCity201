@@ -78,7 +78,7 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
         public void msgOrderPickedUp(Waiter w, String c) {
                 synchronized(orders) {
                         for(Order o : orders) {
-                                if(o.waiter == w && o.choice.equals(c)) {
+                                if(o.waiter == w && o.choice.toString().equalsIgnoreCase(c)) {
                                         o.s = OrderState.PickedUp;
                                 }
                         }
@@ -157,24 +157,25 @@ public class RestaurantCookRole_at extends RestaurantCookRole implements Cook {
                                 return true;
                         }
                 }
-        */        for(Order o : orders) {
+        */
+            for(Order o : orders) {
+                if(o.s == OrderState.PickedUp) {
+                        removeOrder(o);
+                        return true;
+                }
+            }
+            for(Order o : orders) {
+                if(o.s == OrderState.Done) {
+                        plateIt(o);
+                        return true;
+                }
+            }for(Order o : orders) {
                         if(o.s == OrderState.Pending) {
                                 tryToCookIt(o);
                                 return true;
                         }
                 }
-                for(Order o : orders) {
-                        if(o.s == OrderState.PickedUp) {
-                                removeOrder(o);
-                                return true;
-                        }
-                }
-                for(Order o : orders) {
-                        if(o.s == OrderState.Done) {
-                                plateIt(o);
-                                return true;
-                        }
-                }
+
                 //ordering food items
  //               if(marketPickAndExecuteAnAction())
  //                       return true;
