@@ -6,6 +6,7 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.RestaurantPanel;
 import restaurant.restaurant_davidmca.roles.WaiterRole;
 import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -30,6 +31,13 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				RestaurantPanel.getInstance().addSharedWaiter(
 						(WaiterRoleShared) subRole);
 			}
+		}
+		else if (restaurantID == 5){
+			subRole = new SmilehamWaiterRole(mPerson);
+		}
+		else{ //just for now to remove null pointer errors
+			subRole = new WaiterRole(super.mPerson);
+			RestaurantPanel.getInstance().addWaiter((WaiterRole) subRole);
 		}
 		// TODO DAVID add if statements for all the other restaurants
 	}

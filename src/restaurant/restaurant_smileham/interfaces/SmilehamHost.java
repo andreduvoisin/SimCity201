@@ -7,16 +7,15 @@ import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.gui.HostGui;
 import restaurant.restaurant_smileham.test.mock.EventLog;
 
-public interface Host {
+public interface SmilehamHost {
 	
 	public EventLog log = new EventLog();
 	
 	//Messages
-	public abstract void msgAddWaiter(Waiter waiter);
-	public abstract void msgIWantFood(Customer customer);
-	public abstract void msgLeavingTable(Customer cust);
-	public abstract void msgLeavingRestaurant(Customer customer);
-	public abstract void msgWantToGoOnBreak(Waiter waiter);
+	public abstract void msgAddWaiter(SmilehamWaiter waiter);
+	public abstract void msgIWantFood(SmilehamCustomer customer);
+	public abstract void msgLeavingTable(SmilehamCustomer cust);
+	public abstract void msgLeavingRestaurant(SmilehamCustomer customer);
 	
 	//Scheduler
 	public abstract boolean pickAndExecuteAnAction();
@@ -26,12 +25,12 @@ public interface Host {
 	
 	//Accessors
 	public abstract String getName();
-	public abstract List<Customer> getWaitingCustomers();
+	public abstract List<SmilehamCustomer> getWaitingCustomers();
 	public abstract Collection<Table> getTables();
 	public abstract void setGui(HostGui gui);
 	public abstract HostGui getGui();
 	public abstract String toString();
-	public abstract List<Waiter> getWaiters();
+	public abstract List<SmilehamWaiter> getWaiters();
 	public abstract int getNumWorkingWaiters();
 	public abstract boolean isRestaurantFull();
 

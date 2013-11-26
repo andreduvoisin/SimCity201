@@ -7,23 +7,24 @@ import java.util.List;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.gui.HostGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_smileham.interfaces.Customer;
-import restaurant.restaurant_smileham.interfaces.Host;
-import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Host Agent
  */
-public class SmilehamHostRole extends BaseRole implements Host{
+public class SmilehamHostRole extends BaseRole implements SmilehamHost{
 
 	//Constants
 	public static final int cNUM_TABLES = 3;
 	public static final int cSPEED_LIMIT = 5;
 	
 	//Agents
-	private List<Waiter> mWaiters;
-	private List<Customer> mWaitingCustomers;
+	private List<SmilehamWaiter> mWaiters;
+	private List<SmilehamCustomer> mWaitingCustomers;
 	
 	//Regular Member Variables
 	private String mName;
@@ -35,10 +36,10 @@ public class SmilehamHostRole extends BaseRole implements Host{
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamHostRole(String name, SmilehamAnimationPanel animationPanel) {
-		super();
-		mName = name;
-		mAnimationPanel = animationPanel;
+	public SmilehamHostRole(Person person) {
+		super(person);
+		mName = person.getName();
+		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Constructor");
 		
 		//Set up Host
@@ -46,18 +47,16 @@ public class SmilehamHostRole extends BaseRole implements Host{
 		mAnimationPanel.addGui(mHostGui);
 		
 		//Add Waiters
-		mWaiters = new ArrayList<Waiter>();
+		mWaiters = new ArrayList<SmilehamWaiter>();
 		
 		//Add Customers
-		mWaitingCustomers = new ArrayList<Customer>();
+		mWaitingCustomers = new ArrayList<SmilehamCustomer>();
 		
 		//Add Tables
 		mTables = new ArrayList<Table>(cNUM_TABLES);
 		for (int iTables = 0; iTables < cNUM_TABLES; iTables++) {
 			mTables.add(new Table(iTables));
 		}
-		
-//		startThread();
 	}
 
 	
@@ -65,18 +64,18 @@ public class SmilehamHostRole extends BaseRole implements Host{
 	// -----------------------------------------------MESSAGES-------------------------------------------------------
 
 
-	public void msgAddWaiter(Waiter waiter){
+	public void msgAddWaiter(SmilehamWaiter waiter){
 		mWaiters.add(waiter);
 		if (mWaiters.size() == 1) stateChanged();
 	}
 	
-	public void msgIWantFood(Customer customer) {
+	public void msgIWantFood(SmilehamCustomer customer) {
 		print("Message: msgIWantFood()");
 		mWaitingCustomers.add(customer);
 		stateChanged();
 	}
 
-	public void msgLeavingTable(Customer cust) {
+	public void msgLeavingTable(SmilehamCustomer cust) {
 		print("Message: msgLeavingTable()");
 		for (Table table : mTables) {
 			if (table.getOccupant() == cust) {
@@ -87,29 +86,18 @@ public class SmilehamHostRole extends BaseRole implements Host{
 		}
 	}
 	
-	public void msgLeavingRestaurant(Customer customer) {
+	public void msgLeavingRestaurant(SmilehamCustomer customer) {
 		print("Message msgLeavingRestaurant()");
 		mWaitingCustomers.remove(customer);
 		//no state changed
 	}
 	
-	//SHANE: 3 Waiter Break deprecated
-	//Want to go on break
-	public void msgWantToGoOnBreak(Waiter waiter){
-		print("Message: msgWantToGoOnBreak");
-//		waiter.msgBreakReply(getNumWorkingWaiters() != 0);
-	}
-	
-	
 	//-----------------------------------------------SCHEDULER-----------------------------------------------
-	/**
-	 * Scheduler.  Determine what action is called for, and do it.
-	 */
 	public boolean pickAndExecuteAnAction() {
 		
 		//let customer know if restaurant is full
 		if (isRestaurantFull()){
-			for (Customer iCustomer : mWaitingCustomers){
+			for (SmilehamCustomer iCustomer : mWaitingCustomers){
 				iCustomer.msgRestaurantFull();
 			}
 		}
@@ -128,7 +116,7 @@ public class SmilehamHostRole extends BaseRole implements Host{
 	// -----------------------------------------------ACTIONS-----------------------------------------------
 
 	//METHODS
-		private void seatCustomer(Customer customer, Table table) {
+		private void seatCustomer(SmilehamCustomer customer, Table table) {
 			print("Action: seatCustomer()");
 			table.setOccupant(customer);
 			mWaitingCustomers.remove(customer);
@@ -147,7 +135,7 @@ public class SmilehamHostRole extends BaseRole implements Host{
 			return mName;
 		}
 	
-		public List<Customer> getWaitingCustomers() {
+		public List<SmilehamCustomer> getWaitingCustomers() {
 			return mWaitingCustomers;
 		}
 	
@@ -167,13 +155,13 @@ public class SmilehamHostRole extends BaseRole implements Host{
 			return "[Host " + getName() + "]";
 		}
 		
-		public List<Waiter> getWaiters() {
+		public List<SmilehamWaiter> getWaiters() {
 			return mWaiters;
 		}
 		
 		public int getNumWorkingWaiters(){
 			int numWorkingWaiters = 0;
-			for (Waiter iWaiter: mWaiters){
+			for (SmilehamWaiter iWaiter: mWaiters){
 				if (iWaiter.isWorking()) numWorkingWaiters++;
 			}
 			return numWorkingWaiters;

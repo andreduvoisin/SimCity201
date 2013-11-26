@@ -1,41 +1,55 @@
 package restaurant.restaurant_smileham.gui;
 
-import javax.swing.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
-import base.BaseRole;
-import city.gui.CityCard;
-import city.gui.SimCityGui;
+import javax.swing.Timer;
+
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
-import restaurant.restaurant_smileham.interfaces.Host;
-import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamCook;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
+import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
+import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.ArrayList;
+import base.BaseRole;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 public class SmilehamAnimationPanel extends CityCard implements ActionListener {
 	private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-
     private List<Gui> guis = new ArrayList<Gui>();
     
-    public static SmilehamRestaurantPanel mRestaurantPanel;
+    //Data
+    private static SmilehamHostRole mHost;
+    private static SmilehamCookRole mCook;
+    private static SmilehamCashierRole mCashier;
+    private static Vector<SmilehamCustomerRole> mCustomers;
     
+    public static SmilehamAnimationPanel mInstance;
     
     //CONSTRUCTOR
     public SmilehamAnimationPanel(SimCityGui city) {
     	super(city);
-    	mRestaurantPanel = new SmilehamRestaurantPanel(this);
+    	mInstance = this;
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         
-//        bufferSize = this.getSize();
+        //data
+//        mHost = new SmilehamHostRole("Shane", this);
+//        mCook = new SmilehamCookRole("Ke$$$ha", this);
+//        mCashier = new SmilehamCashierRole("Mr. Ramen", this);
+        mCustomers = new Vector<SmilehamCustomerRole>();
  
     	Timer timer = new Timer(20, this );
     	timer.start();
@@ -45,22 +59,17 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     	
     	if (role instanceof SmilehamCustomerRole){
     		SmilehamCustomerRole customer = (SmilehamCustomerRole) role;
-    		mRestaurantPanel.getCustomers().add(customer);
+    		mCustomers.add(customer);
     		customer.msgGotHungry();
     	}
     	else if (role instanceof SmilehamWaiterRole){
     		SmilehamWaiterRole waiter = (SmilehamWaiterRole) role;
     		
-    		
-//    		String name = waiter.getName();
-    		Host host = waiter.getHost();
-            host.msgAddWaiter((Waiter)waiter);
+    		SmilehamHost host = waiter.getHost();
+            host.msgAddWaiter((SmilehamWaiter)waiter);
             
     	}
     }
-    
-    
-    
     
 
 	public void actionPerformed(ActionEvent e) {
@@ -121,5 +130,17 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
 	
 	public void removeGui(Gui gui){
 		guis.remove(gui);
+	}
+	
+	public static SmilehamHost getHost(){
+		return mHost;
+	}
+	
+	public static SmilehamCashier getCashier(){
+		return mCashier;
+	}
+
+	public static SmilehamCook getCook() {
+		return mCook;
 	}
 }

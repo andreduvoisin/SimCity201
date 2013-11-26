@@ -10,11 +10,12 @@ import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_smileham.interfaces.Cashier;
-import restaurant.restaurant_smileham.interfaces.Market;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 import base.BaseRole;
+import base.interfaces.Person;
 
-public class SmilehamCashierRole extends BaseRole implements Cashier{
+public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 	
 	//Constants
 	public static final int cRESTAURANT_CASH = 100;
@@ -25,24 +26,24 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 	
 	private List<Order> mOrders;
 	private List<Check> mChecksPaid;
-	private Map<Market, Integer> mMarketBills;
+	private Map<SmilehamMarket, Integer> mMarketBills;
 
 	//GUI
 	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamCashierRole(String name, SmilehamAnimationPanel animationPanel){
-		super();
-		mName = name;
-		mAnimationPanel = animationPanel;
+	public SmilehamCashierRole(Person person){
+		super(person);
+		mName = person.getName();
+		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Constructor");
 		
 		mCash = cRESTAURANT_CASH;
 		
 		mOrders = Collections.synchronizedList(new ArrayList<Order>());
 		mChecksPaid = Collections.synchronizedList(new ArrayList<Check>());
-		mMarketBills = new HashMap<Market, Integer>();
+		mMarketBills = new HashMap<SmilehamMarket, Integer>();
     	
 	}
 	
@@ -61,7 +62,7 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 		}
 	
 	//Market Payment
-		public void msgMarketBill(Market market, int amount){
+		public void msgMarketBill(SmilehamMarket market, int amount){
 			print("Message: msgMarketBill(" + amount + ")");
 			synchronized (mMarketBills) {
 				if (mMarketBills.get(market) != null){
@@ -94,7 +95,7 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 		//Market Payment
 			if (mMarketBills.size() != 0){
 				synchronized(mMarketBills){
-					Market market = (Market) mMarketBills.keySet().toArray()[0];
+					SmilehamMarket market = (SmilehamMarket) mMarketBills.keySet().toArray()[0];
 					int amount = mMarketBills.get(market);
 					payMarket(market, amount);
 					return true;
@@ -122,7 +123,7 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 			stateChanged();
 		}
 		
-		public void payMarket(Market market, int amount){
+		public void payMarket(SmilehamMarket market, int amount){
 			print("Action: payMarket()");
 			
 			//can't pay
@@ -176,11 +177,11 @@ public class SmilehamCashierRole extends BaseRole implements Cashier{
 			this.mChecksPaid = mChecksPaid;
 		}
 
-		public Map<Market, Integer> getMarketBills() {
+		public Map<SmilehamMarket, Integer> getMarketBills() {
 			return mMarketBills;
 		}
 
-		public void setMarketBills(Map<Market, Integer> mMarketBills) {
+		public void setMarketBills(Map<SmilehamMarket, Integer> mMarketBills) {
 			this.mMarketBills = mMarketBills;
 		}
 }
