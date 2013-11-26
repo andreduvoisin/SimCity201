@@ -4,7 +4,9 @@ package restaurant.restaurant_maggiyan.test.mock;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 /**
@@ -134,6 +136,24 @@ public void msgWaiterFree() {
 public MaggiyanWaiterGui getGui() {
 	// TODO Auto-generated method stub
 	return null;
+}
+
+@Override
+public void setHost(MaggiyanHost h) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void setCook(MaggiyanCook c) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void setCashier(MaggiyanCashier c) {
+	// TODO Auto-generated method stub
+	
 }
 
 }

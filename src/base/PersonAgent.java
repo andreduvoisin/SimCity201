@@ -19,10 +19,7 @@ import java.util.concurrent.Semaphore;
 import market.interfaces.MarketCustomer;
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
-import restaurant.intermediate.RestaurantHostRole;
-import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import test.mock.MockPersonGui;
 import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
@@ -218,17 +215,16 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
-	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
+	public void msgRoleFinished(Role role){ //SHANE: 3 Call at end of role
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
-	}
-	public void msgRoleInactive(){
 		for (Role iRole : mRoles.keySet()){
 			if(!(iRole instanceof HousingBase)){
 				mRoles.put(iRole, false);
 			}
 		}
 	}
+
 	public void msgHereIsPayment(int senderSSN, double amount){
 		mCash += amount;
 	}
