@@ -138,7 +138,8 @@ public class PersonAgent extends Agent implements Person {
 					mJobRole = SortingHat.getTransportationRole();
 					break;
 				case HOUSING: 
-					mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+					mJobRole.setPerson(this);
 					break;
 				case NONE:
 					break;
@@ -158,11 +159,11 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Add customer/rider role possibilities
-		mRoles.put(new BankCustomerRole(this), false);
-		mRoles.put(new HousingRenterRole(this), false);
-		mRoles.put(new MarketCustomerRole(this), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false);
+//		mRoles.put(new BankCustomerRole(this), false);
+//		mRoles.put(new HousingRenterRole(this), false);
+//		mRoles.put(new MarketCustomerRole(this), false);
+//		mRoles.put(new TransportationBusRiderRole(this), false);
+//		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 		//Add events
 		mEvents.add(new Event(EnumEventType.JOB, 0));
