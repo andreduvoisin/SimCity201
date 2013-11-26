@@ -40,7 +40,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 		}
 	}
 	//Public for use in test case
-	public Map<String, Bill> bills = new HashMap<String,Bill>();
+	public Map<Customer, Bill> bills = new HashMap<Customer,Bill>();
 	Map<String, Integer> menu = new HashMap<String, Integer>();
 	Map<Market, Float> marketBills = new HashMap<Market, Float>();
 	
@@ -63,21 +63,21 @@ public class RexCashierRole extends BaseRole implements Cashier {
 
 	// MESSAGES //
 	public void ComputeBill(Waiter waiter, Customer customer){
-		if(bills.containsKey(customer.getName())){
+		/*if(bills.containsKey(customer.getName())){
 			bills.get(customer.getName()).order = customer.getChoice();
 			bills.get(customer.getName()).state = BillState.pendingWaiter;
 		}
-		else{
+		else{*/
 			Bill bill = new Bill(waiter, customer);
 			bill.order = customer.getChoice();
 			bill.state = BillState.pendingWaiter;
-			bills.put(customer.getName(), bill);
-		}
+			bills.put(customer, bill);
+		//}
 		stateChanged();
 	}
 	public void IWantToPay(Customer customer, float cash){
-		bills.get(customer.getName()).paid  = cash;
-		bills.get(customer.getName()).state = BillState.pendingCustomer;
+		bills.get(customer).paid  = cash;
+		bills.get(customer).state = BillState.pendingCustomer;
 		stateChanged();
 	}
 	public void HereIsBill(Market market, float payment){
@@ -153,7 +153,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	}
 	
 	public void addBill(Waiter waiter, Customer customer, float due){
-		bills.put(customer.getName(), new Bill(waiter, customer, due));
+		bills.put(customer, new Bill(waiter, customer, due));
 	}
 	
 }

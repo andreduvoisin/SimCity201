@@ -7,6 +7,8 @@ import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -44,8 +46,8 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				CwagonerRestaurantPanel.getInstance().addPerson(subRole);
 				break;
 			case 2: //jerry
-	//			subRole = new JerrywebCustomerRole(super.mPerson);
-	//			JerrywebRestaurantPanel.getInstance().addPerson((JerrywebCustomerRole) subRole);
+				subRole = new JerrywebCustomerRole(super.mPerson);
+				JerrywebRestaurantPanel.getInstance().addPerson((JerrywebCustomerRole) subRole);
 				break;
 			case 3: //maggi
 				subRole = new MaggiyanCustomerRole(super.mPerson);
@@ -65,8 +67,9 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
 				break;
 			case 7: //rex
-				RexCustomerRole temp = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getHost());
+				RexCustomerRole temp = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getInstance().host);
 				temp.setName("Joe");
+				temp.setCash(super.mPerson.getCash());
 				subRole = temp;
 				//creates CustomerGui and adds to animationPanels
 				subRole.setPerson(super.mPerson);

@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -14,14 +15,14 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 	private static int YPOS = 175; 
 	private static int GWIDTH = 50;
 	private static int GHEIGHT = 50; 
-	private static int FRAMESPEED = 10; 
+	private static int FRAMESPEED = 5; 
 	
 	private static int CookingAreaX = 275;
 	
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
 
-    private List<MaggiyanGui> guis = new ArrayList<MaggiyanGui>();
+    private List<MaggiyanGui> guis = Collections.synchronizedList(new ArrayList<MaggiyanGui>());
 
     public MaggiyanAnimationPanel() {
     	setSize(WINDOWX, WINDOWY);
@@ -34,12 +35,13 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  
-		
-        for(MaggiyanGui gui : guis) {
-            if (gui.isPresent()) {
-                gui.updatePosition();
-            }
-        }
+		synchronized(guis){
+	        for(MaggiyanGui gui : guis) {
+	            if (gui.isPresent()) {
+	                gui.updatePosition();
+	            }
+	        }
+		}
 	}
 
     public void paintComponent(Graphics g) {

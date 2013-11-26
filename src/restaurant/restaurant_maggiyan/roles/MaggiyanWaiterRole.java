@@ -452,19 +452,19 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		DoGiveOrderToCook();  
 		print("Giving order to cook");
 		cust.s = CustomerState.foodIsCooking; 
-		try{
-			animationReady.acquire();
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
 //		try{
-//			goingToKitchen.acquire();
-//			needToGoToKitchen = true; 
+//			animationReady.acquire();
 //		}
 //		catch(Exception e){
-//			print ("giveOrderToCook exception");
-//		}
+//			print("Animation release exception");
+//		} 
+		try{
+			goingToKitchen.acquire();
+			needToGoToKitchen = true; 
+		}
+		catch(Exception e){
+			print ("giveOrderToCook exception");
+		}
 		cook.msgHereIsOrder(this, cust.choice, cust.table); 
 	}
 	

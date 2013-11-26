@@ -32,7 +32,7 @@ public class DavidRestaurantPanel extends JPanel {
 
 	// Host, cook, waiters and customers
 	public DavidHostRole host = new DavidHostRole("Host");
-	public DavidCookRole cook = new DavidCookRole("Cook", Integer.MAX_VALUE);
+	public DavidCookRole cook = new DavidCookRole("Cook");
 	public DavidCashierRole cash = new DavidCashierRole("Cashier");
 	private HostGui hostGui = new HostGui(host);
 	MarketAgent mkt1, mkt2, mkt3;
@@ -58,9 +58,9 @@ public class DavidRestaurantPanel extends JPanel {
 		mkt1 = new MarketAgent("Ralphs", 0);
 		mkt2 = new MarketAgent("Smart and Final", 50);
 		mkt3 = new MarketAgent("Whole Foods", 50);
-		cook.addMarket(mkt1);
-		cook.addMarket(mkt2);
-		cook.addMarket(mkt3);
+//		cook.addMarket(mkt1);
+//		cook.addMarket(mkt2);
+//		cook.addMarket(mkt3);
 		/*
 		 * mkt1.startThread(); mkt2.startThread(); mkt3.startThread();
 		 */

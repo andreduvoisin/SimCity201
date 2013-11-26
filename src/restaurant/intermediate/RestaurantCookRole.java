@@ -81,9 +81,9 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					subRole.setPerson(mPerson);
 					break;
 				case 7: //rex
-					subRole = RexAnimationPanel.getCook();
+					subRole = RexAnimationPanel.getInstance().cook;
 					subRole.setPerson(super.mPerson);
-					RexAnimationPanel.addPerson((RexCookRole)subRole);
+					//RexAnimationPanel.addPerson((RexCookRole)subRole);
 					break;
 			}
        }
