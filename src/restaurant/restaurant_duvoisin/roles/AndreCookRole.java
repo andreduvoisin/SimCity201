@@ -41,10 +41,10 @@ public class AndreCookRole extends BaseRole implements Cook {
 		
 		this.name = name;
 		
-		foods.put("steak", new Food("steak", 15000, 2, 1, 3, FoodState.None));
-		foods.put("chicken", new Food("chicken", 12500, 2, 1, 3, FoodState.None));
-		foods.put("salad", new Food("salad", 7500, 2, 1, 4, FoodState.None));
-		foods.put("pizza", new Food("pizza", 10000, 2, 1, 3, FoodState.None));
+		foods.put("steak", new Food("steak", 1000, 2, 1, 3, FoodState.None));
+		foods.put("chicken", new Food("chicken", 1000, 2, 1, 3, FoodState.None));
+		foods.put("salad", new Food("salad", 1000, 2, 1, 4, FoodState.None));
+		foods.put("pizza", new Food("pizza", 1000, 2, 1, 3, FoodState.None));
 		
 		orderFood = true;
 		// ANDRE: stateChanged cook
@@ -146,15 +146,15 @@ public class AndreCookRole extends BaseRole implements Cook {
 	 */
 	public boolean pickAndExecuteAnAction() {
 		if(!paused) {
-			if(orderFood) {
-				OrderFoodThatIsLow();
-				return true;
-			}
-			for(Food f : foods.values())
-				if(f.state == FoodState.Rejected) {
-					OrderRejectedFood(f);
-					return true;
-				}
+//			if(orderFood) {
+//				OrderFoodThatIsLow();
+//				return true;
+//			}
+//			for(Food f : foods.values())
+//				if(f.state == FoodState.Rejected) {
+//					OrderRejectedFood(f);
+//					return true;
+//				}
 			synchronized(orders) {
 				for(Order o : orders)
 					if(o.state == OrderState.Done) {

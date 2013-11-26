@@ -22,8 +22,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	Semaphore inTransit = new Semaphore(0,true);
 	
 	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
-
-	Map<Integer, MarketCookCustomerRole>	mRestaurants = new HashMap<Integer, MarketCookCustomerRole>();
 	
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
@@ -40,7 +38,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	
 	public void msgAnimationAtRestaurant(int n) {
 		for(MarketOrder d : mDeliveries) {
-			if(d.mPersonRole == mRestaurants.get(n))
+			if(d.mRestaurantNumber == n)
 			d.mEvent = EnumOrderEvent.READY_TO_DELIVER;
 		}
 		inTransit.release();
@@ -87,14 +85,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Actions */
 	private void goToDeliverOrder(MarketOrder o) {
-		int n = 0;
-		for(int r : mRestaurants.keySet()) {
-			if(mRestaurants.get(n) == o.mPersonRole) {
-				n = r;
-				break;
-			}
-		}
-		DoGoToRestaurant(n);
+		DoGoToRestaurant(o.mRestaurantNumber);
 	}
 	
 	private void deliverOrder(MarketOrder o) {
@@ -141,11 +132,5 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 /* Utilities */
 	public void setGui(MarketDeliveryTruckGui g) {
 		mGui = g;
-	}
-
-	@Override
-	public void msgAnimationAtRestaurant(String r) {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import base.ConfigParser;
+import base.Event;
+import base.Event.EnumEventType;
 import base.Time;
 import base.interfaces.Person;
 //import base.Time;
@@ -112,6 +114,7 @@ public class SimCityGui extends JFrame {
 //		testCook.startThread();
 		
 		Person person = citypanel.masterPersonList.get(0);
+		person.msgAddEvent(new Event(EnumEventType.JOB, 0));
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();

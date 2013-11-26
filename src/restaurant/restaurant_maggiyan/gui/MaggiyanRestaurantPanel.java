@@ -30,13 +30,16 @@ public class MaggiyanRestaurantPanel extends JPanel {
 	static MaggiyanRestaurantPanel me; 
 	
     //Host, cook, waiters and customers
-    public MaggiyanHostRole host = new MaggiyanHostRole("Host");
-    public MaggiyanCookRole cook = new MaggiyanCookRole("Cook"); 
-    public MaggiyanCashierRole cashier = new MaggiyanCashierRole("Cashier", false);
+    public MaggiyanHostRole host = new MaggiyanHostRole(null);
+    public MaggiyanCookRole cook = new MaggiyanCookRole(null); 
+    public MaggiyanCashierRole cashier = new MaggiyanCashierRole(null);
     private MaggiyanMarketRole market1 = new MaggiyanMarketRole("Market 1"); 
     private MaggiyanMarketRole market2 = new MaggiyanMarketRole("Market 2"); 
     private MaggiyanMarketRole market3 = new MaggiyanMarketRole("Market 3"); 
     private MaggiyanCookGui cookGui = new MaggiyanCookGui(cook); 
+    
+    private int customerCounter = 1; 
+    private int waiterCounter = 1; 
     //private WaiterGui waiterGui = new WaiterGui(host);
  
 
@@ -165,6 +168,13 @@ public class MaggiyanRestaurantPanel extends JPanel {
 		gui.animationPanel.addGui(g);
 		c.setHost(host);
 		c.setGui(g);
+		g.setHungry(customerCounter);
+		if(customerCounter == 10){
+			customerCounter = 0; 
+		}
+		else{
+			customerCounter++; 
+		}
 		c.setCashier(cashier);
 		customers.add(c);
     }
@@ -173,9 +183,12 @@ public class MaggiyanRestaurantPanel extends JPanel {
 		MaggiyanWaiterGui waiterGui = new MaggiyanWaiterGui(w, gui);
 		
 		gui.animationPanel.addGui(waiterGui);
+		w.setHost(host); 
 		w.setCashier(cashier); 
 		w.setGui(waiterGui);
 		waiters.add(w);
+		waiterGui.atWork(waiterCounter);
+		waiterCounter++; 
 
     }
     
@@ -183,9 +196,12 @@ public class MaggiyanRestaurantPanel extends JPanel {
 		MaggiyanWaiterGui waiterGui = new MaggiyanWaiterGui(w, gui);
 		
 		gui.animationPanel.addGui(waiterGui);
+		w.setHost(host); 
 		w.setCashier(cashier); 
 		w.setGui(waiterGui);
 		waiters.add(w);
+		waiterGui.atWork(waiterCounter);
+		waiterCounter++;
 
     }
 

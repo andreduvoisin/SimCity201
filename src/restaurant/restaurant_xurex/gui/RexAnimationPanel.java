@@ -49,8 +49,8 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
 	static final int TABLEDIM = 25;
 	static final int TABLEX = 200;
 	static final int TABLEY = 250;
-    private final int WINDOWX = 450;
-    private final int WINDOWY = 350;
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
     
     static final int CASHIERX = 0;
     static final int CASHIERY = 50;
@@ -88,10 +88,12 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
 		repaint();  //Will have paintComponent called
 	}
 
-    public void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         g2 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame
+        g2.setBackground(Color.WHITE);
+        g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
         g2.setColor(Color.ORANGE);

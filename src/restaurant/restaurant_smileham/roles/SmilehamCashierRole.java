@@ -37,7 +37,7 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 		super(person);
 		mName = person.getName();
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
-		print("Constructor");
+		print("Smileham Cashier Created");
 		
 		mCash = cRESTAURANT_CASH;
 		

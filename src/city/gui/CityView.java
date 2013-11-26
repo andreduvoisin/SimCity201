@@ -97,7 +97,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		}
 	}
 
-	
 	public void actionPerformed(ActionEvent arg0) {
 		
 	}

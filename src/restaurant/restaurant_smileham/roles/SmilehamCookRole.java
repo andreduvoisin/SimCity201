@@ -60,7 +60,7 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 		super(person);
 		mName = person.getName();
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
-		print("Constructor");
+		print("Smileham Cook Constructor");
 		
 		//Set up Cook
 		mCookGui = new CookGui(this);
