@@ -43,7 +43,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	private Semaphore atTable = new Semaphore(0,true);
 	private Semaphore goingToKitchen = new Semaphore(0,true); 
 	private Semaphore waiterReady = new Semaphore(0, true);
-	private Semaphore animationReady = new Semaphore(1, true); 
+	private Semaphore animationReady = new Semaphore(0, true); 
 
 	public boolean justGotToWork = false;
 	public boolean needToGoToKitchen = true; 
@@ -77,26 +77,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 			this.name = p.getName();
 		}
 	}
-	
-	public MaggiyanWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
-		super();
-		
-		this.name = name;
-		this.wState = WaiterState.free; 
-		this.cook = cook; 
-		this.host = host; 
-
-	}
-	
-	public MaggiyanWaiterRole(Person p, MaggiyanCook cook, MaggiyanHost host) {
-		super(p);
-		
-		this.name = p.getName();
-		this.wState = WaiterState.free; 
-		this.cook = cook; 
-		this.host = host; 
-
-	}
 
 	public String getMaitreDName() {
 		return name;
@@ -104,6 +84,10 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setCook(MaggiyanCook c){
+		cook = c; 
 	}
 	
 	public void setHost(MaggiyanHost h){
@@ -269,8 +253,8 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	public boolean pickAndExecuteAnAction() {
 		try{
 			if(justGotToWork){
-				startWork();
 				justGotToWork = false;
+				startWork();
 				return true;
 			}
 			
@@ -401,42 +385,43 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		host.msgWaiterBusy(this); 
 		print("Seating Customer at table " + myCust.table); 
 		waiterGui.DoGoToSeatCustomer(); 
-//		try{
-//			print("1");
-//			animationReady.acquire(); 
-//		}
-//		catch(Exception e){
-//			print("Animation release exception");
-//		} 
+		try{
+			print("1");
+			animationReady.acquire(); 
+		}
+		catch(Exception e){
+			print("Animation release exception");
+		} 
 		myCust.c.msgFollowMe(this, menu, myCust.table);
-//		try{
-//			print("2");
-//			animationReady.acquire(); 
-//		}
-//		catch(Exception e){
-//			print("Animation release exception");
-//		} 
+		try{
+			print("2");
+			animationReady.acquire(); 
+		}
+		catch(Exception e){
+			print("Animation release exception");
+		} 
 		DoSeatCustomer(myCust.c, myCust.table);
 		myCust.s = CustomerState.seated; 
 		alreadyAtTable = true; 
-//		try{ 
-//			print("At Table acquire"); 
-//			atTable.acquire(); 
-//		}
-//		catch(Exception e){
-//			print("giveCustomerFood exception");
-//		}
+		try{ 
+			print("At Table acquire"); 
+			atTable.acquire(); 
+		}
+		catch(Exception e){
+			print("giveCustomerFood exception");
+		}
 		waiterGui.DoLeaveCustomer();
 		//Leave customer while customer orders
 		//waiterIsReady = true;
-//		try{
-//			animationReady.acquire(); 
-//			//waiterReady.acquire(); 
-//
-//		}
-//		catch(Exception e){
-//			print("Animation release exception");
-//		} 
+		try{
+			animationReady.acquire();
+			 
+			//waiterReady.acquire(); 
+
+		}
+		catch(Exception e){
+			print("Animation release exception");
+		} 
 		host.msgWaiterFree(this);
 //		}
 	}
@@ -484,13 +469,14 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	private void giveCustomerFood(MyCustomer mc){
 		host.msgWaiterBusy(this); 
-		DoGiveOrderToCook();
+		waiterGui.DoGoToCook();
+		print("Getting customer food");
 		try{
 			goingToKitchen.acquire();
 			needToGoToKitchen = true; 
 		}
 		catch(Exception e){
-			print("giveCustomerFood exception"); 
+			print ("giveOrderToCook exception");
 		}
 		cook.msgPickedUpOrder(mc.orderPos); 
 		waiterGui.showCustomerOrder(mc.choice);
