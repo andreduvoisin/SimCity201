@@ -129,10 +129,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 
 
 		//Add Roads
-		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
-		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
-		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL));
-		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL));
+//		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
+//		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
+//		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL));
+//		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL));
 		
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));
