@@ -31,20 +31,16 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 	public WaiterGui waiterGui = null;
 	private Cashier cashier;
 	private DavidHostRole host;
-	private Semaphore isOnBreak = new Semaphore(1, true);
+	private Semaphore isOnBreak = new Semaphore(0, true);
 	private boolean breakRequested;
 	private boolean breakResponse;
 	
 	public void acquireAnimationSemaphore() {
 		try {
 			isAnimating.acquire();
-			System.out.println("isAnimating acquired in DavidWaiterRole");
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-//		if (isAnimating.availablePermits() == 0) {
-//			isAnimating.release();
-//		}
 	}
 
 	@Override
@@ -221,7 +217,6 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 	@Override
 	public void msgDoneAnimating() {
 		isAnimating.release();
-		System.out.println("DavidWaiterRole - isAnimatingReleased in msgDoneAnimating");
 	}
 
 	/**
@@ -333,15 +328,12 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 
 	private void FollowMe(MyCustomer myc) {
 		print("Follow me");
-//		System.out.println("numPermits before animation " + isAnimating.availablePermits());
-//		acquireAnimationSemaphore();
-		waiterGui.DoGoToCustomer(myc.loc);
-//		System.out.println("numPermits after animation " + isAnimating.availablePermits());
-		acquireAnimationSemaphore();
-		waiterGui.DoGoToTable(myc.t);
-		acquireAnimationSemaphore();
-		myc.c.msgFollowMe(this, myc.t);
-		myc.state = CustomerState.Seated;
+        waiterGui.DoGoToCustomer(myc.loc);
+        acquireAnimationSemaphore();
+        waiterGui.DoGoToTable(myc.t);
+        myc.c.msgFollowMe(this, myc.t);
+        acquireAnimationSemaphore();
+        myc.state = CustomerState.Seated;
 	}
 
 	@Override

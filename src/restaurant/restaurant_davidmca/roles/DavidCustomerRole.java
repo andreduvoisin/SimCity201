@@ -149,13 +149,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		stateChanged();
 	}
 
-	// @Override
-	// public void msgDoneAnimating() {
-	// isAnimating.release();
-	// System.out.println("DavidCustomerRole - isAnimatingReleased in msgDoneAnimating");
-	// stateChanged();
-	// }
-
 	@Override
 	public void msgFollowMe(Waiter w, Table t) {
 		waiter = w;

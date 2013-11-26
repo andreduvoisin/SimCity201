@@ -2,6 +2,8 @@ package restaurant.restaurant_cwagoner.gui;
 
 import javax.swing.*;
 
+import base.Location;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,23 +13,28 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
-    private int ANIMATIONX = 1000;
-    private int ANIMATIONY = 1000;
+	int width, height, tableSize = 50;
+    List<CwagonerGui> guis = new ArrayList<CwagonerGui>();
+    ArrayList<Location> tableLocations = new ArrayList<Location>();
 
-    private List<CwagonerGui> guis = new ArrayList<CwagonerGui>();
-    
-    private ArrayList<Dimension> tableLocations = new ArrayList<Dimension>();
-
-    public CwagonerAnimationPanel() {
+    public CwagonerAnimationPanel(int width, int height) {
     	super();
-    	setSize(ANIMATIONX, ANIMATIONY);
+
+    	this.setVisible(true);
+
+    	this.width = width;
+    	this.height = height;
+
+    	this.setBounds(0, 0, width, height);
+        this.setPreferredSize(new Dimension(width, height));
 
     	Timer timer = new Timer(12, this);
+    	timer.addActionListener(this);
     	timer.start();
     }
     
-    public void addTable(Dimension d) {
-    	tableLocations.add(d);
+    public void addTable(Location l) {
+    	tableLocations.add(l);
     }
 
 	public void actionPerformed(ActionEvent e) {
@@ -39,25 +46,25 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
         // Clear the screen by painting a rectangle the size of the panel
         g2.setColor(getBackground());
-        g2.fillRect(0, 0, ANIMATIONX, ANIMATIONY);
+        g2.fillRect(0, 0, width, height);
 
         // Here are the tables
         g2.setColor(Color.ORANGE);
         
-        for (Dimension d : tableLocations) {
-        	g2.fillRect(d.width, d.height, 50, 50);
+        for (Location iL : tableLocations) {
+        	g2.fillRect(iL.mX, iL.mY, tableSize, tableSize);
         	
         }
 
         for (CwagonerGui gui : guis) {
             if (gui.isPresent()) {
-                gui.updatePosition();
+                gui.draw(g2);
             }
         }
 
         for (CwagonerGui gui : guis) {
             if (gui.isPresent()) {
-                gui.draw(g2);
+                gui.updatePosition();
             }
         }
     }
