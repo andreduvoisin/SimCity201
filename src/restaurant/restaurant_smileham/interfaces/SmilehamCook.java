@@ -11,8 +11,8 @@ public interface SmilehamCook {
 	
 	//Messages
 	public abstract void msgMakeFood(Order order);
-	public abstract void msgOrderResponse(EnumFoodOptions food, int newIncomingAmount);
-	public abstract void msgOrderFulfillment(EnumFoodOptions food, int amountArrived);
+//	public abstract void msgOrderResponse(EnumFoodOptions food, int newIncomingAmount);
+//	public abstract void msgOrderFulfillment(EnumFoodOptions food, int amountArrived);
 	
 	//Scheduler
 	public abstract boolean pickAndExecuteAnAction();
