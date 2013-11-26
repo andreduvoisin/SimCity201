@@ -100,6 +100,7 @@ public class PersonAgent extends Agent implements Person {
 				//System.out.println(mJobRole.toString());
 				
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				
 				((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 				//DAVID set proper restaurant
 				break;
