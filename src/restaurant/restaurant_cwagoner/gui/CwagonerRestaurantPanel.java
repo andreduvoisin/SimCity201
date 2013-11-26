@@ -33,7 +33,7 @@ public class CwagonerRestaurantPanel extends JPanel {
         this.instance = this;
 		
         mainGui = g;
-
+        /*
         host.setNumTables(numTables);
         
         CwagonerCookGui cg = new CwagonerCookGui(cook, mainGui);
@@ -42,6 +42,7 @@ public class CwagonerRestaurantPanel extends JPanel {
         
         cashier.setCook(cook);
         cook.setCashier(cashier);
+        */
     }
 
     public static CwagonerRestaurantPanel getInstance() {
