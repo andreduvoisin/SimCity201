@@ -63,6 +63,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 			case 7: //rex
 				RexCustomerRole temp = new RexCustomerRole(RexAnimationPanel.getInstance(), RexAnimationPanel.getHost());
 				temp.setName("Joe");
+				temp.setCashier(RexAnimationPanel.cashier);
 				subRole = temp;
 				//creates CustomerGui and adds to animationPanels
 				subRole.setPerson(super.mPerson);

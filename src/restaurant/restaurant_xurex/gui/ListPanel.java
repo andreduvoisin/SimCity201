@@ -96,8 +96,8 @@ public class ListPanel extends JPanel implements ActionListener {
                 JButton temp = list.get(i);
                 if(e.getSource() == temp){
                 	//restPanel.showInfo(type,  temp.getText());
-                	CustomerAgent c = restPanel.getCustomer(i);
-                	c.getGui().setHungry();
+                	//CustomerAgent c = restPanel.getCustomer(i);
+                	//c.getGui().setHungry();
                 	list.get(i).setEnabled(false);
                 }
             }

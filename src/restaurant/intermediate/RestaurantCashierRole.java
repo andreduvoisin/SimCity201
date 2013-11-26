@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
@@ -33,6 +34,8 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 				subRole.setPerson(super.mPerson);
 				break;
 			case 1: //chase
+				subRole = CwagonerRestaurantPanel.getInstance().cashier;
+				subRole.setPerson(super.mPerson);
 				break;
 			case 2: //jerry
 				subRole = JerrywebRestaurantPanel.getInstance().cashier;
@@ -55,9 +58,9 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 				subRole.setPerson(mPerson);
 				break;
 			case 7: //rex
-				subRole =  RexAnimationPanel.getCashier();
+				subRole =  RexAnimationPanel.getInstance().cashier;
 				subRole.setPerson(super.mPerson);
-				RexAnimationPanel.addPerson((RexCashierRole)subRole);
+				//RexAnimationPanel.addPerson((RexCashierRole)subRole);
 				break;
 		}
 	}

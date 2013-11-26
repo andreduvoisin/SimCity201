@@ -3,6 +3,7 @@ package restaurant.restaurant_cwagoner.roles;
 import base.BaseRole;
 import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
 import java.awt.Dimension;
@@ -16,7 +17,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	// DATA
 	private CwagonerHost host;
 	private CwagonerWaiter waiter;
-	private CwagonerCashier cwagonerCashier;
+	private CwagonerCashier cashier;
 	
 	private int hungerLevel = 5;        // determines length of meal
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
@@ -46,6 +47,19 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		super(person);
 		// CHASE: handle payment: moneyOwed, myMoney?
 		state = State.inRestaurant;
+	}
+
+	public CwagonerCustomerRole(Person person, CwagonerHostRole host,
+			CwagonerCashierRole cashier,
+			CwagonerRestaurantGui mainGui) {
+		super(person);
+		// CHASE: handle payment: moneyOwed, myMoney?
+		state = State.inRestaurant;
+
+		this.setHost(host);
+		this.setCashier(cashier);
+
+		this.setGui(new CwagonerCustomerGui(this, mainGui));
 	}
 	
 	// MESSAGES
@@ -396,7 +410,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		print("TellCashierReady()");
 
 		state = State.waitingAtCashier;
-		cwagonerCashier.msgReadyToPay(this);
+		cashier.msgReadyToPay(this);
 	}
 	
 	private void PayCashier() {
@@ -414,7 +428,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		}
 		
 		state = State.paid;
-		cwagonerCashier.msgPayment(this, amountPaid);
+		cashier.msgPayment(this, amountPaid);
 		stateChanged();
 	}
 	
@@ -453,7 +467,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	}
 	
 	public void setCashier(CwagonerCashier c) {
-		cwagonerCashier = c;
+		cashier = c;
 	}
 	
 	public void setHost(CwagonerHost h) {

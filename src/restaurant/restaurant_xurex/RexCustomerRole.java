@@ -21,6 +21,9 @@ import java.util.Random;
  */
 public class RexCustomerRole extends BaseRole implements Customer{
 	
+	private static int sNum = 0;
+	private int mNum;
+	
 	private String name;
 	private int hungerLevel = 10;
 	private Timer timer = new Timer();
@@ -72,6 +75,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	
 	public RexCustomerRole(){
 		super();
+		mNum = sNum++;
 	}
 	public RexCustomerRole(RexAnimationPanel animationPanel){
 		super();
@@ -79,6 +83,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		gui.setRole(this);
 		this.setGui(gui);
 		animationPanel.addGui(gui);
+		mNum = sNum++;
 	}
 	
 	public RexCustomerRole(RexAnimationPanel animationPanel, RexHostRole host){
@@ -88,6 +93,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		gui.setRole(this);
 		this.setGui(gui);
 		animationPanel.addGui(gui);
+		mNum = sNum++;
 	}
 
 	/**
@@ -259,15 +265,16 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		customerGui.DoGoToSeat(table);
 	}
 	private void DecideOnFood() {
+		/*
 		if(state == AgentState.decidingAgain && cash>5 && cash<9){
 			leaveTable();
-		}
+		}*/
 		if((name.equals("Steak")||name.equals("Chicken")||name.equals("Salad")||name.equals("Pizza")) && !(state==AgentState.decidingAgain))
 			choice = name;
 		else if (cash>5 && cash<9){
 			// NON NORM: Poor Customer //
 			choice = "Salad";
-		}	
+		}	/*
 		else if (cash<6){
 			int stay = generator.nextInt(2);
 			if(stay == 0){
@@ -276,7 +283,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 			else{
 				RandomChoice();
 			}
-		}
+		}*/
 		else {
 			RandomChoice();
 		}
@@ -325,8 +332,9 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		customerGui.DoGoToSeat(5);
 	}
 	private void leaveTable() {
-		Do("Leaving."); cash+=15;
+		Do("Leaving.");
 		waiter.Leaving(this);
+		customerGui.animationPanel.removeCustomer(this);
 		customerGui.DoExitRestaurant();
 	}
 	
@@ -354,7 +362,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	// UTILITIES //
 	private void RandomChoice(){
 		//Random Choice Generator//
-		int option = generator.nextInt(menu.size());
+		int option = mNum % menu.size(); //generator.nextInt(menu.size());
 		ArrayList<String> stringMenu = new ArrayList<String>();
 		for(String key : menu.keySet()){
 			stringMenu.add(key);
@@ -376,6 +384,10 @@ public class RexCustomerRole extends BaseRole implements Customer{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setCash(double cash){
+		cash = this.cash;
 	}
 }
 

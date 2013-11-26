@@ -191,8 +191,7 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		//	CustomerAgent is a finite state machine
-		////print(""+ state);
+
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
 			state = AgentState.WaitingInRestaurant;
 			goToRestaurant();

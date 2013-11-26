@@ -1,5 +1,6 @@
 package restaurant.restaurant_davidmca.test;
 
+import base.PersonAgent;
 import junit.framework.TestCase;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
@@ -15,7 +16,8 @@ public class SharedWaiterTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		waiter = new DavidWaiterRoleShared("Shared Data Waiter");
+		PersonAgent testPerson = new PersonAgent();
+		waiter = new DavidWaiterRoleShared(testPerson);
 		customer1 = new MockCustomer("c1");
 		customer2 = new MockCustomer("c2");
 		customer3 = new MockCustomer("c3");
