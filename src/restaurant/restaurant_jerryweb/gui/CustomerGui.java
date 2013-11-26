@@ -12,7 +12,7 @@ public class CustomerGui implements Gui{
 	private boolean isHungry = false;
 
 	//private HostAgent host;
-	RestaurantGui gui;
+	JerrywebRestaurantGui gui;
 	
 	private int xPos, yPos;
 	public int xDestination, yDestination;
@@ -36,7 +36,7 @@ public class CustomerGui implements Gui{
 	static final int custWidth = 20;
 	static final int custHeight = 20;
 	
-	public CustomerGui(CustomerRole c, RestaurantGui gui){ //HostAgent m) {
+	public CustomerGui(CustomerRole c, JerrywebRestaurantGui gui){ //HostAgent m) {
 		agent = c;
 		xPos = -40;
 		yPos = -40;

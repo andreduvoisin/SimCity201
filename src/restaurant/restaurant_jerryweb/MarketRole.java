@@ -96,7 +96,7 @@ public class MarketRole extends Agent implements Market {
 	// Messages
 	
 	public void msgGiveMeOrder(String choice, Map<String, CookRole.Food> foodMap){
-		print("Ok cook here is your order.");
+		//print("Ok cook here is your order.");
 		restockOrder.add(new Order(choice, foodMap, OrderState.pending,0));
 		stateChanged();
 		
@@ -159,7 +159,7 @@ public class MarketRole extends Agent implements Market {
 			if((stockMap.get("steak").amount - orderSize) >= 0){
 				order.cookInventory.get("steak").amount = orderSize;
 				stockMap.get("steak").amount = stockMap.get("steak").amount - orderSize;
-				print("We will give you " + orderSize + " steaks");
+				//print("We will give you " + orderSize + " steaks");
 				cook.msgHereIsOrder(order.name, order.cookInventory);
 				order.s = OrderState.sent;
 				stateChanged();
@@ -169,12 +169,12 @@ public class MarketRole extends Agent implements Market {
 				stockMap.get("steak").amount = 0;
 				cook.msgHereIsOrder(order.name, order.cookInventory);
 				order.s = OrderState.sent;
-				print("We will give you " + orderSize + " steaks");
+				//print("We will give you " + orderSize + " steaks");
 				stateChanged();
 			}
 		}
 		else{
-			print("Steak is out of Stock!");
+			//print("Steak is out of Stock!");
 				cook.msgOutOfStock("steak");
 				order.s = OrderState.out;
 				stateChanged();
@@ -206,18 +206,18 @@ public class MarketRole extends Agent implements Market {
 					order.cookInventory.get(foodItem).amount = order.cookInventory.get(foodItem).amount + orderSize;
 					stockMap.get(foodItem).amount = stockMap.get(foodItem).amount - orderSize;
 					order.cost = order.cost + stockMap.get(foodItem).price*orderSize;
-					print("We will give you " + orderSize + " " + foodItem);
+					//print("We will give you " + orderSize + " " + foodItem);
 					
 				}
 				else{
 					order.cookInventory.get(foodItem).amount = stockMap.get(foodItem).amount;
 					stockMap.get(foodItem).amount = 0;
 					order.cost = order.cost + stockMap.get(foodItem).price*orderSize;
-					print("We will give you " + orderSize + " " + foodItem);
+					//print("We will give you " + orderSize + " " + foodItem);
 				}
 			}
 			else{
-				print("" + foodItem + " is out of Stock!");
+				//print("" + foodItem + " is out of Stock!");
 					cook.msgOutOfStock(this, foodItem);
 					//order.s = OrderState.out;
 					stateChanged();

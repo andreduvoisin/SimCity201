@@ -26,7 +26,7 @@ import base.interfaces.Role;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
-        Role subRole = null;
+        public Role subRole = null;
         int restaurantID;
         int mRestaurantBankNumber;
         protected static int DEFAULT_FOOD_QTY = 5;

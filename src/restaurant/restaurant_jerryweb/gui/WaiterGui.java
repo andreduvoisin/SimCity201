@@ -15,7 +15,7 @@ public class WaiterGui implements Gui {
     private HostRole host = null;
     private boolean AtOrigin = true;
     private boolean AtCustomerQue = false;
-    RestaurantGui gui;
+    JerrywebRestaurantGui gui;
     
    
  
@@ -73,7 +73,7 @@ public class WaiterGui implements Gui {
 	public String plate2 = "";
 	public String plate3 = "";
 	
-    public WaiterGui(Waiter w, RestaurantGui gui, HostRole h) {
+    public WaiterGui(Waiter w, JerrywebRestaurantGui gui, HostRole h) {
        agent = w;
        host = h;
         this.gui = gui;

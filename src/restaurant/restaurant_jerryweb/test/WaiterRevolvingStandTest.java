@@ -6,7 +6,7 @@ import restaurant.restaurant_jerryweb.HostRole;
 import restaurant.restaurant_jerryweb.RSWaiterRole;
 import restaurant.restaurant_jerryweb.RSWaiterRole.CustomerState;
 import restaurant.restaurant_jerryweb.RSWaiterRole.MyCustomer;
-import restaurant.restaurant_jerryweb.gui.RestaurantGui;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.test.mock.MockCook;
@@ -15,7 +15,7 @@ import junit.framework.TestCase;
 
 public class WaiterRevolvingStandTest extends TestCase {
 	CashierRole cashier;
-	RestaurantGui gui;
+	JerrywebRestaurantGui gui;
 	HostRole host;
 	CookRole cook;
 	RSWaiterRole rsWaiter;

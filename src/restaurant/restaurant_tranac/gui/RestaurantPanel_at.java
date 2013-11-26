@@ -63,6 +63,12 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
+        for(Gui gui : guis) {
+            if (gui.isPresent()) {
+                gui.updatePosition();
+            }
+        }
+        
 		repaint();
 	}
 
@@ -71,11 +77,6 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
         
         if(background != null)
         	g2.drawImage(background,0,0,null);
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-                gui.updatePosition();
-            }
-        }
 
         for(Gui gui : guis) {
             if (gui.isPresent()) {
