@@ -55,9 +55,9 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 				subRole.setPerson(mPerson);
 				break;
 			case 7: //rex
-				subRole =  RexAnimationPanel.getCashier();
+				subRole =  RexAnimationPanel.getInstance().cashier;
 				subRole.setPerson(super.mPerson);
-				RexAnimationPanel.addPerson((RexCashierRole)subRole);
+				//RexAnimationPanel.addPerson((RexCashierRole)subRole);
 				break;
 		}
 	}

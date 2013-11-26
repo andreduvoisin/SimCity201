@@ -80,6 +80,7 @@ public class RexHostRole extends BaseRole implements Host {
 		customer.state = CustomerState.waiting;
 		customers.add(customer);
 		stateChanged();
+		System.out.println("JDKLSAJFLKDSJALKFDJS: " + this.toString());
 	}
 	
 	/* (non-Javadoc)

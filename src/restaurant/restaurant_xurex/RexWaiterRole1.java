@@ -70,6 +70,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 		gui.setRole(this);
 		this.setGui(gui);
 		animationPanel.addGui(gui);
+		initializeMenu();
 	}
 	public String getName() {
 		return name;

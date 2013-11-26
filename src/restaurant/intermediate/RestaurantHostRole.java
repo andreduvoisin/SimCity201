@@ -21,7 +21,7 @@ import base.interfaces.Role;
 public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterface {
 	
 	static int totalHosts = 0;
-	Role subRole = null;
+	public Role subRole = null;
 	int restaurantID;
 	
 	public RestaurantHostRole(Person person){
@@ -57,9 +57,9 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 				subRole.setPerson(mPerson);
 				break;
 			case 7: //rex
-				subRole = RexAnimationPanel.getHost();
+				subRole = RexAnimationPanel.getInstance().host;
 				subRole.setPerson(super.mPerson);
-				RexAnimationPanel.addPerson((RexHostRole)subRole);
+				//RexAnimationPanel.addPerson((RexHostRole)subRole);
 				break;
 		}
 	}
