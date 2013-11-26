@@ -60,7 +60,7 @@ public class SortingHat {
 			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-				sRoleLocations.put(new RestaurantWaiterRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
+			sRoleLocations.put(new RestaurantWaiterRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			}
 		}
 		

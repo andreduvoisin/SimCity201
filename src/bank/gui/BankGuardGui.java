@@ -16,15 +16,16 @@ public class BankGuardGui implements Gui {
 	private int xDestination, yDestination;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOS = 0;
+	static final int STARTPOSX = 220;
+	static final int STARTPOSY = 15;
 
 	public BankGuardGui(BankGuard bg, BankPanel bp) {
 		agent = bg;
 		bankPanel = bp;
-		xPos = STARTPOS;
-		yPos = STARTPOS;
-		xDestination = STARTPOS;
-		yDestination = STARTPOS;
+		xPos = STARTPOSX;
+		yPos = STARTPOSY;
+		xDestination = STARTPOSX;
+		yDestination = STARTPOSY;
 	}
 
 	public void updatePosition() {
