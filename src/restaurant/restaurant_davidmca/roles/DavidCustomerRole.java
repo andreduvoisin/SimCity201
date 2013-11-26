@@ -16,6 +16,7 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.PersonAgent;
 import base.interfaces.Person;
 
@@ -365,7 +366,8 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 
 	private void DoneAndPaying() {
 		print("Done and Paying");
-		cash.msgPayment(mycheck, mymoney);
+		ContactList.SendPayment(mPerson.getSSN(), ((BaseRole) cash).getSSN(), mycheck.total);
+//		cash.msgPayment(mycheck, mymoney);
 		mymoney = 0;
 		waiter.msgDoneAndPaying(this);
 		event = AgentEvent.donePaying;
