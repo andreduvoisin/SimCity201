@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import test.mock.PersonGuiInterface;
 import astar.AStarNode;
 import astar.AStarTraversal;
 import astar.Position;
@@ -15,7 +16,7 @@ import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 
-public class CityPerson extends CityComponent{
+public class CityPerson extends CityComponent implements PersonGuiInterface {
 	
 	private String name = "";
 	PersonAgent mPerson = null;

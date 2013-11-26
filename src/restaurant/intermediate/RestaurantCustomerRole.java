@@ -32,8 +32,6 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 
 	public void setRestaurant(int restaurantID) {
 
-		// TODO ALL add if statements for all the other restaurants
-
 		switch(restaurantID){
 			case 0: //andre
 				subRole = new AndreCustomerRole(super.mPerson);

@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import restaurant.restaurant_smileham.Food.EnumFoodOptions;
+
 public class Item {
 	
 	public static final double cPRICE_STEAK = 6;
@@ -40,5 +42,13 @@ public class Item {
 
     public static String enumToString(EnumItemType i) {
         return i.toString();
-}
+    }
+    
+    public static EnumItemType enumToEnum(EnumFoodOptions i) {
+    	for(EnumItemType iType : EnumItemType.values()) {
+    		if(iType.toString().equalsIgnoreCase(i.toString()))
+    			return iType;
+    	}
+    	return null;
+    }
 }

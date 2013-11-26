@@ -60,7 +60,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				break;
 			case 5: //shane
 				subRole = new SmilehamWaiterRole(mPerson);
-				SmilehamAnimationPanel.addPerson((SmilehamWaiterRole) mPerson);
+				SmilehamAnimationPanel.addPerson((SmilehamWaiterRole) subRole);
 				break;
 			case 6:
 				break;
