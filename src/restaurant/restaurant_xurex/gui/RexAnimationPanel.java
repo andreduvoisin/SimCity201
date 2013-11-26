@@ -56,7 +56,6 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     static final int CASHIERY = 50;
     
     Graphics2D g2 = null; 
-    private boolean p = false;
     //private Image bufferImage;
     //private Dimension bufferSize;
     private List<Gui> guis = new ArrayList<Gui>();

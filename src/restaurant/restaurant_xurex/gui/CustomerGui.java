@@ -85,9 +85,8 @@ public class CustomerGui implements Gui{
         public boolean isHungry() {
                 return isHungry;
         }
-
-        public void setPresent(boolean p) {
-                isPresent = p;
+        public void setPresent(boolean present){
+        		isPresent = present;
         }
 
         public void DoGoToSeat(int seatnumber) {
