@@ -227,7 +227,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		else{
 			host.IWillNotWait(this);
 			customerGui.DoExitRestaurant();
-			customerGui.gui.animationPanel.updateCustomerLine();
+			customerGui.animationPanel.updateCustomerLine();
 			timer.schedule(new TimerTask(){
 				public void run(){
 					customerGui.SetCustomerEnabled();

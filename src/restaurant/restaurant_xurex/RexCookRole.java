@@ -2,6 +2,7 @@ package restaurant.restaurant_xurex;
 
 import base.BaseRole;
 import base.interfaces.Person;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
@@ -16,7 +17,7 @@ import java.util.concurrent.Semaphore;
  * Restaurant Cook Agent
  */
 
-public class RexCookRole extends BaseRole implements Cook {
+public class RexCookRole extends RestaurantCookRole implements Cook {
 	public enum OrderState
 	{pending, cooking, cooked, served};
 	public enum MarketOrderState

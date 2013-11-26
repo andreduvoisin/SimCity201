@@ -60,7 +60,7 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 	
 /*Role Actions*/
 	public boolean pickAndExecuteAnAction() {
-		return false;
+		return true;
 	}
 
 	public void setPerson(Person person) {
@@ -79,7 +79,8 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 	}
 
 	public Person getPerson() {
-		return null;
+		Person temp = new PersonAgent();
+		return temp;
 	}
 
 	public boolean isRestaurantPerson() {

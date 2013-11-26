@@ -13,7 +13,7 @@ public class CustomerGui implements Gui{
         private boolean isPresent = false;
         private boolean isHungry = false;
         
-        public RexRestaurantGui gui;
+        public AnimationPanel animationPanel;
         
         static final int LINE_X = 30;
         static final int LINE_Y = 10;
@@ -31,13 +31,13 @@ public class CustomerGui implements Gui{
         
     public Map<Integer, Point> places = new HashMap<Integer, Point>();
 
-        public CustomerGui(Customer c, RexRestaurantGui gui){
+        public CustomerGui(Customer c, AnimationPanel animationPanel){
                 role = (RexCustomerRole) c;
                 xPos = -40;
                 yPos = -40;
                 xDestination = -40;
                 yDestination = -40;
-                this.gui = gui;
+                this.animationPanel = animationPanel;
                 places.put(new Integer(1), new Point(200,150));
                 places.put(new Integer(2), new Point(300,150));
                 places.put(new Integer(3), new Point(200,250));
@@ -94,7 +94,7 @@ public class CustomerGui implements Gui{
                 xDestination = places.get(seatnumber).getX();
                 yDestination = places.get(seatnumber).getY();
                 
-                gui.animationPanel.updateCustomerLine();
+                animationPanel.updateCustomerLine();
                 command = Command.GoToSeat;
         }
 
