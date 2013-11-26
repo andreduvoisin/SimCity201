@@ -19,15 +19,15 @@ public class BankTellerGui implements Gui {
 	private int xDestination, yDestination;
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
-	static final int STARTPOSX1 = 250;
+	static final int STARTPOSX1 = 225;
 	static final int STARTPOSX2 = 200;
 	static final int STARTPOSX3 = 300;
-	static final int STARTPOSY = 470;
+	static final int STARTPOSY = 450;
 	
 	public BankTellerGui(BankTeller bt, BankPanel bp) {
 		agent = bt;
 		bankPanel = bp;
-		xPos =  235;
+		xPos =  225;
 		yPos = 0;
 		xDestination = STARTPOSX1;
 		yDestination = STARTPOSY;
@@ -74,10 +74,6 @@ public class BankTellerGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		
-//		g.setColor(Color.BLUE);
-//		g.fillRect(xPos, yPos, CUSTOMERSIZE, CUSTOMERSIZE);
-//		
 		g.drawImage(bankTellerImage, xPos, yPos, null);
 	}
 

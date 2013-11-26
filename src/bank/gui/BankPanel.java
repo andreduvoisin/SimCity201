@@ -43,8 +43,8 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int COUNTER_SIZE_X = 500;
 	static final int COUNTER_SIZE_Y = 15;
 	
-	static final int LINE_X = 235;
-	static final int LINE_Y = 350;
+	static final int LINE_X = 225;
+	static final int LINE_Y = 320;
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
 	

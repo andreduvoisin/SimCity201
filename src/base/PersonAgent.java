@@ -136,13 +136,13 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}else{
 			
-			mJobRole = new RestaurantCustomerRole(this);
-			((RestaurantBaseInterface) mJobRole).setPerson(this);
-			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
+//			mJobRole = new RestaurantCustomerRole(this);
+//			((RestaurantBaseInterface) mJobRole).setPerson(this);
+//			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 			
-//			mJobRole = new BankCustomerRole(this);
-//			mJobRole.setPerson(this);
-//			BankPanel.getInstance().addPerson(mJobRole);
+			mJobRole = new BankCustomerRole(this);
+			mJobRole.setPerson(this);
+			BankPanel.getInstance().addPerson(mJobRole);
 		}
 		
 		boolean active = (mTimeShift == Time.GetShift());
