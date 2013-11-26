@@ -25,9 +25,9 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 public class DavidRestaurantPanel extends JPanel {
 	static DavidRestaurantPanel instance;
 	static int customerCount = 0;
-	final static int customerMax = 1;
+	final static int customerMax = 100;
 	static int waiterCount = 0;
-	final static int waiterMax = 0;
+	final static int waiterMax = 100;
 	// animation grid
 	static int gridX = 25;
 	static int gridY = 35;
