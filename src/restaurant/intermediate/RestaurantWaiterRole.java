@@ -36,7 +36,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				break;
 			case 2:
 				break;
-			case 3:
+			case 3: //maggi
 				int rn1 = new Random().nextInt();
 				
 				if (rn1 % 2 == 0) {

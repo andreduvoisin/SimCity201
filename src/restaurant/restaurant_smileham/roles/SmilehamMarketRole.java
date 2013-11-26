@@ -36,7 +36,7 @@ public class SmilehamMarketRole extends BaseRole implements SmilehamMarket{
 	public SmilehamMarketRole(Person person){
 		super(person);
 		mName = person.getName();
-		print("Constructor");
+		print("Smileham Market Created");
     	
     	//Set up inventory map
     	mInventory = new HashMap<EnumFoodOptions, Integer>();

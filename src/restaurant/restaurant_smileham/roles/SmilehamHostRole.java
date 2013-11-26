@@ -40,7 +40,7 @@ public class SmilehamHostRole extends BaseRole implements SmilehamHost{
 		super(person);
 		mName = person.getName();
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
-		print("Constructor");
+		print("Smileham Host Created");
 		
 		//Set up Host
 		mHostGui = new HostGui(this);
