@@ -11,16 +11,15 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
-    private int ANIMATIONX = 1000;
-    private int ANIMATIONY = 1000;
+	int width, height;
+    List<CwagonerGui> guis = new ArrayList<CwagonerGui>();
+    ArrayList<Dimension> tableLocations = new ArrayList<Dimension>();
 
-    private List<CwagonerGui> guis = new ArrayList<CwagonerGui>();
-    
-    private ArrayList<Dimension> tableLocations = new ArrayList<Dimension>();
-
-    public CwagonerAnimationPanel() {
+    public CwagonerAnimationPanel(int width, int height) {
     	super();
-    	setSize(ANIMATIONX, ANIMATIONY);
+
+    	this.width = width;
+    	this.height = height;
 
     	Timer timer = new Timer(12, this);
     	timer.start();
@@ -39,7 +38,7 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
         // Clear the screen by painting a rectangle the size of the panel
         g2.setColor(getBackground());
-        g2.fillRect(0, 0, ANIMATIONX, ANIMATIONY);
+        g2.fillRect(0, 0, width, height);
 
         // Here are the tables
         g2.setColor(Color.ORANGE);

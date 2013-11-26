@@ -21,8 +21,8 @@ public class CwagonerRestaurantPanel extends JPanel {
     private CwagonerRestaurantGui mainGui; // Reference to main GUI
     
     private CwagonerHostRole host = new CwagonerHostRole();
-    private CwagonerCashierRole cashier;
-    private CwagonerCookRole cook;
+    private CwagonerCashierRole cashier = new CwagonerCashierRole();
+    private CwagonerCookRole cook = new CwagonerCookRole();
     private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
     private List<CwagonerWaiterRole> Waiters = new ArrayList<CwagonerWaiterRole>();
 
