@@ -1,6 +1,7 @@
 package market.test;
 
 import junit.framework.TestCase;
+import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
 import market.test.mock.*;
 import market.*;
@@ -27,7 +28,6 @@ public class CashierTest extends TestCase {
  		super.setUp();
  		
  		mPerson = new PersonAgent();
- 		mCashier = new MarketCashierRole(mPerson);
  		
  		mMockCustomer = new MockCustomer();
  		mMockCookCustomer = new MockCookCustomer();
@@ -38,23 +38,30 @@ public class CashierTest extends TestCase {
  	}
  	
  	/**
- 	 * Test cashier with customer.
+ 	 * Test food market cashier with customer.
  	 */
  	public void testCashierCustomer() {
- 		
+ 		mCashier = new MarketCashierRole(mPerson, EnumMarketType.FOOD);
  	}
  	
  	/**
- 	 * Test cashier with cook customer.
+ 	 * Test food market cashier with cook customer.
  	 */
  	public void testCashierCookCustomer() {
- 		
+ 		mCashier = new MarketCashierRole(mPerson, EnumMarketType.FOOD);
  	}
  	
  	/**
- 	 * Test cashier with two different customers.
+ 	 * Test food market cashier with two different customers.
  	 */
  	public void testCashierTwoCustomers() {
- 		
+ 		mCashier = new MarketCashierRole(mPerson, EnumMarketType.FOOD);
+ 	}
+
+ 	/**
+ 	 * Test car market cashier with customer.
+ 	 */
+ 	public void testCarMarketCashier() {
+ 		mCashier = new MarketCashierRole(mPerson, EnumMarketType.CAR);
  	}
 }

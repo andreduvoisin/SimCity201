@@ -48,4 +48,8 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 		return null;
 	}
 
+	public boolean isRestaurantPerson() {
+		return false;
+	}
+
 }
