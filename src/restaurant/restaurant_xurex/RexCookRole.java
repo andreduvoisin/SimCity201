@@ -1,6 +1,5 @@
 package restaurant.restaurant_xurex;
 
-import base.BaseRole;
 import base.interfaces.Person;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_xurex.gui.CookGui;
