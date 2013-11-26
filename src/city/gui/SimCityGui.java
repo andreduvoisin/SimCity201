@@ -146,12 +146,12 @@ public class SimCityGui extends JFrame {
 //		}
 		
 		for (int i=0; i<10; i++) {
-			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
+			//((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
 		}
 		
-		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
-			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
-		}
+//		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
+//			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
+//		}
 	}
 
 	/**

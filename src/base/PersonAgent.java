@@ -344,7 +344,6 @@ public class PersonAgent extends Agent implements Person {
 
 		//print("goToJob");
 		mPersonGui.DoGoToDestination(mJobLocation);
-
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
 		mPersonGui.setPresent(false);

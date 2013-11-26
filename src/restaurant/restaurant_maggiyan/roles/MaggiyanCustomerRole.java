@@ -229,7 +229,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	}
 
 	private void goToRestaurant() {
-		print("Going to restaurant");
+		print("Maggi Going to restaurant");
 		host.msgIWantFood(this);//send our instance, so he can respond to us
 	}
 
