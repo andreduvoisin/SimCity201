@@ -154,7 +154,7 @@ public class DavidRestaurantPanel extends JPanel {
 		gui.animationPanel.addGui(g);
 		waiter.setHost(host);
 		waiter.setGui(g);
-//		host.addWaiter(waiter);
+		host.addWaiter(waiter);
 		waiter.setCashier(cash);
 	}
 

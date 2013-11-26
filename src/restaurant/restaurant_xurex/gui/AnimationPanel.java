@@ -2,9 +2,9 @@ package restaurant.restaurant_xurex.gui;
 
 import javax.swing.*;
 
-import restaurant.restaurant_xurex.CashierRole;
-import restaurant.restaurant_xurex.CookRole;
-import restaurant.restaurant_xurex.HostRole;
+import restaurant.restaurant_xurex.RexCashierRole;
+import restaurant.restaurant_xurex.RexCookRole;
+import restaurant.restaurant_xurex.RexHostRole;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -27,9 +27,9 @@ public class AnimationPanel extends JPanel implements ActionListener {
     private Vector<Waiter> waiters = new Vector<Waiter>();
     private Vector<Customer> customers = new Vector<Customer>();
     //Initial
-    private Host host = new HostRole();
-    private Cook cook = new CookRole(); 
-    private Cashier cashier = new CashierRole();
+    private Host host = new RexHostRole();
+    private Cook cook = new RexCookRole(); 
+    private Cashier cashier = new RexCashierRole();
     
     private CookGui cookGui = new CookGui(cook);
 

@@ -154,13 +154,13 @@ public class MarketGuiTest extends TestCase {
 				+ mWorker.log.getLastLoggedEvent().toString(),
 				mWorker.log.containsString("Received msgOrderFulfilled."));
 	  //assert item inventory
-		assertEquals("MarketItems should have less steaks. Instead it has "
-				+ mMarketItems.mItems.get(EnumItemType.STEAK),
-				mMarketItems.mItems.get(EnumItemType.STEAK),
+		System.out.println(mMarketItems.getNum(EnumItemType.STEAK));
+		System.out.println(mMarketItems.sBaseInventory-items.get(EnumItemType.STEAK));
+		assertEquals("MarketItems should have less steaks.",
+				mMarketItems.getNum(EnumItemType.STEAK),
 				mMarketItems.sBaseInventory-items.get(EnumItemType.STEAK));
-		assertEquals("MarketItems should have less chicken. Instead it has "
-				+ mMarketItems.mItems.get(EnumItemType.CHICKEN),
-				mMarketItems.mItems.get(EnumItemType.CHICKEN),
+		assertEquals("MarketItems should have less chicken.",
+				mMarketItems.getNum(EnumItemType.CHICKEN),
 				mMarketItems.sBaseInventory-items.get(EnumItemType.CHICKEN));
 		
 		

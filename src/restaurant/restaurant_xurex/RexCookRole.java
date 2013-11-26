@@ -3,7 +3,7 @@ package restaurant.restaurant_xurex;
 import base.BaseRole;
 import base.interfaces.Person;
 import restaurant.restaurant_xurex.gui.CookGui;
-import restaurant.restaurant_xurex.gui.RestaurantGui;
+import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
@@ -16,7 +16,7 @@ import java.util.concurrent.Semaphore;
  * Restaurant Cook Agent
  */
 
-public class CookRole extends BaseRole implements Cook {
+public class RexCookRole extends BaseRole implements Cook {
 	public enum OrderState
 	{pending, cooking, cooked, served};
 	public enum MarketOrderState
@@ -24,7 +24,7 @@ public class CookRole extends BaseRole implements Cook {
 	
 	private Semaphore atLocation = new Semaphore(100,true);
 	private CookGui cookGui = null;
-	RestaurantGui gui;
+	RexRestaurantGui gui;
 	
 	public class CookOrder{
 		Waiter w;
@@ -85,7 +85,7 @@ public class CookRole extends BaseRole implements Cook {
 		Inventory.put("Salad", 	 new Food("Salad",   5, 2, 15, 5));
 		Inventory.put("Pizza",	 new Food("Pizza",   5, 10, 15, 20));
 	}
-	public CookRole(){
+	public RexCookRole(){
 		super();
 		initializeInventory();
 		for(int i=1; i<11; i++){
@@ -93,7 +93,7 @@ public class CookRole extends BaseRole implements Cook {
 		}
 		runTimer();
 	}
-	public CookRole(String name, Person person) {
+	public RexCookRole(String name, Person person) {
 		super(person);
 		this.name = name;
 		initializeInventory();
@@ -102,7 +102,7 @@ public class CookRole extends BaseRole implements Cook {
 		}
 		runTimer();
 	}
-	public CookRole(String name, String food, Person person) {
+	public RexCookRole(String name, String food, Person person) {
 		super(person);
 		this.name = name;
 		initializeInventory();
@@ -243,7 +243,7 @@ public class CookRole extends BaseRole implements Cook {
 			orders.remove(o); return;
 		}
 		f.quantity--;
-		gui.updateInventory();
+		//gui.updateInventory();
 		CheckInventory();
 		o.s = OrderState.cooking;
 		DoCooking(o);
@@ -263,7 +263,7 @@ public class CookRole extends BaseRole implements Cook {
 			newValue.orderState= false;
 			Inventory.put(food, newValue);
 		}
-		gui.updateInventory();
+		//gui.updateInventory();
 	}
 	
 	//ANIMATIONS
@@ -342,7 +342,7 @@ public class CookRole extends BaseRole implements Cook {
 	public String getName() {
 		return name;
 	}
-	public void setGui(RestaurantGui gui){
+	public void setGui(RexRestaurantGui gui){
 		this.gui = gui;
 	}
 	

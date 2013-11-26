@@ -4,14 +4,14 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import restaurant.restaurant_xurex.gui.RestaurantGui;
+import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
 public class WaiterGui implements Gui, WaiterGui_ {
 
     private Waiter agent = null;
-    RestaurantGui gui;
+    RexRestaurantGui gui;
     
     private boolean msgSent = true;
     private static final int waiterDim = 10;
@@ -25,7 +25,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private int xPos = home, yPos = home;//default waiter position
     private int xDestination = home, yDestination = home;//default start position
 
-    public WaiterGui(Waiter agent, RestaurantGui gui) {
+    public WaiterGui(Waiter agent, RexRestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         places.put(new Integer(1), new Point(200,150));
@@ -143,7 +143,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     	gui.setWaiterEnabled(agent, name);
     }
     
-    public void setGui(RestaurantGui gui){
+    public void setGui(RexRestaurantGui gui){
     	this.gui=gui;
     }
     

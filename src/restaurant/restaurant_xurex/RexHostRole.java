@@ -16,7 +16,7 @@ import restaurant.restaurant_xurex.interfaces.Waiter;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class HostRole extends BaseRole implements Host {
+public class RexHostRole extends BaseRole implements Host {
 	static final int NTABLES = 4;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
@@ -40,7 +40,7 @@ public class HostRole extends BaseRole implements Host {
 	private String name;
 	private boolean fullRestaurant = true;
 
-	public HostRole(String name, Person person) {
+	public RexHostRole(String name, Person person) {
 		super(person);
 
 		this.name = name;
@@ -51,7 +51,7 @@ public class HostRole extends BaseRole implements Host {
 		tables.add(new Table(4));//se
 	}
 	
-	public HostRole() {
+	public RexHostRole() {
 		super();
 
 		tables = new ArrayList<Table>(NTABLES);

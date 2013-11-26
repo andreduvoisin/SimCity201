@@ -54,12 +54,6 @@ public class MarketWorkerGui implements MarketBaseGui {
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
-        	case fulFillOrder: {
-        		mAgent.msgOrderFulfilled(mOrder);
-        		mOrder = null;
-        		mCommand = EnumCommand.noCommand;
-        		break;
-        	}
         	case goToCashier: {
         		mCommand = EnumCommand.noCommand;
         		break;
@@ -112,8 +106,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 			}
 			mItems.decreaseItemCount(item, mOrder.mItems.get(item));		
 		}
-	
-		mCommand = EnumCommand.fulFillOrder;
+		mAgent.msgOrderFulfilled(mOrder);
+		mOrder = null;
 	}
 	
 	//ANGELICA: add in parameter

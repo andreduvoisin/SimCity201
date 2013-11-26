@@ -3,7 +3,7 @@ package restaurant.restaurant_xurex.test.mock;
 
 import java.awt.Graphics2D;
 
-import restaurant.restaurant_xurex.gui.RestaurantGui;
+import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
 public class MockWaiterGui extends Mock implements WaiterGui_ {
@@ -109,7 +109,7 @@ public class MockWaiterGui extends Mock implements WaiterGui_ {
 	}
 
 	@Override
-	public void setGui(RestaurantGui gui) {
+	public void setGui(RexRestaurantGui gui) {
 		// TODO Auto-generated method stub
 		
 	}
