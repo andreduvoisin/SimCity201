@@ -38,15 +38,15 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 			case 2:
 				break;
 			case 3:
-				int rn1 = new Random().nextInt();
-				
-				if (rn1 % 2 == 0) {
+//				int rn1 = new Random().nextInt();
+//				
+//				if (rn1 % 2 == 0) {
 					subRole = new MaggiyanWaiterRole(super.mPerson);
 					MaggiyanRestaurantPanel.getRestPanel().addWaiter((MaggiyanWaiterRole) subRole);
-				}else {
-					subRole = new MaggiyanSharedWaiterRole(super.mPerson);
-					MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
-				}
+//				}else {
+//					subRole = new MaggiyanSharedWaiterRole(super.mPerson);
+//					MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
+//				}
 				break;
 			case 4: //david
 				int rn = new Random().nextInt();

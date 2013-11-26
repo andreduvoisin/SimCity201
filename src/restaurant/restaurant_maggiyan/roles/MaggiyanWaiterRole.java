@@ -43,7 +43,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	private Semaphore atTable = new Semaphore(0,true);
 	private Semaphore goingToKitchen = new Semaphore(0,true); 
 	private Semaphore waiterReady = new Semaphore(0, true);
-	private Semaphore animationReady = new Semaphore(1, true); 
+	private Semaphore animationReady = new Semaphore(0, true); 
 
 	public boolean justGotToWork = false;
 	public boolean needToGoToKitchen = true; 

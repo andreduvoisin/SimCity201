@@ -34,6 +34,12 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  
+		
+        for(MaggiyanGui gui : guis) {
+            if (gui.isPresent()) {
+                gui.updatePosition();
+            }
+        }
 	}
 
     public void paintComponent(Graphics g) {
@@ -71,18 +77,7 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
         //g2.setColor(Color.BLUE);
         //g2.fillRect(XPOS+410, YPOS+50, 20, 20);
         
-        
-        for(MaggiyanGui gui : guis) {
-            if (gui.isPresent()) {
-                gui.updatePosition();
-            }
-//            if(gui instanceof CustomerGui){
-//            	showChoice((CustomerGui)gui); 
-//            }
-//            if(gui instanceof WaiterGui){
-//            	showChoice((WaiterGui)gui);
-//            }
-        }
+     
 
         for(MaggiyanGui gui : guis) {
             if (gui.isPresent()) {

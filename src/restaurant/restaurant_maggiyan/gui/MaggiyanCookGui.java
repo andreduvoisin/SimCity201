@@ -17,18 +17,18 @@ public class MaggiyanCookGui implements MaggiyanGui{
 	//Cook Positions
 	private final int initialxPos = 350; 
 	private final int initialyPos = 340; 
-	private int cookingXPos = 680; 
+	private int cookingXPos = 275+125; 
 	private int cookingYPos = 275; 
-	private int platingXPos = 600; 
+	private int platingXPos = 275+150; 
 	private int platingYPos = 275; 
 	
 	//Grill Positions
-	private int gPosition1 = 715;
-	private int gYPos = 280; 
+	private int gPosition1 = 275+175;
+	private int gYPos = 300; 
 	
 	//Plated food positions
-	private int pXPos = 570;
-	private int pYPos = 275; 
+	private int pXPos = 275+130;
+	private int pYPos = 300; 
 	
 	//Cooking food 
 	private List<String> CookingFoods = Arrays.asList(" ", " ", " "); 
