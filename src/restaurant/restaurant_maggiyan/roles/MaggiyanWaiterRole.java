@@ -385,42 +385,43 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		host.msgWaiterBusy(this); 
 		print("Seating Customer at table " + myCust.table); 
 		waiterGui.DoGoToSeatCustomer(); 
-//		try{
-//			print("1");
-//			animationReady.acquire(); 
-//		}
-//		catch(Exception e){
-//			print("Animation release exception");
-//		} 
+		try{
+			print("1");
+			animationReady.acquire(); 
+		}
+		catch(Exception e){
+			print("Animation release exception");
+		} 
 		myCust.c.msgFollowMe(this, menu, myCust.table);
-//		try{
-//			print("2");
-//			animationReady.acquire(); 
-//		}
-//		catch(Exception e){
-//			print("Animation release exception");
-//		} 
+		try{
+			print("2");
+			animationReady.acquire(); 
+		}
+		catch(Exception e){
+			print("Animation release exception");
+		} 
 		DoSeatCustomer(myCust.c, myCust.table);
 		myCust.s = CustomerState.seated; 
 		alreadyAtTable = true; 
-//		try{ 
-//			print("At Table acquire"); 
-//			atTable.acquire(); 
-//		}
-//		catch(Exception e){
-//			print("giveCustomerFood exception");
-//		}
+		try{ 
+			print("At Table acquire"); 
+			atTable.acquire(); 
+		}
+		catch(Exception e){
+			print("giveCustomerFood exception");
+		}
 		waiterGui.DoLeaveCustomer();
 		//Leave customer while customer orders
 		//waiterIsReady = true;
-//		try{
-//			animationReady.acquire(); 
-//			//waiterReady.acquire(); 
-//
-//		}
-//		catch(Exception e){
-//			print("Animation release exception");
-//		} 
+		try{
+			animationReady.acquire();
+			print("permits working: " + animationReady.availablePermits()); 
+			//waiterReady.acquire(); 
+
+		}
+		catch(Exception e){
+			print("Animation release exception");
+		} 
 		host.msgWaiterFree(this);
 //		}
 	}
@@ -468,10 +469,11 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	private void giveCustomerFood(MyCustomer mc){
 		host.msgWaiterBusy(this); 
-		DoGiveOrderToCook();
+		waiterGui.DoGoToCook();
+		print("Getting customer food");
 		try{
-			goingToKitchen.acquire();
-			needToGoToKitchen = true; 
+			animationReady.acquire();
+			print("WHAT IS LIFE RN: " + animationReady.availablePermits()); 
 		}
 		catch(Exception e){
 			print("giveCustomerFood exception"); 

@@ -27,7 +27,7 @@ public class MaggiyanCookGui implements MaggiyanGui{
 	private int gYPos = 300; 
 	
 	//Plated food positions
-	private int pXPos = 275+130;
+	private int pXPos = 275;
 	private int pYPos = 300; 
 	
 	//Cooking food 

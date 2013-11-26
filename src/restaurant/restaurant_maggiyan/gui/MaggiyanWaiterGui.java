@@ -94,9 +94,9 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
         			if(xPos != prevXPos){
         				prevXPos = xPos;
         				prevYPos = yPos;
-                		System.out.println("Release animation"); 
+                		
                 		agent.msgAnimationReady(); 
-                		System.out.println("After DKLS:FSDF Release animation"); 
+                		
                 	}
         		}
         		else if((xDestination == tableXCoord[currentTable] + 20) & (yDestination == yTable - 20)) 
