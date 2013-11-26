@@ -4,14 +4,13 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
 
 public class CookGui implements Gui, CookGui_ {
 
     private Cook agent = null;
-    RexRestaurantGui gui;
+    RexAnimationPanel animationPanel;
     
     private boolean msgSent = true;
     private static final int cookDim = 10;
@@ -63,19 +62,19 @@ public class CookGui implements Gui, CookGui_ {
     }
 
     public void DoDisplayOrder(String choice, int table){
-    	gui.animationPanel.addFood(choice.substring(0,2), places.get(table).getX()-20, places.get(table).getY()+17);
+    	animationPanel.addFood(choice.substring(0,2), places.get(table).getX()-20, places.get(table).getY()+17);
     }
     
     public void DoRemoveOrder(int table){
-    	gui.animationPanel.removeFood(places.get(table).getX()-20, places.get(table).getY()+17);
+    	animationPanel.removeFood(places.get(table).getX()-20, places.get(table).getY()+17);
     }
     
     public void DoDisplayServe(String choice, int table){
-    	gui.animationPanel.addFood(choice.substring(0,2), places.get(table).getX()+17, places.get(table).getY()+17);
+    	animationPanel.addFood(choice.substring(0,2), places.get(table).getX()+17, places.get(table).getY()+17);
     }
     
     public void DoRemoveServe(int table){
-    	gui.animationPanel.removeFood(places.get(table).getX()+17, places.get(table).getY()+17);
+    	animationPanel.removeFood(places.get(table).getX()+17, places.get(table).getY()+17);
     }
     
     public boolean isPresent() {
@@ -119,10 +118,6 @@ public class CookGui implements Gui, CookGui_ {
     	return false;
     }
     
-    public void setGui(RexRestaurantGui gui){
-    	this.gui=gui;
-    }
-    
     public int getXPos() {
         return xPos;
     }
@@ -130,4 +125,9 @@ public class CookGui implements Gui, CookGui_ {
     public int getYPos() {
         return yPos;
     }
+
+	@Override
+	public void setAnimationPanel(RexAnimationPanel animationPanel) {
+		this.animationPanel = animationPanel;
+	}
 }

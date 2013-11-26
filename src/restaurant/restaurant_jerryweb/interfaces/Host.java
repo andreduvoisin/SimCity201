@@ -1,17 +1,17 @@
 package restaurant.restaurant_jerryweb.interfaces;
 
-import restaurant.restaurant_jerryweb.CustomerRole;
-import restaurant.restaurant_jerryweb.WaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 
 public interface Host {
 
-	public abstract void msgIWantFood(CustomerRole customer); 
+	public abstract void msgIWantFood(JerrywebCustomerRole customer); 
 	
-	public abstract void msgWantToGoOnBreak(WaiterRole waiter);
+	public abstract void msgWantToGoOnBreak(JerrywebWaiterRole waiter);
 	
-	public abstract void msgCustomerSeated(WaiterRole waiter);
+	public abstract void msgCustomerSeated(JerrywebWaiterRole waiter);
 	
-	public abstract void msgCustLeavingTable(CustomerRole customer);
+	public abstract void msgCustLeavingTable(JerrywebCustomerRole customer);
 	
-	public abstract void msgBackFromBreak(WaiterRole waiter);
+	public abstract void msgBackFromBreak(JerrywebWaiterRole waiter);
 }

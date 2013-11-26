@@ -3,8 +3,8 @@ package restaurant.restaurant_jerryweb.test.mock;
 import java.util.ArrayList;
 import java.util.List;
 
-import restaurant.restaurant_jerryweb.RSWaiterRole;
-import restaurant.restaurant_jerryweb.RSWaiterRole.MyCustomer;
+import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole.MyCustomer;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.test.mock.LoggedEvent;

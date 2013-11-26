@@ -1,7 +1,7 @@
 package restaurant.restaurant_jerryweb.interfaces;
 
-import restaurant.restaurant_jerryweb.CustomerRole;
-import restaurant.restaurant_jerryweb.WaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 
 /**
  * A sample Cashier interface 

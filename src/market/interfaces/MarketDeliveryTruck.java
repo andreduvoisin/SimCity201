@@ -11,7 +11,7 @@ import market.*;
 public interface MarketDeliveryTruck {
 	public abstract void msgDeliverOrderToCook(MarketOrder o);
 	
-	public abstract void msgAnimationAtRestaurant(String r);
+	public abstract void msgAnimationAtRestaurant(int n);
 	
 	public abstract void msgAnimationAtMarket();
 	

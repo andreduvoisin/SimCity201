@@ -2,6 +2,8 @@ package restaurant.restaurant_jerryweb.gui;
 
 import javax.swing.*;
 
+import restaurant.restaurant_maggiyan.gui.MaggiyanGui;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -64,6 +66,14 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
+			synchronized (guis) {
+	        	for(Gui gui : guis) {
+	                if (gui.isPresent()) {
+	                    gui.updatePosition();
+	                }
+	            }
+			}
+
 	}
 
     public void paintComponent(Graphics g) {
