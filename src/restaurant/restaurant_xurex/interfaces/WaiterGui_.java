@@ -40,8 +40,6 @@ public interface WaiterGui_ {
 
 	public abstract void setWaiterEnabled(String name);
 
-	public abstract void setGui(RexRestaurantGui gui);
-
 	public abstract int getXPos();
 
 	public abstract int getYPos();

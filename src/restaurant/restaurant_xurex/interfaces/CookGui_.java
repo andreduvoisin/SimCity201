@@ -2,6 +2,7 @@ package restaurant.restaurant_xurex.interfaces;
 
 import java.awt.Graphics2D;
 
+import restaurant.restaurant_xurex.gui.AnimationPanel;
 import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 
 public interface CookGui_ {
@@ -32,7 +33,7 @@ public interface CookGui_ {
 
 	public abstract boolean atTable(int table);
 
-	public abstract void setGui(RexRestaurantGui gui);
+	public abstract void setAnimationPanel (AnimationPanel animationPanel);
 
 	public abstract int getXPos();
 

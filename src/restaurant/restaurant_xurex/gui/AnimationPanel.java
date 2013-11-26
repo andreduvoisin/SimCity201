@@ -2,11 +2,15 @@ package restaurant.restaurant_xurex.gui;
 
 import javax.swing.*;
 
+import base.BaseRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.RexCookRole;
+import restaurant.restaurant_xurex.RexCustomerRole;
 import restaurant.restaurant_xurex.RexHostRole;
+import restaurant.restaurant_xurex.RexWaiterRole1;
+import restaurant.restaurant_xurex.RexWaiterRole2;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -26,12 +30,12 @@ public class AnimationPanel extends CityCard implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 //	ROLES
-    private Vector<Waiter> waiters = new Vector<Waiter>();
-    private Vector<Customer> customers = new Vector<Customer>();
+    private static Vector<Waiter> waiters = new Vector<Waiter>();
+    private static Vector<Customer> customers = new Vector<Customer>();
     //Initial
-    private Host host = new RexHostRole();
-    private Cook cook = new RexCookRole(); 
-    private Cashier cashier = new RexCashierRole();
+    private static Host host;
+    private static Cook cook; 
+    private static Cashier cashier;
     
     private CookGui cookGui = new CookGui(cook);
 
@@ -167,23 +171,41 @@ public class AnimationPanel extends CityCard implements ActionListener {
     	}
     }
 
-    public void pause(){
-    	p=true;
-    }
-    
-    public void restart(){
-    	p=false;
-    }
-    
-    public void addGui(CustomerGui gui) {
+    public void addGui(Gui gui) {
         guis.add(gui);
     }
 
-    public void addGui(WaiterGui gui) {
-        guis.add(gui);
+    public void removeGui(Gui gui) {
+    	guis.remove(gui);
     }
     
-    public void addGui(CookGui gui) {
-    	guis.add(gui);
+    public static void addPerson(BaseRole role) {
+    	if (role instanceof RexCustomerRole){
+    		RexCustomerRole customer = (RexCustomerRole) role;
+    		customers.add(customer);
+    		customer.gotHungry();
+    	}
+    	else if (role instanceof RexWaiterRole1){
+    		RexWaiterRole1 waiter = (RexWaiterRole1) role;
+    		
+    		waiters.add(waiter);
+            host.addWaiter((RexWaiterRole1)waiter);
+    	}
+    	else if (role instanceof RexWaiterRole2){
+    		RexWaiterRole2 waiter = (RexWaiterRole2) role;
+    		
+    		waiters.add(waiter);
+    		host.addWaiter((RexWaiterRole2)waiter);
+    	}
+    	else if (role instanceof RexHostRole){
+    		host = (RexHostRole) role;
+    	}
+    	else if (role instanceof RexCookRole){
+    		cook = (RexCookRole) role;
+    	}
+    	else if (role instanceof RexCashierRole){
+    		cashier = (RexCashierRole) role;
+    	}
     }
+    
 }
