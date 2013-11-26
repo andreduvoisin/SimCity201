@@ -60,13 +60,13 @@ public class AndreRestaurantPanel extends JPanel {
         //cook.startThread();
         //cashier.startThread();
         
-        for(int i = 1; i <= 3; i++) {
-        	AndreMarketRole market = new AndreMarketRole("Market #" + i, cook);
-        	//market.startThread();
-        	market.setCashier(cashier);
-        	markets.add(market);
-        	cook.addMarket(market);
-        }
+//        for(int i = 1; i <= 3; i++) {
+//        	AndreMarketRole market = new AndreMarketRole("Market #" + i, cook);
+//        	//market.startThread();
+//        	market.setCashier(cashier);
+//        	markets.add(market);
+//        	cook.addMarket(market);
+//        }
     }
     
     public static AndreRestaurantPanel getInstance() {

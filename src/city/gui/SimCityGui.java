@@ -18,7 +18,11 @@ public class SimCityGui extends JFrame {
 	CityControlPanel CP;
 	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
 	
-	public static int TESTNUM = 5; //ALL SHANE: 0TESTNUM
+<<<<<<< HEAD
+	public static int TESTNUM = 4; //ALL SHANE: 0TESTNUM
+=======
+	public static int TESTNUM = 0; //ALL SHANE: 0TESTNUM
+>>>>>>> 9cd91a3ccf51d72791e89730b59741ca0ac7caa4
 	
 	public static SimCityGui getInstance() {
 		return instance;
