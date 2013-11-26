@@ -7,12 +7,7 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-import base.ConfigParser;
-import base.Event;
-import base.Event.EnumEventType;
 import base.Time;
-import base.interfaces.Person;
-//import base.Time;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
@@ -22,8 +17,8 @@ public class SimCityGui extends JFrame {
 	public CityView cityview;
 	CityControlPanel CP;
 	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
-
-	public static int TESTNUM = 4; //ALL SHANE: 0TESTNUM
+	
+	public static int TESTNUM = 0; //ALL SHANE: 0TESTNUM
 	
 	public static SimCityGui getInstance() {
 		return instance;
@@ -55,68 +50,10 @@ public class SimCityGui extends JFrame {
 	
 			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
 			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
-			this.add(cityview, mGridBagConstraints);
+			this.add(cityview, mGridBagConstraints);	
 		
-		ConfigParser config = ConfigParser.getInstanceOf();
-		config.readFileCreatePersons(this);
-		
-//		Timer updateAnimationTimer = new Timer();
-//		updateAnimationTimer.scheduleAtFixedRate(new TimerTask() {
-//			public void run() {
-//				for (CityCard card : cityview.cards.values()) {
-//					if (!card.isVisible()) {
-//						card.update(card.getGraphics());
-//					}
-//				}
-//			}
-//		}, 1000, 30);
-		
-		/*
-		 * Hack Restaurant DAVID
-		 */
-				
-//		PersonAgent testHost = new PersonAgent();
-//		testHost.setName("testHost");
-//		RestaurantHostRole hostRole = new RestaurantHostRole(testHost);
-//		hostRole.setPerson(testHost);
-//		hostRole.setRestaurant(1);
-//		testHost.addRole(hostRole, true);
-//		testHost.startThread();
-//		
-//		PersonAgent testWaiter = new PersonAgent();
-//		testWaiter.setName("testWaiter");
-//		RestaurantWaiterRole waiterRole = new RestaurantWaiterRole(testWaiter);
-//		waiterRole.setPerson(testWaiter);
-//		waiterRole.setRestaurant(1);
-//		testWaiter.addRole(waiterRole, true);
-//		testWaiter.startThread();
-//		
-//		PersonAgent testCustomer = new PersonAgent();
-//		testCustomer.setName("testCustomer");
-//		RestaurantCustomerRole customerRole = new RestaurantCustomerRole(testCustomer);
-//		customerRole.setPerson(testCustomer);
-//		customerRole.setRestaurant(1);
-//		testCustomer.addRole(customerRole, true);
-//		testCustomer.startThread();
-//		
-//		PersonAgent testCashier = new PersonAgent();
-//		testCashier.setName("testCashier");
-//		RestaurantCashierRole cashierRole = new RestaurantCashierRole(testCashier);
-//		cashierRole.setPerson(testCashier);
-//		cashierRole.setRestaurant(1);
-//		testCashier.addRole(cashierRole, true);
-//		testCashier.startThread();
-//		
-//		PersonAgent testCook = new PersonAgent();
-//		testCook.setName("testCook");
-//		RestaurantCookRole cookRole = new RestaurantCookRole(testCook);
-//		cookRole.setPerson(testCook);
-//		cookRole.setRestaurant(1);
-//		testCook.addRole(cookRole, true);
-//		testCook.startThread();
-		
-		Person person = citypanel.masterPersonList.get(0);
-		person.msgAddEvent(new Event(EnumEventType.JOB, 0));
+//		Person person = citypanel.masterPersonList.get(0);
+//		person.msgAddEvent(new Event(EnumEventType.JOB, 0));
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();

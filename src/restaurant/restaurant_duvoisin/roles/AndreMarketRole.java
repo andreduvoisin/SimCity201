@@ -109,7 +109,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 	void ProcessOrder(MarketOrder mo) {
 		//print("Doing ProcessOrder");
 		if(inventory.get(mo.type) <= 0) {
-			cook.msgFailedToFulfillRequest(this, mo.type, mo.amount);
+			//cook.msgFailedToFulfillRequest(this, mo.type, mo.amount);
 			marketOrders.remove(mo);
 		} else if(mo.amount <= inventory.get(mo.type)) {
 			mo.state = MarketOrderState.Fulfilling;
@@ -117,7 +117,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 			mo.fulfillThisOrder();
 		} else if(mo.amount > inventory.get(mo.type)) {
 			mo.state = MarketOrderState.Fulfilling;
-			cook.msgFailedToFulfillRequest(this, mo.type, mo.amount - inventory.get(mo.type));
+			//cook.msgFailedToFulfillRequest(this, mo.type, mo.amount - inventory.get(mo.type));
 			mo.amount = inventory.get(mo.type);
 			inventory.put(mo.type, 0);
 			mo.fulfillThisOrder();
@@ -126,7 +126,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 	
 	void FinishOrder(MarketOrder mo) {
 		//print("Doing FinishOrder");
-		cook.msgReplenishFood(mo.type, mo.amount);
+		//cook.msgReplenishFood(mo.type, mo.amount);
 		myChecks.add(new MyCheck(mo.type, marketPrices.currentRate.get(mo.type) * mo.amount));
 		cashier.msgComputeMarketBill(this, mo.type, mo.amount);
 		marketOrders.remove(mo);

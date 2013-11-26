@@ -1,5 +1,6 @@
 package restaurant.restaurant_jerryweb;
 
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_jerryweb.agent.Agent;
 import restaurant.restaurant_jerryweb.JerrywebCookRole.OrderState;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole.AgentEvent;
@@ -13,24 +14,30 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.Item;
+import base.Item.EnumItemType;
+import base.interfaces.Person;
 
 /**
  * Restaurant Cook Agent
  */
-public class JerrywebCookRole extends BaseRole {
+public class JerrywebCookRole extends RestaurantCookRole {
 	static final int semaphoreCerts = 0;
 	public List<Order> Orders= Collections.synchronizedList(new ArrayList<Order>());
 	public List<Order>  RevolvingStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Food> foodItems= new ArrayList<Food>();
+	//public Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
+
 	Timer cookingTimer = new Timer();
 	private Timer checkRevolvingStand = new Timer();
 	public List<JerrywebWaiterRole> Waiters = new ArrayList<JerrywebWaiterRole>();
 	public Menu m = new Menu();
-	public Map<String,Food> foodMap = new HashMap<String,Food>(4);	
+	public Map<String,Food> foodMap = new HashMap<String,Food>(4);
+	public Map<EnumItemType,Integer> mCookTimes = new HashMap<EnumItemType, Integer>();
 	public List<Market> markets = new ArrayList<Market>();
 	int selection = 0; 
 	private boolean orderSent = false;
-	
+	int baseNeed = 10;
 	
 	public class Order{
 		Waiter w;
@@ -76,24 +83,34 @@ public class JerrywebCookRole extends BaseRole {
 
 	//public HostGui hostGui = null;
 
-	public JerrywebCookRole(String name) {
+	public JerrywebCookRole(){//Person person) {
 		super();
-		this.name = name;
+		//this.name = person.getName();
 
 		//This populates the food map using the string names of the food items as keys and holds the
-		foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 5, 2));
+		/*foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 5, 2));
 		foodMap.put("chicken",new Food("chicken", FoodState.delivered, 12000, 7, 7, 3));
 		foodMap.put("salad",new Food("salad", FoodState.delivered, 2000, 10, 10, 4));
-		foodMap.put("pizza",new Food("pizza", FoodState.delivered, 14000, 8, 8, 3));
+		foodMap.put("pizza",new Food("pizza", FoodState.delivered, 14000, 8, 8, 3));*/
 		
-		/*checkRevolvingStand.schedule(new TimerTask() {
+		mItemInventory.put(EnumItemType.STEAK,10);
+        mItemInventory.put(EnumItemType.CHICKEN,14);
+        mItemInventory.put(EnumItemType.SALAD,20);
+        mItemInventory.put(EnumItemType.PIZZA,16);
+
+        mCookTimes.put(EnumItemType.STEAK,17000);
+        mCookTimes.put(EnumItemType.CHICKEN,12000);
+        mCookTimes.put(EnumItemType.SALAD,2000);
+        mCookTimes.put(EnumItemType.PIZZA,14000);
+        
+		checkRevolvingStand.schedule(new TimerTask() {
 			public void run() {
 				
 				moveRevlovingStandOrders();
 //				stateChanged(); //JERRY: 1 Add this back in with your restaurant
 			}
 		},
-		25000);*/
+		25000);
 	}
 
 	public String getMaitreDName() {
@@ -232,8 +249,8 @@ public class JerrywebCookRole extends BaseRole {
 	
 	public void checkInventory(){//This checks the inventory while the waiter is idle
 		//print("my inventory " + foodMap.foodMap.get("steak").amount)
-		for(int i = 0; i <4; i++){
-			if(foodMap.get(m.menuItems.get(i)).amount <= foodMap.get(m.menuItems.get(i)).low){
+		/*for(int i = 0; i <4; i++){
+			if(mItemInventory.get(i) <= mItemInventory.get(i){
 				markets.get(selection).msgGiveMeOrder(m.menuItems.get(i), foodMap);
 				break;
 			}
@@ -242,7 +259,7 @@ public class JerrywebCookRole extends BaseRole {
 		if(selection == 2){
 			selection = 0;
 		}
-		selection++;
+		selection++;*/
 	}
 	
 	public void OrderFood(int x){
@@ -268,24 +285,23 @@ public class JerrywebCookRole extends BaseRole {
 	}
 	
 	public void TryToCookIt(Order order, int orderLocation){
-		if(foodMap.get(order.choice).amount == 0){
-			//print("Removing order " + Orders.get(orderLocation).choice);
+		EnumItemType food = Item.stringToEnum(order.choice);
+		print("" + food);
+		if(mItemInventory.get(food) == 0){
+			//Do("Out of choice " + order.choice);
 			Orders.get(orderLocation).w.msgOutOfFood(Orders.get(orderLocation).choice, Orders.get(orderLocation).table);
-			Orders.get(orderLocation).s = OrderState.needToRestock;
-			//Orders.remove(orderLocation);
+			//Orders.get(orderLocation).s = OrderState.needToRestock;
+			Orders.remove(order);
+			 mItemsDesired.put(food,baseNeed);
+			 return;
 		}
 		
+		
 		else{
-			//print("Alright " + Orders.get(orderLocation).choice + " coming up!");
 			int cookTime = 0;
 			final int  orderLocationFinal = orderLocation;
-		
-			//cookTime = foodMap.get(Orders.get(orderLocationFinal).choice).cookingTimes;
-			cookTime = foodMap.get(order.choice).cookingTimes;
-
-			//print("cook time is: " + cookTime);
-			//foodMap.get(Orders.get(orderLocationFinal).choice).amount = foodMap.get(Orders.get(orderLocationFinal).choice).amount - 1;
-			foodMap.get(order.choice).amount = foodMap.get(order.choice).amount - 1;
+			cookTime = mCookTimes.get(food);
+			mItemInventory.put(food,mItemInventory.get(food) -1);
 
 			cookingTimer.schedule(new TimerTask() {
 				public void run() {
@@ -304,6 +320,11 @@ public class JerrywebCookRole extends BaseRole {
 		this.msgfoodDone(Orders.get(orderLoc));
 		
 	}
+	/*
+	public void addMarketOutOfItem(Market m) {
+        outOfItem.add(m);
+	}*/
+
 	// The animation DoXYZ() routines
 	
 
@@ -317,5 +338,6 @@ public class JerrywebCookRole extends BaseRole {
 		//print("Adding " + market.getName());
 		markets.add(market);
 	}
+	
 
 }

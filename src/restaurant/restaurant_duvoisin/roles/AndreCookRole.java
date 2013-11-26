@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.Item;
+import base.Item.EnumItemType;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_duvoisin.gui.CookGui;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Market;
@@ -12,17 +15,17 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 /**
  * Restaurant Cook Agent
  */
-public class AndreCookRole extends BaseRole implements Cook {
+public class AndreCookRole extends RestaurantCookRole implements Cook {
 	List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
 	public enum OrderState { Pending, Cooking, Done };
-	Map<String, Food> foods = new HashMap<String, Food>();
+//	Map<String, Food> foods = new HashMap<String, Food>();
 	private String name;
 	Boolean paused = false;
-	Boolean orderFood;
-	enum FoodState { None, Ordered, Rejected };
-	Vector<Market> markets = new Vector<Market>();
-	int currentMarket = 0;
+//	Boolean orderFood;
+//	enum FoodState { None, Ordered, Rejected };
+//	Vector<Market> markets = new Vector<Market>();
+//	int currentMarket = 0;
 	CookGui cookGui;
 	Boolean cookHere[] = new Boolean[26];
 	Boolean plateHere[] = new Boolean[26];
@@ -35,19 +38,24 @@ public class AndreCookRole extends BaseRole implements Cook {
 	private Semaphore atGrill = new Semaphore(0, true);
 	private Semaphore atPlating = new Semaphore(0, true);
 	private Semaphore atStand = new Semaphore(0, true);
+	
+	static final int FOOD_LOW = 2;
+	static final int FOOD_ORDER = 5;
+	Map<String, Boolean> hasOrdered = new HashMap<String, Boolean>();
+	Map<String, Integer> cookingTimes = new HashMap<String, Integer>();
 
 	public AndreCookRole(String name) {
 		super();
 		
 		this.name = name;
 		
-		foods.put("steak", new Food("steak", 1000, 2, 1, 3, FoodState.None));
-		foods.put("chicken", new Food("chicken", 1000, 2, 1, 3, FoodState.None));
-		foods.put("salad", new Food("salad", 1000, 2, 1, 4, FoodState.None));
-		foods.put("pizza", new Food("pizza", 1000, 2, 1, 3, FoodState.None));
+//		foods.put("steak", new Food("steak", 1000, 2, 1, 3, FoodState.None));
+//		foods.put("chicken", new Food("chicken", 1000, 2, 1, 3, FoodState.None));
+//		foods.put("salad", new Food("salad", 1000, 2, 1, 4, FoodState.None));
+//		foods.put("pizza", new Food("pizza", 1000, 2, 1, 3, FoodState.None));
 		
-		orderFood = true;
-		// ANDRE: stateChanged cook
+//		orderFood = true;
+		
 		//stateChanged();
 		
 		for(int i = 0; i < cookHere.length; i++)
@@ -56,17 +64,31 @@ public class AndreCookRole extends BaseRole implements Cook {
 			plateHere[i] = false;
 		
 		checkRevolvingStand = false;
-		runStandTimer();
+		
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+        
+        cookingTimes.put("steak", 1000);
+        cookingTimes.put("chicken", 1000);
+        cookingTimes.put("salad", 1000);
+        cookingTimes.put("pizza", 1000);
+        
+        hasOrdered.put("steak", false);
+        hasOrdered.put("chicken", false);
+        hasOrdered.put("salad", false);
+        hasOrdered.put("pizza", false);
+        // ANDRE: hasOrdered never gets set back to false... ask Angel
 	}
 	
 	public void runStandTimer() {
 		timer.schedule(new TimerTask() {
 			public void run() {
 				checkRevolvingStand = true;
-				// ANDRE: stateChanged cook
-				//stateChanged();
+				stateChanged();
 			}
-		}, 12500);
+		}, 10000);
 	}
 	
 	public String getName() {
@@ -80,22 +102,22 @@ public class AndreCookRole extends BaseRole implements Cook {
 		stateChanged();
 	}
 	
-	public void msgFailedToFulfillRequest(Market ma, String item, int amount) {
-		//print("msgFailedToFulfillRequest received");
-		foods.get(item).state = FoodState.Rejected;
-		foods.get(item).rejectedAmount = amount;
-		foods.get(item).rejectedMarkets.add(ma);
-		stateChanged();
-	}
-	
-	public void msgReplenishFood(String item, int amount) {
-		//print("msgReplenishFood received");
-		foods.get(item).state = FoodState.None;
-		foods.get(item).amount += amount;
-		foods.get(item).rejectedAmount = 0;
-		foods.get(item).rejectedMarkets.clear();
-		stateChanged();
-	}
+//	public void msgFailedToFulfillRequest(Market ma, String item, int amount) {
+//		//print("msgFailedToFulfillRequest received");
+//		foods.get(item).state = FoodState.Rejected;
+//		foods.get(item).rejectedAmount = amount;
+//		foods.get(item).rejectedMarkets.add(ma);
+//		stateChanged();
+//	}
+//	
+//	public void msgReplenishFood(String item, int amount) {
+//		//print("msgReplenishFood received");
+//		foods.get(item).state = FoodState.None;
+//		foods.get(item).amount += amount;
+//		foods.get(item).rejectedAmount = 0;
+//		foods.get(item).rejectedMarkets.clear();
+//		stateChanged();
+//	}
 	
 	/*
 	void msgTimerDone(Order o) {
@@ -105,7 +127,6 @@ public class AndreCookRole extends BaseRole implements Cook {
 	}
 	*/
 	
-	// maybe...?
 	public void msgGotFood(int position) {
 		plateHere[position] = false;
 		cookGui.removePlatedItem(position);
@@ -180,15 +201,18 @@ public class AndreCookRole extends BaseRole implements Cook {
 	// Actions
 	void TryToCookFood(Order o) {
 		//print("Doing TryToCookFood");
-		Food f = foods.get(o.choice);
-		if(f.amount <= 0) {
+		int foodAmount = mItemInventory.get(Item.stringToEnum(o.choice));
+		if(foodAmount <= 0) {
 			o.waiter.msgOutOfFood(o.table, o.choice);
 			orders.remove(o);
 			return;
 		}
-		f.amount--;
-		if(f.amount <= f.low)
-			orderFood = true;
+		decreaseInventory(Item.stringToEnum(o.choice));
+		//ANDRE: Null Pointer Exception in integration?
+		if(foodAmount <= FOOD_LOW /*&& !hasOrdered.get(o.choice)*/) {
+			mItemsDesired.put(Item.stringToEnum(o.choice), mItemsDesired.get(Item.stringToEnum(o.choice)) + FOOD_ORDER);
+			hasOrdered.put(o.choice, true);
+		}
 		o.state = OrderState.Cooking;
 		for(int i = 0; i < cookHere.length; i++)
 			if(cookHere[i] == false) {
@@ -242,40 +266,40 @@ public class AndreCookRole extends BaseRole implements Cook {
 		cookGui.setCurrentOrder("");
 	}
 	
-	void OrderFoodThatIsLow() {
-		//print("Doing OrderFoodThatIsLow");
-		Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
-		for(Food f : foods.values())
-			if(f.amount <= f.low) {
-				foodToOrder.put(f.type, f.capacity - f.amount);
-				f.state = FoodState.Ordered;
-			}
-		if(!foodToOrder.isEmpty()) {
-			Market m = markets.get(currentMarket % markets.size());
-			m.msgOrderFood(foodToOrder);
-			currentMarket++;
-		}
-		orderFood = false;
-	}
+//	void OrderFoodThatIsLow() {
+//		//print("Doing OrderFoodThatIsLow");
+//		Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
+//		for(Food f : foods.values())
+//			if(f.amount <= f.low) {
+//				foodToOrder.put(f.type, f.capacity - f.amount);
+//				f.state = FoodState.Ordered;
+//			}
+//		if(!foodToOrder.isEmpty()) {
+//			Market m = markets.get(currentMarket % markets.size());
+//			m.msgOrderFood(foodToOrder);
+//			currentMarket++;
+//		}
+//		orderFood = false;
+//	}
 	
-	void OrderRejectedFood(Food f) {
-		//print("Doing OrderRejectedFood");
-		/*
-		if(f.rejectedMarkets.size() == markets.size()) {
-			f.state = FoodState.None;
-			return;
-		}
-		*/
-		for(int i = 0; i < markets.size(); i++)
-			if(!f.rejectedMarkets.contains(markets.get(i))) {
-				Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
-				foodToOrder.put(f.type, f.rejectedAmount);
-				markets.get(i).msgOrderFood(foodToOrder);
-				f.state = FoodState.Ordered;
-				return;
-			}
-		f.state = FoodState.None;
-	}
+//	void OrderRejectedFood(Food f) {
+//		//print("Doing OrderRejectedFood");
+//		/*
+//		if(f.rejectedMarkets.size() == markets.size()) {
+//			f.state = FoodState.None;
+//			return;
+//		}
+//		*/
+//		for(int i = 0; i < markets.size(); i++)
+//			if(!f.rejectedMarkets.contains(markets.get(i))) {
+//				Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
+//				foodToOrder.put(f.type, f.rejectedAmount);
+//				markets.get(i).msgOrderFood(foodToOrder);
+//				f.state = FoodState.Ordered;
+//				return;
+//			}
+//		f.state = FoodState.None;
+//	}
 	
 	void CheckRevolvingStand() {
 		//print("Doing CheckRevolvingStand");
@@ -299,7 +323,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 	}
 	
 	//utilities
-	public void addMarket(Market m) { markets.add(m); }
+//	public void addMarket(Market m) { markets.add(m); }
 	
 	public void setGui(CookGui cg) { cookGui = cg; }
 	
@@ -327,27 +351,27 @@ public class AndreCookRole extends BaseRole implements Cook {
 					state = OrderState.Done;
 					stateChanged();
 				}
-			}, foods.get(choice).cookingTime);
+			}, cookingTimes.get(choice));
 		}
 	}
 	
-	class Food {
-		String type;
-		int cookingTime;
-		int amount;
-		int low;
-		int capacity;
-		FoodState state;
-		int rejectedAmount;
-		Vector<Market> rejectedMarkets = new Vector<Market>();
-		
-		Food(String t, int cT, int a, int l, int c, FoodState s) {
-			type = t;
-			cookingTime = cT;
-			amount = a;
-			low = l;
-			capacity = c;
-			state = s;
-		}
-	}
+//	class Food {
+//		String type;
+//		int cookingTime;
+//		int amount;
+//		int low;
+//		int capacity;
+//		FoodState state;
+//		int rejectedAmount;
+//		Vector<Market> rejectedMarkets = new Vector<Market>();
+//		
+//		Food(String t, int cT, int a, int l, int c, FoodState s) {
+//			type = t;
+//			cookingTime = cT;
+//			amount = a;
+//			low = l;
+//			capacity = c;
+//			state = s;
+//		}
+//	}
 }

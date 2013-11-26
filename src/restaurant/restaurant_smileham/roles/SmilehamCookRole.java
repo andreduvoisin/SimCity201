@@ -66,26 +66,20 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 		mCookGui = new CookGui(this);
     	mAnimationPanel.addGui(mCookGui);
     	
-/*    	//Set up inventory map
-    	mInventory = new HashMap<EnumFoodOptions, Food>(EnumFoodOptions.values().length); //4 
-    	mInventory.put(EnumFoodOptions.STEAK, new Food(EnumFoodOptions.STEAK, Food.cCOOKTIME_STEAK, Food.sQuantitySteak, Food.cTHRESHOLD, Food.cCAPACITY));
-    	mInventory.put(EnumFoodOptions.CHICKEN, new Food(EnumFoodOptions.CHICKEN, Food.cCOOKTIME_CHICKEN, Food.sQuantityChicken, Food.cTHRESHOLD, Food.cCAPACITY));
-    	mInventory.put(EnumFoodOptions.SALAD, new Food(EnumFoodOptions.SALAD, Food.cCOOKTIME_SALAD, Food.sQuantitySalad, Food.cTHRESHOLD, Food.cCAPACITY));
-    	mInventory.put(EnumFoodOptions.PIZZA, new Food(EnumFoodOptions.PIZZA, Food.cCOOKTIME_PIZZA, Food.sQuantityPizza, Food.cTHRESHOLD, Food.cCAPACITY));
-    	mIncomingInventory = new HashMap<EnumFoodOptions, Integer>(); 
-*/    	mFoodsOut = new ArrayList<EnumFoodOptions>();
- /*   	mMarkets = new ArrayList<SmilehamMarket>();
-*/    	mWaiters = new HashSet<SmilehamWaiter>();
+    	//Set up inventory map
+    	mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+    	mFoodsOut = new ArrayList<EnumFoodOptions>();
+    	
+    	mWaiters = new HashSet<SmilehamWaiter>();
     	
     	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y, mAnimationPanel);
     	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y, mAnimationPanel);
     	
 		mTimer = new Timer();
 		mOrders = new HashSet<Order>();
-//		mNumMarkets = 0;
-//		mFoodArrived = false;
-		
-//		startThread();
 	}
 	
 	// -----------------------------------------------MESSAGES---------------------------------------------------
@@ -221,28 +215,14 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 				e.printStackTrace();
 			}
 		}
-		
-//		public void addMarket(){ //SHANE: Add market integration
-//			Market market = new SmilehamMarketRole(
-//	    			"M" + ++mNumMarkets, 
-//	    			SmilehamMarketRole.cSTEAK_QUANTITY, 
-//	    			SmilehamMarketRole.cCHICKEN_QUANTITY, 
-//	    			SmilehamMarketRole.cSALAD_QUANTITY, 
-//	    			SmilehamMarketRole.cPIZZA_QUANTITY, 
-//	    			mAnimationPanel);
-//	    	mMarkets.add(market);
-//	    	stateChanged();
-//		}
 	
 		private void cookFood(final Food food){
 			print("Action: cookFood(" + food + ")");
-			
-			
-			
+
 			mCookGui.DoGoToFridge();
 			acquireSemaphore(semAtFridge);
 			
-			//mInventory.get(food.mChoice).mQuantity--;
+//			mInventory.get(food.mChoice).mQuantity--;
 			
 			EnumItemType iType = Item.enumToEnum(food.mChoice);
 			decreaseInventory(iType);

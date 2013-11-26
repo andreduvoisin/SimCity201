@@ -77,7 +77,8 @@ public class SortingHat {
 	
 	//BANK
 	public static Role getBankRole(int shift) {
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
+//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
 		
 		//Master Teller (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
@@ -113,7 +114,9 @@ public class SortingHat {
 	
 	//MARKET
 	public static Role getMarketRole(int shift){
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
+//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
+
 		
 		//MarketCashierRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
@@ -157,7 +160,9 @@ public class SortingHat {
 	
 	//RESTAURANTS
 	public static Role getRestaurantRole(int shift){
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
+//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
+
 			
 		//RestaurantHostRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
