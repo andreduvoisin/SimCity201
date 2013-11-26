@@ -2,6 +2,8 @@ package restaurant.restaurant_cwagoner.gui;
 
 import javax.swing.*;
 
+import base.Location;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,10 +15,12 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
 	int width, height;
     List<CwagonerGui> guis = new ArrayList<CwagonerGui>();
-    ArrayList<Dimension> tableLocations = new ArrayList<Dimension>();
+    ArrayList<Location> tableLocations = new ArrayList<Location>();
 
     public CwagonerAnimationPanel(int width, int height) {
     	super();
+
+    	this.setVisible(true);
 
     	this.width = width;
     	this.height = height;
@@ -25,8 +29,8 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
     	timer.start();
     }
     
-    public void addTable(Dimension d) {
-    	tableLocations.add(d);
+    public void addTable(Location l) {
+    	tableLocations.add(l);
     }
 
 	public void actionPerformed(ActionEvent e) {
@@ -43,8 +47,8 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
         // Here are the tables
         g2.setColor(Color.ORANGE);
         
-        for (Dimension d : tableLocations) {
-        	g2.fillRect(d.width, d.height, 50, 50);
+        for (Location iL : tableLocations) {
+        	g2.fillRect(iL.mX, iL.mY, 50, 50);
         	
         }
 

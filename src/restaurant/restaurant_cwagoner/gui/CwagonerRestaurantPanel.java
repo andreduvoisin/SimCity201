@@ -9,10 +9,6 @@ import javax.swing.*;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * Panel in frame that contains all the restaurant information,
- * including host, cook, waiters, and customers.
- */
 @SuppressWarnings("serial")
 public class CwagonerRestaurantPanel extends JPanel {
 	// THIS!

@@ -5,6 +5,8 @@ import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 
 import java.awt.*;
 
+import base.Location;
+
 public class CwagonerCustomerGui implements CwagonerGui {
 
 	private final int PLATE = 20;
@@ -17,13 +19,13 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	CwagonerWaiterRole waiter; 
 	CwagonerRestaurantGui RestaurantGui;
 
-	private int size = 20,
-				GONE_X = -2 * size, GONE_Y = -2 * size,
-				CASHIER_X = -size, CASHIER_Y = 100,
-				WAITING_X, WAITING_Y,
-				TABLE_X, TABLE_Y,
-				xPos, yPos,
-				xDestination, yDestination;
+	private int size = 20;
+	private Location gonePos = new Location(-2 * size, -2 * size),
+					cashierPos = new Location(-size, 100),
+					waitingPos = new Location(size, 100 - (customerNum % 4) * (size + 10)),
+					tablePos,
+					position,
+					destination;
 	
 	private enum Command { noCommand, GoToRestaurant, GoToSeat, PayCashier, LeaveRestaurant };
 	private Command command = Command.noCommand;
@@ -33,41 +35,39 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerRestaurantGui g) {
 		agent = c;
 		RestaurantGui = g;
-		WAITING_X = size;
-		WAITING_Y = 100 - (customerNum % 4) * (size + 10);
 		customerNum++;
 
-        xPos = xDestination = GONE_X;
-        yPos = yDestination = GONE_Y;
+        position.mX = destination.mX = gonePos.mX;
+        position.mY = destination.mY = gonePos.mY;
 	}
 	
 	public void setTableLocation(int tableNum) {
-		Dimension tableLoc = RestaurantGui.getTableLocation(tableNum);
-		TABLE_X = tableLoc.width;
-		TABLE_Y = tableLoc.height;
+		Location tableLoc = RestaurantGui.getTableLocation(tableNum);
+		tablePos.mX = tableLoc.mX;
+		tablePos.mY = tableLoc.mY;
 	}
 
 	public void updatePosition() {
-		if (xPos < xDestination)		xPos++;
-		else if (xPos > xDestination)	xPos--;
+		if (position.mX < destination.mX)		position.mX++;
+		else if (position.mX > destination.mX)	position.mX--;
 
-		if (yPos < yDestination)		yPos++;
-		else if (yPos > yDestination)	yPos--;
+		if (position.mY < destination.mY)		position.mY++;
+		else if (position.mY > destination.mY)	position.mY--;
 
-		if (xPos == xDestination && yPos == yDestination) {
+		if (position.mX == destination.mX && position.mY == destination.mY) {
 			
 			if (command.equals(Command.GoToSeat)
-					&& xDestination == TABLE_X && yDestination == TABLE_Y) {
+					&& destination.mX == tablePos.mX && destination.mY == tablePos.mY) {
 				agent.msgGuiAtSeat();
 			}
 			
 			else if (command.equals(Command.PayCashier)
-						&& xDestination == CASHIER_X && yDestination == CASHIER_Y) {
+						&& destination.mX == cashierPos.mX && destination.mY == cashierPos.mY) {
 				agent.msgGuiAtCashier();
 			}
 			
 			else if (command.equals(Command.LeaveRestaurant)
-					&& xDestination == GONE_X && yDestination == GONE_Y) {
+					&& destination.mX == gonePos.mX && destination.mY == gonePos.mY) {
 				agent.msgGuiLeftRestaurant();
 				isHungry = false;
 			}
@@ -77,22 +77,22 @@ public class CwagonerCustomerGui implements CwagonerGui {
 
 	public void draw(Graphics2D g) {
 		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, size, size);
+		g.fillRect(position.mX, position.mY, size, size);
 		
 		if (food.equals("")) {
 	    	g.setColor(Color.GREEN);
-	    	g.fillRect(xPos, yPos, size, size);
+	    	g.fillRect(position.mX, position.mY, size, size);
 		}
 		else {	// Either ordered or already eating
 			if (food.length() == 2) { 	// Eating. Draw plate
 				g.setColor(Color.WHITE);
-	    		g.fillOval(xPos, yPos, PLATE, PLATE);
+	    		g.fillOval(position.mX, position.mY, PLATE, PLATE);
 	    		g.setColor(Color.BLACK); // For delivered food// Write food name
-				g.drawString(food, (int) (xPos + size / 5), (int) (yPos + size * 3 / 4));
+				g.drawString(food, (int) (position.mX + size / 5), (int) (position.mY + size * 3 / 4));
 			}
 			else {	// Waiting for food
 				g.setColor(Color.RED); // For undelivered food// Write food name
-				g.drawString(food, xPos, (int) (yPos + size * 3 / 4));
+				g.drawString(food, position.mX, (int) (position.mY + size * 3 / 4));
 			}
 		}
 	}
@@ -113,33 +113,33 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	}
 	
 	public Dimension getPosition() {
-		return new Dimension(xPos, yPos);
+		return new Dimension(position.mX, position.mY);
 	}
 
 
 	// Position changes
 	
 	public void DoGoToRestaurant() {
-		xDestination = WAITING_X;
-		yDestination = WAITING_Y;
+		destination.mX = waitingPos.mX;
+		destination.mY = waitingPos.mY;
 		command = Command.GoToRestaurant;
 	}
 	
 	public void DoGoToSeat(int seatNumber) {
-		xDestination = TABLE_X;
-		yDestination = TABLE_Y;
+		destination.mX = tablePos.mX;
+		destination.mY = tablePos.mY;
 		command = Command.GoToSeat;
 	}
 	
 	public void DoGoToCashier() {
-		xDestination = CASHIER_X;
-		yDestination = CASHIER_Y;
+		destination.mX = cashierPos.mX;
+		destination.mY = cashierPos.mY;
 		command = Command.PayCashier;
 	}
 
 	public void DoExitRestaurant() {
-		xDestination = GONE_X;
-		yDestination = GONE_Y;
+		destination.mX = gonePos.mX;
+		destination.mY = gonePos.mY;
 		command = Command.LeaveRestaurant;
 	}
 	

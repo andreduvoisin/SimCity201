@@ -5,6 +5,8 @@ import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 
 import java.awt.*;
 
+import base.Location;
+
 public class CwagonerCookGui implements CwagonerGui {
 
     private CwagonerCookRole agent = null;
@@ -16,35 +18,33 @@ public class CwagonerCookGui implements CwagonerGui {
     private String food = "";
 
     // GUI is a square. While not busy, wait in home position
-    private int size = 20, PLATE_SIZE = 20,
-    			HOME_X, HOME_Y,
-    	    	xPos, yPos,
-    	    	xDestination, yDestination;
-    
-    private int FRIDGE_X = 500, FRIDGE_Y = 100, FRIDGE_WIDTH = 100, FRIDGE_HEIGHT = 50,
-    			COOKING_X = 600, COOKING_Y = 150, COOKING_WIDTH = 40, COOKING_HEIGHT = 100,
-    			PLATING_X = 480, PLATING_Y = 150, PLATING_WIDTH = 20, PLATING_HEIGHT = 100;
+    private int size = 20, plateSize = 20;
+    private Location position, destination, homePos,
+    				fridgePos = new Location(500, 100),
+    				cookingPos = new Location(600, 150),
+    				platingPos = new Location(480, 150);
+    private Dimension fridgeDim = new Dimension(100, 50),
+    				cookingDim = new Dimension(40, 100),
+    				platingDim = new Dimension(20, 100);
 
     public CwagonerCookGui(CwagonerCookRole c, CwagonerRestaurantGui g) {
     	state = State.idle;
         agent = c;
         cwagoner_RestaurantGui = g;
-        HOME_X = 500;
-        HOME_Y = 150;
-        xPos = xDestination = HOME_X;
-        yPos = yDestination = HOME_Y;
+        homePos = new Location(500, 150);
+        position = destination = new Location(homePos.mX, homePos.mY);
     }
 
     public void updatePosition() {
-        if (xPos < xDestination)		xPos++;
-        else if (xPos > xDestination)	xPos--;
+        if (position.mX < destination.mX)		position.mX++;
+        else if (position.mX > destination.mX)	position.mX--;
 
-        if (yPos < yDestination)		yPos++;
-        else if (yPos > yDestination)	yPos--;
+        if (position.mY < destination.mY)		position.mY++;
+        else if (position.mY > destination.mY)	position.mY--;
 
-        if (xPos == xDestination && yPos == yDestination) {
+        if (position.mX == destination.mX && position.mY == destination.mY) {
         	if (state.equals(State.goingToCooking)) {
-        		
+        		//CHASE: wtf
         	}
 
 			if (! state.equals(State.idle)) {
@@ -57,30 +57,30 @@ public class CwagonerCookGui implements CwagonerGui {
     public void draw(Graphics2D g) {
     	// Cook himself
     	g.setColor(Color.PINK);
-    	g.fillRect(xPos, yPos, size, size);
+    	g.fillRect(position.mX, position.mY, size, size);
     	
     	// Fridge
         g.setColor(Color.GRAY);
-		g.fillRect(FRIDGE_X, FRIDGE_Y, FRIDGE_WIDTH, FRIDGE_HEIGHT);
+		g.fillRect(fridgePos.mY, fridgePos.mY, fridgeDim.width, fridgeDim.height);
 		
 		// Cooking area
 		g.setColor(Color.RED);
-		g.fillRect(COOKING_X, COOKING_Y, COOKING_WIDTH, COOKING_HEIGHT);
+		g.fillRect(cookingPos.mX, cookingPos.mY, cookingDim.width, cookingDim.height);
 		
 		// Plating area
 		g.setColor(Color.BLUE);
-		g.fillRect(PLATING_X, PLATING_Y, PLATING_WIDTH, PLATING_HEIGHT);
+		g.fillRect(platingPos.mX, platingPos.mY, platingDim.width, platingDim.height);
 
 
 		// Draw plate if taking food to plating area
 		if (state.equals(State.goingToPlating)) {
 			g.setColor(Color.WHITE);
-    		g.fillOval(xPos + size / 4, yPos + size / 4, PLATE_SIZE, PLATE_SIZE);
+    		g.fillOval(position.mX + size / 4, position.mY + size / 4, plateSize, plateSize);
 		}
 		// Draw string if going to cooking or plating area
 		if (state.equals(State.goingToPlating) || state.equals(State.goingToCooking)) {
     		g.setColor(Color.BLACK);
-    		g.drawString(food, (int) (xPos + size / 2), yPos + size);
+    		g.drawString(food, (int) (position.mX + size / 2), position.mY + size);
 		}
     }
 
@@ -90,26 +90,26 @@ public class CwagonerCookGui implements CwagonerGui {
 
 	public void DoGoToHomePosition() {
     	state = State.idle; // Prevents updatePosition() from calling animationFinished.release()
-        xDestination = HOME_X;
-        yDestination = HOME_Y;
+        destination.mX = position.mX;
+        destination.mY = position.mY;
     }
     
     public void DoGoToFridge() {
     	state = State.goingToFridge;
-    	xDestination = FRIDGE_X + FRIDGE_WIDTH / 2;
-    	yDestination = FRIDGE_Y + FRIDGE_HEIGHT;
+    	destination.mX = fridgePos.mX + fridgeDim.width / 2;
+    	destination.mY = fridgePos.mY + fridgeDim.height;
     }
     
     public void DoGoToCooking() {
     	state = State.goingToCooking;
-    	xDestination = COOKING_X - size;
-    	yDestination = COOKING_Y + (COOKING_HEIGHT - size) / 2;
+    	destination.mX = cookingPos.mX - size;
+    	destination.mY = cookingPos.mX + (cookingPos.mY - size) / 2;
     }
     
     public void DoGoToPlating() {
     	state = State.goingToPlating;
-    	xDestination = PLATING_X + PLATING_WIDTH;
-    	yDestination = PLATING_Y + PLATE_SIZE - size;
+    	destination.mX = platingPos.mX + platingPos.mY;
+    	destination.mY = platingPos.mY + plateSize - size;
     }
     
     

@@ -1,9 +1,9 @@
 package restaurant.restaurant_cwagoner.gui;
 
-
-import java.awt.*;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 
+import base.Location;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -17,7 +17,7 @@ public class CwagonerRestaurantGui extends CityCard {
 
 	CwagonerAnimationPanel animationPanel;
     CwagonerRestaurantPanel restPanel = new CwagonerRestaurantPanel(this, numTables);
-    ArrayList<Dimension> tableLocations = new ArrayList<Dimension>();
+    ArrayList<Location> tableLocations = new ArrayList<Location>();
 
     /**
      * Constructor for RestaurantGui class.
@@ -26,16 +26,21 @@ public class CwagonerRestaurantGui extends CityCard {
     public CwagonerRestaurantGui(SimCityGui city) {
     	super(city);
 
+    	setVisible(true);
+
     	animationPanel = new CwagonerAnimationPanel(CARD_WIDTH, CARD_HEIGHT);
 
-        tableLocations.add(new Dimension(50,80));
-        tableLocations.add(new Dimension(100,80));
-        tableLocations.add(new Dimension(50,160));
-        tableLocations.add(new Dimension(100,160));
+        tableLocations.add(new Location(100, 100));
+        tableLocations.add(new Location(300, 100));
+        tableLocations.add(new Location(100, 200));
+        tableLocations.add(new Location(300, 200));
         
-        for (Dimension d : tableLocations) {
-        	animationPanel.addTable(d);
+        for (Location iL : tableLocations) {
+        	animationPanel.addTable(iL);
         }
+
+        this.setBounds(0, 0, CARD_WIDTH, CARD_HEIGHT);
+        this.setLayout(new GridLayout(2, 1));
 
         add(animationPanel);
     	add(restPanel);
@@ -46,7 +51,7 @@ public class CwagonerRestaurantGui extends CityCard {
      * @param tableNum The number of the table requested
      * @return Dimension object with the coordinates of that table
      */
-    public Dimension getTableLocation(int tableNum) {
+    public Location getTableLocation(int tableNum) {
     	return tableLocations.get(tableNum);
     }
 }
