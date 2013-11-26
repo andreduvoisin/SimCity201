@@ -415,7 +415,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		//waiterIsReady = true;
 		try{
 			animationReady.acquire();
-			print("permits working: " + animationReady.availablePermits()); 
+			 
 			//waiterReady.acquire(); 
 
 		}
@@ -472,11 +472,11 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		waiterGui.DoGoToCook();
 		print("Getting customer food");
 		try{
-			animationReady.acquire();
-			print("WHAT IS LIFE RN: " + animationReady.availablePermits()); 
+			goingToKitchen.acquire();
+			needToGoToKitchen = true; 
 		}
 		catch(Exception e){
-			print("giveCustomerFood exception"); 
+			print ("giveOrderToCook exception");
 		}
 		cook.msgPickedUpOrder(mc.orderPos); 
 		waiterGui.showCustomerOrder(mc.choice);

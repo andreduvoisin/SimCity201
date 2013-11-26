@@ -132,8 +132,6 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
         g.setColor(Color.MAGENTA);
         g.fillRect(xPos, yPos, 20, 20);
         g.drawString(customerOrder, xPos, yPos-15);
-        updatePosition();
-        updatePosition();
         
     }
 

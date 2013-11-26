@@ -110,8 +110,6 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 		g.setColor(Color.GREEN);
 		g.fillRect(xPos, yPos, 20, 20);
 		g.drawString(nameOfChoice, xPos, yPos-15);
-		updatePosition();
-		updatePosition();
 
 	}
 

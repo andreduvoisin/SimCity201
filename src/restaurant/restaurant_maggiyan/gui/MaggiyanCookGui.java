@@ -123,7 +123,6 @@ public class MaggiyanCookGui implements MaggiyanGui{
 		g.drawString(PlatedFoods.get(0),  pXPos,  pYPos);
 		g.drawString(PlatedFoods.get(1),  pXPos,  pYPos+75);
 		g.drawString(PlatedFoods.get(2),  pXPos,  pYPos+150);
-		updatePosition();
 	}
 
 	public boolean isPresent() {

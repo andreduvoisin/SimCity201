@@ -14,7 +14,7 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 	private static int YPOS = 175; 
 	private static int GWIDTH = 50;
 	private static int GHEIGHT = 50; 
-	private static int FRAMESPEED = 10; 
+	private static int FRAMESPEED = 4; 
 	
 	private static int CookingAreaX = 275;
 	
