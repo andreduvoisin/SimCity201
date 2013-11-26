@@ -22,6 +22,7 @@ import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.BaseRole;
+import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -47,7 +48,7 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
 
         mCustomers = new Vector<SmilehamCustomerRole>();
  
-    	Timer timer = new Timer(20, this );
+    	Timer timer = new Timer(Time.cSYSCLK/10, this );
     	timer.start();
     }
     

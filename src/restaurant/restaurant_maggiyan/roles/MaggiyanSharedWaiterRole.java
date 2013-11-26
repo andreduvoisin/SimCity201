@@ -1,6 +1,7 @@
 package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
+
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Timer;
@@ -15,7 +16,6 @@ import restaurant.restaurant_maggiyan.MyCustomer;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;

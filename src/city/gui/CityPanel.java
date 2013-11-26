@@ -118,8 +118,12 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
 
 		// Add bus
+
 /*		busDispatch = new TransportationBusDispatch(ContactList.cBUS_STOPS);
 		this.addMoving(busDispatch.getBusGui());
+
+		busDispatch = new TransportationBusDispatch(ContactList.cBUS_STOPS);
+		//this.addMoving(busDispatch.getBusGui());
 		busDispatch.startThread();
 */
 
@@ -141,6 +145,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(ContactList.cBANK_LOCATION, "Gringotts Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cCARDEALERSHIP_LOCATION, "Car Dealership"));
+		
+		this.addStatic(new TimeGui(540, 560));
 		
 		//Create Houses		
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {

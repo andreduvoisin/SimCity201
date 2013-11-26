@@ -9,15 +9,13 @@ import base.interfaces.Person;
 
 public class Time {
 	
-	// ANDRE: add clock (analog or digital) in corner of screen which will tell day/time in sim city
-	
-//	static final int cLengthOfDay = 2*60; //seconds
-//	static final int cTimeShift = 8;
-	
-	static int sGlobalTimeInt = 0;
-	static int sGlobalHour = 0;
+	public static int sGlobalTimeInt = 0;
+	public static int sGlobalMinute = 0;
+	public static int sGlobalHour = 0;
 	public static int sGlobalShift = 0;
 	public static int sGlobalDate = 0;
+	
+	public final static int cSYSCLK = 200;
 	
 	static boolean sFastForward = false;
 	
@@ -33,21 +31,23 @@ public class Time {
 	
 	
 	public void runTimer(){
-//		int simShift = cLengthOfDay/3;
-//		int simHour = simShift / cTimeShift; //15
-//		int realSeconds = ((int) System.currentTimeMillis()) / 1000;
-//		int realLengthOfSimHour = realSeconds / simHour;
-		
-//		int timerLength = realLengthOfSimHour;
-//		if (sFastForward) timerLength /= 4;
 				
 		mTimer.scheduleAtFixedRate(new TimerTask() {
 			
 			@Override
 			//Broadcast time
 			public void run() {
-				sGlobalTimeInt++;
-				sGlobalHour = (sGlobalHour + 1) % 24;
+				sGlobalMinute++;
+				
+				if (sGlobalMinute == 60){
+					sGlobalTimeInt++;
+					sGlobalMinute = 0;
+					sGlobalHour++;
+				}
+				if (sGlobalHour == 24){
+					sGlobalHour = 0;
+					sGlobalDate++;
+				}
 				if (sGlobalHour % 8 == 0){
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					synchronized (mPersons) {
@@ -56,11 +56,8 @@ public class Time {
 						}
 					}
 				}
-				if (sGlobalHour % 24 == 0){
-					sGlobalDate = sGlobalDate + 1;
-				}
 			}
-		}, new Date( System.currentTimeMillis()), 10000);
+		}, new Date( System.currentTimeMillis()), cSYSCLK);
 		
 		/*mTimer.schedule(new TimerTask() {
 			
@@ -86,6 +83,9 @@ public class Time {
 		3000);*/
 	}
 
+	public static int GetMinute(){
+		return sGlobalMinute;
+	}
 	
 	public static int GetHour(){ //0 to 23
 		return sGlobalHour;

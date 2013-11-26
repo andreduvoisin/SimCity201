@@ -1,4 +1,4 @@
-package restaurant.restaurant_maggiyan.roles;
+package restaurant.restaurant_maggiyan.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,15 +10,16 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.Item;
+import base.Item.EnumItemType;
 import base.interfaces.Person;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.Order.state;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
 
-public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
+public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook{
 	private String n; 
 	
 	//Cooking Food
@@ -28,10 +29,7 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	//Market and Inventory
 	private int maxFoodQty = 4; 
 	private int inventoryLOW = 2; 
-	private int marketCounter = 0; 
-	private int totalMarkets = 3; 
-	private boolean stockInventory = false; 
-	private boolean allMarketsClosed = false; 
+	private int minInventoryOrderCount = 4; 
 	
 	//For Cook Animation
 	MaggiyanCookGui cookGui; 
@@ -43,7 +41,8 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	//Revolving Stand 
 	private Timer RStandTimer = new Timer();  
 	
-	private Map<String, Food> FoodMap = new HashMap<String, Food>();
+	private Map<String, Integer> CookingTimes = new HashMap<String, Integer>(); 
+//	private Map<String, Food> FoodMap = new HashMap<String, Food>();
 	private Map<String, Integer> ShoppingMap = new HashMap<String, Integer>();
 	public Map<String, Integer> restockMap = null;  
 	
@@ -59,16 +58,25 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		else{
 			this.n = p.getName();
 		}
-		
-		Food steak = new Food("Steak", inventoryLOW, foodCookingTime* 50);
-		Food chicken = new Food("Chicken", maxFoodQty, foodCookingTime*75);
-		Food salad = new Food("Salad", inventoryLOW, foodCookingTime*20);
-		Food pizza = new Food("Pizza", maxFoodQty, foodCookingTime*30);
-		
-		FoodMap.put("Steak", steak);
-		FoodMap.put("Chicken", chicken);
-		FoodMap.put("Salad", salad);
-		FoodMap.put("Pizza", pizza);
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+        
+        CookingTimes.put("Steak", foodCookingTime* 50);
+        CookingTimes.put("Salad", foodCookingTime* 50);
+        CookingTimes.put("Pizza", foodCookingTime* 50);
+        CookingTimes.put("Chicken", foodCookingTime* 50);
+        
+//		Food steak = new Food("Steak", inventoryLOW, foodCookingTime* 50);
+//		Food chicken = new Food("Chicken", maxFoodQty, foodCookingTime*75);
+//		Food salad = new Food("Salad", inventoryLOW, foodCookingTime*20);
+//		Food pizza = new Food("Pizza", maxFoodQty, foodCookingTime*30);
+//		
+//		FoodMap.put("Steak", steak);
+//		FoodMap.put("Chicken", chicken);
+//		FoodMap.put("Salad", salad);
+//		FoodMap.put("Pizza", pizza);
 		
 		//Enables cook to periodically check for orders on revolving stand
 		RStandTimer.scheduleAtFixedRate(new TimerTask(){
@@ -82,13 +90,6 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	public String getName(){
 		return n; 
 	}
-	
-	public void setMarket(MaggiyanMarket m){
-		markets.add(m);
-//		print("Markets size: " + markets.size());
-		stockInventory = true; 
-		stateChanged();
-	}
 
 	
 	// Messages
@@ -96,10 +97,9 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	//From Waiter
 	public void msgHereIsOrder(MaggiyanWaiter w, String choice, int table)
 	{
+		print("Received order"); 
 		Order order = new Order(w, choice, table); 
-		synchronized(orders){
-			orders.add(order);
-		}
+		orders.add(order);
 		stateChanged(); 
 		
 	}
@@ -111,36 +111,36 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	}
 	
 	//From Market
-	public void msgFulfillingOrder(){
-		print("Fulfilling complete order");
-		stateChanged();
-	}
+//	public void msgFulfillingOrder(){
+//		print("Fulfilling complete order");
+//		stateChanged();
+//	}
+//	
+//	public void msgFulfillingPartialOrder(){
+//		print("Fulfilling partial order");
+//		stockInventory = true;
+//		stateChanged();
+//	}
+//	
+//	public void msgCannotFulfillOrder(){
+//		print("Out of stock, cannot fulfill order");
+//		//stockInventory = true;
+//		stateChanged();
+//	}
 	
-	public void msgFulfillingPartialOrder(){
-		print("Fulfilling partial order");
-		stockInventory = true;
-		stateChanged();
-	}
+//	public void msgDeliverOrder(Map<String, Integer> order){
+//		restockMap = order; 
+//		stateChanged();
+//	}
 	
-	public void msgCannotFulfillOrder(){
-		print("Out of stock, cannot fulfill order");
-		//stockInventory = true;
-		stateChanged();
-	}
-	
-	public void msgDeliverOrder(Map<String, Integer> order){
-		restockMap = order; 
-		stateChanged();
-	}
-	
-	public void msgOutOfAllInventory(MaggiyanMarket m){
-		markets.remove(m); 
-		totalMarkets--; 
-		if(markets.size() == 0){
-			allMarketsClosed = true; 
-		}
-		stateChanged(); 
-	}
+//	public void msgOutOfAllInventory(MaggiyanMarket m){
+//		markets.remove(m); 
+//		totalMarkets--; 
+//		if(markets.size() == 0){
+//			allMarketsClosed = true; 
+//		}
+//		stateChanged(); 
+//	}
 	
 	//From Animation
 	public void msgAnimationReady(){
@@ -200,70 +200,79 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 			}
 		}
 		
-		if(restockMap != null){
-			Restock(); 
-			return true; 
-		}
+//		if(restockMap != null){
+//			Restock(); 
+//			return true; 
+//		}
 		
 		return false; 
 	}
 
 	// Actions
 	private void AddOrder(Order order){
-		synchronized(orders){
-			orders.add(order); 
-		}
-		synchronized(rStandOrders){
-			rStandOrders.remove(order);
-		}
+		orders.add(order); 
+		rStandOrders.remove(order);
+	
 	}
 	
-	private void StockInventory(){
-		print("Stocking Inventory"); 
-		stockInventory = false; 
-		//Iterates through inventory
-		for(Map.Entry<String, Food> entry : FoodMap.entrySet()){
-			//Checks if the food qty is low
-			if(entry.getValue().qty <= inventoryLOW){
-				ShoppingMap.put(entry.getValue().name, maxFoodQty - entry.getValue().qty);
-			}
-		}
-		markets.get(marketCounter).msgRequestItems(this, ShoppingMap); 
-		marketCounter++;
-		if(marketCounter == totalMarkets){
-			marketCounter = 0; 
-		}
-				 
-	}
+//	private void StockInventory(){
+//		print("Stocking Inventory"); 
+//		stockInventory = false; 
+//		//Iterates through inventory
+//		for(Map.Entry<String, Food> entry : FoodMap.entrySet()){
+//			//Checks if the food qty is low
+//			if(entry.getValue().qty <= inventoryLOW){
+//				ShoppingMap.put(entry.getValue().name, maxFoodQty - entry.getValue().qty);
+//			}
+//		}
+//		markets.get(marketCounter).msgRequestItems(this, ShoppingMap); 
+//		marketCounter++;
+//		if(marketCounter == totalMarkets){
+//			marketCounter = 0; 
+//		}
+//				 
+//	}
 	
-	private void Restock(){
-		for(Map.Entry<String, Integer> orderItem : restockMap.entrySet()){
-			//updates inventory
-			int restockQty = FoodMap.get(orderItem.getKey()).qty + orderItem.getValue(); 
-			//int updatedQty = inventory.get(orderItem.getKey()) + orderItem.getValue();  
-			print("Restock qty: " + restockQty); 
-			//increments market inventory
-			FoodMap.get(orderItem.getKey()).setQty(restockQty);
-			//inventory.put(orderItem.getKey(), updatedQty);
-			print("New order inventory now: " + FoodMap.get(orderItem.getKey()).qty);  
-			restockMap = null; 
-		}
-	}
+//	private void Restock(){
+//		for(Map.Entry<String, Integer> orderItem : restockMap.entrySet()){
+//			//updates inventory
+//			int restockQty = FoodMap.get(orderItem.getKey()).qty + orderItem.getValue(); 
+//			//int updatedQty = inventory.get(orderItem.getKey()) + orderItem.getValue();  
+//			print("Restock qty: " + restockQty); 
+//			//increments market inventory
+//			FoodMap.get(orderItem.getKey()).setQty(restockQty);
+//			//inventory.put(orderItem.getKey(), updatedQty);
+//			print("New order inventory now: " + FoodMap.get(orderItem.getKey()).qty);  
+//			restockMap = null; 
+//		}
+//	}
 	
 	private void CookIt(final Order o){
 		//animation call
-		if(FoodMap.get(o.c).qty == 0){
-			stockInventory = true; 
+//		if(FoodMap.get(o.c).qty == 0){
+//			stockInventory = true; 
+//			o.w.msgOutOfChoice(o.c, o.table);
+//			orders.remove(o);
+//			return; 
+//		}
+//		if(FoodMap.get(o.c).qty <= inventoryLOW){
+//			print("inventory low"); 
+//			stockInventory = true;
+//		}
+		
+		if(mItemInventory.get(Item.stringToEnum(o.c)) == 0){
+			mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);  
 			o.w.msgOutOfChoice(o.c, o.table);
 			orders.remove(o);
-			return; 
-		}
-		if(FoodMap.get(o.c).qty <= inventoryLOW){
-			print("inventory low"); 
-			stockInventory = true;
+			return;
 		}
 		
-		print("Order inventory: " + FoodMap.get(o.c).qty); 
+		if(mItemInventory.get(Item.stringToEnum(o.c)) <= inventoryLOW){
+			print("Inventory low"); 
+			mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);
+		}
+		
+		print("Order inventory: " + mItemInventory.get(Item.stringToEnum(o.c))); 
 		
 		o.s = state.cooking; 
 		print("Cooking order");
@@ -275,23 +284,23 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		}
 		cookGui.DoCookFood(o.c, o.cookingPos);
 		cookGui.GoToHomePosition(); 
-		try{
-			animationReady.acquire(); 
-		}catch(Exception e){
-			print("DoCookFood exception thrown"); 
-		}
+//		try{
+//			animationReady.acquire(); 
+//		}catch(Exception e){
+//			print("DoCookFood exception thrown"); 
+//		}
 		print("STARTS COOKING"); 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				print("DONE!!");
 				o.s = state.done;
 				//decrement food qty
-				FoodMap.get(o.c).setQty(FoodMap.get(o.c).qty - 1);
-				print("Order inventory now: " + FoodMap.get(o.c).qty); 
+				decreaseInventory(Item.stringToEnum(o.c));
+				print("Order inventory now: " + mItemInventory.get(Item.stringToEnum(o.c))); 
 				stateChanged();
 			}
 		},
-		FoodMap.get(o.c).cookingTime*20); 
+		(CookingTimes.get(o.c))*20); 
 	
 	}
 	
@@ -343,20 +352,20 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		cookGui = c; 
 	}
 	
-	private class Food{
-		int cookingTime;
-		int qty;
-		String name; 
-		
-		Food(String n, int q, int ct){
-			name = n; 
-			qty = q;
-			cookingTime = ct; 
-		}
-		
-		void setQty(int q){
-			qty = q; 
-		}
-		
-	}
+//	private class Food{
+//		int cookingTime;
+//		int qty;
+//		String name; 
+//		
+//		Food(String n, int q, int ct){
+//			name = n; 
+//			qty = q;
+//			cookingTime = ct; 
+//		}
+//		
+//		void setQty(int q){
+//			qty = q; 
+//		}
+//		
+//	}
 }
