@@ -54,9 +54,11 @@ public class MarketItemsGui implements MarketBaseGui {
 	
 /* Utilities */
 	public void decreaseItemCount(EnumItemType i, int n) {
+		System.out.println(n);
 		for(ItemGui item : mItems.keySet()) {
 			if(item.mItem == i) {
-				item.mNumber -= n;
+				item.mNumber = item.mNumber-n;
+				System.out.println(n + " " + item.mNumber);
 			}
 		}
 	}
@@ -68,6 +70,17 @@ public class MarketItemsGui implements MarketBaseGui {
 			}
 		}
 		return null;
+	}
+	
+	public int getNum(EnumItemType item) {
+		int n = 0;
+		for(ItemGui i : mItems.keySet()) {
+			if(i.mItem == item) {
+				n = i.mNumber;
+				System.out.println("Test " + n);
+			}
+		}
+		return n;
 	}
 	
 	public boolean isPresent() {
