@@ -57,14 +57,14 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     		mCustomers.add(customer);
     		customer.msgGotHungry();
     	}
-    	else if (role instanceof SmilehamWaiterRole){
+   /* 	else if (role instanceof SmilehamWaiterRole){
     		SmilehamWaiterRole waiter = (SmilehamWaiterRole) role;
     		
     		SmilehamHost host = waiter.getHost();
             host.msgAddWaiter((SmilehamWaiter)waiter);
             
     	}
-    	else if (role instanceof SmilehamHostRole){
+ */   	else if (role instanceof SmilehamHostRole){
     		mHost = (SmilehamHostRole) role;
     	}
     	else if (role instanceof SmilehamCookRole){
