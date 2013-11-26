@@ -49,15 +49,15 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				}
 				break;
 			case 4: //david
-				int rn = new Random().nextInt();
-				if (rn % 2 == 0) {
+//				int rn = new Random().nextInt();
+//				if (rn % 2 == 0) {
 					subRole = new DavidWaiterRole(super.mPerson);
 					DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
-				} else {
-					subRole = new DavidWaiterRoleShared(super.mPerson);
-					DavidRestaurantPanel.getInstance().addSharedWaiter(
-							(DavidWaiterRoleShared) subRole);
-				}
+//				} else {
+//					subRole = new DavidWaiterRoleShared(super.mPerson);
+//					DavidRestaurantPanel.getInstance().addSharedWaiter(
+//							(DavidWaiterRoleShared) subRole);
+//				}
 				break;
 			case 5: //shane
 				subRole = new SmilehamWaiterRole(mPerson);

@@ -95,7 +95,7 @@ public class PersonAgent extends Agent implements Person {
 				//System.out.println(mJobRole.toString());
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 
-				((RestaurantBaseInterface) mJobRole).setRestaurant(3); //HACK
+				((RestaurantBaseInterface) mJobRole).setRestaurant(4); //HACK
 
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
@@ -107,7 +107,7 @@ public class PersonAgent extends Agent implements Person {
 			case NONE:
 				mJobRole = new RestaurantCustomerRole(this);
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
-				((RestaurantBaseInterface) mJobRole).setRestaurant(3);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 				 break;
 		}
 		boolean active = (mTimeShift == Time.GetShift());
@@ -232,7 +232,7 @@ public class PersonAgent extends Agent implements Person {
 		int numroles=0;
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
-				System.out.println(++numroles +"active roles");
+				//System.out.println(++numroles +"active roles");
 				if (((BaseRole) iRole).getPerson() == null) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
@@ -382,7 +382,7 @@ public class PersonAgent extends Agent implements Person {
 			mRoles.put(restCustRole, true);
 			
 			
-			int restaurantChoice = 3; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 4; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 
 			((RestaurantBaseInterface) restCustRole).setPerson(this);
 			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
