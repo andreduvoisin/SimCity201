@@ -119,25 +119,20 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	for (int i=0; i<8; i++) {
     		JButton config = new JButton("Restaurant "+i);
 	    	config.addActionListener(this);
-	    	config.putClientProperty("restConfig", i);
 	    	config.setPreferredSize(buttonDim);
 	    	config.setMinimumSize(buttonDim);
 	    	config.setMaximumSize(buttonDim);
 	    	configList.add(config);
 	    	configOptions.add(config);
     	}
-//    	for (int i=1; i<numConfigs; i++) {
-//	    	JButton config = new JButton("Configuration "+i);
-//	    	config.addActionListener(this);
-//	    	config.putClientProperty("configFile", i);
-//	    	config.setPreferredSize(buttonDim);
-//	    	config.setMinimumSize(buttonDim);
-//	    	config.setMaximumSize(buttonDim);
-//	    	configList.add(config);
-//	    	configOptions.add(config);
-//    	}
+    	JButton config = new JButton("Bank");
+    	config.addActionListener(this);
+    	config.setPreferredSize(buttonDim);
+    	config.setMinimumSize(buttonDim);
+    	config.setMaximumSize(buttonDim);
+    	configList.add(config);
+    	configOptions.add(config);
     	view.add(configList);
-    	
         add(pane);
         
         // Tabs
@@ -170,6 +165,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
 					config.readFileCreatePersons(city, "restConfig"+i+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Bank")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "BankConfig"+".txt");
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
