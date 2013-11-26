@@ -3,6 +3,7 @@ package restaurant.restaurant_cwagoner.gui;
 import javax.swing.*;
 
 import base.Location;
+import base.Time;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,8 +28,8 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
     	this.setBounds(0, 0, width, height);
         this.setPreferredSize(new Dimension(width, height));
-
-    	Timer timer = new Timer(5, this);
+        //CHASE: here's your lag
+    	Timer timer = new Timer(Time.cSYSCLK/2, this);
     	timer.addActionListener(this);
     	timer.start();
     }

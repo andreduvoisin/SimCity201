@@ -3,6 +3,7 @@ package restaurant.restaurant_xurex.gui;
 import javax.swing.*;
 
 import base.BaseRole;
+import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 import restaurant.restaurant_xurex.RexCashierRole;
@@ -81,7 +82,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         guis.add(cookGui);
         //bufferSize = this.getSize();
  
-    	Timer timer = new Timer(10, this );
+    	Timer timer = new Timer(Time.cSYSCLK/20, this );
     	timer.start();
     }
 

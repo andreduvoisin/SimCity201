@@ -2,6 +2,8 @@ package restaurant.restaurant_duvoisin.gui;
 
 import javax.swing.*;
 
+import base.Time;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +15,6 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
 
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-    static final int TIMERDELAY = 5;
     static final int IDLE_X = 10;
     static final int IDLE_Y = 52;
     static final int IDLE_SIZE_X = 30;
@@ -51,7 +52,7 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
         
         //bufferSize = this.getSize();
  
-    	timer = new Timer(TIMERDELAY, this);
+    	timer = new Timer(Time.cSYSCLK/40, this);
     	timer.start();
     }
 
