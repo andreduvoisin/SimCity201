@@ -3,7 +3,9 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import base.Item.EnumItemType;
 import base.PersonAgent.EnumJobType;
+import base.PersonAgent.EnumScenarioType;
 import base.interfaces.Person;
 import city.gui.SimCityGui;
 
@@ -27,18 +29,17 @@ public class ConfigParser {
 			
 			//Job
 			String jobString = scanPerson.next();
-			EnumJobType jobType = null;
-			if (jobString.equals("BANK")) {
-				jobType = EnumJobType.BANK;
-			}
-			if (jobString.equals("RESTAURANT")) {
-				jobType = EnumJobType.RESTAURANT;
-			}
-			if (jobString.equals("NONE")) {
-				jobType = EnumJobType.NONE;
-			}
-			//EnumJobType jobType = EnumJobType.valueOf(jobString);	
-			
+//			EnumJobType jobType = null;
+//			if (jobString.equals("BANK")) {
+//				jobType = EnumJobType.BANK;
+//			}
+//			if (jobString.equals("RESTAURANT")) {
+//				jobType = EnumJobType.RESTAURANT;
+//			}
+//			if (jobString.equals("NONE")) {
+//				jobType = EnumJobType.NONE;
+//			}
+			EnumJobType jobType = EnumJobType.valueOf(jobString);
 
 			//Cash
 			String cashString = scanPerson.next();
@@ -47,8 +48,12 @@ public class ConfigParser {
 			//Name
 			String name = scanPerson.next();
 			
+			//Scenario
+			String scenarioString = scanPerson.next();
+			EnumScenarioType scenarioType = EnumScenarioType.valueOf(scenarioString);
+			
 			//Person
-			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
+			Person person = new PersonAgent(jobType, scenarioType, cash, name); //adds role automatically
 			synchronized (person) {
 				simcitygui.citypanel.masterPersonList.add(person);
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move

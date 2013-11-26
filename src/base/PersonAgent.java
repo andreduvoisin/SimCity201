@@ -2,7 +2,6 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
-import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,12 +16,10 @@ import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
 import market.interfaces.MarketCustomer;
-import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import test.mock.MockPersonGui;
 import test.mock.PersonGuiInterface;
-import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
@@ -42,6 +39,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, HOUSING, MARKET, RESTAURANT, TRANSPORTATION, NONE};
+	public static enum EnumScenarioType {R0, R1, R2, R3, R4, R5, R6, R7, EAT_HOME, MAINTAIN_HOME, GO_BANK};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -78,69 +76,106 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(EnumJobType job, double cash, String name){
+	public PersonAgent(EnumJobType job, EnumScenarioType scenario, double cash, String name){
 		mJobType = job;
 		mCash = cash;
 		mName = name;
 		initializePerson();
 		
-		if (mTimeShift == 1){
-			//Get job role and location; set active if necessary
-			mJobRole = null;
-			switch (job){
-				case BANK:
-					mJobRole = SortingHat.getBankRole(mTimeShift);
-					break;
-				case MARKET:
-					mJobRole = SortingHat.getMarketRole(mTimeShift);
-					break;
-				case RESTAURANT:
-					mJobRole = SortingHat.getRestaurantRole(mTimeShift);
-					//System.out.println(mJobRole.toString());
+		//Get job role and location; set active if necessary
+		mJobRole = null;
+		switch (job){
+			case BANK:
+				mJobRole = SortingHat.getBankRole(mTimeShift);
+				break;
+			case MARKET:
+				mJobRole = SortingHat.getMarketRole(mTimeShift);
+				break;
+			case RESTAURANT:
+				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				if (mJobRole != null) {
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
-					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
-					break;
-				case TRANSPORTATION://CHASE: transportation jobType
-					mJobRole = SortingHat.getTransportationRole();
-					break;
-				case HOUSING: break;
-				case NONE:
-					mJobRole = new RestaurantCustomerRole(this);
-					((RestaurantBaseInterface) mJobRole).setPerson(this);
-					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
-					break;
+				}
+				break;
+			case TRANSPORTATION://CHASE: transportation jobType
+				mJobRole = SortingHat.getTransportationRole();
+				break;
+			case HOUSING: break;
+			case NONE:
+				mJobRole = new RestaurantCustomerRole(this);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				break;
 			}
-		}else{
-			mJobRole = new RestaurantCustomerRole(this);
-			((RestaurantBaseInterface) mJobRole).setPerson(this);
-			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
-		}
+//		}else{
+//			mJobRole = new RestaurantCustomerRole(this);
+//			((RestaurantBaseInterface) mJobRole).setPerson(this);
+//			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
+//		}
 		
-		boolean active = (mTimeShift == Time.GetShift());
-		if (mJobRole != null){
-			mJobLocation = ContactList.sRoleLocations.get(mJobRole);
-			mRoles.put(mJobRole, active);
-		}
-		
-		if (active){
-			for (Role iRole : mRoles.keySet()){
-				iRole.setPerson(this);
-			}
-		}
+//		boolean active = (mTimeShift == Time.GetShift());
+//		if (mJobRole != null){
+//			mJobLocation = ContactList.sRoleLocations.get(mJobRole);
+//			mRoles.put(mJobRole, active);
+//		}
+//		
+//		if (active){
+//			for (Role iRole : mRoles.keySet()){
+//				iRole.setPerson(this);
+//			}
+//		}
 		
 		//Get housing role and location; set active
 		//mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 		//mRoles.put(mHouseRole, true);
 		
 		//Add customer/rider role possibilities
-		mRoles.put(new BankCustomerRole(this), false);
-		mRoles.put(new HousingRenterRole(this), false);
-		mRoles.put(new MarketCustomerRole(this), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false);
+//		mRoles.put(new BankCustomerRole(this), false);
+//		mRoles.put(new HousingRenterRole(this), false);
+//		mRoles.put(new MarketCustomerRole(this), false);
+//		mRoles.put(new TransportationBusRiderRole(this), false);
+//		mRoles.put(new RestaurantCustomerRole(this), false);
+		
+		if (mJobRole != null) {
+		switch(scenario) {
+		case R0:
+			((RestaurantBaseInterface) mJobRole).setRestaurant(0); 
+			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case R1:
+			((RestaurantBaseInterface) mJobRole).setRestaurant(1); 
+			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case R2:
+//			((RestaurantBaseInterface) mJobRole).setRestaurant(2); 
+//			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case R3:
+			((RestaurantBaseInterface) mJobRole).setRestaurant(3); 
+			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case R4:
+			((RestaurantBaseInterface) mJobRole).setRestaurant(4); 
+			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case R5:
+			((RestaurantBaseInterface) mJobRole).setRestaurant(5); 
+			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case R6:
+			((RestaurantBaseInterface) mJobRole).setRestaurant(6); 
+			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case R7:
+			((RestaurantBaseInterface) mJobRole).setRestaurant(7); 
+			mEvents.add(new Event(EnumEventType.JOB, 0));
+			break;
+		case EAT_HOME:
+		case MAINTAIN_HOME:
+		case GO_BANK:
+		}
+		}
 		
 		//Add events
-		mEvents.add(new Event(EnumEventType.JOB, 0));
 		
 //		if (mJobType != EnumJobType.NONE){
 //		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
@@ -176,7 +211,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
-		mTimeShift = (mSSN % 3); // assign time schedule
+		mTimeShift = 0; // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
 		
