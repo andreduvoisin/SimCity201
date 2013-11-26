@@ -64,7 +64,6 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 			plateHere[i] = false;
 		
 		checkRevolvingStand = false;
-		runStandTimer();
 		
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
