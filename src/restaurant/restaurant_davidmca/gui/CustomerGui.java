@@ -31,10 +31,11 @@ public class CustomerGui implements Gui {
                 xPos = -40;
                 yPos = -40;
                 yHome = 10;
-                xHome = 30*(home);
+                xHome = 10+30*(home);
                 xDestination = -40;
                 yDestination = -40;
                 this.gui = gui;
+                System.out.println("customer gui created, placing at "+xHome+" ,"+yHome);
         }
 
         public void updatePosition() {
