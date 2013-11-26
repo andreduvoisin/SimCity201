@@ -44,7 +44,6 @@ public class CustomerGui implements Gui {
 			xPos += 2;
 		else if (xPos > xDestination)
 			xPos -= 2;
-
 		if (yPos < yDestination)
 			yPos += 2;
 		else if (yPos > yDestination)
