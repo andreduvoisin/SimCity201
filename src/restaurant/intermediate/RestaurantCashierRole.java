@@ -2,6 +2,8 @@ package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -30,6 +32,8 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 				subRole.setPerson(super.mPerson);
 				break;
 			case 5: //shane
+				subRole = new SmilehamCashierRole(super.mPerson);
+				SmilehamAnimationPanel.addPerson((SmilehamCashierRole) subRole);
 				break;
 			case 6: //angelica
 				break;

@@ -34,7 +34,6 @@ public class ConfigParser {
 			if (jobString.equals("RESTAURANT")) {
 				jobType = EnumJobType.RESTAURANT;
 			}
-			//EnumJobType jobType = EnumJobType.valueOf(jobString);
 			
 			//Cash
 			String cashString = scanPerson.next();
@@ -47,19 +46,13 @@ public class ConfigParser {
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			synchronized (person) {
 				simcitygui.citypanel.masterPersonList.add(person);
-				simcitygui.citypanel.addMoving(person.getPersonGui());
-				((PersonAgent) person).startThread();
+				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
+//				((PersonAgent) person).startThread();
 			}
 			
 			scanPerson.close();
 		}
 		scanFile.close();
-		
-//		for (Role iRole : SortingHat.sRoleLocations.keySet()){
-//			if (iRole.isRestaurantPerson()){
-//				((RestaurantBaseInterface) iRole).setRestaurant(1);
-//			}
-//		}
 
 	}
 

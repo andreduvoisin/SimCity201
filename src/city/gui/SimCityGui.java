@@ -44,7 +44,7 @@ public class SimCityGui extends JFrame {
 		
 		this.setLayout(new GridBagLayout());
 		
-		Time globaltime = new Time(citypanel.masterPersonList);
+		Time globaltime = new Time(citypanel.masterPersonList); //starts the static timer
 		
 		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
 		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
@@ -120,7 +120,7 @@ public class SimCityGui extends JFrame {
 //		testCook.addRole(cookRole, true);
 //		testCook.startThread();
 		
-//		Person person = citypanel.masterPersonList.get(0);
+		Person person = citypanel.masterPersonList.get(0);
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();
@@ -144,14 +144,14 @@ public class SimCityGui extends JFrame {
 //			((PersonAgent) person).startThread();
 //			((PersonAgent) person).eatFood();
 //		}
-		
-		for (int i=0; i<10; i++) {
-			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
-		}
-		
-		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
-			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
-		}
+//		
+//		for (int i=0; i<10; i++) {
+//			((PersonAgent) citypanel.masterPersonList.get(i)).goToJob();
+//		}
+//		
+//		for (int i=10; i<citypanel.masterPersonList.size(); i++) {
+//			((PersonAgent) citypanel.masterPersonList.get(i)).eatFood();
+//		}
 	}
 
 	/**

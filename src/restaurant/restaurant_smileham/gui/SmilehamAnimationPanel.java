@@ -44,11 +44,7 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     	mInstance = this;
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
-        
-        //data
-//        mHost = new SmilehamHostRole("Shane", this);
-//        mCook = new SmilehamCookRole("Ke$$$ha", this);
-//        mCashier = new SmilehamCashierRole("Mr. Ramen", this);
+
         mCustomers = new Vector<SmilehamCustomerRole>();
  
     	Timer timer = new Timer(20, this );
@@ -56,7 +52,6 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     }
     
     public static void addPerson(BaseRole role) {
-    	
     	if (role instanceof SmilehamCustomerRole){
     		SmilehamCustomerRole customer = (SmilehamCustomerRole) role;
     		mCustomers.add(customer);
@@ -68,6 +63,15 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
     		SmilehamHost host = waiter.getHost();
             host.msgAddWaiter((SmilehamWaiter)waiter);
             
+    	}
+    	else if (role instanceof SmilehamHostRole){
+    		mHost = (SmilehamHostRole) role;
+    	}
+    	else if (role instanceof SmilehamCookRole){
+    		mCook = (SmilehamCookRole) role;
+    	}
+    	else if (role instanceof SmilehamCashierRole){
+    		mCashier = (SmilehamCashierRole) role;
     	}
     }
     

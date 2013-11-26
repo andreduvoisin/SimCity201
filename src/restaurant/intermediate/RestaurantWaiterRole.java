@@ -6,6 +6,7 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -43,7 +44,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				break;
 			case 5: //shane
 				subRole = new SmilehamWaiterRole(mPerson);
-				//SHANE: 1 add waiter here
+				SmilehamAnimationPanel.addPerson((SmilehamWaiterRole) mPerson);
 				break;
 			case 6:
 				break;

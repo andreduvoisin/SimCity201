@@ -38,7 +38,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				DavidRestaurantPanel.getInstance().addCustomer((DavidCustomerRole) subRole);
 				break;
 			case 5: //shane
-				subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), SmilehamAnimationPanel.mInstance);
+				subRole = new SmilehamCustomerRole(super.mPerson);
 				SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 				break;
 			case 6: //angelica

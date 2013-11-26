@@ -14,6 +14,8 @@ import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -56,6 +58,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                     //ANGELICA: get restaurant SSN
 					break;
 				case 5: //shane
+					subRole = new SmilehamCookRole(super.mPerson);
+					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
 				case 6: //angelica
 					break;

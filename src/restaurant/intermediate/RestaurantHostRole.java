@@ -1,13 +1,10 @@
 package restaurant.intermediate;
 
-import java.util.Random;
-
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
-import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
-import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
-import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -38,6 +35,8 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 				subRole.setPerson(super.mPerson);
 				break;
 			case 5: //shane
+				subRole = new SmilehamHostRole(super.mPerson);
+				SmilehamAnimationPanel.addPerson((SmilehamHostRole) subRole);
 				break;
 			case 6: //angelica
 				break;
