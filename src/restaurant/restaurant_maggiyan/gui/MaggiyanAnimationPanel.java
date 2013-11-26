@@ -112,7 +112,7 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
         guis.add(gui);
     }
 
-    public void addGui(MaggyanWaiterGui gui) {
+    public void addGui(MaggiyanWaiterGui gui) {
         guis.add(gui);
     }
 

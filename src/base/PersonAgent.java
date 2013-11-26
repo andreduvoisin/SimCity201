@@ -91,10 +91,10 @@ public class PersonAgent extends Agent implements Person {
 				mJobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
-				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				//mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 				//System.out.println(mJobRole.toString());
-				((RestaurantBaseInterface) mJobRole).setPerson(this);
-				((RestaurantBaseInterface) mJobRole).setRestaurant(2);
+				//((RestaurantBaseInterface) mJobRole).setPerson(this);
+				//((RestaurantBaseInterface) mJobRole).setRestaurant(2);
 				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
@@ -114,8 +114,8 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Get housing role and location; set active
-		mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-		mRoles.put(mHouseRole, true);
+		//mHouseRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+		//mRoles.put(mHouseRole, true);
 		
 		//Add customer/rider role possibilities
 		mRoles.put(new BankCustomerRole(this), false);
@@ -341,8 +341,8 @@ public class PersonAgent extends Agent implements Person {
 //		mAtJob = true; //SHANE: This will need to be set to false somewhere
 //		mPersonGui.setPresent(false);
 		
-		mJobRole.setPerson(this); //take over job role
-		mRoles.put(mJobRole, true); //set role to active
+//		mJobRole.setPerson(this); //take over job role
+//		mRoles.put(mJobRole, true); //set role to active
 	}
 
 	public void eatFood() {

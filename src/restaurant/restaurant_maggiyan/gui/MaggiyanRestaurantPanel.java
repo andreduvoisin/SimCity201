@@ -2,6 +2,8 @@ package restaurant.restaurant_maggiyan.gui;
 
 import java.awt.BorderLayout;
 
+import base.PersonAgent.EnumJobType;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.Vector;
@@ -41,8 +43,6 @@ public class MaggiyanRestaurantPanel extends JPanel {
     public Vector<MaggiyanCustomerRole> customers = new Vector<MaggiyanCustomerRole>();
     public Vector<MaggiyanWaiter> waiters = new Vector<MaggiyanWaiter>();
 
-    private JPanel restLabel = new JPanel();
-    private MaggiyanListPanel customerPanel = new MaggiyanListPanel(this, "Customers");
     private JPanel group = new JPanel();
 
     private MaggiyanRestaurantGui gui; //reference to main gui
@@ -57,45 +57,52 @@ public class MaggiyanRestaurantPanel extends JPanel {
 //        market1.setCashier(cashier); 
 //        market2.setCashier(cashier); 
 //        market3.setCashier(cashier); 
+        
         cook.setGui(cookGui); 
         gui.animationPanel.addGui(cookGui);
         
-        setLayout(new GridLayout(1, 2, 0, 20));
-        group.setLayout(new GridLayout(1, 2, 0, 10));
-        setBackground(Color.white); 
-     
-        
-        group.add(customerPanel);
-
-        initRestLabel();
-        add(restLabel);
-        add(group);
+        TEST(); 
     }
     
-    public void testOne(){
+    public void TEST(){
     	
     	//People
-    	PersonAgent host = new PersonAgent(); 
-    	PersonAgent customer = new PersonAgent();
-    	PersonAgent cook = new PersonAgent(); 
-    	PersonAgent waiter = new PersonAgent(); 
+    	PersonAgent host = new PersonAgent(EnumJobType.RESTAURANT, 1000.00, "Maggi Host"); 
+    	PersonAgent customer = new PersonAgent(EnumJobType.RESTAURANT, 400.00, "Maggi Customer");
+    	PersonAgent cook = new PersonAgent(EnumJobType.RESTAURANT, 300.00, "Maggi Cook");
+    	PersonAgent waiter = new PersonAgent(EnumJobType.RESTAURANT, 300.00, "Maggi Waiter");
+    	PersonAgent cashier = new PersonAgent(EnumJobType.RESTAURANT, 800.00, "Maggi Cashier");
     	
     	//Roles 
-    	MaggiyanHostRole hostRole = new MaggiyanHostRole("Host"); 
+    	MaggiyanHostRole hostRole = new MaggiyanHostRole(host); 
     	MaggiyanCustomerRole custRole = new MaggiyanCustomerRole(customer); 
-    	MaggiyanCookRole cookRole = new MaggiyanCookRole("Cook"); 
-    	MaggiyanSharedWaiterRole swaiterRole = new MaggiyanSharedWaiterRole("SWaiter", cookRole, hostRole); 
+    	MaggiyanCookRole cookRole = new MaggiyanCookRole(cook); 
+    	MaggiyanWaiterRole waiterRole = new MaggiyanWaiterRole(waiter, cookRole, hostRole); 
+    	MaggiyanCashierRole cashierRole = new MaggiyanCashierRole(cashier); 
+    	
+    	
+    	//Guis
+    	MaggiyanCustomerGui custgui = new MaggiyanCustomerGui(custRole, gui); 
+    	MaggiyanWaiterGui waitergui = new MaggiyanWaiterGui(waiterRole, gui); 
+    	MaggiyanCookGui cookgui = new MaggiyanCookGui(cookRole);
+    	
+    	//Preliminary setters
+    	gui.animationPanel.addGui(custgui);
+    	custRole.setHost(hostRole);
+    	custRole.setCashier(cashierRole); 
+    	custRole.setGui(custgui);
+    	customers.add(custRole); 
+    	
+    	//Restaurant simulation
+    	custRole.gotHungry();
+    	hostRole.msgIAmHere(waiterRole);
     	
     }
     
     public static MaggiyanRestaurantPanel getRestPanel(){
     	return me; 
     }
-    
-    public MaggiyanListPanel getCustPanel(){
-    	return customerPanel; 
-    }
-    
+  
     
     public Vector<MaggiyanCustomerRole> getCust(){
     	return customers;
@@ -109,7 +116,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
     	return waiters;
     }
     
-    public MaggyanWaiterGui getWaiterGui(String name){
+    public MaggiyanWaiterGui getWaiterGui(String name){
     	for(MaggiyanWaiter waiter: waiters){
     		if(waiter.getName() == name){
     			return waiter.getGui(); 
@@ -122,29 +129,6 @@ public class MaggiyanRestaurantPanel extends JPanel {
     	return host; 
     }
     
-    /**
-     * Sets up the restaurant label that includes the menu,
-     * and host and cook information
-     */
-    
-    private void initRestLabel() {
-        JLabel label = new JLabel();
-        
-        restLabel.setLayout(new BorderLayout());
-        label.setText(
-                "<html><h3><u>Tonight's Staff</u></h3><table><tr><td>host:</td><td>" + host.getName() + "</td></tr></table><h3><u> Menu</u></h3><table><tr><td>Steak</td><td>$15.99</td></tr><tr><td>Chicken</td><td>$10.99</td></tr><tr><td>Salad</td><td>$5.99</td></tr><tr><td>Pizza</td><td>$8.99</td></tr></table><br></html>");
-        
-
-        
-        //restLabel.setBorder(BorderFactory.createRaisedBevelBorder());
-        restLabel.setBounds(0, 0, 20, 10);
-        //restLabel.setBackground(Color.white);
-        restLabel.add(label, BorderLayout.CENTER);
-        restLabel.add(new JLabel("               "), BorderLayout.EAST);
-        restLabel.add(new JLabel("               "), BorderLayout.WEST);
-        
-      
-    }
 
     /**
      * When a customer or waiter is clicked, this function calls
@@ -187,7 +171,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 		
 		//Create new waiter agent and gui
 		if(waiterTypeNum%2 == 1){
-    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+    		MaggiyanWaiterGui waiterGui = new MaggiyanWaiterGui(w, gui);
     		
     		gui.animationPanel.addGui(waiterGui);
     		w.setCashier(cashier); 
@@ -196,7 +180,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 
 		}
 		else{
-    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+    		MaggiyanWaiterGui waiterGui = new MaggiyanWaiterGui(w, gui);
     		
     		gui.animationPanel.addGui(waiterGui);
     		w.setCashier(cashier); 
@@ -226,7 +210,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 //    		//Create new waiter agent and gui
 //    		if(waiterTypeNum%2 == 1){
 //	    		MaggiyanWaiterRole w = new MaggiyanWaiterRole(name, cook, host); 
-//	    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+//	    		MaggiyanWaiterGui waiterGui = new MaggiyanWaiterGui(w, gui);
 //	    		
 //	    		gui.animationPanel.addGui(waiterGui);
 //	    		w.setCashier(cashier); 
@@ -236,7 +220,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 //    		}
 //    		else{
 //    			MaggiyanSharedWaiterRole w = new MaggiyanSharedWaiterRole(name, cook, host); 
-//	    		MaggyanWaiterGui waiterGui = new MaggyanWaiterGui(w, gui);
+//	    		MaggiyanWaiterGui waiterGui = new MaggiyanWaiterGui(w, gui);
 //	    		
 //	    		gui.animationPanel.addGui(waiterGui);
 //	    		w.setCashier(cashier); 

@@ -8,11 +8,12 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant.restaurant_maggiyan.gui.MaggyanWaiterGui;
+import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
@@ -52,7 +53,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	private MaggiyanCook cook; 
 	private MaggiyanHost host; 
 	private MaggiyanCashier cashier; 
-	public MaggyanWaiterGui waiterGui = null;
+	public MaggiyanWaiterGui waiterGui = null;
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
@@ -65,10 +66,14 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	
 	private boolean reenableBreakButton = false; 
 	
-	public MaggiyanSharedWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
-		super();
+	public MaggiyanSharedWaiterRole(String n, MaggiyanCook cook, MaggiyanHost host) {
 		
-		this.name = name;
+	}
+	
+	public MaggiyanSharedWaiterRole(Person p, MaggiyanCook cook, MaggiyanHost host) {
+		super(p);
+		
+		this.name = p.getName();
 		this.wState = WaiterState.free; 
 		this.cook = cook; 
 		this.host = host; 
@@ -518,11 +523,11 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 
 	//utilities
 
-	public void setGui(MaggyanWaiterGui gui) {
+	public void setGui(MaggiyanWaiterGui gui) {
 		waiterGui = gui;
 	}
 
-	public MaggyanWaiterGui getGui() {
+	public MaggiyanWaiterGui getGui() {
 		return waiterGui;
 	}
 	

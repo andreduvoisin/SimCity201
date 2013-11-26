@@ -9,7 +9,7 @@ import java.awt.*;
 
 import javax.swing.*;
 
-public class MaggyanWaiterGui implements MaggiyanGui {
+public class MaggiyanWaiterGui implements MaggiyanGui {
     
     private MaggiyanWaiter agent = null; 
   	public String customerOrder = " "; 
@@ -50,7 +50,7 @@ public class MaggyanWaiterGui implements MaggiyanGui {
     	}
     }
     
-    public MaggyanWaiterGui(MaggiyanWaiter agent, MaggiyanRestaurantGui gui) {
+    public MaggiyanWaiterGui(MaggiyanWaiter agent, MaggiyanRestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         tablePositions();
@@ -80,7 +80,7 @@ public class MaggyanWaiterGui implements MaggiyanGui {
         			if(offBreak){
                 		offBreak = false;
         				agent.msgBackFromBreak(); 
-        				gui.setWaiterEnabled(agent);
+        				//gui.setWaiterEnabled(agent);
         			}
         			if(xPos != prevXPos && yPos != prevYPos){
         				prevXPos = xPos;
@@ -193,9 +193,6 @@ public class MaggyanWaiterGui implements MaggiyanGui {
         yDestination = yHome;
     }
     
-    public void DoEnableBreakBox(){
-    	gui.setWaiterEnabled(agent);
-    }
     
 	public void showCustomerChoice(String choice){
 		customerOrder = choice + " ?"; 
