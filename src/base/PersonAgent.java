@@ -24,13 +24,17 @@ import test.mock.MockPersonGui;
 import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
+import bank.gui.BankPanel;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
+import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
+import bank.roles.BankTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityHousing;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 
@@ -66,7 +70,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
-	public PersonGuiInterface mPersonGui;
+	public CityPerson mPersonGui;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -90,6 +94,26 @@ public class PersonAgent extends Agent implements Person {
 			switch (job){
 				case BANK:
 					mJobRole = SortingHat.getBankRole(mTimeShift);
+					if(mJobRole == null) {
+						mJobRole = new BankCustomerRole(this);
+						mJobRole.setPerson(this);
+						BankPanel.getInstance().addPerson(mJobRole);
+						break;
+					}
+					
+					if(mJobRole instanceof BankGuardRole) {
+						mJobRole = BankPanel.getInstance().guard;
+						BankPanel.getInstance().addGui(((BankGuardRole)mJobRole).mGUI);
+					} else if(mJobRole instanceof BankMasterTellerRole) {
+						mJobRole = BankPanel.getInstance().masterTeller;
+					} else if(mJobRole instanceof BankTellerRole) {
+						mJobRole = BankPanel.getInstance().teller;
+						((BankTellerRole)mJobRole).addGuard(BankPanel.getInstance().guard);
+						((BankTellerRole)mJobRole).setMaster(BankPanel.getInstance().masterTeller);
+						BankPanel.getInstance().addGui(((BankTellerRole)mJobRole).mGUI);
+						BankPanel.getInstance().guard.msgReadyToWork((BankTellerRole)mJobRole);
+					}
+					mJobRole.setPerson(this);
 					break;
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
@@ -100,7 +124,7 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
 					break;
-				case TRANSPORTATION://CHASE: transportation jobType
+				case TRANSPORTATION:
 					mJobRole = SortingHat.getTransportationRole();
 					break;
 				case HOUSING: break;
@@ -111,9 +135,14 @@ public class PersonAgent extends Agent implements Person {
 					break;
 			}
 		}else{
+			/*
 			mJobRole = new RestaurantCustomerRole(this);
 			((RestaurantBaseInterface) mJobRole).setPerson(this);
 			((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
+			*/
+			mJobRole = new BankCustomerRole(this);
+			mJobRole.setPerson(this);
+			BankPanel.getInstance().addPerson(mJobRole);
 		}
 		
 		boolean active = (mTimeShift == Time.GetShift());
@@ -181,7 +210,7 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), 0, sSSN*10); //SHANE: Hardcoded start place
+		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), 95, sSSN*20 + 100); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
@@ -323,13 +352,24 @@ public class PersonAgent extends Agent implements Person {
 			respondToRSVP(); //SHANE: 1 respond to rsvp (same)
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
-			throwParty(); //SHANE: 1 throw party
+			throwParty((EventParty)event);
+			planParty(Time.GetTime()+24);
+			/*
 			int inviteNextDelay = 24*mSSN;
 			EventParty party = (EventParty) event;
 			mEvents.add(new EventParty(party, inviteNextDelay + 2));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
+			*/
 			//SHANE: 3 check event classes
+		}
+
+		//Transportation
+		else if (event.mEventType == EnumEventType.BOARD_BUS) {
+			boardBus();
+		}
+		else if (event.mEventType == EnumEventType.EXIT_BUS) {
+			exitBus();
 		}
 		
 		mEvents.remove(event);
@@ -433,10 +473,24 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
+		
+		//REX SHANE: add customerRole and gui to bank animation panel
+	}
+	
+	private void planParty(int time){
+		mEvents.add(new Event(EnumEventType.INVITE1, time));
+		mEvents.add(new Event(EnumEventType.INVITE2, time+4));
+		mEvents.add(new Event(EnumEventType.PARTY,   time+32));
 	}
 
-	private void throwParty() {
-
+	private void throwParty(EventParty event) {
+		mPersonGui.DoGoToDestination(event.mLocation);
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+		
+		mHouseRole.gui.setPresent(true);
+		event.mHost.getHouse().mPanel.addGui((Gui)mHouseRole.gui);
+		mHouseRole.gui.DoParty();
 	}
 
 	private void inviteToParty() {
@@ -501,7 +555,23 @@ public class PersonAgent extends Agent implements Person {
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
 		return false;
 	}
-	
+
+
+	private void boardBus() {
+		int boardAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		int exitAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mFinalDestination);
+
+		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
+		acquireSemaphore(semAnimationDone);
+
+		((TransportationBusRiderRole) mJobRole).msgReset(boardAtStop, exitAtStop);
+		
+	}
+
+	private void exitBus() {
+		mRoleFinished = true;
+		mPersonGui.NewDestination(new Location(mPersonGui.mFinalDestination.mX, mPersonGui.mFinalDestination.mY));
+	}
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
@@ -595,7 +665,12 @@ public class PersonAgent extends Agent implements Person {
 		return (CityPerson)mPersonGui;
 	}
 
-	public void setGui(MockPersonGui gui) {
+	/*public void setGui(MockPersonGui gui) {
 		mPersonGui = gui;
+	}*/
+
+	@Override
+	public CityHousing getHouse() {
+		return mHouseRole.mHouse;
 	}
 }

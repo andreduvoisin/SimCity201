@@ -29,4 +29,6 @@ public interface BankTeller {
 
 	public abstract void setAccounts();
 
+	public abstract void msgLeaving();
+
 }

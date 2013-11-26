@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import base.Gui;
+import base.Time;
 import city.gui.CityHousing;
 
 /*
@@ -61,6 +62,14 @@ public class HousingPersonGui implements Gui {
 	private int maintenanceXPos = 30; 
 	private int maintenanceYPos = 150; 
 	
+	//Party Variables
+	private int xDirection = 2;
+	private int yDirection = 2;
+	
+	private static int BOUNDS = 500;
+	
+	private boolean party = false;
+	
 	private static int GUISIZE = 20;
 
 	public HousingPersonGui(){ 
@@ -77,19 +86,37 @@ public class HousingPersonGui implements Gui {
 	}
 	
 	public void updatePosition() {
-		if (xPos < xDestination)
-			xPos += 1;
-		else if (xPos > xDestination)
-			xPos -= 1;
-
-		if (yPos < yDestination)
-			yPos += 1;
-		else if (yPos > yDestination)
-			yPos -= 1;
-		
-		if (xPos == xDestination && yPos == yDestination && currentlyAnimating) {
-			currentlyAnimating = false;
-			housingrole.msgDoneAnimating();
+		if (party){
+			if(xPos <= 0){
+				xDirection = 2;
+			}
+			else if(xPos >= BOUNDS){
+				xDirection = -2;
+			}
+			if(yPos <= 0){
+				yDirection = 2;
+			}
+			else if (yPos >= BOUNDS){
+				yDirection = -2;
+			}
+			xPos += xDirection;
+			yPos += yDirection;
+		}
+		else{
+			if (xPos < xDestination)
+				xPos += 1;
+			else if (xPos > xDestination)
+				xPos -= 1;
+	
+			if (yPos < yDestination)
+				yPos += 1;
+			else if (yPos > yDestination)
+				yPos -= 1;
+			
+			if (xPos == xDestination && yPos == yDestination && currentlyAnimating){
+				currentlyAnimating = false;
+				housingrole.msgDoneAnimating();
+			}
 		}
 	}
 
@@ -149,6 +176,14 @@ public class HousingPersonGui implements Gui {
 	@Override
 	public void setPresent(boolean state) {
 		present = state;
+	}
+	
+	public void DoParty(){
+		party = true;
+	}
+	
+	public void DoStopParty(){
+		party = false;
 	}
 	
 	public void DoGoRelax(){
