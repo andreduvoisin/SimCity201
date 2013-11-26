@@ -19,6 +19,7 @@ import java.util.concurrent.Semaphore;
 import market.interfaces.MarketCustomer;
 import market.roles.MarketCustomerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
@@ -104,7 +105,7 @@ public class PersonAgent extends Agent implements Person {
 	
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
 					
-					//print("BALLS: " + mJobRole.toString());
+					print("BALLS: " + mJobRole.toString());
 	
 					//((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 					//((RestaurantBaseInterface) mJobRole).setRestaurant(5);

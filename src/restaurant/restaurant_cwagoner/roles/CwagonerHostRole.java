@@ -42,8 +42,9 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	 */
 	public void msgIWantFood(CwagonerCustomer c) {
 		print("Received msgIWantFood(" + c.getName() + ")");
-
-		Customers.add(new MyCustomer(c));
+		synchronized(Customers) {
+			Customers.add(new MyCustomer(c));
+		}
 		stateChanged();
 	}
 
@@ -111,7 +112,6 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	 * marks the table occupied
 	 */
 	public boolean pickAndExecuteAnAction() {
-		
 		synchronized(Waiters) {
 			for (MyWaiter w: Waiters) {
 				if (w.state.equals(MyWaiter.State.askedForBreak)) {
@@ -132,7 +132,7 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 					// And an unoccupied table
 					for (Table t : Tables) {
 						if (! t.occupied) {
-	
+							
 							// And at least one waiter working
 							for (MyWaiter w : Waiters) {
 								if (w.state.equals(MyWaiter.State.working)) {
