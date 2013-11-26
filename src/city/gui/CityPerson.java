@@ -92,7 +92,7 @@ public class CityPerson extends CityComponent{
         
         if(x == xDestination && y == yDestination){
         	this.disable();
-        	atDestination = true; //SHANE: 0 where is this used?
+        	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
 //        	person.msgAnimationDone(); //SHANE: Add person then enable this line
         }
         
