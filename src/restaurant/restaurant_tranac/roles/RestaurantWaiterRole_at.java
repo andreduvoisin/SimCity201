@@ -39,6 +39,8 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	public RestaurantWaiterRole_at() {
 		super();
 
+		waiterGui = new WaiterGui_at(this, RestaurantPanel_at.getInstance().getWaiters());
+		RestaurantPanel_at.getInstance().addGui(waiterGui);
 		mHost = RestaurantPanel_at.getInstance().mHost;
 		mCook = RestaurantPanel_at.getInstance().mCook;
 		mCashier = RestaurantPanel_at.getInstance().mCashier;
@@ -47,6 +49,8 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	public RestaurantWaiterRole_at(Person p) {
 		super(p);
 
+		waiterGui = new WaiterGui_at(this, RestaurantPanel_at.getInstance().getWaiters());
+		RestaurantPanel_at.getInstance().addGui(waiterGui);
 		mHost = RestaurantPanel_at.getInstance().mHost;
 		mCook = RestaurantPanel_at.getInstance().mCook;
 		mCashier = RestaurantPanel_at.getInstance().mCashier;

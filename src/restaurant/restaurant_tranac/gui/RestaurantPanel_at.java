@@ -101,4 +101,8 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     public static RestaurantPanel_at getInstance() {
     	return instance;
     }
+    
+    public int getWaiters() {
+    	return mWaiters.size();
+    }
 }

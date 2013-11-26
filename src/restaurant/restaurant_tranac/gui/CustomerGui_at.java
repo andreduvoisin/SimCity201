@@ -78,6 +78,52 @@ public class CustomerGui_at implements Gui{
     		System.out.println(e.getMessage());
     	}
 	}
+	
+	public CustomerGui_at(RestaurantCustomerRole_at c){
+		agent = c;
+		xPos = -40;
+		yPos = -40;
+		xDestination = -40;
+		yDestination = -40;
+		this.gui = RestaurantPanel_at.getInstance();
+		
+		//grabs the correct image using relative file paths
+    	image = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/red-nocturne.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	check = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/check.png");
+    	check = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	alertBubble = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-attention.png");
+    	alertBubble = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	askingBubble = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-question.png");
+    	askingBubble = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+	}
 
 	public void updatePosition() {
 		if (xPos < xDestination)
