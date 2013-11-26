@@ -44,7 +44,6 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	 */
 	public CwagonerCustomerRole(Person person) {
 		super(person);
-		this.name = person.getName();
 		// CHASE: handle payment: moneyOwed, myMoney?
 		state = State.inRestaurant;
 	}
