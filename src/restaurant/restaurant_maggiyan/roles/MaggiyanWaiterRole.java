@@ -77,26 +77,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 			this.name = p.getName();
 		}
 	}
-	
-	public MaggiyanWaiterRole(String name, MaggiyanCook cook, MaggiyanHost host) {
-		super();
-		
-		this.name = name;
-		this.wState = WaiterState.free; 
-		this.cook = cook; 
-		this.host = host; 
-
-	}
-	
-	public MaggiyanWaiterRole(Person p, MaggiyanCook cook, MaggiyanHost host) {
-		super(p);
-		
-		this.name = p.getName();
-		this.wState = WaiterState.free; 
-		this.cook = cook; 
-		this.host = host; 
-
-	}
 
 	public String getMaitreDName() {
 		return name;
@@ -104,6 +84,10 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setCook(MaggiyanCook c){
+		cook = c; 
 	}
 	
 	public void setHost(MaggiyanHost h){
@@ -269,8 +253,8 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	public boolean pickAndExecuteAnAction() {
 		try{
 			if(justGotToWork){
-				startWork();
 				justGotToWork = false;
+				startWork();
 				return true;
 			}
 			

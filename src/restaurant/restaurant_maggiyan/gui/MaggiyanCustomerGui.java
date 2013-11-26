@@ -28,8 +28,8 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 	private enum Command {noCommand, GoToSeat, LeaveRestaurant};
 	private Command command=Command.noCommand;
 
-	public static final int xTable = 200;
-	public static final int yTable = 250;
+	public static final int xTable = 50;
+	public static final int yTable = 175;
 	public static final int tableNum = 3; 
 	    
 	private int[] tableXCoord = new int[tableNum];

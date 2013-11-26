@@ -15,7 +15,7 @@ public class MaggiyanCookGui implements MaggiyanGui{
 	private boolean isPresent = true;
 	
 	//Cook Positions
-	private final int initialxPos = 625; 
+	private final int initialxPos = 350; 
 	private final int initialyPos = 340; 
 	private int cookingXPos = 680; 
 	private int cookingYPos = 275; 

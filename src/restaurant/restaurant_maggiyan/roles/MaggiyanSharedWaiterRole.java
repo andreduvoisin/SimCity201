@@ -99,6 +99,10 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 		return name;
 	}
 	
+	public void setCook(MaggiyanCook c){
+		cook = c; 
+	}
+	
 	public void setCashier(MaggiyanCashier c){
 		cashier = c; 
 	}
@@ -258,8 +262,8 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	public boolean pickAndExecuteAnAction() {
 		try{
 			if(justGotToWork){
-				startWork();
 				justGotToWork = false;
+				startWork();
 				return true;
 			}
 			

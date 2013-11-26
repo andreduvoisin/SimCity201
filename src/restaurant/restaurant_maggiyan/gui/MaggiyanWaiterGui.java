@@ -21,11 +21,11 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     private int xDestination = xHome, yDestination = yHome;//default start position
     private int prevXPos, prevYPos; 
     
-    public static final int xTable = 200;
-    public static final int yTable = 250;
+    public static final int xTable = 50;
+    public static final int yTable = 175;
     
-    public final int xKitchen = 540;
-    public final int yKitchen = 300; 
+    public final int xKitchen = 275;
+    public final int yKitchen = 275; 
     
     public final int xBreak = -30;
     public final int yBreak = -40; 
