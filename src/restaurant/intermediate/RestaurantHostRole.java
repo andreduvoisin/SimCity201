@@ -2,6 +2,7 @@ package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
@@ -25,6 +26,8 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 			case 1: //chase
 				break;
 			case 2: //jerry
+				subRole = JerrywebRestaurantPanel.getInstance().host;
+				subRole.setPerson(super.mPerson);
 				break;
 			case 3: //maggi
 				subRole = MaggiyanRestaurantPanel.getRestPanel().host;

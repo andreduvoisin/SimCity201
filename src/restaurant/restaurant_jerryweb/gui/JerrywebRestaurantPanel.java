@@ -11,6 +11,7 @@ import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole.MyWaiter;
 import restaurant.restaurant_jerryweb.JerrywebHostRole.WaiterState;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 
 import javax.swing.*;
 
@@ -31,12 +32,12 @@ public class JerrywebRestaurantPanel extends JPanel {
 	static final int vSpacing = 5;
 	int sel = 0;
     //Host, cook, waiters and customers
-    public JerrywebHostRole host = new JerrywebHostRole("Sarah");
+    public static JerrywebHostRole host = new JerrywebHostRole("Sarah");
     public HostGui hostGui = new HostGui(host);
 
     
-	public JerrywebCookRole cook = new JerrywebCookRole("Bob Sagget");
-    public JerrywebCashierRole cashier = new JerrywebCashierRole("Ted Cruz");
+	public static JerrywebCookRole cook = new JerrywebCookRole("Bob Sagget");
+    public static JerrywebCashierRole cashier = new JerrywebCashierRole("Ted Cruz");
     
     private Vector<JerrywebCustomerRole> customers = new Vector<JerrywebCustomerRole>();
     private Vector<Waiter> waiters = new Vector<Waiter>();
@@ -47,7 +48,7 @@ public class JerrywebRestaurantPanel extends JPanel {
     private JPanel group = new JPanel();
     private JPanel group2 = new JPanel();
 
-    public JerrywebRestaurantGui gui; //reference to main gui
+    public static JerrywebRestaurantGui gui; //reference to main gui
     static JerrywebRestaurantPanel instance;
     
     public static JerrywebRestaurantPanel getInstance(){
@@ -175,6 +176,28 @@ public class JerrywebRestaurantPanel extends JPanel {
      * @param type indicates whether the person is a customer or waiter (later)
      * @param subRole name of person
      */
+    public static void addWaiter(JerrywebWaiterRole w){
+    	//JerrywebWaiterRole w = (JerrywebWaiterRole) role;
+		WaiterGui wg = new WaiterGui(w, gui, host);//may need to fix this
+		w.setGui(wg);
+		host.addWaiter(w);
+		w.setHost(host);
+		w.setCook(cook);
+    	w.setCashier(cashier);
+    	gui.animationPanel.addGui(wg);
+    }
+    
+    public static void addRSWaiter(JerrywebRSWaiterRole rsw){
+    	//JerrywebRSWaiterRole rsw = (JerrywebRSWaiterRole) role;
+		WaiterGui wg = new WaiterGui(rsw, gui, host);//may need to fix this
+		rsw.setGui(wg);
+		host.addWaiter(rsw);
+		rsw.setHost(host);
+		rsw.setCook(cook);
+    	rsw.setCashier(cashier);
+    	gui.animationPanel.addGui(wg);
+    }
+    
     public void addPerson(BaseRole role) {
 
     	if (role instanceof JerrywebCustomerRole) {
@@ -187,7 +210,7 @@ public class JerrywebRestaurantPanel extends JPanel {
     		c.setGui(g);
     		customers.add(c);
 
-    	}
+    	}/*
     	else if(role instanceof JerrywebWaiterRole){
     		sel++;
     		if((sel)%2 == 0){
@@ -211,8 +234,20 @@ public class JerrywebRestaurantPanel extends JPanel {
     			w.setCashier(cashier);
     			gui.animationPanel.addGui(wg);
     
-    		}
+    		}*/
+    	
+    	else if (role instanceof JerrywebHostRole){
+    		host = (JerrywebHostRole) role;
     	}
+    	
+       	else if (role instanceof JerrywebCookRole){
+    		cook = (JerrywebCookRole) role;
+    	}
+    	
+       	else if (role instanceof JerrywebCashierRole){
+    		cashier = (JerrywebCashierRole) role;
+    	}
+    	
     }
 
 }

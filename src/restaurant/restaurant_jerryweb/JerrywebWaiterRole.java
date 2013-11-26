@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent
@@ -58,9 +59,9 @@ public class JerrywebWaiterRole extends BaseRole implements Waiter {
 	private Semaphore servingFood = new Semaphore(semaphoreCerts,true);
 	public WaiterGui waiterGui = null;
 
-	public JerrywebWaiterRole(String name) {
-		super();
-		this.name = name;
+	public JerrywebWaiterRole(Person mPerson) {
+		super(mPerson);
+		this.name = mPerson.getName();
 
 	}
 

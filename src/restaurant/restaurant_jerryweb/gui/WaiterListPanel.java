@@ -138,7 +138,7 @@ public class WaiterListPanel extends JPanel implements ActionListener {
             }
             
             view.add(waiterList);
-            restPanel.addPerson(type, name);//puts waiter on list
+            //restPanel.addPerson(type, name);//puts waiter on list
             validate();
         }
     }
