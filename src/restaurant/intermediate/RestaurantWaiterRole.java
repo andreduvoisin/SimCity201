@@ -20,6 +20,7 @@ import base.interfaces.Role;
 
 public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInterface {
 
+	static int totalWaiters = 0;
 	Role subRole = null;
 	int restaurantID;
 
@@ -28,6 +29,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	}
 
 	public void setRestaurant(int restaurantID) {
+		if (totalWaiters < 1) {
 		switch(restaurantID){
 			case 0:
 				break;
@@ -66,7 +68,8 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 			case 7:
 				break;
 		}
-		
+		totalWaiters++;
+		}
 		// TODO DAVID add if statements for all the other restaurants
 
 	}

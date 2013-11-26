@@ -104,7 +104,11 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case TRANSPORTATION: break;
 			case HOUSING: break;
-			case NONE: break;
+			case NONE:
+				mJobRole = new RestaurantCustomerRole(this);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(3);
+				 break;
 		}
 		boolean active = (mTimeShift == Time.GetShift());
 		if (mJobRole != null){
@@ -127,7 +131,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new HousingRenterRole(this), false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
-		mRoles.put(new RestaurantCustomerRole(this), false);
+		
 	}
 	
 	private void initializePerson(){
@@ -158,9 +162,9 @@ public class PersonAgent extends Agent implements Person {
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
-		mEvents.add(new Event(EnumEventType.JOB, 0));
+		mEvents.add(new Event(EnumEventType.JOB, -1));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-		mEvents.add(new Event(EnumEventType.EAT, 1));
+//		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
 //		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
@@ -225,18 +229,17 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		// Do role actions
+		int numroles=0;
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
-				//print(iRole.toString());
+				System.out.println(++numroles +"active roles");
 				if (((BaseRole) iRole).getPerson() == null) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
-				else if(iRole == null){
-					return true; 
-				}
 				else if (iRole.pickAndExecuteAnAction()) {
-					System.out.println(iRole.toString() + "pAEA fired");
+					//System.out.println(iRole.toString() + "pAEA fired");
+					
 					return true;
 				}
 			}
@@ -262,7 +265,11 @@ public class PersonAgent extends Agent implements Person {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
-				goToJob(); //SHANE: 1 go to job
+//				if(mJobType == EnumJobType.NONE){
+//					eatFood(); //SHANE: 1 go to job
+//				}
+//				else {
+				goToJob();
 			}
 			mEvents.add(new Event(event, 24));
 		}
@@ -342,14 +349,15 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void goToJob() {
 
-		//print("goToJob");
-		mPersonGui.DoGoToDestination(mJobLocation);
-		acquireSemaphore(semAnimationDone);
+		print("goToJob");
+		//mPersonGui.DoGoToDestination(mJobLocation);
+		//acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
-		mPersonGui.setPresent(false);
+		//mPersonGui.setPresent(false);
 		
 		mJobRole.setPerson(this); //take over job role
 		mRoles.put(mJobRole, true); //set role to active
+		//System.out.println("job type is" +mJobRole.toString());
 	}
 
 	public void eatFood() {
@@ -367,9 +375,12 @@ public class PersonAgent extends Agent implements Person {
 			for (Role iRole : mRoles.keySet()){
 				if (iRole instanceof RestaurantCustomerRole){
 					restCustRole = iRole;
+					print("found cust role");
 				}
 			}
+			restCustRole.setPerson(this);
 			mRoles.put(restCustRole, true);
+			
 			
 			int restaurantChoice = 3; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 

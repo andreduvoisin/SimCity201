@@ -1,18 +1,12 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-
-import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
-
-
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
@@ -23,6 +17,8 @@ import base.interfaces.Role;
 
 public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseInterface {
 
+	static int totalCustomers = 0;
+	
 	Role subRole = null;
 	int restaurantID;
 
@@ -33,7 +29,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	public void setRestaurant(int restaurantID) {
 
 		// TODO ALL add if statements for all the other restaurants
-
+		if (totalCustomers < 1) {
 		switch(restaurantID){
 			case 0: //andre
 				subRole = new AndreCustomerRole(super.mPerson);
@@ -63,6 +59,8 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				break;
 
 		}
+		totalCustomers++;
+		}
 	}
 	
 	public void setPerson(Person person){
@@ -70,6 +68,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public boolean pickAndExecuteAnAction() {
+		print("generic pAEA called");
 		return subRole.pickAndExecuteAnAction();
 	}
 }

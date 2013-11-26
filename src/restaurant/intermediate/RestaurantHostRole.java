@@ -14,6 +14,7 @@ import base.interfaces.Role;
 
 public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterface {
 	
+	static int totalHosts = 0;
 	Role subRole = null;
 	int restaurantID;
 	
@@ -22,6 +23,7 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 	}
 	
 	public void setRestaurant(int restaurantID) {
+		if (totalHosts < 1) {
 		switch(restaurantID){
 			case 0: //andre
 				break;
@@ -43,6 +45,8 @@ public class RestaurantHostRole extends BaseRole implements RestaurantBaseInterf
 				break;
 			case 7: //rex
 				break;
+		}
+		totalHosts++;
 		}
 	}
 	
