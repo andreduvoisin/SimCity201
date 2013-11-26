@@ -14,6 +14,7 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant customer agent.
@@ -69,9 +70,9 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public AndreCustomerRole(String name){
-		super();
-		this.name = name;
+	public AndreCustomerRole(Person person) {
+		super(person);
+		this.name = person.getName();
 		amountOwed = 0.00;
 		money = 0.00;
 	}

@@ -65,11 +65,11 @@ public class ContactList {
 	
 	//setup job locations
 	static final Location cRESTAURANT_LOCATION1 = new Location(cGRID_POINT1,cGRID_POINT1); //aduvoisin	0
-	static final Location cRESTAURANT_LOCATION2 = new Location(cGRID_POINT1,cGRID_POINT3); //cwagoner		1
+	static final Location cRESTAURANT_LOCATION2 = new Location(cGRID_POINT1,cGRID_POINT3); //cwagoner	1
 	static final Location cRESTAURANT_LOCATION3 = new Location(cGRID_POINT1,cGRID_POINT5); //jerrywebb	2
 	static final Location cRESTAURANT_LOCATION4 = new Location(cGRID_POINT3,cGRID_POINT7); //maggiyang	3
-	static final Location cRESTAURANT_LOCATION5 = new Location(cGRID_POINT5,cGRID_POINT7); //davidmca		4
-	static final Location cRESTAURANT_LOCATION6 = new Location(cGRID_POINT7,cGRID_POINT5); //smileham		5
+	static final Location cRESTAURANT_LOCATION5 = new Location(cGRID_POINT5,cGRID_POINT7); //davidmca	4
+	static final Location cRESTAURANT_LOCATION6 = new Location(cGRID_POINT7,cGRID_POINT5); //smileham	5
 	static final Location cRESTAURANT_LOCATION7 = new Location(cGRID_POINT7,cGRID_POINT3); //tranac		6
 	static final Location cRESTAURANT_LOCATION8 = new Location(cGRID_POINT7,cGRID_POINT1); //xurex		7
 	static {

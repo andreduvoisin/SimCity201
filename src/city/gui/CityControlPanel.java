@@ -15,14 +15,12 @@ import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import city.gui.CityComponent.EnumCityComponents;
-
+@SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{
 	
 	SimCityGui city;
@@ -50,6 +48,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JPanel tab1 = new JPanel();
     JPanel tab2 = new JPanel();
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
 		this.city = city;
 		this.setPreferredSize(new Dimension(CP_WIDTH, CP_HEIGHT));
