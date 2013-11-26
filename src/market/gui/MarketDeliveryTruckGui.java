@@ -9,10 +9,9 @@ import market.interfaces.MarketDeliveryTruck;
 public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseGui {
 	private MarketDeliveryTruck mAgent;
 	
-	private String mDestination;
+	private int mDestinationRestaurant;
 	
 	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-20, yMarketBase = ContactList.cMARKET_LOCATION.mY;
-	//	private int xMarket = xMarketBase, yMarket = yMarketBase;
 	
 	private int xPos = xMarketBase, yPos = yMarketBase;
 	private int xDestination = xMarketBase, yDestination = yMarketBase;
@@ -46,7 +45,7 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
         		break;
         	}
         	case goToRestaurant: {
-        		mAgent.msgAnimationAtRestaurant(mDestination);
+        		mAgent.msgAnimationAtRestaurant(mDestinationRestaurant);
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -73,9 +72,9 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 		mCommand = EnumCommand.goToMarket;
 	}
 
-	public void DoGoToRestaurant(String r) {
+	public void DoGoToRestaurant(int n) {
 		//fill in;
-		mDestination = r;
+		mDestinationRestaurant = n;
 		//must consider parameters
 		//proper way to get to restaurant
 		//mCommand = EnumCommand.goToRestaurant;

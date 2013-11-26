@@ -31,7 +31,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         public Role subRole = null;
         int restaurantID;
-        int mRestaurantBankNumber;
+        int mRestaurantID;
         protected static int DEFAULT_FOOD_QTY = 5;
         
         public RestaurantCookRole(Person person){
@@ -48,7 +48,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         public void setRestaurant(int restaurantID) {
-            
+            mRestaurantID = restaurantID;
                 //TODO DAVID add if statements for all the other restaurants
         	switch(restaurantID){
 				case 0: //andre
@@ -172,6 +172,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
+                o.setRestaurantNumber(mRestaurantID);
                 mOrders.add(o);
         }
         
@@ -183,8 +184,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 i.mPayment = i.mTotal;
                 
                 //ANGELICA: HACK FOR UNIT TESTING
-                if(mRestaurantBankNumber > 0)
-                	ContactList.SendPayment(mRestaurantBankNumber, i.mMarketBankNumber, i.mPayment);
+               	ContactList.SendPayment(mPerson.getSSN(), i.mMarketBankNumber, i.mPayment);
                 
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
