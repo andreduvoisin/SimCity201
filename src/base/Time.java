@@ -52,7 +52,7 @@ public class Time {
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
-							iPerson.msgTimeShift();
+			//				iPerson.msgTimeShift();
 						}
 					}
 				}
