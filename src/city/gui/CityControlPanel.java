@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -19,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+
+import base.ConfigParser;
 
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{
@@ -29,7 +32,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	// Title & Pause Button
 	JLabel title = new JLabel("Control Panel");
-	JButton pauseButton = new JButton("Start SimCity201");
+	JButton startButton = new JButton("Start SimCity201");
 	
 	/* ANDRE JERRY No days of week - discuss w/Shane
 	// Select Day
@@ -67,11 +70,12 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		// Pause Button
 		Dimension pauseBtnDim = new Dimension(CP_WIDTH - 10, 30);
-		pauseButton.setPreferredSize(pauseBtnDim);
-		pauseButton.setMinimumSize(pauseBtnDim);
-		pauseButton.setMaximumSize(pauseBtnDim);
-		pauseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(pauseButton);
+		startButton.setPreferredSize(pauseBtnDim);
+		startButton.setMinimumSize(pauseBtnDim);
+		startButton.setMaximumSize(pauseBtnDim);
+		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		startButton.addActionListener(this);
+		add(startButton);
 		
 //		// Select Day
 //		dayTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -134,5 +138,15 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) { 
+		if (e.getSource() == startButton) {
+			System.out.println("clicked");
+			ConfigParser config = ConfigParser.getInstanceOf();
+			try {
+				config.readFileCreatePersons(city);
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			startButton.setEnabled(false);
+		}
 	}
 }
