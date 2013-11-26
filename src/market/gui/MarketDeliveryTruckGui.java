@@ -11,7 +11,7 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	
 	private int mDestinationRestaurant;
 	
-	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-20, yMarketBase = ContactList.cMARKET_LOCATION.mY;
+	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-35, yMarketBase = ContactList.cMARKET_LOCATION.mY-35;
 	
 	private int xPos = xMarketBase, yPos = yMarketBase;
 	private int xDestination = xMarketBase, yDestination = yMarketBase;
@@ -27,7 +27,7 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	}
 	
 	public void updatePosition() {
-        if (xPos < xDestination)
+     /*   if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
             xPos--;
@@ -36,21 +36,51 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
             yPos++;
         else if (yPos > yDestination)
             yPos--;
-        
+      */
+		//delivery truck can only move in 4 directions
+		//left road
+		if(xPos == ContactList.cGRID_POINT1-35) {
+			if(yPos < yDestination)
+				yPos++;
+			else if(yPos > yDestination)
+				yPos--;
+		}
+		//right road
+		if(xPos == ContactList.cGRID_POINT7+35) {
+			if(yPos < yDestination)
+				yPos++;
+			else if(yPos > yDestination)
+				yPos--;
+		}
+		//top road
+		if(yPos == ContactList.cGRID_POINT1-35) {
+			if(xPos < xDestination)
+				xPos++;
+			else if(xPos > xDestination)
+				xPos--;
+		}
+		//bottom road
+		if(yPos == ContactList.cGRID_POINT7+35) {
+			if(xPos < xDestination)
+				xPos++;
+			else if(xPos > xDestination)
+				xPos--;
+		}
+		
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToMarket: {
-        		mAgent.msgAnimationAtMarket();
+   //     		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToRestaurant: {
-        		mAgent.msgAnimationAtRestaurant(mDestinationRestaurant);
+  //      		mAgent.msgAnimationAtRestaurant(mDestinationRestaurant);
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftMarket();
+    //    		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
