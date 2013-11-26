@@ -4,7 +4,6 @@ package restaurant.restaurant_maggiyan.test.mock;
 import java.util.Map;
 
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCookRole;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 
@@ -24,14 +23,16 @@ public class MockMarket extends Mock implements MaggiyanMarket {
 	}
 
 	@Override
-	public void msgRequestItems(MaggiyanCook c, Map<String, Integer> itemRequest) {
-		// TODO Auto-generated method stub
+	public void msgHereIsPayment(Double total) {
+		log.add(new LoggedEvent("Received msgHereIsPayment of: " + total)); 
 		
 	}
 
 	@Override
-	public void msgHereIsPayment(Double total) {
-		log.add(new LoggedEvent("Received msgHereIsPayment of: " + total)); 
+	public void msgRequestItems(
+			restaurant.restaurant_maggiyan.roles.MaggiyanCook c,
+			Map<String, Integer> itemRequest) {
+		// TODO Auto-generated method stub
 		
 	}
 

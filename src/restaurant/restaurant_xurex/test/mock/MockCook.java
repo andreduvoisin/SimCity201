@@ -3,6 +3,7 @@ package restaurant.restaurant_xurex.test.mock;
 
 import java.util.Map;
 
+import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
@@ -59,12 +60,6 @@ public class MockCook extends Mock implements Cook {
 	}
 
 	@Override
-	public void setGui(RexRestaurantGui gui) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void msgAtLocation() {
 		// TODO Auto-generated method stub
 		
@@ -78,6 +73,12 @@ public class MockCook extends Mock implements Cook {
 	@Override
 	public void addToStand(Waiter w, String choice, int table) {
 		log.add(new LoggedEvent("addToStand: "+choice+" "+table));
+	}
+
+	@Override
+	public void setGui(CookGui cookGui) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

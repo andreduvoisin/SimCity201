@@ -39,12 +39,6 @@ public class MockCook extends Mock implements Cook {
 	}
 
 	@Override
-	public void addMarket(MarketAgent mkt) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void msgHereIsAnOrder(Waiter w, String choice, Table t) {
 		// TODO Auto-generated method stub
 		
@@ -54,18 +48,6 @@ public class MockCook extends Mock implements Cook {
 	public void msgDoneAnimating() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void msgOrderFullFillment(Market mkt, List<Stock> recieved) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Collection<MarketAgent> getMarketList() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

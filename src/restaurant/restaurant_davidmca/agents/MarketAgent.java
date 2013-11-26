@@ -144,7 +144,7 @@ public class MarketAgent extends Agent implements Market {
 		if (total > 0) {
 			cashier.msgHereIsInvoice(this, total);
 		}
-		thisOrder.cook.msgOrderFullFillment(this, thisOrder.stock);
+		//thisOrder.cook.msgOrderFullFillment(this, thisOrder.stock);
 		pendingOrders.remove(thisOrder);
 	}
 

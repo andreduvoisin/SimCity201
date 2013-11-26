@@ -27,7 +27,7 @@ public class WaiterRevolvingStandTest extends TestCase {
 		cashier = new JerrywebCashierRole("cashier");
 		mCustomer = new MockCustomer("mock customer");
 		rsWaiter = new JerrywebRSWaiterRole("rs waiter");
-		cook = new JerrywebCookRole("cook");
+		cook = new JerrywebCookRole();
 		host = new JerrywebHostRole("host");
 		waiterGui = new WaiterGui(rsWaiter, gui, host);
 	}

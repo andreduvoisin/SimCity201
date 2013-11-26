@@ -239,7 +239,7 @@ public class CookRole extends Agent {
 		//print("my inventory " + foodMap.foodMap.get("steak").amount)
 		for(int i = 0; i <4; i++){
 			if(foodMap.get(m.menuItems.get(i)).amount <= foodMap.get(m.menuItems.get(i)).low){
-				markets.get(selection).msgGiveMeOrder(m.menuItems.get(i), foodMap);
+				//markets.get(selection).msgGiveMeOrder(m.menuItems.get(i), foodMap);
 				break;
 			}
 
@@ -253,7 +253,7 @@ public class CookRole extends Agent {
 	public void OrderFood(int x){
 		if(!orderSent){
 			orderSent = true;
-			markets.get(selection).msgGiveMeOrder(Orders.get(x).choice, foodMap);
+			//markets.get(selection).msgGiveMeOrder(Orders.get(x).choice, foodMap);
 			Orders.get(x).s = OrderState.restocking;
 		//Orders.remove(x);
 			//print("Ordering food");

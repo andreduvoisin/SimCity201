@@ -34,8 +34,8 @@ public class MarketRole extends Agent implements Market {
 		String name;
 		double cost;
 		
-		Map<String,CookRole.Food> cookInventory;
-		public Order(String nm,Map<String, CookRole.Food> foodMap, OrderState orderS, double price){
+		Map<String,JerrywebCookRole.Food> cookInventory;
+		public Order(String nm,Map<String, JerrywebCookRole.Food> foodMap, OrderState orderS, double price){
 			cookInventory = foodMap;
 			
 			name = nm;
@@ -95,7 +95,7 @@ public class MarketRole extends Agent implements Market {
 	}
 	// Messages
 	
-	public void msgGiveMeOrder(String choice, Map<String, CookRole.Food> foodMap){
+	public void msgGiveMeOrder(String choice, Map<String, JerrywebCookRole.Food> foodMap){
 		//print("Ok cook here is your order.");
 		restockOrder.add(new Order(choice, foodMap, OrderState.pending,0));
 		stateChanged();
@@ -223,7 +223,7 @@ public class MarketRole extends Agent implements Market {
 					stateChanged();
 			}
 		}
-		cook.msgHereIsOrder(order.name, order.cookInventory);
+		//cook.msgHereIsOrder(order.name, order.cookInventory);
 		cashier.msgPayMarket(this, order.cost, x);
 		order.s = OrderState.sent;
 		stateChanged();

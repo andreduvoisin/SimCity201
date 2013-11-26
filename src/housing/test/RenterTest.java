@@ -1,5 +1,6 @@
 package housing.test;
 
+import city.gui.CityHousing;
 import test.mock.MockPerson;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
@@ -27,7 +28,7 @@ public class RenterTest extends TestCase {
 	Person mPerson;
 	HousingRenterRole mHousingRenter;
 	MockLandlord mHousingLandlord;
-	House mHouse1;
+	CityHousing mHouse1;
 	MockPerson mMockPerson; 
 	MockMasterTellerRole mMockMasterTeller; 
 

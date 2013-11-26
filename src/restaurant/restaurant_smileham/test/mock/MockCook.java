@@ -17,16 +17,6 @@ public class MockCook extends Mock implements SmilehamCook{
 	}
 
 	@Override
-	public void msgOrderResponse(EnumFoodOptions food, int newIncomingAmount) {
-		
-	}
-
-	@Override
-	public void msgOrderFulfillment(EnumFoodOptions food, int amountArrived) {
-		
-	}
-
-	@Override
 	public boolean pickAndExecuteAnAction() {
 		return false;
 	}

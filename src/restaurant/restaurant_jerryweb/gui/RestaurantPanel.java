@@ -30,7 +30,7 @@ public class RestaurantPanel extends JPanel {
 	int sel = 0;
     //Host, cook, waiters and customers
     private HostRole host = new HostRole("Sarah");
-    private HostGui hostGui = new HostGui(host);
+    //private HostGui hostGui = new HostGui(host);
 
     
     private CookRole cook = new CookRole("Bob Sagget");
@@ -40,8 +40,8 @@ public class RestaurantPanel extends JPanel {
     private Vector<Waiter> waiters = new Vector<Waiter>();
     
     private JPanel restLabel = new JPanel();
-    private ListPanel customerPanel = new ListPanel(this, "Customers");
-    private WaiterListPanel WaiterPanel = new WaiterListPanel(this, "Waiters");
+    private ListPanel customerPanel;// = new ListPanel(this, "Customers");
+    private WaiterListPanel WaiterPanel;// = new WaiterListPanel(this, "Waiters");
     private JPanel group = new JPanel();
     private JPanel group2 = new JPanel();
 
@@ -49,9 +49,9 @@ public class RestaurantPanel extends JPanel {
     
     public RestaurantPanel(JerrywebRestaurantGui gui) {
         this.gui = gui;
-        host.setGui(hostGui);
+        //host.setGui(hostGui);
 
-        gui.animationPanel.addGui(hostGui);
+        //gui.animationPanel.addGui(hostGui);
         host.startThread();
         
         for(int i=0;i<3; i++){
@@ -171,13 +171,13 @@ public class RestaurantPanel extends JPanel {
 
     	if (type.equals("Customers")) {
     		CustomerRole c = new CustomerRole(name);	
-    		CustomerGui g = new CustomerGui(c, gui);
+    		//CustomerGui g = new CustomerGui(c, gui);
 
-    		gui.animationPanel.addGui(g);// dw
+    		//gui.animationPanel.addGui(g);// dw
     		c.setHost(host);
     		c.setCashier(cashier);
     		//c.setWaiter(waiter);
-    		c.setGui(g);
+    		//c.setGui(g);
     		customers.add(c);
     		c.startThread();
     	}
@@ -185,25 +185,25 @@ public class RestaurantPanel extends JPanel {
     		sel++;
     		if((sel)%2 == 0){
     			RSWaiterRole rsw = new RSWaiterRole(name);
-    			WaiterGui wg = new WaiterGui(rsw, gui, host);//may need to fix this
-    			rsw.setGui(wg);
+    			//WaiterGui wg = new WaiterGui(rsw, gui, host);//may need to fix this
+    			//rsw.setGui(wg);
     			host.addWaiter(rsw);//hack to add one waiter
     			rsw.setHost(host);
     			rsw.setCook(cook);
             	rsw.setCashier(cashier);
-            	gui.animationPanel.addGui(wg);
+            	//gui.animationPanel.addGui(wg);
             	rsw.startThread();
             	
     		}
     		else{ 
     			WaiterRole w = new WaiterRole(name);
-    			WaiterGui wg = new WaiterGui(w, gui, host);//may need to fix this
-    			w.setGui(wg);
+    			//WaiterGui wg = new WaiterGui(w, gui, host);//may need to fix this
+    			//w.setGui(wg);
     			host.addWaiter(w);//hack to add one waiter
     			w.setHost(host);
     			w.setCook(cook);
     			w.setCashier(cashier);
-    			gui.animationPanel.addGui(wg);
+    			//gui.animationPanel.addGui(wg);
     			w.startThread();
     		}
     	}
