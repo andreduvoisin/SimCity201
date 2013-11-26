@@ -61,49 +61,12 @@ public class MaggiyanRestaurantPanel extends JPanel {
 //        market2.setCashier(cashier); 
 //        market3.setCashier(cashier); 
         
+        
         cook.setGui(cookGui); 
         gui.animationPanel.addGui(cookGui);
         
-        //TEST(); 
     }
-    
-    public void TEST(){
-    	
-    	//People
-    	PersonAgent host = new PersonAgent(EnumJobType.RESTAURANT, 1000.00, "Maggi Host"); 
-    	PersonAgent customer = new PersonAgent(EnumJobType.RESTAURANT, 400.00, "Maggi Customer");
-    	PersonAgent cook = new PersonAgent(EnumJobType.RESTAURANT, 300.00, "Maggi Cook");
-    	PersonAgent waiter = new PersonAgent(EnumJobType.RESTAURANT, 300.00, "Maggi Waiter");
-    	PersonAgent cashier = new PersonAgent(EnumJobType.RESTAURANT, 800.00, "Maggi Cashier");
-    	
-    	//Roles 
-    	MaggiyanHostRole hostRole = new MaggiyanHostRole(host); 
-    	MaggiyanCustomerRole custRole = new MaggiyanCustomerRole(customer); 
-    	MaggiyanCookRole cookRole = new MaggiyanCookRole(cook); 
-    	MaggiyanWaiterRole waiterRole = new MaggiyanWaiterRole(waiter, cookRole, hostRole); 
-    	MaggiyanCashierRole cashierRole = new MaggiyanCashierRole(cashier); 
-    	
-    	
-    	//Guis
-    	MaggiyanCustomerGui custgui = new MaggiyanCustomerGui(custRole, gui); 
-    	MaggiyanWaiterGui waitergui = new MaggiyanWaiterGui(waiterRole, gui); 
-    	MaggiyanCookGui cookgui = new MaggiyanCookGui(cookRole);
-    	
-    	//Preliminary setters
-    	customer.addRole(custRole, true);
-    	gui.animationPanel.addGui(custgui);
-    	custRole.setHost(hostRole);
-    	custRole.setCashier(cashierRole); 
-    	custRole.setGui(custgui);
-    	customers.add(custRole); 
-    	custgui.DoGoToFrontOfLine();
-    	
-    	//Restaurant simulation
-    	custRole.gotHungry();
-    	hostRole.msgIWantFood(custRole);
-    	hostRole.msgIAmHere(waiterRole);
-    	
-    }
+  
     
     public static MaggiyanRestaurantPanel getRestPanel(){
     	return me; 
@@ -184,6 +147,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 		
 		gui.animationPanel.addGui(waiterGui);
 		w.setHost(host); 
+		w.setCook(cook);
 		w.setCashier(cashier); 
 		w.setGui(waiterGui);
 		waiters.add(w);
@@ -197,6 +161,7 @@ public class MaggiyanRestaurantPanel extends JPanel {
 		
 		gui.animationPanel.addGui(waiterGui);
 		w.setHost(host); 
+		w.setCook(cook);
 		w.setCashier(cashier); 
 		w.setGui(waiterGui);
 		waiters.add(w);

@@ -80,6 +80,15 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		this.setGui(gui);
 		animationPanel.addGui(gui);
 	}
+	
+	public RexCustomerRole(RexAnimationPanel animationPanel, RexHostRole host){
+		super();
+		this.host = host;
+		CustomerGui gui = new CustomerGui(this, animationPanel);
+		gui.setRole(this);
+		this.setGui(gui);
+		animationPanel.addGui(gui);
+	}
 
 	/**
 	 * Hack to establish connection to initial agents
@@ -228,6 +237,8 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		Do("goToRestaurant called");
 	}
 	private void StayOrNot() {
+		host.IWillWait(this);
+		/*
 		int stay = generator.nextInt(2);
 		if(stay==1){
 			host.IWillWait(this);
@@ -242,6 +253,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 				}
 			}, 1000);
 		}
+		*/
 	}
 	private void SitDown() {
 		customerGui.DoGoToSeat(table);
@@ -357,6 +369,9 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	}
 	public void SetChoice(String choice){
 		this.choice = choice;
+	}
+	public void setHost(RexHostRole host){
+		this.host = host;
 	}
 }
 

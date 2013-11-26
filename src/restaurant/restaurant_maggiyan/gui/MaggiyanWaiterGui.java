@@ -21,11 +21,11 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     private int xDestination = xHome, yDestination = yHome;//default start position
     private int prevXPos, prevYPos; 
     
-    public static final int xTable = 200;
-    public static final int yTable = 250;
+    public static final int xTable = 50;
+    public static final int yTable = 175;
     
-    public final int xKitchen = 540;
-    public final int yKitchen = 300; 
+    public final int xKitchen = 275;
+    public final int yKitchen = 275; 
     
     public final int xBreak = -30;
     public final int yBreak = -40; 
@@ -94,9 +94,9 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
         			if(xPos != prevXPos){
         				prevXPos = xPos;
         				prevYPos = yPos;
-                		System.out.println("Release animation"); 
+                		
                 		agent.msgAnimationReady(); 
-                		System.out.println("After DKLS:FSDF Release animation"); 
+                		
                 	}
         		}
         		else if((xDestination == tableXCoord[currentTable] + 20) & (yDestination == yTable - 20)) 
@@ -132,8 +132,6 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
         g.setColor(Color.MAGENTA);
         g.fillRect(xPos, yPos, 20, 20);
         g.drawString(customerOrder, xPos, yPos-15);
-        updatePosition();
-        updatePosition();
         
     }
 

@@ -77,9 +77,14 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				RestaurantPanel_at.getInstance().addWaiter((RestaurantWaiterRole_at)subRole);
 				break;
 			case 7: //rex
-				subRole = new RexWaiterRole1(RexAnimationPanel.getInstance());
+				RexWaiterRole1 temp = new RexWaiterRole1(RexAnimationPanel.getInstance());
+				temp.setHost(RexAnimationPanel.getHost());
+				temp.setCook(RexAnimationPanel.getCook());
+				temp.setCashier(RexAnimationPanel.getCashier());
+				subRole = temp;
 				subRole.setPerson(super.mPerson);
 				RexAnimationPanel.addPerson((RexWaiterRole1)subRole);
+				//adds to host waiter list in addPerson
 				break;
 		}
 		// TODO DAVID add if statements for all the other restaurants

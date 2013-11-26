@@ -12,6 +12,9 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private Waiter role = null;
     RexAnimationPanel animationPanel;
     
+    private static int sNum = 0;
+    private int mNum;
+    
     private boolean msgSent = true;
     private static final int waiterDim = 10;
     
@@ -40,8 +43,9 @@ public class WaiterGui implements Gui, WaiterGui_ {
 		places.put(new Integer(10), new Point(100,250));//serve5
 		places.put(new Integer(11), new Point(25,50));   ///cashier
 		
+		mNum = sNum++;
 		//Creates unique position for WaiterGui
-		xBase = 200 + role.getNumber()*30;
+		xBase = 200 + mNum;
     }
 
     public void updatePosition() {
