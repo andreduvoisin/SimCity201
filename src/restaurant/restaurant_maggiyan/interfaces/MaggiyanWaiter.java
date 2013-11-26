@@ -56,6 +56,8 @@ public interface MaggiyanWaiter {
 	public void msgWaiterFree();
 
 	public MaggiyanWaiterGui getGui();
+	
+	public void setHost(MaggiyanHost h); 
 
 
 }

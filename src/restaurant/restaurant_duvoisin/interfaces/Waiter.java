@@ -20,4 +20,5 @@ public interface Waiter {
 	public abstract void msgAtCustomer();
 	public abstract void msgAtCook();
 	public abstract void msgAtCashier();
+	public abstract boolean pickAndExecuteAnAction();
 }

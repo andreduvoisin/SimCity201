@@ -13,8 +13,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-//import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
-//import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
@@ -29,7 +28,10 @@ import base.interfaces.Role;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
+        static int totalCooks = 0;
+        
         public Role subRole = null;
+
         int restaurantID;
         int mRestaurantID;
         protected static int DEFAULT_FOOD_QTY = 5;
@@ -49,9 +51,12 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         public void setRestaurant(int restaurantID) {
             mRestaurantID = restaurantID;
+
                 //TODO DAVID add if statements for all the other restaurants
         	switch(restaurantID){
 				case 0: //andre
+					subRole = AndreRestaurantPanel.getInstance().cook;
+					subRole.setPerson(super.mPerson);
 					break;
 				case 1: //chase
 					break;
@@ -82,8 +87,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					RexAnimationPanel.addPerson((RexCookRole)subRole);
 					break;
 			}
-
-        }
+       }
         
         public void setPerson(Person person){
                 super.mPerson = person;

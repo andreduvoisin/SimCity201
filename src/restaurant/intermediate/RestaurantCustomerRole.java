@@ -19,6 +19,8 @@ import base.interfaces.Role;
 
 public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseInterface {
 
+	static int totalCustomers = 0;
+	
 	Role subRole = null;
 	int restaurantID;
 
@@ -27,6 +29,8 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public void setRestaurant(int restaurantID) {
+
+		// TODO ALL add if statements for all the other restaurants
 
 		switch(restaurantID){
 			case 0: //andre
@@ -70,6 +74,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	}
 
 	public boolean pickAndExecuteAnAction() {
+		print("generic pAEA called");
 		return subRole.pickAndExecuteAnAction();
 	}
 }

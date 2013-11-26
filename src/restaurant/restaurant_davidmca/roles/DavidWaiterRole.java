@@ -16,7 +16,6 @@ import restaurant.restaurant_davidmca.gui.WaiterGui;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import base.Agent;
 import base.BaseRole;
 import base.interfaces.Person;
 
@@ -35,6 +34,18 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 	private Semaphore isOnBreak = new Semaphore(1, true);
 	private boolean breakRequested;
 	private boolean breakResponse;
+	
+	public void acquireAnimationSemaphore() {
+		try {
+			isAnimating.acquire();
+			System.out.println("isAnimating acquired in DavidWaiterRole");
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+//		if (isAnimating.availablePermits() == 0) {
+//			isAnimating.release();
+//		}
+	}
 
 	@Override
 	public boolean isOnBreak() {
@@ -210,6 +221,7 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 	@Override
 	public void msgDoneAnimating() {
 		isAnimating.release();
+		System.out.println("DavidWaiterRole - isAnimatingReleased in msgDoneAnimating");
 	}
 
 	/**
@@ -288,11 +300,7 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 			return true;
 		}
 		waiterGui.DoGoToFront();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		return false;
 	}
 
@@ -310,11 +318,7 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 		myc.state = CustomerState.GotCheck;
 		print("Delivering check");
 		waiterGui.DoGoToTable(myc.t);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		Check thischk = null;
 		synchronized(pendingChecks) {
 			for (Check chk: pendingChecks) {
@@ -329,19 +333,14 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 
 	private void FollowMe(MyCustomer myc) {
 		print("Follow me");
+//		System.out.println("numPermits before animation " + isAnimating.availablePermits());
+//		acquireAnimationSemaphore();
 		waiterGui.DoGoToCustomer(myc.loc);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		System.out.println("numPermits after animation " + isAnimating.availablePermits());
+		acquireAnimationSemaphore();
 		waiterGui.DoGoToTable(myc.t);
+		acquireAnimationSemaphore();
 		myc.c.msgFollowMe(this, myc.t);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		myc.state = CustomerState.Seated;
 	}
 
@@ -353,12 +352,7 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 
 	private void TakeABreak() {
 		waiterGui.DoGoToFront();
-		try {
-			isAnimating.acquire();
-			isOnBreak.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		print("Taking a break");
 		final Waiter self = this;
 		timer.schedule(new TimerTask() {
@@ -373,11 +367,7 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 	private void WhatWouldYouLike(MyCustomer myc) {
 		print("What Would You Like?");
 		waiterGui.DoGoToTable(myc.t);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		myc.c.msgWhatWouldYouLike(new Menu());
 		myc.state = CustomerState.Ordering;
 	}
@@ -388,41 +378,24 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 		revisedMenu.removeItem(myc.choice);
 		revisedMenu.setReOrder();
 		waiterGui.DoGoToTable(myc.t);
-		;
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		myc.c.msgWhatWouldYouLike(revisedMenu);
 		myc.state = CustomerState.Ordering;
 	}
 
 	private void HereIsAnOrder(MyCustomer myc) {
 		waiterGui.DoGoToKitchen();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		myc.state = CustomerState.WaitingForFood;
 		host.cook.msgHereIsAnOrder(this, myc.choice, myc.t);
 	}
 
 	private void HereIsYourOrder(MyCustomer myc) {
 		waiterGui.DoGoToKitchen();
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		waiterGui.setLabelText(myc.choice);
 		waiterGui.DoGoToTable(myc.t);
-		try {
-			isAnimating.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		acquireAnimationSemaphore();
 		myc.c.msgHereIsYourOrder();
 		myc.state = CustomerState.Eating;
 		waiterGui.setLabelText("");

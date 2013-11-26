@@ -50,13 +50,15 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Order> rStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
-	public MaggiyanCookRole(String n){
-		
-	}
-	
+
 	public MaggiyanCookRole(Person p){
 		super(p);
-		this.n = p.getName();
+		if(p == null){
+			this.n = "Null cook"; 
+		}
+		else{
+			this.n = p.getName();
+		}
 		
 		Food steak = new Food("Steak", inventoryLOW, foodCookingTime* 50);
 		Food chicken = new Food("Chicken", maxFoodQty, foodCookingTime*75);

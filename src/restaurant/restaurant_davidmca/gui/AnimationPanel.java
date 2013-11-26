@@ -30,6 +30,12 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint(); // Will have paintComponent called
+		for (Gui gui : guis) {
+			if (gui.isPresent()) {
+				gui.updatePosition();
+			}
+		}
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -38,12 +44,6 @@ public class AnimationPanel extends JPanel implements ActionListener {
 		// Clear the screen by painting a rectangle the size of the frame
 		g2.setColor(getBackground());
 		g2.fillRect(0, 0, WINDOWX, WINDOWY);
-
-		for (Gui gui : guis) {
-			if (gui.isPresent()) {
-				gui.updatePosition();
-			}
-		}
 
 		for (Gui gui : guis) {
 			if (gui.isPresent()) {
