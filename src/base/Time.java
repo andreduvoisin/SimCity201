@@ -15,7 +15,7 @@ public class Time {
 	public static int sGlobalShift = 0;
 	public static int sGlobalDate = 0;
 	
-	public final static int cSYSCLK = 20;
+	public final static int cSYSCLK = 200;
 	
 	static boolean sFastForward = false;
 	

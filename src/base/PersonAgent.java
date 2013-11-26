@@ -407,8 +407,10 @@ public class PersonAgent extends Agent implements Person {
 	public void goToJob() {
 		System.out.println("Going to Job");
 		if (mJobLocation != null){
+			System.out.println("yes");
 			mPersonGui.DoGoToDestination(mJobLocation);
 		}else{
+			System.out.println("no");
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(SimCityGui.TESTNUM));
 		}
 		acquireSemaphore(semAnimationDone);
