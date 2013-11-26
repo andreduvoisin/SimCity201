@@ -27,18 +27,17 @@ public class ConfigParser {
 			
 			//Job
 			String jobString = scanPerson.next();
-			EnumJobType jobType = null;
-			if (jobString.equals("BANK")) {
-				jobType = EnumJobType.BANK;
-			}
-			if (jobString.equals("RESTAURANT")) {
-				jobType = EnumJobType.RESTAURANT;
-			}
-			if (jobString.equals("NONE")) {
-				jobType = EnumJobType.NONE;
-			}
-			//EnumJobType jobType = EnumJobType.valueOf(jobString);	
-			
+//			EnumJobType jobType = null;
+//			if (jobString.equals("BANK")) {
+//				jobType = EnumJobType.BANK;
+//			}
+//			if (jobString.equals("RESTAURANT")) {
+//				jobType = EnumJobType.RESTAURANT;
+//			}
+//			if (jobString.equals("NONE")) {
+//				jobType = EnumJobType.NONE;
+//			}
+			EnumJobType jobType = EnumJobType.valueOf(jobString);
 
 			//Cash
 			String cashString = scanPerson.next();
@@ -46,6 +45,10 @@ public class ConfigParser {
 			
 			//Name
 			String name = scanPerson.next();
+			
+			//Scenario
+//			String scenarioString = scanPerson.next();
+//			EnumScenarioType scenarioType = EnumScenarioType.valueOf(scenarioString);
 			
 			//Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
