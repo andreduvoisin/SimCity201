@@ -13,6 +13,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 //import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -53,6 +54,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 1: //chase
 					break;
 				case 2: //jerry
+					subRole = JerrywebRestaurantPanel.getInstance().cook;
+					subRole.setPerson(super.mPerson);
 					break;
 				case 3: //maggi
 					 subRole = MaggiyanRestaurantPanel.getRestPanel().cook;

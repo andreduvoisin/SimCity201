@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import restaurant.restaurant_jerryweb.CookRole.Food;
-import restaurant.restaurant_jerryweb.CookRole.Order;
-import restaurant.restaurant_jerryweb.CookRole.OrderState;
-import restaurant.restaurant_jerryweb.MarketRole;
+import restaurant.restaurant_jerryweb.JerrywebCookRole.Food;
+import restaurant.restaurant_jerryweb.JerrywebCookRole.Order;
+import restaurant.restaurant_jerryweb.JerrywebCookRole.OrderState;
+import restaurant.restaurant_jerryweb.JerrywebMarketRole;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
 import restaurant.restaurant_jerryweb.interfaces.Cook;
 import restaurant.restaurant_jerryweb.interfaces.Market;
@@ -24,7 +24,7 @@ public class MockCook extends Mock implements Cook {
 		super(name);
 	}
 	
-	public void msgOutOfStock(MarketRole market, String choice){
+	public void msgOutOfStock(JerrywebMarketRole market, String choice){
 		log.add(new LoggedEvent("Market: " + market.getName() + " has sent the outOfStock message for " + choice));
 	}
 	
