@@ -324,12 +324,15 @@ public class PersonAgent extends Agent implements Person {
 			respondToRSVP(); //SHANE: 1 respond to rsvp (same)
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
-			throwParty((EventParty)event); //SHANE: 1 throw party
+			throwParty((EventParty)event);
+			planParty(Time.GetTime()+24);
+			/*
 			int inviteNextDelay = 24*mSSN;
 			EventParty party = (EventParty) event;
 			mEvents.add(new EventParty(party, inviteNextDelay + 2));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
 			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
+			*/
 			//SHANE: 3 check event classes
 		}
 		
@@ -436,6 +439,12 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//REX SHANE: add customerRole and gui to bank animation panel
+	}
+	
+	private void planParty(int time){
+		mEvents.add(new Event(EnumEventType.INVITE1, time));
+		mEvents.add(new Event(EnumEventType.INVITE2, time+4));
+		mEvents.add(new Event(EnumEventType.PARTY,   time+32));
 	}
 
 	private void throwParty(EventParty event) {
