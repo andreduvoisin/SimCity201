@@ -1,6 +1,7 @@
 package housing.test;
 
 import city.gui.CityHousing;
+import city.gui.SimCityGui;
 import test.mock.MockPerson;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
@@ -29,8 +30,10 @@ public class RenterTest extends TestCase {
 	HousingRenterRole mHousingRenter;
 	MockLandlord mHousingLandlord;
 	CityHousing mHouse1;
+	CityHousing mHouse2; 
 	MockPerson mMockPerson; 
 	MockMasterTellerRole mMockMasterTeller; 
+	SimCityGui city; 
 
 
 	/**
@@ -56,7 +59,10 @@ public class RenterTest extends TestCase {
 		ContactList.sRoleLocations.put(mMockMasterTeller, new Location(10,10)); 
 		
 		//Houses
-		//mHouse1 = new CityHousing(10, 10, 300.00); 
+		mHouse1 = new CityHousing(city, 10, 10, 1, 300.00);
+		mHouse2 = new CityHousing(city, 20, 20, 2, 200.00);
+		mHousingLandlord.mHousesList.add(mHouse1);
+		mHousingLandlord.mHousesList.add(mHouse2);
 	}
 	
 	public void testRenterObtainsHousing()
@@ -116,7 +122,7 @@ public class RenterTest extends TestCase {
 		assertEquals("HousingRenter has no bills", mHousingRenter.mBills.size(), 0); 
 		assertEquals("HousingRenter should have House", mHousingRenter.mHouse, mHouse1); 
 		
-		//HousingLandlord sends housing application denied message 
+		//HousingLandlord sends rent due 
 		mHousingRenter.msgRentDue(3, 300.00);
 		
 		//Check
