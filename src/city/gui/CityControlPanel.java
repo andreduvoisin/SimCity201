@@ -123,14 +123,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
         //tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		
         //Add Buttons
-		addRestaurant = new JButton("Add Restaurant");
-		addRestaurant.addActionListener(this);
-		addRestaurant.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(addRestaurant);
-		addBank = new JButton("Add Bank");
-		addBank.addActionListener(this);
-		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(addBank);	
+//		addRestaurant = new JButton("Add Restaurant");
+//		addRestaurant.addActionListener(this);
+//		addRestaurant.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		add(addRestaurant);
+//		addBank = new JButton("Add Bank");
+//		addBank.addActionListener(this);
+//		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		add(addBank);	
 	}
 	
 	public void actionPerformed(ActionEvent e) { 

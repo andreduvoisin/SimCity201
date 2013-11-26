@@ -132,7 +132,6 @@ public class DavidRestaurantPanel extends JPanel {
 	public void addCustomer(DavidCustomerRole cust) {
 			CustomerGui g = new CustomerGui(cust, gui, customerCount);
 			customerCount++;
-			System.out.println(customerCount);
 			gui.animationPanel.addGui(g);
 			cust.setHost(host);
 			cust.setCashier(cash);

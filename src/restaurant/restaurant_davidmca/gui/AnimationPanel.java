@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -16,7 +17,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
-	private List<Gui> guis = new ArrayList<Gui>();
+	private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
 
 	public AnimationPanel() {
 		setSize(WINDOWX, WINDOWY);
@@ -30,12 +31,13 @@ public class AnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint(); // Will have paintComponent called
-		for (Gui gui : guis) {
-			if (gui.isPresent()) {
-				gui.updatePosition();
+		synchronized (guis) {
+			for (Gui gui : guis) {
+				if (gui.isPresent()) {
+					gui.updatePosition();
+				}
 			}
 		}
-
 	}
 
 	public void paintComponent(Graphics g) {

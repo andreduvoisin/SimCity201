@@ -68,7 +68,9 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 	boolean timeToCheckRevolvingStand = false;
 	TimerTask standTimerTask = new TimerTask() {
 		public void run() {
-			stateChanged();
+			if (mPerson != null) {
+				stateChanged();
+			}
 		}
 	};
 
