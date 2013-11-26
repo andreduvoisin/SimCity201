@@ -128,7 +128,7 @@ public class CashierRole extends Agent implements Cashier {
 	}
 	
 	public void msgPayMarket(Market market, double total, int billNumber){
-		print("" + market.getName() + " wants me to pay " + total);
+		//print("" + market.getName() + " wants me to pay " + total);
 		MarketBills.add(new MarketBill(market, total, mBillState.OutStanding, billNumber));
 		stateChanged();
 	}
@@ -138,7 +138,7 @@ public class CashierRole extends Agent implements Cashier {
 		for(int i =0; i < MarketBills.size(); i++){
 			if(MarketBills.get(i).market == market){
 				MarketBills.get(i).s = mBillState.Paid;
-				print("Bill " + MarketBills.get(i).billNumber + " from market " + market.getName() + " has been paid.");
+				//print("Bill " + MarketBills.get(i).billNumber + " from market " + market.getName() + " has been paid.");
 				stateChanged();
 			}
 		}
@@ -189,19 +189,19 @@ public class CashierRole extends Agent implements Cashier {
 	public void Compute(Order order){
 		order.w.msgHereIsBill(order.c, foodMap.get(order.choice).cost);
 		order.s = OrderState.waitingForPayment;
-		print("bill : " + order.c.getName() + " computed");
+		//print("bill : " + order.c.getName() + " computed");
 		//stateChanged();
 	}
 	
 	public void makeChange(Order order, int x){
-		print("order.payment = " + order.payment);
+		//print("order.payment = " + order.payment);
 		change = order.payment - foodMap.get(order.choice).cost;
 		if(order.payment < foodMap.get(order.choice).cost){
 			money = money + order.payment;
 		}
 		else{money = money + (order.payment - change);}
 		//money = money + (order.payment - change);
-		print("" + order.c.getName() + " your change is: $" + change);
+		//print("" + order.c.getName() + " your change is: $" + change);
 		order.c.msgHereIsChange(change);
 		order.s = OrderState.Paid;
 
@@ -211,7 +211,7 @@ public class CashierRole extends Agent implements Cashier {
 	public void payMarket(MarketBill mb){
 		mb.market.msgPayment(money - mb.amount, mb.billNumber);
 		money = money - mb.amount;
-		print("Our balance is now: $" + money);
+		//print("Our balance is now: $" + money);
 		mb.s = mBillState.SentPayment;
 	}
 	
@@ -224,7 +224,7 @@ public class CashierRole extends Agent implements Cashier {
 			}
 		}
 		}
-		print("Can't find check in cashier find function!");
+		//print("Can't find check in cashier find function!");
 		return 0;
 	}
 
