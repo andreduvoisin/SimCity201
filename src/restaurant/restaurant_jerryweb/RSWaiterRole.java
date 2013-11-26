@@ -244,7 +244,7 @@ public class RSWaiterRole extends Agent implements Waiter {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		try {
 		//synchronized(Customers){
 			for(int i =0; i < Customers.size(); i++){
@@ -526,6 +526,10 @@ public class RSWaiterRole extends Agent implements Waiter {
 
 	public WaiterGui getGui() {
 		return waiterGui;
+	}
+	
+	public void addCustomerForTesting(Customer customer, int table){
+		Customers.add(new MyCustomer(customer, table, CustomerState.waiting));
 	}
 
 
