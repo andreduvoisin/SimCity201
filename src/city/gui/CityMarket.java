@@ -10,7 +10,7 @@ import base.Location;
 public class CityMarket extends CityComponent{
 	private String marketName = "";
 	
-	private static final int sMARKET_SIZE = 100;
+	private static final int sMARKET_SIZE = 80;
 	
 	public CityMarket(int x, int y) {
 		super(x, y, Color.blue, "Market 1");

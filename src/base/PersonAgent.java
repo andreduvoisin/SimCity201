@@ -349,7 +349,7 @@ public class PersonAgent extends Agent implements Person {
 		if (isCheap() && mHouseRole.mHouse != null){
 			System.out.println("Going home to eat...");
 			mHouseRole.msgEatAtHome();
-			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum)); //SHANE: 2 - change these to doors
+			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(mHouseRole.mHouse.mHouseNum)); //SHANE: 2 - change these to doors
 			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mX, ContactList.cHOUSE_LOCATIONS.get(mHouseRole.mHouse.mHouseNum).mY));
 			acquireSemaphore(semAnimationDone);
 		}else{
@@ -366,7 +366,7 @@ public class PersonAgent extends Agent implements Person {
 			int restaurantChoice = 5; // SHANE DAVID: Make random later (smileham = 5, davidmca = 4)
 			((RestaurantBaseInterface) restCustRole).setPerson(this);
 			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
-			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
+			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			//mPersonGui.guiMoveFromCurrentPostionTo(new Position(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mX, ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice).mY));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
