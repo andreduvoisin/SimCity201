@@ -209,7 +209,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void msgAddEvent(Event event) {
-		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond (half are deadbeats)
+		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond (half are deadbeats) - everyone always responds
 		mEvents.add(event);
 	}
 	
@@ -440,15 +440,43 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void inviteToParty() {
-
+		//party is in 3 days
+		//send RSVP1 and event invite
+		for (Person iFriend : mFriends){
+			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
+			Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
+			iFriend.msgAddEvent(rsvp);
+			iFriend.msgAddEvent(party);
+		}
 	}
 
 	private void reinviteDeadbeats() {
-
+		EventParty party = null;
+		for (Event iEvent : mEvents){
+			if (iEvent instanceof EventParty){
+				if (((EventParty) iEvent).mHost == this){
+					party = (EventParty) iEvent;
+				}
+			}
+		}
+		for (Person iPerson : party.mAttendees.keySet()){
+			if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
+				Event rsvp = new Event(EnumEventType.RSVP2, -1);
+				iPerson.msgAddEvent(rsvp);
+			}
+		}
 	}
 	
 	private void respondToRSVP(){
-		
+		for (Event iEvent : mEvents){
+			if (iEvent instanceof EventParty){
+				if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
+					((EventParty) iEvent).mAttendees.put(this, true);
+				}else{
+					((EventParty) iEvent).mAttendees.remove(this);
+				}
+			}
+		}
 	}
 	
 	public void invokeRent() {

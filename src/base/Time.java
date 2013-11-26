@@ -35,10 +35,10 @@ public class Time {
 			@Override
 			//Broadcast time
 			public void run() {
-				sGlobalTimeInt++;
 				sGlobalMinute++;
 				
 				if (sGlobalMinute == 60){
+					sGlobalTimeInt++;
 					sGlobalMinute = 0;
 					sGlobalHour++;
 				}
