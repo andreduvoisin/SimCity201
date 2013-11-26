@@ -33,16 +33,15 @@ public class CwagonerRestaurantPanel extends JPanel {
         this.instance = this;
 		
         mainGui = g;
-        /*
-        host.setNumTables(numTables);
         
-        CwagonerCookGui cg = new CwagonerCookGui(cook, mainGui);
-        mainGui.animationPanel.addGui(cg);
-        cook.setGui(cg);
-        
-        cashier.setCook(cook);
-        cook.setCashier(cashier);
-        */
+//        host.setNumTables(numTables);
+//        
+//        CwagonerCookGui cg = new CwagonerCookGui(cook, mainGui);
+//        mainGui.animationPanel.addGui(cg);
+////        cook.setGui(cg);
+//        
+////        cashier.setCook(cook);
+//        cook.setCashier(cashier);
     }
 
     public static CwagonerRestaurantPanel getInstance() {
