@@ -21,6 +21,10 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 		addMenuItem("Pizza",	4000, 1, 2);
 	}
 	
+	public CwagonerCookRole() {
+		// CHASE: placeholder cook
+	}
+
 	public String getName() {
 		return "CwagonerCook " + mPerson.getName();
 	}
