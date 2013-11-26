@@ -96,7 +96,7 @@ public class BankCustomerGui implements Gui {
 	}
 	
 	public void DoLeaveBank() {
-		xDestination = -50;
+		xDestination = 225;
 		yDestination = -50;
 	}
 
