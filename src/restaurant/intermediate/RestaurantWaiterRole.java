@@ -8,13 +8,13 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
-
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
-
+import restaurant.restaurant_xurex.RexWaiterRole1;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -64,7 +64,10 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				break;
 			case 6:
 				break;
-			case 7:
+			case 7: //rex
+				subRole = new RexWaiterRole1();
+				subRole.setPerson(super.mPerson);
+				RexAnimationPanel.addPerson((RexWaiterRole1)subRole);
 				break;
 		}
 		

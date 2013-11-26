@@ -10,7 +10,7 @@ import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 public class WaiterGui implements Gui, WaiterGui_ {
 
     private Waiter agent = null;
-    AnimationPanel animationPanel;
+    RexAnimationPanel animationPanel;
     
     private boolean msgSent = true;
     private static final int waiterDim = 10;
@@ -24,7 +24,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private int xPos = home, yPos = home;//default waiter position
     private int xDestination = home, yDestination = home;//default start position
 
-    public WaiterGui(Waiter agent, AnimationPanel animationPanel) {
+    public WaiterGui(Waiter agent, RexAnimationPanel animationPanel) {
         this.agent = agent;
         this.animationPanel = animationPanel;
         places.put(new Integer(1), new Point(200,150));

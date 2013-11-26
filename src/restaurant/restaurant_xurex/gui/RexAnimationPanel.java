@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class AnimationPanel extends CityCard implements ActionListener {
+public class RexAnimationPanel extends CityCard implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -33,9 +33,9 @@ public class AnimationPanel extends CityCard implements ActionListener {
     private static Vector<Waiter> waiters = new Vector<Waiter>();
     private static Vector<Customer> customers = new Vector<Customer>();
     //Initial
-    private static Host host;
-    private static Cook cook; 
-    private static Cashier cashier;
+    private static Host host = new RexHostRole();
+    private static Cook cook = new RexCookRole(); 
+    private static Cashier cashier = new RexCashierRole();
     
     private CookGui cookGui = new CookGui(cook);
 
@@ -65,7 +65,7 @@ public class AnimationPanel extends CityCard implements ActionListener {
     	}
     };
     
-    public AnimationPanel(SimCityGui city) {
+    public RexAnimationPanel(SimCityGui city) {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
@@ -208,4 +208,13 @@ public class AnimationPanel extends CityCard implements ActionListener {
     	}
     }
     
+    public static RexHostRole getHost(){
+    	return (RexHostRole) host;
+    }
+    public static RexCookRole getCook(){
+    	return (RexCookRole) cook;
+    }
+    public static RexCashierRole getCashier(){
+    	return (RexCashierRole) cashier;
+    }
 }

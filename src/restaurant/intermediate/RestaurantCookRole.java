@@ -18,6 +18,8 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_xurex.RexCookRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -72,6 +74,9 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					subRole.setPerson(mPerson);
 					break;
 				case 7: //rex
+					subRole = RexAnimationPanel.getCook();
+					subRole.setPerson(super.mPerson);
+					RexAnimationPanel.addPerson((RexCookRole)subRole);
 					break;
 			}
 
