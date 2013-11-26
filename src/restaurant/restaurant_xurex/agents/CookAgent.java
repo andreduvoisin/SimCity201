@@ -1,7 +1,7 @@
 package restaurant.restaurant_xurex.agents;
 
 import base.Agent;
-import restaurant.restaurant_xurex.gui.RestaurantGui;
+import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
 import restaurant.restaurant_xurex.interfaces.Market;
@@ -23,7 +23,7 @@ public class CookAgent extends Agent implements Cook {
 	
 	private Semaphore atLocation = new Semaphore(100,true);
 	private CookGui_ cookGui = null;
-	RestaurantGui gui;
+	RexRestaurantGui gui;
 	
 	public class CookOrder{
 		Waiter w;
@@ -335,7 +335,7 @@ public class CookAgent extends Agent implements Cook {
 	public String getName() {
 		return name;
 	}
-	public void setGui(RestaurantGui gui){
+	public void setGui(RexRestaurantGui gui){
 		this.gui = gui;
 	}
 	

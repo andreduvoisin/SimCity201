@@ -27,7 +27,7 @@ public class RestaurantPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	//Reference to Main Gui
-    private RestaurantGui gui; 
+    private RexRestaurantGui gui; 
 	//Agents upon Creation
     private HostAgent host = new HostAgent("Willis");
     private CookAgent cook = new CookAgent("Ramsay"); 
@@ -51,7 +51,7 @@ public class RestaurantPanel extends JPanel{
     private JPanel group = new JPanel();
     private JButton pause = new JButton("Pause");
     
-    public RestaurantPanel(RestaurantGui gui) {
+    public RestaurantPanel(RexRestaurantGui gui) {
         this.gui = gui;
         
     	allAgents.add(host);

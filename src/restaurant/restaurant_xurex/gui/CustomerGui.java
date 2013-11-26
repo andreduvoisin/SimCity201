@@ -12,7 +12,7 @@ public class CustomerGui implements Gui{
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 	
-	RestaurantGui gui;
+	RexRestaurantGui gui;
 	
 	private static int sNum = 0;
 	private final int mNum;
@@ -28,7 +28,7 @@ public class CustomerGui implements Gui{
 	
     public Map<Integer, Point> places = new HashMap<Integer, Point>();
 
-	public CustomerGui(CustomerAgent c, RestaurantGui gui){
+	public CustomerGui(CustomerAgent c, RexRestaurantGui gui){
 		agent = c;
 		xPos = -40;
 		yPos = -40;

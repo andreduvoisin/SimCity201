@@ -13,7 +13,7 @@ import java.util.*;
  * Restaurant Cashier Agent
  */
 
-public class CashierRole extends BaseRole implements Cashier {
+public class RexCashierRole extends BaseRole implements Cashier {
 	public enum BillState
 	{pendingWaiter, ignore, pendingCustomer}; 
 	//ignore while bill is unpaid and after is paid
@@ -45,7 +45,7 @@ public class CashierRole extends BaseRole implements Cashier {
 	Map<Market, Float> marketBills = new HashMap<Market, Float>();
 	
 	//CONSTRUCTORS //
-	public CashierRole(String name, Person person){
+	public RexCashierRole(String name, Person person){
 		super(person);
 		this.name = name;
 		menu.put("Steak", new Integer(16));
@@ -53,7 +53,7 @@ public class CashierRole extends BaseRole implements Cashier {
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
 	}
-	public CashierRole(){
+	public RexCashierRole(){
 		super();
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));

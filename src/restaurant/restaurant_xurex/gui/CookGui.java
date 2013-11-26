@@ -4,14 +4,14 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import restaurant.restaurant_xurex.gui.RestaurantGui;
+import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
 
 public class CookGui implements Gui, CookGui_ {
 
     private Cook agent = null;
-    RestaurantGui gui;
+    RexRestaurantGui gui;
     
     private boolean msgSent = true;
     private static final int cookDim = 10;
@@ -119,7 +119,7 @@ public class CookGui implements Gui, CookGui_ {
     	return false;
     }
     
-    public void setGui(RestaurantGui gui){
+    public void setGui(RexRestaurantGui gui){
     	this.gui=gui;
     }
     
