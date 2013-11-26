@@ -45,9 +45,9 @@ public class RestaurantPanel extends JPanel {
     private JPanel group = new JPanel();
     private JPanel group2 = new JPanel();
 
-    private RestaurantGui gui; //reference to main gui
+    private JerrywebRestaurantGui gui; //reference to main gui
     
-    public RestaurantPanel(RestaurantGui gui) {
+    public RestaurantPanel(JerrywebRestaurantGui gui) {
         this.gui = gui;
         host.setGui(hostGui);
 

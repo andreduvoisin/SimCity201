@@ -2,6 +2,7 @@ package restaurant.restaurant_xurex;
 
 import base.BaseRole;
 import base.interfaces.Person;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
@@ -16,7 +17,7 @@ import java.util.concurrent.Semaphore;
  * Restaurant Cook Agent
  */
 
-public class RexCookRole extends BaseRole implements Cook {
+public class RexCookRole extends RestaurantCookRole implements Cook {
 	public enum OrderState
 	{pending, cooking, cooked, served};
 	public enum MarketOrderState
@@ -91,7 +92,7 @@ public class RexCookRole extends BaseRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		runTimer();
+		//runTimer();
 	}
 	public RexCookRole(String name, Person person) {
 		super(person);
@@ -100,7 +101,7 @@ public class RexCookRole extends BaseRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		runTimer();
+		//runTimer();
 	}
 	public RexCookRole(String name, String food, Person person) {
 		super(person);
@@ -122,7 +123,7 @@ public class RexCookRole extends BaseRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		runTimer();
+		//runTimer();
 	}
 
 	// MESSAGES

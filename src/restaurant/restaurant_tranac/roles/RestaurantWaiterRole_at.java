@@ -1,9 +1,11 @@
 package restaurant.restaurant_tranac.roles;
 
 import restaurant.restaurant_tranac.*;
+import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import restaurant.restaurant_tranac.gui.WaiterGui_at;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
+import base.interfaces.Person;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -34,12 +36,20 @@ public class RestaurantWaiterRole_at extends BaseRole implements Waiter{
 	private Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
 	private Semaphore askingForBreak = new Semaphore(0,true);
 	
-	public RestaurantWaiterRole_at(Host h, Cook c, Cashier cash) {
+	public RestaurantWaiterRole_at() {
 		super();
 
-		mHost = h;
-		mCook = c;
-		mCashier = cash;
+		mHost = RestaurantPanel_at.getInstance().mHost;
+		mCook = RestaurantPanel_at.getInstance().mCook;
+		mCashier = RestaurantPanel_at.getInstance().mCashier;
+	}
+	
+	public RestaurantWaiterRole_at(Person p) {
+		super(p);
+
+		mHost = RestaurantPanel_at.getInstance().mHost;
+		mCook = RestaurantPanel_at.getInstance().mCook;
+		mCashier = RestaurantPanel_at.getInstance().mCashier;
 	}
 	
 	/** Messages */

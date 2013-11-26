@@ -2,6 +2,7 @@ package base.interfaces;
 
 import java.util.Map;
 
+import base.Event;
 import base.Item.EnumItemType;
 import city.gui.CityPerson;
 
@@ -35,6 +36,7 @@ public interface Person {
 	public void setSSN(int SSN);
 	public Map<Role, Boolean> getRoles();
 	public Role getHousingRole();
+	public void msgAddEvent(Event event);
 
 	void subLoan(double mTransaction);
 	

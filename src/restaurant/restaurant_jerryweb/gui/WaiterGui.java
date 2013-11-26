@@ -1,9 +1,9 @@
 package restaurant.restaurant_jerryweb.gui;
 
 
-import restaurant.restaurant_jerryweb.HostRole;
-import restaurant.restaurant_jerryweb.CustomerRole;
-import restaurant.restaurant_jerryweb.WaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebHostRole;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 
@@ -12,10 +12,10 @@ import java.awt.*;
 public class WaiterGui implements Gui {
 
     private Waiter agent = null;
-    private HostRole host = null;
+    private JerrywebHostRole host = null;
     private boolean AtOrigin = true;
     private boolean AtCustomerQue = false;
-    RestaurantGui gui;
+    JerrywebRestaurantGui gui;
     
    
  
@@ -73,7 +73,7 @@ public class WaiterGui implements Gui {
 	public String plate2 = "";
 	public String plate3 = "";
 	
-    public WaiterGui(Waiter w, RestaurantGui gui, HostRole h) {
+    public WaiterGui(Waiter w, JerrywebRestaurantGui gui, JerrywebHostRole h) {
        agent = w;
        host = h;
         this.gui = gui;

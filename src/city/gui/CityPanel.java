@@ -9,13 +9,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import market.gui.MarketDeliveryTruckGui;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 
 @SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
-	
+	static CityPanel instance;
+
 	public static final int CITY_WIDTH = 600, CITY_HEIGHT = 600;
 	boolean addingObject = false;
 	CityComponent temp;
@@ -36,7 +38,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public CityPanel(SimCityGui city) {
 		//Setup
 		super(city);
-		    			
+		instance = this;		
 		simcitygui = city;
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
@@ -127,7 +129,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "R_cwagoner"));
-		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerrywebb"));
+		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "R_jerryweb"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(3), "R_Maggiyan"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(4), "R_davidmca"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "R_smileham"));
@@ -151,6 +153,14 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 	}
 
+	public static CityPanel getInstance() {
+		return instance;
+	}
+	
+	public void addDeliveryTruck(MarketDeliveryTruckGui g) {
+		addMoving(g);
+	}
+	
 	public void mouseClicked(MouseEvent arg0) {
 		
 	}

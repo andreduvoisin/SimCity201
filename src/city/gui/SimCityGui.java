@@ -8,6 +8,8 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import base.ConfigParser;
+import base.Event;
+import base.Event.EnumEventType;
 import base.Time;
 import base.interfaces.Person;
 //import base.Time;
@@ -36,21 +38,22 @@ public class SimCityGui extends JFrame {
 		
 		Time globaltime = new Time(citypanel.masterPersonList); //starts the static timer
 		
-		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
-		this.add(CP, mGridBagConstraints);
-		
-		mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
-		this.add(citypanel, mGridBagConstraints);
-		
-		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
-		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
-		this.add(infopanel, mGridBagConstraints);
-
-		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
-		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
-		this.add(cityview, mGridBagConstraints);
+		//Create Grid/Gui
+			mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
+			mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
+			this.add(CP, mGridBagConstraints);
+			
+			mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
+			mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
+			this.add(citypanel, mGridBagConstraints);
+			
+			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
+			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
+			this.add(infopanel, mGridBagConstraints);
+	
+			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
+			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
+			this.add(cityview, mGridBagConstraints);
 		
 		ConfigParser config = ConfigParser.getInstanceOf();
 		config.readFileCreatePersons(this);
@@ -111,6 +114,7 @@ public class SimCityGui extends JFrame {
 //		testCook.startThread();
 		
 		Person person = citypanel.masterPersonList.get(0);
+		person.msgAddEvent(new Event(EnumEventType.JOB, 0));
 //		if (person instanceof PersonAgent){
 //			((PersonAgent) person).msgAnimationDone();
 //			((PersonAgent) person).getCar();

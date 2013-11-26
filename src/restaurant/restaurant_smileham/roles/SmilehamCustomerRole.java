@@ -72,16 +72,14 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		mName = person.getName();
 
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
-
-		//SHANE: 5 grabbing at thin air...
 		mHost = SmilehamAnimationPanel.getHost();
 		mCashier = SmilehamAnimationPanel.getCashier();
-		
 		
 		//set up customer
 		mCustomerGui = new CustomerGui(this);
 		mAnimationPanel.addGui(mCustomerGui);
 		
+		//set data
 		mHunger = cHUNGER_LEVEL;
 		mTableNum = -1;
 		mTimer = new Timer();

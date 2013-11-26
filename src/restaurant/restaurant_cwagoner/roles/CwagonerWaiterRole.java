@@ -1,6 +1,7 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import base.Agent;
+import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
@@ -8,13 +9,13 @@ import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class CwagonerWaiterRole extends Agent implements CwagonerWaiter {
+public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 
 	private static boolean DirectCookAccess = false;
 	private final boolean accessCook;
 
-	public CwagonerWaiterRole(String waiterName) {
-		name = waiterName;
+	public CwagonerWaiterRole(Person person) {
+		super(person);
 		// Initialize menu
 		menu.put("Steak", 8);
 		menu.put("Chicken", 6);
@@ -24,11 +25,14 @@ public class CwagonerWaiterRole extends Agent implements CwagonerWaiter {
 		accessCook = DirectCookAccess;
 		DirectCookAccess = !(DirectCookAccess);
 	}
+
+	public String getName() {
+		return "CwagonerWaiter " + mPerson.getName();
+	}
 	
 	
 	// DATA
 
-	private String name;
 	CwagonerHost host;
 	CwagonerCook cwagonerCook;
 	CwagonerCashier cwagonerCashier;
@@ -168,7 +172,7 @@ public class CwagonerWaiterRole extends Agent implements CwagonerWaiter {
 	
 	// SCHEDULER
 
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 
 		synchronized(Customers) {
 			// Tell cashier to prepare check, and tell host table empty
@@ -356,10 +360,6 @@ public class CwagonerWaiterRole extends Agent implements CwagonerWaiter {
 
 
 	// ACCESSORS
-	
-	public String getName() {
-		return name;
-	}
 	
 	public void setGui(CwagonerWaiterGui waiterGui) {
 		gui = waiterGui;

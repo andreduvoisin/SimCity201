@@ -1,12 +1,12 @@
 package restaurant.restaurant_jerryweb.test;
 
-import restaurant.restaurant_jerryweb.CashierRole;
-import restaurant.restaurant_jerryweb.CookRole;
-import restaurant.restaurant_jerryweb.HostRole;
-import restaurant.restaurant_jerryweb.RSWaiterRole;
-import restaurant.restaurant_jerryweb.RSWaiterRole.CustomerState;
-import restaurant.restaurant_jerryweb.RSWaiterRole.MyCustomer;
-import restaurant.restaurant_jerryweb.gui.RestaurantGui;
+import restaurant.restaurant_jerryweb.JerrywebCashierRole;
+import restaurant.restaurant_jerryweb.JerrywebCookRole;
+import restaurant.restaurant_jerryweb.JerrywebHostRole;
+import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole.CustomerState;
+import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole.MyCustomer;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.test.mock.MockCook;
@@ -14,21 +14,21 @@ import restaurant.restaurant_jerryweb.test.mock.MockCustomer;
 import junit.framework.TestCase;
 
 public class WaiterRevolvingStandTest extends TestCase {
-	CashierRole cashier;
-	RestaurantGui gui;
-	HostRole host;
-	CookRole cook;
-	RSWaiterRole rsWaiter;
+	JerrywebCashierRole cashier;
+	JerrywebRestaurantGui gui;
+	JerrywebHostRole host;
+	JerrywebCookRole cook;
+	JerrywebRSWaiterRole rsWaiter;
 	MockCustomer mCustomer;
 	WaiterGui waiterGui;
 	
 	public void setUp() throws Exception{
 		super.setUp();		
-		cashier = new CashierRole("cashier");
+		cashier = new JerrywebCashierRole("cashier");
 		mCustomer = new MockCustomer("mock customer");
-		rsWaiter = new RSWaiterRole("rs waiter");
-		cook = new CookRole("cook");
-		host = new HostRole("host");
+		rsWaiter = new JerrywebRSWaiterRole("rs waiter");
+		cook = new JerrywebCookRole("cook");
+		host = new JerrywebHostRole("host");
 		waiterGui = new WaiterGui(rsWaiter, gui, host);
 	}
 	

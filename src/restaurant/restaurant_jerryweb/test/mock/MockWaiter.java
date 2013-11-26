@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
 
-import restaurant.restaurant_jerryweb.WaiterRole.MyCustomer;
+import restaurant.restaurant_jerryweb.JerrywebWaiterRole.MyCustomer;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
 import restaurant.restaurant_jerryweb.interfaces.Customer;

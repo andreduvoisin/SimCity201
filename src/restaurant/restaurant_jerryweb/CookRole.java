@@ -123,7 +123,7 @@ public class CookRole extends Agent {
 			if(Orders.get(i).choice.equals(choice) && Orders.get(i).s == OrderState.needToRestock){
 				
 				if(selection == 2){
-					print("Iterated through all the markets...");
+					//print("Iterated through all the markets...");
 					selection = 0;
 				}
 				selection++;
@@ -153,7 +153,7 @@ public class CookRole extends Agent {
 	public void msgCookThis(WaiterRole w, String choice, int table){
 		//Orders.choice = m.menuItems.get(choice);
 		if(choice.equals("nothing")){
-			print("No");
+			//print("No");
 		}
 		else{ 
 			Orders.add(new Order(w, choice, table, OrderState.pending));
@@ -256,39 +256,39 @@ public class CookRole extends Agent {
 			markets.get(selection).msgGiveMeOrder(Orders.get(x).choice, foodMap);
 			Orders.get(x).s = OrderState.restocking;
 		//Orders.remove(x);
-			print("Ordering food");
+			//print("Ordering food");
 		}
 	}
 	
 	private void plateIt(Order order) {
-		print("" + order.choice + " is ready");
+		//print("" + order.choice + " is ready");
 		order.w.msgOrderReady(order.choice, order.table);	
 		order.s = OrderState.waitingForWaiter;
 	}
 
 	public void giveFoodToWaiter(Order order, int x){
-		print("Here is the " + order.choice + " for table " + order.table);
+		//print("Here is the " + order.choice + " for table " + order.table);
 		order.s = OrderState.served;
 		order.w.msgTakeFood(order.choice, order.table);
 	}
 	
 	public void TryToCookIt(Order order, int orderLocation){
 		if(foodMap.get(order.choice).amount == 0){
-			print("Removing order " + Orders.get(orderLocation).choice);
+			//print("Removing order " + Orders.get(orderLocation).choice);
 			Orders.get(orderLocation).w.msgOutOfFood(Orders.get(orderLocation).choice, Orders.get(orderLocation).table);
 			Orders.get(orderLocation).s = OrderState.needToRestock;
 			//Orders.remove(orderLocation);
 		}
 		
 		else{
-			print("Alright " + Orders.get(orderLocation).choice + " coming up!");
+			//print("Alright " + Orders.get(orderLocation).choice + " coming up!");
 			int cookTime = 0;
 			final int  orderLocationFinal = orderLocation;
 		
 			//cookTime = foodMap.get(Orders.get(orderLocationFinal).choice).cookingTimes;
 			cookTime = foodMap.get(order.choice).cookingTimes;
 
-			print("cook time is: " + cookTime);
+			//print("cook time is: " + cookTime);
 			//foodMap.get(Orders.get(orderLocationFinal).choice).amount = foodMap.get(Orders.get(orderLocationFinal).choice).amount - 1;
 			foodMap.get(order.choice).amount = foodMap.get(order.choice).amount - 1;
 
@@ -305,7 +305,7 @@ public class CookRole extends Agent {
 	}
 	
 	public void cookingTimes(final int orderLoc){//calls the food done message to change the state of the corresponding order
-		print("the ordering list is of size: " + Orders.size());
+		//print("the ordering list is of size: " + Orders.size());
 		this.msgfoodDone(Orders.get(orderLoc));
 		
 	}
@@ -319,7 +319,7 @@ public class CookRole extends Agent {
 	}
 	
 	public void addMarket(Market market){
-		print("Adding " + market.getName());
+		//print("Adding " + market.getName());
 		markets.add(market);
 	}
 

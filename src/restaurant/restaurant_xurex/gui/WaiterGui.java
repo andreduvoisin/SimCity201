@@ -4,14 +4,13 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
 public class WaiterGui implements Gui, WaiterGui_ {
 
     private Waiter agent = null;
-    RexRestaurantGui gui;
+    RexAnimationPanel animationPanel;
     
     private boolean msgSent = true;
     private static final int waiterDim = 10;
@@ -25,9 +24,9 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private int xPos = home, yPos = home;//default waiter position
     private int xDestination = home, yDestination = home;//default start position
 
-    public WaiterGui(Waiter agent, RexRestaurantGui gui) {
+    public WaiterGui(Waiter agent, RexAnimationPanel animationPanel) {
         this.agent = agent;
-        this.gui = gui;
+        this.animationPanel = animationPanel;
         places.put(new Integer(1), new Point(200,150));
 		places.put(new Integer(2), new Point(300,150));
 		places.put(new Integer(3), new Point(200,250));
@@ -67,19 +66,19 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
     
     public void DoServeFood(String choice){
-    	gui.animationPanel.addFood(choice.substring(0,2), xDestination-2, yDestination+35);
+    	animationPanel.addFood(choice.substring(0,2), xDestination-2, yDestination+35);
     }
     
     public void DoCleanFood(){
-    	gui.animationPanel.removeFood(xDestination-2,  yDestination+35);
+    	animationPanel.removeFood(xDestination-2,  yDestination+35);
     }
 
     public void DoDisplayOrder(String choice, int table){
-    	gui.animationPanel.addFood(choice.substring(0,2)+"?", places.get(table).getX(), places.get(table).getY());
+    	animationPanel.addFood(choice.substring(0,2)+"?", places.get(table).getX(), places.get(table).getY());
     }
     
     public void DoRemoveOrder(int table){
-    	gui.animationPanel.removeFood(places.get(table).getX(), places.get(table).getY());
+    	animationPanel.removeFood(places.get(table).getX(), places.get(table).getY());
     }
     
     public boolean isPresent() {
@@ -142,11 +141,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     public void setWaiterEnabled(String name){
     	//gui.setWaiterEnabled(agent, name);
     }
-    
-    public void setGui(RexRestaurantGui gui){
-    	this.gui=gui;
-    }
-    
+
     public int getXPos() {
         return xPos;
     }

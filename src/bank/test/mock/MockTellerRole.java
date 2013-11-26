@@ -49,8 +49,7 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 
 	@Override
 	public boolean pickAndExecuteAnAction() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -79,8 +78,7 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 
 	@Override
 	public void setPerson(Person person) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("setPerson: "+person.getName()));
 	}
 
 	@Override
@@ -89,8 +87,8 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 	}
 	@Override
 	public Person getPerson() {
-		// TODO Auto-generated method stub
-		return null;
+		Person temp = new PersonAgent();
+		return temp;
 	}
 	@Override
 	public int getLocation() {

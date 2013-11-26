@@ -1,14 +1,14 @@
 package restaurant.restaurant_jerryweb.gui;
 
 
-import restaurant.restaurant_jerryweb.CustomerRole;
-import restaurant.restaurant_jerryweb.HostRole;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebHostRole;
 
 import java.awt.*;
 
 public class HostGui implements Gui {
 
-    private HostRole agent = null;
+    private JerrywebHostRole agent = null;
     private boolean AtOrigin = true;
     
     
@@ -30,7 +30,7 @@ public class HostGui implements Gui {
 	static final int xIndex = 20;
 	static final int yIndex = 20;
 	
-    public HostGui(HostRole agent) {
+    public HostGui(JerrywebHostRole agent) {
         this.agent = agent;
     }
 
@@ -69,7 +69,7 @@ public class HostGui implements Gui {
         return true;
     }
 
-    public void DoBringToTable(CustomerRole customer, int tableNumber) {
+    public void DoBringToTable(JerrywebCustomerRole customer, int tableNumber) {
     	AtOrigin = false;
     	if(tableNumber == 1 ){
         	xDestination = xTable1 + 20;

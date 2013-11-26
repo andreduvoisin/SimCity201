@@ -11,6 +11,8 @@ import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
 import restaurant.restaurant_tranac.roles.RestaurantCustomerRole_at;
+import restaurant.restaurant_xurex.RexCustomerRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -29,6 +31,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	public void setRestaurant(int restaurantID) {
 
 		// TODO ALL add if statements for all the other restaurants
+
 		switch(restaurantID){
 			case 0: //andre
 				subRole = new AndreCustomerRole(super.mPerson);
@@ -37,6 +40,8 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 			case 1: //chase
 				break;
 			case 2: //jerry
+	//			subRole = new JerrywebCustomerRole(super.mPerson);
+	//			JerrywebRestaurantPanel.getInstance().addPerson((JerrywebCustomerRole) subRole);
 				break;
 			case 3: //maggi
 				subRole = new MaggiyanCustomerRole(super.mPerson);
@@ -47,6 +52,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				DavidRestaurantPanel.getInstance().addCustomer((DavidCustomerRole) subRole);
 				break;
 			case 5: //shane
+				System.out.println("Making Customer");
 				subRole = new SmilehamCustomerRole(super.mPerson);
 				SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 				break;
@@ -55,6 +61,9 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				RestaurantPanel_at.getInstance().addCustomer((RestaurantCustomerRole_at) subRole);
 				break;
 			case 7: //rex
+				subRole = new RexCustomerRole();
+				subRole.setPerson(super.mPerson);
+				RexAnimationPanel.addPerson((RexCustomerRole)subRole);
 				break;
 
 		}
