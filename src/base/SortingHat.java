@@ -55,7 +55,7 @@ public class SortingHat {
 
 		//Restaurants
 		
-		for (int iRestaurantNum = 4; iRestaurantNum < 6; iRestaurantNum++){ //DAVID: 4 Change this later
+		for (int iRestaurantNum = 4; iRestaurantNum < 6; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
 			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_LOCATIONS.get(iRestaurantNum));
