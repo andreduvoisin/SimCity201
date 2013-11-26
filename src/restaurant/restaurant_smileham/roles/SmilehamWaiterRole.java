@@ -16,36 +16,34 @@ import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_smileham.gui.SmilehamRestaurantPanel;
 import restaurant.restaurant_smileham.gui.WaiterGui;
-import restaurant.restaurant_smileham.interfaces.Cashier;
-import restaurant.restaurant_smileham.interfaces.Cook;
-import restaurant.restaurant_smileham.interfaces.Customer;
-import restaurant.restaurant_smileham.interfaces.Host;
-import restaurant.restaurant_smileham.interfaces.Waiter;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamCook;
+import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Host Agent
  */
-public class SmilehamWaiterRole extends BaseRole implements Waiter {
+public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 	
 	//Constants
 	public static final int cBREAK_LENGTH = 10; //in seconds
 	
 	//Agents
-	private Cashier mCashier;
+	private SmilehamCashier mCashier;
 	
 	//Member Variables
 	private String mName;
 	private boolean mOnBreak;
 	private List<Order> mOrders;
 	private List<EnumFoodOptions> mFoodsOut;
-	private Host mHost;
-	private Cook mCook;
+	private SmilehamHost mHost;
+	private SmilehamCook mCook;
 	private Timer mTimer;
-	private boolean mWantBreak;
-//	private boolean mMenuOutdated;
 	
 	//Semaphores //SHANE: 5 public private
 	public Semaphore semAtTable = new Semaphore(0);
@@ -61,11 +59,10 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamWaiterRole(String name, Host host, Cook cook, Cashier cashier, SmilehamAnimationPanel animationPanel) {
-		super();
-		mName = name;
-//		mAnimationPanel = animationPanel;
-		mAnimationPanel = SmilehamRestaurantPanel.mAnimationPanel;
+	public SmilehamWaiterRole(Person person) {
+		super(person);
+		mName = person.getName();
+		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Constructor");
 		
 		//Set up Waiter
@@ -75,28 +72,25 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 		mOnBreak = false;
 		mOrders = Collections.synchronizedList(new ArrayList<Order>());
 		mFoodsOut = new ArrayList<EnumFoodOptions>();
-		mHost = host;
-		mCook = cook;
-		mCashier = cashier;
-		mTimer = new Timer();
-//		mMenuOutdated = false;
-		mWantBreak = false;
+		mHost = SmilehamAnimationPanel.getHost();
+		mCook = SmilehamAnimationPanel.getCook();
+		mCashier = SmilehamAnimationPanel.getCashier();
 		
-//		startThread();
+		mTimer = new Timer();
 	}
 
 	
 	// -----------------------------------------------MESSAGES-------------------------------------------------------
 	
 	//Normative Scenarios
-		public void msgSeatCustomer(Table table, Customer customer){
+		public void msgSeatCustomer(Table table, SmilehamCustomer customer){
 			print("Message: msgSeatCustomer()");
-			Order order = new Order((Waiter) this, table, customer, EnumOrderStatus.WAITING);
+			Order order = new Order((SmilehamWaiter) this, table, customer, EnumOrderStatus.WAITING);
 			mOrders.add(order);
 			stateChanged();
 		}
 		
-		public void msgReadyToOrder(Customer customer){
+		public void msgReadyToOrder(SmilehamCustomer customer){
 			print("Message: msgReadyToOrder()");
 			for (Order iOrder : mOrders){
 				if (iOrder.mCustomer == customer){
@@ -107,7 +101,7 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 			stateChanged();
 		}
 		
-		public void msgHereIsMyChoice(Customer customer, EnumFoodOptions choice){
+		public void msgHereIsMyChoice(SmilehamCustomer customer, EnumFoodOptions choice){
 			print("Message: msgHereIsMyChoice()" + choice);
 			for (Order iOrder : mOrders){
 				if (iOrder.mCustomer == customer){
@@ -120,7 +114,7 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 			stateChanged();
 		}
 		
-		public void msgNotGettingFood(Customer customer){
+		public void msgNotGettingFood(SmilehamCustomer customer){
 			print("Message: msgNotGettingFood()");
 			for (Order iOrder : mOrders){
 				if (iOrder.mCustomer == customer){
@@ -147,7 +141,7 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 			stateChanged();
 		}
 		
-		public void msgDoneEating(Customer customer){
+		public void msgDoneEating(SmilehamCustomer customer){
 			print("Message: msgDoneEating()");
 			for (Order iOrder : mOrders){
 				if (iOrder.mCustomer == customer){
@@ -182,15 +176,8 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 //			mMenuOutdated = false;
 		}
 		
-	//Want Break
-		public void msgWantBreak(){
-			print("Message: msgWantBreak()");
-			mWantBreak = true;
-			stateChanged();
-		}
-		
 	//Customer Paying
-		public void msgReadyForCheck(EnumFoodOptions choice, Customer customer){
+		public void msgReadyForCheck(EnumFoodOptions choice, SmilehamCustomer customer){
 			print("Message: msgReadyForCheck()");
 			for (Order iOrder : mOrders){
 				if (iOrder.mCustomer == customer){
@@ -208,7 +195,7 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 			stateChanged();
 		}
 	
-		public void msgCustomerLeaving(Customer customer){
+		public void msgCustomerLeaving(SmilehamCustomer customer){
 			for (Order iOrder : mOrders){
 				if (iOrder.mCustomer == customer){
 					iOrder.mOrderStatus = EnumOrderStatus.DONE;
@@ -239,12 +226,6 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 		try{
 			//On Break
 			if ((mOrders.size() == 0) && (mOnBreak)) return false;
-			
-			//Want to go on break
-			if (mWantBreak){
-				askForBreak();
-				return true;
-			}
 			
 //			if (mMenuOutdated){
 //				updateMenu();
@@ -368,8 +349,8 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 		private void seatCustomer(Order order, Table table) {
 			print("Action: seatCustomer()");
 			
-			Customer customer = order.mCustomer;
-			customer.msgSitAtTable((Waiter) this, table.getTableNumber(), new Menu());
+			SmilehamCustomer customer = order.mCustomer;
+			customer.msgSitAtTable((SmilehamWaiter) this, table.getTableNumber(), new Menu());
 
 			mWaiterGui.DoGoToPickupArea();
 			acquireSemaphore(semAtPickupArea);
@@ -448,28 +429,9 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 			mHost.msgLeavingTable(order.mCustomer);
 		}
 		
-		//Want Break
-		private void askForBreak(){
-			print("Action: askForBreak()");
-			mWantBreak = false;
-			mHost.msgWantToGoOnBreak((Waiter) this);
-		}
-		
 		private void goHome(){
 			mWaiterGui.DoGoHome();
 		}
-		
-		//Menu updated
-//		private void updateMenu(){
-//			print("Action: updateMenu()");
-//			
-//			mWaiterGui.DoGoToCook();
-//			acquireSemaphore(semAtCook);
-//			
-//			mCook.msgWhatArrived(this);
-//		}
-//		
-		
 		
 	//ACCESSORS
 		public String getName() {
@@ -492,12 +454,12 @@ public class SmilehamWaiterRole extends BaseRole implements Waiter {
 			return mOrders;
 		}
 
-		public Host getHost() {
+		public SmilehamHost getHost() {
 			return mHost;
 		}
 
-		public Cook getCook() {
-			return (Cook)mCook;
+		public SmilehamCook getCook() {
+			return (SmilehamCook)mCook;
 		}
 
 		public boolean isWorking() {

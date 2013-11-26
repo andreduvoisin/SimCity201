@@ -40,7 +40,7 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 		}
 		// TODO DAVID add if statements for all the other restaurants
 		if (restaurantID == 5) { //Shane's restaurant
-			subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), null);
+			subRole = new SmilehamCustomerRole(super.mPerson, mPerson.getName(), SmilehamAnimationPanel.mInstance);
 			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 		}
 	}
