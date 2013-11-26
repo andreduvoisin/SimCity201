@@ -34,7 +34,7 @@ public class DavidRestaurantPanel extends JPanel {
 
 	// Host, cook, waiters and customers
 	public DavidHostRole host = new DavidHostRole("Host");
-	public DavidCookRole cook = new DavidCookRole("Cook", 1);
+	public DavidCookRole cook = new DavidCookRole("Cook", Integer.MAX_VALUE);
 	public DavidCashierRole cash = new DavidCashierRole("Cashier");
 	private HostGui hostGui = new HostGui(host);
 	MarketAgent mkt1, mkt2, mkt3;

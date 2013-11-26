@@ -35,7 +35,6 @@ public class CustomerGui implements Gui {
                 xDestination = -40;
                 yDestination = -40;
                 this.gui = gui;
-                System.out.println("customer gui created, placing at "+xHome+" ,"+yHome);
         }
 
         public void updatePosition() {

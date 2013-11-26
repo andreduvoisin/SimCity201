@@ -81,7 +81,7 @@ public class WaiterGui implements Gui {
 	public void DoGoToKitchen() {
 		currentlyAnimating = true;
 		xDestination = 250;
-		yDestination = 300;
+		yDestination = 450;
 	}
 	
 	public void DoGoToFront() {

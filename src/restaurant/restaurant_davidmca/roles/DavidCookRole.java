@@ -86,10 +86,10 @@ public class DavidCookRole extends BaseRole implements Cook {
 		this.name = name;
 		ordering = false;
 		reorder = false;
-		foodList.put("Steak", new Stock("Steak", 0));
-		foodList.put("Salad", new Stock("Salad", 0));
-		foodList.put("Chicken", new Stock("Chicken", 0));
-		foodList.put("Pizza", new Stock("Pizza", 0));
+		foodList.put("Steak", new Stock("Steak", qty));
+		foodList.put("Salad", new Stock("Salad", qty));
+		foodList.put("Chicken", new Stock("Chicken", qty));
+		foodList.put("Pizza", new Stock("Pizza", qty));
 		standTimer.scheduleAtFixedRate(standTimerTask, new Date( System.currentTimeMillis() + 10000), 10000);
 	}
 
