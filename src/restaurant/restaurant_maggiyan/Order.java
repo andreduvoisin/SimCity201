@@ -5,7 +5,7 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 public class Order {
 	
-	public int cookingPosition = 0;
+	public static int cookingPosition = 0;
 	public enum state {pending, cooking, done, finished};
 	
 	public Order(MaggiyanWaiter waiter, String choice, int tableNum){
@@ -17,6 +17,9 @@ public class Order {
 		if(cookingPosition < 3){
 			cookingPos = cookingPosition; 
 			cookingPosition++; 
+		}
+		else{
+			cookingPos = 0; 
 		}
 		
 	}
