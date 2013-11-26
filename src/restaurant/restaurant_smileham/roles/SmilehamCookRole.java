@@ -152,6 +152,7 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 				synchronized(iOrder){
 					if (iOrder.mOrderStatus == EnumOrderStatus.READY){
 						iOrder.mWaiter.msgOrderIsReady(iOrder, mFoodsOut);
+						return true;
 					}
 				}
 			}
@@ -179,6 +180,7 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 							return true;
 						}
 						cookFood(iOrder.mFood);
+						return true;
 					}
 				}
 			}
@@ -202,9 +204,6 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 				}
 			}
 	*/
-			if(marketPickAndExecuteAnAction())
-				return true;
-			
 			return false;
 			
 		}catch(ConcurrentModificationException e){
@@ -244,19 +243,20 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 			acquireSemaphore(semAtFridge);
 			
 			//mInventory.get(food.mChoice).mQuantity--;
+			
 			EnumItemType iType = Item.enumToEnum(food.mChoice);
 			decreaseInventory(iType);
+			
+		/*	//if food amount below threshold
+			if (mInventory.get(food.mChoice).mQuantity < Food.cTHRESHOLD){
+				orderFood(food.mChoice);
+			}*/
 			
 			//if food amount below threshold
 			if(mItemInventory.get(iType) < Food.cTHRESHOLD) {
 				mItemsDesired.put(iType, sBaseNeed);
 			}
-/*
-			//if food amount below threshold
-			if (mInventory.get(food.mChoice).mQuantity < Food.cTHRESHOLD){
-				orderFood(food.mChoice);
-			}
-*/			
+			
 			mCookGui.DoGoToCooking();
 			acquireSemaphore(semAtCooking);
 			
