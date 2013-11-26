@@ -28,6 +28,7 @@ import base.ContactList;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import restaurant.restaurant_duvoisin.roles.*;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
@@ -55,6 +56,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 0: //andre
 					subRole = AndreRestaurantPanel.getInstance().cook;
 					subRole.setPerson(super.mPerson);
+					((AndreCookRole)subRole).runStandTimer();
 					break;
 				case 1: //chase
 					subRole = CwagonerRestaurantPanel.getInstance().cook;

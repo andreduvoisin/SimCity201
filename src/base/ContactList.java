@@ -28,6 +28,7 @@ public class ContactList {
 	public static final Location cCARDEALERSHIP_DOOR = new Location(cCARDEALERSHIP_LOCATION.mX-5,cCARDEALERSHIP_LOCATION.mY-5);
 	public static List<Location> cHOUSE_DOORS;
 	public static List<Location> cRESTAURANT_DOORS;
+	public static List<Location> cBUS_STOPS;
 	
 	//SHANE: add house doors
 	//setup housing locations
@@ -104,6 +105,20 @@ public class ContactList {
 		list.add(cRESTAURANT_DOOR7);
 		list.add(cRESTAURANT_DOOR8);
 		cRESTAURANT_DOORS = Collections.unmodifiableList(list);
+	}
+
+	// Bus Stop locations
+	static final Location cBusStop0 = new Location(60, 60);
+	static final Location cBusStop1 = new Location(60, 515);
+	static final Location cBusStop2 = new Location(515, 515);
+	static final Location cBusStop3 = new Location(515, 60);
+	static {
+		List<Location> bslist = new ArrayList<Location>();
+		bslist.add(cBusStop0);
+		bslist.add(cBusStop1);
+		bslist.add(cBusStop2);
+		bslist.add(cBusStop3);
+		cBUS_STOPS = Collections.unmodifiableList(bslist);
 	}
 	
 	

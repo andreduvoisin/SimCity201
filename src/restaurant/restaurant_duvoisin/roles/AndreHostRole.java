@@ -62,7 +62,7 @@ public class AndreHostRole extends BaseRole implements Host {
 		return tables;
 	}
 	
-	public void addWaiter(AndreWaiterRole wa) {
+	public void addWaiter(Waiter wa) {
 		waiters.add(new MyWaiter(wa, WaiterState.Working));
 	}
 	// Messages
@@ -250,11 +250,11 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	private class MyWaiter {
-		AndreWaiterRole waiter;
+		Waiter waiter;
 		public int numCustomers;
 		WaiterState state;
 		
-		MyWaiter(AndreWaiterRole w, WaiterState ws) {
+		MyWaiter(Waiter w, WaiterState ws) {
 			waiter = w;
 			state = ws;
 			numCustomers = 0;

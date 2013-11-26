@@ -24,6 +24,7 @@ public class CityPerson extends CityComponent implements PersonGuiInterface {
 	SimCityGui gui;
 	
 	private int xDestination = 120, yDestination = 35;
+	private Location mFinalDestination = new Location(0, 0);
 	
 	static final int waiterWidth = 10;
 	static final int waiterHeight = 10;
@@ -83,17 +84,18 @@ public class CityPerson extends CityComponent implements PersonGuiInterface {
 		int previousX = x;
 		int previousY = y;
 		
-		if (x < xDestination)
-            x++;
-        else if (x > xDestination)
-            x--;
+		if (x < xDestination)		x++;
+        else if (x > xDestination)	x--;
 
-        if (y < yDestination)
-            y++;
-        else if (y > yDestination)
-            y--;
+        if (y < yDestination)		y++;
+        else if (y > yDestination)	y--;
         
-        if(x == xDestination && y == yDestination){
+        if (x == xDestination && y == yDestination) {
+        	// Arrived at a bus stop
+        	if (mFinalDestination != null) {
+        		// CHASE: board bus!
+        		
+        	}
         	this.disable();
         	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
         	mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
@@ -217,8 +219,19 @@ public class CityPerson extends CityComponent implements PersonGuiInterface {
 	public void DoGoToDestination(Location location){
 		atDestination = false;
 		this.enable();
-		xDestination = location.mX;
-		yDestination = location.mY;
+
+		if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
+			mFinalDestination = location;
+			int boardAtStop = gui.citypanel.busDispatch.getBusStopClosestTo(new Location(x, y));
+			// CHASE: use this variable
+			int exitAtStop = gui.citypanel.busDispatch.getBusStopClosestTo(location);
+			xDestination = ContactList.cBUS_STOPS.get(boardAtStop).mX;
+			yDestination = ContactList.cBUS_STOPS.get(boardAtStop).mY;
+		}
+		else {
+			xDestination = location.mX;
+			yDestination = location.mY;
+		}
 	}
 
 	@Override

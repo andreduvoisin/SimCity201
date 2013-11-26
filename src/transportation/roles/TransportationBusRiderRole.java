@@ -8,9 +8,15 @@ import transportation.interfaces.*;
 
 public class TransportationBusRiderRole extends BaseRole implements TransportationRider {
 
+	public TransportationBusRiderRole() {
+		state = enumState.none;
+		mGui = new TransportationBusRiderGui(this);
+	}
+
 	public TransportationBusRiderRole(Person person) {
 		mPerson = person;
 		state = enumState.none;
+		mGui = new TransportationBusRiderGui(this);
 	}
 
 
@@ -19,7 +25,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ==================================================================================
 
 	private TransportationBusDispatch mBusDispatch;
-	private TransportationBusRiderGui mGui = new TransportationBusRiderGui();
+	private TransportationBusRiderGui mGui;
 
 	private int mCurrentLocation;
 	private int mDestination;
