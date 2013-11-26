@@ -1,6 +1,7 @@
 package bank.roles;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +20,11 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 //	DATA
 	
 	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
-	public List<BankCustomer> mCustomers = new ArrayList<BankCustomer>();
-	public List<BankCustomer> mCriminals = new ArrayList<BankCustomer>();
+	public List<BankCustomer> mCustomers = Collections.synchronizedList(new ArrayList<BankCustomer>());
+	public List<BankCustomer> mCriminals = Collections.synchronizedList(new ArrayList<BankCustomer>());
 	
 	//GUI
-	BankGuardGui mGUI;
+	public BankGuardGui mGUI;
 	
 	public BankGuardRole(Person person) {
 		super(person);
@@ -36,7 +37,9 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 //	MESSAGES
 	
 	public void msgNeedService(BankCustomer c){
-		mCustomers.add(c);
+		synchronized(mCustomers) {
+			mCustomers.add(c);
+		}
 		stateChanged();
 	}
 	public void msgReadyToWork(BankTeller t){
@@ -48,26 +51,32 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		stateChanged();
 	}*/
 	public void msgRobberAlert(BankCustomer c){
-		mCriminals.add(c);
+		synchronized(mCriminals) {
+			mCriminals.add(c);
+		}
 		stateChanged();
 	}
 	
 //	SCHEDULER
 	
 	public boolean pickAndExecuteAnAction(){
-		for (BankCustomer c : mCriminals){
-			killRobber(c);
-			mCriminals.remove(c);
-			return true;
+		synchronized(mCriminals) {
+			for (BankCustomer c : mCriminals){
+				killRobber(c);
+				mCriminals.remove(c);
+				return true;
+			}
 		}
-		for (BankCustomer c : mCustomers){
-			for (BankTeller t : mTellers.keySet()){
-				//if Teller t is available
-				if (mTellers.get(t)){
-					provideService(c, t);
-					mCustomers.remove(c);
-					mTellers.put(t, false);
-					return true;
+		synchronized(mCustomers) {
+			for (BankCustomer c : mCustomers){
+				for (BankTeller t : mTellers.keySet()){
+					//if Teller t is available
+					if (mTellers.get(t)){
+						provideService(c, t);
+						mCustomers.remove(c);
+						mTellers.put(t, false);
+						return true;
+					}
 				}
 			}
 		}

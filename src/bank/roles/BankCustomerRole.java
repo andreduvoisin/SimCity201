@@ -6,6 +6,7 @@ import java.util.concurrent.Semaphore;
 
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
+import bank.gui.BankPanel;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -40,7 +41,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	public BankTeller mTeller;
 	
 	//GUI
-	BankCustomerGui mGUI;
+	public BankCustomerGui mGUI;
 	int mTellerLocation = 0;
 	Semaphore atLocation = new Semaphore(0, true);
 	
@@ -151,6 +152,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	private void leave(){
 		//GUI Interaction
 		mGUI.DoLeaveBank();
+		mTeller.msgLeaving();
 		mTransaction = -1;
 	}
 	private void processTransaction(){
@@ -184,6 +186,9 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	public void setGuard(BankGuard guard){
 		mGuard = guard;
+	}
+	public void setTeller(BankTeller teller){
+		mTeller = teller;
 	}
 	
 //	UTILITIES
