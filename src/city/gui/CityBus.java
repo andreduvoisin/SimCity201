@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.List;
 
 import transportation.TransportationBusDispatch;
 import base.Location;
@@ -13,12 +14,13 @@ public class CityBus extends CityComponent {
 	private TransportationBusDispatch mBusDispatch;
 
 	// CHASE: get list from main GUI
-	ArrayList<Location> mStopCoords = new ArrayList<Location>();
+	List<Location> mStopCoords;
 
+	private static int sBusNumber = 0;
 	private int mBusNumber;
 	private int mStopNumber,
-				mSize = 25,
-				mXDest, mYDest;
+				mSize = 25;
+	private Location destination = new Location(0, 0);
 	private boolean mTraveling;
 
 
@@ -27,17 +29,12 @@ public class CityBus extends CityComponent {
 	 * @param b Bus "driver"
 	 * @param busNum Index of this instance of bus
 	 */
-	public CityBus(TransportationBusDispatch b, int busNum) {
-		// CHASE: get rid of these
-		mStopCoords.add(new Location(60, 60));
-		mStopCoords.add(new Location(60, 515));
-		mStopCoords.add(new Location(515, 515));
-		mStopCoords.add(new Location(515, 60));
-
+	public CityBus(TransportationBusDispatch b, List<Location> stopCoords) {
 		mBusDispatch = b;
-		mBusNumber = busNum;
+		mBusNumber = sBusNumber++;
 		mTraveling = true;
 		mStopNumber = 0;
+		mStopCoords = stopCoords;
 
 		// Inherited from CityComponent
 		x = mStopCoords.get(mStopNumber).mX;
@@ -52,19 +49,19 @@ public class CityBus extends CityComponent {
 		color = Color.yellow;
 
 		// Set initial destination
-		mXDest = mStopCoords.get(mStopNumber + 1).mX;
-		mYDest = mStopCoords.get(mStopNumber + 1).mY;
+		destination.mX = mStopCoords.get(mStopNumber + 1).mX;
+		destination.mY = mStopCoords.get(mStopNumber + 1).mY;
 	}
 
 
 	public void updatePosition() {
-		if (x < mXDest)			x++;
-        else if (x > mXDest)	x--;
+		if (x < destination.mX)			x++;
+        else if (x > destination.mX)	x--;
 
-        if (y < mYDest)			y++;
-        else if (y > mYDest)	y--;
+        if (y < destination.mY)			y++;
+        else if (y > destination.mY)	y--;
 
-        if (x == mXDest && y == mYDest && mTraveling) {
+        if (x == destination.mX && y == destination.mY && mTraveling) {
         	mBusDispatch.msgGuiArrivedAtStop(mBusNumber);
 			mTraveling = false;
         }
@@ -92,7 +89,7 @@ public class CityBus extends CityComponent {
         mStopNumber = (mStopNumber + 1) % mStopCoords.size();
         mTraveling = true;
 
-        mXDest = mStopCoords.get(mStopNumber).mX;
-        mYDest = mStopCoords.get(mStopNumber).mY;
+        destination.mX = mStopCoords.get(mStopNumber).mX;
+        destination.mY = mStopCoords.get(mStopNumber).mY;
 	}
 }

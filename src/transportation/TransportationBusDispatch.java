@@ -2,6 +2,8 @@ package transportation;
 
 import java.util.*;
 
+import city.gui.CityBus;
+import base.Location;
 import base.Agent;
 import transportation.interfaces.TransportationRider;
 
@@ -11,20 +13,20 @@ import transportation.interfaces.TransportationRider;
  */
 public class TransportationBusDispatch extends Agent {
 
-	public TransportationBusDispatch() {
-		for (int i = 0; i < 4; i++) {
-			mBusStops.add(new TransportationBusStop());
+	public TransportationBusDispatch(List<Location> cBUS_STOPS) {
+		for (Location iL : cBUS_STOPS) {
+			mBusStops.add(new TransportationBusStop(iL));
 		}
 	}
 	// Reference to the GUIs
-	private ArrayList<TransportationBusInstance> mBuses = new ArrayList<TransportationBusInstance>();
+	private List<TransportationBusInstance> mBuses = new ArrayList<TransportationBusInstance>();
 
 
 	// ==================================================================================
 	// ------------------------------------- DATA ---------------------------------------
 	// ==================================================================================
 
-	private ArrayList<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
+	private List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
 
 
 	// ==================================================================================
@@ -256,5 +258,23 @@ public class TransportationBusDispatch extends Agent {
 
 	public String getName() {
 		return "BusDispatch";
+	}
+
+	/**
+	 * @return Most recently added BusInstance's GUI
+	 */
+	public CityBus getBusGui() {
+		return mBuses.get(mBuses.size() - 1).mGui;
+	}
+
+	public int getBusStopClosestTo(Location loc) {
+		double distance = 360000;
+		int shortest = 0;
+		for (int i = 0; i < mBusStops.size(); i++) {
+			double d = Math.sqrt(Math.pow((mBusStops.get(i).location.mX - loc.mX), 2)
+						+ Math.pow((mBusStops.get(i).location.mY - loc.mY), 2));
+			if (d < distance) shortest = i;
+		}
+		return shortest;
 	}
 }
