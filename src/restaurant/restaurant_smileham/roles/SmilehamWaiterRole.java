@@ -63,7 +63,7 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 		super(person);
 		mName = person.getName();
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
-		print("Constructor");
+		print("Smileham Waiter Created");
 		
 		//Set up Waiter
 		mWaiterGui = new WaiterGui(this);

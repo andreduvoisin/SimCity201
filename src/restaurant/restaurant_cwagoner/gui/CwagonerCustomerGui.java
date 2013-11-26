@@ -56,10 +56,6 @@ public class CwagonerCustomerGui implements CwagonerGui {
 
 		if (xPos == xDestination && yPos == yDestination) {
 			
-			if (command.equals(Command.GoToRestaurant)) {
-				agent.msgGuiAtRestaurant();
-			}
-			
 			if (command.equals(Command.GoToSeat)
 					&& xDestination == TABLE_X && yDestination == TABLE_Y) {
 				agent.msgGuiAtSeat();
@@ -106,12 +102,6 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	
 	public boolean isPresent() {
 		return isPresent;
-	}
-	
-	public void setHungry() {
-		isHungry = true;
-		agent.msgGuiGotHungry();
-		setPresent(true);
 	}
 	
 	public boolean isHungry() {

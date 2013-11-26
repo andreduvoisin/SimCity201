@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent
@@ -43,17 +44,18 @@ public class AndreSharedWaiterRole extends BaseRole implements Waiter {
 	static final long breakTime = 20000;
 	Timer timer = new Timer();
 
-	public AndreSharedWaiterRole(Host h, Cook c, Cashier cash, String name) {
-		super();
-		this.name = name;
-		this.host = h;
-		this.cashier = cash;
-		this.cook = c;
+	public AndreSharedWaiterRole(Person person) {
+		super(person);
+		this.name = person.getName();
 	}
 
 	public String getName() {
 		return name;
 	}
+	
+	public void setHost(AndreHostRole host) { this.host = host; }
+	public void setCashier(AndreCashierRole cashier) { this.cashier = cashier; }
+	public void setCook(AndreCookRole cook) { this.cook = cook; }
 	// Messages
 	
 	public void msgSitAtTable(Customer c, int table, int waitingPosition) {

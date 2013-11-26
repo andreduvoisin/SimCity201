@@ -9,8 +9,11 @@ import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
 public class WaiterGui implements Gui, WaiterGui_ {
 
-    private Waiter agent = null;
-    AnimationPanel animationPanel;
+    private Waiter role = null;
+    RexAnimationPanel animationPanel;
+    
+    private static int sNum = 0;
+    private int mNum;
     
     private boolean msgSent = true;
     private static final int waiterDim = 10;
@@ -24,8 +27,8 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private int xPos = home, yPos = home;//default waiter position
     private int xDestination = home, yDestination = home;//default start position
 
-    public WaiterGui(Waiter agent, AnimationPanel animationPanel) {
-        this.agent = agent;
+    public WaiterGui(Waiter agent, RexAnimationPanel animationPanel) {
+        this.role = agent;
         this.animationPanel = animationPanel;
         places.put(new Integer(1), new Point(200,150));
 		places.put(new Integer(2), new Point(300,150));
@@ -40,8 +43,9 @@ public class WaiterGui implements Gui, WaiterGui_ {
 		places.put(new Integer(10), new Point(100,250));//serve5
 		places.put(new Integer(11), new Point(25,50));   ///cashier
 		
+		mNum = sNum++;
 		//Creates unique position for WaiterGui
-		xBase = 200 + agent.getNumber()*30;
+		xBase = 200 + mNum;
     }
 
     public void updatePosition() {
@@ -56,7 +60,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
             yPos--;
        
         if (xPos == xDestination && yPos == yDestination && !msgSent) {
-           agent.msgAtLocation(); msgSent=true;
+           role.msgAtLocation(); msgSent=true;
         }
     }
 
@@ -127,15 +131,18 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
     
     public void setBreak(){
-    	agent.wantBreak();
+    	role.wantBreak();
     }
     
     public void backToWork(){
-    	agent.backToWork();
+    	role.backToWork();
     }
     
     public void setWaiterEnabled(){
     	//gui.setWaiterEnabled(agent);
+    }
+    public void setRole(Waiter role){
+    	this.role = role;
     }
     
     public void setWaiterEnabled(String name){

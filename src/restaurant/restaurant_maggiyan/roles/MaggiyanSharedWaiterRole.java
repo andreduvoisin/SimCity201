@@ -99,6 +99,10 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 		return name;
 	}
 	
+	public void setCook(MaggiyanCook c){
+		cook = c; 
+	}
+	
 	public void setCashier(MaggiyanCashier c){
 		cashier = c; 
 	}
@@ -210,6 +214,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	
 	public void msgAnimationReady(){
 		animationReady.release();
+		print("PLEASE WORK"); 
 		stateChanged(); 
 	}
 	
@@ -257,8 +262,8 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	public boolean pickAndExecuteAnAction() {
 		try{
 			if(justGotToWork){
-				startWork();
 				justGotToWork = false;
+				startWork();
 				return true;
 			}
 			
@@ -389,42 +394,42 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 		host.msgWaiterBusy(this); 
 		print("Customer table num in seatcustomer: " + myCust.table);
 		waiterGui.DoGoToSeatCustomer(); 
-		try{
-			print("1");
-			animationReady.acquire(); 
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
+//		try{
+//			print("1");
+//			animationReady.acquire(); 
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		myCust.c.msgFollowMe(this, menu, myCust.table);
-		try{
-			print("2");
-			animationReady.acquire(); 
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
+//		try{
+//			print("2");
+//			animationReady.acquire(); 
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		DoSeatCustomer(myCust.c, myCust.table);
 		myCust.s = CustomerState.seated; 
 		alreadyAtTable = true; 
-		try{ 
-			print("At Table acquire"); 
-			atTable.acquire(); 
-		}
-		catch(Exception e){
-			print("giveCustomerFood exception");
-		}
+//		try{ 
+//			print("At Table acquire"); 
+//			atTable.acquire(); 
+//		}
+//		catch(Exception e){
+//			print("giveCustomerFood exception");
+//		}
 		waiterGui.DoLeaveCustomer();
 		//Leave customer while customer orders
 		//waiterIsReady = true;
-		try{
-			animationReady.acquire(); 
-			//waiterReady.acquire(); 
-
-		}
-		catch(Exception e){
-			print("Animation release exception");
-		} 
+//		try{
+//			animationReady.acquire(); 
+//			//waiterReady.acquire(); 
+//
+//		}
+//		catch(Exception e){
+//			print("Animation release exception");
+//		} 
 		host.msgWaiterFree(this);
 //		}
 	}
@@ -540,6 +545,10 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 
 	public MaggiyanWaiterGui getGui() {
 		return waiterGui;
+	}
+	
+	public void setHost(MaggiyanHost h){
+		host = h; 
 	}
 	
 }

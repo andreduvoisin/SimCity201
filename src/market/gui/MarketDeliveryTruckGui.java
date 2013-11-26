@@ -2,19 +2,19 @@ package market.gui;
 
 import java.awt.*;
 
+import city.gui.CityComponent;
+import base.ContactList;
 import market.interfaces.MarketDeliveryTruck;
 
-public class MarketDeliveryTruckGui implements MarketBaseGui {
+public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseGui {
 	private MarketDeliveryTruck mAgent;
 	
-	private String mDestination;
+	private int mDestinationRestaurant;
 	
-	private static final int xStart = -20, yStart = -20;
-	private static final int xMarketBase = 20, yMarketBase = 20;
-	private int xMarket = xMarketBase, yMarket = yMarketBase;
+	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-35, yMarketBase = ContactList.cMARKET_LOCATION.mY-35;
 	
-	private int xPos = 50, yPos = 50;
-	private int xDestination = xStart, yDestination = yStart;
+	private int xPos = xMarketBase, yPos = yMarketBase;
+	private int xDestination = xMarketBase, yDestination = yMarketBase;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, goToRestaurant, leaveMarket};
@@ -27,7 +27,7 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
 	}
 	
 	public void updatePosition() {
-        if (xPos < xDestination)
+     /*   if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
             xPos--;
@@ -36,21 +36,51 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
             yPos++;
         else if (yPos > yDestination)
             yPos--;
-        
+      */
+		//delivery truck can only move in 4 directions
+		//left road
+		if(xPos == ContactList.cGRID_POINT1-35) {
+			if(yPos < yDestination)
+				yPos++;
+			else if(yPos > yDestination)
+				yPos--;
+		}
+		//right road
+		if(xPos == ContactList.cGRID_POINT7+35) {
+			if(yPos < yDestination)
+				yPos++;
+			else if(yPos > yDestination)
+				yPos--;
+		}
+		//top road
+		if(yPos == ContactList.cGRID_POINT1-35) {
+			if(xPos < xDestination)
+				xPos++;
+			else if(xPos > xDestination)
+				xPos--;
+		}
+		//bottom road
+		if(yPos == ContactList.cGRID_POINT7+35) {
+			if(xPos < xDestination)
+				xPos++;
+			else if(xPos > xDestination)
+				xPos--;
+		}
+		
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToMarket: {
-        		mAgent.msgAnimationAtMarket();
+   //     		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToRestaurant: {
-        		mAgent.msgAnimationAtRestaurant(mDestination);
+  //      		mAgent.msgAnimationAtRestaurant(mDestinationRestaurant);
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-        		mAgent.msgAnimationLeftMarket();
+    //    		mAgent.msgAnimationLeftMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -67,22 +97,21 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
 	
 /* Action Calls */
 	public void DoGoToMarket() {
-		xDestination = xMarket;
-		yDestination = yMarket;
+		xDestination = xMarketBase;
+		yDestination = yMarketBase;
 		mCommand = EnumCommand.goToMarket;
 	}
 
-	public void DoGoToRestaurant(String r) {
-		//fill in;
-		mDestination = r;
-		//must consider parameters
-		//proper way to get to restaurant
-		//mCommand = EnumCommand.goToRestaurant;
+	public void DoGoToRestaurant(int n) {
+		mDestinationRestaurant = n;
+		xDestination = ContactList.cRESTAURANT_LOCATIONS.get(n).mX;
+		yDestination = ContactList.cRESTAURANT_LOCATIONS.get(n).mY;
+		mCommand = EnumCommand.goToRestaurant;
 	}
 	
 	public void DoLeaveMarket() {
-		xDestination = xStart;
-		yDestination = yStart;
+		xDestination = xMarketBase;
+		yDestination = yMarketBase;
 		mCommand = EnumCommand.leaveMarket;
 	}
 	
@@ -98,4 +127,7 @@ public class MarketDeliveryTruckGui implements MarketBaseGui {
 	public int getYPos() {
 		return yPos;
 	}
+
+	@Override
+	public void setPresent(boolean state) {	}
 }

@@ -1,6 +1,7 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import base.Agent;
+import base.BaseRole;
+import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
@@ -10,11 +11,9 @@ import java.util.*;
 /**
  * Restaurant customer agent.
  */
-public class CwagonerCustomerRole extends Agent implements CwagonerCustomer {
+public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	// DATA
-	
-	private String name;
 	private CwagonerHost host;
 	private CwagonerWaiter waiter;
 	private CwagonerCashier cwagonerCashier;
@@ -29,7 +28,7 @@ public class CwagonerCustomerRole extends Agent implements CwagonerCustomer {
 	Timer customerTimer = new Timer();
 	private CwagonerCustomerGui gui;
 
-	public enum State { doingNothing, goingToRestaurant, inRestaurant, waitingToBeSeated,
+	public enum State { doingNothing, inRestaurant, waitingToBeSeated,
 						goingToSeat, lookingAtMenu, readyToOrder, ordering, ordered,
 						eating, askedForCheck, goingToCashier, waitingAtCashier, paid, leaving};
 	private State state = State.doingNothing;
@@ -41,28 +40,15 @@ public class CwagonerCustomerRole extends Agent implements CwagonerCustomer {
 	Event event = Event.none;
 
 	/**
-	 * Constructor for CustomerAgent class
-	 * @param name Customer's name
+	 * Constructor for CustomerRole for SimCity201 v1
 	 */
-	public CwagonerCustomerRole(String customerName) {
-		name = customerName;
-		moneyOwed = 0;
+	public CwagonerCustomerRole(Person person) {
+		super(person);
+		// CHASE: handle payment: moneyOwed, myMoney?
+		state = State.inRestaurant;
 	}
-
 	
 	// MESSAGES
-	
-	// From checkbox in GUI
-	public void msgGuiGotHungry() {
-		event = Event.gotHungry;		
-		stateChanged();
-	}
-	
-	// From GUI
-	public void msgGuiAtRestaurant() {
-		state = State.inRestaurant;
-		stateChanged();
-	}
 	
 	// From host when no tables are empty
 	public void msgRestaurantFull() {
@@ -204,14 +190,7 @@ public class CwagonerCustomerRole extends Agent implements CwagonerCustomer {
 
 	// SCHEDULER
 
-	protected boolean pickAndExecuteAnAction() {
-		
-		// Go to restaurant
-		if (state.equals(State.doingNothing)
-			&& event.equals(Event.gotHungry)) {
-			GoToRestaurant();
-			return true;
-		}
+	public boolean pickAndExecuteAnAction() {
 		
 		// Tell host of presence
 		if (state.equals(State.inRestaurant)) {
@@ -301,18 +280,6 @@ public class CwagonerCustomerRole extends Agent implements CwagonerCustomer {
 
 
 	// ACTIONS
-	
-	private void GoToRestaurant() {
-		print("GoToRestaurant()");
-
-		// Come back to restaurant with AT LEAST the amount owed from "last time"
-		// Decide how much extra money ($1 - $10) every time they enter the restaurant
-		myMoney = moneyOwed + Math.abs(rand.nextInt()) % 10 + 1;
-		print("I have $" + myMoney);
-
-		gui.DoGoToRestaurant();
-		state = State.goingToRestaurant;
-	}
 	
 	private void AlertHost() {
 		print("AlertHost() - sending msgIWantFood");
@@ -464,7 +431,7 @@ public class CwagonerCustomerRole extends Agent implements CwagonerCustomer {
 
 	
 	public String getName() {
-		return name;
+		return "CwagonerCustomer " + mPerson.getName();
 	}
 	
 	public int getHungerLevel() {

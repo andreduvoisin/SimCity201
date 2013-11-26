@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex;
 
 import restaurant.restaurant_xurex.gui.CustomerGui;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
@@ -71,6 +72,22 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	
 	public RexCustomerRole(){
 		super();
+	}
+	public RexCustomerRole(RexAnimationPanel animationPanel){
+		super();
+		CustomerGui gui = new CustomerGui(this, animationPanel);
+		gui.setRole(this);
+		this.setGui(gui);
+		animationPanel.addGui(gui);
+	}
+	
+	public RexCustomerRole(RexAnimationPanel animationPanel, RexHostRole host){
+		super();
+		this.host = host;
+		CustomerGui gui = new CustomerGui(this, animationPanel);
+		gui.setRole(this);
+		this.setGui(gui);
+		animationPanel.addGui(gui);
 	}
 
 	/**
@@ -220,6 +237,8 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		Do("goToRestaurant called");
 	}
 	private void StayOrNot() {
+		host.IWillWait(this);
+		/*
 		int stay = generator.nextInt(2);
 		if(stay==1){
 			host.IWillWait(this);
@@ -234,6 +253,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 				}
 			}, 1000);
 		}
+		*/
 	}
 	private void SitDown() {
 		customerGui.DoGoToSeat(table);
@@ -349,6 +369,9 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	}
 	public void SetChoice(String choice){
 		this.choice = choice;
+	}
+	public void setHost(RexHostRole host){
+		this.host = host;
 	}
 }
 

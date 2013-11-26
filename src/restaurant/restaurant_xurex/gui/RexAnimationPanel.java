@@ -25,17 +25,23 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class AnimationPanel extends CityCard implements ActionListener {
+public class RexAnimationPanel extends CityCard implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+	
+	static RexAnimationPanel instance;
+	
+	public static RexAnimationPanel getInstance(){
+		return instance;
+	}
 	
 //	ROLES
     private static Vector<Waiter> waiters = new Vector<Waiter>();
     private static Vector<Customer> customers = new Vector<Customer>();
     //Initial
-    private static Host host;
-    private static Cook cook; 
-    private static Cashier cashier;
+    private static Host host = new RexHostRole();
+    private static Cook cook = new RexCookRole(); 
+    private static Cashier cashier = new RexCashierRole();
     
     private CookGui cookGui = new CookGui(cook);
 
@@ -43,8 +49,8 @@ public class AnimationPanel extends CityCard implements ActionListener {
 	static final int TABLEDIM = 25;
 	static final int TABLEX = 200;
 	static final int TABLEY = 250;
-    private final int WINDOWX = 450;
-    private final int WINDOWY = 350;
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
     
     static final int CASHIERX = 0;
     static final int CASHIERY = 50;
@@ -65,12 +71,14 @@ public class AnimationPanel extends CityCard implements ActionListener {
     	}
     };
     
-    public AnimationPanel(SimCityGui city) {
+    public RexAnimationPanel(SimCityGui city) {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
+        instance = this;
         
         cook.setGui(cookGui);
+        guis.add(cookGui);
         //bufferSize = this.getSize();
  
     	Timer timer = new Timer(10, this );
@@ -81,10 +89,11 @@ public class AnimationPanel extends CityCard implements ActionListener {
 		repaint();  //Will have paintComponent called
 	}
 
-    public void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         g2 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame
+        g2.setBackground(Color.WHITE);
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
@@ -208,4 +217,13 @@ public class AnimationPanel extends CityCard implements ActionListener {
     	}
     }
     
+    public static RexHostRole getHost(){
+    	return (RexHostRole) host;
+    }
+    public static RexCookRole getCook(){
+    	return (RexCookRole) cook;
+    }
+    public static RexCashierRole getCashier(){
+    	return (RexCashierRole) cashier;
+    }
 }

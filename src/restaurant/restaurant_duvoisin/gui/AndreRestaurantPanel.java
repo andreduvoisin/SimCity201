@@ -27,12 +27,12 @@ public class AndreRestaurantPanel extends JPanel {
 	static AndreRestaurantPanel instance;
 
     //Host, cook, waiters and customers
-	private AndreHostRole host = new AndreHostRole("Kevin G");
-	private AndreCookRole cook = new AndreCookRole("Cooking Mama");
-	private Vector<Waiter> waiters = new Vector<Waiter>();
+	public AndreHostRole host = new AndreHostRole("Kevin G");
+	public AndreCookRole cook = new AndreCookRole("Cooking Mama");
+	private Vector<AndreWaiterRole> waiters = new Vector<AndreWaiterRole>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     private Vector<AndreMarketRole> markets = new Vector<AndreMarketRole>();
-    private AndreCashierRole cashier = new AndreCashierRole("Cashier");
+    public AndreCashierRole cashier = new AndreCashierRole("Cashier");
 
     private JPanel restLabel = new JPanel();
     private ListPanel addMembers = new ListPanel(this);
@@ -110,7 +110,7 @@ public class AndreRestaurantPanel extends JPanel {
         for (int i = 0; i < waiters.size(); i++) {
             Waiter temp = waiters.get(i);
             if (temp.getName() == name) { }
-                gui.updateWaiterPanel(temp, list, waiters);
+                //gui.updateWaiterPanel(temp, list, waiters);
         }
     }
 
@@ -121,7 +121,6 @@ public class AndreRestaurantPanel extends JPanel {
      * @param name name of person
      */
     public void addPerson(BaseRole role) {
-    	//ANDRE: Fix Waiter Adding
     	if (role instanceof AndreCustomerRole) {
     		//AndreCustomerRole c = new AndreCustomerRole(name);	
     		CustomerGui g = new CustomerGui((AndreCustomerRole) role, gui);
@@ -130,28 +129,29 @@ public class AndreRestaurantPanel extends JPanel {
     		((AndreCustomerRole)role).setHost(host);
     		((AndreCustomerRole)role).setGui(g);
     		customers.add(((AndreCustomerRole)role));
+    		((AndreCustomerRole)role).getGui().setHungry();
     		//c.startThread();
-    	} else if(role instanceof AndreWaiterRole || role instanceof AndreSharedWaiterRole) {
-    		// Odd = Shared, Even = Normal
-//    		if(waiters.size() % 2 == 0) {
-//    			AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
-//    			WaiterGui g = new WaiterGui(w, gui);
-//	    		
-//	    		gui.animationPanel.addGui(g);
-//	    		w.setGui(g);
-//	    		waiters.add(w);
-//	    		host.addWaiter(w);
-//	            //w.startThread();
-//    		} else {
-//	    		AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
-//	    		WaiterGui g = new WaiterGui(w, gui);
-//	    		
-//	    		gui.animationPanel.addGui(g);
-//	    		w.setGui(g);
-//	    		waiters.add(w);
-//	    		host.addWaiter(w);
-//	            //w.startThread();
-//    		}
+    	} else if(role instanceof AndreSharedWaiterRole) {	//if(waiters.size() % 2 == 0) { // Odd = Shared, Even = Normal
+    			//AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
+    			WaiterGui g = new WaiterGui(((AndreSharedWaiterRole)role), gui);
+	    		
+	    		gui.animationPanel.addGui(g);
+	    		((AndreSharedWaiterRole)role).setGui(g);
+	    		//waiters.add(((AndreSharedWaiterRole)role));
+	    		//host.addWaiter(((AndreSharedWaiterRole)role));
+	            //w.startThread();
+    	} else if(role instanceof AndreWaiterRole) {	//} else {
+	    		//AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
+	    		WaiterGui g = new WaiterGui(((AndreWaiterRole)role), gui);
+	    		
+	    		gui.animationPanel.addGui(g);
+	    		((AndreWaiterRole)role).setGui(g);
+	    		waiters.add(((AndreWaiterRole)role));
+	    		host.addWaiter(((AndreWaiterRole)role));
+	    		((AndreWaiterRole)role).setHost(host);
+	    		((AndreWaiterRole)role).setCook(cook);
+	    		((AndreWaiterRole)role).setCashier(cashier);
+	            //w.startThread();
     	}
     }
     

@@ -38,24 +38,30 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 	public WaiterState state = WaiterState.good;
 	
 	private WaiterGui_ waiterGui = null;
-
-	public RexWaiterRole2(String name, Person person) {
-		super(person);
-		this.name = name;
+	
+	private void initializeMenu(){
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));
 		menu.put("Pizza", new Integer(9));
+	}
+	
+	public RexWaiterRole2(){
+		super();
+		initializeMenu();
+	}
+
+	public RexWaiterRole2(String name, Person person) {
+		super(person);
+		this.name = name;
+		initializeMenu();
 	}
 	public RexWaiterRole2(String name, Host host, Cook cook, Person person){
 		super(person);
 		this.name = name;
 		this.cook = cook;
 		this.host = host;
-		menu.put("Steak", new Integer(16));
-		menu.put("Chicken", new Integer(11));
-		menu.put("Salad", new Integer(6));
-		menu.put("Pizza", new Integer(9));
+		initializeMenu();
 	}
 	public String getName() {
 		return name;

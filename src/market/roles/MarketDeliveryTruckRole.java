@@ -22,9 +22,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	Semaphore inTransit = new Semaphore(0,true);
 	
 	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
-
-	//ANGELICA: FIX THIS MAP!!!
-	Map<String, MarketCookCustomerRole>	mRestaurants = new HashMap<String, MarketCookCustomerRole>();
 	
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
@@ -39,9 +36,9 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		o.mEvent = EnumOrderEvent.TOLD_TO_DELIVER;
 	}
 	
-	public void msgAnimationAtRestaurant(String r) {
+	public void msgAnimationAtRestaurant(int n) {
 		for(MarketOrder d : mDeliveries) {
-			if(d.mPersonRole == mRestaurants.get(r))
+			if(d.mRestaurantNumber == n)
 			d.mEvent = EnumOrderEvent.READY_TO_DELIVER;
 		}
 		inTransit.release();
@@ -60,16 +57,16 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
 		for(MarketOrder delivery : mDeliveries) {
-			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
-				delivery.mStatus = EnumOrderStatus.BEING_DELIVERED;
-				goToDeliverOrder(delivery);
+			if(delivery.mStatus == EnumOrderStatus.BEING_DELIVERED && delivery.mEvent == EnumOrderEvent.READY_TO_DELIVER) {
+				delivery.mStatus = EnumOrderStatus.FULFILLING;
+				deliverOrder(delivery);
 				return true;
 			}
 		}
 		for(MarketOrder delivery : mDeliveries) {
-			if(delivery.mStatus == EnumOrderStatus.BEING_DELIVERED && delivery.mEvent == EnumOrderEvent.READY_TO_DELIVER) {
-				delivery.mStatus = EnumOrderStatus.FULFILLING;
-				deliverOrder(delivery);
+			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
+				delivery.mStatus = EnumOrderStatus.BEING_DELIVERED;
+				goToDeliverOrder(delivery);
 				return true;
 			}
 		}
@@ -88,14 +85,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Actions */
 	private void goToDeliverOrder(MarketOrder o) {
-		String r = null;;
-		for(String iR : mRestaurants.keySet()) {
-			if(mRestaurants.get(iR) == o.mPersonRole) {
-				r = iR;
-				break;
-			}
-		}
-		DoGoToRestaurant(r);
+		DoGoToRestaurant(o.mRestaurantNumber);
 	}
 	
 	private void deliverOrder(MarketOrder o) {
@@ -103,13 +93,14 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		mDeliveries.remove(o);
 	}
 	
+	//not necessary for V1?
 	private void notifyCashier() {
 		//ANGELICA: message cashier that deliveryTruck is active
 	}
 	
 /* Animation Actions */
-	public void DoGoToRestaurant(String restaurant) {
-		mGui.DoGoToRestaurant(restaurant);
+	public void DoGoToRestaurant(int n) {
+//		mGui.DoGoToRestaurant(restaurant);
 		try {
 			inTransit.acquire();
 		}

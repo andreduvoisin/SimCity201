@@ -13,12 +13,14 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
-//import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_xurex.RexCookRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -27,9 +29,12 @@ import base.interfaces.Role;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
+        static int totalCooks = 0;
+        
         public Role subRole = null;
+
         int restaurantID;
-        int mRestaurantBankNumber;
+        int mRestaurantID;
         protected static int DEFAULT_FOOD_QTY = 5;
         
         public RestaurantCookRole(Person person){
@@ -46,25 +51,27 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         public void setRestaurant(int restaurantID) {
-            
+            mRestaurantID = restaurantID;
+
                 //TODO DAVID add if statements for all the other restaurants
         	switch(restaurantID){
 				case 0: //andre
+					subRole = AndreRestaurantPanel.getInstance().cook;
+					subRole.setPerson(super.mPerson);
 					break;
 				case 1: //chase
 					break;
 				case 2: //jerry
-					subRole = JerrywebRestaurantPanel.getInstance().cook;
-					subRole.setPerson(super.mPerson);
+	//				subRole = JerrywebRestaurantPanel.getInstance().cook;
+	//				subRole.setPerson(super.mPerson);
 					break;
 				case 3: //maggi
 					 subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
 	                 subRole.setPerson(super.mPerson);
 					break;
 				case 4: //david
-           //         subRole = DavidRestaurantPanel.getInstance().cook;
+                    subRole = DavidRestaurantPanel.getInstance().cook;
                     subRole.setPerson(super.mPerson);
-                    //ANGELICA: get restaurant SSN
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson);
@@ -75,10 +82,12 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					subRole.setPerson(mPerson);
 					break;
 				case 7: //rex
+					subRole = RexAnimationPanel.getCook();
+					subRole.setPerson(super.mPerson);
+					RexAnimationPanel.addPerson((RexCookRole)subRole);
 					break;
 			}
-
-        }
+       }
         
         public void setPerson(Person person){
                 super.mPerson = person;
@@ -167,6 +176,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
+                o.setRestaurantNumber(mRestaurantID);
                 mOrders.add(o);
         }
         
@@ -178,8 +188,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 i.mPayment = i.mTotal;
                 
                 //ANGELICA: HACK FOR UNIT TESTING
-                if(mRestaurantBankNumber > 0)
-                	ContactList.SendPayment(mRestaurantBankNumber, i.mMarketBankNumber, i.mPayment);
+               	ContactList.SendPayment(mPerson.getSSN(), i.mMarketBankNumber, i.mPayment);
                 
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));

@@ -10,7 +10,7 @@ import restaurant.restaurant_xurex.interfaces.CookGui_;
 public class CookGui implements Gui, CookGui_ {
 
     private Cook agent = null;
-    AnimationPanel animationPanel;
+    RexAnimationPanel animationPanel;
     
     private boolean msgSent = true;
     private static final int cookDim = 10;
@@ -127,7 +127,7 @@ public class CookGui implements Gui, CookGui_ {
     }
 
 	@Override
-	public void setAnimationPanel(AnimationPanel animationPanel) {
+	public void setAnimationPanel(RexAnimationPanel animationPanel) {
 		this.animationPanel = animationPanel;
 	}
 }
