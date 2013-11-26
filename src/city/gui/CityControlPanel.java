@@ -2,15 +2,18 @@ package city.gui;
 
 //import housing.gui.HousingHouseGuiPanel;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -20,16 +23,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import base.ConfigParser;
+
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{
 	
 	SimCityGui city;
 	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
+	public static final int numConfigs = 5;
 	JButton addRestaurant, addBank, housingGUIButton;
+	JPanel configList;
+	List<JButton> configOptions;
 	
 	// Title & Pause Button
 	JLabel title = new JLabel("Control Panel");
-	JButton pauseButton = new JButton("Start SimCity201");
+//	JButton startButton = new JButton("Start SimCity201");
 	
 	/* ANDRE JERRY No days of week - discuss w/Shane
 	// Select Day
@@ -66,12 +74,13 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		add(title);
 		
 		// Pause Button
-		Dimension pauseBtnDim = new Dimension(CP_WIDTH - 10, 30);
-		pauseButton.setPreferredSize(pauseBtnDim);
-		pauseButton.setMinimumSize(pauseBtnDim);
-		pauseButton.setMaximumSize(pauseBtnDim);
-		pauseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(pauseButton);
+//		Dimension pauseBtnDim = new Dimension(CP_WIDTH - 10, 30);
+//		startButton.setPreferredSize(pauseBtnDim);
+//		startButton.setMinimumSize(pauseBtnDim);
+//		startButton.setMaximumSize(pauseBtnDim);
+//		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		startButton.addActionListener(this);
+//		add(startButton);
 		
 //		// Select Day
 //		dayTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -95,18 +104,29 @@ public class CityControlPanel extends JPanel implements ActionListener{
         pane.setMinimumSize(scrollPaneDim);
         pane.setMaximumSize(scrollPaneDim);
         
-        Dimension panelSize = new Dimension(scrollPaneDim.width - 20, (int)(scrollPaneDim.height / 5));
-    	JPanel temp = new JPanel();
-    	temp.setPreferredSize(panelSize);
-    	temp.setMinimumSize(panelSize);
-    	temp.setMaximumSize(panelSize);
-    	temp.setLayout(new BorderLayout());
-    	JButton tempBU = new JButton("Default Scenario");
-    	tempBU.setPreferredSize(panelSize);
-    	tempBU.setMinimumSize(panelSize);
-    	tempBU.setMaximumSize(panelSize);
-    	temp.add(tempBU, BorderLayout.CENTER);
-    	view.add(temp);
+        /*
+         * Choose Config File
+         */
+        Dimension panelSize = new Dimension(scrollPaneDim.width - 20, scrollPaneDim.height);
+    	configList = new JPanel();
+    	configOptions = new ArrayList<JButton>();
+    	configList.setPreferredSize(panelSize);
+    	configList.setMinimumSize(panelSize);
+    	configList.setMaximumSize(panelSize);
+    	configList.setLayout(new FlowLayout());
+    	
+    	Dimension buttonDim = new Dimension(panelSize.width, panelSize.height/numConfigs);
+    	for (int i=1; i<numConfigs; i++) {
+	    	JButton config = new JButton("Configuration "+i);
+	    	config.addActionListener(this);
+	    	config.putClientProperty("configFile", i);
+	    	config.setPreferredSize(buttonDim);
+	    	config.setMinimumSize(buttonDim);
+	    	config.setMaximumSize(buttonDim);
+	    	configList.add(config);
+	    	configOptions.add(config);
+    	}
+    	view.add(configList);
     	
         add(pane);
         
@@ -133,6 +153,20 @@ public class CityControlPanel extends JPanel implements ActionListener{
 //		add(addBank);	
 	}
 	
-	public void actionPerformed(ActionEvent e) { 
+	public void actionPerformed(ActionEvent e) {
+		for (int i = 1; i < numConfigs; i++) {
+			if (((JButton) e.getSource()).getText()
+					.equals("Configuration " + i)) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, i);
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			for (JButton b : configOptions) {
+				b.setEnabled(false);
+			}
+		}
 	}
 }

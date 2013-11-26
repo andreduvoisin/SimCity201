@@ -1,7 +1,7 @@
 package restaurant.restaurant_tranac.roles;
 
 import base.BaseRole;
-import restaurant.restaurant_tranac.gui.HostGui_at;
+import restaurant.restaurant_tranac.gui.TranacHostGui;
 import restaurant.restaurant_tranac.interfaces.*;
 
 import java.util.*;
@@ -11,8 +11,8 @@ import java.util.*;
  * Restaurant Host Agent
  */
 
-public class RestaurantHostRole_at extends BaseRole implements Host{
-	private HostGui_at hostGui;
+public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
+	private TranacHostGui hostGui;
 	
 	static final int NTABLES = 4;		//number of tables in rest
 	static final int NWAITINGAREA = 20;
@@ -29,7 +29,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 	//MyWaiterState
 	enum WaiterState {Active, WantToGoOnBreak, OnBreak};
 	
-	public RestaurantHostRole_at() {
+	public TranacRestaurantHostRole() {
 		super();
 
 		//create the list of tables
@@ -45,7 +45,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 	}
 
 	/** Messages */
-	public void msgIWantFood(Customer c) {
+	public void msgIWantFood(TranacCustomer c) {
 		//check if the customer is a returning customer
 		synchronized(customers) {
 			for(MyCustomer customer : customers) {
@@ -63,7 +63,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		stateChanged();
 	}
 	
-	public void msgWillWait(Customer c) {
+	public void msgWillWait(TranacCustomer c) {
 		synchronized(customers) {
 			for(MyCustomer customer: customers) {
 				if(customer.c == c) {
@@ -74,7 +74,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		}
 	}
 	
-	public void msgLeavingEarly(Customer c) {
+	public void msgLeavingEarly(TranacCustomer c) {
 		synchronized(customers) {
 			for(MyCustomer customer: customers) {
 				if(customer.c == c) {
@@ -85,7 +85,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		}
 	}
 	
-	public void msgAtWaitingArea(Customer c) {
+	public void msgAtWaitingArea(TranacCustomer c) {
 		for(MyCustomer customer : customers) {
 			if(customer.c == c) {
 				customer.s = CustomerState.Waiting;
@@ -93,7 +93,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 			}
 		}
 	}
-	public void msgCustomerSeated(Customer c) {
+	public void msgCustomerSeated(TranacCustomer c) {
 		for(MyCustomer customer : customers) {
 			if(customer.c == c) {
 				customer.s = CustomerState.Seated;
@@ -113,7 +113,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		stateChanged();
 	}
 	
-	public void msgWantToGoOnBreak(Waiter w) {
+	public void msgWantToGoOnBreak(TranacWaiter w) {
 		synchronized(waiters) {
 			for(MyWaiter waiter : waiters) {
 				if(waiter.w == w) {
@@ -124,7 +124,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		}
 	}
 
-	public void msgBackFromBreak(Waiter w) {
+	public void msgBackFromBreak(TranacWaiter w) {
 		synchronized(waiters) {
 			for(MyWaiter waiter : waiters) {
 				if(waiter.w == w) {
@@ -316,7 +316,7 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		return tables;
 	}
 
-	public void addWaiter(Waiter w) {		//add hack for waiters currently
+	public void addWaiter(TranacWaiter w) {		//add hack for waiters currently
 		synchronized(waiters) {
 			waiters.add(new MyWaiter(w));
 		}
@@ -331,24 +331,24 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 		return true;
 	}
 	
-	public HostGui_at getGui() {
+	public TranacHostGui getGui() {
 		return hostGui;
 	}
 	
-	public void setGui(HostGui_at g) {
+	public void setGui(TranacHostGui g) {
 		hostGui = g;
 	}
 	
 	/** Classes */
 	
 	private class MyCustomer {
-		Customer c;
+		TranacCustomer c;
 		CustomerState s;
 		MyWaiter w;
 		boolean willWait = false;
 		int n;
 		
-		MyCustomer(Customer c, CustomerState s) {
+		MyCustomer(TranacCustomer c, CustomerState s) {
 			this.c = c;
 			this.w = null;
 			this.s = s;
@@ -361,11 +361,11 @@ public class RestaurantHostRole_at extends BaseRole implements Host{
 	}
 	
 	private class MyWaiter {
-		Waiter w;
+		TranacWaiter w;
 		int customerCount;
 		WaiterState s;
 		
-		MyWaiter(Waiter w) {
+		MyWaiter(TranacWaiter w) {
 			this.w = w;
 			customerCount = 0;
 			s = WaiterState.Active;

@@ -1,7 +1,7 @@
 package restaurant.restaurant_tranac.test.mock;
 
 import restaurant.restaurant_tranac.*;
-import restaurant.restaurant_tranac.gui.CustomerGui_at;
+import restaurant.restaurant_tranac.gui.TranacCustomerGui;
 import restaurant.restaurant_tranac.interfaces.*;
 import test.mock.*;
 
@@ -11,12 +11,12 @@ import test.mock.*;
  * @author Angelica Huyen Tran
  */
 
-public class MockCustomer extends Mock implements Customer {
-	public MockCustomer() {
+public class TranacMockCustomer extends Mock implements TranacCustomer {
+	public TranacMockCustomer() {
 		super();
 	}
 	
-	public void msgHereIsChange(Check c) {
+	public void msgHereIsChange(TranacCheck c) {
 		log.add(new LoggedEvent("Received msgHereIsChange from cashier. Change = " + c.getChange()));
 	}
 	
@@ -27,7 +27,7 @@ public class MockCustomer extends Mock implements Customer {
 //empty messages; not necessary to test cashier
 	public String getName() { return getName(); }
 	
-	public CustomerGui_at getGui() { return null; }
+	public TranacCustomerGui getGui() { return null; }
 	
 	public void msgGotHungry() {	}
 	
@@ -35,7 +35,7 @@ public class MockCustomer extends Mock implements Customer {
 	
 	public void msgRestaurantFull() {	}
 	
-	public void msgFollowMe(Menu m, Waiter w) {	}
+	public void msgFollowMe(TranacMenu m, TranacWaiter w) {	}
 	
 	public void msgWhatDoYouWant() {	}
 	
@@ -45,5 +45,5 @@ public class MockCustomer extends Mock implements Customer {
 	
 	public void msgDoneEating() {	}
 	
-	public void msgHereIsCheck(Check c) {	}
+	public void msgHereIsCheck(TranacCheck c) {	}
 }

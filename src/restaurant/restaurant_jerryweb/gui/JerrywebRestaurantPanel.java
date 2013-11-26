@@ -40,7 +40,7 @@ public class JerrywebRestaurantPanel extends JPanel {
     //public PersonAgent mPerson = new PersonAgent(EnumJobType.RESTAURANT,20,"Joe");
 
     
-	public static JerrywebCookRole cook = new JerrywebCookRole("Bob Sagget");
+	public static JerrywebCookRole cook = new JerrywebCookRole();
     public static JerrywebCashierRole cashier = new JerrywebCashierRole("Ted Cruz");
     
     private Vector<JerrywebCustomerRole> customers = new Vector<JerrywebCustomerRole>();
@@ -66,18 +66,16 @@ public class JerrywebRestaurantPanel extends JPanel {
 
         gui.animationPanel.addGui(hostGui);
         //host.startThread();
-        
+        /*
         for(int i=0;i<3; i++){
            //private HostGui hostGui = new HostGui(host);
-        	JerrywebMarketRole market = new JerrywebMarketRole("Market " + i);
+        	JerrywebMarketRole market = new JerrywebMarketRole(null);
         	market.setCook(cook);
         	cook.addMarket(market);
         	market.setCashier(cashier);
         	//market.startThread();
-        }
-        //cook.startThread();
-        //cashier.startThread();
-        
+        }*/
+            
         //JerrywebWaiterRole w = new JerrywebWaiterRole(mPerson);
         //this.addWaiter(w);
         

@@ -2,16 +2,16 @@ package restaurant.restaurant_tranac;
 
 import restaurant.restaurant_tranac.interfaces.*;
 
-public class Check {
-	Waiter waiter;
-	Customer customer;
+public class TranacCheck {
+	TranacWaiter waiter;
+	TranacCustomer customer;
 	String item;
 	double amount;
 	double payment;
 	double change;
 	private int restaurantSSN;
 	
-	public Check(Waiter w, Customer c, String i, int n) {
+	public TranacCheck(TranacWaiter w, TranacCustomer c, String i, int n) {
 		waiter = w;
 		customer = c;
 		item = i;
@@ -57,11 +57,11 @@ public class Check {
 		return item;
 	}
 	
-	public Waiter getWaiter() {
+	public TranacWaiter getWaiter() {
 		return waiter;
 	}
 	
-	public Customer getCustomer() {
+	public TranacCustomer getCustomer() {
 		return customer;
 	}
 

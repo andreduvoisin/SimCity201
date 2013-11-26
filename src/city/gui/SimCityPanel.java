@@ -23,7 +23,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		this.city = city;
 		statics = new ArrayList<CityComponent>();
 		movings = new ArrayList<CityComponent>();
-		timer = new Timer(50, this);
+		timer = new Timer(10, this);
 		timer.start();
 	}
 	
@@ -51,10 +51,6 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	public void moveComponents() {
 		for (CityComponent c:movings) {
-			c.updatePosition();
-			c.updatePosition();
-			c.updatePosition();
-			c.updatePosition();
 			c.updatePosition();
 		}
 

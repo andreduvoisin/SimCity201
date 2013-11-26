@@ -1,8 +1,8 @@
 package restaurant.restaurant_tranac.gui;
 
-import restaurant.restaurant_tranac.interfaces.Customer;
-import restaurant.restaurant_tranac.roles.RestaurantCookRole_at;
-import restaurant.restaurant_tranac.roles.RestaurantWaiterRole_at;
+import restaurant.restaurant_tranac.interfaces.TranacCustomer;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
+import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -12,12 +12,12 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.*;
 
-public class WaiterGui_at implements Gui {
+public class TranacWaiterGui implements Gui {
 
-    private RestaurantWaiterRole_at agent = null;
-    private RestaurantPanel_at gui = null;
+    private TranacRestaurantWaiterRole agent = null;
+    private TranacRestaurantPanel gui = null;
     
-    private RestaurantCookRole_at cook = null;
+    private TranacRestaurantCookRole cook = null;
     
     private int xPos = -20, yPos = -20;						//default waiter position
     private int xDestination = -20, yDestination = -20;		//default start position
@@ -43,7 +43,7 @@ public class WaiterGui_at implements Gui {
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
     
-    public WaiterGui_at(RestaurantWaiterRole_at agent, RestaurantPanel_at gui, int i) {
+    public TranacWaiterGui(TranacRestaurantWaiterRole agent, TranacRestaurantPanel gui, int i) {
         this.agent = agent;
         this.gui = gui;
         
@@ -92,9 +92,9 @@ public class WaiterGui_at implements Gui {
     	}
     }
 
-    public WaiterGui_at(RestaurantWaiterRole_at agent, int i) {
+    public TranacWaiterGui(TranacRestaurantWaiterRole agent, int i) {
         this.agent = agent;
-        this.gui = RestaurantPanel_at.getInstance();
+        this.gui = TranacRestaurantPanel.getInstance();
         
         //home coordinates based off of what num waiter is
         xHome = xBase + 30*(i % 10);
@@ -279,7 +279,7 @@ public class WaiterGui_at implements Gui {
     	yDestination = yWaitingArea + 35*n;
     }
       
-    public void DoBringToTable(Customer c, int table) {
+    public void DoBringToTable(TranacCustomer c, int table) {
     	DoGoToTable(table);
     	
     	Coordinates tablePos = tableLocations.get(table);

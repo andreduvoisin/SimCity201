@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Menu {
+public class TranacMenu {
 	Map<String,Double> choices = new HashMap<String,Double>();
 	List<String> items = new ArrayList<String>();
 //	List<Double> prices = new ArrayList<Double>();
@@ -14,7 +14,7 @@ public class Menu {
 	double saladPrice = 5.99;
 	double pizzaPrice = 8.99;
 		
-	public Menu() {
+	public TranacMenu() {
 		choices.put("Steak",steakPrice);
 		choices.put("Chicken",chickenPrice);
 		choices.put("Salad",saladPrice);

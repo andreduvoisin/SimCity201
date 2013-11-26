@@ -18,8 +18,8 @@ import java.util.Vector;
 
 import restaurant.restaurant_tranac.roles.*;
 
-public class RestaurantPanel_at extends CityCard implements ActionListener {
-	static RestaurantPanel_at instance;
+public class TranacRestaurantPanel extends CityCard implements ActionListener {
+	static TranacRestaurantPanel instance;
 	
 	private final int WINDOWX = 626;
 	private final int WINDOWY = 507;
@@ -28,18 +28,18 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
 
     private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     
-    public RestaurantCashierRole_at mCashier = new RestaurantCashierRole_at();
-    public RestaurantCookRole_at mCook = new RestaurantCookRole_at();
-    public RestaurantHostRole_at mHost = new RestaurantHostRole_at();
+    public TranacRestaurantCashierRole mCashier = new TranacRestaurantCashierRole();
+    public TranacRestaurantCookRole mCook = new TranacRestaurantCookRole();
+    public TranacRestaurantHostRole mHost = new TranacRestaurantHostRole();
     
-    private HostGui_at hostGui = new HostGui_at(mHost);
-    private CookGui_at cookGui = new CookGui_at(mCook);
-    private CashierGui_at cashierGui = new CashierGui_at(mCashier);
+    private TranacHostGui hostGui = new TranacHostGui(mHost);
+    private TranacCookGui cookGui = new TranacCookGui(mCook);
+    private TranacCashierGui cashierGui = new TranacCashierGui(mCashier);
       
-    private Vector<RestaurantWaiterRole_at> mWaiters = new Vector<RestaurantWaiterRole_at>();
-    private Vector<RestaurantCustomerRole_at> mCustomers = new Vector<RestaurantCustomerRole_at>();
+    private Vector<TranacRestaurantWaiterRole> mWaiters = new Vector<TranacRestaurantWaiterRole>();
+    private Vector<TranacRestaurantCustomerRole> mCustomers = new Vector<TranacRestaurantCustomerRole>();
 
-    public RestaurantPanel_at(SimCityGui city) {
+    public TranacRestaurantPanel(SimCityGui city) {
     	super(city);
     	setBounds(0,0,WINDOWX, WINDOWY);
     	setBackground(Color.white);
@@ -100,7 +100,7 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     	}
     }
     
-    public void addCustomer(RestaurantCustomerRole_at c) {
+    public void addCustomer(TranacRestaurantCustomerRole c) {
     	mCustomers.add(c);
     	c.setHost(mHost);
     	c.setCashier(mCashier);
@@ -108,12 +108,12 @@ public class RestaurantPanel_at extends CityCard implements ActionListener {
     	c.msgGotHungry();
     }
     
-    public void addWaiter(RestaurantWaiterRole_at w) {
+    public void addWaiter(TranacRestaurantWaiterRole w) {
     	mWaiters.add(w);
     	mHost.addWaiter(w);
     }
     
-    public static RestaurantPanel_at getInstance() {
+    public static TranacRestaurantPanel getInstance() {
     	return instance;
     }
     

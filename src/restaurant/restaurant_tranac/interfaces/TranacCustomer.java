@@ -1,8 +1,8 @@
 package restaurant.restaurant_tranac.interfaces;
 
-import restaurant.restaurant_tranac.Check;
-import restaurant.restaurant_tranac.Menu;
-import restaurant.restaurant_tranac.gui.CustomerGui_at;
+import restaurant.restaurant_tranac.TranacCheck;
+import restaurant.restaurant_tranac.TranacMenu;
+import restaurant.restaurant_tranac.gui.TranacCustomerGui;
 
 /**
  * Customer interface built for unit testing.
@@ -10,10 +10,10 @@ import restaurant.restaurant_tranac.gui.CustomerGui_at;
  * @author Angelica Huyen Tran
  */
 
-public interface Customer {
+public interface TranacCustomer {
 	public abstract String getName();				//necessary for hostAgent
 	
-	public abstract CustomerGui_at getGui();			//necessary for waiterAgent
+	public abstract TranacCustomerGui getGui();			//necessary for waiterAgent
 	
 	public abstract void msgGotHungry();
 	
@@ -21,7 +21,7 @@ public interface Customer {
 	
 	public abstract void msgRestaurantFull();
 	
-	public abstract void msgFollowMe(Menu m, Waiter w);
+	public abstract void msgFollowMe(TranacMenu m, TranacWaiter w);
 	
 	public abstract void msgWhatDoYouWant();
 	
@@ -31,9 +31,9 @@ public interface Customer {
 	
 	public abstract void msgDoneEating();
 	
-	public abstract void msgHereIsCheck(Check c);
+	public abstract void msgHereIsCheck(TranacCheck c);
 	
-	public abstract void msgHereIsChange(Check c);
+	public abstract void msgHereIsChange(TranacCheck c);
 	
 	public abstract void msgPayNextTime();
 }

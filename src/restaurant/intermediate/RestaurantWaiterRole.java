@@ -25,8 +25,8 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
-import restaurant.restaurant_tranac.roles.RestaurantWaiterRole_at;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
 import restaurant.restaurant_xurex.RexWaiterRole1;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
@@ -96,8 +96,8 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				SmilehamAnimationPanel.addPerson((SmilehamWaiterRole) subRole);
 				break;
 			case 6: //angelica
-				subRole = new RestaurantWaiterRole_at(mPerson);
-				RestaurantPanel_at.getInstance().addWaiter((RestaurantWaiterRole_at)subRole);
+				subRole = new TranacRestaurantWaiterRole(mPerson);
+				TranacRestaurantPanel.getInstance().addWaiter((TranacRestaurantWaiterRole)subRole);
 				break;
 			case 7: //rex
 				RexWaiterRole1 temp = new RexWaiterRole1(RexAnimationPanel.getInstance());
