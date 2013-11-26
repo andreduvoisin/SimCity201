@@ -20,7 +20,7 @@ import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
-import restaurant.restaurant_tranac.gui.RestaurantPanel_at;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
@@ -77,7 +77,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
 				case 6: //angelica
-					subRole= RestaurantPanel_at.getInstance().mCook;
+					subRole= TranacRestaurantPanel.getInstance().mCook;
 					subRole.setPerson(mPerson);
 					break;
 				case 7: //rex
