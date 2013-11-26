@@ -13,18 +13,20 @@ import astar.AStarNode;
 import astar.AStarTraversal;
 import astar.Position;
 import base.ContactList;
+import base.Event;
 import base.Location;
 import base.PersonAgent;
+import base.Event.EnumEventType;
 
-public class CityPerson extends CityComponent implements PersonGuiInterface {
+public class CityPerson extends CityComponent {
 	
 	private String name = "";
 	PersonAgent mPerson = null;
 	boolean atDestination = true;
 	SimCityGui gui;
 	
-	private int xDestination = 120, yDestination = 35;
-	private Location mFinalDestination = new Location(0, 0);
+	public int xDestination = 120, yDestination = 35;
+	public Location mFinalDestination = null;
 	
 	static final int waiterWidth = 10;
 	static final int waiterHeight = 10;
@@ -94,7 +96,8 @@ public class CityPerson extends CityComponent implements PersonGuiInterface {
         	// Arrived at a bus stop
         	if (mFinalDestination != null) {
         		// CHASE: board bus!
-        		
+        		mPerson.msgAddEvent(new Event(EnumEventType.BOARD_BUS, 0));
+        		System.out.println("added BOARD_BUS");
         	}
         	this.disable();
         	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
@@ -221,10 +224,8 @@ public class CityPerson extends CityComponent implements PersonGuiInterface {
 		this.enable();
 
 		if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
-			mFinalDestination = location;
+			mFinalDestination = new Location(location.mX, location.mY);
 			int boardAtStop = gui.citypanel.busDispatch.getBusStopClosestTo(new Location(x, y));
-			// CHASE: use this variable
-			int exitAtStop = gui.citypanel.busDispatch.getBusStopClosestTo(location);
 			xDestination = ContactList.cBUS_STOPS.get(boardAtStop).mX;
 			yDestination = ContactList.cBUS_STOPS.get(boardAtStop).mY;
 		}
@@ -335,4 +336,14 @@ public class CityPerson extends CityComponent implements PersonGuiInterface {
 		}
 		*/
     }
+
+    // Just got off bus
+	public void NewDestination(Location location) {
+		visible = true;
+		x = location.mX;
+		y = location.mY;
+		xDestination = mFinalDestination.mX;
+		yDestination = mFinalDestination.mY;
+		mFinalDestination = null;
+	}
 }
