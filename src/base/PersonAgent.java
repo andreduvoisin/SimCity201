@@ -101,11 +101,11 @@ public class PersonAgent extends Agent implements Person {
 				
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 
-				((RestaurantBaseInterface) mJobRole).setRestaurant(0); //HACK ANDRE ALL
+				//((RestaurantBaseInterface) mJobRole).setRestaurant(0); //HACK ANDRE ALL
 				
 				print("BALLS: " + mJobRole.toString());
 
-				//((RestaurantBaseInterface) mJobRole).setRestaurant(4);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 				//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
 				//DAVID set proper restaurant
 				break;
@@ -114,7 +114,7 @@ public class PersonAgent extends Agent implements Person {
 			case NONE: 
 				mJobRole = new RestaurantCustomerRole(this);
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
-				((RestaurantBaseInterface) mJobRole).setRestaurant(0);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(4);
 				break;
 		}
 		boolean active = (mTimeShift == Time.GetShift());
@@ -383,7 +383,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 0; // SHANE DAVID ANDRE ALL: HACK Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = 4; // SHANE DAVID ANDRE ALL: HACK Make random later (smileham = 5, davidmca = 4)
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
