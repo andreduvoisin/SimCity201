@@ -12,44 +12,44 @@ import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.agents.MarketAgent;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import restaurant.restaurant_davidmca.roles.CashierRole;
-import restaurant.restaurant_davidmca.roles.CookRole;
-import restaurant.restaurant_davidmca.roles.CustomerRole;
-import restaurant.restaurant_davidmca.roles.HostRole;
-import restaurant.restaurant_davidmca.roles.WaiterRole;
-import restaurant.restaurant_davidmca.roles.WaiterRoleShared;
+import restaurant.restaurant_davidmca.roles.DavidCashierRole;
+import restaurant.restaurant_davidmca.roles.DavidCookRole;
+import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
+import restaurant.restaurant_davidmca.roles.DavidHostRole;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 
 /**
  * Panel in frame that contains all the restaurant_davidmca information,
  * including host, cook, waiters, and customers.
  */
-public class RestaurantPanel extends JPanel {
-	static RestaurantPanel instance;
+public class DavidRestaurantPanel extends JPanel {
+	static DavidRestaurantPanel instance;
 
 	// animation grid
 	static int gridX = 25;
 	static int gridY = 35;
 
 	// Host, cook, waiters and customers
-	public HostRole host = new HostRole("Host");
-	public CookRole cook = new CookRole("Cook", 1);
-	public CashierRole cash = new CashierRole("Cashier");
+	public DavidHostRole host = new DavidHostRole("Host");
+	public DavidCookRole cook = new DavidCookRole("Cook", 1);
+	public DavidCashierRole cash = new DavidCashierRole("Cashier");
 	private HostGui hostGui = new HostGui(host);
 	MarketAgent mkt1, mkt2, mkt3;
 
-	public Vector<CustomerRole> customers = new Vector<CustomerRole>();
+	public Vector<DavidCustomerRole> customers = new Vector<DavidCustomerRole>();
 
 	private JPanel restLabel = new JPanel();
 
 	private JPanel group = new JPanel();
 
-	private RestaurantGui gui; // reference to main gui
+	private DavidRestaurantGui gui; // reference to main gui
 	
-	public static RestaurantPanel getInstance() {
+	public static DavidRestaurantPanel getInstance() {
 		return instance;
 	}
 
-	public RestaurantPanel(RestaurantGui gui) {
+	public DavidRestaurantPanel(DavidRestaurantGui gui) {
 		this.gui = gui;
 		this.instance = this;
 		gui.animationPanel.addGui(hostGui);
@@ -129,7 +129,7 @@ public class RestaurantPanel extends JPanel {
 	 *            name of person
 	 */
 
-	public void addCustomer(CustomerRole cust) {
+	public void addCustomer(DavidCustomerRole cust) {
 		CustomerGui g = new CustomerGui(cust, gui, host.getCustomerIndex());
 		gui.animationPanel.addGui(g);
 		cust.setHost(host);
@@ -139,7 +139,7 @@ public class RestaurantPanel extends JPanel {
 		customers.add(cust);
 	}
 
-	public void addWaiter(WaiterRole waiter) {
+	public void addWaiter(DavidWaiterRole waiter) {
 		System.out.println("Waiter added");
 		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
 		gui.animationPanel.addGui(g);
@@ -149,7 +149,7 @@ public class RestaurantPanel extends JPanel {
 		waiter.setCashier(cash);
 	}
 
-	public void addSharedWaiter(WaiterRoleShared waiter) {
+	public void addSharedWaiter(DavidWaiterRoleShared waiter) {
 		WaiterGui g = new WaiterGui(waiter, host.getWaitersList().size());
 		gui.animationPanel.addGui(g);
 		waiter.setHost(host);

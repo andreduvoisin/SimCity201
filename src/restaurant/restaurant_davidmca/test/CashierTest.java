@@ -5,13 +5,13 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import restaurant.restaurant_davidmca.Check;
-import restaurant.restaurant_davidmca.roles.CashierRole;
+import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import restaurant.restaurant_davidmca.test.mock.MockCustomer;
 import restaurant.restaurant_davidmca.test.mock.MockMarket;
 import restaurant.restaurant_davidmca.test.mock.MockWaiter;
 
 public class CashierTest extends TestCase {
-	CashierRole cashier;
+	DavidCashierRole cashier;
 	MockWaiter waiter;
 	MockCustomer customer;
 	MockCustomer customer2;
@@ -24,7 +24,7 @@ public class CashierTest extends TestCase {
 		waiter = new MockWaiter("mockwaiter");
 		market1 = new MockMarket("Fresh 'n Easy");
 		market2 = new MockMarket("Superior");
-		cashier = new CashierRole("cashier");
+		cashier = new DavidCashierRole("cashier");
 		cashier.totalCash = 10000;
 		customer = new MockCustomer("mockcustomer");
 		customer2 = new MockCustomer("mockcustomer2");
@@ -212,7 +212,7 @@ public class CashierTest extends TestCase {
 	}
 
 	public void testNotEnoughMoneyDebtPayment() {
-		cashier = new CashierRole("cashier");
+		cashier = new DavidCashierRole("cashier");
 		cashier.log.clear();
 		brokecustomer = new MockCustomer("brokecustomer");
 		brokecustomer.setCashier(cashier);

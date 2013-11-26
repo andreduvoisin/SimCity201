@@ -27,7 +27,7 @@ import base.BaseRole;
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class CookRole extends BaseRole implements Cook {
+public class DavidCookRole extends BaseRole implements Cook {
 
 	private CookGui cookGui;
 	private Semaphore isAnimating = new Semaphore(500, true);
@@ -81,7 +81,7 @@ public class CookRole extends BaseRole implements Cook {
 	 * @param name
 	 *            name of the customer
 	 */
-	public CookRole(String name, int qty) {
+	public DavidCookRole(String name, int qty) {
 		super(null);
 		this.name = name;
 		ordering = false;

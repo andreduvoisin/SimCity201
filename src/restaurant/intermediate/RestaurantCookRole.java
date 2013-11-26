@@ -13,7 +13,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-import restaurant.restaurant_davidmca.gui.RestaurantPanel;
+import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -41,8 +41,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         public void setRestaurant(int restaurantID) {
-                if (restaurantID == 1) {
-                        subRole = RestaurantPanel.getInstance().cook;
+                if (restaurantID == 4) {
+                        subRole = DavidRestaurantPanel.getInstance().cook;
                         subRole.setPerson(super.mPerson);
                         //ANGELICA: get restaurant SSN
                 }
