@@ -11,4 +11,13 @@ public interface Waiter {
 	public abstract void msgRespondToBreakRequest(Boolean answer);
 	public abstract void msgRequestCheck(Customer c);
 	public abstract void msgHereIsCheck(Customer c, double amount);
+	public abstract void pauseBaseAgent();
+	public abstract void msgPauseScheduler();
+	public abstract void resumeBaseAgent();
+	public abstract void msgResumeScheduler();
+	public abstract String getName();
+	public abstract void msgAtTable();
+	public abstract void msgAtCustomer();
+	public abstract void msgAtCook();
+	public abstract void msgAtCashier();
 }
