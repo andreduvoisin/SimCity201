@@ -72,7 +72,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 4: //david
                     subRole = DavidRestaurantPanel.getInstance().cook;
                     subRole.setPerson(super.mPerson);
-                    //ANGELICA: get restaurant SSN
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson);

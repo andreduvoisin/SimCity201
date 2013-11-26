@@ -75,6 +75,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
+        instance = this;
         
         cook.setGui(cookGui);
         guis.add(cookGui);

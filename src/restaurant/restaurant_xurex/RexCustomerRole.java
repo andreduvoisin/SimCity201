@@ -80,6 +80,15 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		this.setGui(gui);
 		animationPanel.addGui(gui);
 	}
+	
+	public RexCustomerRole(RexAnimationPanel animationPanel, RexHostRole host){
+		super();
+		this.host = host;
+		CustomerGui gui = new CustomerGui(this, animationPanel);
+		gui.setRole(this);
+		this.setGui(gui);
+		animationPanel.addGui(gui);
+	}
 
 	/**
 	 * Hack to establish connection to initial agents
@@ -357,6 +366,9 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	}
 	public void SetChoice(String choice){
 		this.choice = choice;
+	}
+	public void setHost(RexHostRole host){
+		this.host = host;
 	}
 }
 

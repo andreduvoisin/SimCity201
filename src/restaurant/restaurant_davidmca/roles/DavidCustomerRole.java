@@ -16,6 +16,7 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
+import base.PersonAgent;
 import base.interfaces.Person;
 
 /**
@@ -282,6 +283,8 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 				Do("Restaurant full, decided to leave");
 				event = AgentEvent.ReadyToLeave;
 				customerGui.DoExitRestaurant();
+				((PersonAgent) mPerson).msgRoleFinished();
+				((PersonAgent) mPerson).msgRoleInactive();
 				break;
 			}
 		}

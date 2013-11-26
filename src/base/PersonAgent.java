@@ -1,5 +1,6 @@
 package base;
 
+import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingRenterRole;
 
@@ -84,7 +85,7 @@ public class PersonAgent extends Agent implements Person {
 		mCash = cash;
 		mName = name;
 		initializePerson();
-		System.out.println("mTS: " + mTimeShift);
+		System.out.println("mTimeShift: " + mTimeShift);
 		//Get job role and location; set active if necessary
 		mJobRole = null;
 		switch (job){
@@ -99,13 +100,8 @@ public class PersonAgent extends Agent implements Person {
 				//System.out.println(mJobRole.toString());
 				
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
-
-				//((RestaurantBaseInterface) mJobRole).setRestaurant(0); //HACK ANDRE ALL
 				
-				print("BALLS: " + mJobRole.toString());
-
-				((RestaurantBaseInterface) mJobRole).setRestaurant(4);
-				//((RestaurantBaseInterface) mJobRole).setRestaurant(5);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 				//DAVID set proper restaurant
 				break;
 			case TRANSPORTATION: break;
@@ -113,7 +109,7 @@ public class PersonAgent extends Agent implements Person {
 			case NONE: 
 				mJobRole = new RestaurantCustomerRole(this);
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
-				((RestaurantBaseInterface) mJobRole).setRestaurant(4);
+				((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 				break;
 		}
 		boolean active = (mTimeShift == Time.GetShift());
@@ -210,7 +206,13 @@ public class PersonAgent extends Agent implements Person {
 	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
 		mRoleFinished = true;
 	}
-	
+	public void msgRoleInactive(){
+		for (Role iRole : mRoles.keySet()){
+			if(!(iRole instanceof HousingBase)){
+				mRoles.put(iRole, false);
+			}
+		}
+	}
 	public void msgHereIsPayment(int senderSSN, double amount){
 		mCash += amount;
 	}
@@ -376,7 +378,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = 4; // SHANE DAVID ANDRE ALL: HACK Make random later (smileham = 5, davidmca = 4)
+			int restaurantChoice = SimCityGui.TESTNUM;
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
