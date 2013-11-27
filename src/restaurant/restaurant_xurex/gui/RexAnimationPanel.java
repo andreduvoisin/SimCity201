@@ -59,7 +59,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     Graphics2D g2 = null; 
     //private Image bufferImage;
     //private Dimension bufferSize;
-    private List<Gui> guis = new ArrayList<Gui>();
+    private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     private List<Icon> foodIcons = Collections.synchronizedList(new ArrayList<Icon>());
     
     private class Icon{
@@ -88,6 +88,13 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
+		synchronized(guis) {
+			for(Gui gui : guis) {
+	        	if (gui.isPresent()) {
+	            	gui.updatePosition();
+	        	}
+	    	}
+		}
 	}
 
     public void paint(Graphics g) {
@@ -125,18 +132,14 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2.drawRect(75,  200, TABLEDIM, TABLEDIM);
         g2.drawRect(75,  225, TABLEDIM, TABLEDIM);
         g2.drawRect(75,  250, TABLEDIM, TABLEDIM);
-
-    	for(Gui gui : guis) {
-        	if (gui.isPresent()) {
-            	gui.updatePosition();
-        	}
-    	}
         
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-               	gui.draw(g2);
-            }
-       	}
+        synchronized(guis) {
+	        for(Gui gui : guis) {
+	            if (gui.isPresent()) {
+	               	gui.draw(g2);
+	            }
+	       	}
+        }
         
 		g2.setColor(Color.BLACK);
 		drawFood();
@@ -144,12 +147,14 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     
     public void updateCustomerLine() {
         CustomerGui.LINE_POSITION--;
-        for(Gui gui : guis) {
-        	if (gui.isPresent()) {
-        			if(gui instanceof CustomerGui) {
-        				((CustomerGui) gui).moveForwardInLine();
-        			}
-        	}
+        synchronized(guis) {
+	        for(Gui gui : guis) {
+	        	if (gui.isPresent()) {
+	        			if(gui instanceof CustomerGui) {
+	        				((CustomerGui) gui).moveForwardInLine();
+	        			}
+	        	}
+	        }
         }
     }
 
@@ -165,7 +170,9 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     }
     
     public void addFood(String choice, int x, int y){
-    	foodIcons.add(new Icon(choice, x, y));
+    	synchronized(foodIcons) {
+    		foodIcons.add(new Icon(choice, x, y));
+    	}
     }
     
     public void removeFood(int x, int y){
@@ -180,11 +187,15 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     }
 
     public void addGui(Gui gui) {
-        guis.add(gui);
+    	synchronized(guis) {
+    		guis.add(gui);
+    	}
     }
 
     public void removeGui(Gui gui) {
-    	guis.remove(gui);
+    	synchronized(guis) {
+    		guis.remove(gui);
+    	}
     }
     
     public void removeCustomer(Customer customer){

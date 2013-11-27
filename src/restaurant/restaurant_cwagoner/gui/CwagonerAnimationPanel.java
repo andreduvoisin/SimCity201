@@ -8,6 +8,7 @@ import base.Time;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
 	int width, height, tableSize = 50;
-    List<CwagonerGui> guis = new ArrayList<CwagonerGui>();
+    List<CwagonerGui> guis = Collections.synchronizedList(new ArrayList<CwagonerGui>());
     ArrayList<Location> tableLocations = new ArrayList<Location>();
 
     public CwagonerAnimationPanel(int width, int height) {
@@ -40,6 +41,14 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  // Will have paintComponent called
+		
+		synchronized(guis) {
+			for (CwagonerGui gui : guis) {
+	            if (gui.isPresent()) {
+	                gui.updatePosition();
+	            }
+	        }
+		}
 	}
 
     public void paintComponent(Graphics g) {
@@ -56,21 +65,18 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
         	g2.fillRect(iL.mX, iL.mY, tableSize, tableSize);
         	
         }
-
-        for (CwagonerGui gui : guis) {
-            if (gui.isPresent()) {
-                gui.draw(g2);
-            }
-        }
-
-        for (CwagonerGui gui : guis) {
-            if (gui.isPresent()) {
-                gui.updatePosition();
-            }
+        synchronized(guis) {
+	        for (CwagonerGui gui : guis) {
+	            if (gui.isPresent()) {
+	                gui.draw(g2);
+	            }
+	        }
         }
     }
 
     public void addGui(CwagonerGui gui) {
-        guis.add(gui);
+    	synchronized(guis) {
+    		guis.add(gui);
+    	}
     }
 }
