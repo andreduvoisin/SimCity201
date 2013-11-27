@@ -2,6 +2,7 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
+import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -35,8 +36,10 @@ import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityHousing;
+import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
+import city.gui.CityHousing.HousingType;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -46,7 +49,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sRestaurantCounter = 0;
 	
 	//Roles and Job
-	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, PARTY, NONE};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -141,6 +144,23 @@ public class PersonAgent extends Agent implements Person {
 					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 					mJobRole.setPerson(this);
 					break;
+				case PARTY:
+					mJobRole = new HousingRenterRole((Person)this);
+					for(CityHousing iHouse : CityPanel.getInstance().masterHouseList){
+						if(iHouse.mOccupant == null){
+							iHouse.type = HousingType.House;
+							iHouse.mOccupant = (HousingRenterRole)mJobRole;
+							mHouseRole.mHouse = iHouse;
+							break;
+						}
+					}
+					mHouseRole = (HousingBaseRole) mJobRole;
+					if(mTimeShift == Time.GetTime()){
+						planParty(8);
+					}
+					else{
+						planParty(-1);
+					}
 				case NONE:
 					break;
 			}
@@ -498,6 +518,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void inviteToParty() {
+		if(mFriends.isEmpty()){
+			for(int i = mSSN; i<(mSSN+9); i++){
+				mFriends.add(CityPanel.getInstance().masterPersonList.get(i));
+			}
+		}
 		//party is in 3 days
 		//send RSVP1 and event invite
 		for (Person iFriend : mFriends){
