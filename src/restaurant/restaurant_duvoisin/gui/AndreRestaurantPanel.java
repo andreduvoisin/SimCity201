@@ -1,6 +1,5 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
@@ -42,7 +41,7 @@ public class AndreRestaurantPanel extends JPanel {
 
     public AndreRestaurantPanel(AndreRestaurantGui gui) {
         this.gui = gui;
-        this.instance = this;
+        instance = this;
         setLayout(new GridLayout(1, 2, 20, 20));
         group.setLayout(new GridLayout(1, 2, 10, 10));
 

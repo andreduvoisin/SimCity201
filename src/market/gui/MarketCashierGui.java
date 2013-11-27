@@ -1,6 +1,10 @@
 package market.gui;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import base.BaseRole;
 import market.interfaces.MarketCashier;
@@ -22,10 +26,21 @@ public class MarketCashierGui implements MarketBaseGui {
 	public enum EnumCommand {noCommand, goToPosition, leaveMarket};
 	public EnumCommand mCommand = EnumCommand.noCommand;
 	
+	BufferedImage image;
+	
 	public MarketCashierGui(MarketCashier agent) {
 		mAgent = agent;
 		
 		isPresent = true;
+		
+    	image = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/green-requiem.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 	
 	public void updatePosition() {
@@ -58,9 +73,10 @@ public class MarketCashierGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(Color.ORANGE);
+/*		g.setColor(Color.ORANGE);
 		g.fillRect(xPos, yPos, SIZE, SIZE);
-	}
+*/		g.drawImage(image,xPos,yPos,null);
+		}
 	
 /* Action Calls */
 	public void DoGoToPosition() {

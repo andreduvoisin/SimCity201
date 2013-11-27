@@ -3,7 +3,6 @@ package restaurant.restaurant_duvoisin.roles;
 import java.util.*;
 
 import base.BaseRole;
-import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_duvoisin.gui.TableGui;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
