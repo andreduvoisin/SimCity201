@@ -1,5 +1,12 @@
 package restaurant.restaurant_xurex;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import restaurant.restaurant_xurex.gui.CustomerGui;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import restaurant.restaurant_xurex.interfaces.Cashier;
@@ -9,15 +16,9 @@ import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.BaseRole;
 import base.Event;
 import base.Event.EnumEventType;
+import base.PersonAgent;
 import base.Time;
 import base.interfaces.Person;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Restaurant customer agent.
@@ -337,7 +338,9 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		customerGui.DoGoToSeat(5);
 	}
 	private void leaveTable() {
-		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, -1));
+		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
+		mPerson.setJobFalse();
+		Time.sGlobalTimeInt = 5;
 		Do("Leaving.");
 		waiter.Leaving(this);
 		customerGui.DoExitRestaurant();

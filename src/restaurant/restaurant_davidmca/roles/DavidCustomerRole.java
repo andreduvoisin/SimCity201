@@ -141,7 +141,7 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 	public void msgAnimationFinishedLeaveRestaurant() {
 		// from animation
 		event = AgentEvent.doneLeaving;
-		((PersonAgent) mPerson).msgRoleFinished(this);
+		((PersonAgent) mPerson).msgRoleFinished();
 		stateChanged();
 	}
 

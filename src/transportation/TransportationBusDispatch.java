@@ -13,20 +13,14 @@ import transportation.interfaces.TransportationRider;
  */
 public class TransportationBusDispatch extends Agent {
 
-	public TransportationBusDispatch(List<Location> busStops) {
-		for (Location iL : busStops) {
-			mBusStops.add(new TransportationBusStop(iL));
-		}
-
-		mBus = new TransportationBusInstance(this);
-	}
+	public static TransportationBusDispatch instance = null;
 
 	// ==================================================================================
 	// ------------------------------------- DATA ---------------------------------------
 	// ==================================================================================
 
 	TransportationBusInstance mBus;
-	private List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
+	public List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
 
 
 	// ==================================================================================
@@ -37,8 +31,8 @@ public class TransportationBusDispatch extends Agent {
 	 * From GUI - bus arrived at stop
 	 * @param busNum BusInstance.mBusNumber: the number of the bus
 	 */
-	public void msgGuiArrivedAtStop(int busNum) {
-		//print("msgGuiArrivedAtStop(bus " + busNum + ")");
+	public void msgGuiArrivedAtStop() {
+		//print("msgGuiArrivedAtStop()");
 
 		mBus.state = TransportationBusInstance.enumState.readyToUnload;
 
@@ -54,8 +48,7 @@ public class TransportationBusDispatch extends Agent {
 	 * @param riderCurrentStop The stop number the Person is at
 	 */
 	public void msgNeedARide(TransportationRider r, int riderCurrentStop) {
-		//print("msgNeedARide(current stop: " + riderCurrentStop + ")");
-
+		print("msgNeedARide(current stop: " + riderCurrentStop + ")");
 		mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 		stateChanged();
 	}
@@ -67,7 +60,7 @@ public class TransportationBusDispatch extends Agent {
 	 * @param riderDestination The stop number the Person is going to
 	 */
 	public void msgImOn(TransportationRider r) {
-		//print("msgImOn()");
+		print("msgImOn()");
 
 		mBusStops.get(r.getLocation()).mWaitingPeople.remove(r);
 
@@ -90,7 +83,7 @@ public class TransportationBusDispatch extends Agent {
 	 * @param p The Person who got off
 	 */
 	public void msgImOff(TransportationRider r) {
-		//print("msgImOff()");
+		print("msgImOff()");
 
 		// Remove rider from correct bus's rider list
 			for (TransportationRider iRider : mBus.mRiders) {
@@ -121,7 +114,6 @@ public class TransportationBusDispatch extends Agent {
 	// ==================================================================================
 
 	public boolean pickAndExecuteAnAction() {
-
 		if (mBus.state.equals(TransportationBusInstance.enumState.readyToUnload)) {
 			if (! mBus.mRiders.isEmpty()) {
 				TellRidersToGetOff();
@@ -162,7 +154,7 @@ public class TransportationBusDispatch extends Agent {
 	 * @param bus BusInstance of which to check rider list
 	 */
 	private void TellRidersToGetOff() {
-		//print("TellRIdersToGetOff()");
+		//print("TellRidersToGetOff()");
 
 			mBus.state = TransportationBusInstance.enumState.unloading;
 			boolean needToWait = false;
@@ -187,7 +179,7 @@ public class TransportationBusDispatch extends Agent {
 	 * @param bus BusInstance of which to check current stop's waiting list
 	 */
 	private void TellRidersToBoard() {
-		//print("TellRidersToBoard()");
+		print("TellRidersToBoard()");
 
 			if (mBusStops.get(mBus.mCurrentStop).mWaitingPeople.isEmpty()) {
 				mBus.state = TransportationBusInstance.enumState.readyToTravel;
@@ -213,10 +205,10 @@ public class TransportationBusDispatch extends Agent {
 	private void AdvanceToNextStop() {
 		//print("AdvanceToNextStop()");
 
-			mBus.state = TransportationBusInstance.enumState.traveling;
+		mBus.state = TransportationBusInstance.enumState.traveling;
 
-			// Gui has a list of bus stop coordinates
-			mBus.mGui.DoAdvanceToNextStop();
+		// Gui has a list of bus stop coordinates
+		mBus.mGui.DoAdvanceToNextStop();
 	}
 
 	private boolean NoBusesBusy() {
@@ -253,8 +245,27 @@ public class TransportationBusDispatch extends Agent {
 		for (int i = 0; i < mBusStops.size(); i++) {
 			double d = Math.sqrt(Math.pow((mBusStops.get(i).location.mX - loc.mX), 2)
 						+ Math.pow((mBusStops.get(i).location.mY - loc.mY), 2));
-			if (d < distance) shortest = i;
+			if (d < distance) {
+				distance = d;
+				shortest = i;
+			}
 		}
 		return shortest;
+	}
+
+	public static TransportationBusDispatch getInstance() {
+		if (instance == null) return new TransportationBusDispatch();
+		return instance;
+	}
+
+	public TransportationBusDispatch() {
+		List<Location> busStops = base.ContactList.cBUS_STOPS;
+		for (Location iL : busStops) {
+			mBusStops.add(new TransportationBusStop(iL));
+		}
+		
+		instance = this;
+
+		mBus = new TransportationBusInstance(this, busStops);
 	}
 }
