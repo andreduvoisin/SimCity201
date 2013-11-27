@@ -79,10 +79,7 @@ public class CityBus extends CityComponent {
         else if (y > destination.mY)	y--;
 
         if (x == destination.mX && y == destination.mY && mTraveling) {
-        	System.out.println("stop number = " + mStopNumber);
         	mStopNumber = (mStopNumber + 1) % 4;
-
-        	System.out.println("new stop number = " + mStopNumber);
         	mBusDispatch.msgGuiArrivedAtStop();
 			mTraveling = false;
 			firstRun = false;
