@@ -1,4 +1,4 @@
-PARTY	200	partyPerson1
+PARTY 200 partyPerson1
 NONE 200 otherPerson1
 NONE 200 otherPerson2
 NONE 200 otherPerson3
@@ -10,4 +10,3 @@ NONE 200 otherPerson8
 NONE 200 otherPerson9
 NONE 200 otherPerson10
 NONE 200 otherPerson11
-

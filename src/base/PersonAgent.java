@@ -329,12 +329,12 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		if(mTimeShift == 1) {
 			if ((mRoleFinished) && (!mAtJob) ){
-				System.out.println("Processing events");
+				//System.out.println("Processing events");
 				// Process events (calendar)
 					Iterator<Event> itr = mEvents.iterator();
 					while (itr.hasNext()) {
 						Event event = itr.next();
-						System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
+						//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 						if (event.mTime > Time.GetTime())
 							break; // don't do future calendar events
 						mRoleFinished = false;
@@ -368,7 +368,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		System.out.println("processEvent "+event.mEventType.toString());
+		//System.out.println("processEvent "+event.mEventType.toString());
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
