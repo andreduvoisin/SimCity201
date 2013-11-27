@@ -50,7 +50,9 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	public void msgCustomerOrdered(CwagonerWaiter w, CwagonerCustomer c, String food) {
 		log.add(new LoggedEvent("Received msgCustomerOrdered(" + w.getName() + ", " + c.getName() + ", " + food + ")"));
 
-		Bills.add(new Bill(w, c, PriceList.get(food)));
+		Bills.
+		add(new Bill(w, c, 
+				PriceList.get(food)));
 		stateChanged();
 	}
 	

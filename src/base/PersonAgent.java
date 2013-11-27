@@ -18,6 +18,7 @@ import java.util.concurrent.Semaphore;
 
 import market.gui.MarketPanel;
 import market.interfaces.MarketCustomer;
+import market.interfaces.MarketWorker;
 import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
@@ -132,14 +133,12 @@ public class PersonAgent extends Agent implements Person {
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
 					if(mJobRole instanceof MarketCashierRole) {
 						mJobRole = MarketPanel.getInstance().mCashier;
-						mJobRole.setPerson(this);
 					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
 						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
-						mJobRole.setPerson(this);
-					} else if(mJobRole instanceof MarketWorkerRole) {
-						mJobRole.setPerson(this);
+					} else if(mJobRole instanceof MarketWorkerRole){
+						MarketPanel.getInstance().mCashier.addWorker((MarketWorker)mJobRole);
 					}
-//					mJobRole.setPerson(this);
+					mJobRole.setPerson(this);
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);
@@ -156,7 +155,7 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 					break;
 				case TRANSPORTATION:
-					mJobRole = SortingHat.getTransportationRole();
+					mJobRole = SortingHat.getTransportationRole(this);
 					break;
 				case HOUSING: 
 					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
@@ -456,10 +455,8 @@ public class PersonAgent extends Agent implements Person {
 //		System.out.println("Going to Job");
 		if (!testing){
 		if (mJobLocation != null){
-			System.out.println("yes");
 			mPersonGui.DoGoToDestination(mJobLocation);
 		}else{
-			System.out.println("no");
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(SimCityGui.TESTNUM));
 		}
 		}
@@ -625,7 +622,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
 
-		((TransportationBusRiderRole) mJobRole).msgReset(boardAtStop, exitAtStop);
+		((TransportationBusRiderRole) mJobRole).msgReset();
 		
 	}
 

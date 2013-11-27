@@ -84,17 +84,13 @@ public class MarketPanel extends CityCard implements ActionListener {
 
 	public void addGui(MarketBaseGui g) {
 		synchronized(guis) {
-			System.out.println(g.toString());
 			guis.add(g);
 		}
 		if(g instanceof MarketWorkerGui) {
-//			System.out.println("added waiter gui!" + guis.size());
-
 			mWorkerGuis.add((MarketWorkerGui)g);
 			((MarketWorkerGui) g).setItemsGui(mItemGui);
 		}
 		else if (g instanceof MarketCustomerGui) {
-			System.out.println("added customerGu");
 			mCustomerGuis.add((MarketCustomerGui)g);
 		}
 	}

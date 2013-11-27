@@ -11,7 +11,8 @@ public abstract class CityComponent implements Gui{
 	public enum EnumCityComponents {RESTAURANT, ROAD, BANK, HOUSE, MARKET, CAR, BUS, PEOPLE}
 	
 	Rectangle rectangle;
-	int x, y;
+	public int x;
+	public int y;
 	Color color;
 	String ID;
 	boolean isActive;

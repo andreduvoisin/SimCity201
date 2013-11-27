@@ -183,7 +183,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 
 	void fulfillOrder(MarketOrder order){
-		order.mWorker = mWorkers.get(mWorkerIndex++ % mNumWorkers);
+		//ANGLEICA: hack!
+		order.mWorker = mWorkers.get(0);
 		order.mWorker.msgFulfillOrder(order);
 	}
 	
