@@ -24,8 +24,6 @@ import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import test.mock.MockPersonGui;
-import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.gui.BankPanel;
@@ -39,8 +37,10 @@ import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityHousing;
+import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
+import city.gui.CityHousing.HousingType;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -51,7 +51,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sHouseCounter = 0;
 	
 	//Roles and Job
-	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, PARTY, NONE};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -135,7 +135,7 @@ public class PersonAgent extends Agent implements Person {
 					} else if(mJobRole instanceof MarketWorkerRole) {
 						mJobRole = new MarketWorkerRole(this);
 					}
-					mJobRole.setPerson(this);
+//					mJobRole.setPerson(this);
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);
@@ -161,6 +161,23 @@ public class PersonAgent extends Agent implements Person {
 					mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
 					sHouseCounter++;
 					break;
+				case PARTY:
+					mJobRole = new HousingRenterRole((Person)this);
+					for(CityHousing iHouse : CityPanel.getInstance().masterHouseList){
+						if(iHouse.mOccupant == null){
+							iHouse.type = HousingType.House;
+							iHouse.mOccupant = (HousingRenterRole)mJobRole;
+							((HousingBaseRole) mJobRole).setHouse(iHouse);
+							break;
+						}
+					}
+					mHouseRole = (HousingBaseRole) mJobRole;
+					if(mTimeShift == Time.GetTime()){
+						planParty(8);
+					}
+					else{
+						planParty(-1);
+					}
 				case NONE:
 					break;
 			}
@@ -407,7 +424,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void getCar(){
-		Location location = ContactList.cCARDEALERSHIP_DOOR;
+		Location location = ContactList.cMARKET_DOOR;
 		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false); //set city person invisible
@@ -519,6 +536,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void inviteToParty() {
+		if(mFriends.isEmpty()){
+			for(int i = mSSN; i<(mSSN+9); i++){
+				mFriends.add(CityPanel.getInstance().masterPersonList.get(i));
+			}
+		}
 		//party is in 3 days
 		//send RSVP1 and event invite
 		for (Person iFriend : mFriends){

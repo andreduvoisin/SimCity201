@@ -25,8 +25,8 @@ public class MarketGuiTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		mMarketPanel = new MarketPanel(null, EnumMarketType.FOOD);
-		mMarketItems = new MarketItemsGui(EnumMarketType.FOOD);
+		mMarketPanel = new MarketPanel(null, EnumMarketType.BOTH);
+		mMarketItems = new MarketItemsGui(EnumMarketType.BOTH);
 		mMarketPanel.addGui(mMarketItems);
 	}
 	

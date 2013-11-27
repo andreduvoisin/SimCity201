@@ -54,6 +54,7 @@ public class BaseRole implements Role {
 	public void setActive() {
 		mActive = !mActive;
 	}
+	
 	/**
 	 * The simulated action code
 	 */

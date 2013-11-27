@@ -149,6 +149,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	configList.add(marketBtn);
     	configOptions.add(marketBtn);
     	view.add(configList);
+    	JButton partyBtn = new JButton("Party");
+    	partyBtn.addActionListener(this);
+    	partyBtn.setPreferredSize(buttonDim);
+    	partyBtn.setMinimumSize(buttonDim);
+    	partyBtn.setMaximumSize(buttonDim);
+    	configList.add(partyBtn);
+    	configOptions.add(partyBtn);
+    	view.add(configList);
         add(pane);
         
         // Tabs
@@ -205,6 +213,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
 					config.readFileCreatePersons(city, "marketConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Party")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig"+".txt");
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
