@@ -128,6 +128,7 @@ public class SortingHat {
 		//MarketCashierRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketCashierRole){
+				System.out.println("Test");
 				if (shiftRoles.get(iRole) == false){ //if role not filled
 					shiftRoles.put(iRole, true);
 					return (MarketCashierRole) iRole;
