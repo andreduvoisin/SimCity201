@@ -504,6 +504,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void depositCheck() {
+		mPersonGui.setPresent(true);
 		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
