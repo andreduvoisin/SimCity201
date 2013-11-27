@@ -22,7 +22,11 @@ import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
+import restaurant.intermediate.RestaurantCashierRole;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantHostRole;
+import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
@@ -52,6 +56,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, PARTY, NONE};
+	public static enum EnumRestaurantRole {HOST, CASHIER, COOK, WAITER, CUSTOMER};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -73,6 +78,8 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	public boolean mHasCar;
+	public int mRestaurantNumber;
+	public EnumRestaurantRole mRestaurantRole;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -88,10 +95,12 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(EnumJobType job, double cash, String name){
+	public PersonAgent(EnumJobType job, double cash, String name, int restaurantNum, EnumRestaurantRole restRole){
 		mJobType = job;
 		mCash = cash;
 		mName = name;
+		mRestaurantNumber = restaurantNum;
+		mRestaurantRole = restRole;
 		initializePerson();
 		
 		if (mTimeShift == 1){
@@ -142,14 +151,26 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
 					break;	
 				case RESTAURANT:
-					mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+					switch(mRestaurantRole) {
+						case HOST:
+							mJobRole = new RestaurantHostRole(null);
+							break;
+						case COOK:
+							mJobRole = new RestaurantCookRole(null);
+							break;
+						case CASHIER:
+							mJobRole = new RestaurantCashierRole(null);
+							break;
+						case WAITER:
+							mJobRole = new RestaurantWaiterRole(null);
+							break;
+						case CUSTOMER:
+							mJobRole = new RestaurantCustomerRole(null);
+							break;
+					}
+					mJobLocation = ContactList.cRESTAURANT_DOORS.get(mRestaurantNumber);
 					((RestaurantBaseInterface) mJobRole).setPerson(this);
-					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM); //HACK ANDRE ALL
-					break;
-				case RESTAURANTCUSTOMER:
-					mJobRole = new RestaurantCustomerRole(this);
-					((RestaurantBaseInterface) mJobRole).setPerson(this);
-					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
+					((RestaurantBaseInterface) mJobRole).setRestaurant(mRestaurantNumber); //HACK ANDRE ALL
 					break;
 				case TRANSPORTATION:
 					mJobRole = SortingHat.getTransportationRole();
@@ -244,7 +265,7 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), 95, sSSN*20 + 100); //SHANE: Hardcoded start place
+		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: Hardcoded start place
 		
 		// Event Setup
 		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
@@ -451,7 +472,7 @@ public class PersonAgent extends Agent implements Person {
 			mPersonGui.DoGoToDestination(mJobLocation);
 		}else{
 			System.out.println("no");
-			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(SimCityGui.TESTNUM));
+			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(mRestaurantNumber));
 		}
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
@@ -482,7 +503,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = SimCityGui.TESTNUM;
+			int restaurantChoice = mRestaurantNumber;
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
