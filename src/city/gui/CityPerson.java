@@ -236,11 +236,14 @@ public class CityPerson extends CityComponent {
 			}
 			else{
 				mFinalDestination = location;
-				if ((location.mX < 180) || (location.mY < 180)){
+				if (location.mX < 180){
 					xDestination = 95;
-					yDestination = 95;
 				}else{
 					xDestination = 500;
+				}
+				if (location.mY < 180){
+					yDestination = 95;
+				}else{
 					yDestination = 500;
 				}
 			}

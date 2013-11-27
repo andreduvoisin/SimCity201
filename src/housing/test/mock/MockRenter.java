@@ -96,6 +96,12 @@ public class MockRenter extends Mock implements Role, HousingRenter {
 		return false;
 	}
 
+	@Override
+	public void setActive() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 

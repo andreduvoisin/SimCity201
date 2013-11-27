@@ -87,4 +87,10 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 		return false;
 	}
 
+	@Override
+	public void setActive() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

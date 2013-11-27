@@ -58,4 +58,10 @@ public class MockCookCustomer extends Mock implements RestaurantCookInterface, R
 		return false;
 	}
 
+	@Override
+	public void setActive() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
