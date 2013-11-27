@@ -265,7 +265,7 @@ public class PersonAgent extends Agent implements Person {
 		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(mJobRole, false); //set job role to false;
-			mJobRole.setNotActive();
+			mJobRole.setActive();
 			mPersonGui.setPresent(true);
 		}
 		
@@ -729,5 +729,9 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(true);
 		mPersonGui.setX(250);
 		mPersonGui.setY(300);
+	}
+	
+	public CityPerson getGui(){
+		return mPersonGui;
 	}
 }

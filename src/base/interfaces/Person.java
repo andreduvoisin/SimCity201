@@ -48,5 +48,6 @@ public interface Person {
 	void msgHereIsPayment(int senderSSN, double amount);
 	
 	public void setGuiPresent();
+	public CityPerson getGui();
 
 }
