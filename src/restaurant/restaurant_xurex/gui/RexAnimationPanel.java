@@ -12,10 +12,7 @@ import restaurant.restaurant_xurex.RexCustomerRole;
 import restaurant.restaurant_xurex.RexHostRole;
 import restaurant.restaurant_xurex.RexWaiterRole1;
 import restaurant.restaurant_xurex.RexWaiterRole2;
-import restaurant.restaurant_xurex.interfaces.Cashier;
-import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
-import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 
 import java.awt.*;

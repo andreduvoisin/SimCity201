@@ -108,7 +108,7 @@ public class MarketAgent extends Agent implements Market{
 		for (Order order: orders){
 			if(order.s==OrderState.ready){
 				//RequestPayment(order);
-				SendOrder(order);
+				//SendOrder(order);
 				order.s = OrderState.ignore;
 				//Can also remove order from list
 				return true;
@@ -132,10 +132,10 @@ public class MarketAgent extends Agent implements Market{
 	}
 
 	// ACTIONS
-	private void SendOrder(Order o){
+	/*private void SendOrder(Order o){
 		cook.OrderIsReady(this);
 		Do("Order is ready sent to cook");
-	}
+	}*/
 	
 	private void RequestPayment(Order o){
 		//Compute Bill Here
@@ -155,7 +155,7 @@ public class MarketAgent extends Agent implements Market{
 	}
 	
 	private void PrepareOrder(Order o){
-		boolean canFulfill = true;
+		//boolean canFulfill = true;
 		for(String food : o.ordered.keySet()){
 			int available = Inventory.get(food);
 			int ordered   = o.ordered.get(food);
@@ -166,15 +166,15 @@ public class MarketAgent extends Agent implements Market{
 			else{
 				o.provided.put(food, available);
 				Inventory.put(food, 0);
-				canFulfill = false;
+				//canFulfill = false;
 			}
 		}
-		if(canFulfill){
+		/*if(canFulfill){
 			cook.MarketCanFulfill(this, o.provided);
 		}
 		else{
 			cook.MarketCannotFulfill(this, o.provided);
-		}
+		}*/
 		
 		final Order temp = o;
 		orderTimer.schedule(

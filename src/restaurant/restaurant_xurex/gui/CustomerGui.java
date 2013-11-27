@@ -10,7 +10,7 @@ import java.util.Map;
 public class CustomerGui implements Gui{
 
         private RexCustomerRole role = null;
-        private boolean isPresent = true;
+        //private boolean isPresent = true;
         private boolean isHungry = false;
         
         public RexAnimationPanel animationPanel;
@@ -86,7 +86,7 @@ public class CustomerGui implements Gui{
                 return isHungry;
         }
         public void setPresent(boolean present){
-        		isPresent = present;
+        		//isPresent = present;
         }
 
         public void DoGoToSeat(int seatnumber) {
