@@ -16,8 +16,12 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
+import market.gui.MarketPanel;
 import market.interfaces.MarketCustomer;
+import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
+import market.roles.MarketDeliveryTruckRole;
+import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import test.mock.MockPersonGui;
@@ -44,6 +48,7 @@ public class PersonAgent extends Agent implements Person {
 	//Static data
 	public static int sSSN = 0;
 	public static int sRestaurantCounter = 0;
+	public static int sHouseCounter = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
@@ -123,6 +128,17 @@ public class PersonAgent extends Agent implements Person {
 					break;
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
+					if(mJobRole instanceof MarketCashierRole) {
+						System.out.println("cashier");
+						mJobRole = MarketPanel.getInstance().mCashier;
+					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
+						System.out.println("truck");
+						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
+					} else if(mJobRole instanceof MarketWorkerRole) {
+						mJobRole = new MarketWorkerRole(this);
+						System.out.println("worker");
+					}
+					mJobRole.setPerson(this);
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);
@@ -144,6 +160,9 @@ public class PersonAgent extends Agent implements Person {
 				case HOUSING: 
 					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 					mJobRole.setPerson(this);
+					((HousingBaseRole) mJobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+					mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+					sHouseCounter++;
 					break;
 				case NONE:
 					break;
@@ -410,7 +429,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		System.out.println("Going to Job");
+//		System.out.println("Going to Job");
 		if (mJobLocation != null){
 			System.out.println("yes");
 			mPersonGui.DoGoToDestination(mJobLocation);
@@ -546,9 +565,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-		if (mHouseRole.mHouse != null) {
-			mHouseRole.msgTimeToMaintain(); //this role is always active
-		}
+//		if (mHouseRole.mHouse != null) {
+			((HousingBaseRole) mJobRole).msgTimeToMaintain();
+//			mHouseRole.msgTimeToMaintain(); //this role is always active
+//		}
 	}
 	
 	private List<Person> getBestFriends(){
