@@ -18,6 +18,7 @@ import java.util.concurrent.Semaphore;
 
 import market.gui.MarketPanel;
 import market.interfaces.MarketCustomer;
+import market.interfaces.MarketWorker;
 import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
@@ -132,13 +133,10 @@ public class PersonAgent extends Agent implements Person {
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
 					if(mJobRole instanceof MarketCashierRole) {
 						mJobRole = MarketPanel.getInstance().mCashier;
-//						mJobRole.setPerson(this);
 					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
 						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
-						System.out.println("worker");
-//						mJobRole.setPerson(this);
 					} else if(mJobRole instanceof MarketWorkerRole){
-//						mJobRole.setPerson(this);
+						MarketPanel.getInstance().mCashier.addWorker((MarketWorker)mJobRole);
 					}
 					mJobRole.setPerson(this);
 					break;
