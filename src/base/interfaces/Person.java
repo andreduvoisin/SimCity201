@@ -50,5 +50,7 @@ public interface Person {
 	//public void setGui(PersonGuiInterface gui);
 	public void setGuiPresent();
 	public CityPerson getGui();
-
+	
+	public void msgRoleFinished();
+	public void setJobFalse();
 }

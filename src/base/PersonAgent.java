@@ -283,7 +283,7 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
-	public void msgRoleFinished(Role role){ //SHANE: 3 Call at end of role
+	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
 		for (Role iRole : mRoles.keySet()){
@@ -739,5 +739,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	public CityPerson getGui(){
 		return mPersonGui;
+	}
+
+	@Override
+	public void setJobFalse() {
+		mAtJob = false;
 	}
 }
