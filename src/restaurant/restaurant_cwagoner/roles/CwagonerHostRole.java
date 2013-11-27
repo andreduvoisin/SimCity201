@@ -25,12 +25,9 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	
 	// DATA
 
-	private List<Table> Tables =
-			Collections.synchronizedList(new ArrayList<Table>());
-	private List<MyCustomer> Customers =
-			Collections.synchronizedList(new ArrayList<MyCustomer>());
-	private List<MyWaiter> Waiters =
-			Collections.synchronizedList(new ArrayList<MyWaiter>());
+	private List<Table> Tables = new ArrayList<Table>();
+	private List<MyCustomer> Customers = new ArrayList<MyCustomer>();
+	private List<MyWaiter> Waiters = new ArrayList<MyWaiter>();
 	
 	
 	// MESSAGES
@@ -42,9 +39,9 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	 */
 	public void msgIWantFood(CwagonerCustomer c) {
 		print("Received msgIWantFood(" + c.getName() + ")");
-		synchronized(Customers) {
+		//synchronized(Customers) {
 			Customers.add(new MyCustomer(c));
-		}
+		//}
 		stateChanged();
 	}
 
@@ -57,47 +54,16 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	public void msgCustomerGoneTableEmpty(CwagonerCustomer c, int tableNum) {
 		print("Received msgCustomerGoneTableEmpty(" + c.getName() + ", table " + tableNum + ")");
 		
-		synchronized(Customers) {
+		//synchronized(Customers) {
 			for (MyCustomer mc : Customers) {
 				if (mc.customer.equals(c)) {
 					Customers.remove(mc);
 					break;
 				}
 			}
-		}
+		//}
 		
 		Tables.get(tableNum).occupied = false;
-	}
-	
-	/** From a waiter asking to go on break ("Ask for break" button has been triggered)
-	 * @param w WaiterAgent asking for a break
-	 */
-	public void msgCanIGoOnBreak(CwagonerWaiter w) {
-		print("Received msgCanIGoOnBreak(" + w.getName() + ")");
-		
-		synchronized(Waiters) {
-			for (MyWaiter mw : Waiters) {
-				if (mw.waiter.equals(w)) {
-					mw.state = MyWaiter.State.askedForBreak;
-					stateChanged();
-					return;
-				}
-			}
-		}
-	}
-	
-	public void msgOffBreak(CwagonerWaiter w) {
-		print("Received msgOffBreak(" + w.getName() + ")");
-		
-		synchronized(Waiters) {
-			for (MyWaiter mw : Waiters) {
-				if (mw.waiter.equals(w)) {
-					mw.state = MyWaiter.State.working;
-					stateChanged();
-					return;
-				}
-			}
-		}
 	}
 	
 	
@@ -112,20 +78,12 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	 * marks the table occupied
 	 */
 	public boolean pickAndExecuteAnAction() {
-		synchronized(Waiters) {
-			for (MyWaiter w: Waiters) {
-				if (w.state.equals(MyWaiter.State.askedForBreak)) {
-					DecideBreak(w);
-					return true;
-				}
-			}
-		}
 		
 		// A waiter with state askedForBreak CANNOT make it past the first rule,
 		// so the next rule only checks for state working (the alternative is onBreak)
 		
 		// If there is a customer waiting
-		synchronized(Customers) {
+		//synchronized(Customers) {
 			for (MyCustomer c : Customers) {
 				if (c.state.equals(MyCustomer.State.waiting)) {
 					
@@ -149,7 +107,7 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 						}
 					}
 				}
-			}
+			//}
 		}
 	
 		return false;
@@ -158,35 +116,6 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	
 	// ACTIONS
 
-	void DecideBreak(MyWaiter w) {
-		print("DecideBreak(" + w.waiter.getName() + ")");
-		
-		// As long as there are multiple waiters WORKING, allow one to go on break
-		int numWorking = 0;
-		
-		synchronized(Waiters) {
-			for (MyWaiter mw : Waiters) {
-				if (! mw.equals(w)) {
-					if (! mw.state.equals(MyWaiter.State.onBreak)) {
-						// 'working' and 'askedForBreak' both count as working
-						numWorking++;
-					}
-				}
-			}
-		}
-		
-		if (numWorking > 0) {
-			w.state = MyWaiter.State.onBreak;
-			w.waiter.msgGoOnBreak(true);
-			stateChanged();
-			return;
-		}
-		// No working waiters
-		w.state = MyWaiter.State.working;
-		w.waiter.msgGoOnBreak(false);
-		stateChanged();
-	}
-	
 	void AssignCustomer(MyCustomer c, Table t) {
 		print("AssignCustomer(" + c.customer.getName() + ", table " + t.tableNum + ")");
 		
@@ -225,6 +154,7 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	}
 	
 	public void addWaiter(CwagonerWaiterRole w) {
+		print("Adding waiter " + w.getName());
 		Waiters.add(new MyWaiter(w));
 		stateChanged();
 	}

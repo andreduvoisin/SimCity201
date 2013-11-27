@@ -8,11 +8,11 @@ import transportation.interfaces.TransportationRider;
 public class TransportationBusStop {
 	static int sStopNumber = 0;
 	final int mStopNumber;
-	Location location;
+	public Location location = new Location(0, 0);
 	ArrayList<TransportationRider> mWaitingPeople = new ArrayList<TransportationRider>();
 	
 	public TransportationBusStop(Location loc) {
-		location = loc;
+		location.setTo(loc);
 		mStopNumber = sStopNumber++;
 	}
 

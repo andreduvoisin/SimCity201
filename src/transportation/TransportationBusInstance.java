@@ -1,6 +1,9 @@
 package transportation;
 
+import base.Location;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import city.gui.CityBus;
 import transportation.interfaces.TransportationRider;
@@ -11,15 +14,16 @@ public class TransportationBusInstance {
 	CityBus mGui;
 	int mCurrentStop;
 	ArrayList<TransportationRider> mRiders = new ArrayList<TransportationRider>();
+	List<Location> mBusStops;
 	
 	enum enumState { readyToTravel, traveling, readyToUnload, unloading, readyToBoard, boarding }
 	enumState state;
 
-	public TransportationBusInstance(TransportationBusDispatch bd) {
-		mCurrentStop = 0;
+	public TransportationBusInstance(TransportationBusDispatch bd, List<Location> busStops) {
 		mBusNumber = sBusNumber++;
+		mCurrentStop = 0;
 		mGui = new CityBus(bd, base.ContactList.cBUS_STOPS);
-
+		mBusStops = busStops;
 		state = enumState.traveling;
 
 		bd.addBus(this);
