@@ -179,11 +179,7 @@ public class PersonAgent extends Agent implements Person {
 					mJobRole = SortingHat.getTransportationRole(this);
 					break;
 				case HOUSING: 
-					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-					mJobRole.setPerson(this);
-					((HousingBaseRole) mJobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
 					mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
-					sHouseCounter++;
 					break;
 				case PARTY:
 					mJobRole = new HousingRenterRole((Person)this);
@@ -617,10 +613,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-//		if (mHouseRole.mHouse != null) {
-			((HousingBaseRole) mJobRole).msgTimeToMaintain();
-//			mHouseRole.msgTimeToMaintain(); //this role is always active
-//		}
+		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+		mJobRole.setPerson(this);
+		((HousingBaseRole) mJobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+		sHouseCounter++;
+		((HousingBaseRole) mJobRole).msgTimeToMaintain();
 	}
 	
 	private List<Person> getBestFriends(){
