@@ -1,6 +1,5 @@
 package restaurant.restaurant_duvoisin.roles;
 
-import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
