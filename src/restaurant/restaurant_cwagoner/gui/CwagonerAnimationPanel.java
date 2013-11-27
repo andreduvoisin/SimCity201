@@ -30,7 +30,7 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
     	this.setBounds(0, 0, width, height);
         this.setPreferredSize(new Dimension(width, height));
         //CHASE: here's your lag
-    	Timer timer = new Timer(Time.cSYSCLK/2, this);
+    	Timer timer = new Timer(Time.cSYSCLK/15, this);
     	timer.addActionListener(this);
     	timer.start();
     }

@@ -21,6 +21,7 @@ import base.Item.EnumItemType;
 import base.interfaces.Person;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
+	private static final Integer DEFAULT_FOOD_QTY = null;
 	//DATA
 	//mCash accessed from Person
 	private MarketCustomerGui mGui;
@@ -29,8 +30,8 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 
-	Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
-	Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType,Integer>();
+	Map<EnumItemType, Integer> mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+	Map<EnumItemType, Integer> mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
 	
 	Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
 
@@ -43,10 +44,18 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		mGui = new MarketCustomerGui(this);
 		MarketPanel.getInstance().addGui(mGui);
 		
+		
 	//	mItemInventory = mPerson.getItemInventory();
 		//ANGELICA: hack for now
 		//mItemsDesired = mPerson.getItemsDesired();
-		mItemsDesired.put(EnumItemType.SALAD,5);
+		//populate inventory
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+        
+		mItemsDesired.put(EnumItemType.SALAD,2);
+		mItemsDesired.put(EnumItemType.PIZZA,1);
 	}
 	
 	//MESSAGES
@@ -101,11 +110,13 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 			}
 		}
 		//check efficiency of method
-		for(EnumItemType iType : mItemsDesired.keySet()) {
+		synchronized(mItemsDesired) {
+			for(EnumItemType iType : mItemsDesired.keySet()) {
 			if(mItemsDesired.get(iType) != 0) {
 				createOrder();
 				return true;
 			}
+		}
 		}
 
 		return false;
@@ -114,6 +125,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	//ACTIONS
 	private void createOrder(){
+		Do("ordering");
 		HashMap<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
 		for(EnumItemType iItemType : mItemsDesired.keySet()) {
 			items.put(iItemType,mItemsDesired.get(iItemType));
@@ -132,8 +144,10 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		invoice.mPayment += invoice.mTotal;
 		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment);
 		
-		for(EnumItemType item : mCannotFulfill.keySet()) {
+		synchronized(mItemsDesired) {
+			for(EnumItemType item : mCannotFulfill.keySet()) {
 			mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
+		}
 		}
 		
 		mCashier.msgPayingForOrder(invoice);
@@ -143,7 +157,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void completeOrder(MarketOrder order) {
 		for(EnumItemType item : order.mItems.keySet()) {
-			mItemInventory.put(item, mItemInventory.get(item)+order.mItems.get(item));
+			int n = mItemInventory.get(item);
+			n += order.mItems.get(item);
+			mItemInventory.put(item, n);
 		}
 		DoLeaveMarket();
 	}

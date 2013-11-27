@@ -99,7 +99,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		view.setLayout(new BoxLayout((Container)view, BoxLayout.Y_AXIS));
         pane.setViewportView(view);
         
-        Dimension scrollPaneDim = new Dimension(CP_WIDTH - 10, 500);
+        Dimension scrollPaneDim = new Dimension(CP_WIDTH - 10, 550);
         pane.setPreferredSize(scrollPaneDim);
         pane.setMinimumSize(scrollPaneDim);
         pane.setMaximumSize(scrollPaneDim);
@@ -116,6 +116,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	configList.setLayout(new FlowLayout());
     	
     	Dimension buttonDim = new Dimension(panelSize.width, 20);
+    	JButton allBtn = new JButton("Simulate All");
+    	allBtn.addActionListener(this);
+    	allBtn.setPreferredSize(buttonDim);
+    	allBtn.setMinimumSize(buttonDim);
+    	allBtn.setMaximumSize(buttonDim);
+    	configList.add(allBtn);
+    	configOptions.add(allBtn);
+    	view.add(configList);
     	for (int i=0; i<8; i++) {
     		JButton config = new JButton("Restaurant "+i);
 	    	config.addActionListener(this);
@@ -162,11 +170,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
         // Tabs
         //JLabel filler = new JLabel("Panel #1");
         //filler.setHorizontalAlignment(JLabel.CENTER);
-        tab1.setLayout(new GridLayout(1, 1));
+        //tab1.setLayout(new GridLayout(1, 1));
         //tab1.add(filler);
-        tabbedPane.addTab("Scenario Details", tab1);
+        //tabbedPane.addTab("Scenario Details", tab1);
 //        tabbedPane.addTab("Advanced Configuration", tab2);
-        add(tabbedPane);
+        //add(tabbedPane);
         
         //tabbedPane.addTab("Tab 1", icon, panel1, "Does nothing");
         //tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -193,41 +201,49 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					e1.printStackTrace();
 				}
 			}
-			if (((JButton) e.getSource()).getText().equals("Bank")) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "BankConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
+		}
+		if (((JButton) e.getSource()).getText().equals("Bank")) {
+			ConfigParser config = ConfigParser.getInstanceOf();
+			try {
+				config.readFileCreatePersons(city, "BankConfig"+".txt");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
 			}
-			if (((JButton) e.getSource()).getText().equals("Housing")) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "HouseConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
+		}
+		if (((JButton) e.getSource()).getText().equals("Housing")) {
+			ConfigParser config = ConfigParser.getInstanceOf();
+			try {
+				config.readFileCreatePersons(city, "HouseConfig"+".txt");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
 			}
-			if (((JButton) e.getSource()).getText().equals("Food Market")) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "marketConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
+		}
+		if (((JButton) e.getSource()).getText().equals("Food Market")) {
+			ConfigParser config = ConfigParser.getInstanceOf();
+			try {
+				config.readFileCreatePersons(city, "marketConfig"+".txt");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
 			}
-			if (((JButton) e.getSource()).getText().equals("Party")) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "PartyConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
+		}
+		if (((JButton) e.getSource()).getText().equals("Party")) {
+			ConfigParser config = ConfigParser.getInstanceOf();
+			try {
+				config.readFileCreatePersons(city, "PartyConfig"+".txt");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
 			}
-			for (JButton b : configOptions) {
-				b.setEnabled(false);
+		}
+		if (((JButton) e.getSource()).getText().equals("Simulate All")) {
+			ConfigParser config = ConfigParser.getInstanceOf();
+			try {
+				config.readFileCreatePersons(city, "config1.txt");
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
 			}
+		}
+		for (JButton b : configOptions) {
+			b.setEnabled(false);
 		}
 	}
 }

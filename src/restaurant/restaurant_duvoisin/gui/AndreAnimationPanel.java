@@ -53,7 +53,7 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
         
         //bufferSize = this.getSize();
  
-    	timer = new Timer(Time.cSYSCLK/40, this);
+    	timer = new Timer(Time.cSYSCLK/25, this);
     	timer.start();
     }
 
