@@ -147,8 +147,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(ContactList.cBANK_LOCATION, "Gringotts Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET_LOCATION, "Costco"));
 		
-		this.addStatic(new TimeGui(540, 560));
-		
 		//Create Houses		
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
 			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
@@ -160,6 +158,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 			
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		
+		this.addStatic(new TimeGui(540, 560));
 		
 	}
 

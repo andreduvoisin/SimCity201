@@ -3,13 +3,11 @@ package restaurant.restaurant_duvoisin.roles;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_duvoisin.gui.CookGui;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
-import restaurant.restaurant_duvoisin.interfaces.Market;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 
 /**
