@@ -1,12 +1,7 @@
 package restaurant.restaurant_xurex.test.mock;
 
-
-import java.util.Map;
-
 import restaurant.restaurant_xurex.gui.CookGui;
-import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
-import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 
 
@@ -29,7 +24,7 @@ public class MockCook extends Mock implements Cook {
 		
 	}
 
-	@Override
+	/*@Override
 	public void MarketCanFulfill(Market market, Map<String, Integer> provided) {
 		// TODO Auto-generated method stub
 		
@@ -51,7 +46,7 @@ public class MockCook extends Mock implements Cook {
 	public void addMarket(Market market) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 
 	@Override
 	public void msgAtLocation() {

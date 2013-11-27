@@ -1,9 +1,10 @@
 package restaurant.restaurant_xurex;
 
+import base.Item;
+import base.Item.EnumItemType;
 import base.interfaces.Person;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_xurex.gui.CookGui;
-import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
@@ -22,9 +23,9 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	public enum MarketOrderState
 	{pending, ready, completed}; //Can use boolean instead
 	
-	private Semaphore atLocation = new Semaphore(100,true);
+	private Semaphore atLocation = new Semaphore(0,true);
 	private CookGui cookGui = null;
-	RexRestaurantGui gui;
+	//RexRestaurantGui gui;
 	
 	public class CookOrder{
 		Waiter w;
@@ -37,7 +38,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 			this.w=w; this.choice=choice; this.table=table; s=OrderState.pending;
 		}
 	}
-	public class MarketOrder{
+	/*public class MarketOrder{
 		String market;
 		public Map<String, Integer> provided = new HashMap<String, Integer>();
 		public MarketOrderState state;
@@ -46,8 +47,8 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 			this.market = market.getName();
 			this.state  = MarketOrderState.pending;
 		}
-	}
-	public class Food{
+	}*/
+	/*public class Food{
 		String type;
 		int low;
 		public int quantity;
@@ -58,7 +59,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 			this.type=type; this.low=low; this.quantity=quantity; this.capacity=capacity;
 			this.cookingTime=cookingTime;
 		}
-	}
+	}*/
 	
 	Timer cookTimer = new Timer();
 	Timer standTimer = new Timer();
@@ -66,13 +67,13 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	private String name;
 	
 	public Map<String, Integer> cookTimes = new HashMap<String, Integer>();
-	private Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
+	//private Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
 	
 	private Map<Integer, Boolean> Kitchen = new HashMap<Integer, Boolean>();
 	
 	public List<CookOrder> orders = Collections.synchronizedList(new ArrayList<CookOrder>());
 	public List<CookOrder> revolvingStand = Collections.synchronizedList(new ArrayList<CookOrder>());
-	public List<MarketOrder> marketOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	//public List<MarketOrder> marketOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	//AGENT CORRESPONDENTS
 	public List<Market> markets = new ArrayList<Market>();
@@ -98,6 +99,10 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
 		//runTimer();
 	}
 	public RexCookRole(String name, Person person) {
@@ -108,6 +113,10 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
 		//runTimer();
 	}
 
@@ -118,7 +127,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	void TimerDone (CookOrder o){
 		o.s = OrderState.cooked; stateChanged();
 	}
-	public void MarketCanFulfill(Market market, Map<String, Integer> provided){
+	/*public void MarketCanFulfill(Market market, Map<String, Integer> provided){
 		Do(market.getName()+" can fulfill");
 		synchronized(marketOrders){
 		for(MarketOrder mo : marketOrders){
@@ -157,7 +166,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		}
 		}
 		stateChanged();
-	}
+	}*/
 	public void msgAtLocation() {//from animation
 		atLocation.release();// = true;
 		stateChanged();
@@ -168,9 +177,9 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	}
 	
 	//Called from looped timer in Cook
-	private void msgCheckStand(){
+	/*private void msgCheckStand(){
 		stateChanged();
-	}
+	}*/
 	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
@@ -222,15 +231,13 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	}
 	
 	private void TryToCookOrder(CookOrder o){ 
-		/*Food f = Inventory.get(o.choice);
-		if(f.quantity == 0){
+		if(mItemInventory.get(Item.stringToEnum(o.choice))==0){
 			Do("Out of Food message sent"); 
 			o.w.OutOfFood(o.table, o.choice);
 			orders.remove(o); return;
 		}
-		f.quantity--;*/
-		//gui.updateInventory();
-		//CheckInventory();
+		decreaseInventory(Item.stringToEnum(o.choice));
+		CheckInventory();
 		o.s = OrderState.cooking;
 		DoCooking(o);
 		final CookOrder temp = o; //Need final variable to use in TimerTask.run()
@@ -301,22 +308,13 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	}
 	
 	//UTILITIES
-	/*private void CheckInventory(){
-		boolean foodNeeded = false;
-		for(Food f : Inventory.values()){
-			if(f.quantity<=f.low&&f.orderState==false){
-				foodToOrder.put(f.type, (f.capacity-f.quantity)); //Orders as much as possible
-				f.orderState=true; foodNeeded = true;
+	private void CheckInventory(){
+		for(EnumItemType iType : mItemInventory.keySet()){
+			if(mItemInventory.get(iType)<=5){
+				mItemsDesired.put(iType, 20);
 			}
 		}
-		if(foodNeeded){
-			for(String food : foodToOrder.keySet()){
-				Do(foodToOrder.get(food)+" "+food+"s ordered");
-			}
-			marketOrders.add(new MarketOrder(markets.get(0)));
-			markets.get(0).HereIsOrder(foodToOrder);
-		}
-	}*/
+	}
 	
 	public void addMarket(Market market){
 		markets.add(market);
@@ -328,21 +326,21 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	public String getName() {
 		return name;
 	}
-	public void setGui(RexRestaurantGui gui){
+	/*public void setGui(RexRestaurantGui gui){
 		this.gui = gui;
-	}
+	}*/
 	
 	public void setGui(CookGui cookGui){
 		this.cookGui = cookGui;
 	}
-	private void runTimer(){
+	/*private void runTimer(){
 		standTimer.schedule(new TimerTask(){
 			public void run(){
 				msgCheckStand();
 				runTimer();
 			}
 		}, 25000);
-	}
+	}*/
 	@Override
 	public void addToStand(Waiter w, String choice, int table) {
 		revolvingStand.add(new CookOrder(w, choice, table));
