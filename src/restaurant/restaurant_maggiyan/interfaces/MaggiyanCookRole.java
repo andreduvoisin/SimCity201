@@ -2,6 +2,7 @@ package restaurant.restaurant_maggiyan.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,8 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 		//Enables cook to periodically check for orders on revolving stand
 		RStandTimer.scheduleAtFixedRate(new TimerTask(){
 			public void run(){
-				//stateChanged(); 
+				if(mPerson != null)
+					stateChanged(); 
 			}
 		}, 0,  10000);
 		
@@ -163,8 +165,9 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 			return true; 
 		}
 		
+		try{
 		if(!orders.isEmpty()){
-			synchronized (orders) {
+			//synchronized (orders) {
 				for(Order order: orders)
 				{
 					if(order.s == state.done)
@@ -173,9 +176,9 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 						return true;
 					}	
 				}
-			}
+			//}
 			
-			synchronized (orders) {
+			//synchronized (orders) {
 				for(Order order: orders)
 				{
 					if(order.s == state.pending)
@@ -185,7 +188,10 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 						return true; 
 					}				
 				}
-			}
+			//}
+		}
+		}catch(ConcurrentModificationException e){
+			return true; 
 		}
 		
 		if(!rStandOrders.isEmpty()){
@@ -277,19 +283,18 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 		o.s = state.cooking; 
 		print("Cooking order");
 		cookGui.DoGoToGrill(o.cookingPos);
-		try{
-			animationReady.acquire(); 
-		}catch(Exception e){
-			print("DoCookFood exception thrown"); 
-		}
 		cookGui.DoCookFood(o.c, o.cookingPos);
+//		try{
+//		animationReady.acquire(); 
+//	}catch(Exception e){
+//		print("DoCookFood exception thrown"); 
+//	}
 		cookGui.GoToHomePosition(); 
 //		try{
 //			animationReady.acquire(); 
 //		}catch(Exception e){
 //			print("DoCookFood exception thrown"); 
 //		}
-		print("STARTS COOKING"); 
 		timer.schedule(new TimerTask() {
 			public void run() {
 				print("DONE!!");
@@ -306,14 +311,14 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 	
 	private void PlateFood(Order o){
 		cookGui.DoGoToGrill(o.cookingPos);
-		try{
-			animationReady.acquire(); 
-		}catch(Exception e){
-			print("PlateFood DoGoToGrill exception thrown"); 
-		}
+//		try{
+//			animationReady.acquire(); 
+//		}catch(Exception e){
+//			print("PlateFood DoGoToGrill exception thrown"); 
+//		}
 		cookGui.DoRemoveFoodFromGrill(o.cookingPos);
 		print ("Plating food");
-		cookGui.DoGoToPlatingArea(o.cookingPos);
+		//cookGui.DoGoToPlatingArea(o.cookingPos);
 //		try{
 //			animationReady.acquire(); 
 //		}catch(Exception e){
