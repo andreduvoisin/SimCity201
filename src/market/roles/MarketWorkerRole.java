@@ -143,7 +143,6 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	}
 	
 	private void DoGoToCustomer() {
-		Do("going to cust");
 		mGui.DoGoToCustomer();
 		try {
 			inTransit.acquire();
