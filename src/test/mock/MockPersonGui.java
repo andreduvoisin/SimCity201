@@ -2,16 +2,12 @@ package test.mock;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Map;
 
 import city.gui.CityPerson;
 import astar.Position;
 import bank.interfaces.BankMasterTeller;
 import base.Item.EnumItemType;
 import base.Location;
-import base.PersonAgent;
-import base.interfaces.Person;
-import base.interfaces.Role;
 
 /**
  * MockPersonGui built to test Person

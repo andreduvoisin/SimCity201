@@ -160,4 +160,22 @@ public class MockPerson extends Mock implements Person {
 		return null;
 	}
 
+	@Override
+	public void setGui(PersonGuiInterface gui) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGuiPresent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public CityPerson getGui() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
