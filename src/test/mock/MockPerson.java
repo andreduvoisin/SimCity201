@@ -161,12 +161,6 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	@Override
-	public void setGui(PersonGuiInterface gui) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setGuiPresent() {
 		// TODO Auto-generated method stub
 		

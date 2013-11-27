@@ -14,7 +14,7 @@ public class InstantiatePeopleTest extends TestCase {
 	
 	public void testRestaurantIntegration() throws IOException {
 		ConfigParser config = ConfigParser.getInstanceOf();
-		config.readFileCreatePersons(null, 0);
+		//config.readFileCreatePersons(null, 0);
 		CityPanel panel = CityPanel.getInstance();
 		assertEquals("Check size of master person list", panel.masterPersonList.size(),12);
 		/*assertEquals("Verify time shifts", panel.masterPersonList.get(0).getTimeShift(), 0);
