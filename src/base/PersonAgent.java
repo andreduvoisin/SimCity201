@@ -109,7 +109,6 @@ public class PersonAgent extends Agent implements Person {
 		if (mTimeShift == 1){
 			//Get job role and location; set active if necessary
 			mJobRole = null;
-			System.out.println(job);
 			switch (job){
 				case BANK:
 					mJobRole = SortingHat.getBankRole(mTimeShift);
@@ -200,7 +199,6 @@ public class PersonAgent extends Agent implements Person {
 						planParty(-1);
 					}
 				case NONE:
-					System.out.println("no cust");
 					break;
 			}
 		}

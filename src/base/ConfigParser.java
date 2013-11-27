@@ -116,7 +116,6 @@ public class ConfigParser {
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
 				((PersonAgent) person).startThread();
 			}
-		//	System.out.println(jobType);
 			scanPerson.close();
 		}
 		scanFile.close();
