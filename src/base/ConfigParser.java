@@ -109,7 +109,6 @@ public class ConfigParser {
 				SortingHat.InstantiateBaseRoles();
 				mInstantiateRoles = false;
 			}
-			
 			//Person
 			Person person = new PersonAgent(jobType, cash, name, restaurantNum, restaurantRole); //adds role automatically
 			synchronized (person) {
@@ -117,7 +116,7 @@ public class ConfigParser {
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
 				((PersonAgent) person).startThread();
 			}
-			
+		//	System.out.println(jobType);
 			scanPerson.close();
 		}
 		scanFile.close();
