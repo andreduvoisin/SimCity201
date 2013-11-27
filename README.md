@@ -30,12 +30,13 @@ mentality and has approached the project accordingly. Although the following sec
 * Transportation Design, Roles, GUI
 
 ####David Carr		(The Integrator)
-* Housing Roles
+* Housing Roles, Design
 * ConfigParser/SortingHat
 * Control Panel/Configuration Reading
-* Restaurant Base Role
-* Restaurant Intermediate Classes
-* PersonAgent Scheduler, Events
+* Restaurant Base Interface
+* Restaurant Intermediate Roles
+* PersonAgent Scheduler, Jobs, Events
+* Restaurant Integration
 
 ####Jerry Webb		(Romantic Interest)
 * GUI Infrastructure
