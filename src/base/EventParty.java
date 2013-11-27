@@ -1,5 +1,6 @@
 package base;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +27,7 @@ import base.interfaces.Person;
 public class EventParty extends Event{
 	public EventParty(EnumEventType type, int time, Location location, Person host, List<Person> pplInvited) {
 		super(type, time, location);
+		mAttendees = new HashMap<Person, Boolean>();
 		mHost = host;
 		for (Person iPerson : pplInvited){
 			mAttendees.put(iPerson, false);
@@ -34,6 +36,7 @@ public class EventParty extends Event{
 	
 	public EventParty(EventParty party, EnumEventType type, int timeDelay, List<Person> pplInvited){
 		super(type, party.mTime + timeDelay, party.mLocation);
+		mAttendees = new HashMap<Person, Boolean>();
 		mHost = party.mHost;
 		for (Person iPerson : pplInvited){
 			mAttendees.put(iPerson, false);

@@ -568,7 +568,8 @@ public class PersonAgent extends Agent implements Person {
 
 	private void inviteToParty() {
 		if(mFriends.isEmpty()){
-			for(int i = mSSN; i<(mSSN+9); i++){
+			int numPeople = CityPanel.getInstance().masterPersonList.size();
+			for (int i = 0; i < numPeople; i = i + 2){
 				mFriends.add(CityPanel.getInstance().masterPersonList.get(i));
 			}
 		}
