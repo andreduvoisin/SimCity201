@@ -135,7 +135,7 @@ public class PersonAgent extends Agent implements Person {
 					} else if(mJobRole instanceof MarketWorkerRole) {
 						mJobRole = new MarketWorkerRole(this);
 					}
-					mJobRole.setPerson(this);
+//					mJobRole.setPerson(this);
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);

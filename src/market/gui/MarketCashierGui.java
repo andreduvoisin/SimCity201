@@ -25,7 +25,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	public MarketCashierGui(MarketCashier agent) {
 		mAgent = agent;
 		
-		isPresent = false;
+		isPresent = true;
 	}
 	
 	public void updatePosition() {
@@ -84,6 +84,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	public void setPresent() {
 		MarketCashierRole c = (MarketCashierRole) mAgent;
 		c.setActive();
+		isPresent = !isPresent;
 	}
 	
 	public int getXPos() {
