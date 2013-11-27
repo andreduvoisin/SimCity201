@@ -156,7 +156,7 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setRestaurant(SimCityGui.TESTNUM);
 					break;
 				case TRANSPORTATION:
-					mJobRole = SortingHat.getTransportationRole();
+					mJobRole = SortingHat.getTransportationRole(this);
 					break;
 				case HOUSING: 
 					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
@@ -622,7 +622,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
 
-		((TransportationBusRiderRole) mJobRole).msgReset(boardAtStop, exitAtStop);
+		((TransportationBusRiderRole) mJobRole).msgReset();
 		
 	}
 

@@ -241,8 +241,7 @@ public class SortingHat {
 
 
 	// TRANSPORTATION
-	public static Role getTransportationRole() {
-		TransportationBusRiderRole newBusRiderRole = new TransportationBusRiderRole();
-		return newBusRiderRole;
+	public static Role getTransportationRole(Person person) {
+		return new TransportationBusRiderRole(person);
 	}
 }
