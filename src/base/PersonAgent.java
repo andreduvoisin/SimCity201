@@ -16,8 +16,12 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
+import market.gui.MarketPanel;
 import market.interfaces.MarketCustomer;
+import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
+import market.roles.MarketDeliveryTruckRole;
+import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import test.mock.MockPersonGui;
@@ -123,6 +127,15 @@ public class PersonAgent extends Agent implements Person {
 					break;
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
+					System.out.println("Test");
+					mJobRole.setPerson(this);
+					if(mJobRole instanceof MarketCashierRole) {
+						mJobRole = MarketPanel.getInstance().mCashier;
+					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
+						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
+					} else if(mJobRole instanceof MarketWorkerRole) {
+						mJobRole = new MarketWorkerRole(this);
+					}
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);
