@@ -72,11 +72,11 @@ Various scenarios can be run via the configuration panel.
 * Restaurant 5  - Shane Mileham	 
 * Restaurant 6	- Angelica Tran	 
 * Restaurant 7	- Rex Xu		 
-* Bank			- Sends customers to the bank for transactions
-* Housing		- Sends people to houses to perform maintenance
-* Food Market	- Sends people to market to purchase food items
-* Party			- Creates a party crazed animal (24 hour full run)
-* Master Config - Creates many people with interweaving actions
+* Bank			- Sends customers to the bank for transactions 		-> Bank located at north end of Plaza
+* Housing		- Sends people to houses to perform maintenance		-> Housing located all along sides of panel 
+* Food Market	- Sends people to market to purchase food items		-> Market located in southwest quadrant
+* Party			- Creates a party crazed animal (24 hour full run)	-> All people head to the host's house to party
+* Master Config - Creates many people with interweaving actions		-> People perform varied actions in master config
 
 ###Full Disclosure
 Unfortunately, there are a few areas of the city that we were not able to complete to our satisfaction.
