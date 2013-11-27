@@ -1,6 +1,10 @@
 package restaurant.restaurant_duvoisin.test;
 
+import city.gui.SimCityGui;
 import base.PersonAgent;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
+import restaurant.restaurant_duvoisin.gui.CookGui;
+import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.roles.*;
 import restaurant.restaurant_duvoisin.test.mock.*;
 import junit.framework.*;
@@ -15,55 +19,70 @@ public class SharedWaiterTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
 	AndreSharedWaiterRole waiter;
-	MockCook cook;
+	AndreCookRole cook;
+	MockCustomer customer1;
 	
 	/**
 	 * This method is run before each test. You can use it to instantiate the class variables
 	 * for your agent and mocks, etc.
 	 */
 	public void setUp() throws Exception{
-		super.setUp();		
-		waiter = new AndreSharedWaiterRole(new PersonAgent());
-		cook = new MockCook("cook");
+		super.setUp();
+		PersonAgent person = new PersonAgent();
+		waiter = new AndreSharedWaiterRole(person);
+		cook = new AndreCookRole("cook");
+		customer1 = new MockCustomer("customer1");
 	}
 	
-	//Test of Scenario 1 in v2.2A
-	public void testSingleMarketScenario() {
-		market1.cashier = cashier;
+	public void testOneOrderScenario() {
+		WaiterGui wg = null;
+		CookGui cg = null;
+		try {
+			AndreRestaurantGui gui = new AndreRestaurantGui(new SimCityGui());
+			wg = new WaiterGui(waiter, gui);
+			cg = new CookGui(cook, gui);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		waiter.setGui(wg);
+		cook.setGui(cg);
+		customer1.waiter = waiter;
+		waiter.cook = cook;
+		waiter.msgSitAtTable(customer1, 1, 1);
+		waiter.msgImReadyToOrder(customer1);
+		waiter.msgHereIsMyChoice(customer1, "steak");
 		
 		// Precondition
-		assertEquals("Cashier should have 0 market checks in it. It doesn't.", cashier.openMarketChecks.size(), 0);
-		assertEquals("CashierAgent should have an empty event log before the Cashier's msgComputeMarketBill is called. Instead, the Cashier's event log reads: "
-				+ cashier.log.toString(), 0, cashier.log.size());
+		assertEquals("Waiter should have 1 customer. It doesn't.", 1, waiter.customers.size());
 		
 		// Step 1
-		cashier.msgComputeMarketBill(market1, "pizza", 2);
+		waiter.atCook.release();
+		assertTrue("Waiter's scheduler should have returned true (1 action to do on an order from Customer #1), but didn't.", waiter.pickAndExecuteAnAction());
 		
 		// Pre/Post
-		assertTrue("Cashier should have logged \"msgComputeMarketBill received\" but didn't. His log reads instead: " 
-				+ cashier.log.getLastLoggedEvent().toString(), cashier.log.containsString("msgComputeMarketBill received"));
-		assertEquals("MockMarket should have an empty event log before the Cashier's scheduler is called. Instead, the MockMarket's event log reads: "
-				+ market1.log.toString(), 0, market1.log.size());
-		assertEquals("Cashier should have 1 market check in it. It doesn't.", cashier.openMarketChecks.size(), 1);
+		assertTrue("Waiter should have logged \"Doing GiveOrderToCook\" but didn't. His log reads instead: " 
+				+ waiter.log.getLastLoggedEvent().toString(), waiter.log.containsString("Doing GiveOrderToCook"));
+		assertEquals("MockCook should have an empty event log before the Cashier's scheduler is called. Instead, the MockCook's event log reads: "
+				+ cook.log.toString(), 0, cook.log.size());
+		assertEquals("Revolving Stand should have 1 order in it. It doesn't.", 1, cook.getRevolvingStand().size());
 		
 		// Step 2
-		assertTrue("Cashier's scheduler should have returned true (1 action to do on a check from Market #1), but didn't.", cashier.pickAndExecuteAnAction());
+		cook.atStand.release();
+		cook.CheckRevolvingStand();
 		
 		// Pre/Post
-		assertTrue("Cashier should have logged \"Doing HandleMarketCheck\" but didn't. His log reads instead: " 
-				+ cashier.log.getLastLoggedEvent().toString(), cashier.log.containsString("Doing HandleMarketCheck"));
-		assertTrue("MockMarket should have logged \"msgFoodPayment received\" but didn't. His log reads instead: " 
-				+ market1.log.getLastLoggedEvent().toString(), market1.log.containsString("msgFoodPayment received"));
-		assertTrue("MockMarket should have recieved a payment for pizza. It didn't.",
-				market1.type.equals("pizza"));
-		assertTrue("MockMarket should have recieved a payment of $6.00. It didn't.",
-				market1.payment == 6.00);
-		assertEquals("Cashier should have 0 market checks in it. It doesn't.", cashier.openMarketChecks.size(), 0);
-		assertTrue("Cashier should have $9.00 left. It didn't.",
-				cashier.money == 9.00);
+		assertTrue("Cook should have logged \"Doing CheckRevolvingStand\" but didn't. His log reads instead: " 
+				+ cook.log.getLastLoggedEvent().toString(), cook.log.containsString("Doing CheckRevolvingStand"));
+		assertEquals("Revolving Stand should have 0 orders in it. It doesn't.", 0, cook.getRevolvingStand().size());
+		assertEquals("Orders should have 1 order in it. It doesn't.", 1, cook.orders.size());
 		
 		// Step 3
-		assertFalse("Cashier's scheduler should have returned false (no actions left to do), but didn't.", 
-				cashier.pickAndExecuteAnAction());
+		cook.atFridge.release();
+		cook.atGrill.release();
+		assertTrue("Cook's scheduler should have returned true (1 action to do on 1 order), but didn't.", cook.pickAndExecuteAnAction());
+		
+		// Post
+		assertTrue("Cook should have logged \"Doing TryToCookFood\" but didn't. His log reads instead: " 
+				+ cook.log.getLastLoggedEvent().toString(), cook.log.containsString("Doing TryToCookFood"));
 	}
 }

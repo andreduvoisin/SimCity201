@@ -1,5 +1,7 @@
 package restaurant.restaurant_duvoisin.test.mock;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import restaurant.restaurant_duvoisin.interfaces.Cook;
@@ -7,6 +9,9 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole.Order;
 
 public class MockCook extends Mock implements Cook {
+	public EventLog log = new EventLog();
+	public List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
+	
 	public MockCook(String name) {
 		super(name);
 	}
@@ -23,7 +28,6 @@ public class MockCook extends Mock implements Cook {
 
 	@Override
 	public List<Order> getRevolvingStand() {
-		// TODO Auto-generated method stub
-		return null;
+		return revolvingStand;
 	}
 }
