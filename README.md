@@ -4,7 +4,7 @@ TEAM 28: DOBBY
 
 ###Team Work
 The CSCI 201 Project teaches students about the myriad facets of team work: pair programming, team ethics, etc. Team 28 has embraced this team 
-mentality and has approached the project accordingly. Although the following section lists _individual_ contributions, the project is the result of team contributions. Every section is the sum of the work of multiple members.
+mentality and has approached the project accordingly. Although the following section lists _individual_ contributions, the project is the result of team contributions. Every section is the product of a team effort.
 
 ####Andre Duvoisin	(GUI Specialist)
 * Bank GUI
@@ -73,7 +73,6 @@ Various scenarios can be run via the configuration panel. In v1, to run scenario
 * Restaurant 5  - Shane Mileham	 
 * Restaurant 6	- Angelica Tran	 
 * Restaurant 7	- Rex Xu		 
-<<<<<<< HEAD
 * Bank			- Sends customers to the bank for transactions 		-> Bank located at north end of Plaza
 * Housing		- Sends people to houses to perform maintenance		-> Housing located all along sides of panel 
 * Food Market	- Sends people to market to purchase food items		-> Market located in southwest quadrant
@@ -84,7 +83,7 @@ Various scenarios can be run via the configuration panel. In v1, to run scenario
 Unfortunately, there are a few areas of the city that we were not able to complete to our satisfaction.
 
 ####General
-For our v1, agent actions are pre-determined upon instantiation.
+For our v1, most agent actions are pre-determined based on simulation choices.
 ####Restaurants
 Occasional delays occur in some restaurants. Race conditions sometimes cause debilitating failure in our restaurants.
 ####Transportation
