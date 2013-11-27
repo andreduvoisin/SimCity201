@@ -86,6 +86,7 @@ public class ConfigParser {
 			//Instantiate Roles
 			if (mInstantiateRoles){
 				SortingHat.InstantiateBaseRoles();
+				mInstantiateRoles = false;
 			}
 			
 			//Person
