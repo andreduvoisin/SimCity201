@@ -338,6 +338,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		waiter.Leaving(this);
 		customerGui.animationPanel.removeCustomer(this);
 		customerGui.DoExitRestaurant();
+		mPerson.setGuiPresent();
 	}
 	
 	// ACCESSORS //
