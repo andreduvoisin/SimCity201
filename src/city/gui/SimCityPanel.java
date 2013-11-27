@@ -32,7 +32,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		
 		backgroundImage = null;
 		try {
-			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/hogwartstownbg.png");
+			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/hogwartstown.png");
 			backgroundImage = ImageIO.read(imageURL);
 		}
 		catch(IOException e) {
@@ -51,10 +51,10 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	public void drawComponents(Graphics g) {
 		g.drawImage(backgroundImage, -15, -15,null);
-		for (CityComponent c:statics) {
-			c.paint(g);
-			
-		}
+//		for (CityComponent c:statics) {
+//			c.paint(g);
+//			
+//		}
 		
 		for (CityComponent c:movings) {
 			if(c.isActive){
