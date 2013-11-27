@@ -17,7 +17,9 @@ import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
+import base.Event;
 import base.PersonAgent;
+import base.Event.EnumEventType;
 import base.interfaces.Person;
 
 /**
@@ -41,20 +43,6 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 
 	private String mychoice;
 	private boolean availability;
-
-	// private Semaphore isAnimating = new Semaphore(1, true);
-
-	// public void acquireAnimationSemaphore() {
-	// try {
-	// isAnimating.acquire();
-	// System.out.println("isAnimating acquired in DavidCustomerRole");
-	// } catch (InterruptedException e) {
-	// e.printStackTrace();
-	// }
-	// if (isAnimating.availablePermits() == 0) {
-	// isAnimating.release();
-	// }
-	// }
 
 	// private boolean isHungry = false; //hack for gui
 	public enum AgentState {
@@ -376,6 +364,9 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		Do("Leaving.");
 		waiter.msgDoneEating(this);
 		customerGui.DoExitRestaurant();
+		mPerson.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+		mPerson.setJobFalse();
+		mPerson.msgRoleFinished();
 		stateChanged();
 	}
 

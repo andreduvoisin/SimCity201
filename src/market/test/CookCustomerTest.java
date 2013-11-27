@@ -49,7 +49,7 @@ public class CookCustomerTest extends TestCase {
  	}
  	
  	/**
- 	 * Test cook customer for a completed order.
+ 	 * Test cook customer for a completed order from coder's restaurant.
  	 */
  	public void testTranacRestaurant() {
  	  //set up the test
@@ -59,7 +59,7 @@ public class CookCustomerTest extends TestCase {
  		TranacRestaurantCookRole r = (TranacRestaurantCookRole)(mCookCustomer.subRole);
  		r.setGui(mCookGui);
  		
- 	//assert preconditions
+ 	//ANGELICA: assert preconditions
  		
  		
  		
@@ -139,12 +139,13 @@ public class CookCustomerTest extends TestCase {
  				(int)(mCookCustomer.mItemInventory.get(EnumItemType.PIZZA)),5);		
  	}
  	
+ 	/** Tests functionality for a different restaurant."*/
  	public void testSmilehamRestaurant() {
  	  //set up the test
  		SmilehamAnimationPanel mPanel = new SmilehamAnimationPanel(null);
  		mCookCustomer.setRestaurant(5);
 	
- 	  //assert preconditions
+ 	  //ANGELICA: assert preconditions
  		
  		
  		

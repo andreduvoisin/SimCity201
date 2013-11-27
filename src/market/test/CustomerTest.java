@@ -41,18 +41,4 @@ public class CustomerTest extends TestCase {
  	public void testCompletedOrder() {
  		
  	}
- 	
- 	/**
- 	 * Test customer for a partial order.
- 	 */
- 	public void testPartialOrder() {
- 		
- 	}
- 	
- 	/**
- 	 * Test customer for an unfulfilled order.
- 	 */
- 	public void testUnfulfilledOrder() {
- 		
- 	}
 }

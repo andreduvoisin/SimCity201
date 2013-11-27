@@ -34,7 +34,7 @@ public class PersonAgentTest extends TestCase {
 		//mPerson.setGui(mGui);
 	}
 	
-	public void testOne_BasicSetUp() {
+	public void testOne_BasicSetUp () {
 	//	setUp()
 		
 	//	Preconditions

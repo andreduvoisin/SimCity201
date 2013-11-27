@@ -1,6 +1,10 @@
 package market.gui;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import market.interfaces.MarketCustomer;
 
@@ -18,8 +22,19 @@ public class MarketCustomerGui implements MarketBaseGui {
 	private enum EnumCommand {noCommand, goToMarket, goToWaitingArea, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
 	
+	BufferedImage image;
+	
 	public MarketCustomerGui(MarketCustomer agent) {
 		mAgent = agent;
+		
+    	image = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/red-nocturne.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 	
 	public void updatePosition() {
@@ -57,9 +72,10 @@ public class MarketCustomerGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLUE);
+/*		g.setColor(Color.BLUE);
 		g.fillRect(xPos,yPos,SIZE,SIZE);
-	}
+*/		g.drawImage(image, xPos, yPos, null);
+		}
 
 /* Action Calls */
 	public void DoGoToMarket() {

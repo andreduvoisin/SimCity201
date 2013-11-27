@@ -1,7 +1,9 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import base.BaseRole;
+import base.Item;
+import base.Item.EnumItemType;
 import base.interfaces.Person;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_cwagoner.gui.*;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
@@ -9,16 +11,15 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 
-public class CwagonerCookRole extends BaseRole implements CwagonerCook {
+public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook {
 	
 	public CwagonerCookRole(Person person) {
 		super(person);
 
-		// Name of food, cooking time (ms), initial quantity of food, maximum capacity of food
-		addMenuItem("Steak",	8000, 1, 5);
-		addMenuItem("Chicken",	6000, 1, 4);
-		addMenuItem("Salad",	2000, 1, 3);
-		addMenuItem("Pizza",	4000, 1, 2);
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
 	}
 	
 	public CwagonerCookRole() {
@@ -34,7 +35,6 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 	private Semaphore animationFinished = new Semaphore(0, true);
 	
 	// Remembers which market was previously ordered from
-	int marketNum = 0;
 	
 	// Remembers if currently ordering
 	boolean ordering = false;
@@ -44,9 +44,6 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 
 	// Orders uses try-catch (method 2) instead of 'synchronized'
 	public List<Order> Orders = new ArrayList<Order>();
-	HashMap<String, MenuItem> MenuItems = new HashMap<String, MenuItem>();
-	List<CwagonerMarket> Markets =
-			Collections.synchronizedList(new ArrayList<CwagonerMarket>());
 	
 	Timer cookingTimer = new Timer();
 	
@@ -65,64 +62,11 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 		Orders.add(new Order(w, tableNum, food));
 		stateChanged();
 	}
-	
-	// From market (completely out of food - remove from list)
-	public void msgOutOfFood(CwagonerMarket m) {
-		print("Received msgOutOfFood(" + m.getName() + ")");
-		
-		Markets.remove(m);
-		ordering = false;
-		stateChanged();
-	}
-	
-	// From market (can't fulfill order)
-	public void msgCantFulfillOrder(CwagonerMarket m) {
-		print("Received msgCantFulfillOrder(" + m.getName() + ")");
 
-		ordering = false;
-		stateChanged();
-	}
-	
-	// From market (fulfills at least part of order)
-	public void msgOrderFulfilled(HashMap<String, Integer> fulfillList) {
-		print("Received msgOrderFulfilled");
-
-		for (String food : fulfillList.keySet()) {
-			addStock(food, fulfillList.get(food));
-		}
-
-		ordering = false;
-		stateChanged();
-	}
-	
-	// From cashier - didn't pay market for order, so remove from list
-	public void msgDontOrderFrom(CwagonerMarket m) {
-		Markets.remove(m);
-		if (marketNum == Markets.size()) {
-			marketNum = 0;
-		}
-	}
-	
 	
 	// SCHEDULER
 	
 	public boolean pickAndExecuteAnAction() {
-		
-		// If not ordering/already ordered
-		if (! ordering) {
-			
-			// Check for markets
-			if (Markets.size() > 0) {
-				
-				// Check for low quantities
-				for (String food : MenuItems.keySet()) {
-					if (MenuItems.get(food).quantity < 2) {
-						OrderStock();
-						return true;
-					}
-				}
-			}
-		}
 		
 		try {
 			for (Order o : Orders) {
@@ -147,27 +91,6 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 	
 	
 	// ACTIONS
-	
-	private void OrderStock() {
-		print("OrderStock()");
-		
-		ordering = true;
-		
-		HashMap<String, Integer> request = new HashMap<String, Integer>();
-		
-		for (String food : MenuItems.keySet()) {
-			int numToOrder = MenuItems.get(food).capacity - MenuItems.get(food).quantity;
-			if (numToOrder > 0) {
-				print("Adding to order: " + numToOrder + " " + food + "s");
-				request.put(food, numToOrder);
-			}
-		}
-		
-		Markets.get(marketNum % Markets.size()).msgNeedFood(this, cwagonerCashier, request);
-		
-		marketNum++;
-		stateChanged();
-	}
 	
 	private void AlertWaiter(Order o) {
 		print("AlertWaiter() " + o.waiter.getName() + ", table " + o.tableNum + ", " + o.food);
@@ -200,14 +123,14 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 
 		
-		if (quantityRemainingOf(o.food) == 0) {
+		if (mItemInventory.get(Item.stringToEnum(o.food)) == 0) {
 			o.waiter.msgOutOfFood(o.tableNum);
 			gui.DoClearFood();
 			gui.DoGoToHomePosition();
 			Orders.remove(o);
 			return;
 		}
-		preparedOneOf(o.food);
+		decreaseInventory(Item.stringToEnum(o.food));
 		
 		
 		// Take food to cooking area
@@ -232,6 +155,14 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 	
 	// CLASSES
 	
+	private int cookTimeOf(String food) {
+		if (food.equals("Steak")) return 8000;
+		else if (food.equals("Chicken")) return 6000;
+		else if (food.equals("Pizza")) return 4000;
+		else return 2000; // salad
+	}
+
+
 	public static class Order {
 		private CwagonerWaiter waiter;
 		private int tableNum;
@@ -246,60 +177,8 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 			state = State.received;
 		}
 	}
-
-	private class MenuItem {
-		int cookTime;
-		int quantity;
-		int capacity;
-		
-		/**
-		 * @param time Cooking/Preparation time of the given food
-		 * @param q Starting quantity of the given food
-		 * @param c Maximum Capacity of the given food
-		 */
-		MenuItem(int time, int q, int c) {
-			cookTime = time;
-			quantity = q;
-			capacity = c;
-		}
-	}
-	
 	
 	// MenuItems accessors
-	
-	private void addMenuItem(String food, int cookTime, int startingQuantity, int capacity) {
-		MenuItems.put(food, new MenuItem(cookTime, startingQuantity, capacity));
-	}
-	
-	private int cookTimeOf(String food) {
-		return MenuItems.get(food).cookTime;
-	}
-	
-	private int quantityRemainingOf(String food) {
-		return MenuItems.get(food).quantity;
-	}
-	
-	private int capacityOf(String food) {
-		return MenuItems.get(food).capacity;
-	}
-	
-	private void preparedOneOf(String food) {
-		MenuItems.get(food).quantity--;
-	}
-	
-	// Adds quantity delivered by market to current quantity
-	private void addStock(String food, int quantity) {
-		MenuItems.put(food, new MenuItem(cookTimeOf(food),
-										 quantity + quantityRemainingOf(food),
-										 capacityOf(food)));
-	}
-	
-	
-	// Market-adding hack (from GUI)
-	public void addMarket(CwagonerMarket m) {
-		Markets.add(m);
-		stateChanged();
-	}
 	
 	public void setCashier(CwagonerCashier c) {
 		cwagonerCashier = c;

@@ -19,9 +19,9 @@ import java.util.Vector;
  */
 @SuppressWarnings("serial")
 public class AndreRestaurantGui extends CityCard implements ActionListener {
-	AndreAnimationPanel animationPanel = new AndreAnimationPanel();
+	public AndreAnimationPanel animationPanel = new AndreAnimationPanel();
 	
-    private AndreRestaurantPanel restPanel = new AndreRestaurantPanel(this);
+    public AndreRestaurantPanel restPanel = new AndreRestaurantPanel(this);
     
     private ArrayList<JCheckBox> listCB = new ArrayList<JCheckBox>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();

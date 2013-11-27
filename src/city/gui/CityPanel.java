@@ -1,21 +1,15 @@
 package city.gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import javax.imageio.ImageIO;
-
-import transportation.TransportationBusDispatch;
 import market.gui.MarketDeliveryTruckGui;
-import market.roles.MarketDeliveryTruckRole;
+import transportation.TransportationBusDispatch;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
@@ -147,8 +141,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(ContactList.cBANK_LOCATION, "Gringotts Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET_LOCATION, "Costco"));
 		
-		
-		
 		//Create Houses		
 		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
 			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
@@ -162,6 +154,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 			
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		
+		this.addStatic(new TimeGui(540, 560));
 		
 	}
 
