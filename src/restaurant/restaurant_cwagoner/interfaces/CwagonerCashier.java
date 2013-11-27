@@ -8,7 +8,5 @@ public interface CwagonerCashier {
 	public abstract void msgCustomerOrdered(CwagonerWaiter w, CwagonerCustomer c, String food);
 	public abstract void msgReadyToPay(CwagonerCustomer c);
 	public abstract void msgPayment(CwagonerCustomer c, double cashTendered);
-	public abstract void msgPayForOrder(CwagonerMarket m, double total);
-	public abstract void msgDontOrderAgain(CwagonerMarket m);
 	
 }

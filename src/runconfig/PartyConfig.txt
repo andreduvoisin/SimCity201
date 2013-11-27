@@ -7,6 +7,3 @@ NONE 200 otherPerson5
 NONE 200 otherPerson6
 NONE 200 otherPerson7
 NONE 200 otherPerson8
-NONE 200 otherPerson9
-NONE 200 otherPerson10
-NONE 200 otherPerson11

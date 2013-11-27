@@ -1,7 +1,11 @@
 package market.gui;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.concurrent.Semaphore;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 import base.Item.EnumItemType;
@@ -29,8 +33,19 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	private Semaphore gettingItem = new Semaphore(0,true);
 	
+	BufferedImage image;
+	
 	public MarketWorkerGui(MarketWorker agent) {
 		mAgent = agent;
+		
+    	image = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/worker.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 	
 	public MarketWorkerGui(MarketWorker agent, MarketItemsGui g) {
@@ -86,9 +101,10 @@ public class MarketWorkerGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
+/*		g.setColor(Color.GREEN);
 		g.fillRect(xPos, yPos, SIZE, SIZE);
-	}
+*/		g.drawImage(image,xPos,yPos,null);
+}
 	
 /* Action Calls */
 	public void DoGoToMarket() {

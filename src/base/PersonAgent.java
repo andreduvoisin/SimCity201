@@ -2,6 +2,7 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
+import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.gui.BankPanel;
@@ -192,8 +192,8 @@ public class PersonAgent extends Agent implements Person {
 						}
 					}
 					mHouseRole = (HousingBaseRole) mJobRole;
-					if(mTimeShift == Time.GetTime()){
-						planParty(8);
+					if(mTimeShift == (Time.GetShift())+2){
+						planParty(0);
 					}
 					else{
 						planParty(-1);
@@ -217,7 +217,8 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Add customer/rider role possibilities
 		mRoles.put(new BankCustomerRole(this), false);
-		mRoles.put(new HousingRenterRole(this), false);
+		mHouseRole = new HousingRenterRole(this);
+		mRoles.put(mHouseRole, false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
@@ -325,7 +326,7 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		if(mTimeShift == 1) {
 			if ((mRoleFinished) && (!mAtJob) ){
-				//System.out.println("Processing events");
+//				System.out.println("Processing events");
 				// Process events (calendar)
 					Iterator<Event> itr = mEvents.iterator();
 					while (itr.hasNext()) {
@@ -413,9 +414,11 @@ public class PersonAgent extends Agent implements Person {
 			respondToRSVP(); //SHANE: 1 respond to rsvp (same)
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
-			throwParty((EventParty)event);
-			if(((EventParty)event).mHost == this){
-				planParty(Time.GetTime()+24);
+			if (event instanceof EventParty){
+				throwParty((EventParty)event);
+				if(((EventParty)event).mHost == this){
+					planParty(Time.GetTime()+24);
+				}
 			}
 			/*
 			int inviteNextDelay = 24*mSSN;
@@ -548,8 +551,8 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void planParty(int time){
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
-		mEvents.add(new Event(EnumEventType.INVITE2, time+4));
-		mEvents.add(new Event(EnumEventType.PARTY,   time+32));
+		mEvents.add(new Event(EnumEventType.INVITE2, time+2));
+		mEvents.add(new Event(EnumEventType.PARTY,   time+4));
 	}
 
 	private void throwParty(EventParty event) {
@@ -558,21 +561,29 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		
 		mHouseRole.gui.setPresent(true);
-		event.mHost.getHouse().mPanel.addGui((Gui)mHouseRole.gui);
+		event.mHost.getHouse().mPanel.addGui((Gui)mHouseRole.gui); //REX 0 HOUSING THIS IS THE NEXT NULL POINTER
+			//I'M PRETTY SURE THE HOST DOESN'T HAVE A HOUSE... ANY WAY TO GET AROUND THIS?
 		mHouseRole.gui.DoParty();
 	}
 
 	private void inviteToParty() {
+		print("First RSVP is sent out");
 		if(mFriends.isEmpty()){
 			int numPeople = CityPanel.getInstance().masterPersonList.size();
+			System.out.println("Num People in city: " + numPeople); //SHANE: Print remove
 			for (int i = 0; i < numPeople; i = i + 2){
 				mFriends.add(CityPanel.getInstance().masterPersonList.get(i));
 			}
+			print("Created friends for party host");
 		}
 		//party is in 3 days
 		//send RSVP1 and event invite
 		for (Person iFriend : mFriends){
-			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
+//			Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
+			Location partyLocation = new Location(100, 0);
+//			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
+//			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
+			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, ContactList.sRoleLocations.get(this), this, getBestFriends());
 			Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
 			iFriend.msgAddEvent(rsvp);
 			iFriend.msgAddEvent(party);
@@ -580,6 +591,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void reinviteDeadbeats() {
+		print("Second RSVP is sent out");
 		EventParty party = null;
 		for (Event iEvent : mEvents){
 			if (iEvent instanceof EventParty){
@@ -597,6 +609,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void respondToRSVP(){
+		print("Responding to RSVP");
 		for (Event iEvent : mEvents){
 			if (iEvent instanceof EventParty){
 				if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
@@ -613,10 +626,15 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+//		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+		mJobRole = new HousingOwnerRole(this);
 		mJobRole.setPerson(this);
 		((HousingBaseRole) mJobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
 		sHouseCounter++;
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
 		((HousingBaseRole) mJobRole).msgTimeToMaintain();
 	}
 	

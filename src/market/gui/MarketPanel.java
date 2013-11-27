@@ -1,8 +1,10 @@
 package market.gui;
 
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.Timer;
 
@@ -14,6 +16,7 @@ import market.roles.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
@@ -35,11 +38,12 @@ public class MarketPanel extends CityCard implements ActionListener {
 	private Timer timer;
 	private final int TIMERDELAY = 8;
 	
+	BufferedImage image;
+	
 	public MarketPanel(SimCityGui city, EnumMarketType t) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
 //		setVisible(true);
-		setBackground(Color.MAGENTA);
 		instance = this;
 		
 		mCashier = new MarketCashierRole(t);
@@ -49,6 +53,16 @@ public class MarketPanel extends CityCard implements ActionListener {
 		mMarketType = t;
 		mItemGui = new MarketItemsGui(mMarketType);
 		
+    /*	image = null;
+    	try {
+//    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/background.png");
+        	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/restaurant.png");
+   		image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+   */ 	
 		guis.add(mCashierGui);
 		guis.add(mItemGui);
 		
@@ -70,9 +84,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		
-		g2.setColor(getBackground());
+		g2.setColor(Color.white);
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
-        
+
+	//	g2.drawImage(image,0,0,null);
+		
 		synchronized(guis) {
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {

@@ -39,7 +39,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 
         int restaurantID;
         int mRestaurantID;
-        protected static int DEFAULT_FOOD_QTY = 5;
+        protected int DEFAULT_FOOD_QTY = 100;
         
         public RestaurantCookRole(Person person){
                 super(person);                
