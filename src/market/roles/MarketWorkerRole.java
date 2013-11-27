@@ -54,10 +54,11 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		else
 			o.mEvent = EnumOrderEvent.TOLD_TO_SEND;
 		inTransit.release();
-		stateChanged();
+	//	stateChanged();
 	}
 
 	public void msgAnimationAtMarket() {
+		Do("d");
 		inTransit.release();
 	}
 	
@@ -76,7 +77,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
 		for(MarketOrder order : mOrders) {
-			if(order.mStatus == EnumOrderStatus.PAID && order.mEvent == EnumOrderEvent.ORDER_PAID) {
+			if(order.mStatus == EnumOrderStatus.SENT && order.mEvent == EnumOrderEvent.ORDER_PAID) {
 				order.mStatus = EnumOrderStatus.ORDERING;
 				processOrder(order);
 				return true;
@@ -122,6 +123,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 
 /* Animation Actions */
 	private void DoFulfillOrder(MarketOrder o) {
+		Do("fulfilling o");
 		mGui.DoFulfillOrder(o);
 		try {
 			inTransit.acquire();
@@ -129,6 +131,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		Do("dne");
 	}
 	
 	private void DoGoToMarket() {
@@ -142,6 +145,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	}
 	
 	private void DoGoToCustomer() {
+		Do("going to cust");
 		mGui.DoGoToCustomer();
 		try {
 			inTransit.acquire();

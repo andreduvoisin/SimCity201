@@ -340,12 +340,12 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	private void leaveTable() {
 		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 		mPerson.setJobFalse();
-		Time.sGlobalTimeInt = 5;
+		//Time.sGlobalTimeInt = 5;
 		Do("Leaving.");
 		waiter.Leaving(this);
 		customerGui.DoExitRestaurant();
 		mPerson.msgRoleFinished();
-		Time.sGlobalShift = 1;
+		//Time.sGlobalShift = 1;
 		customerGui.animationPanel.removeCustomer(this);
 		customerGui.animationPanel.removeGui(customerGui);
 	}

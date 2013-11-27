@@ -1,11 +1,6 @@
-team28
-======
-
-SimCity201 Project Repository for CS 201 students
-
+TEAM 28: DOBBY
 =======
 #SimCity201
-SimCity 201 Public Repository for Fall 2013.
 
 ###Team Work
 The CSCI 201 Project teaches students about the myriad facets of team work: pair programming, team ethics, etc. Team 28 has embraced this team 
@@ -26,8 +21,8 @@ mentality and has approached the project accordingly. Although the following sec
 * Market/Restaurant Integration Manager
   
 ####Chase Wagoner	(Bus Driver)
-* Restaurant Integration
 * Transportation Design, Roles, GUI
+* Restaurant Integration
 
 ####David Carr		(The Integrator)
 * Housing Roles, Design
@@ -45,8 +40,8 @@ mentality and has approached the project accordingly. Although the following sec
 ####Maggi Yang		(Literally Dornsife)
 * Housing Roles
 * Housing Testing
-* Restaurant Integration
 * City Animation Upgrades 
+* Restaurant Integration
 
 ####Rex Xu			(Money Man)
 * Bank Design, Roles, Testing
@@ -57,29 +52,37 @@ mentality and has approached the project accordingly. Although the following sec
 * Restaurant Integration
 
 ####Shane Mileham	(Portland Power)
-* Person Agent Design/Implementation
+* Contact List
 * Market Design
-* B*  Algorithm and City GUI Coordinates
 * Party Creation
+* Person Agent Design/Implementation
+* B* Algorithm and City GUI Coordinates
 * Configuration File Design and Implementation
 * Transportation Rider Pickup/Dropoff Design
-* Contact List
 * Restaurant Integration
 
 
 ###Run System Run
 Various scenarios can be run via the configuration panel.
-* 
-* 
-* 
-* 
-* 
+* Restaurant 0	- Andre Duvoisin 
+* Restaurant 1	- Chase Wagoner	 
+* Restaurant 2 	- Jerry Webb	 
+* Restaurant 3	- Maggi Yan	 	 
+* Restaurant 4	- David Carr	 
+* Restaurant 5  - Shane Mileham	 
+* Restaurant 6	- Angelica Tran	 
+* Restaurant 7	- Rex Xu		 
+* Bank			- Sends customers to the bank for transactions
+* Housing		- Sends people to houses to perform maintenance
+* Food Market	- Sends people to market to purchase food items
+* Party			- Creates a party crazed animal (24 hour full run)
+* Master Config - Creates many people with interweaving actions
 
 ###Full Disclosure
 Unfortunately, there are a few areas of the city that we were not able to complete to our satisfaction.
 
 ####General
-
+Our agents are not fully autonomous. For our V1, most actions are pre-determined upon instantiation.
 ####Restaurants
 Occasional delays occur in some restaurants. Race conditions sometimes cause debilitating failure in our restaurants.
 ####Transportation
