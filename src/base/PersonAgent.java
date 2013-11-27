@@ -132,14 +132,15 @@ public class PersonAgent extends Agent implements Person {
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
 					if(mJobRole instanceof MarketCashierRole) {
 						mJobRole = MarketPanel.getInstance().mCashier;
-						mJobRole.setPerson(this);
+//						mJobRole.setPerson(this);
 					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
 						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
-						mJobRole.setPerson(this);
-					} else if(mJobRole instanceof MarketWorkerRole) {
-						mJobRole.setPerson(this);
+						System.out.println("worker");
+//						mJobRole.setPerson(this);
+					} else if(mJobRole instanceof MarketWorkerRole){
+//						mJobRole.setPerson(this);
 					}
-//					mJobRole.setPerson(this);
+					mJobRole.setPerson(this);
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);
@@ -454,10 +455,8 @@ public class PersonAgent extends Agent implements Person {
 //		System.out.println("Going to Job");
 		if (!testing){
 		if (mJobLocation != null){
-			System.out.println("yes");
 			mPersonGui.DoGoToDestination(mJobLocation);
 		}else{
-			System.out.println("no");
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(SimCityGui.TESTNUM));
 		}
 		}
