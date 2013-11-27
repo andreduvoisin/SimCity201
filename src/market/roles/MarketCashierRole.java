@@ -119,7 +119,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Scheduler
 	public boolean pickAndExecuteAnAction(){
-		System.out.println("scheduler");
 		/*
 		 * if cashier has just started, go to position
 		 */
