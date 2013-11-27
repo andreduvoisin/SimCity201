@@ -199,11 +199,11 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Add customer/rider role possibilities
-//		mRoles.put(new BankCustomerRole(this), false);
-//		mRoles.put(new HousingRenterRole(this), false);
-//		mRoles.put(new MarketCustomerRole(this), false);
-//		mRoles.put(new TransportationBusRiderRole(this), false);
-//		mRoles.put(new RestaurantCustomerRole(this), false);
+		mRoles.put(new BankCustomerRole(this), false);
+		mRoles.put(new HousingRenterRole(this), false);
+		mRoles.put(new MarketCustomerRole(this), false);
+		mRoles.put(new TransportationBusRiderRole(this), false);
+		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 		//Add events
 		mEvents.add(new Event(EnumEventType.JOB, 0));
@@ -308,11 +308,12 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		if(mTimeShift == 1) {
 			if ((mRoleFinished) && (!mAtJob) ){
+				System.out.println("Processing events");
 				// Process events (calendar)
 					Iterator<Event> itr = mEvents.iterator();
 					while (itr.hasNext()) {
 						Event event = itr.next();
-						//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
+						System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 						if (event.mTime > Time.GetTime())
 							break; // don't do future calendar events
 						mRoleFinished = false;
@@ -346,7 +347,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		//System.out.println(event.mEventType.toString());
+		System.out.println("processEvent "+event.mEventType.toString());
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
@@ -369,6 +370,7 @@ public class PersonAgent extends Agent implements Person {
 
 		//Intermittent Events (Deposit Check)
 		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
+			print("DepositCheck");
 			depositCheck(); //SHANE: 1 deposit check
 		}
 		
@@ -501,6 +503,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void depositCheck() {
+		mPersonGui.setPresent(true);
 		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
@@ -522,8 +525,8 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
-		
-		//REX SHANE: add customerRole and gui to bank animation panel
+		bankCustomerRole.setPerson(this);
+		BankPanel.getInstance().addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
