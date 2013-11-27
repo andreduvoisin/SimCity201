@@ -48,6 +48,7 @@ public class PersonAgent extends Agent implements Person {
 	//Static data
 	public static int sSSN = 0;
 	public static int sRestaurantCounter = 0;
+	public static int sHouseCounter = 0;
 	
 	//Roles and Job
 	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
@@ -159,6 +160,9 @@ public class PersonAgent extends Agent implements Person {
 				case HOUSING: 
 					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 					mJobRole.setPerson(this);
+					((HousingBaseRole) mJobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+					mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+					sHouseCounter++;
 					break;
 				case NONE:
 					break;
@@ -425,7 +429,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		System.out.println("Going to Job");
+//		System.out.println("Going to Job");
 		if (mJobLocation != null){
 			System.out.println("yes");
 			mPersonGui.DoGoToDestination(mJobLocation);
@@ -561,9 +565,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-		if (mHouseRole.mHouse != null) {
-			mHouseRole.msgTimeToMaintain(); //this role is always active
-		}
+//		if (mHouseRole.mHouse != null) {
+			((HousingBaseRole) mJobRole).msgTimeToMaintain();
+//			mHouseRole.msgTimeToMaintain(); //this role is always active
+//		}
 	}
 	
 	private List<Person> getBestFriends(){
