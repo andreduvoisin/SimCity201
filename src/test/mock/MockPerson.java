@@ -172,4 +172,16 @@ public class MockPerson extends Mock implements Person {
 		return null;
 	}
 
+	@Override
+	public void msgRoleFinished() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setJobFalse() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
