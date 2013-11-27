@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bank.gui.BankPanel;
 import bank.interfaces.BankMasterTeller;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -125,13 +126,7 @@ public class ContactList {
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
 	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
-		BankMasterTeller bankMasterTellerRole = null;
-		for (Role iRole : sRoleLocations.keySet()){
-			if (iRole instanceof BankMasterTeller){
-				bankMasterTellerRole = (BankMasterTeller) iRole;
-			}
-		}
-		bankMasterTellerRole.msgSendPayment(senderSSN, receiverSSN, amount);
+		BankPanel.getInstance().masterTeller.msgSendPayment(senderSSN, receiverSSN, amount);
 	}
 	//REX: 5 change list iteration and put bank master teller outside
 }

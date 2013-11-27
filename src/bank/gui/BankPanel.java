@@ -49,7 +49,8 @@ public class BankPanel extends CityCard implements ActionListener{
 	static int LINE_POSITION = 0;
 	
 	public static BankGuardRole guard = new BankGuardRole();
-	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole();
+	private static PersonAgent masterTellerPerson = new PersonAgent();
+	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole(masterTellerPerson);
 	public static BankTellerRole teller = new BankTellerRole();
 	public static Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
 	
