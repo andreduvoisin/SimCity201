@@ -2,6 +2,7 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
+import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -613,10 +614,15 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+//		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
+		mJobRole = new HousingOwnerRole(this);
 		mJobRole.setPerson(this);
 		((HousingBaseRole) mJobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
 		sHouseCounter++;
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
 		((HousingBaseRole) mJobRole).msgTimeToMaintain();
 	}
 	
