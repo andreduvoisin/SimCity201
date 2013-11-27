@@ -52,7 +52,10 @@ public class BaseRole implements Role {
 	}
 	
 	public void setActive() {
-		mActive = !mActive;
+		if(mActive)
+			mActive = false;
+		else
+			mActive = true;
 	}
 	
 	/**

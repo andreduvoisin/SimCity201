@@ -21,7 +21,7 @@ public class MarketPanel extends CityCard implements ActionListener {
 	
 	static MarketPanel instance;
 	
-	private List<MarketBaseGui> guis = new ArrayList<MarketBaseGui>();
+	private List<MarketBaseGui> guis = Collections.synchronizedList(new ArrayList<MarketBaseGui>());
 	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
 	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
 	private EnumMarketType mMarketType;
@@ -70,17 +70,23 @@ public class MarketPanel extends CityCard implements ActionListener {
 		
 		g2.setColor(getBackground());
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
-	
+        
+		synchronized(guis) {
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.draw(g2);
 			}
 		}
+		}
 	}
 
 	public void addGui(MarketBaseGui g) {
-		guis.add(g);
+		synchronized(guis) {
+			guis.add(g);
+		}
 		if(g instanceof MarketWorkerGui) {
+			System.out.println("added waiter gui!" + guis.size());
+
 			mWorkerGuis.add((MarketWorkerGui)g);
 			((MarketWorkerGui) g).setItemsGui(mItemGui);
 		}
@@ -90,7 +96,9 @@ public class MarketPanel extends CityCard implements ActionListener {
 	}
 	
 	public void removeGui(MarketBaseGui g) {
-		guis.remove(g);
+		synchronized(guis) {
+			guis.remove(g);
+		}
 		if(g instanceof MarketWorkerGui) {
 			mWorkerGuis.remove((MarketWorkerGui)g);
 		}

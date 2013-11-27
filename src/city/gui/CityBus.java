@@ -85,10 +85,10 @@ public class CityBus extends CityComponent {
 
 
 	public void DoAdvanceToNextStop() {
-		System.out.println("current stop " + mStopNumber);
+//		System.out.println("current stop " + mStopNumber);
         mStopNumber = (mStopNumber + 1) % mStopCoords.size();
 
-		System.out.println("new stop " + mStopNumber);
+//		System.out.println("new stop " + mStopNumber);
         mTraveling = true;
 
         destination.mX = mStopCoords.get(mStopNumber).mX;

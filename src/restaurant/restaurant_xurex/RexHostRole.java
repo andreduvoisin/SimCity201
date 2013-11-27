@@ -139,12 +139,16 @@ public class RexHostRole extends BaseRole implements Host {
 		if(customers.isEmpty()){
 			return false;
 		}
-		/*fullRestaurant = true;
+		//fullRestaurant = true;
+		int occupiedTables = 0;
 		for (Table table : tables) {
-			if (!table.isOccupied()){
-				fullRestaurant = false;
+			if (table.isOccupied()){
+				occupiedTables++;
 			}
-		}*/
+		}
+		if(occupiedTables == waiters.size()){
+			return false;
+		}
 		/*
 		if(fullRestaurant){
 			informCustomers();
