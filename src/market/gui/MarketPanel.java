@@ -45,10 +45,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 		mCashier = new MarketCashierRole(t);
 		mCashierGui = new MarketCashierGui(mCashier);
 		mCashier.setGui(mCashierGui);
-		guis.add(mCashierGui);
 		
 		mMarketType = t;
 		mItemGui = new MarketItemsGui(mMarketType);
+		
+		guis.add(mCashierGui);
 		guis.add(mItemGui);
 		
 		timer = new Timer(TIMERDELAY, this);
@@ -56,20 +57,25 @@ public class MarketPanel extends CityCard implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		synchronized(guis) {
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
 			}
 		}
-	
+		}
 		repaint();
 	}
 	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
+		
+		g2.setColor(getBackground());
+        g2.fillRect(0, 0, WINDOWX, WINDOWY );
+        
 		synchronized(guis) {
-
 		for(MarketBaseGui gui : guis) {
+			System.out.println(mWorkerGuis.size() + guis.size());
 			if (gui.isPresent()) {
 				gui.draw(g2);
 			}
@@ -79,10 +85,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 
 	public void addGui(MarketBaseGui g) {
 		synchronized(guis) {
+			System.out.println(g.toString());
 			guis.add(g);
 		}
 		if(g instanceof MarketWorkerGui) {
-			System.out.println("added waiter gui!" + guis.size());
+//			System.out.println("added waiter gui!" + guis.size());
 
 			mWorkerGuis.add((MarketWorkerGui)g);
 			((MarketWorkerGui) g).setItemsGui(mItemGui);

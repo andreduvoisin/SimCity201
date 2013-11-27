@@ -14,28 +14,28 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class AndreAnimationPanel extends JPanel implements ActionListener {
 
-    private final int WINDOWX = 500;
-    private final int WINDOWY = 500;
+    private final int WINDOWX = 500; //450
+    private final int WINDOWY = 500; //370
     static final int IDLE_X = 10;
     static final int IDLE_Y = 52;
     static final int IDLE_SIZE_X = 30;
-    static final int IDLE_SIZE_Y = 305;
+    static final int IDLE_SIZE_Y = 435;
     static final int WAIT_X = 10;
     static final int WAIT_Y = 10;
-    static final int WAIT_SIZE_X = 430;
+    static final int WAIT_SIZE_X = 480;
     static final int WAIT_SIZE_Y = 30;
     
-    static final int GRILL_X = 45;
-    static final int GRILL_Y = 351;
+    static final int GRILL_X = 70;
+    static final int GRILL_Y = 451;
     static final int GRILL_SIZE_X = 400;
     static final int GRILL_SIZE_Y = 14;
     
-    static final int FRIDGE_X = 425;
-    static final int FRIDGE_Y = 328;
+    static final int FRIDGE_X = 450;
+    static final int FRIDGE_Y = 428;
     static final int FRIDGESIZE = 20;
     
-    static final int STAND_X = 385;
-    static final int STAND_Y = 305;
+    static final int STAND_X = 410;
+    static final int STAND_Y = 401;
     static final int STAND_SIZE = 24;
     
     /*
