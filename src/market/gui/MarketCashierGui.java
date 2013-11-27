@@ -1,6 +1,7 @@
 package market.gui;
 
 import java.awt.*;
+
 import market.interfaces.MarketCashier;
 
 public class MarketCashierGui implements MarketBaseGui {
@@ -10,7 +11,8 @@ public class MarketCashierGui implements MarketBaseGui {
 	private static final int xHome = 100, yHome = 50;
 	
 	private int xPos = xStart, yPos = yStart;
-	private int xDestination = xStart, yDestination = yStart;
+	private int xDestination = xHome, yDestination = yHome;
+//	private int xDestination = xStart, yDestination = yStart;
 	private static final int SIZE = 20;
 	
 	public enum EnumCommand {noCommand, goToPosition, leaveMarket};
@@ -50,6 +52,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
+		System.out.println("test");
 		g.setColor(Color.ORANGE);
 		g.fillRect(xPos, yPos, SIZE, SIZE);
 	}
