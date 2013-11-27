@@ -217,13 +217,13 @@ public class CityPerson extends CityComponent {
 		atDestination = false;
 		this.enable();
 		mFinalDestination = location;
-		if ((location.mX < 180) || (location.mY < 180)){
-			xDestination = 95;
-			yDestination = 95;
-		}else{
-			xDestination = 500;
-			yDestination = 500;
-		}
+//		if ((location.mX < 180) || (location.mY < 180)){
+//			xDestination = 95;
+//			yDestination = 95;
+//		}else{
+//			xDestination = 500;
+//			yDestination = 500;
+//		}
 		if (mFinalDestination == null){
 			if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
 				mFinalDestination = new Location(location.mX, location.mY);

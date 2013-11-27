@@ -38,9 +38,17 @@ public class Time {
 			//Broadcast time
 			public void run() {
 				sGlobalMinute++;
+				sGlobalTimeInt++;
+				
+//				synchronized (mPersons) {
+//					for (Person iPerson : mPersons) {
+//						iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
+//						do a state changed here?
+//					}
+//				}
 				
 				if (sGlobalMinute == 60){
-					sGlobalTimeInt++;
+//					sGlobalTimeInt++;
 					sGlobalMinute = 0;
 					sGlobalHour++;
 				}
@@ -52,12 +60,12 @@ public class Time {
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
-			//				iPerson.msgTimeShift();
+							iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
 						}
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), 10000);
+		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 0
 		
 		/*mTimer.schedule(new TimerTask() {
 			
