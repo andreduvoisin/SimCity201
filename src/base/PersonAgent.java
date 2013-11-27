@@ -721,4 +721,11 @@ public class PersonAgent extends Agent implements Person {
 	public CityHousing getHouse() {
 		return mHouseRole.mHouse;
 	}
+
+	@Override
+	public void setGuiPresent() {
+		mPersonGui.setPresent(true);
+		mPersonGui.setX(250);
+		mPersonGui.setY(300);
+	}
 }
