@@ -45,10 +45,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 		mCashier = new MarketCashierRole(t);
 		mCashierGui = new MarketCashierGui(mCashier);
 		mCashier.setGui(mCashierGui);
-		guis.add(mCashierGui);
 		
 		mMarketType = t;
 		mItemGui = new MarketItemsGui(mMarketType);
+		
+		guis.add(mCashierGui);
 		guis.add(mItemGui);
 		
 		timer = new Timer(TIMERDELAY, this);
@@ -56,19 +57,19 @@ public class MarketPanel extends CityCard implements ActionListener {
 	}
 	
 	public void actionPerformed(ActionEvent e) {
+		synchronized(guis) {
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
 			}
 		}
-	
+		}
 		repaint();
 	}
 	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
 		synchronized(guis) {
-
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
 				gui.draw(g2);
