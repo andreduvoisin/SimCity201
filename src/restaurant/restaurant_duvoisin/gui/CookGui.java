@@ -9,28 +9,28 @@ import java.util.Map;
 public class CookGui implements Gui {
     private AndreCookRole agent = null;
     static final int COOKSIZE = 20;	// Size of each side of host (square).
-    static final int STARTPOS_X = 225;
-    static final int STARTPOS_Y = 328;
+    static final int STARTPOS_X = 250;
+    static final int STARTPOS_Y = 428;
     
-    static final int IDLE_X = 225;
-    static final int IDLE_Y = 328;
+    static final int IDLE_X = 250;
+    static final int IDLE_Y = 428;
     
     AndreRestaurantGui gui;
     
     private int xPos = STARTPOS_X, yPos = STARTPOS_Y;//default waiter position
     private int xDestination = STARTPOS_X, yDestination = STARTPOS_Y;//default start position
     
-    static final int FRIDGE_X = 405;
-    static final int FRIDGE_Y = 328;
+    static final int FRIDGE_X = 430;
+    static final int FRIDGE_Y = 428;
     
-    static final int GRILL_X = 50;
-    static final int GRILL_Y = 331;
-    static final int PLATE_X = 50;
-    static final int PLATE_Y = 325;
+    static final int GRILL_X = 75;
+    static final int GRILL_Y = 431;
+    static final int PLATE_X = 75;
+    static final int PLATE_Y = 425;
     static final int INCREMENT = 20;
     
-    static final int STAND_X = 385 - COOKSIZE;
-	static final int STAND_Y = 329;
+    static final int STAND_X = 410 - COOKSIZE;
+	static final int STAND_Y = 425;
     
     int currentPosition;
     String currentOrder;

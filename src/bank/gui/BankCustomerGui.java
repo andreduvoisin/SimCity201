@@ -7,6 +7,8 @@ import base.Location;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -16,6 +18,8 @@ public class BankCustomerGui implements Gui {
 	private boolean isPresent = false;
 	private BankPanel bankPanel;
 
+	private Timer timer = new Timer(); 
+	
 	private int xPos, yPos;
 	private int xDestination, yDestination;
 	
@@ -66,7 +70,11 @@ public class BankCustomerGui implements Gui {
 		
 		if(xPos == xDestination && yPos == yDestination == isMovingToTeller) {
 			isMovingToTeller = false;
-			agent.msgAtLocation();
+			timer.schedule(new TimerTask(){
+				public void run(){
+					agent.msgAtLocation();
+				}
+			}, 1000); 
 		}
 	}
 
@@ -108,12 +116,7 @@ public class BankCustomerGui implements Gui {
 	}
 	
 	public void DoGoToTeller(int location) {
-		switch (location){
-		case 1: xDestination = INTERACT_X1; 
-		case 2: xDestination = INTERACT_X2;
-		case 3: xDestination = INTERACT_X3;
-		default: xDestination = INTERACT_X1;
-		}
+		xDestination = INTERACT_X1;
 		yDestination = INTERACT_Y;
 		bankPanel.updateCustomerLine();
 		isMovingToTeller = true;

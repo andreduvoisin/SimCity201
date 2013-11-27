@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bank.gui.BankPanel;
 import bank.interfaces.BankMasterTeller;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -18,14 +19,14 @@ public class ContactList {
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	public static final Location cBANK_LOCATION = new Location(205,100);
-	public static final Location cMARKET_LOCATION = new Location(100,420);
-	public static final Location cCARDEALERSHIP_LOCATION = new Location(420,420);
+	public static final Location cMARKET_LOCATION = new Location(420,420);
+//	public static final Location cCARDEALERSHIP_LOCATION = new Location(100,420);
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	
 	public static final Location cBANK_DOOR = new Location(cBANK_LOCATION.mX-5, cBANK_LOCATION.mY-5);
 	public static final Location cMARKET_DOOR = new Location(cMARKET_LOCATION.mX-5, cMARKET_LOCATION.mY-5);
-	public static final Location cCARDEALERSHIP_DOOR = new Location(cCARDEALERSHIP_LOCATION.mX-5,cCARDEALERSHIP_LOCATION.mY-5);
+//	public static final Location cCARDEALERSHIP_DOOR = new Location(cCARDEALERSHIP_LOCATION.mX-5,cCARDEALERSHIP_LOCATION.mY-5);
 	public static List<Location> cHOUSE_DOORS;
 	public static List<Location> cRESTAURANT_DOORS;
 	public static List<Location> cBUS_STOPS;
@@ -125,13 +126,7 @@ public class ContactList {
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
 	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
-		BankMasterTeller bankMasterTellerRole = null;
-		for (Role iRole : sRoleLocations.keySet()){
-			if (iRole instanceof BankMasterTeller){
-				bankMasterTellerRole = (BankMasterTeller) iRole;
-			}
-		}
-		bankMasterTellerRole.msgSendPayment(senderSSN, receiverSSN, amount);
+		BankPanel.getInstance().masterTeller.msgSendPayment(senderSSN, receiverSSN, amount);
 	}
 	//REX: 5 change list iteration and put bank master teller outside
 }

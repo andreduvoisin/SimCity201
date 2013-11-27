@@ -20,13 +20,13 @@ public class WaiterGui implements Gui {
     private int xPos = STARTPOS, yPos = STARTPOS;//default waiter position
     private int xDestination = STARTPOS, yDestination = STARTPOS;//default start position
     
-    static final int COOK_X = 50;
-    static final int COOK_Y = 290;
+    static final int COOK_X = 75;
+    static final int COOK_Y = 390;
     static final int COOK_INCREMENT = 20;
-    static final int CASHIER_X = 470;
-    static final int CASHIER_Y = 185;
-    static final int COOK_DELIVER_X = 225;
-    static final int COOK_DELIVER_Y = 290;
+    static final int CASHIER_X = 550;
+    static final int CASHIER_Y = 175;
+    static final int COOK_DELIVER_X = 250;
+    static final int COOK_DELIVER_Y = 390;
     //static final int WAIT_X = 215;
     //static final int WAIT_Y = 100;
     static final int BREAK_X = 420;
@@ -42,8 +42,8 @@ public class WaiterGui implements Gui {
 	static final int CUSTOMER_WAIT_INCREMENT = 25;
 	int CUSTOMER_WAIT_POSITION;
 	
-	static final int STAND_X = 385 - WAITERSIZE;
-	static final int STAND_Y = 305 - WAITERSIZE;
+	static final int STAND_X = 410 - WAITERSIZE;
+	static final int STAND_Y = 401 - WAITERSIZE;
     
     TableGui myTables;
     

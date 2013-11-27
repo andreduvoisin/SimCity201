@@ -125,13 +125,37 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    	configList.add(config);
 	    	configOptions.add(config);
     	}
-    	JButton config = new JButton("Bank");
-    	config.addActionListener(this);
-    	config.setPreferredSize(buttonDim);
-    	config.setMinimumSize(buttonDim);
-    	config.setMaximumSize(buttonDim);
-    	configList.add(config);
-    	configOptions.add(config);
+    	JButton bankBtn = new JButton("Bank");
+    	bankBtn.addActionListener(this);
+    	bankBtn.setPreferredSize(buttonDim);
+    	bankBtn.setMinimumSize(buttonDim);
+    	bankBtn.setMaximumSize(buttonDim);
+    	configList.add(bankBtn);
+    	configOptions.add(bankBtn);
+    	view.add(configList);
+    	JButton houseBtn = new JButton("Housing");
+    	houseBtn.addActionListener(this);
+    	houseBtn.setPreferredSize(buttonDim);
+    	houseBtn.setMinimumSize(buttonDim);
+    	houseBtn.setMaximumSize(buttonDim);
+    	configList.add(houseBtn);
+    	configOptions.add(houseBtn);
+    	view.add(configList);
+    	JButton marketBtn = new JButton("Food Market");
+    	marketBtn.addActionListener(this);
+    	marketBtn.setPreferredSize(buttonDim);
+    	marketBtn.setMinimumSize(buttonDim);
+    	marketBtn.setMaximumSize(buttonDim);
+    	configList.add(marketBtn);
+    	configOptions.add(marketBtn);
+    	view.add(configList);
+    	JButton partyBtn = new JButton("Party");
+    	partyBtn.addActionListener(this);
+    	partyBtn.setPreferredSize(buttonDim);
+    	partyBtn.setMinimumSize(buttonDim);
+    	partyBtn.setMaximumSize(buttonDim);
+    	configList.add(partyBtn);
+    	configOptions.add(partyBtn);
     	view.add(configList);
         add(pane);
         
@@ -173,6 +197,30 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
 					config.readFileCreatePersons(city, "BankConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Housing")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "HouseConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Food Market")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "marketConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Party")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig"+".txt");
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}

@@ -43,13 +43,14 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int COUNTER_SIZE_X = 500;
 	static final int COUNTER_SIZE_Y = 15;
 	
-	static final int LINE_X = 235;
-	static final int LINE_Y = 350;
+	static final int LINE_X = 225;
+	static final int LINE_Y = 320;
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
 	
 	public static BankGuardRole guard = new BankGuardRole();
-	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole();
+	private static PersonAgent masterTellerPerson = new PersonAgent();
+	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole(masterTellerPerson);
 	public static BankTellerRole teller = new BankTellerRole();
 	public static Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
 	

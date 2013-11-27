@@ -16,11 +16,11 @@ public class ConfigParser {
 	private static ConfigParser instance = null;
 
 	public void readFileCreatePersons(SimCityGui simcitygui, String fileName) throws FileNotFoundException {
-		System.out.println(fileName);
 		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+fileName));
 		
 		//Instantiate the base roles before creating the people
-		SortingHat.InstantiateBaseRoles();
+		boolean mInstantiateRoles = true;
+//		SortingHat.InstantiateBaseRoles();
 		
 		while (scanFile.hasNext()) {
 			//Order of Inputs: Job Type (BANK, MARKET, RESTAURANT, NONE), Cash, Name
@@ -81,6 +81,12 @@ public class ConfigParser {
 			//Scenario
 //			String scenarioString = scanPerson.next();
 //			EnumScenarioType scenarioType = EnumScenarioType.valueOf(scenarioString);
+			
+			//Instantiate Roles
+			if (mInstantiateRoles){
+				SortingHat.InstantiateBaseRoles();
+				mInstantiateRoles = false;
+			}
 			
 			//Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically

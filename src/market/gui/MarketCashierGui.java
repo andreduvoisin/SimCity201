@@ -1,16 +1,22 @@
 package market.gui;
 
 import java.awt.*;
+
+import base.BaseRole;
 import market.interfaces.MarketCashier;
+import market.roles.MarketCashierRole;
 
 public class MarketCashierGui implements MarketBaseGui {
 	private MarketCashier mAgent;
+
+	private boolean isPresent;
 	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xHome = 100, yHome = 50;
 	
 	private int xPos = xStart, yPos = yStart;
-	private int xDestination = xStart, yDestination = yStart;
+	private int xDestination = xHome, yDestination = yHome;
+//	private int xDestination = xStart, yDestination = yStart;
 	private static final int SIZE = 20;
 	
 	public enum EnumCommand {noCommand, goToPosition, leaveMarket};
@@ -18,6 +24,8 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	public MarketCashierGui(MarketCashier agent) {
 		mAgent = agent;
+		
+		isPresent = true;
 	}
 	
 	public void updatePosition() {
@@ -69,7 +77,16 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		return true;
+		MarketCashierRole c = (MarketCashierRole) mAgent;
+	//	return c.getActive();
+		return isPresent;
+	}
+	
+	public void setPresent() {
+		MarketCashierRole c = (MarketCashierRole) mAgent;
+		c.setActive();
+	//	isPresent = !isPresent;
+		isPresent= true;
 	}
 	
 	public int getXPos() {

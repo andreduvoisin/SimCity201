@@ -19,8 +19,8 @@ public class TableGui {
 	}
 	
 	static final int xStart = 100;
-	static final int xIncrement = 100;
-	static final int yStart = 225;
+	static final int xIncrement = 140;
+	static final int yStart = 240;
 	static final int yIncrement = 0;
 	static final int tSize = 50;
 	

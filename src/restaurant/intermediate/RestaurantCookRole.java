@@ -10,6 +10,7 @@ import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
+import market.gui.MarketPanel;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
@@ -41,7 +42,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         protected static int DEFAULT_FOOD_QTY = 5;
         
         public RestaurantCookRole(Person person){
-                super(person);
+                super(person);                
         }
         
         public RestaurantCookRole() {
@@ -182,6 +183,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void placeOrder(MarketOrder o) {
+        		mMarketCashier = MarketPanel.getInstance().mCashier;
                 mMarketCashier.msgOrderPlacement(o);
         }
         

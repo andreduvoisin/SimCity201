@@ -42,7 +42,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
 		cards.put("null", new CityCard(city));
-		cards.put("Road", new CityCard(city));
+		//cards.put("Road", new CityCard(city));
 
 		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
 		cards.put("R_cwagoner", cwagoner);
@@ -69,8 +69,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		cards.put("Gringotts Bank", new BankPanel(city));
 		cards.put("Test Restaurant",  new CityCard(city)); 
-		cards.put("Costco", new MarketPanel(city, EnumMarketType.FOOD));
-		cards.put("Car Dealership", new MarketPanel(city, EnumMarketType.CAR));
+		cards.put("Costco", new MarketPanel(city, EnumMarketType.BOTH));
+	//	cards.put("Car Dealership", new MarketPanel(city, EnumMarketType.CAR));
 		
 		
 		

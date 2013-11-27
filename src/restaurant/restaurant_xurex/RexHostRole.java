@@ -38,7 +38,7 @@ public class RexHostRole extends BaseRole implements Host {
 	}
 
 	private String name;
-	private boolean fullRestaurant = true;
+	//private boolean fullRestaurant = true;
 
 	public RexHostRole(String name, Person person) {
 		super(person);
@@ -139,11 +139,15 @@ public class RexHostRole extends BaseRole implements Host {
 		if(customers.isEmpty()){
 			return false;
 		}
-		fullRestaurant = true;
+		//fullRestaurant = true;
+		int occupiedTables = 0;
 		for (Table table : tables) {
-			if (!table.isOccupied()){
-				fullRestaurant = false;
+			if (table.isOccupied()){
+				occupiedTables++;
 			}
+		}
+		if(occupiedTables == waiters.size()){
+			return false;
 		}
 		/*
 		if(fullRestaurant){
@@ -175,7 +179,7 @@ public class RexHostRole extends BaseRole implements Host {
 		waiter.PleaseSeatCustomer(customer.customer, table);
 		customers.remove(customer);
 	}
-	private void informCustomers(){
+	/*private void informCustomers(){
 		for(MyCustomer customer : customers){
 			if(customer.state == CustomerState.waiting){
 				customer.state = CustomerState.informed;
@@ -183,7 +187,7 @@ public class RexHostRole extends BaseRole implements Host {
 				Do("Messaged customer about full restaurant");
 			}
 		}
-	}
+	}*/
 
 	// UTILITIES //
 	

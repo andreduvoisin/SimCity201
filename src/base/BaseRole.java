@@ -12,9 +12,11 @@ public class BaseRole implements Role {
 
 	protected Person mPerson;
 	private Location mLocation;
+	public boolean mActive;
 	
 	public BaseRole(Person person) {
 		mPerson = person;
+		mActive = false;
 	}
 
 	public BaseRole() {
@@ -45,6 +47,17 @@ public class BaseRole implements Role {
 		return mPerson.getSSN();
 	}
 
+	public boolean getActive() {
+		return mActive;
+	}
+	
+	public void setActive() {
+		if(mActive)
+			mActive = false;
+		else
+			mActive = true;
+	}
+	
 	/**
 	 * The simulated action code
 	 */

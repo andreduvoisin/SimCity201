@@ -2,6 +2,7 @@ package base.interfaces;
 
 import java.util.Map;
 
+import test.mock.PersonGuiInterface;
 import base.Event;
 import base.Item.EnumItemType;
 import city.gui.CityHousing;
@@ -46,5 +47,10 @@ public interface Person {
 	public CityHousing getHouse();
 
 	void msgHereIsPayment(int senderSSN, double amount);
-
+	//public void setGui(PersonGuiInterface gui);
+	public void setGuiPresent();
+	public CityPerson getGui();
+	
+	public void msgRoleFinished();
+	public void setJobFalse();
 }

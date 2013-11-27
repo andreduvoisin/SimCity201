@@ -76,6 +76,12 @@ public class MockLandlord extends Mock implements Role, HousingLandlord {
 		return false;
 	}
 
+	@Override
+	public void setActive() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }

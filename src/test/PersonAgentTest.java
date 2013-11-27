@@ -1,19 +1,17 @@
 package test;
 
-import market.roles.MarketCustomerRole;
+import city.gui.CityPerson;
 import market.test.mock.MockCustomer;
 import housing.interfaces.HousingBase;
-import housing.roles.HousingBaseRole;
-import test.mock.MockPersonGui;
 import test.mock.MockRenterRole;
 import junit.framework.TestCase;
 import bank.test.mock.MockTellerRole;
 import base.Event;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
+import base.Location;
 import base.PersonAgent;
 import base.Time;
-import base.interfaces.Role;
 
 public class PersonAgentTest extends TestCase {
 
@@ -21,7 +19,7 @@ public class PersonAgentTest extends TestCase {
 	HousingBase mRenterRole;
 	MockTellerRole mTellerRole;
 	MockCustomer mCustomerRole;
-	MockPersonGui mGui;
+	CityPerson mGui;
 	
 	
 	public void setUp() throws Exception {
@@ -30,8 +28,10 @@ public class PersonAgentTest extends TestCase {
 		mRenterRole = new MockRenterRole();
 		mTellerRole = new MockTellerRole();
 		mCustomerRole = new MockCustomer();
-		mGui = new MockPersonGui();
-		mPerson.setGui(mGui);
+		mPerson.semAnimationDone.release(1000);
+		mPerson.testing = true;
+		//mGui = new MockPersonGui();
+		//mPerson.setGui(mGui);
 	}
 	
 	public void testOne_BasicSetUp() {
@@ -43,9 +43,9 @@ public class PersonAgentTest extends TestCase {
 		assertTrue("Person has no job", mPerson.mJobType == null);
 		assertTrue("Person has no cash", mPerson.getCash() == 0);
 		assertTrue("Person has no name", mPerson.getName() == null);
-		assertTrue("Person SSN is 0. Instead: "+ mPerson.getSSN(), mPerson.getSSN() == 0);
+		//assertTrue("Person SSN is 0. Instead: "+ mPerson.getSSN(), mPerson.getSSN() == 0);
 		assertTrue("Person has no loan", mPerson.getLoan() == 0);
-		assertTrue("Person timeShift is 0", mPerson.getTimeShift() == 0);
+		//assertTrue("Person timeShift is 0", mPerson.getTimeShift() == 0);
 		assertTrue("Person has no housing role", mPerson.mHouseRole == null);
 		assertTrue("Role finished is true", mPerson.mRoleFinished == true);
 		assertTrue("Person is not at job", mPerson.mAtJob == false);
@@ -65,13 +65,18 @@ public class PersonAgentTest extends TestCase {
 		mPerson.setName("Joe");
 		assertTrue("Person is named Joe", mPerson.getName().equals("Joe"));
 		
+	}
+	
+	public void testTwo_RoleSwitch(){
+		testOne_BasicSetUp();
+		mPerson.mJobLocation = new Location(-1,-1);
 		//paea: processEvent() -> goToJob()
 		assertTrue("paea: processEvent", mPerson.pickAndExecuteAnAction());
 		
 		assertTrue("New event in 24", mPerson.mEvents.first().mTime == 24);
 		assertTrue("Person is at job", mPerson.mAtJob == true);
-		assertTrue("Person is at location", mGui.log.containsString("DoGoToDestination"));
-		assertTrue("Person is not visible", mGui.log.containsString("setPresent: false"));
+//		assertTrue("Person is at location", mGui.log.containsString("DoGoToDestination"));
+//		assertTrue("Person is not visible", mGui.log.containsString("setPresent: false"));
 		assertTrue("Person is set in job", mTellerRole.log.containsString("setPerson: Joe"));
 		assertTrue("Person has a role", mPerson.mRoles.size() == 1);
 		assertTrue("Person has active role", mPerson.mRoles.get(mTellerRole) == true);
@@ -84,14 +89,15 @@ public class PersonAgentTest extends TestCase {
 		assertTrue("Should continually paea role", mPerson.pickAndExecuteAnAction());
 		
 		//Role Switch
-		Time.sGlobalShift = 1;
-		assertTrue("Time shift is currently 1", Time.GetShift() == 1);
+		Time.sGlobalShift =2;
+		assertTrue("Time shift is currently 2", Time.GetShift() == 2);
 		assertTrue("Time is currently 0", Time.GetTime() == 0);
+		assertTrue("Your job shift is 1", mPerson.mTimeShift == 1);
 		mPerson.msgTimeShift();
 		
 		assertTrue("Person is not at job anymore", mPerson.mAtJob == false);
 		assertTrue("Role is finished", mPerson.mRoleFinished == true);
-		assertTrue("PersonGui is visible again", mGui.log.containsString("setPresent: true"));
+//		assertTrue("PersonGui is visible again", mGui.log.containsString("setPresent: true"));
 		
 		assertTrue("paea: return false (break)", !mPerson.pickAndExecuteAnAction());
 		
@@ -101,13 +107,13 @@ public class PersonAgentTest extends TestCase {
 		mPerson.mRoles.put(mCustomerRole, false);
 		assertTrue("Person now has two roles", mPerson.mRoles.size() == 2);
 		assertTrue("Desired items is empty", mPerson.mItemsDesired.isEmpty());
-		mGui.log.clear();
+//		mGui.log.clear();
 		
 		//paea: processEvent() -> getCar()
 		assertTrue("paea: processEvent()", mPerson.pickAndExecuteAnAction());
 		
-		assertTrue("Person moved to location", mGui.log.containsString("DoGoToDestination"));
-		assertTrue("Person is invisible at location", mGui.log.containsString("setPresent: false"));
+//		assertTrue("Person moved to location", mGui.log.containsString("DoGoToDestination"));
+//		assertTrue("Person is invisible at location", mGui.log.containsString("setPresent: false"));
 		assertTrue("Role finished is false", mPerson.mRoleFinished == false);
 		assertTrue("Market Customer role is active", mPerson.mRoles.get(mCustomerRole) == true);
 		assertTrue("Person now has a car?", mPerson.mHasCar);
@@ -129,13 +135,6 @@ public class PersonAgentTest extends TestCase {
 		assertTrue("Person still has one event", mPerson.mEvents.size() == 1);
 		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mEventType == EnumEventType.EAT);
 		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mTime == 24);
-		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mLocation == null);*/
-		
-		
-		
-		
-		
-		
-		
+		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mLocation == null);*/	
 	}
 }
