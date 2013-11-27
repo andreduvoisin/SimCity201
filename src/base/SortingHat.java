@@ -135,15 +135,6 @@ public class SortingHat {
 			}
 		}
 		
-		//MarketDeliveryTruckRole
-		for (Role iRole : shiftRoles.keySet()){
-			if (iRole instanceof MarketDeliveryTruckRole){
-				if (shiftRoles.get(iRole) == false){ //if role not filled
-					shiftRoles.put(iRole, true);
-					return (MarketDeliveryTruckRole) iRole;
-				}
-			}
-		}
 		//MarketWorkerRole
 		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketWorkerRole){
@@ -154,6 +145,15 @@ public class SortingHat {
 			}
 		}
 		
+		//MarketDeliveryTruckRole
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof MarketDeliveryTruckRole){
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true);
+					return (MarketDeliveryTruckRole) iRole;
+				}
+			}
+		}
 		return null;
 	}
 	

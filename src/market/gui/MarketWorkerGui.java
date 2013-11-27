@@ -52,6 +52,7 @@ public class MarketWorkerGui implements MarketBaseGui {
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToItem: {
+        		System.out.println(mAgent.toString() + " l");
         		gettingItem.release();
         		mCommand = EnumCommand.noCommand;
         		break;
@@ -101,6 +102,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
 	for(EnumItemType item : mOrder.mItems.keySet()) {
+			System.out.println(mAgent.toString() + " k");
 			MarketCoordinates c = mItems.getItemCoordinates(item);
 			xDestination = c.getX()-30;
 			yDestination = c.getY();

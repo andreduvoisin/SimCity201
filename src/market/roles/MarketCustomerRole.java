@@ -157,10 +157,12 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void completeOrder(MarketOrder order) {
 		for(EnumItemType item : order.mItems.keySet()) {
-			int n = mItemInventory.get(item);
+		//	int n = mItemInventory.get(item);
+			int n = 0;
 			n += order.mItems.get(item);
 			mItemInventory.put(item, n);
 		}
+		Do("Done!");
 		DoLeaveMarket();
 	}
 	

@@ -123,7 +123,6 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 
 /* Animation Actions */
 	private void DoFulfillOrder(MarketOrder o) {
-		Do("fulfilling o");
 		mGui.DoFulfillOrder(o);
 		try {
 			inTransit.acquire();
@@ -131,7 +130,6 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		Do("dne");
 	}
 	
 	private void DoGoToMarket() {
