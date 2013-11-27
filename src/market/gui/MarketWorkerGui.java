@@ -53,7 +53,6 @@ public class MarketWorkerGui implements MarketBaseGui {
         	switch(mCommand) {
         	case goToItem: {
         		gettingItem.release();
-        		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToMarket: {
@@ -111,6 +110,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 			catch(InterruptedException e) {
 				e.printStackTrace();
 			}
+			mCommand = EnumCommand.noCommand;
 			mItems.decreaseItemCount(item, mOrder.mItems.get(item));		
 	}
 		mAgent.msgOrderFulfilled(mOrder);

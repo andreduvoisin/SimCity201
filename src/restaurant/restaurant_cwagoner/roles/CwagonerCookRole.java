@@ -15,10 +15,10 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 		super(person);
 
 		// Name of food, cooking time (ms), initial quantity of food, maximum capacity of food
-		addMenuItem("Steak",	8000, 1, 5);
-		addMenuItem("Chicken",	6000, 1, 4);
-		addMenuItem("Salad",	2000, 1, 3);
-		addMenuItem("Pizza",	4000, 1, 2);
+		addMenuItem("Steak",	8000, 5, 5);
+		addMenuItem("Chicken",	6000, 5, 5);
+		addMenuItem("Salad",	2000, 5, 5);
+		addMenuItem("Pizza",	4000, 5, 5);
 	}
 	
 	public CwagonerCookRole() {

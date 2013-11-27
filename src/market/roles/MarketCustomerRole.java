@@ -21,7 +21,7 @@ import base.Item.EnumItemType;
 import base.interfaces.Person;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
-	private static final Integer DEFAULT_FOOD_QTY = null;
+	private static final Integer DEFAULT_FOOD_QTY = 0;
 	//DATA
 	//mCash accessed from Person
 	private MarketCustomerGui mGui;
@@ -125,7 +125,6 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	//ACTIONS
 	private void createOrder(){
-		Do("ordering");
 		HashMap<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
 		for(EnumItemType iItemType : mItemsDesired.keySet()) {
 			items.put(iItemType,mItemsDesired.get(iItemType));
