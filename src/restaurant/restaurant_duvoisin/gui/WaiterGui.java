@@ -6,8 +6,6 @@ import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 
 import java.awt.*;
 
-import base.BaseRole;
-
 public class WaiterGui implements Gui {
 
     private Waiter agent = null;
