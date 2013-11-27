@@ -3,7 +3,6 @@ package city.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.List;
 
 import transportation.TransportationBusDispatch;
@@ -15,8 +14,6 @@ public class CityBus extends CityComponent {
 
 	List<Location> mStopCoords;
 
-	private static int sBusNumber = 0;
-	private int mBusNumber;
 	private int mStopNumber,
 				mSize = 25;
 	private Location destination = new Location(0, 0);
@@ -30,7 +27,6 @@ public class CityBus extends CityComponent {
 	 */
 	public CityBus(TransportationBusDispatch b, List<Location> stopCoords) {
 		mBusDispatch = b;
-		mBusNumber = sBusNumber++;
 		mTraveling = true;
 		mStopNumber = 0;
 		mStopCoords = stopCoords;
@@ -61,7 +57,7 @@ public class CityBus extends CityComponent {
         else if (y > destination.mY)	y--;
 
         if (x == destination.mX && y == destination.mY && mTraveling) {
-        	mBusDispatch.msgGuiArrivedAtStop(mBusNumber);
+        	mBusDispatch.msgGuiArrivedAtStop();
 			mTraveling = false;
         }
         
@@ -85,13 +81,9 @@ public class CityBus extends CityComponent {
 
 
 	public void DoAdvanceToNextStop() {
-		System.out.println("current stop " + mStopNumber);
         mStopNumber = (mStopNumber + 1) % mStopCoords.size();
 
-		System.out.println("new stop " + mStopNumber);
         mTraveling = true;
-
-        destination.mX = mStopCoords.get(mStopNumber).mX;
-        destination.mY = mStopCoords.get(mStopNumber).mY;
+        destination.setTo(mStopCoords.get(mStopNumber));
 	}
 }
