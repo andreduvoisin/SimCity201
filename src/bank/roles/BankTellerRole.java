@@ -123,17 +123,17 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	
 	private void deposit(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).balance += mCustomer.desiredAmount;
+		mAccounts.get(accountIndex).balance += mCustomer.amount;
 		mCustomer.customer.msgHereIsBalance(mAccounts.get(accountIndex).balance);
 	}
 	private void loan(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
 		double balance = mAccounts.get(accountIndex).balance;
-		if (balance >= (mCustomer.desiredAmount+mAccounts.get(accountIndex).loan)*2.0){
-			mAccounts.get(accountIndex).loan += mCustomer.desiredAmount;
+		if (balance >= (mCustomer.amount+mAccounts.get(accountIndex).loan)*2.0){
+			mAccounts.get(accountIndex).loan += mCustomer.amount;
 			timer.schedule(new TimerTask(){
 				public void run(){
-					mCustomer.customer.msgHereIsLoan(mCustomer.desiredAmount);
+					mCustomer.customer.msgHereIsLoan(mCustomer.amount);
 				}
 			}, loanTime);
 		}
@@ -148,18 +148,18 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	private void payment(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).loan -= mCustomer.desiredAmount;
+		mAccounts.get(accountIndex).loan -= mCustomer.amount;
 		mCustomer.customer.msgHereIsLoan(0);
 	}
 	private void open(){
-		mMasterTeller.getAccounts().add(new BankAccount(0, mCustomer.desiredAmount, mCustomer.mPerson));
+		mMasterTeller.getAccounts().add(new BankAccount(0, mCustomer.amount, mCustomer.mPerson));
 		int accountIndex = mMasterTeller.getAccounts().size() - 1;
 		mMasterTeller.getAccountIndex().put(mCustomer.mSSN, accountIndex);
-		mCustomer.customer.msgHereIsBalance(mCustomer.desiredAmount);
+		mCustomer.customer.msgHereIsBalance(mCustomer.amount);
 	}
 	private void robbery(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).balance += mCustomer.desiredAmount;
+		mAccounts.get(accountIndex).balance += mCustomer.amount;
 		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
 	}
 	
