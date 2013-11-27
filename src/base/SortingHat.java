@@ -55,8 +55,8 @@ public class SortingHat {
 			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_DOOR);
 		}
 */
-		sRoleLocations.put((Role)MarketPanel.getInstance().mCashier,ContactList.cMARKET_DOOR);
-		sRoleLocations.put((Role)MarketPanel.getInstance().mDeliveryTruck,ContactList.cMARKET_DOOR);
+		sRoleLocations.put((MarketCashierRole)MarketPanel.getInstance().mCashier,ContactList.cMARKET_DOOR);
+		sRoleLocations.put((MarketDeliveryTruckRole)MarketPanel.getInstance().mDeliveryTruck,ContactList.cMARKET_DOOR);
 		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
 			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_DOOR);
 		}
@@ -128,6 +128,7 @@ public class SortingHat {
 		//MarketCashierRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketCashierRole){
+				System.out.println("Test");
 				if (shiftRoles.get(iRole) == false){ //if role not filled
 					shiftRoles.put(iRole, true);
 					return (MarketCashierRole) iRole;
