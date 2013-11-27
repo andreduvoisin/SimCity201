@@ -28,7 +28,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	// SA = Will Order Salad
 	// PI = Will Order Pizza
 	private String name;
-	private int hungerLevel = 15;        // determines length of meal
+	private int hungerLevel = 5;        // determines length of meal
 	private Timer timer = new Timer();
 	private TimerTask tTask;
 	private int timerTime;
