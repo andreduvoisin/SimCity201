@@ -70,10 +70,10 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
         
-        cookingTimes.put("steak", 1000);
-        cookingTimes.put("chicken", 1000);
-        cookingTimes.put("salad", 1000);
-        cookingTimes.put("pizza", 1000);
+        cookingTimes.put("steak", 10000);
+        cookingTimes.put("chicken", 7500);
+        cookingTimes.put("salad", 5000);
+        cookingTimes.put("pizza", 7500);
         
         hasOrdered.put("steak", false);
         hasOrdered.put("chicken", false);
