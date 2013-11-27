@@ -125,13 +125,12 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	//ACTIONS
 	private void createOrder(){
+		Do("ordering");
 		HashMap<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
-//		synchronized(mItemsDesired) {
-			for(EnumItemType iItemType : mItemsDesired.keySet()) {
+		for(EnumItemType iItemType : mItemsDesired.keySet()) {
 			items.put(iItemType,mItemsDesired.get(iItemType));
 			mItemsDesired.put(iItemType,0);
 		}
-	//	}
 		MarketOrder order = new MarketOrder(items, this);		
 		mOrders.add(order);
 	}
@@ -158,9 +157,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void completeOrder(MarketOrder order) {
 		for(EnumItemType item : order.mItems.keySet()) {
-			mItemInventory.get(item);
-			order.mItems.get(item);
-			mItemInventory.put(item, mItemInventory.get(item)+order.mItems.get(item));
+			int n = mItemInventory.get(item);
+			n += order.mItems.get(item);
+			mItemInventory.put(item, n);
 		}
 		DoLeaveMarket();
 	}
