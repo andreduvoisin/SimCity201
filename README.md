@@ -52,14 +52,14 @@ mentality and has approached the project accordingly. Although the following sec
 * Person Agent Design/Implementation
 * Restaurant Integration
 
-####Shane Mileham	(Portland Power)
+####Shane Mileham	(The Designer)
 * Contact List
-* Market Design
-* Party Creation
 * Person Agent Design/Implementation
 * B* Algorithm and City GUI Coordinates
 * Configuration File Design and Implementation
-* Transportation Rider Pickup/Dropoff Design
+* Market Design
+* Party Creation
+* Transportation Pickup/Dropoff Design
 * Restaurant Integration
 
 
