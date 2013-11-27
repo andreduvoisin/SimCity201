@@ -63,7 +63,7 @@ public class HousingPersonGui implements Gui {
 	private int maintenanceYPos = 150; 
 	
 	//Party Variables
-	private int dist = housingrole.getSSN()%6;
+	private int dist = 2;
 	private int xDirection = dist;
 	private int yDirection = dist;
 	

@@ -44,8 +44,6 @@ public class BaseRole implements Role {
 	/* Utilities */
 
 	public int getSSN() {
-		if(mPerson == null)
-			return Time.sGlobalMinute;
 		return mPerson.getSSN();
 	}
 
