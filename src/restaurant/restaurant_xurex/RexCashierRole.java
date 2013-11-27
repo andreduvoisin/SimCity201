@@ -123,6 +123,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 		market.HereIsPayment(payment);
 	}
 	private void SendBill(Bill bill){
+		print("This is the order: "+bill.order);
 		float due = menu.get(bill.order);
 		bill.due  += due; //+= used for repeat customers
 		bill.waiter.HereIsBill(bill.customer, bill.due);
