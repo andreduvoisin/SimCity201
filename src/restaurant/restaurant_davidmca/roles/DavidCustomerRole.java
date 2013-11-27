@@ -268,19 +268,19 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 			Random rand = new Random();
 			int randvalue = rand.nextInt(1000);
 			int stay = randvalue % 2;
-			switch (stay) {
-			case 0:
+//			switch (stay) {
+//			case 0:
 				Do("Restaurant full, decided to go anyway");
 				host.msgIWantFood(this);
 				Do("Going to restaurant_davidmca");
-				break;
-			case 1:
-				Do("Restaurant full, decided to leave");
-				event = AgentEvent.ReadyToLeave;
-				customerGui.DoExitRestaurant();
-				((PersonAgent) mPerson).msgRoleFinished(this);
-				break;
-			}
+//				break;
+//			case 1:
+//				Do("Restaurant full, decided to leave");
+//				event = AgentEvent.ReadyToLeave;
+//				customerGui.DoExitRestaurant();
+//				((PersonAgent) mPerson).msgRoleFinished(this);
+//				break;
+//			}
 		}
 	}
 
