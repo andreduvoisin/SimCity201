@@ -16,8 +16,12 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
+import market.gui.MarketPanel;
 import market.interfaces.MarketCustomer;
+import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
+import market.roles.MarketDeliveryTruckRole;
+import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import test.mock.MockPersonGui;
@@ -46,7 +50,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sRestaurantCounter = 0;
 	
 	//Roles and Job
-	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
+	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, NONE};
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
@@ -123,7 +127,20 @@ public class PersonAgent extends Agent implements Person {
 					break;
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
+					System.out.println("Test");
+					mJobRole.setPerson(this);
+					if(mJobRole instanceof MarketCashierRole) {
+						mJobRole = MarketPanel.getInstance().mCashier;
+					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
+						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
+					} else if(mJobRole instanceof MarketWorkerRole) {
+						mJobRole = new MarketWorkerRole(this);
+					}
 					break;
+				case MARKETCUSTOMER:
+					mJobRole = new MarketCustomerRole(this);
+					((RestaurantBaseInterface) mJobRole).setPerson(this);
+					break;	
 				case RESTAURANT:
 					mJobRole = SortingHat.getRestaurantRole(mTimeShift);
 					((RestaurantBaseInterface) mJobRole).setPerson(this);

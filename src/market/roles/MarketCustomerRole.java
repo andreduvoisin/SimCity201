@@ -12,6 +12,7 @@ import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCustomerGui;
+import market.gui.MarketPanel;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
@@ -39,6 +40,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		super(person);
 		
 		mGui = new MarketCustomerGui(this);
+		MarketPanel.getInstance().addGui(mGui);
 		
 		mItemInventory = mPerson.getItemInventory();
 		mItemsDesired = mPerson.getItemsDesired();

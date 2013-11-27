@@ -28,6 +28,14 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	
 	public MarketDeliveryTruckRole(PersonAgent person) {
 		super(person);
+		
+		mGui = new MarketDeliveryTruckGui(this);
+	}
+	
+	public MarketDeliveryTruckRole() {
+		super();
+		
+		mGui = new MarketDeliveryTruckGui(this);
 	}
 
 /* Messages */
