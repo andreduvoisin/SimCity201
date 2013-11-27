@@ -1,9 +1,14 @@
 package city.gui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import transportation.TransportationBusDispatch;
 import base.Location;
@@ -18,7 +23,7 @@ public class CityBus extends CityComponent {
 				mSize = 25;
 	private Location destination = new Location(0, 0);
 	private boolean mTraveling;
-
+	BufferedImage front, right, left, back;
 
 	/**
 	 * Creates new CityBus
@@ -36,6 +41,25 @@ public class CityBus extends CityComponent {
 		y = mStopCoords.get(mStopNumber).mY;
 
 
+		front = null;
+		right = null;
+		left = null;
+		back = null;
+		
+		try {
+			java.net.URL frontURL = this.getClass().getClassLoader().getResource("city/gui/images/bus/front_sm.png");
+			front = ImageIO.read(frontURL);
+			java.net.URL rightURL = this.getClass().getClassLoader().getResource("city/gui/images/bus/leftside_sm.png");
+			right = ImageIO.read(rightURL);
+			java.net.URL backURL = this.getClass().getClassLoader().getResource("city/gui/images/bus/rightside_sm.png");
+			back = ImageIO.read(backURL);
+			java.net.URL leftURL = this.getClass().getClassLoader().getResource("city/gui/images/bus/back_sm.png");
+			left = ImageIO.read(leftURL);
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+
 		rectangle = new Rectangle(0,0,mSize,mSize);
 		setX(x); setY(y);
 
@@ -49,6 +73,17 @@ public class CityBus extends CityComponent {
 	}
 
 
+	public void paint(Graphics g) {
+		drawComponents(g);
+	}
+
+	public void drawComponents(Graphics g) {
+		if (mStopNumber == 0) g.drawImage(front, x, y, null);
+		else if (mStopNumber == 1) g.drawImage(right, x, y, null);
+		else if (mStopNumber == 2) g.drawImage(back, x, y, null);
+		else if (mStopNumber == 3) g.drawImage(left, x, y, null);
+	}
+
 	public void updatePosition() {
 		if (x < destination.mX)			x++;
         else if (x > destination.mX)	x--;
@@ -57,6 +92,7 @@ public class CityBus extends CityComponent {
         else if (y > destination.mY)	y--;
 
         if (x == destination.mX && y == destination.mY && mTraveling) {
+        	mStopNumber = (mStopNumber + 1) % mStopCoords.size();
         	mBusDispatch.msgGuiArrivedAtStop();
 			mTraveling = false;
         }
@@ -81,7 +117,6 @@ public class CityBus extends CityComponent {
 
 
 	public void DoAdvanceToNextStop() {
-        mStopNumber = (mStopNumber + 1) % mStopCoords.size();
         mTraveling = true;
         destination.setTo(mStopCoords.get(mStopNumber));
 	}
