@@ -46,5 +46,8 @@ public interface Person {
 	public CityHousing getHouse();
 
 	void msgHereIsPayment(int senderSSN, double amount);
+	
+	public void setGuiPresent();
+	public CityPerson getGui();
 
 }

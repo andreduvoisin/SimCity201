@@ -16,8 +16,11 @@ import javax.swing.Timer;
 @SuppressWarnings("serial")
 public abstract class SimCityPanel extends JPanel implements ActionListener, MouseListener {
 
+	static SimCityPanel instance;
+	
 	protected SimCityGui city;
-	protected ArrayList<CityComponent> statics, movings;
+	protected ArrayList<CityComponent> statics;
+	public ArrayList<CityComponent> movings;
 	protected Color background;
 	protected Timer timer;
 	private BufferedImage backgroundImage;
@@ -25,6 +28,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
+		instance = this;
 		statics = new ArrayList<CityComponent>();
 		movings = new ArrayList<CityComponent>();
 		timer = new Timer(10, this);
@@ -50,11 +54,12 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	
 	public void drawComponents(Graphics g) {
+		
 		g.drawImage(backgroundImage, -15, -15,null);
-//		for (CityComponent c:statics) {
-//			c.paint(g);
-//			
-//		}
+		for (CityComponent c:statics) {
+			c.paint(g);
+			
+		}
 		
 		for (CityComponent c:movings) {
 			if(c.isActive){
@@ -85,6 +90,10 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	public void actionPerformed(ActionEvent e) {
 		this.repaint();
+	}
+
+	public static SimCityPanel getInstance() {
+		return instance;
 	}
 
 }
