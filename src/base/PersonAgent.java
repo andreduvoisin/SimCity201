@@ -506,6 +506,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void depositCheck() {
+		mPersonGui.setPresent(true);
 		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
@@ -527,8 +528,8 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
-		
-		//REX SHANE: add customerRole and gui to bank animation panel
+		bankCustomerRole.setPerson(this);
+		BankPanel.getInstance().addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
