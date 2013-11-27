@@ -458,6 +458,7 @@ public class PersonAgent extends Agent implements Person {
 		if(mJobRole != null) {
 			mJobRole.setPerson(this); //take over job role
 			mRoles.put(mJobRole, true); //set role to active
+			System.out.println("Yay!");
 		}
 	}
 
