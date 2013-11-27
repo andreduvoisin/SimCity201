@@ -424,7 +424,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void getCar(){
-		Location location = ContactList.cCARDEALERSHIP_DOOR;
+		Location location = ContactList.cMARKET_DOOR;
 		mPersonGui.DoGoToDestination(location);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false); //set city person invisible

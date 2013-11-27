@@ -4,7 +4,6 @@ package restaurant.restaurant_xurex.test.mock;
 import java.awt.Graphics2D;
 
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
-import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
 
 public class MockCookGui extends Mock implements CookGui_ {

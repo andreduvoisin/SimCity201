@@ -3,7 +3,6 @@ package restaurant.restaurant_xurex.test.mock;
 
 import java.awt.Graphics2D;
 
-import restaurant.restaurant_xurex.gui.RexRestaurantGui;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
 public class MockWaiterGui extends Mock implements WaiterGui_ {
