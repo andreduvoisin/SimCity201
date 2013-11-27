@@ -216,7 +216,6 @@ public class CityPerson extends CityComponent {
 	public void DoGoToDestination(Location location){
 		atDestination = false;
 		this.enable();
-<<<<<<< HEAD
 		mFinalDestination = location;
 		if ((location.mX < 180) || (location.mY < 180)){
 			xDestination = 95;
@@ -224,7 +223,7 @@ public class CityPerson extends CityComponent {
 		}else{
 			xDestination = 500;
 			yDestination = 500;
-=======
+		}
 		if (mFinalDestination == null){
 			if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
 				mFinalDestination = new Location(location.mX, location.mY);
@@ -250,7 +249,6 @@ public class CityPerson extends CityComponent {
 			xDestination = mFinalDestination.mX;
 			yDestination = mFinalDestination.mY;
 			mFinalDestination = null;
->>>>>>> 245380855b073607b0f74a5c888cd00e027c2fad
 		}
 	}
 
