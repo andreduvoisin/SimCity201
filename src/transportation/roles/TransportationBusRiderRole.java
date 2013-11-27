@@ -1,5 +1,7 @@
 package transportation.roles;
 
+import java.util.concurrent.Semaphore;
+
 import base.BaseRole;
 import base.interfaces.Person;
 import transportation.*;
@@ -8,14 +10,9 @@ import transportation.interfaces.*;
 
 public class TransportationBusRiderRole extends BaseRole implements TransportationRider {
 
-	public TransportationBusRiderRole() {
-		state = enumState.none;
-		mGui = new TransportationBusRiderGui(this);
-	}
-
 	public TransportationBusRiderRole(Person person) {
 		mPerson = person;
-		state = enumState.none;
+		state = enumState.goToStop;
 		mGui = new TransportationBusRiderGui(this);
 	}
 
@@ -26,12 +23,13 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 
 	public TransportationBusDispatch mBusDispatch;
 	public TransportationBusRiderGui mGui;
+	public Semaphore semGuiMoving = new Semaphore(0, true);
 
-	public int mCurrentLocation;
-	public int mDestination;
+	public int mCurrentStop;
+	public int mDestinationStop;
 	
-	private enum enumState { none, askForRide, waiting, toldToBoard, boarding, boarded,
-								riding, atDestination, exiting }
+	private enum enumState { none, goToStop, going, atStop, askForRide, waiting, toldToBoard, boarding, boarded,
+								riding, atDestination, exiting, off }
 	private enumState state;
 	
 
@@ -39,22 +37,30 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ----------------------------------- MESSAGES -------------------------------------
 	// ==================================================================================
 
-	public void msgReset(int currentStop, int destinationStop) {
+	public void msgReset() {
+		System.out.println("Received msgReset");
 		state = enumState.askForRide;
 		stateChanged();
 	}
 
 	/**
 	 * From GUI
-	 * Sent when rider has completed boarding or exiting the bus
+	 * Sent when rider has completed boarding or exiting the bus, or arrived at bus stop
 	 */
 	public void msgGuiDone() {
-		if (state.equals(enumState.boarding)) {
+		System.out.println("Received msgGuiDone");
+		if (state.equals(enumState.going)) {
+			semGuiMoving.release();
+			state = enumState.askForRide;
+		}
+		else if (state.equals(enumState.boarding)) {
 			state = enumState.boarded;
 		}
 		else if (state.equals(enumState.exiting)) {
-			state = enumState.none;
+			state = enumState.off;
 		}
+		else return;
+		// Only stateChanged() if correct state
 		stateChanged();
 	}
 
@@ -63,6 +69,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	 * Sent when a BusInstance is at this Rider's current stop
 	 */
 	public void msgBoardBus() {
+		System.out.println("Received msgBoardBus");
 		state = enumState.toldToBoard;
 		stateChanged();
 	}
@@ -72,6 +79,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	 * Sent when this Rider's BusInstance has reached this Rider's destination
 	 */
 	public void msgAtYourStop() {
+		System.out.println("Received msgAtYourStop");
 		state = enumState.atDestination;
 		stateChanged();
 	}
@@ -82,6 +90,12 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ==================================================================================
 
 	public boolean pickAndExecuteAnAction() {
+		print("busrider pAEA called w/ state = " + state.toString());
+
+		if (state.equals(enumState.goToStop)) {
+			GoToNearestStop();
+			return true;
+		}
 
 		if (state.equals(enumState.askForRide)) {
 			AskForRide();
@@ -103,6 +117,11 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 			return true;
 		}
 
+		if (state.equals(enumState.off)) {
+			TellBusUnloaded();
+			return true;
+		}
+
 		return false;
 	}
 
@@ -111,9 +130,16 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ----------------------------------- ACTIONS --------------------------------------
 	// ==================================================================================
 
+	private void GoToNearestStop() {
+		System.out.println("GoToNearestStop()");
+		mGui.DoGoToStop(0);
+		state = enumState.going;
+		acquire(semGuiMoving);
+	}
+
 	private void AskForRide() {
-		System.out.println("AskForRide from " + mCurrentLocation);
-		mBusDispatch.msgNeedARide(this, mCurrentLocation);
+		System.out.println("AskForRide from " + mCurrentStop);
+		mBusDispatch.msgNeedARide(this, mCurrentStop);
 		state = enumState.waiting;
 	}
 
@@ -134,24 +160,35 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 		state = enumState.exiting;
 	}
 
+	private void TellBusUnloaded() {
+		System.out.println("TellBusUnloaded()");
+		mBusDispatch.msgImOff(this);
+		state = enumState.none;
+	}
+
 
 	// ==================================================================================
 	// ---------------------------------- ACCESSORS -------------------------------------
 	// ==================================================================================
 
 	public void setLocation(int loc) {
-		mCurrentLocation = loc;
+		print("setLocation(" + loc + ")");
+		mCurrentStop = loc;
 	}
 
 	public int getLocation() {
-		return mCurrentLocation;
+		return mCurrentStop;
 	}
 
 	public void setDestination(int dest) {
-		mDestination = dest;
+		mDestinationStop = dest;
 	}
 
 	public int getDestination() {
-		return mDestination;
+		return mDestinationStop;
+	}
+
+	private void acquire(Semaphore s) {
+		try { s.acquire(); } catch (Exception e) {}
 	}
 }
