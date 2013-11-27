@@ -19,7 +19,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private int xCustomer = 100, yCustomer = 250;
 	
 	private int xPos = xStart, yPos = yStart;
-	private int xDestination = xStart, yDestination = yStart;
+//	private int xDestination = xStart, yDestination = yStart;
+	private int xDestination = xHome, yDestination = yHome;
 	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToItem, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
