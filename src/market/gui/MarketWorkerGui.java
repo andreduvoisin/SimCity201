@@ -40,7 +40,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 		
     	image = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/blue-rhapsody.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/worker.png");
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
