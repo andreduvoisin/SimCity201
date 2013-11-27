@@ -16,4 +16,6 @@ public interface Role {
 
 	public abstract boolean isRestaurantPerson();
 
+	public abstract void setActive();
+
 }

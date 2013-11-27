@@ -269,6 +269,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()){
 			if(!(iRole instanceof HousingBase)){
 				mRoles.put(iRole, false);
+				iRole.setActive();
 			}
 		}
 	}
