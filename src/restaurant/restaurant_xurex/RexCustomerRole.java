@@ -16,6 +16,8 @@ import java.util.TimerTask;
 import java.util.Date;
 import java.util.Random;
 
+import city.gui.SimCityPanel;
+
 /**
  * Restaurant customer agent.
  */
@@ -338,6 +340,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		waiter.Leaving(this);
 		customerGui.animationPanel.removeCustomer(this);
 		customerGui.DoExitRestaurant();
+		SimCityPanel.getInstance().movings.add(mPerson.getGui());
 		mPerson.setGuiPresent();
 	}
 	

@@ -730,4 +730,8 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setX(250);
 		mPersonGui.setY(300);
 	}
+	
+	public CityPerson getGui(){
+		return mPersonGui;
+	}
 }
