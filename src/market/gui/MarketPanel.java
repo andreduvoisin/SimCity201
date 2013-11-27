@@ -19,28 +19,40 @@ public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
 	public enum EnumMarketType {FOOD, CAR};
 	
+	static MarketPanel instance;
+	
 	private List<MarketBaseGui> guis = new ArrayList<MarketBaseGui>();
 	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
 	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
 	private EnumMarketType mMarketType;
 	
 	private MarketItemsGui mItemGui;
+	
+	public MarketCashierRole mCashier;
+	public MarketDeliveryTruckRole mDeliveryTruck = new MarketDeliveryTruckRole();
+	public MarketCashierGui mCashierGui;
+	
 	private Timer timer;
 	private final int TIMERDELAY = 8;
 	
 	public MarketPanel(SimCityGui city, EnumMarketType t) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
-		setVisible(true);
+//		setVisible(true);
 		setBackground(Color.MAGENTA);
+		instance = this;
+		
+		mCashier = new MarketCashierRole(t);
+		mCashierGui = new MarketCashierGui(mCashier);
+		mCashier.setGui(mCashierGui);
+		guis.add(mCashierGui);
 		
 		mMarketType = t;
 		mItemGui = new MarketItemsGui(mMarketType);
+		guis.add(mItemGui);
 		
 		timer = new Timer(TIMERDELAY, this);
 		timer.start();
-//		addGuis();
-//		testGuis();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -62,25 +74,7 @@ public class MarketPanel extends CityCard implements ActionListener {
 			}
 		}
 	}
-	
-	private void addGuis() {
-		guis.add(mItemGui);
-		PersonAgent p = new PersonAgent();
-		MarketCashierRole r = new MarketCashierRole(p,mMarketType);
-		guis.add(new MarketCashierGui(r));
-		p = new PersonAgent();
-		MarketCustomerRole r2 = new MarketCustomerRole(p);
-		guis.add(new MarketCustomerGui(r2));
-		p = new PersonAgent();
-		MarketWorkerRole r3 = new MarketWorkerRole(p);
-		guis.add(new MarketWorkerGui(r3));
-	}
-	
-	public void testGuis() {
-		MarketCustomerGui c = (MarketCustomerGui)guis.get(2);
-		c.DoWaitForOrder();
-	}
-	
+
 	public void addGui(MarketBaseGui g) {
 		guis.add(g);
 		if(g instanceof MarketWorkerGui) {
@@ -100,5 +94,10 @@ public class MarketPanel extends CityCard implements ActionListener {
 		else if (g instanceof MarketCustomerGui) {
 			mCustomerGuis.remove((MarketCustomerGui)g);
 		}
+	}
+	
+	/** Utilities */
+	public static MarketPanel getInstance() {
+		return instance;
 	}
 }

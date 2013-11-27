@@ -23,12 +23,12 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		public BankCustomer customer;
 		public PersonAgent mPerson;
 		int mSSN;
-		double desiredAmount = 0;
+		double amount = 0;
 		EnumTransaction transaction = EnumTransaction.None;
 		MyCustomer (BankCustomer c, int SSN, double a, EnumTransaction t){
 			customer = c;
 			mSSN = SSN;
-			desiredAmount = a;
+			amount = a;
 			transaction = t;
 		}
 	}

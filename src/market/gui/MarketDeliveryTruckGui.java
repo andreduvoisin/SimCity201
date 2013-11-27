@@ -10,6 +10,7 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	private MarketDeliveryTruck mAgent;
 	
 	private int mDestinationRestaurant;
+	private boolean isPresent;
 	
 	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-35, yMarketBase = ContactList.cMARKET_LOCATION.mY-35;
 	
@@ -22,6 +23,8 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	
 	public MarketDeliveryTruckGui(MarketDeliveryTruck agent) {
 		mAgent = agent;
+		
+		isPresent = false;
 		//add in functionality to choose distinct
 		//market spots
 	}
@@ -117,7 +120,11 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	
 /* Utilities */
 	public boolean isPresent() {
-		return true;
+		return isPresent;
+	}
+	
+	public void setPresent() {
+		isPresent = !isPresent;
 	}
 	
 	public int getXPos() {

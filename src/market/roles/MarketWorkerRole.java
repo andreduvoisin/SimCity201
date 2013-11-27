@@ -3,6 +3,7 @@ package market.roles;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+import market.gui.MarketPanel;
 import market.gui.MarketWorkerGui;
 import market.interfaces.*;
 import market.*;
@@ -27,10 +28,16 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	
 	public MarketWorkerRole() {
 		super(null);
+		
+		mGui = new MarketWorkerGui(this);
+		MarketPanel.getInstance().addGui(mGui);
 	}
 	
 	public MarketWorkerRole(Person person){
 		super(person);
+		
+		mGui = new MarketWorkerGui(this);
+		MarketPanel.getInstance().addGui(mGui);
 	}
 	
 /* Messages */
