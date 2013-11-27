@@ -31,6 +31,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		
 		mGui = new MarketWorkerGui(this);
 		MarketPanel.getInstance().addGui(mGui);
+		MarketPanel.getInstance().mCashier.addWorker(this);
 	}
 	
 	public MarketWorkerRole(Person person){
@@ -38,6 +39,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		
 		mGui = new MarketWorkerGui(this);
 		MarketPanel.getInstance().addGui(mGui);
+		MarketPanel.getInstance().mCashier.addWorker(this);
 	}
 	
 /* Messages */
