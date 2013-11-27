@@ -8,6 +8,8 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -19,8 +21,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	static SimCityPanel instance;
 	
 	protected SimCityGui city;
-	protected ArrayList<CityComponent> statics;
-	public ArrayList<CityComponent> movings;
+	protected List<CityComponent> statics;
+	public List<CityComponent> movings;
 	protected Color background;
 	protected Timer timer;
 	private BufferedImage backgroundImage;
@@ -29,8 +31,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
 		instance = this;
-		statics = new ArrayList<CityComponent>();
-		movings = new ArrayList<CityComponent>();
+		statics = Collections.synchronizedList(new ArrayList<CityComponent>());
+		movings = Collections.synchronizedList(new ArrayList<CityComponent>());
 		timer = new Timer(10, this);
 		timer.start();
 		
@@ -56,24 +58,28 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	public void drawComponents(Graphics g) {
 		
 		g.drawImage(backgroundImage, -15, -15,null);
-		for (CityComponent c:statics) {
-			if (c instanceof CityHousing)
-			c.paint(g);
+		synchronized(statics) {
+			for (CityComponent c:statics) {
+				if (c instanceof CityHousing)
+				c.paint(g);
+			}
 		}
 		
-		for (CityComponent c:movings) {
-			if(c.isActive){
-				c.paint(g);
+		synchronized(movings) {
+			for (CityComponent c:movings) {
+				if(c.isActive){
+					c.paint(g);
+				}
 			}
 		}
 	}
 	
 	public void moveComponents() {
-		for (CityComponent c:movings) {
-			c.updatePosition();
+		synchronized(movings) {
+			for (CityComponent c:movings) {
+				c.updatePosition();
+			}
 		}
-
-		
 	}
 	/*
 	public void addGui(WPersonGui gui) {
@@ -81,11 +87,15 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	}*/
 	
 	public void addStatic(CityComponent c) {
-		statics.add(c);
+		synchronized(statics) {
+			statics.add(c);
+		}
 	}
 	
 	public void addMoving(CityComponent c) {
-		movings.add(c);
+		synchronized(movings) {
+			movings.add(c);
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {

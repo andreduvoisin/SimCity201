@@ -116,6 +116,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	configList.setLayout(new FlowLayout());
     	
     	Dimension buttonDim = new Dimension(panelSize.width, 20);
+    	JButton allBtn = new JButton("Simulate All");
+    	allBtn.addActionListener(this);
+    	allBtn.setPreferredSize(buttonDim);
+    	allBtn.setMinimumSize(buttonDim);
+    	allBtn.setMaximumSize(buttonDim);
+    	configList.add(allBtn);
+    	configOptions.add(allBtn);
+    	view.add(configList);
     	for (int i=0; i<8; i++) {
     		JButton config = new JButton("Restaurant "+i);
 	    	config.addActionListener(this);
@@ -221,6 +229,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
 					config.readFileCreatePersons(city, "PartyConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "config1"+".txt");
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
