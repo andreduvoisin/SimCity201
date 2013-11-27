@@ -103,34 +103,9 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 		stateChanged();
 	}
 	
-	// From market - pay for delivered order
-	public void msgPayForOrder(CwagonerMarket m, double total) {
-		log.add(new LoggedEvent("Received msgPayForOrder, total = " + total));
-		print("Received msgPayForOrder(" + m.getName() + ", $" + total + ")");
-		
-		MarketInteractions.put(m, total);
-		stateChanged();
-	}
-	
-	// From market - couldn't pay
-	public void msgDontOrderAgain(CwagonerMarket m) {
-		log.add(new LoggedEvent("Received msgDontOrderAgain"));
-		print("Received msgDontOrderAgain(" + m.getName() + ")");
-		
-		MarketInteractions.put(m, 0.0);
-		stateChanged();
-	}
-	
 	// SCHEDULER
 	
 	public boolean pickAndExecuteAnAction() {
-
-		// If market is owed money
-		if (MarketInteractions.size() > 0) {
-			HandleMarkets();
-			return true;
-		}
-		
 		// If customer underpaid
 		synchronized(Bills) {
 			for (Bill b : Bills) {
@@ -176,30 +151,6 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	
 	
 	// ACTIONS
-	
-	private void HandleMarkets() {
-		print("HandleMarkets()");
-		
-		for (CwagonerMarket m : MarketInteractions.keySet()) {
-			double total = MarketInteractions.get(m);
-			if (total == 0.0) {
-				cwagonerCook.msgDontOrderFrom(m);
-			}
-			else {
-				if (money >= total) {
-					m.msgPayment(this, total);
-					money -= total;
-				}
-				else {
-					m.msgPayment(this, money);
-					money = 0;
-				}
-			}
-		}
-		
-		MarketInteractions.clear();
-		stateChanged();
-	}
 	
 	private void TellCustomerTheyOwe(Bill b) {
 		b.customer.msgYouOwe(b.netCost);

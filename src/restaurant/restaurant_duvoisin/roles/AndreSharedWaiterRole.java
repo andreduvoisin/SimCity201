@@ -7,6 +7,8 @@ import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.test.mock.EventLog;
+import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -18,31 +20,33 @@ import base.interfaces.Person;
  * Restaurant Waiter Agent
  */
 public class AndreSharedWaiterRole extends BaseRole implements Waiter {	
-	List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
+	public List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	
-	enum CustomerState { Waiting, Seated, ReadyToOrder, AskedToOrder, Ordered, OutOfFood, FoodCooking, FoodReady, Eating, RequestedCheck, WaitingForCheck, CheckComputed, Paying, Done };
+	public enum CustomerState { Waiting, Seated, ReadyToOrder, AskedToOrder, Ordered, OutOfFood, FoodCooking, FoodReady, Eating, RequestedCheck, WaitingForCheck, CheckComputed, Paying, Done };
 	
-	enum MyState { Working, RequestBreak, RequestedBreak, OnBreakPending, OnBreak, OffBreak };
+	public enum MyState { Working, RequestBreak, RequestedBreak, OnBreakPending, OnBreak, OffBreak };
 
-	Cook cook;
-	Host host;
-	Cashier cashier;
+	public Cook cook;
+	public Host host;
+	public Cashier cashier;
 	
 	private String name;
 
-	private Semaphore atCustomer = new Semaphore(0, true);
-	private Semaphore atTable = new Semaphore(0, true);
-	private Semaphore atCook = new Semaphore(0, true);
-	private Semaphore atCashier = new Semaphore(0, true);
+	public Semaphore atCustomer = new Semaphore(0, true);
+	public Semaphore atTable = new Semaphore(0, true);
+	public Semaphore atCook = new Semaphore(0, true);
+	public Semaphore atCashier = new Semaphore(0, true);
 
 	public WaiterGui waiterGui = null;
 	
-	Boolean paused = false;
+	public Boolean paused = false;
 	
-	MyState state = MyState.Working;
+	public MyState state = MyState.Working;
 	
 	static final long breakTime = 20000;
-	Timer timer = new Timer();
+	public Timer timer = new Timer();
+	
+	public EventLog log = new EventLog();
 
 	public AndreSharedWaiterRole(Person person) {
 		super(person);
@@ -296,6 +300,7 @@ public class AndreSharedWaiterRole extends BaseRole implements Waiter {
 	
 	private void GiveOrderToCook(MyCustomer c) {
 		//print("Doing GiveOrderToCook");
+		log.add(new LoggedEvent("Doing GiveOrderToCook"));
 		waiterGui.DoGoToRevolvingStand();	//animation
 		try {
 			atCook.acquire();

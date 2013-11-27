@@ -9,13 +9,15 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_duvoisin.gui.CookGui;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.test.mock.EventLog;
+import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 
 /**
  * Restaurant Cook Agent
  */
 public class AndreCookRole extends RestaurantCookRole implements Cook {
-	List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
-	List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
+	public List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
+	public List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
 	public enum OrderState { Pending, Cooking, Done };
 //	Map<String, Food> foods = new HashMap<String, Food>();
 	private String name;
@@ -32,15 +34,17 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 	
 	Timer timer = new Timer();
 	
-	private Semaphore atFridge = new Semaphore(0, true);
-	private Semaphore atGrill = new Semaphore(0, true);
-	private Semaphore atPlating = new Semaphore(0, true);
-	private Semaphore atStand = new Semaphore(0, true);
+	public Semaphore atFridge = new Semaphore(0, true);
+	public Semaphore atGrill = new Semaphore(0, true);
+	public Semaphore atPlating = new Semaphore(0, true);
+	public Semaphore atStand = new Semaphore(0, true);
 	
 	static final int FOOD_LOW = 2;
 	static final int FOOD_ORDER = 5;
 	Map<String, Boolean> hasOrdered = new HashMap<String, Boolean>();
 	Map<String, Integer> cookingTimes = new HashMap<String, Integer>();
+	
+	public EventLog log = new EventLog();
 
 	public AndreCookRole(String name) {
 		super();
@@ -199,6 +203,7 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 	// Actions
 	void TryToCookFood(Order o) {
 		//print("Doing TryToCookFood");
+		log.add(new LoggedEvent("Doing TryToCookFood"));
 		int foodAmount = mItemInventory.get(Item.stringToEnum(o.choice));
 		if(foodAmount <= 0) {
 			o.waiter.msgOutOfFood(o.table, o.choice);
@@ -299,8 +304,9 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 //		f.state = FoodState.None;
 //	}
 	
-	void CheckRevolvingStand() {
+	public void CheckRevolvingStand() {
 		//print("Doing CheckRevolvingStand");
+		log.add(new LoggedEvent("Doing CheckRevolvingStand"));
 		checkRevolvingStand = false;
 		cookGui.DoGoToRevolvingStand();
 		try {
@@ -335,7 +341,7 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 		Timer timer;
 		int position;
 		
-		Order(Waiter w, String c, int t, OrderState s) {
+		public Order(Waiter w, String c, int t, OrderState s) {
 			waiter = w;
 			choice = c;
 			table = t;

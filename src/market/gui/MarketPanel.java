@@ -53,7 +53,7 @@ public class MarketPanel extends CityCard implements ActionListener {
 		mMarketType = t;
 		mItemGui = new MarketItemsGui(mMarketType);
 		
-    	image = null;
+    /*	image = null;
     	try {
 //    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/background.png");
         	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/restaurant.png");
@@ -62,7 +62,7 @@ public class MarketPanel extends CityCard implements ActionListener {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
-    	
+   */ 	
 		guis.add(mCashierGui);
 		guis.add(mItemGui);
 		
