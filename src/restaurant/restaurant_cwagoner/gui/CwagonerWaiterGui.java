@@ -4,6 +4,10 @@ package restaurant.restaurant_cwagoner.gui;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import base.Location;
 
@@ -22,10 +26,12 @@ public class CwagonerWaiterGui implements CwagonerGui {
     // GUI is a square. While not busy, wait in home position
     private int size = 20, plateSize = 20;
     private Location homePos = new Location(100 + waiterNum * (size + 10), 2 * size),
-    				cookPos = new Location(460, 150),
+    				cookPos = new Location(180, 350),
     				cashierPos = new Location(-size, 100),
     				position,
     				destination;
+    
+    BufferedImage waiterImg;
 
     public CwagonerWaiterGui(CwagonerWaiterRole w, CwagonerRestaurantGui g) {
     	state = State.idle;
@@ -35,6 +41,13 @@ public class CwagonerWaiterGui implements CwagonerGui {
 
         position = new Location(homePos.mX, homePos.mY);
         destination = new Location(homePos.mX, homePos.mY);
+
+        try {
+			java.net.URL waiterURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/waiter.png");
+			waiterImg = ImageIO.read(waiterURL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     public void updatePosition() {
@@ -53,14 +66,9 @@ public class CwagonerWaiterGui implements CwagonerGui {
     }
 
     public void draw(Graphics2D g) {
-        g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(position.mX, position.mY, size, size);
+		g.drawImage(waiterImg, position.mX, position.mY, null);
 		
-		if (food.equals("")) {
-	    	g.setColor(Color.LIGHT_GRAY);
-	    	g.fillRect(position.mX, position.mY, size, size);
-		}
-		else {	// Waiter is carrying food
+		if (! food.equals("")) {	// Waiter is carrying food
 			g.setColor(Color.WHITE);
     		g.fillOval(position.mX + size / 4, position.mY + size / 4, plateSize, plateSize);
     		g.setColor(Color.BLACK);

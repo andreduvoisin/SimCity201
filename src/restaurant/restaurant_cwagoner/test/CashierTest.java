@@ -22,74 +22,7 @@ public class CashierTest extends TestCase {
 		cashier = new CwagonerCashierRole();		
 		customer = new MockCustomer("mockcustomer");		
 		waiter = new MockWaiter("mockwaiter");
-		market1 = new MockMarket("mockmarket1");
-		market2 = new MockMarket("mockmarket2");
 	}	
-	
-	
-	
-	// Market charges cashier - cashier pays in full
-	
-	public void cashierPaysMarketInFull() {
-		assertEquals("Cashier should have $15; has " + cashier.money, cashier.money, 15.0);
-		assertEquals("Cashier should have no pending MarketInteractions; has " + cashier.MarketInteractions.size(),
-						cashier.MarketInteractions.size(), 0);
-		
-		// Tell cashier to pay for order that costs less than cashier's money
-		cashier.msgPayForOrder(market1, 10.0);
-		
-		// Make sure cashier received that message
-		assertTrue("Cashier should have received msgPayForOrder; didn't. Log reads " +
-				cashier.log.getLastLoggedEvent().toString(),
-				cashier.log.containsString("Received msgPayForOrder"));
-		
-		// Cashier should have 1 MarketInteraction waiting
-		assertEquals("Cashier should have 1 MarketInteraction; instead, has " + cashier.MarketInteractions.size(),
-						cashier.MarketInteractions.size(), 1);
-		
-		// Cashier should HandleMarkets()
-		assertTrue("Cashier should have called HandleMarkets() (scheduler returns true)",
-					cashier.pickAndExecuteAnAction());
-		
-		// No remaining MarketInteractions
-		assertEquals("Cashier should have no pending MarketInteractions; has " + cashier.MarketInteractions.size(),
-						cashier.MarketInteractions.size(), 0);
-		
-	} // cashier paid one bill successfully
-	
-	
-	
-	// Cashier pays two separate markets in full
-	
-	public void cashierPaysTwoBillsInFull() {
-		cashier.money = 15.0; // reset cashier's money
-		
-		assertEquals("Cashier should have $15; has " + cashier.money, cashier.money, 15.0);
-		assertEquals("Cashier should have no pending MarketInteractions; has " + cashier.MarketInteractions.size(),
-						cashier.MarketInteractions.size(), 0);
-		
-		// Tell cashier to pay for order that costs less than cashier's money
-		cashier.msgPayForOrder(market1, 10.0);
-		cashier.msgPayForOrder(market2, 5.0);
-		
-		// Make sure cashier received that message
-		assertTrue("Cashier should have received msgPayForOrder; didn't. Log reads " +
-				cashier.log.getLastLoggedEvent().toString(),
-				cashier.log.containsString("Received msgPayForOrder"));
-		
-		// Cashier should have 1 MarketInteraction waiting
-		assertEquals("Cashier should have 2 MarketInteraction; instead, has " + cashier.MarketInteractions.size(),
-						cashier.MarketInteractions.size(), 2);
-		
-		// Cashier should HandleMarkets()
-		assertTrue("Cashier should have called HandleMarkets() (scheduler returns true)",
-					cashier.pickAndExecuteAnAction());
-		
-		// No remaining MarketInteractions
-		assertEquals("Cashier should have no pending MarketInteractions; has " + cashier.MarketInteractions.size(),
-						cashier.MarketInteractions.size(), 0);
-		
-	} // cashier pays 2 bills in full
 	
 	
 	
