@@ -18,6 +18,7 @@ import java.util.concurrent.Semaphore;
 
 import market.gui.MarketPanel;
 import market.interfaces.MarketCustomer;
+import market.interfaces.MarketWorker;
 import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
@@ -28,6 +29,7 @@ import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.gui.BankPanel;
@@ -61,8 +63,9 @@ public class PersonAgent extends Agent implements Person {
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
-	private Location mJobLocation;
+	public Location mJobLocation;
 	public boolean mAtJob;
+	public boolean testing = false;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -74,7 +77,7 @@ public class PersonAgent extends Agent implements Person {
 	//Personal Variables
 	private String mName; 
 	int mSSN;
-	int mTimeShift;
+	public int mTimeShift;
 	double mCash;
 	double mLoan;
 	public boolean mHasCar;
@@ -141,14 +144,14 @@ public class PersonAgent extends Agent implements Person {
 						mJobRole = MarketPanel.getInstance().mCashier;
 					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
 						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
-					} else if(mJobRole instanceof MarketWorkerRole) {
-						mJobRole = new MarketWorkerRole(this);
+					} else if(mJobRole instanceof MarketWorkerRole){
+						MarketPanel.getInstance().mCashier.addWorker((MarketWorker)mJobRole);
 					}
-//					mJobRole.setPerson(this);
+					mJobRole.setPerson(this);
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);
-					((RestaurantBaseInterface) mJobRole).setPerson(this);
+					mJobRole.setPerson(this);
 					break;	
 				case RESTAURANT:
 					switch(mRestaurantRole) {
@@ -173,7 +176,7 @@ public class PersonAgent extends Agent implements Person {
 					((RestaurantBaseInterface) mJobRole).setRestaurant(mRestaurantNumber); //HACK ANDRE ALL
 					break;
 				case TRANSPORTATION:
-					mJobRole = SortingHat.getTransportationRole();
+					mJobRole = SortingHat.getTransportationRole(this);
 					break;
 				case HOUSING: 
 					mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
@@ -217,11 +220,11 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Add customer/rider role possibilities
-//		mRoles.put(new BankCustomerRole(this), false);
-//		mRoles.put(new HousingRenterRole(this), false);
-//		mRoles.put(new MarketCustomerRole(this), false);
-//		mRoles.put(new TransportationBusRiderRole(this), false);
-//		mRoles.put(new RestaurantCustomerRole(this), false);
+		mRoles.put(new BankCustomerRole(this), false);
+		mRoles.put(new HousingRenterRole(this), false);
+		mRoles.put(new MarketCustomerRole(this), false);
+		mRoles.put(new TransportationBusRiderRole(this), false);
+		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 		//Add events
 		mEvents.add(new Event(EnumEventType.JOB, 0));
@@ -286,7 +289,7 @@ public class PersonAgent extends Agent implements Person {
 		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(mJobRole, false); //set job role to false;
-			mJobRole.setActive();
+			//mJobRole.setActive();
 			mPersonGui.setPresent(true);
 		}
 		
@@ -302,7 +305,7 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
-	public void msgRoleFinished(Role role){ //SHANE: 3 Call at end of role
+	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
 		for (Role iRole : mRoles.keySet()){
@@ -326,11 +329,12 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		if(mTimeShift == 1) {
 			if ((mRoleFinished) && (!mAtJob) ){
+				System.out.println("Processing events");
 				// Process events (calendar)
 					Iterator<Event> itr = mEvents.iterator();
 					while (itr.hasNext()) {
 						Event event = itr.next();
-						//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
+						System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 						if (event.mTime > Time.GetTime())
 							break; // don't do future calendar events
 						mRoleFinished = false;
@@ -364,7 +368,7 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		//System.out.println(event.mEventType.toString());
+		System.out.println("processEvent "+event.mEventType.toString());
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
@@ -387,6 +391,7 @@ public class PersonAgent extends Agent implements Person {
 
 		//Intermittent Events (Deposit Check)
 		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
+			print("DepositCheck");
 			depositCheck(); //SHANE: 1 deposit check
 		}
 		
@@ -447,7 +452,9 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void getCar(){
 		Location location = ContactList.cMARKET_DOOR;
+		if(!testing){
 		mPersonGui.DoGoToDestination(location);
+		}
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false); //set city person invisible
 		
@@ -467,12 +474,12 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void goToJob() {
 //		System.out.println("Going to Job");
-		if (mJobLocation != null){
-			System.out.println("yes");
-			mPersonGui.DoGoToDestination(mJobLocation);
-		}else{
-			System.out.println("no");
-			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(mRestaurantNumber));
+		if (!testing){
+			if (mJobLocation != null){
+				mPersonGui.DoGoToDestination(mJobLocation);
+			}else{
+				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(mRestaurantNumber));
+			}
 		}
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
@@ -517,6 +524,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void depositCheck() {
+		mPersonGui.setPresent(true);
 		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
@@ -538,8 +546,8 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
-		
-		//REX SHANE: add customerRole and gui to bank animation panel
+		bankCustomerRole.setPerson(this);
+		BankPanel.getInstance().addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -635,7 +643,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
 
-		((TransportationBusRiderRole) mJobRole).msgReset(boardAtStop, exitAtStop);
+		((TransportationBusRiderRole) mJobRole).msgReset();
 		
 	}
 
@@ -754,5 +762,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	public CityPerson getGui(){
 		return mPersonGui;
+	}
+
+	@Override
+	public void setJobFalse() {
+		mAtJob = false;
 	}
 }

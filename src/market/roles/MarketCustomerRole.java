@@ -29,8 +29,8 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 
-	Map<EnumItemType, Integer> mItemInventory;
-	Map<EnumItemType, Integer> mItemsDesired;
+	Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
+	Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType,Integer>();
 	
 	Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
 
@@ -39,11 +39,14 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	public MarketCustomerRole(Person person) {
 		super(person);
 		
+		mCashier = MarketPanel.getInstance().mCashier;
 		mGui = new MarketCustomerGui(this);
 		MarketPanel.getInstance().addGui(mGui);
 		
-		mItemInventory = mPerson.getItemInventory();
-		mItemsDesired = mPerson.getItemsDesired();
+	//	mItemInventory = mPerson.getItemInventory();
+		//ANGELICA: hack for now
+		//mItemsDesired = mPerson.getItemsDesired();
+		mItemsDesired.put(EnumItemType.SALAD,5);
 	}
 	
 	//MESSAGES
@@ -111,12 +114,12 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	//ACTIONS
 	private void createOrder(){
-		MarketOrder order = new MarketOrder(mItemsDesired, this);
-		
+		HashMap<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
 		for(EnumItemType iItemType : mItemsDesired.keySet()) {
+			items.put(iItemType,mItemsDesired.get(iItemType));
 			mItemsDesired.put(iItemType,0);
 		}
-		
+		MarketOrder order = new MarketOrder(items, this);		
 		mOrders.add(order);
 	}
 

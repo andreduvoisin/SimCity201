@@ -75,7 +75,6 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
-		System.out.println("scheduler");
 		for(MarketOrder order : mOrders) {
 			if(order.mStatus == EnumOrderStatus.PAID && order.mEvent == EnumOrderEvent.ORDER_PAID) {
 				order.mStatus = EnumOrderStatus.ORDERING;
@@ -186,5 +185,11 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	
 	public void setGui(MarketWorkerGui g) {
 		mGui = g;
+	}
+	
+	public void setPerson(Person p) {
+		mPerson = p;
+//		if(p != null) 
+//		System.out.println("p!");
 	}
 }

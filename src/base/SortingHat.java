@@ -34,7 +34,7 @@ public class SortingHat {
 	static List<Map<Role, Boolean>> sRolesFilled;
 	
 	static int sNumBankTellers = 1;
-	static int sNumMarketWorkers = 1;
+	static int sNumMarketWorkers = 2;
 	static int sNumRestaurantWaiters = 3;	
 	
 	public static void InstantiateBaseRoles(){
@@ -58,9 +58,8 @@ public class SortingHat {
 		sRoleLocations.put((MarketCashierRole)MarketPanel.getInstance().mCashier,ContactList.cMARKET_DOOR);
 		sRoleLocations.put((MarketDeliveryTruckRole)MarketPanel.getInstance().mDeliveryTruck,ContactList.cMARKET_DOOR);
 		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
-			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_DOOR);
+			sRoleLocations.put(new MarketWorkerRole(), ContactList.cMARKET_DOOR);
 		}
-		
 		//Restaurants
 
 		for (int iRestaurantNum = SimCityGui.TESTNUM; iRestaurantNum < SimCityGui.TESTNUM + 1; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
@@ -129,7 +128,6 @@ public class SortingHat {
 		//MarketCashierRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketCashierRole){
-				System.out.println("Test");
 				if (shiftRoles.get(iRole) == false){ //if role not filled
 					shiftRoles.put(iRole, true);
 					return (MarketCashierRole) iRole;
@@ -241,8 +239,7 @@ public class SortingHat {
 
 
 	// TRANSPORTATION
-	public static Role getTransportationRole() {
-		TransportationBusRiderRole newBusRiderRole = new TransportationBusRiderRole();
-		return newBusRiderRole;
+	public static Role getTransportationRole(Person person) {
+		return new TransportationBusRiderRole(person);
 	}
 }

@@ -273,7 +273,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		gui.DoGoToCashier();
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
-		cashier.msgCustomerOrdered(this, c.customer, c.food);
+		if (c.food != "") cashier.msgCustomerOrdered(this, c.customer, c.food);
 		
 		gui.DoGoToTable(c.tableNum);
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
