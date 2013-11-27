@@ -7,6 +7,7 @@ import base.Time;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -41,7 +42,7 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
     private Image bufferImage;
     private Dimension bufferSize;
 	*/
-    private List<Gui> guis = new ArrayList<Gui>();
+    private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     private TableGui myTables = new TableGui();
     
     Timer timer;
@@ -58,6 +59,13 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
+		synchronized(guis) {
+			for(Gui gui : guis) {
+	            if (gui.isPresent()) {
+	                gui.updatePosition();
+	            }
+	        }
+		}
 	}
 
     public void paintComponent(Graphics g) {
@@ -101,31 +109,33 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
         g2.setColor(Color.PINK);
         g2.fillRect(STAND_X, STAND_Y, STAND_SIZE, STAND_SIZE);
 
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-                gui.updatePosition();
-            }
-        }
-
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-                gui.draw(g2);
-            }
+        synchronized(guis) {
+	        for(Gui gui : guis) {
+	            if (gui.isPresent()) {
+	                gui.draw(g2);
+	            }
+	        }
         }
     }
 
     public void addGui(CustomerGui gui) {
-        guis.add(gui);
-        gui.setTables(myTables);
+    	synchronized(guis) {
+    		guis.add(gui);
+    		gui.setTables(myTables);
+    	}
     }
 
     public void addGui(WaiterGui gui) {
-        guis.add(gui);
-        gui.setTables(myTables);
+    	synchronized(guis) {
+    		guis.add(gui);
+    		gui.setTables(myTables);
+    	}
     }
     
     public void addGui(CookGui gui) {
-        guis.add(gui);
+    	synchronized(guis) {
+    		guis.add(gui);
+    	}
     }
     
     public void pauseAnimations() {

@@ -40,7 +40,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 		}
 	}
 	//Public for use in test case
-	public Map<Customer, Bill> bills = Collections.synchronizedMap(new HashMap<Customer,Bill>());
+	public List<Bill> bills = Collections.synchronizedList(new ArrayList<Bill>());
 	Map<String, Integer> menu = new HashMap<String, Integer>();
 	Map<Market, Float> marketBills = new HashMap<Market, Float>();
 	
@@ -63,21 +63,21 @@ public class RexCashierRole extends BaseRole implements Cashier {
 
 	// MESSAGES //
 	public void ComputeBill(Waiter waiter, Customer customer){
-		/*if(bills.containsKey(customer)){
-			bills.get(customer).order = customer.getChoice();
-			bills.get(customer).state = BillState.pendingWaiter;
-		}
-		else{*/
-			Bill bill = new Bill(waiter, customer);
-			bill.order = customer.getChoice();
-			bill.state = BillState.pendingWaiter;
-			bills.put(customer, bill);
-		//}
+		Bill bill = new Bill(waiter, customer);
+		bill.order = customer.getChoice();
+		bill.state = BillState.pendingWaiter;
+		bills.add(bill);
 		stateChanged();
 	}
 	public void IWantToPay(Customer customer, float cash){
-		bills.get(customer).paid  = cash;
-		bills.get(customer).state = BillState.pendingCustomer;
+		synchronized(bills){
+			for (Bill iBill : bills){
+				if(iBill.customer.equals(customer)){
+					iBill.paid = cash;
+					iBill.state = BillState.pendingCustomer;
+				}
+			}
+		}
 		stateChanged();
 	}
 	public void HereIsBill(Market market, float payment){
@@ -97,16 +97,16 @@ public class RexCashierRole extends BaseRole implements Cashier {
 			}
 		}
 		synchronized(bills){
-		for(Bill bill : bills.values()){
-			if(bill.state == BillState.pendingCustomer){
-				ComputeChange(bill);
+		for(Bill iBill : bills){
+			if(iBill.state == BillState.pendingCustomer){
+				ComputeChange(iBill);
 				return true;
 			}
 		}}
 		synchronized(bills){
-		for(Bill bill : bills.values()){
-			if(bill.state == BillState.pendingWaiter){
-				SendBill(bill);
+		for(Bill iBill : bills){
+			if(iBill.state == BillState.pendingWaiter){
+				SendBill(iBill);
 				return true;
 			}
 		}}
@@ -152,10 +152,6 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	
 	public float getAssets(){
 		return this.assets;
-	}
-	
-	public void addBill(Waiter waiter, Customer customer, float due){
-		bills.put(customer, new Bill(waiter, customer, due));
 	}
 	
 }

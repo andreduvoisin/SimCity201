@@ -60,6 +60,7 @@ public class SortingHat {
 		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
 			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_DOOR);
 		}
+		
 		//Restaurants
 
 		for (int iRestaurantNum = SimCityGui.TESTNUM; iRestaurantNum < SimCityGui.TESTNUM + 1; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
