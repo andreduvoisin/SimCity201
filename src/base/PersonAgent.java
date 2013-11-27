@@ -129,14 +129,11 @@ public class PersonAgent extends Agent implements Person {
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
 					if(mJobRole instanceof MarketCashierRole) {
-						System.out.println("cashier");
 						mJobRole = MarketPanel.getInstance().mCashier;
 					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
-						System.out.println("truck");
 						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
 					} else if(mJobRole instanceof MarketWorkerRole) {
 						mJobRole = new MarketWorkerRole(this);
-						System.out.println("worker");
 					}
 					mJobRole.setPerson(this);
 					break;
@@ -272,6 +269,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()){
 			if(!(iRole instanceof HousingBase)){
 				mRoles.put(iRole, false);
+				iRole.setActive();
 			}
 		}
 	}

@@ -2,10 +2,14 @@ package market.gui;
 
 import java.awt.*;
 
+import base.BaseRole;
 import market.interfaces.MarketCashier;
+import market.roles.MarketCashierRole;
 
 public class MarketCashierGui implements MarketBaseGui {
 	private MarketCashier mAgent;
+
+	private boolean isPresent;
 	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xHome = 100, yHome = 50;
@@ -20,6 +24,8 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	public MarketCashierGui(MarketCashier agent) {
 		mAgent = agent;
+		
+		isPresent = false;
 	}
 	
 	public void updatePosition() {
@@ -52,7 +58,6 @@ public class MarketCashierGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-		System.out.println("test");
 		g.setColor(Color.ORANGE);
 		g.fillRect(xPos, yPos, SIZE, SIZE);
 	}
@@ -72,7 +77,13 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		return true;
+		MarketCashierRole c = (MarketCashierRole) mAgent;
+		return c.getActive();
+	}
+	
+	public void setPresent() {
+		MarketCashierRole c = (MarketCashierRole) mAgent;
+		c.setActive();
 	}
 	
 	public int getXPos() {
