@@ -69,6 +69,10 @@ public class MarketPanel extends CityCard implements ActionListener {
 	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
+		
+		g2.setColor(getBackground());
+        g2.fillRect(0, 0, WINDOWX, WINDOWY );
+        
 		synchronized(guis) {
 		for(MarketBaseGui gui : guis) {
 			if (gui.isPresent()) {
