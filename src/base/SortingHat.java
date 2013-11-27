@@ -128,15 +128,7 @@ public class SortingHat {
 				}
 			}
 		}
-		//MarketCookCustomerRole (1)
-		for (Role iRole : shiftRoles.keySet()){
-			if (iRole instanceof MarketCookCustomerRole){
-				if (shiftRoles.get(iRole) == false){ //if role not filled
-					shiftRoles.put(iRole, true);
-					return (MarketCookCustomerRole) iRole;
-				}
-			}
-		}
+		
 		//MarketDeliveryTruckRole
 		for (Role iRole : shiftRoles.keySet()){
 			if (iRole instanceof MarketDeliveryTruckRole){

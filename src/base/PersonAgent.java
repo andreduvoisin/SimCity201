@@ -127,15 +127,17 @@ public class PersonAgent extends Agent implements Person {
 					break;
 				case MARKET:
 					mJobRole = SortingHat.getMarketRole(mTimeShift);
-					System.out.println("Test");
-					mJobRole.setPerson(this);
 					if(mJobRole instanceof MarketCashierRole) {
+						System.out.println("cashier");
 						mJobRole = MarketPanel.getInstance().mCashier;
 					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
+						System.out.println("truck");
 						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
 					} else if(mJobRole instanceof MarketWorkerRole) {
 						mJobRole = new MarketWorkerRole(this);
+						System.out.println("worker");
 					}
+					mJobRole.setPerson(this);
 					break;
 				case MARKETCUSTOMER:
 					mJobRole = new MarketCustomerRole(this);
