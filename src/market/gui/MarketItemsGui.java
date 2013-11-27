@@ -22,7 +22,7 @@ public class MarketItemsGui implements MarketBaseGui {
 	public Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
 	private int xBase = 300, yBase = 30;
 	private static final int SIZE = 20;
-	public static final int sBaseInventory = 5;
+	public static final int sBaseInventory = 50;
 	
 	public MarketItemsGui(EnumMarketType t) {
 		mMarketType = t;
@@ -53,7 +53,7 @@ public class MarketItemsGui implements MarketBaseGui {
 		for(ItemGui i : mItems.keySet()) {
 			MarketCoordinates c = mItems.get(i);
 			g.setColor(i.mColor);
-			for(int j=0;j<i.mNumber;j++) {
+			for(int j=0;j<(int)(i.mNumber/10);j++) {
 				g.fillRect(c.getX()+30*j,c.getY(),SIZE,SIZE);
 			}
 		}

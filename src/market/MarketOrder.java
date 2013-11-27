@@ -9,7 +9,7 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 
 public class MarketOrder {
-	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, ORDERING, DELIVERING, BEING_DELIVERED, FULFILLING, DONE};
+	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, ORDERING, DELIVERING, BEING_DELIVERED, FULFILLING, DONE, SENT};
 	public EnumOrderStatus mStatus;
 	public static enum EnumOrderEvent {ORDER_PLACED, RECEIVED_INVOICE, ORDER_PAID, TOLD_TO_FULFILL, TOLD_TO_SEND, TOLD_TO_DELIVER, READY_TO_DELIVER, RECEIVED_ORDER, NONE};
 	public EnumOrderEvent mEvent;

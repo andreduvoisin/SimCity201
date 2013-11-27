@@ -41,7 +41,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	int mNumWorkers = 0;
 	
 	Map<EnumItemType, Integer> mInventory = new HashMap<EnumItemType, Integer>();
-	int mBaseInventory = 5;
+	int mBaseInventory = 100;
 	
 	List<MarketWorker> mWorkers = Collections.synchronizedList(new ArrayList<MarketWorker>());
 	static int mWorkerIndex;
@@ -133,7 +133,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 			}
 			for (MarketOrder iOrder : mOrders){
 				if ((iOrder.mStatus == EnumOrderStatus.PAID) && (iOrder.mEvent == EnumOrderEvent.ORDER_PAID)){
-					iOrder.mStatus = EnumOrderStatus.ORDERING;
+					iOrder.mStatus = EnumOrderStatus.SENT;
 					fulfillOrder(iOrder);
 					return true;
 				}

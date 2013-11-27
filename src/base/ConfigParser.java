@@ -3,6 +3,7 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import market.roles.MarketCashierRole;
 import base.PersonAgent.EnumJobType;
 import base.PersonAgent.EnumRestaurantRole;
 import base.interfaces.Person;
