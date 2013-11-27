@@ -30,7 +30,6 @@ import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.gui.BankPanel;
