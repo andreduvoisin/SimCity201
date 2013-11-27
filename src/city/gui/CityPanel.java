@@ -144,8 +144,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "R_tranac"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(7), "R_xurex"));
 		this.addStatic(new CityBank(ContactList.cBANK_LOCATION, "Gringotts Bank"));
+	//	this.addStatic(new CityMarket(ContactList.cMARKET_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cMARKET_LOCATION, "Costco"));
-		this.addStatic(new CityMarket(ContactList.cCARDEALERSHIP_LOCATION, "Car Dealership"));
 		
 		this.addStatic(new TimeGui(540, 560));
 		

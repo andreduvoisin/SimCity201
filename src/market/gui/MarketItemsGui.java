@@ -27,6 +27,13 @@ public class MarketItemsGui implements MarketBaseGui {
 	public MarketItemsGui(EnumMarketType t) {
 		mMarketType = t;
 		//populate list of items; hack right now
+		if(t == EnumMarketType.BOTH) {
+			mItems.put(new ItemGui(EnumItemType.STEAK,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase));
+			mItems.put(new ItemGui(EnumItemType.CHICKEN,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+100));
+			mItems.put(new ItemGui(EnumItemType.SALAD,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+200));
+			mItems.put(new ItemGui(EnumItemType.PIZZA,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+300));
+			mItems.put(new ItemGui(EnumItemType.CAR,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+400));
+		}
 		if(t == EnumMarketType.FOOD) {
 			mItems.put(new ItemGui(EnumItemType.STEAK,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase));
 			mItems.put(new ItemGui(EnumItemType.CHICKEN,Color.RED,sBaseInventory), new MarketCoordinates(xBase, yBase+100));

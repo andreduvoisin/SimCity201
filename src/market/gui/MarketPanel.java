@@ -17,7 +17,7 @@ import java.awt.event.*;
 
 public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
-	public enum EnumMarketType {FOOD, CAR};
+	public enum EnumMarketType {BOTH, CAR, FOOD};
 	
 	static MarketPanel instance;
 	
