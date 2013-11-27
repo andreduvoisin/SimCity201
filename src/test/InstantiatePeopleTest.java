@@ -16,7 +16,8 @@ public class InstantiatePeopleTest extends TestCase {
 		ConfigParser config = ConfigParser.getInstanceOf();
 		//config.readFileCreatePersons(null, 0);
 		CityPanel panel = CityPanel.getInstance();
-		assertEquals("Check size of master person list", panel.masterPersonList.size(),12);
+		//System.out.println(panel.masterPersonList.size());
+		assertEquals("Check size of master person list", panel.masterPersonList.size(),10);
 		/*assertEquals("Verify time shifts", panel.masterPersonList.get(0).getTimeShift(), 0);
 		assertEquals("Verify time shifts", panel.masterPersonList.get(1).getTimeShift(), 1);
 		assertEquals("Verify time shifts", panel.masterPersonList.get(2).getTimeShift(), 2);*/
