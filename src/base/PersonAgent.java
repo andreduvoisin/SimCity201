@@ -24,6 +24,7 @@ import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import test.mock.PersonGuiInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.gui.BankPanel;
@@ -56,8 +57,9 @@ public class PersonAgent extends Agent implements Person {
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
-	private Location mJobLocation;
+	public Location mJobLocation;
 	public boolean mAtJob;
+	public boolean testing = false;
 	
 	//Lists
 	List<Person> mFriends; // best are those with same timeshift
@@ -69,7 +71,7 @@ public class PersonAgent extends Agent implements Person {
 	//Personal Variables
 	private String mName; 
 	int mSSN;
-	int mTimeShift;
+	public int mTimeShift;
 	double mCash;
 	double mLoan;
 	public boolean mHasCar;
@@ -267,7 +269,7 @@ public class PersonAgent extends Agent implements Person {
 		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(mJobRole, false); //set job role to false;
-			mJobRole.setActive();
+			//mJobRole.setActive();
 			mPersonGui.setPresent(true);
 		}
 		
@@ -428,7 +430,9 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void getCar(){
 		Location location = ContactList.cMARKET_DOOR;
+		if(!testing){
 		mPersonGui.DoGoToDestination(location);
+		}
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false); //set city person invisible
 		
@@ -448,12 +452,14 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void goToJob() {
 //		System.out.println("Going to Job");
+		if (!testing){
 		if (mJobLocation != null){
 			System.out.println("yes");
 			mPersonGui.DoGoToDestination(mJobLocation);
 		}else{
 			System.out.println("no");
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(SimCityGui.TESTNUM));
+		}
 		}
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //SHANE: This will need to be set to false somewhere
