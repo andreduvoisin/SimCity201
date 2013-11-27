@@ -75,6 +75,7 @@ public class MarketPanel extends CityCard implements ActionListener {
         
 		synchronized(guis) {
 		for(MarketBaseGui gui : guis) {
+			System.out.println(mWorkerGuis.size() + guis.size());
 			if (gui.isPresent()) {
 				gui.draw(g2);
 			}
@@ -84,10 +85,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 
 	public void addGui(MarketBaseGui g) {
 		synchronized(guis) {
+			System.out.println(g.toString());
 			guis.add(g);
 		}
 		if(g instanceof MarketWorkerGui) {
-			System.out.println("added waiter gui!" + guis.size());
+//			System.out.println("added waiter gui!" + guis.size());
 
 			mWorkerGuis.add((MarketWorkerGui)g);
 			((MarketWorkerGui) g).setItemsGui(mItemGui);
