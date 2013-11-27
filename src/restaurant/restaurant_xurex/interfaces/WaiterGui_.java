@@ -2,8 +2,6 @@ package restaurant.restaurant_xurex.interfaces;
 
 import java.awt.Graphics2D;
 
-import restaurant.restaurant_xurex.gui.RexRestaurantGui;
-
 public interface WaiterGui_ {
 
 	public abstract void updatePosition();
