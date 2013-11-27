@@ -167,7 +167,7 @@ public class PersonAgent extends Agent implements Person {
 						if(iHouse.mOccupant == null){
 							iHouse.type = HousingType.House;
 							iHouse.mOccupant = (HousingRenterRole)mJobRole;
-							mHouseRole.mHouse = iHouse;
+							((HousingBaseRole) mJobRole).setHouse(iHouse);
 							break;
 						}
 					}
