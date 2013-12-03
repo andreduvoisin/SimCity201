@@ -63,8 +63,8 @@ public class PersonAgent extends Agent implements Person {
 										RESTAURANT, //...
 										NONE};		//party person, non-norms (can add NN1, NN2, ...)
 	public EnumJobType mJobType;
-	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
-	public Role mJobRole; //for easier access
+	public Map<Role, Boolean> mRoles; 	//roles, active -  i.e. WaiterRole, BankTellerRole, etc.
+	public Role mJobRole; 				//for easier access
 	
 	//Lists
 	private List<Person> mFriends; 								// best friends are those with same timeshift

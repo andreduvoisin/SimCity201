@@ -11,6 +11,8 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 //import interfaces
 
@@ -104,5 +106,15 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	}
 	public void setGui(BankGuardGui g) {
 		mGUI = g;
+	}
+
+
+	@Override
+	public Location getLocation() {
+		switch (mBankID){
+			case 1: return ContactList.cBANK1_LOCATION;
+			case 2: return ContactList.cBANK2_LOCATION;
+		}
+		return null;
 	}
 }
