@@ -12,10 +12,11 @@ import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCook;
-import base.Item.EnumItemType;
-import base.ContactList;
-import base.PersonAgent;
 import base.BaseRole;
+import base.ContactList;
+import base.Item.EnumItemType;
+import base.Location;
+import base.PersonAgent;
 
 /** MarketCookCustomer for SimCity Market agents.
  * 
@@ -24,7 +25,7 @@ import base.BaseRole;
 
 public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 	//RestaurantCashierRole mRestaurantCashier;
-
+	int mMarketID;
 	Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
 	Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
 	
@@ -124,5 +125,16 @@ public class MarketCookCustomerRole extends BaseRole implements MarketCook {
 /* Utilities */
 	public void setMarketCashier(MarketCashier c) {
 		mMarketCashier = c;
+	}
+	
+	@Override
+	public Location getLocation() {
+		if (mMarketID == 1) {
+			return ContactList.cMARKET1_LOCATION;
+		}
+		else if (mMarketID == 2) {
+			return ContactList.cMARKET2_LOCATION;
+		}
+		return null;
 	}
 }

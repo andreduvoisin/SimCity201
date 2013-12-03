@@ -20,6 +20,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 	MarketDeliveryTruckGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
+	int mMarketID;
 	
 	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
@@ -33,7 +34,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	public MarketDeliveryTruckRole() {
-		super();
+		super(null);
 		
 		mGui = new MarketDeliveryTruckGui(this);
 	}
@@ -140,5 +141,16 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 /* Utilities */
 	public void setGui(MarketDeliveryTruckGui g) {
 		mGui = g;
+	}
+
+	@Override
+	public Location getLocation() {
+		if (mMarketID == 1) {
+			return ContactList.cMARKET1_LOCATION;
+		}
+		else if (mMarketID == 2) {
+			return ContactList.cMARKET2_LOCATION;
+		}
+		return null;
 	}
 }

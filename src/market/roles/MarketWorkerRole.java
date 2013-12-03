@@ -1,17 +1,20 @@
 package market.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import market.gui.MarketPanel;
-import market.gui.MarketWorkerGui;
-import market.interfaces.*;
-import market.*;
+import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
-import market.interfaces.MarketDeliveryTruck;
+import market.gui.MarketPanel;
+import market.gui.MarketWorkerGui;
+import market.interfaces.MarketCustomer;
 import market.interfaces.MarketWorker;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 /**
@@ -23,6 +26,7 @@ import base.interfaces.Person;
 public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	MarketWorkerGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
+	int mMarketID;
 	
 	private List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
@@ -192,5 +196,16 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		mPerson = p;
 //		if(p != null) 
 //		System.out.println("p!");
+	}
+
+	@Override
+	public Location getLocation() {
+		if (mMarketID == 1) {
+			return ContactList.cMARKET1_LOCATION;
+		}
+		else if (mMarketID == 2) {
+			return ContactList.cMARKET2_LOCATION;
+		}
+		return null;
 	}
 }

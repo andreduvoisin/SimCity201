@@ -2,13 +2,11 @@ package housing.roles;
 
 import housing.gui.HousingPersonGui;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
-import javax.imageio.ImageIO;
-
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import city.gui.CityHousing;
 
 public class HousingBaseRole extends BaseRole {
@@ -102,6 +100,11 @@ public class HousingBaseRole extends BaseRole {
 	public void setHouse(CityHousing h) {
 		print("set house");
 		this.mHouse = h;
+	}
+
+	@Override
+	public Location getLocation() {
+		return ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
 	}
 
 }
