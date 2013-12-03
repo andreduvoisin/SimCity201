@@ -12,7 +12,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import base.ContactList;
 import base.Item;
+import base.Location;
 import base.Item.EnumItemType;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_davidmca.Order;
@@ -82,7 +84,7 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 	 *            name of the customer
 	 */
 	public DavidCookRole(String name) {
-		super(null);
+		super(null, 0);
 		this.name = name;
 		ordering = false;
 		reorder = false;
@@ -316,6 +318,11 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 	@Override
 	public List<Order> getRevolvingStand() {
 		return revolvingStand;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
 
 }

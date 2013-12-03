@@ -12,6 +12,8 @@ import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 
 /**
  * Restaurant Host Agent
@@ -243,5 +245,10 @@ public class DavidHostRole extends BaseRole implements Host {
 
 	public int getCustomerIndex() {
 		return index;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
 }

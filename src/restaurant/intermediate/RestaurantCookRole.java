@@ -27,6 +27,7 @@ import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
+import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -204,4 +205,9 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public void decreaseInventory(EnumItemType i) {
         	mItemInventory.put(i,mItemInventory.get(i)-1);
         }
+
+        @Override
+    	public Location getLocation() {
+    		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);
+    	}
 }

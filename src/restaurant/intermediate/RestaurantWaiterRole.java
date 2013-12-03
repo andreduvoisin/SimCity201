@@ -22,6 +22,8 @@ import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
 import restaurant.restaurant_xurex.RexWaiterRole1;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -111,5 +113,10 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 	public boolean pickAndExecuteAnAction() {
 		//System.out.println("RestaurantWaiterRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);
 	}
 }
