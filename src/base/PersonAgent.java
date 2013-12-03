@@ -8,11 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
 import market.interfaces.MarketCustomer;
@@ -68,7 +66,7 @@ public class PersonAgent extends Agent implements Person {
 	private int mTimeShift;
 	private double mCash;
 	private double mLoan;
-	private boolean mHasCar;
+	private boolean mHasCar;	//ALL ANGELICA MAGGI: 3 car will be implemented later
 	private boolean mAtJob;		//used in PAEA
 	public CityPerson mPersonGui;
 
@@ -144,7 +142,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void initializePerson(){
 		//Roles and Job
-		mRoles = new HashMap<Role, Boolean>();
+		mRoles = new HashMap<Role, Boolean>(); //role to active
 		mAtJob = false;
 		
 		//Lists
@@ -170,6 +168,7 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
+		//finished role if job
 		mRoleFinished = true;
 		if (Time.GetShift() == mTimeShift) {
 			for(Role iRole : mRoles.keySet()){
@@ -233,7 +232,6 @@ public class PersonAgent extends Agent implements Person {
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
-				//print(iRole.toString());
 				if (iRole.getPerson() == null) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
@@ -262,41 +260,41 @@ public class PersonAgent extends Agent implements Person {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
-				goToJob(); //SHANE: 1 go to job
+				goToJob();
 			}
 			mEvents.add(new Event(event, 24));
 		}
 		else if (event.mEventType == EnumEventType.EAT) {
-			eatFood(); //SHANE: 1 eat food
+			eatFood();
 			mEvents.add(new Event(event, 24));
 		}
 
 		//Intermittent Events (Deposit Check)
 		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
 			print("DepositCheck");
-			depositCheck(); //SHANE: 1 deposit check
+			depositCheck();
 		}
 		
 		else if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
-			invokeRent(); //SHANE: 1 invoke rent
+			invokeRent();
 		}
 		
 		else if (event.mEventType == EnumEventType.MAINTAIN_HOUSE) {
-			invokeMaintenance(); //SHANE: 1 invoke maintenance
+			invokeMaintenance();
 		}
 		
 		//Party Events
 		else if (event.mEventType == EnumEventType.INVITE1) {
-			inviteToParty(); //SHANE: 1 invite to party
+			inviteToParty();
 		}
 		else if (event.mEventType == EnumEventType.INVITE2) {
-			reinviteDeadbeats(); //SHANE: 1 reinvite deadbeats
+			reinviteDeadbeats();
 		}
 		else if (event.mEventType == EnumEventType.RSVP1) {
-			respondToRSVP(); //SHANE: 1 respond to rsvp
+			respondToRSVP();
 		}
 		else if (event.mEventType == EnumEventType.RSVP2) {
-			respondToRSVP(); //SHANE: 1 respond to rsvp (same)
+			respondToRSVP();
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
 			if (event instanceof EventParty){
@@ -324,14 +322,6 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		mEvents.remove(event);
-	}
-	
-	private void acquireSemaphore(Semaphore semaphore){
-		try {
-			semaphore.acquire();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void getCar(){
@@ -553,8 +543,14 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.NewDestination(new Location(mPersonGui.mFinalDestination.mX, mPersonGui.mFinalDestination.mY));
 	}
 
-	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
-
+	private void acquireSemaphore(Semaphore semaphore){
+		try {
+			semaphore.acquire();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private Role getJobRole(){
 		for (Role iRole : mRoles.keySet()){
 			//Bank roles
@@ -579,7 +575,8 @@ public class PersonAgent extends Agent implements Person {
 		return getJobRole().getLocation();
 	}
 	
-	//SHANE: 4 Organize PersonAgent Accessors
+	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
+	
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);
 		print(this.getName());
@@ -631,7 +628,9 @@ public class PersonAgent extends Agent implements Person {
 	
 
 	protected void print(String msg) {
-		System.out.println("" + mName + ": "  + msg);
+		if (SimCityGui.TESTING){
+			System.out.println("" + mName + ": "  + msg);
+		}
 	}
 	
 	public String getName(){
@@ -687,8 +686,8 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void setGuiPresent() {
 		mPersonGui.setPresent(true);
-		mPersonGui.setX(250);
-		mPersonGui.setY(300);
+//		mPersonGui.setX(250);
+//		mPersonGui.setY(300);
 	}
 	
 	public CityPerson getGui(){
