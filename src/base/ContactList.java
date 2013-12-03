@@ -20,13 +20,15 @@ public class ContactList {
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	public static final Location cBANK_LOCATION = new Location(205,100);
 	public static final Location cMARKET_LOCATION = new Location(420,420);
-//	public static final Location cCARDEALERSHIP_LOCATION = new Location(100,420);
+	public static final Location cMARKET2_LOCATION = new Location(100,420);
+	//public static final Location cCARDEALERSHIP_LOCATION = new Location(100,420);
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	
 	public static final Location cBANK_DOOR = new Location(cBANK_LOCATION.mX-5, cBANK_LOCATION.mY-5);
 	public static final Location cMARKET_DOOR = new Location(cMARKET_LOCATION.mX-5, cMARKET_LOCATION.mY-5);
-//	public static final Location cCARDEALERSHIP_DOOR = new Location(cCARDEALERSHIP_LOCATION.mX-5,cCARDEALERSHIP_LOCATION.mY-5);
+	public static final Location cMARKET2_DOOR = new Location(cMARKET2_LOCATION.mX-5, cMARKET2_LOCATION.mY-5);
+	//public static final Location cCARDEALERSHIP_DOOR = new Location(cCARDEALERSHIP_LOCATION.mX-5,cCARDEALERSHIP_LOCATION.mY-5);
 	public static List<Location> cHOUSE_DOORS;
 	public static List<Location> cRESTAURANT_DOORS;
 	public static List<Location> cBUS_STOPS;

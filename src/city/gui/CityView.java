@@ -70,7 +70,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("Gringotts Bank", new BankPanel(city));
 		cards.put("Test Restaurant",  new CityCard(city)); 
 		cards.put("Costco", new MarketPanel(city, EnumMarketType.BOTH));
-	//	cards.put("Car Dealership", new MarketPanel(city, EnumMarketType.CAR));
+		
+		cards.put("Sams Club", new MarketPanel(city, EnumMarketType.BOTH));
 		
 		
 		
