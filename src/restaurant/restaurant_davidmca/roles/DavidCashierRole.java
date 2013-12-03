@@ -12,6 +12,8 @@ import restaurant.restaurant_davidmca.interfaces.Waiter;
 import restaurant.restaurant_davidmca.test.mock.EventLog;
 import restaurant.restaurant_davidmca.test.mock.LoggedEvent;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
@@ -155,6 +157,11 @@ public class DavidCashierRole extends BaseRole implements Cashier {
 
 	public List<Check> getPaidChecks() {
 		return this.paidChecks;
+	}
+
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
 
 }

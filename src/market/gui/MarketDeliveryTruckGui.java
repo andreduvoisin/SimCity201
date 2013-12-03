@@ -4,6 +4,7 @@ import java.awt.*;
 
 import city.gui.CityComponent;
 import base.ContactList;
+import base.Location;
 import market.interfaces.MarketDeliveryTruck;
 
 public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseGui {
@@ -11,7 +12,9 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	
 	private int mDestinationRestaurant;
 	private boolean isPresent;
+	int mMarketID;
 	
+//	ANGELICA this needs to be updated to use the right location based on Market ID; see getLocation() method
 	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-35, yMarketBase = ContactList.cMARKET_LOCATION.mY-35;
 	
 	private int xPos = xMarketBase, yPos = yMarketBase;
@@ -137,4 +140,15 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 
 	@Override
 	public void setPresent(boolean state) {	}
+	
+	@Override
+	public Location getLocation() {
+		if (mMarketID == 1) {
+			return ContactList.cMARKET1_LOCATION;
+		}
+		else if (mMarketID == 2) {
+			return ContactList.cMARKET2_LOCATION;
+		}
+		return null;
+	}
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -15,13 +14,15 @@ import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCashierGui;
 import market.gui.MarketPanel.EnumMarketType;
 import market.interfaces.MarketCashier;
-import market.interfaces.MarketCook;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
+import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
+import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -37,6 +38,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	MarketCashierGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
 	EnumMarketType mMarketType;
+	int mMarketID;
 	
 	int mNumWorkers = 0;
 	
@@ -80,7 +82,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 	
 	public MarketCashierRole(EnumMarketType type) {
-		super();
+		super(null);
 		mMarketType = type;
 
 		//populate inventory
@@ -241,5 +243,16 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	public void setPerson(Person p) {
 		mPerson = p;
 		mBankAccount = p.getSSN();
+	}
+
+	@Override
+	public Location getLocation() {
+		if (mMarketID == 1) {
+			return ContactList.cMARKET1_LOCATION;
+		}
+		else if (mMarketID == 2) {
+			return ContactList.cMARKET2_LOCATION;
+		}
+		return null;
 	}
 }

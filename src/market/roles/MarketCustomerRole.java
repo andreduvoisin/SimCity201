@@ -18,10 +18,12 @@ import market.interfaces.MarketCustomer;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
+import base.Location;
 import base.interfaces.Person;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	private static final Integer DEFAULT_FOOD_QTY = 0;
+	int mMarketID;
 	//DATA
 	//mCash accessed from Person
 	private MarketCustomerGui mGui;
@@ -197,5 +199,16 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 /* Utilities */
 	public void setGui(MarketCustomerGui g) {
 		mGui = g;
+	}
+	
+	@Override
+	public Location getLocation() {
+		if (mMarketID == 1) {
+			return ContactList.cMARKET1_LOCATION;
+		}
+		else if (mMarketID == 2) {
+			return ContactList.cMARKET2_LOCATION;
+		}
+		return null;
 	}
 }

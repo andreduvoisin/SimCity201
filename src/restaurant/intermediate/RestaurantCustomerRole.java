@@ -18,6 +18,8 @@ import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
 import restaurant.restaurant_xurex.RexCustomerRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -93,5 +95,10 @@ public class RestaurantCustomerRole extends BaseRole implements
 	public boolean pickAndExecuteAnAction() {
 		// print("generic pAEA called");
 		return subRole.pickAndExecuteAnAction();
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);
 	}
 }

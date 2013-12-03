@@ -18,6 +18,7 @@ import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Event;
+import base.Location;
 import base.PersonAgent;
 import base.Event.EnumEventType;
 import base.interfaces.Person;
@@ -405,6 +406,11 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 	@Override
 	public void setCashier(Cashier ca) {
 		this.cash = ca;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
 
 }

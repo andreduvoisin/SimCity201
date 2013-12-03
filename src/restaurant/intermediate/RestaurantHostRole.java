@@ -11,6 +11,8 @@ import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -69,6 +71,11 @@ public class RestaurantHostRole extends BaseRole implements
 	public boolean pickAndExecuteAnAction() {
 		// System.out.println("RestaurantHostRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);
 	}
 
 }
