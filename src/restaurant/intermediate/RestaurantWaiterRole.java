@@ -3,26 +3,17 @@ package restaurant.intermediate;
 import java.util.Random;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
-import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
-import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
-import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
-import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
-import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
-import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
-import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
-import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
-import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
@@ -38,14 +29,16 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 
 	static int totalWaiters = 0;
 	Role subRole = null;
-	int restaurantID;
+	int mRestaurantID;
 
-	public RestaurantWaiterRole(Person person) {
+	public RestaurantWaiterRole(Person person, int restaurantID) {
 		super(person);
+		this.mRestaurantID = restaurantID;
 	}
 
-	public void setRestaurant(int restaurantID) {
-		switch(restaurantID){
+	public void setPerson(Person person){
+		super.mPerson = person;	
+		switch(mRestaurantID){
 			case 0: //andre
 				int rn0 = new Random().nextInt();
 				if (rn0 % 2 == 0) {
@@ -112,12 +105,7 @@ public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInte
 				//adds to host waiter list in addPerson
 				break;
 		}
-		// TODO DAVID add if statements for all the other restaurants
 
-	}
-	
-	public void setPerson(Person person){
-		super.mPerson = person;	
 	}
 
 	public boolean pickAndExecuteAnAction() {

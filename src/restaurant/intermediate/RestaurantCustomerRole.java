@@ -26,17 +26,16 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	static int totalCustomers = 0;
 	
 	Role subRole = null;
-	int restaurantID;
+	int mRestaurantID;
 
-	public RestaurantCustomerRole(Person person) {
+	public RestaurantCustomerRole(Person person, int restaurantID) {
 		super(person);
+		this.mRestaurantID = restaurantID;
 	}
 
-	public void setRestaurant(int restaurantID) {
-
-		// TODO ALL add if statements for all the other restaurants
-
-		switch(restaurantID){
+	public void setPerson(Person person) {
+		super.mPerson = person;
+		switch(mRestaurantID){
 			case 0: //andre
 				subRole = new AndreCustomerRole(super.mPerson);
 				AndreRestaurantPanel.getInstance().addPerson((AndreCustomerRole)subRole);
@@ -78,10 +77,6 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				break;
 
 		}
-	}
-	
-	public void setPerson(Person person){
-		super.mPerson = person;
 	}
 
 	public boolean pickAndExecuteAnAction() {

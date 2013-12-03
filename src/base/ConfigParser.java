@@ -3,7 +3,6 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import market.roles.MarketCashierRole;
 import base.PersonAgent.EnumJobType;
 import base.PersonAgent.EnumRestaurantRole;
 import base.interfaces.Person;
@@ -21,8 +20,8 @@ public class ConfigParser {
 		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+fileName));
 		
 		//Instantiate the base roles before creating the people
-		boolean mInstantiateRoles = true;
-//		SortingHat.InstantiateBaseRoles();
+//		boolean mInstantiateRoles = true;
+		SortingHat.InstantiateBaseRoles();
 		
 		while (scanFile.hasNext()) {
 			//Order of Inputs: Job Type (BANK, MARKET, RESTAURANT, NONE), Cash, Name
@@ -30,17 +29,6 @@ public class ConfigParser {
 			
 			//Job
 			String jobString = scanPerson.next();			
-
-//			EnumJobType jobType = null;
-//			if (jobString.equals("BANK")) {
-//				jobType = EnumJobType.BANK;
-//			}
-//			if (jobString.equals("RESTAURANT")) {
-//				jobType = EnumJobType.RESTAURANT;
-//			}
-//			if (jobString.equals("NONE")) {
-//				jobType = EnumJobType.NONE;
-//			}
 			EnumJobType jobType = EnumJobType.valueOf(jobString);
 			
 			int restaurantNum = 0;
@@ -104,11 +92,11 @@ public class ConfigParser {
 //			String scenarioString = scanPerson.next();
 //			EnumScenarioType scenarioType = EnumScenarioType.valueOf(scenarioString);
 			
-			//Instantiate Roles
-			if (mInstantiateRoles){
-				SortingHat.InstantiateBaseRoles();
-				mInstantiateRoles = false;
-			}
+			//Instantiate Roles DAVID not sure why we need this
+//			if (mInstantiateRoles){
+//				SortingHat.InstantiateBaseRoles();
+//				mInstantiateRoles = false;
+//			}
 			//Person
 			Person person = new PersonAgent(jobType, cash, name, restaurantNum, restaurantRole); //adds role automatically
 			synchronized (person) {
