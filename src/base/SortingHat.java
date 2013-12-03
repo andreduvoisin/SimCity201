@@ -28,7 +28,7 @@ import city.gui.SimCityGui;
 public class SortingHat {
 	
 	//list of all (non-ubiquitous) roles, accessed and instantiated 
-	static Map<Role, Location> sRoleLocations; //list of roles (pointer to that in contact list)
+	static List<Role> sRoles; //list of roles
 	static List<Map<Role, Boolean>> sRolesFilled;
 	
 	static int sNumBankTellers = 1;
@@ -36,39 +36,43 @@ public class SortingHat {
 	static int sNumRestaurantWaiters = 3;	
 	
 	public static void InstantiateBaseRoles(){
-		sRoleLocations = ContactList.sRoleLocations;
 		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
 		//Bank
-		sRoleLocations.put(new BankMasterTellerRole(null), ContactList.cBANK_DOOR);
-		sRoleLocations.put(new BankGuardRole(null), ContactList.cBANK_DOOR);
-		for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
-			sRoleLocations.put(new BankTellerRole(null), ContactList.cBANK_DOOR);
+		int numBanks = 2;
+		for (int iBankNumber = 0; iBankNumber < numBanks; iBankNumber++){
+			sRoles.add(new BankMasterTellerRole(null, iBankNumber));
+			sRoles.add(new BankGuardRole(null, iBankNumber));
+			for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
+				sRoles.add(new BankTellerRole(null, iBankNumber));
+			}
 		}
 		
 		//Market
-
-		sRoleLocations.put((MarketCashierRole)MarketPanel.getInstance().mCashier,ContactList.cMARKET_DOOR);
-		sRoleLocations.put((MarketDeliveryTruckRole)MarketPanel.getInstance().mDeliveryTruck,ContactList.cMARKET_DOOR);
-		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
-			sRoleLocations.put(new MarketWorkerRole(), ContactList.cMARKET_DOOR);
+		int numMarkets = 2;
+		for (int iMarketNumber = 0; iMarketNumber < numMarkets; iMarketNumber++){
+			sRoles.add((MarketCashierRole)MarketPanel.getInstance().mCashier);
+			sRoles.add((MarketDeliveryTruckRole)MarketPanel.getInstance().mDeliveryTruck);
+			for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
+				sRoles.add(new MarketWorkerRole());
+			}
 		}
 		
 		//Restaurants
-
-		for (int iRestaurantNum = 0; iRestaurantNum < 8; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
-			sRoleLocations.put(new RestaurantHostRole(null, iRestaurantNum), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCashierRole(null, iRestaurantNum), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
-			sRoleLocations.put(new RestaurantCookRole(null, iRestaurantNum), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
+		int numRestaurants = 8;
+		for (int iRestaurantNum = 0; iRestaurantNum < numRestaurants; iRestaurantNum++){
+			sRoles.add(new RestaurantHostRole(null, iRestaurantNum));
+			sRoles.add(new RestaurantCashierRole(null, iRestaurantNum));
+			sRoles.add(new RestaurantCookRole(null, iRestaurantNum));
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-			sRoleLocations.put(new RestaurantWaiterRole(null, iRestaurantNum), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
+				sRoles.add(new RestaurantWaiterRole(null, iRestaurantNum));
 			}
 		}
 		
 		//Create roles filled matrix
 		for (int i = 0; i < 3; i++){
 			Map<Role, Boolean> shiftRoles = new HashMap<Role, Boolean>();
-			for (Role iRole : sRoleLocations.keySet()){
+			for (Role iRole : sRoles){
 				shiftRoles.put(iRole, false);
 			}
 			sRolesFilled.add(shiftRoles);

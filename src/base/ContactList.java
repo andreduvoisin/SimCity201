@@ -13,7 +13,6 @@ import base.interfaces.Role;
 public class ContactList {
 	
 	//----------------------------------------------------------PEOPLE----------------------------------------------------------
-	public static Map<Role, Location> sRoleLocations = new HashMap<Role, Location>();
 	static List<Person> sPeople; //list of people
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------

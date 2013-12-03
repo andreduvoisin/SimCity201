@@ -10,26 +10,20 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 
 public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 //	DATA
+	private int mBankID;
 	
-	/*
-	 * Variables in PersonAgent in Role
-	 * double mCredit;
-	 * boolean hasLoan;
-	 */
-	
-	public double mTransaction;
+	public double mTransactionAmount;
 
-	public List<BankAction> mActions = new ArrayList<BankAction>();
-	/*Example: (Deposit, 34.23), (Loan, 3000.23)*/
+	public List<BankAction> mActions = new ArrayList<BankAction>(); //Example: (Deposit, 34.23), (Loan, 3000.23)
 	
 	public enum EnumAction {Deposit, Loan, Payment, Open, Robbery};
-
 	public EnumState mState = EnumState.None;
 	public enum EnumState {None, Waiting, Moving, Teller};
 	public EnumEvent mEvent = EnumEvent.None;
@@ -67,12 +61,12 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		stateChanged();
 	}
 	public void msgHereIsBalance(double balance){
-		mTransaction = balance;
+		mTransactionAmount = balance;
 		mEvent = EnumEvent.Received;
 		stateChanged();
 	}
 	public void msgHereIsLoan(double loan){
-		mTransaction = loan;
+		mTransactionAmount = loan;
 		mEvent = EnumEvent.Received;
 		stateChanged();
 	}
@@ -117,7 +111,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mGuard.msgNeedService(this);
 	}
 	private void goToTeller(){
-		mGUI.DoGoToTeller(mTeller.getLocation());
+		mGUI.DoGoToTeller(mTeller.getWindowNumber());
 		try {
 			atLocation.acquire();
 		} catch (InterruptedException e) {
@@ -152,32 +146,32 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		//GUI Interaction
 		mGUI.DoLeaveBank();
 		mTeller.msgLeaving();
-		mTransaction = -1;
+		mTransactionAmount = -1;
 	}
 	private void processTransaction(){
 		EnumAction action = mActions.get(0).action;
 		mActions.remove(0);
 		if (action == EnumAction.Deposit){
-			mPerson.addCash(mTransaction);
+			mPerson.addCash(mTransactionAmount);
 		}
 		else if (action == EnumAction.Loan){
-			if (mTransaction == 0){
+			if (mTransactionAmount == 0){
 				//Rejected loan
 				//Non-normative
 			}
 			else{
-				mPerson.addCash(mTransaction);
-				mPerson.setLoan(mTransaction);
+				mPerson.addCash(mTransactionAmount);
+				mPerson.setLoan(mTransactionAmount);
 			}
 		}
 		else if (action == EnumAction.Payment){
-			mPerson.subLoan(mTransaction);
+			mPerson.subLoan(mTransactionAmount);
 		}
 		else if (action == EnumAction.Open){
-			mPerson.setCash(mTransaction);
+			mPerson.setCash(mTransactionAmount);
 		}
 		else if (action == EnumAction.Robbery){// REX : is this needed??
-			mPerson.addCash(mTransaction);
+			mPerson.addCash(mTransactionAmount);
 		}
 	}
 	public int getSSN() {
@@ -194,5 +188,11 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 	public void setGui(BankCustomerGui g) {
 		mGUI = g;
+	}
+
+	@Override
+	public Location getLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

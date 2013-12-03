@@ -110,7 +110,7 @@ public class CustomerTest extends TestCase{
 		
 		//Check
 		assertTrue("Customer even is received", mCustomer.mEvent == EnumEvent.Received);
-		assertTrue("Customer mTransation is balance", mCustomer.mTransaction == 100);
+		assertTrue("Customer mTransation is balance", mCustomer.mTransactionAmount == 100);
 		
 		//9 : p.a.e.a. (processTransaction())
 		assertTrue("PAEA: processTransaction()", mCustomer.pickAndExecuteAnAction());
@@ -125,7 +125,7 @@ public class CustomerTest extends TestCase{
 		
 		//Check
 		assertTrue("Customer event is none", mCustomer.mEvent == EnumEvent.None);
-		assertTrue("Customer transaction is -1", mCustomer.mTransaction == -1);
+		assertTrue("Customer transaction is -1", mCustomer.mTransactionAmount == -1);
 	}
 	
 	public void testTwo_TwoCustomers(){

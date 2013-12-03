@@ -18,6 +18,7 @@ import base.interfaces.Person;
 public class BankGuardRole extends BaseRole implements BankGuard{
 	
 //	DATA
+	private int mBankID;
 	
 	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
 	public List<BankCustomer> mCustomers = Collections.synchronizedList(new ArrayList<BankCustomer>());
@@ -28,13 +29,11 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	//GUI
 	public BankGuardGui mGUI;
 	
-	public BankGuardRole(Person person) {
+	public BankGuardRole(Person person, int bankNumber) {
 		super(person);
+		mBankID = bankNumber;
 	}
 	
-	public BankGuardRole() {
-		super(null);
-	}
 	
 //	MESSAGES
 	

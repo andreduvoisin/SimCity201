@@ -17,18 +17,17 @@ import base.interfaces.Person;
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	
 //	DATA
+	private int mBankID;
+	
 	public Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();
 	public List <BankAccount> mAccounts = Collections.synchronizedList(new ArrayList<BankAccount>());
 	public List<BankTransaction> mTransactions = Collections.synchronizedList(new ArrayList<BankTransaction>());
 		
-	public BankMasterTellerRole(Person person) {
+	public BankMasterTellerRole(Person person, int bankNumber) {
 		super(person);
+		mBankID = bankNumber;
 	}
 	
-	public BankMasterTellerRole() {
-		super(null);
-	}
-
 	//	MESSAGES
 	public void msgSendPayment(int senderSSN, int receiverSSN, double amount){
 		mTransactions.add(new BankTransaction(senderSSN, receiverSSN, amount));

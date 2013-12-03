@@ -29,4 +29,6 @@ public interface BankTeller {
 
 	public abstract void msgLeaving();
 
+	public abstract int getWindowNumber();
+
 }

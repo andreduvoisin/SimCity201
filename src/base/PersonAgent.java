@@ -391,7 +391,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void getCar(){
-		Location location = ContactList.getDoorLocation(ContactList.cMARKET_LOCATION);
+		Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 		if(!SimCityGui.TESTING){
 		mPersonGui.DoGoToDestination(location);
 		}
@@ -434,7 +434,7 @@ public class PersonAgent extends Agent implements Person {
 		if (isCheap() && getHouse() != null){
 			System.out.println(this + ": Going to eat at home");
 			getHousingRole().msgEatAtHome();
-			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(getHouse().mHouseNum));
+			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHouse().mHouseNum));
 			acquireSemaphore(semAnimationDone);
 		}else{
 			System.out.println("Going to restaurant");
@@ -454,7 +454,7 @@ public class PersonAgent extends Agent implements Person {
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
 			}
 
-			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
+			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
 			
@@ -467,7 +467,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void depositCheck() {
 		mPersonGui.setPresent(true);
-		mPersonGui.DoGoToDestination(ContactList.cBANK_DOOR);
+		mPersonGui.DoGoToDestination(ContactList.cBANK_LOCATION); //SHANE: 1 MAKE BANK 2 LOCATION
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
@@ -567,7 +567,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeRent() {
-		mHouseRole.msgTimeToCheckRent(); //this role is always active
+		getHousingRole().msgTimeToCheckRent(); //this role is always active
 	}
 	
 	public void invokeMaintenance() {
