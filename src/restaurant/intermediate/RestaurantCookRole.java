@@ -17,19 +17,18 @@ import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
-import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import restaurant.restaurant_duvoisin.roles.*;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
@@ -37,23 +36,17 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         public Role subRole = null;
 
-        int restaurantID;
         int mRestaurantID;
         protected int DEFAULT_FOOD_QTY = 100;
         
-        public RestaurantCookRole(Person person){
-                super(person);                
+        public RestaurantCookRole(Person person, int restaurantID){
+                super(person); 
+                this.mRestaurantID = restaurantID;
         }
         
-        public RestaurantCookRole() {
-                super();
-        }
-        
-        public void setRestaurant(int restaurantID) {
-            mRestaurantID = restaurantID;
-
-                //TODO DAVID add if statements for all the other restaurants
-        	switch(restaurantID){
+        public void setPerson(Person person){
+            super.mPerson = person;
+        	switch(mRestaurantID){
 				case 0: //andre
 					subRole = AndreRestaurantPanel.getInstance().cook;
 					subRole.setPerson(super.mPerson);
@@ -90,10 +83,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					break;
 			}
        }
-        
-        public void setPerson(Person person){
-                super.mPerson = person;
-        }
         
         public boolean pickAndExecuteAnAction() {
         		if(subRole != null) {
