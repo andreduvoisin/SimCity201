@@ -5,13 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 import bank.gui.BankPanel;
-import base.interfaces.Person;
 
 public class ContactList {
-	
-	//----------------------------------------------------------PEOPLE----------------------------------------------------------
-	static List<Person> sPeople; //list of people
-	
+		
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in A**)
