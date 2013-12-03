@@ -108,7 +108,7 @@ public class PersonAgent extends Agent implements Person {
 			case BANK:
 				mJobRole = SortingHat.getBankRole(mTimeShift);
 				if(mJobRole == null) {
-					mJobRole = new BankCustomerRole(this);
+					mJobRole = new BankCustomerRole(this, mSSN%2);
 					mJobRole.setPerson(this);
 					BankPanel.getInstance().addPerson(mJobRole);
 					break;
@@ -163,7 +163,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Add customer/rider role possibilities
-		mRoles.put(new BankCustomerRole(this), false);
+		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 //		mHouseRole = new HousingRenterRole(this); HACK
 //		mRoles.put(mHouseRole, false);
 		mRoles.put(new MarketCustomerRole(this), false);
