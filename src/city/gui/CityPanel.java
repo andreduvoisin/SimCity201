@@ -1,6 +1,7 @@
 package city.gui;
 
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
@@ -45,7 +46,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 		
-
 		try {
 			for(int i = 0; i < (CITY_WIDTH/ASC); i++) {
 				for(int j = 0; j < (CITY_HEIGHT/ASC); j++) {
@@ -149,14 +149,12 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 			this.addStatic(newHouse);
 			masterHouseList.add(newHouse);
 		}
-		
-		this.addStatic(new TimeGui(540, 560));
 			
+		//Create Timer Display
+		this.addStatic(new TimeGui(540, 560));
+		
 		addMouseListener(this);
 		addMouseMotionListener(this);
-		
-		this.addStatic(new TimeGui(540, 560));
-		
 	}
 
 	public static CityPanel getInstance() {

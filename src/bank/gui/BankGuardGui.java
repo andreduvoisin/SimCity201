@@ -1,6 +1,5 @@
 package bank.gui;
 
-import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import base.Gui;
 
