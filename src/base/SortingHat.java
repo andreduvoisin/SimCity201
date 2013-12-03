@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import market.gui.MarketPanel;
-import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
-import market.roles.MarketCookCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCashierRole;
@@ -49,12 +47,7 @@ public class SortingHat {
 		}
 		
 		//Market
-/*		sRoleLocations.put(new MarketCashierRole(null,EnumMarketType.FOOD), ContactList.cMARKET_DOOR);
-		sRoleLocations.put(new MarketDeliveryTruckRole(null), ContactList.cMARKET_DOOR);
-		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
-			sRoleLocations.put(new MarketWorkerRole(null), ContactList.cMARKET_DOOR);
-		}
-*/
+
 		sRoleLocations.put((MarketCashierRole)MarketPanel.getInstance().mCashier,ContactList.cMARKET_DOOR);
 		sRoleLocations.put((MarketDeliveryTruckRole)MarketPanel.getInstance().mDeliveryTruck,ContactList.cMARKET_DOOR);
 		for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
@@ -62,7 +55,7 @@ public class SortingHat {
 		}
 		//Restaurants
 
-		for (int iRestaurantNum = SimCityGui.TESTNUM; iRestaurantNum < SimCityGui.TESTNUM + 1; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
+		for (int iRestaurantNum = 0; iRestaurantNum < 8; iRestaurantNum++){ //DAVID SHANE: 3 Change this later
 			sRoleLocations.put(new RestaurantHostRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCashierRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
 			sRoleLocations.put(new RestaurantCookRole(null), ContactList.cRESTAURANT_DOORS.get(iRestaurantNum));
@@ -84,8 +77,7 @@ public class SortingHat {
 	
 	//BANK
 	public static Role getBankRole(int shift) {
-//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 		
 		//Master Teller (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
@@ -159,9 +151,7 @@ public class SortingHat {
 	
 	//RESTAURANTS
 	public static Role getRestaurantRole(int shift){
-//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
-
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 			
 		//RestaurantHostRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
