@@ -61,7 +61,6 @@ public class PersonAgent extends Agent implements Person {
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	
 	//SHANE: 1 are these needed below?
-	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	public Location mJobLocation;
 	public boolean mAtJob;
@@ -697,7 +696,12 @@ public class PersonAgent extends Agent implements Person {
 
 	@Override
 	public Role getHousingRole() {
-		return mHouseRole;
+		for (Role iRole : mRoles.keySet()){
+			if(!(iRole instanceof HousingBase)){
+				return iRole;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -707,7 +711,12 @@ public class PersonAgent extends Agent implements Person {
 
 	@Override
 	public CityHousing getHouse() {
-		return mHouseRole.mHouse;
+		for (Role iRole : mRoles.keySet()){
+			if(!(iRole instanceof HousingBase)){
+				return ((HousingBaseRole) iRole).mHouse;
+			}
+		}
+		return null;
 	}
 
 	@Override
