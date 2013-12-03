@@ -3,7 +3,6 @@ package base;
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingOwnerRole;
-import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -166,8 +165,8 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Add customer/rider role possibilities
 		mRoles.put(new BankCustomerRole(this), false);
-		mHouseRole = new HousingRenterRole(this);
-		mRoles.put(mHouseRole, false);
+//		mHouseRole = new HousingRenterRole(this); HACK
+//		mRoles.put(mHouseRole, false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
@@ -194,7 +193,6 @@ public class PersonAgent extends Agent implements Person {
 	private void initializePerson(){
 		//Roles and Job
 		mRoles = new HashMap<Role, Boolean>();
-		mHouseRole = null;
 		mJobLocation = null;
 		mAtJob = false;
 		
@@ -434,10 +432,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void eatFood() {
-		if (isCheap() && mHouseRole.mHouse != null){
+		if (isCheap() && getHouse() != null){
 			System.out.println(this + ": Going to eat at home");
-			mHouseRole.msgEatAtHome();
-			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(mHouseRole.mHouse.mHouseNum));
+			getHousingRole().msgEatAtHome();
+			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(getHouse().mHouseNum));
 			acquireSemaphore(semAnimationDone);
 		}else{
 			System.out.println("Going to restaurant");
@@ -504,10 +502,10 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
-		mHouseRole.gui.setPresent(true);
-		event.mHost.getHouse().mPanel.addGui((Gui)mHouseRole.gui); //REX 0 HOUSING THIS IS THE NEXT NULL POINTER
+		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
+		event.mHost.getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui); //REX 0 HOUSING THIS IS THE NEXT NULL POINTER
 			//I'M PRETTY SURE THE HOST DOESN'T HAVE A HOUSE... ANY WAY TO GET AROUND THIS?
-		mHouseRole.gui.DoParty();
+		((HousingBaseRole) getHousingRole()).gui.DoParty();
 	}
 
 	private void inviteToParty() {
@@ -695,10 +693,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	@Override
-	public Role getHousingRole() {
+	public HousingBase getHousingRole() {
 		for (Role iRole : mRoles.keySet()){
 			if(!(iRole instanceof HousingBase)){
-				return iRole;
+				return (HousingBase) iRole;
 			}
 		}
 		return null;
