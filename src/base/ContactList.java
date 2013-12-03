@@ -18,7 +18,7 @@ public class ContactList {
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
-	//GRID LOCATIONS AND INTERFACE
+	//GRID LOCATIONS AND INTERFACE (Used here and in A**)
 	public static int cGRID_POINT1 = 100;
 	public static int cGRID_POINT2 = 180;
 	public static int cGRID_POINT3 = 205;
@@ -61,14 +61,11 @@ public class ContactList {
 		return new Location(location.mX - 5, location.mY - 5);
 	}
 	
-	
-	
 	public static final Location cBANK_LOCATION = gridLocation(0, 0);
-	public static final Location cMARKET_LOCATION = gridLocation(0, 3);
-	public static final Location cCARDEALERSHIP_LOCATION = gridLocation(3, 3);
+	public static final Location cMARKET1_LOCATION = gridLocation(0, 3);
+	public static final Location cMARKET2_LOCATION = gridLocation(3, 3);
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
-	
 	public static List<Location> cBUS_STOPS;
 	
 	//setup housing locations

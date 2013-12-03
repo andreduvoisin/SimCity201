@@ -21,8 +21,6 @@ public interface BankTeller {
 	//	UTILITIES
 	public abstract void addGuard(BankGuard guard);
 	
-	public abstract int getLocation();
-
 	public abstract void setMaster(BankMasterTeller masterTeller);
 
 	public abstract void setAccountIndex();

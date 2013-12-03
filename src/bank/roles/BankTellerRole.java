@@ -12,12 +12,16 @@ import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 
 public class BankTellerRole extends BaseRole implements BankTeller{
 
-//	DATA
+	//DATA
+	int mBankID;
+	
 	
 	public class MyCustomer{
 		public BankCustomer customer;
@@ -51,12 +55,9 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	
 	
 	//CONSTRUCTOR
-	public BankTellerRole(Person person) {
+	public BankTellerRole(Person person, int bankID) {
 		super(person);
-	}
-
-	public BankTellerRole() {
-		super(null);
+		mBankID = bankID;
 	}
 	
 	//	MESSAGES
@@ -167,9 +168,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public void addGuard(BankGuard guard){
 		mGuard = guard;
 	}
-	public int getLocation(){
-		return mLocation;
-	}
 	public void setLocation(int location){
 		mLocation = location;
 	}
@@ -184,5 +182,16 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public void setGui(BankTellerGui g) {
 		mGUI = g;
+	}
+
+	@Override
+	public Location getLocation() {
+		switch (mBankID){
+			case 1: 
+				return ContactList.cBANK_LOCATION;
+			case 2: 
+				return ContactList.cBANK_LOCATION;
+		}
+		return null;
 	}
 }

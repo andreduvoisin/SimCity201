@@ -8,19 +8,14 @@ import restaurant.intermediate.RestaurantWaiterRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class BaseRole implements Role {
+public abstract class BaseRole implements Role {
 
 	protected Person mPerson;
-	private Location mLocation;
 	public boolean mActive;
 	
 	public BaseRole(Person person) {
 		mPerson = person;
 		mActive = false;
-	}
-
-	public BaseRole() {
-		//SHANE ANGELICA: 2 Remove this soon
 	}
 
 	// NEEDED METHODS

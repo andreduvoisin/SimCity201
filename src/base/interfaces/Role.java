@@ -1,5 +1,7 @@
 package base.interfaces;
 
+import base.Location;
+
 
 public interface Role {
 
@@ -10,12 +12,12 @@ public interface Role {
 	
 	public abstract void setPerson(Person person);
 
-//	public abstract PersonAgent getPersonAgent();
-
 	public abstract int getSSN();
 
 	public abstract boolean isRestaurantPerson();
 
 	public abstract void setActive();
+	
+	public abstract Location getLocation();
 
 }

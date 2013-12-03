@@ -10,6 +10,8 @@ import bank.BankAccount;
 import bank.BankTransaction;
 import bank.interfaces.BankMasterTeller;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
@@ -66,5 +68,9 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	}
 	public List<BankAccount> getAccounts() {
 		return mAccounts;
+	}
+	
+	public Location getLocation(){
+		return ContactList.cBANK_LOCATION;
 	}
 }

@@ -69,7 +69,11 @@ public class PersonAgentTest extends TestCase {
 	}
 	
 	public void testTwo_RoleSwitch(){
+		//This test relies on the success of the first test and cannot be run alone. You must 
+		//run both tests in order to successfully complete this test
 		testOne_BasicSetUp();
+
+		//Start of Test 2
 		mPerson.mJobLocation = new Location(-1,-1);
 		//paea: processEvent() -> goToJob()
 		assertTrue("paea: processEvent", mPerson.pickAndExecuteAnAction());
@@ -126,16 +130,19 @@ public class PersonAgentTest extends TestCase {
 		assertTrue("Should continually paea role", mPerson.pickAndExecuteAnAction());
 		
 		
-		
-		/*mPerson.mEvents.add(new Event(EnumEventType.EAT, 0));
-		assertTrue("Person has one event", mPerson.mEvents.size() == 1);
+		/*
+		mPerson.mEvents.add(new Event(EnumEventType.EAT, 0));
+		assertTrue("Person has two events: " + mPerson.mEvents.size(), mPerson.mEvents.size() == 2);
 		
 		//Paea: processEvent() -> eatFood()
 		assertTrue("paea: processEvent", mPerson.pickAndExecuteAnAction());
 		
-		assertTrue("Person still has one event", mPerson.mEvents.size() == 1);
-		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mEventType == EnumEventType.EAT);
-		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mTime == 24);
-		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mLocation == null);*/	
+		assertTrue("Person still has two events", mPerson.mEvents.size() == 2);
+		//assertTrue("Person has eat event in 24", mPerson.mEvents.first().mEventType == EnumEventType.EAT);
+		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mTime == 0);
+		//assertTrue("Person has eat event in 24", mPerson.mEvents.first().mLocation == null);	*/
 	}
+	
+	
+
 }

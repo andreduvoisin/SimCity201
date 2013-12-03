@@ -4,18 +4,23 @@ import java.io.IOException;
 
 import junit.framework.TestCase;
 import base.ConfigParser;
+import base.PersonAgent;
 import city.gui.CityPanel;
 
 public class InstantiatePeopleTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
+		mPerson = new PersonAgent();
 	}
-	
+	PersonAgent mPerson;
+	CityPanel panel;
 	public void testRestaurantIntegration() throws IOException {
 		ConfigParser config = ConfigParser.getInstanceOf();
 		//config.readFileCreatePersons(null, 0);
-		CityPanel panel = CityPanel.getInstance();
+		panel = CityPanel.getInstance();
+		
+		panel.masterPersonList.add(mPerson);
 		//System.out.println(panel.masterPersonList.size());
 		assertEquals("Check size of master person list", panel.masterPersonList.size(),10);
 		/*assertEquals("Verify time shifts", panel.masterPersonList.get(0).getTimeShift(), 0);

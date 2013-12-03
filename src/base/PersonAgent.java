@@ -416,7 +416,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-//		System.out.println("Going to Job");
 		if (!SimCityGui.TESTING){
 			if (mJobLocation != null){
 				mPersonGui.DoGoToDestination(mJobLocation);
