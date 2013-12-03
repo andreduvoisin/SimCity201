@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import city.gui.SimCityGui;
 import bank.BankAccount;
 import bank.gui.BankTellerGui;
 import bank.interfaces.BankCustomer;
@@ -57,10 +58,13 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
+		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).teller = this;
+		mGUI = new BankTellerGui(this, SimCityGui.getInstance().citypanel.masterBankList.get(mBankID));
+		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).addGui(mGUI);
 		
+		//  REX: what is this?
 //		((BankTellerRole)jobRole).addGuard(BankPanel.getInstance().guard);
 //		((BankTellerRole)jobRole).setMaster(BankPanel.getInstance().masterTeller);
-//		BankPanel.getInstance().addGui(((BankTellerRole)jobRole).mGUI);
 //		BankPanel.getInstance().guard.msgReadyToWork((BankTellerRole)jobRole);
 	}
 	

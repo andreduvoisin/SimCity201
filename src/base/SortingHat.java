@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import market.gui.MarketPanel;
+import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
@@ -40,8 +41,8 @@ public class SortingHat {
 		
 		//Bank
 		int numBanks = 2;
+		sRoles.add(new BankMasterTellerRole(null));
 		for (int iBankNumber = 0; iBankNumber < numBanks; iBankNumber++){
-			sRoles.add(new BankMasterTellerRole(null, iBankNumber));
 			sRoles.add(new BankGuardRole(null, iBankNumber));
 			for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
 				sRoles.add(new BankTellerRole(null, iBankNumber));
@@ -51,12 +52,11 @@ public class SortingHat {
 		//Market
 		int numMarkets = 2;
 		for (int iMarketNumber = 0; iMarketNumber < numMarkets; iMarketNumber++){
-			sRoles.add((MarketCashierRole)MarketPanel.getInstance().mCashier);
-			sRoles.add((MarketDeliveryTruckRole)MarketPanel.getInstance().mDeliveryTruck);
+			sRoles.add(new MarketCashierRole(null, EnumMarketType.BOTH, iMarketNumber));
+			sRoles.add(new MarketDeliveryTruckRole(null, iMarketNumber));
 			for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
-				sRoles.add(new MarketWorkerRole());
+				sRoles.add(new MarketWorkerRole(null, iMarketNumber));
 			}
-		}
 		
 		//Restaurants
 		int numRestaurants = 8;

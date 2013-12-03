@@ -6,8 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.SimCityGui;
 import bank.BankAccount;
 import bank.BankTransaction;
+import bank.gui.BankPanel;
 import bank.interfaces.BankMasterTeller;
 import base.BaseRole;
 import base.ContactList;
@@ -17,15 +19,16 @@ import base.interfaces.Person;
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	
 //	DATA
-	private int mBankID;
 	
 	public Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();
 	public List <BankAccount> mAccounts = Collections.synchronizedList(new ArrayList<BankAccount>());
 	public List<BankTransaction> mTransactions = Collections.synchronizedList(new ArrayList<BankTransaction>());
 		
-	public BankMasterTellerRole(Person person, int bankNumber) {
+	public BankMasterTellerRole(Person person) {
 		super(person);
-		mBankID = bankNumber;
+		for (BankPanel bank: SimCityGui.getInstance().citypanel.masterBankList) {
+			bank.masterTeller = this;
+		}
 	}
 	
 	//	MESSAGES
