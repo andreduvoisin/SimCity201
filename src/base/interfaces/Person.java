@@ -1,5 +1,7 @@
 package base.interfaces;
 
+import housing.interfaces.HousingBase;
+
 import java.util.Map;
 
 import base.Event;
@@ -34,7 +36,7 @@ public interface Person {
 	public void setName(String name);
 	public void setSSN(int SSN);
 	public Map<Role, Boolean> getRoles();
-	public Role getHousingRole();
+	public HousingBase getHousingRole();
 	public void msgAddEvent(Event event);
 
 	void subLoan(double mTransaction);
