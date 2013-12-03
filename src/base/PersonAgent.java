@@ -12,23 +12,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.concurrent.Semaphore;
 
-import market.gui.MarketPanel;
 import market.interfaces.MarketCustomer;
-import market.interfaces.MarketWorker;
-import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
-import market.roles.MarketDeliveryTruckRole;
-import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
-import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.gui.BankPanel;
@@ -64,7 +57,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Lists
 	private List<Person> mFriends; 						// best friends are those with same timeshift
-	private SortedSet<Event> mEvents; 					// tree set ordered by time of event
+	private List<Event> mEvents; 						// tree set ordered by time of event
 	private Map<EnumItemType, Integer> mItemInventory; 	// personal inventory
 	private Map<EnumItemType, Integer> mItemsDesired; 	// not ordered yet
 	Set<Location> mHomeLocations; 						//multiple for landlord
@@ -112,25 +105,23 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Link person and role
-		jobRole.setPerson(this);
-		boolean active = (mTimeShift == Time.GetShift()); //set active?
+		boolean active = (mTimeShift == Time.GetShift());	//set active if job shift is now
 		if (jobRole != null){
-			mRoles.put(jobRole, active);
+			mRoles.put(jobRole, active);					//give person a reference to the role (and if currently filling role)
 		}
-		
 		if (active){
 			for (Role iRole : mRoles.keySet()){
-				iRole.setPerson(this);
+				iRole.setPerson(this);						//give role a reference to the person (only if currently filling role)
 			}
 		}
 		
 		//Add customer/rider role possibilities
+		mRoles.put(SortingHat.getHousingRole(this), true);
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
-//		mHouseRole = new HousingRenterRole(this); HACK
-//		mRoles.put(mHouseRole, false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
+		
 		
 		//Add events
 		mEvents.add(new Event(EnumEventType.JOB, 0));
@@ -139,7 +130,7 @@ public class PersonAgent extends Agent implements Person {
 //		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
 //			mEvents.add(new Event(EnumEventType.JOB, 0));
 //		}
-//		mEvents.add(new Event(EnumEventType.EAT, 1)); // ANDRE ALL HACK
+//		mEvents.add(new Event(EnumEventType.EAT, 1));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
@@ -158,7 +149,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Lists
 		mFriends = new ArrayList<Person>();
-		mEvents = new TreeSet<Event>();
+		mEvents = new ArrayList<Event>();
 		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
@@ -170,10 +161,10 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: Hardcoded start place
+		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
 		
 		// Event Setup
-		mEvents = new TreeSet<Event>(); //SHANE: 2 CHANGE THIS TO LIST - sorted set
+		mEvents = new ArrayList<Event>(); //SHANE: 0 CHANGE THIS TO LIST - sorted set
 	}
 	
 
@@ -228,38 +219,32 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------SCHEDULER----------------------------------------------------------
 	@Override
 	public boolean pickAndExecuteAnAction() {
-		if(mTimeShift == 1) {
-			if ((mRoleFinished) && (!mAtJob) ){
-				// Process events (calendar)
-					Iterator<Event> itr = mEvents.iterator();
-					while (itr.hasNext()) {
-						Event event = itr.next();
-						if (event.mTime > Time.GetTime())
-							break; // don't do future calendar events
-						mRoleFinished = false;
-						processEvent(event);
-						return true;
-					}
+		if ((mRoleFinished) && (!mAtJob) ){
+			// Process events (calendar)
+			Collections.sort(mEvents);
+			Event event = mEvents.get(0); //next event
+			if (event.mTime <= Time.GetTime()){ //only do events that have started
+				mRoleFinished = false; //doing a role
+				processEvent(event);
+				return true;
 			}
-	
-			// Do role actions
-			for (Role iRole : mRoles.keySet()) {
-				if (mRoles.get(iRole)) {
-					//print(iRole.toString());
-					if (iRole.getPerson() == null) {
-						print(iRole.toString());
-						print("getPerson in iRole was null");
-					}
-					else if (iRole.pickAndExecuteAnAction()) {
-						return true;
-					}
+		}
+
+		// Do role actions
+		for (Role iRole : mRoles.keySet()) {
+			if (mRoles.get(iRole)) {
+				//print(iRole.toString());
+				if (iRole.getPerson() == null) {
+					print(iRole.toString());
+					print("getPerson in iRole was null");
+				}
+				else if (iRole.pickAndExecuteAnAction()) {
+					return true;
 				}
 			}
-			
-			//SHANE: 5 last choice - go home
-		} else {
-			mPersonGui.disable();
 		}
+		
+		//SHANE: 5 last choice - go home
 		return false;
 	}
 
