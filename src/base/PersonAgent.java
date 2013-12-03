@@ -24,11 +24,7 @@ import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
-import restaurant.intermediate.RestaurantCashierRole;
-import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
-import restaurant.intermediate.RestaurantHostRole;
-import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
@@ -46,7 +42,6 @@ import city.gui.CityHousing;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
-import city.gui.CityHousing.HousingType;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -57,22 +52,24 @@ public class PersonAgent extends Agent implements Person {
 	public static int sHouseCounter = 0;
 	
 	//Roles and Job
-	public static enum EnumJobType {BANK, BANKCUSTOMER, HOUSING, MARKET, MARKETCUSTOMER, RESTAURANT, RESTAURANTCUSTOMER, TRANSPORTATION, PARTY, NONE};
-	public static enum EnumRestaurantRole {HOST, CASHIER, COOK, WAITER, CUSTOMER};
+	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
+										HOUSING, 	//landlord
+										MARKET, 	//cashier, worker...
+										RESTAURANT, //...
+										NONE};		//party person, non-norms (can add NN1, NN2, ...)
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	public Location mJobLocation;
 	public boolean mAtJob;
-	public boolean testing = false;
 	
 	//Lists
-	List<Person> mFriends; // best are those with same timeshift
-	public SortedSet<Event> mEvents; // tree set ordered by time of event
-	Map<EnumItemType, Integer> mItemInventory; // personal inventory
-	public Map<EnumItemType, Integer> mItemsDesired; // not ordered yet
-	Set<Location> mHomeLocations; //multiple for landlord
+	List<Person> mFriends; 								// best friends are those with same timeshift
+	public SortedSet<Event> mEvents; 					// tree set ordered by time of event
+	Map<EnumItemType, Integer> mItemInventory; 			// personal inventory
+	public Map<EnumItemType, Integer> mItemsDesired; 	// not ordered yet
+	Set<Location> mHomeLocations; 						//multiple for landlord
 	
 	//Personal Variables
 	private String mName; 
@@ -81,8 +78,6 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	public boolean mHasCar;
-	public int mRestaurantNumber;
-	public EnumRestaurantRole mRestaurantRole;
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -98,109 +93,62 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(EnumJobType job, double cash, String name, int restaurantNum, EnumRestaurantRole restRole){
+	public PersonAgent(EnumJobType job, double cash, String name){
 		mJobType = job;
 		mCash = cash;
 		mName = name;
-		mRestaurantNumber = restaurantNum;
-		mRestaurantRole = restRole;
 		initializePerson();
 		
-		if (mTimeShift == 1){
-			//Get job role and location; set active if necessary
-			mJobRole = null;
-			switch (job){
-				case BANK:
-					mJobRole = SortingHat.getBankRole(mTimeShift);
-					if(mJobRole == null) {
-						mJobRole = new BankCustomerRole(this);
-						mJobRole.setPerson(this);
-						BankPanel.getInstance().addPerson(mJobRole);
-						break;
-					}
-					
-					if(mJobRole instanceof BankGuardRole) {
-						mJobRole = BankPanel.getInstance().guard;
-						BankPanel.getInstance().addGui(((BankGuardRole)mJobRole).mGUI);
-					} else if(mJobRole instanceof BankMasterTellerRole) {
-						mJobRole = BankPanel.getInstance().masterTeller;
-					} else if(mJobRole instanceof BankTellerRole) {
-						mJobRole = BankPanel.getInstance().teller;
-						((BankTellerRole)mJobRole).addGuard(BankPanel.getInstance().guard);
-						((BankTellerRole)mJobRole).setMaster(BankPanel.getInstance().masterTeller);
-						BankPanel.getInstance().addGui(((BankTellerRole)mJobRole).mGUI);
-						BankPanel.getInstance().guard.msgReadyToWork((BankTellerRole)mJobRole);
-					}
-					mJobRole.setPerson(this);
-					break;
-				case BANKCUSTOMER:
+		//Get job role and location; set active if necessary
+		mJobRole = null;
+		switch (job){
+			case BANK:
+				mJobRole = SortingHat.getBankRole(mTimeShift);
+				if(mJobRole == null) {
 					mJobRole = new BankCustomerRole(this);
 					mJobRole.setPerson(this);
 					BankPanel.getInstance().addPerson(mJobRole);
 					break;
-				case MARKET:
-					mJobRole = SortingHat.getMarketRole(mTimeShift);
-					if(mJobRole instanceof MarketCashierRole) {
-						mJobRole = MarketPanel.getInstance().mCashier;
-					} else if(mJobRole instanceof MarketDeliveryTruckRole) {
-						mJobRole = MarketPanel.getInstance().mDeliveryTruck;
-					} else if(mJobRole instanceof MarketWorkerRole){
-						MarketPanel.getInstance().mCashier.addWorker((MarketWorker)mJobRole);
-					}
-					mJobRole.setPerson(this);
-					break;
-				case MARKETCUSTOMER:
-					mJobRole = new MarketCustomerRole(this);
-					mJobRole.setPerson(this);
-					break;	
-				case RESTAURANT:
-					switch(mRestaurantRole) {
-						case HOST:
-							mJobRole = new RestaurantHostRole(null);
-							break;
-						case COOK:
-							mJobRole = new RestaurantCookRole(null);
-							break;
-						case CASHIER:
-							mJobRole = new RestaurantCashierRole(null);
-							break;
-						case WAITER:
-							mJobRole = new RestaurantWaiterRole(null);
-							break;
-						case CUSTOMER:
-							mJobRole = new RestaurantCustomerRole(null);
-							break;
-					}
-					mJobLocation = ContactList.cRESTAURANT_DOORS.get(mRestaurantNumber);
-					((RestaurantBaseInterface) mJobRole).setPerson(this);
-					((RestaurantBaseInterface) mJobRole).setRestaurant(mRestaurantNumber); //HACK ANDRE ALL
-					break;
-				case TRANSPORTATION:
-					mJobRole = SortingHat.getTransportationRole(this);
-					break;
-				case HOUSING: 
-					mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
-					break;
-				case PARTY:
-					mJobRole = new HousingRenterRole((Person)this);
-					for(CityHousing iHouse : CityPanel.getInstance().masterHouseList){
-						if(iHouse.mOccupant == null){
-							iHouse.type = HousingType.House;
-							iHouse.mOccupant = (HousingRenterRole)mJobRole;
-							((HousingBaseRole) mJobRole).setHouse(iHouse);
-							break;
-						}
-					}
-					mHouseRole = (HousingBaseRole) mJobRole;
-					if(mTimeShift == (Time.GetShift())+2){
-						planParty(0);
-					}
-					else{
-						planParty(-1);
-					}
-				case NONE:
-					break;
-			}
+				}
+				
+				if(mJobRole instanceof BankGuardRole) {
+					mJobRole = BankPanel.getInstance().guard;
+					BankPanel.getInstance().addGui(((BankGuardRole)mJobRole).mGUI);
+				} else if(mJobRole instanceof BankMasterTellerRole) {
+					mJobRole = BankPanel.getInstance().masterTeller;
+				} else if(mJobRole instanceof BankTellerRole) {
+					mJobRole = BankPanel.getInstance().teller;
+					((BankTellerRole)mJobRole).addGuard(BankPanel.getInstance().guard);
+					((BankTellerRole)mJobRole).setMaster(BankPanel.getInstance().masterTeller);
+					BankPanel.getInstance().addGui(((BankTellerRole)mJobRole).mGUI);
+					BankPanel.getInstance().guard.msgReadyToWork((BankTellerRole)mJobRole);
+				}
+				mJobRole.setPerson(this);
+				break;
+			case MARKET:
+				mJobRole = SortingHat.getMarketRole(mTimeShift);
+				if(mJobRole instanceof MarketCashierRole) {
+					mJobRole = MarketPanel.getInstance().mCashier;
+				} else if(mJobRole instanceof MarketDeliveryTruckRole) {
+					mJobRole = MarketPanel.getInstance().mDeliveryTruck;
+				} else if(mJobRole instanceof MarketWorkerRole){
+					MarketPanel.getInstance().mCashier.addWorker((MarketWorker)mJobRole);
+				}
+				mJobRole.setPerson(this);
+				break;
+			case RESTAURANT:
+				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
+				
+				//ALL: is this right?
+				mJobLocation = ContactList.sRoleLocations.get(mJobRole);
+				((RestaurantBaseInterface) mJobRole).setPerson(this);
+				//DAVID: 1 Put in set rest here
+				break;
+			case HOUSING: 
+				mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+				break;
+			case NONE:
+				break;
 		}
 		
 		boolean active = (mTimeShift == Time.GetShift());
@@ -231,10 +179,8 @@ public class PersonAgent extends Agent implements Person {
 //			mEvents.add(new Event(EnumEventType.JOB, 0));
 //		}
 //		mEvents.add(new Event(EnumEventType.EAT, 1)); // ANDRE ALL HACK
-
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-		
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift*2));
 //		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
@@ -302,7 +248,7 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
-	public void msgRoleFinished(){ //SHANE: 3 Call at end of role
+	public void msgRoleFinished(){ //SHANE ALL: 3 Call at end of role
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
 		for (Role iRole : mRoles.keySet()){
@@ -326,12 +272,10 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		if(mTimeShift == 1) {
 			if ((mRoleFinished) && (!mAtJob) ){
-//				System.out.println("Processing events");
 				// Process events (calendar)
 					Iterator<Event> itr = mEvents.iterator();
 					while (itr.hasNext()) {
 						Event event = itr.next();
-						//System.out.println(event.mEventType.toString() + " " + event.mTime + " " + Time.GetTime());
 						if (event.mTime > Time.GetTime())
 							break; // don't do future calendar events
 						mRoleFinished = false;
@@ -349,13 +293,12 @@ public class PersonAgent extends Agent implements Person {
 						print("getPerson in iRole was null");
 					}
 					else if (iRole.pickAndExecuteAnAction()) {
-						//System.out.println(iRole.toString() + "pAEA fired");
 						return true;
 					}
 				}
 			}
 			
-			//SHANE: 4 last choice - go home
+			//SHANE: 5 last choice - go home
 		} else {
 			mPersonGui.disable();
 		}
@@ -365,7 +308,6 @@ public class PersonAgent extends Agent implements Person {
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
 
 	private synchronized void processEvent(Event event) {
-		//System.out.println("processEvent "+event.mEventType.toString());
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
@@ -451,7 +393,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void getCar(){
 		Location location = ContactList.cMARKET_DOOR;
-		if(!testing){
+		if(!SimCityGui.TESTING){
 		mPersonGui.DoGoToDestination(location);
 		}
 		acquireSemaphore(semAnimationDone);
@@ -473,11 +415,11 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void goToJob() {
 //		System.out.println("Going to Job");
-		if (!testing){
+		if (!SimCityGui.TESTING){
 			if (mJobLocation != null){
 				mPersonGui.DoGoToDestination(mJobLocation);
 			}else{
-				mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(mRestaurantNumber));
+				mPersonGui.DoGoToDestination(mJobLocation);
 			}
 		}
 		acquireSemaphore(semAnimationDone);
@@ -496,8 +438,6 @@ public class PersonAgent extends Agent implements Person {
 			mHouseRole.msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_DOORS.get(mHouseRole.mHouse.mHouseNum));
 			acquireSemaphore(semAnimationDone);
-			
-			//SHANE REX: 1 what else needs to be done here?
 		}else{
 			System.out.println("Going to restaurant");
 			//set random restaurant
@@ -509,7 +449,8 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			int restaurantChoice = mRestaurantNumber;
+			//SHANE DAVID ALL: 1 make this random
+			int restaurantChoice = 0;
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
@@ -761,10 +702,6 @@ public class PersonAgent extends Agent implements Person {
 	public CityPerson getPersonGui() {
 		return (CityPerson)mPersonGui;
 	}
-
-	/*public void setGui(MockPersonGui gui) {
-		mPersonGui = gui;
-	}*/
 
 	@Override
 	public CityHousing getHouse() {
