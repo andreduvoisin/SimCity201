@@ -9,7 +9,6 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
-import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.interfaces.Person;
@@ -20,15 +19,16 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 	static int totalCashiers = 0;
 	
 	Role subRole = null;
-	int restaurantID;
+	int mRestaurantID;
 
-	public RestaurantCashierRole(Person person){
-		super(person);
+	public RestaurantCashierRole(Person person, int restaurantID){
+		super(person); 
+		this.mRestaurantID = restaurantID;
 	}
 	
-	public void setRestaurant(int restaurantID) {
-
-		switch(restaurantID){
+	public void setPerson(Person person) {
+		super.mPerson = person;
+		switch(mRestaurantID){
 			case 0: //andre
 				subRole = AndreRestaurantPanel.getInstance().cashier;
 				subRole.setPerson(super.mPerson);
@@ -63,10 +63,6 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 				//RexAnimationPanel.addPerson((RexCashierRole)subRole);
 				break;
 		}
-	}
-	
-	public void setPerson(Person person){
-		super.mPerson = person;
 	}
 	
 	public boolean pickAndExecuteAnAction() {
