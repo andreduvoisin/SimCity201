@@ -26,7 +26,7 @@ import base.interfaces.Role;
 
 
 public class BankPanel extends CityCard implements ActionListener{
-	private static BankPanel instance = null;
+
 	private int WINDOWX = 500;
 	private int WINDOWY = 500;
 	static final int TIMERDELAY = 5;
@@ -48,11 +48,10 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
 	
-	public static BankGuardRole guard = new BankGuardRole(null, 1);
-	private static PersonAgent masterTellerPerson = new PersonAgent();
-	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole(masterTellerPerson, 0);
-	public static BankTellerRole teller = new BankTellerRole(null, 1);
-	public static Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
+	public BankGuardRole guard;
+	public BankMasterTellerRole masterTeller;
+	public BankTellerRole teller;
+	public Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
 	
 	public BankPanel(SimCityGui city) {
 		super(city);
@@ -63,9 +62,7 @@ public class BankPanel extends CityCard implements ActionListener{
 		
 		timer = new Timer(TIMERDELAY, this);
     	timer.start();
-    	
-    	instance = this;
-    	
+    	    	
     	guard.mGUI = new BankGuardGui(guard, this);
     	//addGui(guard.mGUI);
     	teller.mGUI = new BankTellerGui(teller, this);
@@ -81,10 +78,6 @@ public class BankPanel extends CityCard implements ActionListener{
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
-	}
-	
-	public static BankPanel getInstance() {
-		return instance;
 	}
 	
 	public void testBankGui() {

@@ -41,8 +41,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
-//		cards.put("null", new CityCard(city));
-		//cards.put("Road", new CityCard(city));
 
 		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
 		cards.put("R_cwagoner", cwagoner);
@@ -66,9 +64,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		RexAnimationPanel xurex = new RexAnimationPanel(city);
 		cards.put("R_xurex", xurex);
-		
-//		cards.put("Test Restaurant",  new CityCard(city)); 
-		
+				
 		/*
 		 * Instantiate Market and Bank Panels and add to the Master Lists
 		 */

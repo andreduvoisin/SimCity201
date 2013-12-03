@@ -1,29 +1,27 @@
 package market.gui;
 
-import java.io.IOException;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import javax.swing.Timer;
 
-import base.PersonAgent;
+import market.roles.MarketCashierRole;
+import market.roles.MarketDeliveryTruckRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
-import market.gui.*;
-import market.roles.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-
+@SuppressWarnings("serial")
 public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
 	public enum EnumMarketType {BOTH, CAR, FOOD};
-	
-	static MarketPanel instance;
-	
+		
 	private List<MarketBaseGui> guis = Collections.synchronizedList(new ArrayList<MarketBaseGui>());
 	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
 	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
@@ -32,7 +30,7 @@ public class MarketPanel extends CityCard implements ActionListener {
 	private MarketItemsGui mItemGui;
 	
 	public MarketCashierRole mCashier;
-	public MarketDeliveryTruckRole mDeliveryTruck = new MarketDeliveryTruckRole();
+	public MarketDeliveryTruckRole mDeliveryTruck;
 	public MarketCashierGui mCashierGui;
 	
 	private Timer timer;
@@ -44,11 +42,6 @@ public class MarketPanel extends CityCard implements ActionListener {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
 //		setVisible(true);
-		instance = this;
-		
-		mCashier = new MarketCashierRole(t);
-		mCashierGui = new MarketCashierGui(mCashier);
-		mCashier.setGui(mCashierGui);
 		
 		mMarketType = t;
 		mItemGui = new MarketItemsGui(mMarketType);
@@ -63,7 +56,6 @@ public class MarketPanel extends CityCard implements ActionListener {
     		System.out.println(e.getMessage());
     	}
    */ 	
-		guis.add(mCashierGui);
 		guis.add(mItemGui);
 		
 		timer = new Timer(TIMERDELAY, this);
@@ -123,8 +115,4 @@ public class MarketPanel extends CityCard implements ActionListener {
 		}
 	}
 	
-	/** Utilities */
-	public static MarketPanel getInstance() {
-		return instance;
-	}
 }

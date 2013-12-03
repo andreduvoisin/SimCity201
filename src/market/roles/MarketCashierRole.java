@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import city.gui.SimCityGui;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -56,9 +57,16 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
-	public MarketCashierRole(Person person, EnumMarketType type) {
+	public MarketCashierRole(Person person, EnumMarketType type, int marketID) {
 		super(person);
 		mMarketType = type;
+		mMarketID = marketID;
+		
+		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashier = this;
+		mGui = new MarketCashierGui(this);
+		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashierGui = mGui;
+		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).addGui(mGui);		
+		
 		if(person != null)
 			mBankAccount = person.getSSN();
 		
@@ -71,22 +79,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		mInventory.put(EnumItemType.CAR, mBaseInventory);
 		}
 		if(mMarketType == EnumMarketType.FOOD) {
-		mInventory.put(EnumItemType.STEAK, mBaseInventory);
-		mInventory.put(EnumItemType.SALAD, mBaseInventory);
-		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);
-		mInventory.put(EnumItemType.PIZZA, mBaseInventory);
-		}
-		else {
-			mInventory.put(EnumItemType.CAR, mBaseInventory);
-		}
-	}
-	
-	public MarketCashierRole(EnumMarketType type) {
-		super(null);
-		mMarketType = type;
-
-		//populate inventory
-		if(mMarketType == EnumMarketType.BOTH) {
 		mInventory.put(EnumItemType.STEAK, mBaseInventory);
 		mInventory.put(EnumItemType.SALAD, mBaseInventory);
 		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);

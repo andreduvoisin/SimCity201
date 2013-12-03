@@ -3,6 +3,7 @@ package market.roles;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+import city.gui.SimCityGui;
 import market.interfaces.*;
 import market.*;
 import market.MarketOrder.EnumOrderEvent;
@@ -27,15 +28,11 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
 	
-	public MarketDeliveryTruckRole(PersonAgent person) {
+	public MarketDeliveryTruckRole(PersonAgent person, int marketID) {
 		super(person);
+		mMarketID = marketID;
 		
-		mGui = new MarketDeliveryTruckGui(this);
-	}
-	
-	public MarketDeliveryTruckRole() {
-		super(null);
-		
+		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mDeliveryTruck = this;
 		mGui = new MarketDeliveryTruckGui(this);
 	}
 
