@@ -76,7 +76,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mEvent = EnumEvent.Received;
 		stateChanged();
 	}
-	public void msgStopRobber() {
+	public void msgStopRobber() {// Jerry- Why is this in the customer Role...shouldn't it be in the guard role?
 		// REX ANDRE: robber gui interactions, non-norm
 	}
 	
@@ -176,7 +176,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		else if (action == EnumAction.Open){
 			mPerson.setCash(mTransaction);
 		}
-		else if (action == EnumAction.Robbery){
+		else if (action == EnumAction.Robbery){// REX : is this needed??
 			mPerson.addCash(mTransaction);
 		}
 	}

@@ -14,6 +14,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.BaseRole;
+import base.Event;
+import base.Event.EnumEventType;
 import base.interfaces.Person;
 
 /**
@@ -329,6 +331,9 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 		Do("Leaving.");
 		waiter.msgLeavingTable(this);
 		customerGui.DoExitRestaurant();
+		mPerson.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+		mPerson.setJobFalse();
+		mPerson.msgRoleFinished();
 	}
 	
 	public void readMenu(){

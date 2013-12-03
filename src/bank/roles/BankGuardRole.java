@@ -22,7 +22,9 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
 	public List<BankCustomer> mCustomers = Collections.synchronizedList(new ArrayList<BankCustomer>());
 	public List<BankCustomer> mCriminals = Collections.synchronizedList(new ArrayList<BankCustomer>());
-	
+	//REX : I would instead make an enum for both the customer state such as "CUSTOMER, CRIMINAL" instead of using
+	//using two different arrays becasue you would have to remove the customer from the first one when adding it to 
+	//the second
 	//GUI
 	public BankGuardGui mGUI;
 	
@@ -88,6 +90,8 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	private void killRobber(BankCustomer c){
 		//GUI Interactions
 		// REX ANDRE: robber gui interactions, non-norm
+		//DoKillRobber(m.Person) //JERRY: One way I see this actually following the robber is if you pass in the 
+		//the robber's current position every time update position is called
 		c.msgStopRobber();
 	}
 	private void provideService(BankCustomer c, BankTeller t){
