@@ -59,16 +59,18 @@ public class PersonAgent extends Agent implements Person {
 										NONE};		//party person, non-norms (can add NN1, NN2, ...)
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
+	
+	//SHANE: 1 are these needed below?
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	public Location mJobLocation;
 	public boolean mAtJob;
 	
 	//Lists
-	List<Person> mFriends; 								// best friends are those with same timeshift
-	public SortedSet<Event> mEvents; 					// tree set ordered by time of event
-	Map<EnumItemType, Integer> mItemInventory; 			// personal inventory
-	public Map<EnumItemType, Integer> mItemsDesired; 	// not ordered yet
+	private List<Person> mFriends; 								// best friends are those with same timeshift
+	private SortedSet<Event> mEvents; 					// tree set ordered by time of event
+	private Map<EnumItemType, Integer> mItemInventory; 			// personal inventory
+	private Map<EnumItemType, Integer> mItemsDesired; 	// not ordered yet
 	Set<Location> mHomeLocations; 						//multiple for landlord
 	
 	//Personal Variables
