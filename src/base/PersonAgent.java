@@ -467,7 +467,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void depositCheck() {
 		mPersonGui.setPresent(true);
-		mPersonGui.DoGoToDestination(ContactList.cBANK_LOCATION); //SHANE: 1 MAKE BANK 2 LOCATION
+		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION); //SHANE: 1 MAKE BANK 2 LOCATION
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
