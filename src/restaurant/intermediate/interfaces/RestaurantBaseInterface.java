@@ -6,4 +6,5 @@ public interface RestaurantBaseInterface {
 	
 	public abstract void setPerson(Person person);
 
+	public abstract void setRestaurant(int restaurantChoice);
 }

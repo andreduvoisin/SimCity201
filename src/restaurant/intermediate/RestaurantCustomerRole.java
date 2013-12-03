@@ -26,8 +26,12 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 	static int totalCustomers = 0;
 	
 	Role subRole = null;
-	int mRestaurantID;
+	int mRestaurantID = -1;
 
+	public RestaurantCustomerRole(Person person) {
+		super(person);
+	}
+	
 	public RestaurantCustomerRole(Person person, int restaurantID) {
 		super(person);
 		this.mRestaurantID = restaurantID;
@@ -77,6 +81,10 @@ public class RestaurantCustomerRole extends BaseRole implements RestaurantBaseIn
 				break;
 
 		}
+	}
+	
+	public void setRestaurant(int restaurantID){
+		//DAVID: 1 add here
 	}
 
 	public boolean pickAndExecuteAnAction() {
