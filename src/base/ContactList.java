@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import bank.gui.BankPanel;
-import bank.interfaces.BankMasterTeller;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -18,20 +17,60 @@ public class ContactList {
 	static List<Person> sPeople; //list of people
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
-	public static final Location cBANK_LOCATION = new Location(205,100);
-	public static final Location cMARKET_LOCATION = new Location(420,420);
-//	public static final Location cCARDEALERSHIP_LOCATION = new Location(100,420);
+	
+	//GRID LOCATIONS AND INTERFACE
+	public static int cGRID_POINT1 = 100;
+	public static int cGRID_POINT2 = 180;
+	public static int cGRID_POINT3 = 205;
+	public static int cGRID_POINT4 = 285;
+	public static int cGRID_POINT5 = 315;
+	public static int cGRID_POINT6 = 395;
+	public static int cGRID_POINT7 = 420;
+	public static int cGRID_POINT8 = 500;
+	
+	public static Location gridLocation(int x, int y){
+		assert ((x < 4) && (y < 4));
+		int xdim = 0;
+		switch (x){
+			case 0: xdim = cGRID_POINT1;
+				break;
+			case 1: xdim = cGRID_POINT3;
+				break;
+			case 2: xdim = cGRID_POINT5;
+				break;
+			case 3: xdim = cGRID_POINT7;
+				break;
+		}
+		
+		int ydim = 0;
+		switch (y){
+			case 0: ydim = cGRID_POINT1;
+				break;
+			case 1: ydim = cGRID_POINT3;
+				break;
+			case 2: ydim = cGRID_POINT5;
+				break;
+			case 3: ydim = cGRID_POINT7;
+				break;
+		}
+		
+		return new Location(xdim, ydim);
+	}
+	
+	public static Location getDoorLocation(Location location){
+		return new Location(location.mX - 5, location.mY - 5);
+	}
+	
+	
+	
+	public static final Location cBANK_LOCATION = gridLocation(0, 0);
+	public static final Location cMARKET_LOCATION = gridLocation(0, 3);
+	public static final Location cCARDEALERSHIP_LOCATION = gridLocation(3, 3);
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	
-	public static final Location cBANK_DOOR = new Location(cBANK_LOCATION.mX-5, cBANK_LOCATION.mY-5);
-	public static final Location cMARKET_DOOR = new Location(cMARKET_LOCATION.mX-5, cMARKET_LOCATION.mY-5);
-//	public static final Location cCARDEALERSHIP_DOOR = new Location(cCARDEALERSHIP_LOCATION.mX-5,cCARDEALERSHIP_LOCATION.mY-5);
-	public static List<Location> cHOUSE_DOORS;
-	public static List<Location> cRESTAURANT_DOORS;
 	public static List<Location> cBUS_STOPS;
 	
-	//SHANE: add house doors
 	//setup housing locations
 	static {
 		List<Location> list = new ArrayList<Location>();
@@ -56,24 +95,17 @@ public class ContactList {
 		cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
 	}
 	
-	public static int cGRID_POINT1 = 100;
-	public static int cGRID_POINT2 = 180;
-	public static int cGRID_POINT3 = 205;
-	public static int cGRID_POINT4 = 285;
-	public static int cGRID_POINT5 = 315;
-	public static int cGRID_POINT6 = 395;
-	public static int cGRID_POINT7 = 420;
-	public static int cGRID_POINT8 = 500;
+	
 	
 	//setup job locations
-	static final Location cRESTAURANT_LOCATION1 = new Location(cGRID_POINT1,cGRID_POINT1); //aduvoisin	0
-	static final Location cRESTAURANT_LOCATION2 = new Location(cGRID_POINT1,cGRID_POINT3); //cwagoner	1
-	static final Location cRESTAURANT_LOCATION3 = new Location(cGRID_POINT1,cGRID_POINT5); //jerrywebb	2
-	static final Location cRESTAURANT_LOCATION4 = new Location(cGRID_POINT3,cGRID_POINT7); //maggiyang	3
-	static final Location cRESTAURANT_LOCATION5 = new Location(cGRID_POINT5,cGRID_POINT7); //davidmca	4
-	static final Location cRESTAURANT_LOCATION6 = new Location(cGRID_POINT7,cGRID_POINT5); //smileham	5
-	static final Location cRESTAURANT_LOCATION7 = new Location(cGRID_POINT7,cGRID_POINT3); //tranac		6
-	static final Location cRESTAURANT_LOCATION8 = new Location(cGRID_POINT7,cGRID_POINT1); //xurex		7
+	static final Location cRESTAURANT_LOCATION1 = gridLocation(1, 0); //aduvoisin	0
+	static final Location cRESTAURANT_LOCATION2 = gridLocation(2, 0); //cwagoner	1
+	static final Location cRESTAURANT_LOCATION3 = gridLocation(1, 3); //jerrywebb	2
+	static final Location cRESTAURANT_LOCATION4 = gridLocation(2, 3); //maggiyang	3
+	static final Location cRESTAURANT_LOCATION5 = gridLocation(0, 1); //davidmca	4
+	static final Location cRESTAURANT_LOCATION6 = gridLocation(0, 2); //smileham	5
+	static final Location cRESTAURANT_LOCATION7 = gridLocation(3, 1); //tranac		6
+	static final Location cRESTAURANT_LOCATION8 = gridLocation(3, 2); //xurex		7
 	static {
 		List<Location> list = new ArrayList<Location>();
 		list.add(cRESTAURANT_LOCATION1);
@@ -87,27 +119,6 @@ public class ContactList {
 		cRESTAURANT_LOCATIONS = Collections.unmodifiableList(list);
 	}
 	
-	static final Location cRESTAURANT_DOOR1 = new Location(cGRID_POINT1-5,cGRID_POINT1-5); //aduvoisin	0
-	static final Location cRESTAURANT_DOOR2 = new Location(cGRID_POINT1-5,cGRID_POINT3-5); //cwagoner	1
-	static final Location cRESTAURANT_DOOR3 = new Location(cGRID_POINT1-5,cGRID_POINT5-5); //jerrywebb	2
-	static final Location cRESTAURANT_DOOR4 = new Location(cGRID_POINT3-5,cGRID_POINT7-5); //maggiyang	3
-	static final Location cRESTAURANT_DOOR5 = new Location(cGRID_POINT5-5,cGRID_POINT7-5); //davidmca	4
-	static final Location cRESTAURANT_DOOR6 = new Location(cGRID_POINT7-5,cGRID_POINT5-5); //smileham	5
-	static final Location cRESTAURANT_DOOR7 = new Location(cGRID_POINT7-5,cGRID_POINT3-5); //tranac		6
-	static final Location cRESTAURANT_DOOR8 = new Location(cGRID_POINT7-5,cGRID_POINT1-5); //xurex		7
-	static {
-		List<Location> list = new ArrayList<Location>();
-		list.add(cRESTAURANT_DOOR1);
-		list.add(cRESTAURANT_DOOR2);
-		list.add(cRESTAURANT_DOOR3);
-		list.add(cRESTAURANT_DOOR4);
-		list.add(cRESTAURANT_DOOR5);
-		list.add(cRESTAURANT_DOOR6);
-		list.add(cRESTAURANT_DOOR7);
-		list.add(cRESTAURANT_DOOR8);
-		cRESTAURANT_DOORS = Collections.unmodifiableList(list);
-	}
-
 	// Bus Stop locations
 	static final Location cBusStop0 = new Location(60, 60);
 	static final Location cBusStop1 = new Location(60, 515);

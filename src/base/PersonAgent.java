@@ -64,7 +64,6 @@ public class PersonAgent extends Agent implements Person {
 	public HousingBaseRole mHouseRole;
 	public Role mJobRole;
 	public Location mJobLocation;
-	public boolean mAtJob;
 	
 	//Lists
 	private List<Person> mFriends; 								// best friends are those with same timeshift
@@ -80,6 +79,7 @@ public class PersonAgent extends Agent implements Person {
 	double mCash;
 	double mLoan;
 	public boolean mHasCar;
+	public boolean mAtJob;				//used in PAEA
 	
 	//Role References
 	public BankMasterTellerRole mMasterTeller;
@@ -394,7 +394,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void getCar(){
-		Location location = ContactList.cMARKET_DOOR;
+		Location location = ContactList.getDoorLocation(ContactList.cMARKET_LOCATION);
 		if(!SimCityGui.TESTING){
 		mPersonGui.DoGoToDestination(location);
 		}
@@ -451,8 +451,12 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mRoles.put(restCustRole, true);
 			
-			//SHANE DAVID ALL: 1 make this random
+			//SHANE DAVID ALL: 3 make this random
 			int restaurantChoice = 0;
+			
+			if (SimCityGui.TESTING){
+				restaurantChoice = SimCityGui.TESTNUM; //override if testing
+			}
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_DOORS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
