@@ -226,10 +226,4 @@ public class SortingHat {
 		sHouseCount++;
 		return newOwnerRole;
 	}
-
-
-	// TRANSPORTATION
-	public static Role getTransportationRole(Person person) {
-		return new TransportationBusRiderRole(person);
-	}
 }

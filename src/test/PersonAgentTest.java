@@ -1,6 +1,7 @@
 package test;
 
 import city.gui.CityPerson;
+import city.gui.SimCityGui;
 import market.test.mock.MockCustomer;
 import housing.interfaces.HousingBase;
 import test.mock.MockRenterRole;
@@ -29,7 +30,7 @@ public class PersonAgentTest extends TestCase {
 		mTellerRole = new MockTellerRole();
 		mCustomerRole = new MockCustomer();
 		mPerson.semAnimationDone.release(1000);
-		mPerson.testing = true;
+		SimCityGui.TESTING = true;
 		//mGui = new MockPersonGui();
 		//mPerson.setGui(mGui);
 	}
