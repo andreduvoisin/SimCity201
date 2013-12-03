@@ -11,6 +11,9 @@ import base.Time;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
+	public static boolean TESTING = false;
+	public static int TESTNUM = 5;
+	
 	static SimCityGui instance = null;
 	public CityPanel citypanel;
 	public InfoPanel infopanel;
@@ -18,7 +21,6 @@ public class SimCityGui extends JFrame {
 	CityControlPanel CP;
 	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
 	
-	public static int TESTNUM = 5;
 	
 	public static SimCityGui getInstance() {
 		return instance;

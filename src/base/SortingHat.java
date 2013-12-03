@@ -159,9 +159,7 @@ public class SortingHat {
 	
 	//RESTAURANTS
 	public static Role getRestaurantRole(int shift){
-//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
-
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 			
 		//RestaurantHostRole (1) - first priority
 		for (Role iRole : shiftRoles.keySet()){
@@ -235,11 +233,5 @@ public class SortingHat {
 		newOwnerRole.setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCount));
 		sHouseCount++;
 		return newOwnerRole;
-	}
-
-
-	// TRANSPORTATION
-	public static Role getTransportationRole(Person person) {
-		return new TransportationBusRiderRole(person);
 	}
 }

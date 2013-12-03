@@ -29,9 +29,8 @@ public class CityPerson extends CityComponent {
 	static final int yIndex = 10;
 	
 	public boolean visible;
-//	
-//	Position currentPosition;
-//	Queue<Position> goToPosition = new LinkedList<Position>();
+
+//	Queue<Location> goToPosition = new LinkedList<Position>();
 	static int numTicks = 0;
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
@@ -106,31 +105,24 @@ public class CityPerson extends CityComponent {
 		mFinalDestination = location;
 
 		if (mFinalDestination == null){
-			if (mPerson.mJobType.equals(PersonAgent.EnumJobType.TRANSPORTATION)) {
-				mFinalDestination = new Location(location.mX, location.mY);
-				int boardAtStop = gui.citypanel.busDispatch.getBusStopClosestTo(new Location(x, y));
-				xDestination = ContactList.cBUS_STOPS.get(boardAtStop).mX;
-				yDestination = ContactList.cBUS_STOPS.get(boardAtStop).mY;
-			}
-			else{
-				//set final location and go to corner of block first
-				mFinalDestination = location;
-				if (location.mX < 180){
-					xDestination = 95;
-				}else{
-					xDestination = 500;
-				}
-				if (location.mY < 180){
-					yDestination = 95;
-				}else{
-					yDestination = 500;
-				}
-			}
+		//set final location and go to corner of block first
+		mFinalDestination = location;
+		if (location.mX < 180){
+			xDestination = 95;
+		}else{
+			xDestination = 500;
 		}
-		else {
-			xDestination = mFinalDestination.mX;
-			yDestination = mFinalDestination.mY;
-			mFinalDestination = null;
+		if (location.mY < 180){
+			yDestination = 95;
+		}else{
+			yDestination = 500;
+		}
+		
+		//SHANE: Change up to add queue of destinations
+		
+		xDestination = mFinalDestination.mX;
+		yDestination = mFinalDestination.mY;
+		mFinalDestination = null;
 		}
 	}
 
