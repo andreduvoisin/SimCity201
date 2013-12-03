@@ -165,7 +165,6 @@ public class PersonAgent extends Agent implements Person {
 		mEvents = new ArrayList<Event>(); //SHANE: 0 CHANGE THIS TO LIST - sorted set
 	}
 	
-
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
 		//finished role if job
