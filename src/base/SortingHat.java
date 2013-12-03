@@ -117,8 +117,7 @@ public class SortingHat {
 	
 	//MARKET
 	public static Role getMarketRole(int shift){
-//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 
 		
 		//MarketCashierRole (1) - first priority

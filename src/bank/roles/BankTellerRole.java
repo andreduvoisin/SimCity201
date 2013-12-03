@@ -58,6 +58,11 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
+		
+//		((BankTellerRole)jobRole).addGuard(BankPanel.getInstance().guard);
+//		((BankTellerRole)jobRole).setMaster(BankPanel.getInstance().masterTeller);
+//		BankPanel.getInstance().addGui(((BankTellerRole)jobRole).mGUI);
+//		BankPanel.getInstance().guard.msgReadyToWork((BankTellerRole)jobRole);
 	}
 	
 	//	MESSAGES
@@ -193,5 +198,11 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 				return ContactList.cBANK1_LOCATION;
 		}
 		return null;
+	}
+
+	@Override
+	public int getWindowNumber() {
+		// TODO Auto-generated method stub REX ADD THIS
+		return 0;
 	}
 }

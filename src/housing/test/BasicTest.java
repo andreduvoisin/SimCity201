@@ -54,7 +54,6 @@ public class BasicTest extends TestCase {
 		mPerson2 = new PersonAgent();
 		landlord = new HousingLandlordRole();
 		master = new BankMasterTellerRole(null);
-		mPerson.mMasterTeller = master;
 		mPerson2.mMasterTeller = master;
 		assertEquals("Landlord housing size correct",
 				landlord.mHousesList.size(), 2);

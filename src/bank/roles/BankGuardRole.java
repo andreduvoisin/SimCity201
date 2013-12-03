@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import bank.gui.BankGuardGui;
+import bank.gui.BankPanel;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -34,6 +35,10 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public BankGuardRole(Person person, int bankNumber) {
 		super(person);
 		mBankID = bankNumber;
+		
+		
+		//REX: 1
+		BankPanel.getInstance().addGui(mGUI);
 	}
 	
 	

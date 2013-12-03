@@ -2,9 +2,7 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
-import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
-import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,32 +56,27 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Roles and Job
 	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
-										HOUSING, 	//landlord
 										MARKET, 	//cashier, worker...
 										RESTAURANT, //...
 										NONE};		//party person, non-norms (can add NN1, NN2, ...)
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; 	//roles, active -  i.e. WaiterRole, BankTellerRole, etc.
-	public Role mJobRole; 				//for easier access
 	
 	//Lists
-	private List<Person> mFriends; 								// best friends are those with same timeshift
+	private List<Person> mFriends; 						// best friends are those with same timeshift
 	private SortedSet<Event> mEvents; 					// tree set ordered by time of event
-	private Map<EnumItemType, Integer> mItemInventory; 			// personal inventory
+	private Map<EnumItemType, Integer> mItemInventory; 	// personal inventory
 	private Map<EnumItemType, Integer> mItemsDesired; 	// not ordered yet
 	Set<Location> mHomeLocations; 						//multiple for landlord
 	
 	//Personal Variables
 	private String mName; 
-	int mSSN;
-	public int mTimeShift;
-	double mCash;
-	double mLoan;
-	public boolean mHasCar;
-	public boolean mAtJob;				//used in PAEA
-	
-	//Role References
-	public BankMasterTellerRole mMasterTeller;
+	private int mSSN;
+	private int mTimeShift;
+	private double mCash;
+	private double mLoan;
+	private boolean mHasCar;
+	private boolean mAtJob;		//used in PAEA
 	public CityPerson mPersonGui;
 
 	//PAEA Helpers
@@ -96,64 +89,33 @@ public class PersonAgent extends Agent implements Person {
 		initializePerson();
 	}
 	
-	public PersonAgent(EnumJobType job, double cash, String name){
-		mJobType = job;
+	public PersonAgent(EnumJobType jobType, double cash, String name){
+		mJobType = jobType;
 		mCash = cash;
 		mName = name;
 		initializePerson();
 		
 		//Get job role and location; set active if necessary
-		mJobRole = null;
-		switch (job){
+		Role jobRole = null;
+		switch (jobType){
 			case BANK:
-				mJobRole = SortingHat.getBankRole(mTimeShift);
-				if(mJobRole == null) {
-					mJobRole = new BankCustomerRole(this);
-					mJobRole.setPerson(this);
-					BankPanel.getInstance().addPerson(mJobRole);
-					break;
-				}
-				
-				if(mJobRole instanceof BankGuardRole) {
-					mJobRole = BankPanel.getInstance().guard;
-					BankPanel.getInstance().addGui(((BankGuardRole)mJobRole).mGUI);
-				} else if(mJobRole instanceof BankMasterTellerRole) {
-					mJobRole = BankPanel.getInstance().masterTeller;
-				} else if(mJobRole instanceof BankTellerRole) {
-					mJobRole = BankPanel.getInstance().teller;
-					((BankTellerRole)mJobRole).addGuard(BankPanel.getInstance().guard);
-					((BankTellerRole)mJobRole).setMaster(BankPanel.getInstance().masterTeller);
-					BankPanel.getInstance().addGui(((BankTellerRole)mJobRole).mGUI);
-					BankPanel.getInstance().guard.msgReadyToWork((BankTellerRole)mJobRole);
-				}
-				mJobRole.setPerson(this);
+				jobRole = SortingHat.getBankRole(mTimeShift);
 				break;
 			case MARKET:
-				mJobRole = SortingHat.getMarketRole(mTimeShift);
-				if(mJobRole instanceof MarketCashierRole) {
-					mJobRole = MarketPanel.getInstance().mCashier;
-				} else if(mJobRole instanceof MarketDeliveryTruckRole) {
-					mJobRole = MarketPanel.getInstance().mDeliveryTruck;
-				} else if(mJobRole instanceof MarketWorkerRole){
-					MarketPanel.getInstance().mCashier.addWorker((MarketWorker)mJobRole);
-				}
-				mJobRole.setPerson(this);
+				jobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
-				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
-				((RestaurantBaseInterface) mJobRole).setPerson(this);
-				//DAVID: 1 Put in set rest here
-				break;
-			case HOUSING: 
-				mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+				jobRole = SortingHat.getRestaurantRole(mTimeShift);
 				break;
 			case NONE:
 				break;
 		}
 		
-		boolean active = (mTimeShift == Time.GetShift());
-		if (mJobRole != null){
-			mRoles.put(mJobRole, active);
+		//Link person and role
+		jobRole.setPerson(this);
+		boolean active = (mTimeShift == Time.GetShift()); //set active?
+		if (jobRole != null){
+			mRoles.put(jobRole, active);
 		}
 		
 		if (active){
@@ -163,9 +125,8 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Add customer/rider role possibilities
+		mRoles.put(SortingHat.getHousingRole(this), true);
 		mRoles.put(new BankCustomerRole(this), false);
-//		mHouseRole = new HousingRenterRole(this); HACK
-//		mRoles.put(mHouseRole, false);
 		mRoles.put(new MarketCustomerRole(this), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
@@ -220,7 +181,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoleFinished = true;
 		if (Time.GetShift() == mTimeShift) {
 			for(Role iRole : mRoles.keySet()){
-				if (iRole == mJobRole){
+				if (iRole == getJobRole()){
 					mRoles.put(iRole, true);
 				}
 			}
@@ -228,8 +189,7 @@ public class PersonAgent extends Agent implements Person {
 		//Leave job
 		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
-			mRoles.put(mJobRole, false); //set job role to false;
-			//mJobRole.setActive();
+			mRoles.put(getJobRole(), false); //set job role to false;
 			mPersonGui.setPresent(true);
 		}
 		
@@ -391,7 +351,7 @@ public class PersonAgent extends Agent implements Person {
 	public void getCar(){
 		Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 		if(!SimCityGui.TESTING){
-		mPersonGui.DoGoToDestination(location);
+			mPersonGui.DoGoToDestination(location);
 		}
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false); //set city person invisible
@@ -415,10 +375,11 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		if(mJobRole != null) {
-			mJobRole.setPerson(this); //take over job role
-			mRoles.put(mJobRole, true); //set role to active
-			mJobRole.setActive();
+		Role jobRole = getJobRole();
+		if(jobRole != null) {
+			jobRole.setPerson(this); //take over job role
+			mRoles.put(jobRole, true); //set role to active
+			jobRole.setActive();
 		}
 	}
 
@@ -564,15 +525,15 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void invokeMaintenance() {
 //		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-		mJobRole = new HousingOwnerRole(this);
-		mJobRole.setPerson(this);
-		((HousingBaseRole) mJobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+		Role jobRole = new HousingOwnerRole(this);
+		jobRole.setPerson(this);
+		((HousingBaseRole) jobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
 		mPersonGui.setPresent(true);
 		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
 		sHouseCounter++;
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
-		((HousingBaseRole) mJobRole).msgTimeToMaintain();
+		((HousingBaseRole) jobRole).msgTimeToMaintain();
 	}
 	
 	private List<Person> getBestFriends(){
@@ -590,13 +551,14 @@ public class PersonAgent extends Agent implements Person {
 
 
 	private void boardBus() {
-		int boardAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		int exitAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mFinalDestination);
+		Role jobRole = getJobRole();
+		int boardAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		int exitAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mFinalDestination);
 
 		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
 
-		((TransportationBusRiderRole) mJobRole).msgReset();
+		((TransportationBusRiderRole) jobRole).msgReset();
 		
 	}
 
