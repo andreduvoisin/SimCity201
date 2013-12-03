@@ -23,7 +23,10 @@ public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook
 	}
 	
 	public CwagonerCookRole() {
-		// CHASE: placeholder cook
+		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
 	}
 
 	public String getName() {

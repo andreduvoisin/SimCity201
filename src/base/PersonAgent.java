@@ -533,6 +533,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof BankCustomerRole){
 				bankCustomerRole = (BankCustomerRole) iRole;
+				mRoles.put(iRole, true);
 			}
 		}
 		
@@ -546,6 +547,7 @@ public class PersonAgent extends Agent implements Person {
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
 		bankCustomerRole.setPerson(this);
+		bankCustomerRole.setActive();
 		BankPanel.getInstance().addPerson(bankCustomerRole);
 	}
 	

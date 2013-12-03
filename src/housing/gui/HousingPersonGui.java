@@ -63,8 +63,9 @@ public class HousingPersonGui implements Gui {
 	private int maintenanceYPos = 150; 
 	
 	//Party Variables
-	private int xDirection = 2;
-	private int yDirection = 2;
+	private int dist = 2;
+	private int xDirection = dist;
+	private int yDirection = dist;
 	
 	private static int BOUNDS = 500;
 	
@@ -88,16 +89,16 @@ public class HousingPersonGui implements Gui {
 	public void updatePosition() {
 		if (party){
 			if(xPos <= 0){
-				xDirection = 2;
+				xDirection = dist;
 			}
 			else if(xPos >= BOUNDS){
-				xDirection = -2;
+				xDirection = -dist;
 			}
 			if(yPos <= 0){
-				yDirection = 2;
+				yDirection = dist;
 			}
 			else if (yPos >= BOUNDS){
-				yDirection = -2;
+				yDirection = -dist;
 			}
 			xPos += xDirection;
 			yPos += yDirection;

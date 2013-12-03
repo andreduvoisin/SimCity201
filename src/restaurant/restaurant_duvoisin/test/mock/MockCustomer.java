@@ -4,6 +4,7 @@ import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -14,6 +15,7 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 public class MockCustomer extends Mock implements Customer {
 	public Cashier cashier;
 	public EventLog log = new EventLog();
+	public AndreSharedWaiterRole waiter;
 
 	public MockCustomer(String name) {
 		super(name);

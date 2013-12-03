@@ -65,7 +65,7 @@ public class Time {
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 0
+		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 0
 		
 		/*mTimer.schedule(new TimerTask() {
 			

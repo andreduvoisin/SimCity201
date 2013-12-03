@@ -52,14 +52,14 @@ mentality and has approached the project accordingly. Although the following sec
 * Person Agent Design/Implementation
 * Restaurant Integration
 
-####Shane Mileham	(Portland Power)
+####Shane Mileham	(The Designer)
 * Contact List
-* Market Design
-* Party Creation
 * Person Agent Design/Implementation
 * B* Algorithm and City GUI Coordinates
 * Configuration File Design and Implementation
-* Transportation Rider Pickup/Dropoff Design
+* Market Design
+* Party Creation
+* Transportation Pickup/Dropoff Design
 * Restaurant Integration
 
 
@@ -73,10 +73,10 @@ Various scenarios can be run via the configuration panel. In v1, to run scenario
 * Restaurant 5  - Shane Mileham	 
 * Restaurant 6	- Angelica Tran	 
 * Restaurant 7	- Rex Xu		 
-* Bank			- Sends customers to the bank for transactions 		-> Bank located at north end of Plaza
-* Housing		- Sends people to houses to perform maintenance		-> Housing located all along sides of panel 
+* Bank		- Sends customers to the bank for transactions 		-> Bank located at north end of Plaza
+* Housing	- Sends people to houses to perform maintenance		-> Housing located all along sides of panel 
 * Food Market	- Sends people to market to purchase food items		-> Market located in southwest quadrant
-* Party			- Creates a party crazed animal (24 hour full run)	-> All people head to the host's house to party
+* Party		- Creates a party crazed animal (24 hour full run)	-> All people head to the host's house to party
 * Simulate All  - Creates many people with interweaving actions		-> People perform varied actions
 
 ###Full Disclosure
