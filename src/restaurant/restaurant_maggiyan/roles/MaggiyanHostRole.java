@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
@@ -324,6 +326,11 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		boolean askedToGoOnBreak;
 		boolean onBreak; 
 		int customerNum; 
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(3);
 	}
 }
 

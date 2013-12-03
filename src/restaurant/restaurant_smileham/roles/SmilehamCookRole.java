@@ -23,6 +23,8 @@ import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import base.Item;
 import base.Item.EnumItemType;
@@ -57,7 +59,7 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	public SmilehamCookRole(Person person){
-		super(person);
+		super(person, 5);
 		mName = person.getName();
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Cook Constructor");
@@ -333,6 +335,11 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 	
 		public String toString() {
 			return "[Cook " + getName() + "]";
+		}
+		
+		@Override
+		public Location getLocation() {
+			return ContactList.cRESTAURANT_LOCATIONS.get(5);
 		}
 	
 }

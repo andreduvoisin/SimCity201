@@ -3,6 +3,8 @@ package restaurant.restaurant_duvoisin.roles;
 import java.util.*;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import restaurant.restaurant_duvoisin.MarketPrices;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
@@ -24,7 +26,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 	List<MyCheck> myChecks = Collections.synchronizedList(new ArrayList<MyCheck>());
 
 	public AndreMarketRole(String name, Cook c) {
-		super();
+		super(null);
 		
 		this.name = name;
 		cook = c;
@@ -168,5 +170,10 @@ public class AndreMarketRole extends BaseRole implements Market {
 			type = t;
 			amount = a;
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
 }

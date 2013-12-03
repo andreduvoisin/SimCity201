@@ -1,6 +1,8 @@
 package restaurant.restaurant_xurex;
 
+import base.ContactList;
 import base.Item;
+import base.Location;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import restaurant.intermediate.RestaurantCookRole;
@@ -93,7 +95,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		cookTimes.put("Pizza", 15);
 	}
 	public RexCookRole(){
-		super();
+		super(null, 7);
 		//initializeInventory();
 		makeCookTimes();
 		for(int i=1; i<11; i++){
@@ -106,7 +108,7 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		//runTimer();
 	}
 	public RexCookRole(String name, Person person) {
-		super(person);
+		super(person, 7);
 		this.name = name;
 		//initializeInventory();
 		makeCookTimes();
@@ -344,6 +346,11 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	@Override
 	public void addToStand(Waiter w, String choice, int table) {
 		revolvingStand.add(new CookOrder(w, choice, table));
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(7);
 	}
 
 }

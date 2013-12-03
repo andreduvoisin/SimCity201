@@ -23,6 +23,8 @@ import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
 import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 /**
@@ -466,6 +468,10 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 			return !mOnBreak;
 		}
 		
+		@Override
+		public Location getLocation() {
+			return ContactList.cRESTAURANT_LOCATIONS.get(5);
+		}
 
 }
 

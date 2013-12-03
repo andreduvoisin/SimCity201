@@ -9,6 +9,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 
@@ -34,6 +36,7 @@ public class MaggiyanMarketRole extends BaseRole implements MaggiyanMarket{
 	public Map<String, Integer> orderToFulfill = new HashMap<String, Integer>();
 	
 	public MaggiyanMarketRole(String name){
+		super(null);
 		this.n = name;
 		
 		marketInventory.put("Steak", maxINVENTORY);
@@ -187,4 +190,8 @@ public class MaggiyanMarketRole extends BaseRole implements MaggiyanMarket{
 //		}
 //	}
 
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(3);
+	}
 }

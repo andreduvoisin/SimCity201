@@ -1,7 +1,6 @@
 package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
-
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Timer;
@@ -9,6 +8,8 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
@@ -544,6 +545,11 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 
 	public MaggiyanWaiterGui getGui() {
 		return waiterGui;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(3);
 	}
 	
 }

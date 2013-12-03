@@ -15,6 +15,8 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 /**
@@ -238,6 +240,11 @@ public class JerrywebMarketRole extends BaseRole implements Market {
 	//utilities
 	public List<Order> getRestockList(){
 		return restockOrder;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 
 

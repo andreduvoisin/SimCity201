@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
@@ -27,6 +29,7 @@ public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
 	private List<Payment> payments = new ArrayList<Payment>();
 	
 	public MaggiyanCashierRole(String name, boolean isTest){
+		super(null);
 		this.n = name;
 	}
 	
@@ -202,5 +205,9 @@ public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
 		return marketpayments.get(index).total; 
 	}
 
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(3);
+	}
 
 }

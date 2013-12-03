@@ -3,7 +3,9 @@ package restaurant.restaurant_duvoisin.roles;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
+import base.ContactList;
 import base.Item;
+import base.Location;
 import base.Item.EnumItemType;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_duvoisin.gui.CookGui;
@@ -47,7 +49,7 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 	public EventLog log = new EventLog();
 
 	public AndreCookRole(String name) {
-		super();
+		super(null, 0);
 		
 		this.name = name;
 		
@@ -378,4 +380,9 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 //			state = s;
 //		}
 //	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+	}
 }

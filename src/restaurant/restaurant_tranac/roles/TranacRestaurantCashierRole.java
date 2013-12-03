@@ -6,6 +6,7 @@ import restaurant.restaurant_tranac.gui.TranacCashierGui;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
 import base.ContactList;
+import base.Location;
 
 import java.util.*;
 
@@ -23,7 +24,7 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
 	public TranacRestaurantCashierRole() {
-		super();
+		super(null);
 	//	money = 5000;	//ANGELICA: no longer initialize
 	}
 
@@ -220,6 +221,11 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 		public BillStatus getStatus() {
 			return s;
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(6);
 	}
 }
 

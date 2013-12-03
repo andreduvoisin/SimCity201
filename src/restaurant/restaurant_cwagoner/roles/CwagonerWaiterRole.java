@@ -1,15 +1,24 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import base.BaseRole;
-import base.interfaces.Person;
-import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.Semaphore;
+
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
-import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
-
-import java.util.*;
-import java.util.concurrent.*;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
+import base.interfaces.Person;
 
 public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 
@@ -434,6 +443,11 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 			state = State.waitingToBeSeated;
 			food = "";
 		}	
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(1);
 	}
 }
 	

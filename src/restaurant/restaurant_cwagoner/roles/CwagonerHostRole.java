@@ -1,6 +1,8 @@
 package restaurant.restaurant_cwagoner.roles;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.interfaces.*;
 
@@ -14,6 +16,7 @@ import java.util.*;
 public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 
 	public CwagonerHostRole() {
+		super(null);
 		// CHASE Auto-generated constructor stub
 		// placeholder host when role not yet filled
 	}
@@ -210,6 +213,11 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 			waiter = w;
 			state = State.working;
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(1);
 	}
 }
 

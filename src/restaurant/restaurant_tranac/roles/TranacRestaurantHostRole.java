@@ -1,6 +1,8 @@
 package restaurant.restaurant_tranac.roles;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import restaurant.restaurant_tranac.gui.TranacHostGui;
 import restaurant.restaurant_tranac.interfaces.*;
 
@@ -30,7 +32,7 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 	enum WaiterState {Active, WantToGoOnBreak, OnBreak};
 	
 	public TranacRestaurantHostRole() {
-		super();
+		super(null);
 
 		//create the list of tables
 		tables = new ArrayList<Table>(NTABLES);
@@ -415,6 +417,11 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 		public String toString() {
 			return "table " + tableNumber;
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(6);
 	}
 }
 

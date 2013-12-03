@@ -14,7 +14,9 @@ import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Event;
+import base.Location;
 import base.Event.EnumEventType;
 import base.interfaces.Person;
 
@@ -76,11 +78,11 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	}
 	
 	public RexCustomerRole(){
-		super();
+		super(null);
 		mNum = sNum++;
 	}
 	public RexCustomerRole(RexAnimationPanel animationPanel){
-		super();
+		super(null);
 		CustomerGui gui = new CustomerGui(this, animationPanel);
 		gui.setRole(this);
 		this.setGui(gui);
@@ -89,7 +91,7 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	}
 	
 	public RexCustomerRole(RexAnimationPanel animationPanel, RexHostRole host){
-		super();
+		super(null);
 		this.host = host;
 		CustomerGui gui = new CustomerGui(this, animationPanel);
 		gui.setRole(this);
@@ -398,6 +400,11 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	
 	public void setCash(double cash){
 		cash = this.cash;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(7);
 	}
 }
 

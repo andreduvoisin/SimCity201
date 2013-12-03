@@ -14,7 +14,9 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
+import base.Location;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 
@@ -84,7 +86,7 @@ public class JerrywebCookRole extends RestaurantCookRole {
 	//public HostGui hostGui = null;
 
 	public JerrywebCookRole(){//Person person) {
-		super();
+		super(null, 2);
 		//this.name = person.getName();
 
 		//This populates the food map using the string names of the food items as keys and holds the
@@ -337,6 +339,11 @@ public class JerrywebCookRole extends RestaurantCookRole {
 	public void addMarket(Market market){
 		//print("Adding " + market.getName());
 		markets.add(market);
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 	
 

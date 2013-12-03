@@ -84,7 +84,7 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 	 *            name of the customer
 	 */
 	public DavidCookRole(String name) {
-		super(null, 0);
+		super(null, 4);
 		this.name = name;
 		ordering = false;
 		reorder = false;
@@ -322,7 +322,7 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 	
 	@Override
 	public Location getLocation() {
-		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+		return ContactList.cRESTAURANT_LOCATIONS.get(4);
 	}
 
 }

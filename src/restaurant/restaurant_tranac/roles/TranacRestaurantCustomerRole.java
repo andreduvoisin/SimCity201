@@ -7,6 +7,7 @@ import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
 import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	 *            messages
 	 */
 	public TranacRestaurantCustomerRole() {
-		super();
+		super(null);
 		money = baseMoney; // ANGELICA: no longer necessary; will get from
 							// person
 		num = 0;
@@ -523,5 +524,10 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 
 	public TranacCustomerGui getGui() {
 		return customerGui;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(6);
 	}
 }

@@ -1,6 +1,8 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import restaurant.restaurant_xurex.gui.WaiterGui;
@@ -48,7 +50,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 		menu.put("Pizza", new Integer(9));
 	}
 	public RexWaiterRole1(){
-		super();
+		super(null);
 		initializeMenu();
 	}
 
@@ -65,7 +67,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 		initializeMenu();
 	}
 	public RexWaiterRole1(RexAnimationPanel animationPanel){
-		super();
+		super(null);
 		WaiterGui gui = new WaiterGui(this, animationPanel);
 		gui.setRole(this);
 		this.setGui(gui);
@@ -423,6 +425,11 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 	}
 	public int getNumber(){
 		return number;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(7);
 	}
 }
 

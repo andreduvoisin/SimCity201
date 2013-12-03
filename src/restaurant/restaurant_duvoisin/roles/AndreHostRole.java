@@ -3,6 +3,8 @@ package restaurant.restaurant_duvoisin.roles;
 import java.util.*;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import restaurant.restaurant_duvoisin.gui.TableGui;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
@@ -33,7 +35,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	Boolean paused = false;
 
 	public AndreHostRole(String name) {
-		super();
+		super(null);
 
 		this.name = name;
 		// make some tables
@@ -270,6 +272,11 @@ public class AndreHostRole extends BaseRole implements Host {
 			waitingPosition = wP;
 			state = cs;
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
 }
 

@@ -10,6 +10,8 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Role;
 
 /**
@@ -86,7 +88,7 @@ public class JerrywebHostRole extends BaseRole {
 	public HostGui hostGui = null;
 
 	public JerrywebHostRole(String name) {
-		super();
+		super(null);
 		
 		this.name = "jerryhost";
 		// make some tables
@@ -342,6 +344,11 @@ public class JerrywebHostRole extends BaseRole {
 		public String toString() {
 			return "table " + tableNumber;
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 }
 

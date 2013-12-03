@@ -14,7 +14,9 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
 import base.Event;
+import base.Location;
 import base.Event.EnumEventType;
 import base.interfaces.Person;
 
@@ -513,4 +515,9 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 		timer.schedule(tTask, tempTime);
 	}
 	*/
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+	}
 }
