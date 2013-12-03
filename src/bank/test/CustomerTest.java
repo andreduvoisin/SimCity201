@@ -29,8 +29,8 @@ public class CustomerTest extends TestCase{
 		super.setUp();
 		
 		//Testee
-		mCustomer = new BankCustomerRole();
 		mPerson = new PersonAgent();
+		mCustomer = new BankCustomerRole(mPerson, 0);
 		mPerson.addRole((Role)mCustomer, true);
 		mPerson.setSSN(1);
 		mPerson.setName("Joe");

@@ -3,6 +3,8 @@ package restaurant.restaurant_duvoisin.roles;
 import java.util.*;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import restaurant.restaurant_duvoisin.MarketPrices;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
@@ -29,7 +31,7 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 	public EventLog log = new EventLog();
 
 	public AndreCashierRole(String name) {
-		super();
+		super(null);
 		this.name = name;
 	}
 	
@@ -168,5 +170,10 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 			type = t;
 			amount = a;
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
 }

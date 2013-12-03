@@ -112,8 +112,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public void setGui(BankGuardGui g) {
 		mGUI = g;
 	}
-
-
+	
 	@Override
 	public Location getLocation() {
 		switch (mBankID){

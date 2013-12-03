@@ -6,7 +6,9 @@ import java.util.concurrent.Semaphore;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.interfaces.MarketCashier;
+import base.ContactList;
 import base.Item;
+import base.Location;
 import base.Item.EnumItemType;
 import restaurant.intermediate.*;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
@@ -41,7 +43,7 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         private Semaphore inTransit = new Semaphore(0, true);
 
         public TranacRestaurantCookRole() {
-                super();
+                super(null, 6);
                 /*
                 //create inventory
                 inventory.add(new Food("Steak",(int)(baseTime*2),DEFAULT_FOOD_QTY));
@@ -424,4 +426,9 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
                         outOfItem.add(m);
                 }
         } 
+        
+        @Override
+    	public Location getLocation() {
+    		return ContactList.cRESTAURANT_LOCATIONS.get(6);
+    	}
 }

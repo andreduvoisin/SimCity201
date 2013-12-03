@@ -1,6 +1,8 @@
 package restaurant.restaurant_cwagoner.roles;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
@@ -476,6 +478,11 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	public Dimension getPosition() {
 		return gui.getPosition();
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(1);
 	}
 }
 

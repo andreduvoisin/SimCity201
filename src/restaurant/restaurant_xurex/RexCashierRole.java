@@ -1,6 +1,8 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -54,7 +56,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 		menu.put("Pizza", new Integer(9));
 	}
 	public RexCashierRole(){
-		super();
+		super(null);
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));
@@ -153,6 +155,11 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	
 	public float getAssets(){
 		return this.assets;
+	}
+
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(7);
 	}
 	
 }

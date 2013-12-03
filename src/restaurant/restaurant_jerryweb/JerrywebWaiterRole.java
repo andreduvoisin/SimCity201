@@ -11,6 +11,8 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 /**
@@ -525,6 +527,11 @@ public class JerrywebWaiterRole extends BaseRole implements Waiter {
 
 	public WaiterGui getGui() {
 		return waiterGui;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 
 

@@ -41,7 +41,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
-		cards.put("null", new CityCard(city));
+//		cards.put("null", new CityCard(city));
 		//cards.put("Road", new CityCard(city));
 
 		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
@@ -67,13 +67,27 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		RexAnimationPanel xurex = new RexAnimationPanel(city);
 		cards.put("R_xurex", xurex);
 		
-		cards.put("Gringotts Bank", new BankPanel(city));
-		cards.put("Test Restaurant",  new CityCard(city)); 
-		cards.put("Costco", new MarketPanel(city, EnumMarketType.BOTH));
+//		cards.put("Test Restaurant",  new CityCard(city)); 
 		
-		cards.put("Sams Club", new MarketPanel(city, EnumMarketType.BOTH));
+		/*
+		 * Instantiate Market and Bank Panels and add to the Master Lists
+		 */
 		
+		MarketPanel market0 = new MarketPanel(city, EnumMarketType.BOTH);
+		city.citypanel.masterMarketList.add(market0);
+		cards.put("Costco", market0);
 		
+		MarketPanel market1 = new MarketPanel(city, EnumMarketType.BOTH);
+		city.citypanel.masterMarketList.add(market1);
+		cards.put("Sams Club", market1);
+		
+		BankPanel bank0 = new BankPanel(city);
+		city.citypanel.masterBankList.add(bank0);
+		cards.put("Gringotts Bank", bank0);
+		
+		BankPanel bank1 = new BankPanel(city);
+		city.citypanel.masterBankList.add(bank1);
+		cards.put("Piggy Bank", bank1);
 		
 		layout = new CardLayout();
 		this.setLayout(layout);

@@ -10,6 +10,7 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
@@ -39,12 +40,14 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	Semaphore atLocation = new Semaphore(0, true);
 	
 	
-	public BankCustomerRole(Person person){
+	public BankCustomerRole(Person person, int bankID){
 		super(person);
+		mBankID = bankID;
 	}
 	
-	public BankCustomerRole(){
+	public BankCustomerRole(int bankID){
 		super(null);
+		mBankID = bankID;
 	}
 	
 //	MESSAGES
@@ -192,7 +195,12 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 
 	@Override
 	public Location getLocation() {
-		// TODO Auto-generated method stub
+		if (mBankID == 1) {
+			return ContactList.cBANK1_LOCATION;
+		}
+		else if (mBankID == 2) {
+			return ContactList.cBANK2_LOCATION;
+		}
 		return null;
 	}
 }

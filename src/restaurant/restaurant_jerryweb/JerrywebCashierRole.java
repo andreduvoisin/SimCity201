@@ -16,6 +16,8 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 
 /**
  * Restaurant Host Agent
@@ -227,6 +229,11 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 		}
 		//print("Can't find check in cashier find function!");
 		return 0;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 
 

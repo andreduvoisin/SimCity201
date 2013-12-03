@@ -1,6 +1,8 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
@@ -47,7 +49,7 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 	}
 	
 	public RexWaiterRole2(){
-		super();
+		super(null);
 		initializeMenu();
 	}
 
@@ -406,6 +408,11 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 	
 	public void releaseSem(){
 		atLocation.release();
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(7);
 	}
 }
 

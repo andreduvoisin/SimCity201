@@ -27,7 +27,7 @@ import city.gui.SimCityGui;
 public class SortingHat {
 	
 	//list of all (non-ubiquitous) roles, accessed and instantiated 
-	static List<Role> sRoles; //list of roles
+	private static List<Role> sRoles; //list of roles
 	static List<Map<Role, Boolean>> sRolesFilled;
 	
 	static int sNumBankTellers = 1;
@@ -35,6 +35,7 @@ public class SortingHat {
 	static int sNumRestaurantWaiters = 3;	
 	
 	public static void InstantiateBaseRoles(){
+		sRoles = new ArrayList<Role>();
 		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
 		//Bank

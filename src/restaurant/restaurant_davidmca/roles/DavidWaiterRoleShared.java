@@ -490,7 +490,7 @@ public class DavidWaiterRoleShared extends BaseRole implements Waiter {
 	
 	@Override
 	public Location getLocation() {
-		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+		return ContactList.cRESTAURANT_LOCATIONS.get(4);
 	}
 
 }

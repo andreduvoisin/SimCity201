@@ -22,7 +22,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	//DATA
 	int mBankID;
 	
-	
 	public class MyCustomer{
 		public BankCustomer customer;
 		public PersonAgent mPerson;

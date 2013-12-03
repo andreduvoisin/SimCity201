@@ -15,7 +15,7 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	int mMarketID;
 	
 //	ANGELICA this needs to be updated to use the right location based on Market ID; see getLocation() method
-	private static final int xMarketBase = ContactList.cMARKET_LOCATION.mX-35, yMarketBase = ContactList.cMARKET_LOCATION.mY-35;
+	private static final int xMarketBase = ContactList.cMARKET1_LOCATION.mX-35, yMarketBase = ContactList.cMARKET1_LOCATION.mY-35;
 	
 	private int xPos = xMarketBase, yPos = yMarketBase;
 	private int xDestination = xMarketBase, yDestination = yMarketBase;
@@ -140,8 +140,7 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 
 	@Override
 	public void setPresent(boolean state) {	}
-	
-	@Override
+
 	public Location getLocation() {
 		if (mMarketID == 1) {
 			return ContactList.cMARKET1_LOCATION;

@@ -52,7 +52,7 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 	
 
 	public MaggiyanCookRole(Person p){
-		super(p);
+		super(p, 3);
 		if(p == null){
 			this.n = "Null cook"; 
 		}

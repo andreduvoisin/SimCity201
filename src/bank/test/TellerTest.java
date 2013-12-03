@@ -29,8 +29,8 @@ public class TellerTest extends TestCase{
 		super.setUp();
 		
 		//Testee
-		mTeller = new BankTellerRole();
 		mPerson = new PersonAgent();
+		mTeller = new BankTellerRole(mPerson, 0);
 		mPerson.addRole((Role)mTeller, true);
 		
 		//Interfaces
@@ -40,7 +40,7 @@ public class TellerTest extends TestCase{
 		mCustomer1.setPerson(mCP1);
 		mCustomer2 = new MockCustomerRole();
 		mCustomer2.setPerson(mCP2);
-		mMasterTeller = new BankMasterTellerRole();
+		mMasterTeller = new BankMasterTellerRole(null, 0);
 		
 		//clear logs
 	}

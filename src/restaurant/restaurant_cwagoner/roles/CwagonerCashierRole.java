@@ -1,6 +1,8 @@
 package restaurant.restaurant_cwagoner.roles;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 import restaurant.restaurant_cwagoner.interfaces.*;
 import restaurant.restaurant_cwagoner.test.mock.*;
@@ -22,6 +24,7 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	}
 	
 	public CwagonerCashierRole() {
+		super(null);
 		// CHASE: placeholder cashier
 		PriceList.put("Steak",		8.0);
 		PriceList.put("Chicken",	6.0);
@@ -210,5 +213,10 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	
 	public void setCook(CwagonerCook c) {
 		cwagonerCook = c;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(1);
 	}
 }

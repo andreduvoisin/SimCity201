@@ -14,7 +14,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.BaseRole;
+import base.ContactList;
 import base.Event;
+import base.Location;
 import base.Event.EnumEventType;
 import base.interfaces.Person;
 
@@ -493,6 +495,11 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 
 	public CustomerGui getGui() {
 		return customerGui;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 }
 

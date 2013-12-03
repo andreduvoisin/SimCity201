@@ -5,6 +5,8 @@ import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_tranac.gui.TranacWaiterGui;
 import restaurant.restaurant_tranac.interfaces.*;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 import java.util.*;
@@ -37,7 +39,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	private Semaphore askingForBreak = new Semaphore(0,true);
 	
 	public TranacRestaurantWaiterRole() {
-		super();
+		super(null);
 
 		waiterGui = new TranacWaiterGui(this, TranacRestaurantPanel.getInstance().getWaiters());
 		TranacRestaurantPanel.getInstance().addGui(waiterGui);
@@ -524,5 +526,10 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 		public String getName() {
 			return c.getName();
 		}
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(6);
 	}
 }

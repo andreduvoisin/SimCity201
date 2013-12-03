@@ -3,6 +3,7 @@ package bank.test.mock;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
+import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import test.mock.LoggedEvent;
@@ -66,5 +67,10 @@ public class MockGuardRole extends Mock implements BankGuard, Role{
 	public void setActive() {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public Location getLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

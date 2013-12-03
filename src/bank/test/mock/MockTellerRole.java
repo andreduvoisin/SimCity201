@@ -4,6 +4,7 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -91,11 +92,6 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 		return temp;
 	}
 	@Override
-	public int getLocation() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	@Override
 	public boolean isRestaurantPerson() {
 		// TODO Auto-generated method stub
 		return false;
@@ -109,5 +105,15 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 	public void setActive() {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public int getWindowNumber() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public Location getLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

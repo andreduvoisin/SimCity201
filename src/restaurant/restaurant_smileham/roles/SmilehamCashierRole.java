@@ -13,6 +13,8 @@ import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
 import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
@@ -183,5 +185,10 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 
 		public void setMarketBills(Map<SmilehamMarket, Integer> mMarketBills) {
 			this.mMarketBills = mMarketBills;
+		}
+		
+		@Override
+		public Location getLocation() {
+			return ContactList.cRESTAURANT_LOCATIONS.get(5);
 		}
 }

@@ -249,6 +249,6 @@ public class DavidHostRole extends BaseRole implements Host {
 	
 	@Override
 	public Location getLocation() {
-		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+		return ContactList.cRESTAURANT_LOCATIONS.get(4);
 	}
 }

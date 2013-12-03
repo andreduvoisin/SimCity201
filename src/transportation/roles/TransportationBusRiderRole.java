@@ -3,6 +3,7 @@ package transportation.roles;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.Location;
 import base.interfaces.Person;
 import transportation.*;
 import transportation.gui.*;
@@ -11,6 +12,7 @@ import transportation.interfaces.*;
 public class TransportationBusRiderRole extends BaseRole implements TransportationRider {
 
 	public TransportationBusRiderRole(Person person) {
+		super(person);
 		mPerson = person;
 		state = enumState.goToStop;
 		mGui = new TransportationBusRiderGui(this);
@@ -176,7 +178,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 		mCurrentStop = loc;
 	}
 
-	public int getLocation() {
+	public int getStop() {
 		return mCurrentStop;
 	}
 
@@ -191,4 +193,11 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	private void acquire(Semaphore s) {
 		try { s.acquire(); } catch (Exception e) {}
 	}
+
+	@Override
+	public Location getLocation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,6 +1,8 @@
 package restaurant.restaurant_cwagoner.roles;
 
+import base.ContactList;
 import base.Item;
+import base.Location;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import restaurant.intermediate.RestaurantCookRole;
@@ -14,7 +16,7 @@ import java.util.concurrent.Semaphore;
 public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook {
 	
 	public CwagonerCookRole(Person person) {
-		super(person);
+		super(person, 1);
 
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
@@ -23,6 +25,7 @@ public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook
 	}
 	
 	public CwagonerCookRole() {
+		super(null, 1);
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
@@ -189,5 +192,10 @@ public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook
 	
 	public void setGui(CwagonerCookGui g) {
 		gui = g;
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(1);
 	}
 }

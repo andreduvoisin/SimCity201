@@ -1,6 +1,8 @@
 package restaurant.restaurant_xurex;
 
 import base.BaseRole;
+import base.ContactList;
+import base.Location;
 import base.interfaces.Person;
 
 import java.util.*;
@@ -52,7 +54,7 @@ public class RexHostRole extends BaseRole implements Host {
 	}
 	
 	public RexHostRole() {
-		super();
+		super(null);
 
 		tables = new ArrayList<Table>(NTABLES);
 		tables.add(new Table(1));//nw
@@ -223,6 +225,11 @@ public class RexHostRole extends BaseRole implements Host {
 
 	public int getWaiterNumber() {
 		return waiters.size();
+	}
+	
+	@Override
+	public Location getLocation() {
+		return ContactList.cRESTAURANT_LOCATIONS.get(7);
 	}
 }
 
