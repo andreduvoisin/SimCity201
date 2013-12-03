@@ -2,7 +2,9 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
+import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,7 +25,11 @@ import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
+import restaurant.intermediate.RestaurantCashierRole;
+import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
+import restaurant.intermediate.RestaurantHostRole;
+import restaurant.intermediate.RestaurantWaiterRole;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
@@ -58,10 +64,7 @@ public class PersonAgent extends Agent implements Person {
 										NONE};		//party person, non-norms (can add NN1, NN2, ...)
 	public EnumJobType mJobType;
 	public Map<Role, Boolean> mRoles; //roles, active -  i.e. WaiterRole, BankTellerRole, etc.
-	
-	//SHANE: 1 are these needed below?
-	public Role mJobRole;
-	public Location mJobLocation;
+	public Role mJobRole; //for easier access
 	
 	//Lists
 	private List<Person> mFriends; 								// best friends are those with same timeshift
@@ -138,9 +141,6 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case RESTAURANT:
 				mJobRole = SortingHat.getRestaurantRole(mTimeShift);
-				
-				//ALL: is this right?
-				mJobLocation = ContactList.sRoleLocations.get(mJobRole);
 				((RestaurantBaseInterface) mJobRole).setPerson(this);
 				//DAVID: 1 Put in set rest here
 				break;
@@ -153,7 +153,6 @@ public class PersonAgent extends Agent implements Person {
 		
 		boolean active = (mTimeShift == Time.GetShift());
 		if (mJobRole != null){
-			mJobLocation = ContactList.sRoleLocations.get(mJobRole);
 			mRoles.put(mJobRole, active);
 		}
 		
@@ -193,7 +192,6 @@ public class PersonAgent extends Agent implements Person {
 	private void initializePerson(){
 		//Roles and Job
 		mRoles = new HashMap<Role, Boolean>();
-		mJobLocation = null;
 		mAtJob = false;
 		
 		//Lists
@@ -413,15 +411,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		if (!SimCityGui.TESTING){
-			if (mJobLocation != null){
-				mPersonGui.DoGoToDestination(mJobLocation);
-			}else{
-				mPersonGui.DoGoToDestination(mJobLocation);
-			}
-		}
+		mPersonGui.DoGoToDestination(getJobLocation()); //could be null???
 		acquireSemaphore(semAnimationDone);
-		mAtJob = true; //SHANE: This will need to be set to false somewhere
+		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
 		if(mJobRole != null) {
 			mJobRole.setPerson(this); //take over job role
@@ -458,8 +450,8 @@ public class PersonAgent extends Agent implements Person {
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
 			
-			((RestaurantBaseInterface) restCustRole).setPerson(this);
-			((RestaurantBaseInterface) restCustRole).setRestaurant(restaurantChoice);
+			((RestaurantCustomerRole) restCustRole).setPerson(this);
+			((RestaurantCustomerRole) restCustRole).setRestaurant(restaurantChoice);
 			
 		}
 		
@@ -467,7 +459,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void depositCheck() {
 		mPersonGui.setPresent(true);
-		mPersonGui.DoGoToDestination(ContactList.cBANK_LOCATION); //SHANE: 1 MAKE BANK 2 LOCATION
+		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION); //SHANE: 1 MAKE BANK 2 LOCATION
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
@@ -528,7 +520,7 @@ public class PersonAgent extends Agent implements Person {
 			Location partyLocation = new Location(100, 0);
 //			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
 //			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
-			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, ContactList.sRoleLocations.get(this), this, getBestFriends());
+			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, getBestFriends());
 			Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
 			iFriend.msgAddEvent(rsvp);
 			iFriend.msgAddEvent(party);
@@ -615,6 +607,30 @@ public class PersonAgent extends Agent implements Person {
 
 	// ----------------------------------------------------------ACCESSORS----------------------------------------------------------
 
+	private Role getJobRole(){
+		for (Role iRole : mRoles.keySet()){
+			//Bank roles
+			if (	//Bank jobs
+					iRole instanceof BankGuardRole ||
+					iRole instanceof BankMasterTellerRole ||
+					iRole instanceof BankTellerRole ||
+					//Housing jobs
+					iRole instanceof HousingBaseRole ||
+					//Restaurant job
+					iRole instanceof RestaurantCashierRole ||
+					iRole instanceof RestaurantCookRole ||
+					iRole instanceof RestaurantHostRole ||
+					iRole instanceof RestaurantWaiterRole){
+				return iRole;
+			}
+		}
+		return null;
+	}
+	
+	private Location getJobLocation(){
+		return getJobRole().getLocation();
+	}
+	
 	//SHANE: 4 Organize PersonAgent Accessors
 	public void addRole(Role role, boolean active) {
 		mRoles.put(role, active);

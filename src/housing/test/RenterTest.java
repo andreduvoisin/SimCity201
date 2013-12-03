@@ -57,7 +57,7 @@ public class RenterTest extends TestCase {
 		mMockMasterTeller = new MockMasterTellerRole("MockMasterTeller"); 
 		mMockPerson.addRole((Role) mMockMasterTeller, true); 
 		
-		ContactList.sRoleLocations.put(mMockMasterTeller, new Location(10,10)); 
+//		ContactList.sRoleLocations.put(mMockMasterTeller, new Location(10,10)); 
 		
 		//Houses
 		mHouse1 = new CityHousing(city, 10, 10, 1, 300.00);

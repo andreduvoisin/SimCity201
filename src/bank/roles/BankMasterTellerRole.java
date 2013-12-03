@@ -70,6 +70,6 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	}
 	
 	public Location getLocation(){
-		return ContactList.cBANK_LOCATION;
+		return ContactList.cBANK1_LOCATION;
 	}
 }

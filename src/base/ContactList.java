@@ -2,19 +2,12 @@ package base;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import bank.gui.BankPanel;
-import base.interfaces.Person;
-import base.interfaces.Role;
 
 public class ContactList {
-	
-	//----------------------------------------------------------PEOPLE----------------------------------------------------------
-	static List<Person> sPeople; //list of people
-	
+		
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in A**)
@@ -60,37 +53,13 @@ public class ContactList {
 		return new Location(location.mX - 5, location.mY - 5);
 	}
 	
-	public static final Location cBANK_LOCATION = gridLocation(0, 0);
+	public static final Location cBANK1_LOCATION = gridLocation(0, 0);
+	public static final Location cBANK2_LOCATION = gridLocation(3, 0);
 	public static final Location cMARKET1_LOCATION = gridLocation(0, 3);
 	public static final Location cMARKET2_LOCATION = gridLocation(3, 3);
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	public static List<Location> cBUS_STOPS;
-	
-	//setup housing locations
-	static {
-		List<Location> list = new ArrayList<Location>();
-		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
-			int xCord, yCord = 0;
-			if (iHouse / 20 == 0) {					//North
-				xCord = 100 + 20 * (iHouse % 20);
-				yCord = 0;
-			} else if (iHouse / 20 == 2) {			//South
-				xCord = 100 + 20 * (iHouse % 20);
-				yCord = 580;
-			} else if (iHouse / 20 == 3) {			//West
-				xCord = 0;
-				yCord = 100 + 20 * (iHouse % 20);
-			} else {								//East
-				xCord = 580;
-				yCord = 100 + 20 * (iHouse % 20);
-			}
-			Location houseLocation = new Location(xCord, yCord);
-			list.add(houseLocation);
-		}
-		cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
-	}
-	
 	
 	
 	//setup job locations
@@ -129,6 +98,30 @@ public class ContactList {
 		cBUS_STOPS = Collections.unmodifiableList(bslist);
 	}
 	
+	//setup housing locations
+		static {
+			List<Location> list = new ArrayList<Location>();
+			for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
+				int xCord, yCord = 0;
+				if (iHouse / 20 == 0) {					//North
+					xCord = 100 + 20 * (iHouse % 20);
+					yCord = 0;
+				} else if (iHouse / 20 == 2) {			//South
+					xCord = 100 + 20 * (iHouse % 20);
+					yCord = 580;
+				} else if (iHouse / 20 == 3) {			//West
+					xCord = 0;
+					yCord = 100 + 20 * (iHouse % 20);
+				} else {								//East
+					xCord = 580;
+					yCord = 100 + 20 * (iHouse % 20);
+				}
+				Location houseLocation = new Location(xCord, yCord);
+				list.add(houseLocation);
+			}
+			cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
+		}
+		
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		

@@ -188,9 +188,9 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public Location getLocation() {
 		switch (mBankID){
 			case 1: 
-				return ContactList.cBANK_LOCATION;
+				return ContactList.cBANK1_LOCATION;
 			case 2: 
-				return ContactList.cBANK_LOCATION;
+				return ContactList.cBANK1_LOCATION;
 		}
 		return null;
 	}

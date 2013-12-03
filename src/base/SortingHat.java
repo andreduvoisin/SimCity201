@@ -17,7 +17,6 @@ import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
-import transportation.roles.TransportationBusRiderRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
