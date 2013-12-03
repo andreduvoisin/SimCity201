@@ -1,5 +1,6 @@
 package base;
 
+import city.gui.SimCityGui;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
@@ -64,7 +65,8 @@ public abstract class BaseRole implements Role {
 	 * Print message
 	 */
 	protected void print(String msg) {
-		print(msg, null);
+		if (SimCityGui.TESTING)
+			print(msg, null);
 	}
 
 	/**

@@ -22,7 +22,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	//DATA
 	int mBankID;
 	
-	
 	public class MyCustomer{
 		public BankCustomer customer;
 		public PersonAgent mPerson;
@@ -193,5 +192,11 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 				return ContactList.cBANK1_LOCATION;
 		}
 		return null;
+	}
+
+	@Override
+	public int getWindowNumber() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
