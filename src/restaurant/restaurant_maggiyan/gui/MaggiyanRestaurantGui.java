@@ -27,7 +27,7 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */   
-    private MaggiyanRestaurantPanel restPanel;
+    public MaggiyanRestaurantPanel restPanel;
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;

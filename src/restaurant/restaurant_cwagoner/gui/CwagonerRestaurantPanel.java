@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
@@ -13,9 +14,8 @@ import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import base.interfaces.Role;
 
 @SuppressWarnings("serial")
-public class CwagonerRestaurantPanel extends JPanel {
+public class CwagonerRestaurantPanel extends JPanel implements RestaurantInterface {
 	// THIS!
-	static CwagonerRestaurantPanel instance;
 
     private CwagonerRestaurantGui mainGui; // Reference to main GUI
     
@@ -27,9 +27,7 @@ public class CwagonerRestaurantPanel extends JPanel {
 
 	public CwagonerRestaurantPanel(CwagonerRestaurantGui g, int numTables) {
     	super();
-
-        instance = this;
-
+    	
         mainGui = g;
 
         host.setNumTables(numTables);
@@ -40,10 +38,6 @@ public class CwagonerRestaurantPanel extends JPanel {
         
         cashier.setCook(cook);
         cook.setCashier(cashier);
-    }
-
-    public static CwagonerRestaurantPanel getInstance() {
-		return instance;
 	}
 
     /**

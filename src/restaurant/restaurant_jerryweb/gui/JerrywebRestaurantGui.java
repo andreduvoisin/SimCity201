@@ -29,7 +29,7 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */    
-    private JerrywebRestaurantPanel restPanel;
+    public JerrywebRestaurantPanel restPanel;
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;

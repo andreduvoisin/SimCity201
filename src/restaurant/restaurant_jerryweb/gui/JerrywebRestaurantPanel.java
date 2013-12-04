@@ -12,6 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
@@ -25,7 +26,7 @@ import base.BaseRole;
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
-public class JerrywebRestaurantPanel extends JPanel {
+public class JerrywebRestaurantPanel extends JPanel implements RestaurantInterface {
 	static final int rows = 1;
 	static final int cols = 2;
 	static final int hSpacing = 5;
@@ -50,15 +51,10 @@ public class JerrywebRestaurantPanel extends JPanel {
     private JPanel group2 = new JPanel();
 
     public static JerrywebRestaurantGui gui; //reference to main gui
-    static JerrywebRestaurantPanel instance;
-    
-    public static JerrywebRestaurantPanel getInstance(){
-    	return instance;
-    }
+   
     public JerrywebRestaurantPanel(JerrywebRestaurantGui gui){//,JerrywebHostRole h) {
     	//host = h;
         this.gui = gui;
-        this.instance = this;
         host.setGui(hostGui);
 
         gui.animationPanel.addGui(hostGui);

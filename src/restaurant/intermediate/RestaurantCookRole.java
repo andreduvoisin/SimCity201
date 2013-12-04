@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.SimCityGui;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -49,24 +50,24 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
             super.mPerson = person;
         	switch(mRestaurantID){
 				case 0: //andre
-					subRole = AndreRestaurantPanel.getInstance().cook;
+					subRole = ((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).cook;
 					subRole.setPerson(super.mPerson);
 					((AndreCookRole)subRole).runStandTimer();
 					break;
 				case 1: //chase
-					subRole = CwagonerRestaurantPanel.getInstance().cook;
+					subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).cook;
 					subRole.setPerson(super.mPerson);
 					break;
 				case 2: //jerry
-					subRole = JerrywebRestaurantPanel.getInstance().cook;
+					subRole = JerrywebRestaurantPanel.cook;
 					subRole.setPerson(super.mPerson);
 					break;
 				case 3: //maggi
-					 subRole = MaggiyanRestaurantPanel.getRestPanel().cook;
+					subRole = ((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).cook;
 	                 subRole.setPerson(super.mPerson);
 					break;
 				case 4: //david
-                    subRole = DavidRestaurantPanel.getInstance().cook;
+					subRole = ((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).cook;
                     subRole.setPerson(super.mPerson);
 					break;
 				case 5: //shane
@@ -74,13 +75,12 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
 				case 6: //angelica
-					subRole= TranacRestaurantPanel.getInstance().mCook;
+					subRole = ((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).mCook;
 					subRole.setPerson(mPerson);
 					break;
 				case 7: //rex
-					subRole = RexAnimationPanel.getInstance().cook;
+					subRole = RexAnimationPanel.cook;
 					subRole.setPerson(super.mPerson);
-					//RexAnimationPanel.addPerson((RexCookRole)subRole);
 					break;
 			}
        }

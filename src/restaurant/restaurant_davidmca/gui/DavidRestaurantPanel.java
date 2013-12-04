@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.agents.MarketAgent;
 import restaurant.restaurant_davidmca.interfaces.Customer;
@@ -22,8 +23,8 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
  * Panel in frame that contains all the restaurant_davidmca information,
  * including host, cook, waiters, and customers.
  */
-public class DavidRestaurantPanel extends JPanel {
-	static DavidRestaurantPanel instance;
+@SuppressWarnings("serial")
+public class DavidRestaurantPanel extends JPanel implements RestaurantInterface {
 	static int customerCount = 0;
 	static int waiterCount = 0;
 	// animation grid
@@ -44,14 +45,9 @@ public class DavidRestaurantPanel extends JPanel {
 	private JPanel group = new JPanel();
 
 	private DavidRestaurantGui gui; // reference to main gui
-	
-	public static DavidRestaurantPanel getInstance() {
-		return instance;
-	}
 
 	public DavidRestaurantPanel(DavidRestaurantGui gui) {
 		this.gui = gui;
-		this.instance = this;
 		gui.animationPanel.addGui(hostGui);
 		// host.startThread();
 		host.setCook(cook);

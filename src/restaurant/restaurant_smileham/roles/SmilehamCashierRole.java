@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.SimCityGui;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Check;

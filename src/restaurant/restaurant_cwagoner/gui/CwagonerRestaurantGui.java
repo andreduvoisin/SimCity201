@@ -16,7 +16,7 @@ public class CwagonerRestaurantGui extends CityCard {
 	private int numTables = 4;
 
 	public CwagonerAnimationPanel animationPanel = new CwagonerAnimationPanel(CARD_WIDTH, CARD_HEIGHT);
-    CwagonerRestaurantPanel restPanel;
+    public CwagonerRestaurantPanel restPanel;
     ArrayList<Location> tableLocations = new ArrayList<Location>();
 
     /**

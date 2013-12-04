@@ -11,6 +11,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
@@ -26,8 +27,7 @@ import base.BaseRole;
  * including host, cook, waiters, and customers.
  */
 @SuppressWarnings("serial")
-public class AndreRestaurantPanel extends JPanel {
-	static AndreRestaurantPanel instance;
+public class AndreRestaurantPanel extends JPanel implements RestaurantInterface {
 
     //Host, cook, waiters and customers
 	public AndreHostRole host = new AndreHostRole("Kevin G");
@@ -45,7 +45,6 @@ public class AndreRestaurantPanel extends JPanel {
 
     public AndreRestaurantPanel(AndreRestaurantGui gui) {
         this.gui = gui;
-        instance = this;
         setLayout(new GridLayout(1, 2, 20, 20));
         group.setLayout(new GridLayout(1, 2, 10, 10));
 
@@ -71,10 +70,6 @@ public class AndreRestaurantPanel extends JPanel {
 //        	cook.addMarket(market);
 //        }
     }
-    
-    public static AndreRestaurantPanel getInstance() {
-		return instance;
-	}
 
     /**
      * Sets up the restaurant label that includes the menu,

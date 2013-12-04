@@ -25,7 +25,7 @@ public class DavidRestaurantGui extends CityCard implements ActionListener {
 
 	AnimationPanel animationPanel = new AnimationPanel();
 
-	private DavidRestaurantPanel restPanel;
+	public DavidRestaurantPanel restPanel;
 
 	/* infoPanel holds information about the clicked customer, if there is one */
 	boolean currentlyPaused = false;

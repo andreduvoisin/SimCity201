@@ -43,28 +43,45 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
-
-		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
-		cards.put("R_cwagoner", cwagoner);
-
+		
+		//Rest 0		
 		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
+		city.citypanel.masterRestaurantList.add(aduvoisin.restPanel);
 		cards.put("R_aduvoisin", aduvoisin);
 		
-		DavidRestaurantGui davidmca = new DavidRestaurantGui(city);
-		cards.put("R_davidmca", davidmca);
-		
-		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city);
-		cards.put("R_smileham", smileham);
-		
+		//Rest 1
+		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
+		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
+		cards.put("R_cwagoner", cwagoner);
+
+		//Rest 2
 		JerrywebRestaurantGui jerryweb = new JerrywebRestaurantGui(city);
+		city.citypanel.masterRestaurantList.add(jerryweb.restPanel);
 		cards.put("R_jerryweb", jerryweb);
 		
-		cards.put("R_tranac", new TranacRestaurantPanel(city));
-		
+		//Rest 3		
 		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
+		city.citypanel.masterRestaurantList.add(maggiyan.restPanel);
 		cards.put("R_Maggiyan", maggiyan);
 		
+		//Rest 4
+		DavidRestaurantGui davidmca = new DavidRestaurantGui(city);
+		city.citypanel.masterRestaurantList.add(davidmca.restPanel);
+		cards.put("R_davidmca", davidmca);
+		
+		//Rest 5
+		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city);
+		city.citypanel.masterRestaurantList.add(smileham);
+		cards.put("R_smileham", smileham);
+		
+		//Rest 6
+		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
+		city.citypanel.masterRestaurantList.add(tranac);
+		cards.put("R_tranac", tranac);
+		
+		//Rest 7		
 		RexAnimationPanel xurex = new RexAnimationPanel(city);
+		city.citypanel.masterRestaurantList.add(xurex);
 		cards.put("R_xurex", xurex);
 				
 		/*

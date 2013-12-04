@@ -13,6 +13,7 @@ import java.util.Vector;
 
 import javax.swing.Timer;
 
+import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.RexCustomerRole;
@@ -26,15 +27,9 @@ import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
-public class RexAnimationPanel extends CityCard implements ActionListener {
+public class RexAnimationPanel extends CityCard implements ActionListener, RestaurantInterface {
 
 	private static final long serialVersionUID = 1L;
-	
-	static RexAnimationPanel instance;
-	
-	public static RexAnimationPanel getInstance(){
-		return instance;
-	}
 	
 //	ROLES
     private static Vector<Waiter> waiters = new Vector<Waiter>();
@@ -75,7 +70,6 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
-        instance = this;
         
         cookGui.setAnimationPanel(this);
         cook.setGui(cookGui);
