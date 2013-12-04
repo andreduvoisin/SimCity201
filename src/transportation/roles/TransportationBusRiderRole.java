@@ -40,7 +40,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ==================================================================================
 
 	public void msgReset() {
-		System.out.println("Received msgReset");
+		print("Received msgReset");
 		state = enumState.askForRide;
 		stateChanged();
 	}
@@ -50,7 +50,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	 * Sent when rider has completed boarding or exiting the bus, or arrived at bus stop
 	 */
 	public void msgGuiDone() {
-		System.out.println("Received msgGuiDone");
+		print("Received msgGuiDone");
 		if (state.equals(enumState.going)) {
 			semGuiMoving.release();
 			state = enumState.askForRide;
@@ -71,7 +71,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	 * Sent when a BusInstance is at this Rider's current stop
 	 */
 	public void msgBoardBus() {
-		System.out.println("Received msgBoardBus");
+		print("Received msgBoardBus");
 		state = enumState.toldToBoard;
 		stateChanged();
 	}
@@ -81,7 +81,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	 * Sent when this Rider's BusInstance has reached this Rider's destination
 	 */
 	public void msgAtYourStop() {
-		System.out.println("Received msgAtYourStop");
+		print("Received msgAtYourStop");
 		state = enumState.atDestination;
 		stateChanged();
 	}
@@ -133,37 +133,37 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ==================================================================================
 
 	private void GoToNearestStop() {
-		System.out.println("GoToNearestStop()");
+		print("GoToNearestStop()");
 		mGui.DoGoToStop(0);
 		state = enumState.going;
 		acquire(semGuiMoving);
 	}
 
 	private void AskForRide() {
-		System.out.println("AskForRide from " + mCurrentStop);
+		print("AskForRide from " + mCurrentStop);
 		mBusDispatch.msgNeedARide(this, mCurrentStop);
 		state = enumState.waiting;
 	}
 
 	private void BoardBus() {
-		System.out.println("BoardBus()");
+		print("BoardBus()");
 		mGui.DoBoardBus();
 		state = enumState.boarding;
 	}
 
 	private void TellBusBoarded() {
-		System.out.println("TellBusBoarded()");
+		print("TellBusBoarded()");
 		mBusDispatch.msgImOn(this);
 	}
 
 	private void ExitBus() {
-		System.out.println("ExitBus()");
+		print("ExitBus()");
 		mGui.DoExitBus();
 		state = enumState.exiting;
 	}
 
 	private void TellBusUnloaded() {
-		System.out.println("TellBusUnloaded()");
+		print("TellBusUnloaded()");
 		mBusDispatch.msgImOff(this);
 		state = enumState.none;
 	}

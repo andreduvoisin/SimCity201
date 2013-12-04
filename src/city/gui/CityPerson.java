@@ -15,7 +15,6 @@ public class CityPerson extends CityComponent {
 	
 	private String name = "";
 	PersonAgent mPerson = null;
-	boolean atDestination = true;
 	SimCityGui gui;
 	
 	List<Location> corners = new ArrayList<Location>(); 
@@ -61,7 +60,6 @@ public class CityPerson extends CityComponent {
         
         if (x == xDestination && y == yDestination) {
         	//this.disable();
-        	//atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
         	//mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
         	
         	if(mNextDestination != null){
@@ -159,9 +157,14 @@ public class CityPerson extends CityComponent {
 	//Already at corner closest to destination
 	public void DoGoToNextDestination(){
 		Location cornerLocation = findNearestCorner(mNextDestination); 
-		if(x == cornerLocation.mX && y == cornerLocation.mY){
+		// If already at corner location nearest mNextDestination, don't need to take
+		// the bus (since it would take you to a corner farther from mNextDestination;
+		// walk to mNextDestination.
+		if (x == cornerLocation.mX && y == cornerLocation.mY) {
 			DoWalkToDestination(); 
-		}else{
+		}
+		// Otherwise, can get to a closer corner by taking the bus
+		else {
 			DoTakeBus(); 
 		}	
 	}
@@ -186,21 +189,33 @@ public class CityPerson extends CityComponent {
 	public void DoGoToBusStop(Location location){
 		
 	}
-	
+
+	/**
+	 * Finds closest corner location to desired destination
+	 * @param destination Target position in form of a Location object
+	 * @return (Location object) corners.get(determined nearest corner)
+	 */
 	public Location findNearestCorner(Location destination){
-		//Finds closest corner location to desired destination
-		
-		if (destination.mX > 180 && destination.mY < 180 ){
-			return corners.get(0); 
-		}else if(destination.mX < 180 && destination.mY < 180){
-			return corners.get(1); 
-		}else if(destination.mX < 180 && destination.mY > 180){
-			return corners.get(3); 
-		}else if(destination.mX > 180 && destination.mY > 180){
-			return corners.get(4); 
-		}else
-			return null; 
-		
+		// Top
+			// right
+			if (destination.mX > 180 && destination.mY < 180) {
+				return corners.get(0); 
+			}
+			// left
+			else if (destination.mX < 180 && destination.mY < 180) {
+				return corners.get(1); 
+			}
+		// Bottom
+			// right
+			else if (destination.mX > 180 && destination.mY > 180) {
+				return corners.get(3); 
+			}
+			// left
+			else if (destination.mX < 180 && destination.mY > 180) {
+				return corners.get(2); 
+			}
+			else
+				return null;
 	}
 
 	@Override
