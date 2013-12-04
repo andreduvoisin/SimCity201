@@ -57,10 +57,10 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	public void drawComponents(Graphics g) {
 		
-		g.drawImage(backgroundImage, -15, -15,null);
+		//g.drawImage(backgroundImage, -15, -15,null);
 		synchronized(statics) {
 			for (CityComponent c:statics) {
-				if (c instanceof CityHousing || c instanceof TimeGui)
+				//if (c instanceof CityHousing || c instanceof TimeGui)
 				c.paint(g);
 			}
 		}

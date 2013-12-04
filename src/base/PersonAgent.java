@@ -348,6 +348,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
+		print("goToJob");
 		mPersonGui.DoGoToDestination(getJobLocation()); //could be null???
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
@@ -362,7 +363,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void eatFood() {
 		if (isCheap() && getHouse() != null){
-			print(this + ": Going to eat at home");
+			print("Going to eat at home");
 			getHousingRole().msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHouse().mHouseNum));
 			acquireSemaphore(semAnimationDone);
