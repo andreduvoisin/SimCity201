@@ -1,6 +1,7 @@
 package housing.roles;
 
 import housing.gui.HousingPersonGui;
+import housing.interfaces.HousingBase;
 
 import java.util.concurrent.Semaphore;
 
@@ -9,7 +10,7 @@ import base.ContactList;
 import base.Location;
 import city.gui.CityHousing;
 
-public class HousingBaseRole extends BaseRole {
+public class HousingBaseRole extends BaseRole implements HousingBase {
 	
 	public boolean mHungry = false;
 	public boolean mTimeToMaintain = false;
@@ -96,13 +97,20 @@ public class HousingBaseRole extends BaseRole {
 	}
 	
 	public void setHouse(CityHousing h) {
-		print("set house");
 		this.mHouse = h;
 	}
 
 	@Override
 	public Location getLocation() {
 		return ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
+	}
+
+	@Override
+	public CityHousing getHouse() {
+		if (mHouse == null) {
+			print("house is null!");
+		}
+		return this.mHouse;
 	}
 
 }
