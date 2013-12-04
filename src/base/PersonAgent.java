@@ -22,7 +22,6 @@ import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
-import bank.gui.BankPanel;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
 import bank.roles.BankGuardRole;
@@ -35,7 +34,6 @@ import base.interfaces.Role;
 import city.gui.CityHousing;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
-import city.gui.CityView;
 import city.gui.SimCityGui;
 
 
@@ -561,7 +559,6 @@ public class PersonAgent extends Agent implements Person {
 					iRole instanceof BankMasterTellerRole ||
 					iRole instanceof BankTellerRole ||
 					//Housing jobs
-					iRole instanceof HousingBaseRole ||
 					//Restaurant job
 					iRole instanceof RestaurantCashierRole ||
 					iRole instanceof RestaurantCookRole ||
