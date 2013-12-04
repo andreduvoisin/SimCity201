@@ -45,6 +45,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
 		
+<<<<<<< HEAD
 		//Rest 0		
 		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
 		city.citypanel.masterRestaurantList.add(aduvoisin.restPanel);
@@ -69,21 +70,48 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		DavidRestaurantGui davidmca = new DavidRestaurantGui(city);
 		city.citypanel.masterRestaurantList.add(davidmca.restPanel);
 		cards.put("R_davidmca", davidmca);
+=======
+		//DAVID temporarily disabling restaurants
+		
+//		//Rest 0		
+//		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
+//		city.citypanel.masterRestaurantList.add(aduvoisin.restPanel);
+//		cards.put("R_aduvoisin", aduvoisin);
+//		
+//		//Rest 1
+//		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
+//		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
+//		cards.put("R_cwagoner", cwagoner);
+//
+//		//Rest 2
+//		JerrywebRestaurantGui jerryweb = new JerrywebRestaurantGui(city);
+//		city.citypanel.masterRestaurantList.add(jerryweb.restPanel);
+//		cards.put("R_jerryweb", jerryweb);
+//		
+//		//Rest 3		
+//		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
+//		city.citypanel.masterRestaurantList.add(maggiyan.restPanel);
+//		cards.put("R_Maggiyan", maggiyan);
+//		
+//		//Rest 4
+//		DavidRestaurantGui davidmca = new DavidRestaurantGui(city);
+//		city.citypanel.masterRestaurantList.add(davidmca.restPanel);
+//		cards.put("R_davidmca", davidmca);
+>>>>>>> 00b80eb6677c26f706a80d1c30b3c358e743f6c9
 		
 		//Rest 5
 		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city);
-		city.citypanel.masterRestaurantList.add(smileham);
 		cards.put("R_smileham", smileham);
 		
-		//Rest 6
-		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
-		city.citypanel.masterRestaurantList.add(tranac);
-		cards.put("R_tranac", tranac);
-		
-		//Rest 7		
-		RexAnimationPanel xurex = new RexAnimationPanel(city);
-		city.citypanel.masterRestaurantList.add(xurex);
-		cards.put("R_xurex", xurex);
+//		//Rest 6
+//		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
+//		city.citypanel.masterRestaurantList.add(tranac);
+//		cards.put("R_tranac", tranac);
+//		
+//		//Rest 7		
+//		RexAnimationPanel xurex = new RexAnimationPanel(city);
+//		city.citypanel.masterRestaurantList.add(xurex);
+//		cards.put("R_xurex", xurex);
 				
 		/*
 		 * Instantiate Market and Bank Panels and add to the Master Lists

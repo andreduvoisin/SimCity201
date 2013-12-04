@@ -15,51 +15,38 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
 import restaurant.restaurant_tranac.roles.TranacRestaurantHostRole;
 import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
+import base.BaseRole;
 import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
 @SuppressWarnings("serial")
-public class TranacRestaurantPanel extends CityCard implements ActionListener, RestaurantInterface {
-	static TranacRestaurantPanel instance;
-	
+public class TranacRestaurantPanel extends CityCard implements ActionListener {
+	public static TranacRestaurantPanel instance;
+
 	private final int WINDOWX = 626;
 	private final int WINDOWY = 507;
     private BufferedImage background;
-
     private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     
-    public TranacRestaurantCashierRole mCashier = new TranacRestaurantCashierRole();
-    public static TranacRestaurantCookRole mCook;
-    public TranacRestaurantHostRole mHost = new TranacRestaurantHostRole();
-    
-    private TranacHostGui hostGui = new TranacHostGui(mHost);
-    private TranacCookGui cookGui = new TranacCookGui(mCook);
-    private TranacCashierGui cashierGui = new TranacCashierGui(mCashier);
+    private static TranacRestaurantCashierRole mCashier;
+    private static TranacRestaurantCookRole mCook;
+    private static TranacRestaurantHostRole mHost;
       
-    private Vector<TranacRestaurantWaiterRole> mWaiters = new Vector<TranacRestaurantWaiterRole>();
-    private Vector<TranacRestaurantCustomerRole> mCustomers = new Vector<TranacRestaurantCustomerRole>();
+    private static Vector<TranacRestaurantWaiterRole> mWaiters = new Vector<TranacRestaurantWaiterRole>();
+    private static Vector<TranacRestaurantCustomerRole> mCustomers = new Vector<TranacRestaurantCustomerRole>();
 
     public TranacRestaurantPanel(SimCityGui city) {
     	super(city);
     	setBounds(0,0,WINDOWX, WINDOWY);
     	setBackground(Color.white);
     	
-    	this.instance = this;
-    	
-    	mCashier.setGui(cashierGui);
-    	mCook.setGui(cookGui);
-    	mHost.setGui(hostGui);
-    	
-    	guis.add(hostGui);
-    	guis.add(cookGui);
-    	guis.add(cashierGui);
+    	TranacRestaurantPanel.instance = this;
  
     	Timer timer = new Timer(Time.cSYSCLK/25, this );
     	timer.start();
@@ -107,24 +94,43 @@ public class TranacRestaurantPanel extends CityCard implements ActionListener, R
     	}
     }
     
-    public void addCustomer(TranacRestaurantCustomerRole c) {
-    	mCustomers.add(c);
-    	c.setHost(mHost);
-    	c.setCashier(mCashier);
-
-    	c.msgGotHungry();
-    }
-    
-    public void addWaiter(TranacRestaurantWaiterRole w) {
-    	mWaiters.add(w);
-    	mHost.addWaiter(w);
+    public void addPerson(BaseRole role){
+    	if (role instanceof TranacRestaurantCustomerRole){
+    		TranacRestaurantCustomerRole customer = (TranacRestaurantCustomerRole) role;
+    		mCustomers.add(customer);
+    		customer.setHost(mHost);
+    		customer.setCashier(mCashier);
+    		customer.msgGotHungry();
+    	}
+    	else if (role instanceof TranacRestaurantWaiterRole){
+    		TranacRestaurantWaiterRole waiter = (TranacRestaurantWaiterRole) role;
+    		mWaiters.add(waiter);
+        	mHost.addWaiter(waiter);
+    	}
+    	else if (role instanceof TranacRestaurantCashierRole){
+    		TranacRestaurantCashierRole cashier = (TranacRestaurantCashierRole) role;
+    		//ANGELICA: 1 add necessary logic here
+    	}
     }
     
     public static TranacRestaurantPanel getInstance() {
     	return instance;
     }
     
-    public int getWaiters() {
+    public static int getNumWaiters() {
     	return mWaiters.size();
     }
+    
+    public static TranacRestaurantCashierRole getCashier(){
+    	return mCashier;
+    }
+    
+    public static TranacRestaurantCookRole getCook(){
+    	return mCook;
+    }
+    
+    public static TranacRestaurantHostRole getHost(){
+    	return mHost;
+    }
+    
 }

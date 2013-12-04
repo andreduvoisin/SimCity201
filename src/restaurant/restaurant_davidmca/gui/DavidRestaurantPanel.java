@@ -24,7 +24,7 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
  * including host, cook, waiters, and customers.
  */
 @SuppressWarnings("serial")
-public class DavidRestaurantPanel extends JPanel implements RestaurantInterface {
+public class DavidRestaurantPanel extends JPanel  {
 	static int customerCount = 0;
 	static int waiterCount = 0;
 	// animation grid

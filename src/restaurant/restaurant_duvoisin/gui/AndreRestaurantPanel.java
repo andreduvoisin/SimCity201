@@ -11,7 +11,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
@@ -27,7 +26,7 @@ import base.BaseRole;
  * including host, cook, waiters, and customers.
  */
 @SuppressWarnings("serial")
-public class AndreRestaurantPanel extends JPanel implements RestaurantInterface {
+public class AndreRestaurantPanel extends JPanel  {
 
     //Host, cook, waiters and customers
 	public AndreHostRole host = new AndreHostRole("Kevin G");

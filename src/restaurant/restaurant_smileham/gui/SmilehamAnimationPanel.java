@@ -11,7 +11,6 @@ import java.util.Vector;
 
 import javax.swing.Timer;
 
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
@@ -28,8 +27,11 @@ import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
-public class SmilehamAnimationPanel extends CityCard implements ActionListener, RestaurantInterface{
-	private final int WINDOWX = 500;
+@SuppressWarnings("serial")
+public class SmilehamAnimationPanel extends CityCard implements ActionListener {
+    public static SmilehamAnimationPanel mInstance;
+
+    private final int WINDOWX = 500;
     private final int WINDOWY = 500;
     private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     
@@ -39,7 +41,6 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener, 
     private static SmilehamCashierRole mCashier;
     private static Vector<SmilehamCustomerRole> mCustomers;
     
-    public static SmilehamAnimationPanel mInstance;
     
     //CONSTRUCTOR
     public SmilehamAnimationPanel(SimCityGui city) {

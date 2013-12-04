@@ -13,7 +13,6 @@ import java.util.Vector;
 
 import javax.swing.Timer;
 
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.RexCustomerRole;
@@ -27,7 +26,7 @@ import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
-public class RexAnimationPanel extends CityCard implements ActionListener, RestaurantInterface {
+public class RexAnimationPanel extends CityCard implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	

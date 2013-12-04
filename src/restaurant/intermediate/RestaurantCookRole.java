@@ -13,22 +13,8 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
-import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
-import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
-import restaurant.restaurant_davidmca.roles.DavidCookRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
-import restaurant.restaurant_duvoisin.roles.AndreCookRole;
-import restaurant.restaurant_jerryweb.JerrywebCookRole;
-import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
-import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
-import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
-import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
-import restaurant.restaurant_xurex.RexCookRole;
-import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -54,38 +40,38 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public void setPerson(Person person){
             super.mPerson = person;
         	switch(mRestaurantID){
-				case 0: //andre
-					subRole = new AndreCookRole(super.mPerson);
-					AndreRestaurantPanel.cook = (AndreCookRole) subRole;
-					break;
-				case 1: //chase
-					subRole = new CwagonerCookRole(super.mPerson);
-					CwagonerRestaurantPanel.cook = (CwagonerCookRole) subRole;
-					break;
-				case 2: //jerry
-					subRole = new JerrywebCookRole(super.mPerson);
-					JerrywebRestaurantPanel.cook = (JerrywebCookRole) subRole;
-					break;
-				case 3: //maggi
-					subRole = new MaggiyanCookRole(super.mPerson);
-					MaggiyanRestaurantPanel.cook = (MaggiyanCookRole) subRole;
-					break;
-				case 4: //david
-					subRole = new DavidCookRole(super.mPerson);
-					DavidRestaurantPanel.cook = (DavidCookRole) subRole;
-					break;
+//				case 0: //andre
+//					subRole = new AndreCookRole(super.mPerson);
+//					AndreRestaurantPanel.cook = (AndreCookRole) subRole;
+//					break;
+//				case 1: //chase
+//					subRole = new CwagonerCookRole(super.mPerson);
+//					CwagonerRestaurantPanel.cook = (CwagonerCookRole) subRole;
+//					break;
+//				case 2: //jerry
+//					subRole = new JerrywebCookRole(super.mPerson);
+//					JerrywebRestaurantPanel.cook = (JerrywebCookRole) subRole;
+//					break;
+//				case 3: //maggi
+//					subRole = new MaggiyanCookRole(super.mPerson);
+//					MaggiyanRestaurantPanel.cook = (MaggiyanCookRole) subRole;
+//					break;
+//				case 4: //david
+//					subRole = new DavidCookRole(super.mPerson);
+//					DavidRestaurantPanel.cook = (DavidCookRole) subRole;
+//					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson);
 					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
-				case 6: //angelica
-					subRole = new TranacRestaurantCookRole(super.mPerson);
-					TranacRestaurantPanel.mCook = (TranacRestaurantCookRole) subRole;
-					break;
-				case 7: //rex
-					subRole = new RexCookRole(super.mPerson);
-					RexAnimationPanel.cook = (RexCookRole) subRole;
-					break;
+//				case 6: //angelica
+//					subRole = new TranacRestaurantCookRole(super.mPerson);
+//					TranacRestaurantPanel.mCook = (TranacRestaurantCookRole) subRole;
+//					break;
+//				case 7: //rex
+//					subRole = new RexCookRole(super.mPerson);
+//					RexAnimationPanel.cook = (RexCookRole) subRole;
+//					break;
 			}
        }
         

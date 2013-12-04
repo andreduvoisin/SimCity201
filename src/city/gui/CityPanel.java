@@ -10,7 +10,6 @@ import java.util.concurrent.Semaphore;
 
 import market.gui.MarketDeliveryTruckGui;
 import market.gui.MarketPanel;
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import transportation.TransportationBusDispatch;
 import bank.gui.BankPanel;
 import base.ContactList;
@@ -31,7 +30,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
 	public List<BankPanel> masterBankList = Collections.synchronizedList(new ArrayList<BankPanel>());
 	public List<MarketPanel> masterMarketList = Collections.synchronizedList(new ArrayList<MarketPanel>());
-	public List<RestaurantInterface> masterRestaurantList = Collections.synchronizedList(new ArrayList<RestaurantInterface>());
 	
 	// A*
 	public static final int ASC = 5;
@@ -143,6 +141,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "R_tranac"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(7), "R_xurex"));
 		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts Bank"));
+		this.addStatic(new CityBank(ContactList.cBANK2_LOCATION, "Piggy Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Sams Club"));
 			
