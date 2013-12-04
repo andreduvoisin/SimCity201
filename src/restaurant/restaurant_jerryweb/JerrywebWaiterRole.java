@@ -524,6 +524,10 @@ public class JerrywebWaiterRole extends BaseRole implements Waiter {
 	public void setGui(WaiterGui gui) {
 		waiterGui = gui;
 	}
+	
+	public JerrywebHostRole getHost(){
+		return host;
+	}
 
 	public WaiterGui getGui() {
 		return waiterGui;
