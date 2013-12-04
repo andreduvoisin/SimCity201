@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import restaurant.restaurant_tranac.gui.TranacHostGui;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
@@ -40,6 +41,8 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 	
 	public TranacRestaurantHostRole() {
 		super(null);
+		hostGui = new TranacHostGui(this);
+		TranacRestaurantPanel.getInstance().addPerson(this);
 
 		//create the list of tables
 		tables = new ArrayList<Table>(NTABLES);
