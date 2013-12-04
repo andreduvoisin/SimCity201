@@ -100,8 +100,8 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		cookTimes.put("Salad", 5);
 		cookTimes.put("Pizza", 15);
 	}
-	public RexCookRole(){
-		super(null, 7);
+	public RexCookRole(Person p){
+		super(p, 7);
 		//initializeInventory();
 		makeCookTimes();
 		for(int i=1; i<11; i++){

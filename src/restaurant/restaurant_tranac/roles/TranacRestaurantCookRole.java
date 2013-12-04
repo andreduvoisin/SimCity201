@@ -18,6 +18,7 @@ import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Cook Agent
@@ -47,8 +48,8 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         
         private Semaphore inTransit = new Semaphore(0, true);
 
-        public TranacRestaurantCookRole() {
-                super(null, 6);
+        public TranacRestaurantCookRole(Person p) {
+                super(p, 6);
                 /*
                 //create inventory
                 inventory.add(new Food("Steak",(int)(baseTime*2),DEFAULT_FOOD_QTY));

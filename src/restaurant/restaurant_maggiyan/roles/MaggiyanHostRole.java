@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;

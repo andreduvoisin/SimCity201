@@ -2,7 +2,6 @@ package restaurant.restaurant_maggiyan.interfaces;
 
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
 
 
 /**

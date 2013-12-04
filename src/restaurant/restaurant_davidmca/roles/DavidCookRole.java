@@ -23,6 +23,7 @@ import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
@@ -82,9 +83,9 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 	 * @param name
 	 *            name of the customer
 	 */
-	public DavidCookRole(String name) {
-		super(null, 4);
-		this.name = name;
+	public DavidCookRole(Person p) {
+		super(p, 4);
+		this.name = "DavidCook";
 		ordering = false;
 		reorder = false;
 //		foodList.put("Steak", new Stock("Steak", qty));

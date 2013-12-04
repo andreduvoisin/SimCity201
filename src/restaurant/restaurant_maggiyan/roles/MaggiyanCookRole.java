@@ -1,4 +1,4 @@
-package restaurant.restaurant_maggiyan.interfaces;
+package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +14,9 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.Order.state;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.Item;
 import base.Item.EnumItemType;
 import base.interfaces.Person;

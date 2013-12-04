@@ -31,7 +31,7 @@ public class AndreRestaurantPanel extends JPanel implements RestaurantInterface 
 
     //Host, cook, waiters and customers
 	public AndreHostRole host = new AndreHostRole("Kevin G");
-	public AndreCookRole cook = new AndreCookRole("Cooking Mama");
+	public static AndreCookRole cook;
 	private Vector<Waiter> waiters = new Vector<Waiter>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     private Vector<AndreMarketRole> markets = new Vector<AndreMarketRole>();
@@ -54,10 +54,6 @@ public class AndreRestaurantPanel extends JPanel implements RestaurantInterface 
         add(restLabel);
         add(group);
         
-        CookGui g = new CookGui(cook, gui);
-		gui.animationPanel.addGui(g);
-		cook.setGui(g);
-        
         //host.startThread();
         //cook.startThread();
         //cashier.startThread();
@@ -79,8 +75,8 @@ public class AndreRestaurantPanel extends JPanel implements RestaurantInterface 
         JLabel label = new JLabel();
         //restLabel.setLayout(new BoxLayout((Container)restLabel, BoxLayout.Y_AXIS));
         restLabel.setLayout(new BorderLayout());
-        label.setText(
-                "<html><h3><u>Tonight's Staff</u></h3><table><tr><td>host:</td><td>" + host.getName() + "</td></tr><tr><td>cook:</td><td>" + cook.getName() + "</td></tr></table><h3><u> Menu</u></h3><table><tr><td>Steak</td><td>$15.99</td></tr><tr><td>Chicken</td><td>$10.99</td></tr><tr><td>Salad</td><td>$5.99</td></tr><tr><td>Pizza</td><td>$8.99</td></tr></table><br></html>");
+//        label.setText(
+//                "<html><h3><u>Tonight's Staff</u></h3><table><tr><td>host:</td><td>" + host.getName() + "</td></tr><tr><td>cook:</td><td>" + cook.getName() + "</td></tr></table><h3><u> Menu</u></h3><table><tr><td>Steak</td><td>$15.99</td></tr><tr><td>Chicken</td><td>$10.99</td></tr><tr><td>Salad</td><td>$5.99</td></tr><tr><td>Pizza</td><td>$8.99</td></tr></table><br></html>");
 
         restLabel.setBorder(BorderFactory.createRaisedBevelBorder());
         restLabel.add(label, BorderLayout.CENTER);

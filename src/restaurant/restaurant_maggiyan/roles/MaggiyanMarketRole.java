@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Timer;
 
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import base.BaseRole;
 import base.ContactList;

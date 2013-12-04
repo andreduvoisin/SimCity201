@@ -38,7 +38,7 @@ public class JerrywebRestaurantPanel extends JPanel implements RestaurantInterfa
     //public PersonAgent mPerson = new PersonAgent(EnumJobType.RESTAURANT,20,"Joe");
 
     
-	public static JerrywebCookRole cook = new JerrywebCookRole();
+	public static JerrywebCookRole cook;
     public static JerrywebCashierRole cashier = new JerrywebCashierRole("Ted Cruz");
     
     private Vector<JerrywebCustomerRole> customers = new Vector<JerrywebCustomerRole>();

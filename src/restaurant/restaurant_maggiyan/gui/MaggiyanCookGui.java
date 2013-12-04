@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.List;
 
-import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 
 public class MaggiyanCookGui implements MaggiyanGui{
 

@@ -29,7 +29,7 @@ public class MockMarket extends Mock implements MaggiyanMarket {
 
 	@Override
 	public void msgRequestItems(
-			restaurant.restaurant_maggiyan.roles.MaggiyanCook c,
+			restaurant.restaurant_maggiyan.interfaces.MaggiyanCook c,
 			Map<String, Integer> itemRequest) {
 		// TODO Auto-generated method stub
 		

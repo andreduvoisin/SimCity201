@@ -1,8 +1,7 @@
-package restaurant.restaurant_maggiyan.roles;
+package restaurant.restaurant_maggiyan.interfaces;
 
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
 public interface MaggiyanCook {
 

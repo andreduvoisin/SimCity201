@@ -5,9 +5,9 @@ import java.util.Vector;
 import javax.swing.JPanel;
 
 import restaurant.intermediate.interfaces.RestaurantInterface;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCookRole;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanMarketRole;
@@ -22,7 +22,7 @@ public class MaggiyanRestaurantPanel extends JPanel implements RestaurantInterfa
 		
     //Host, cook, waiters and customers
     public MaggiyanHostRole host = new MaggiyanHostRole(null);
-    public MaggiyanCookRole cook = new MaggiyanCookRole(null); 
+    public static MaggiyanCookRole cook;
     public MaggiyanCashierRole cashier = new MaggiyanCashierRole(null);
     private MaggiyanMarketRole market1 = new MaggiyanMarketRole("Market 1"); 
     private MaggiyanMarketRole market2 = new MaggiyanMarketRole("Market 2"); 

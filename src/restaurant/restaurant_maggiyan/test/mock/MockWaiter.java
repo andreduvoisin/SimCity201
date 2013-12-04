@@ -150,7 +150,7 @@ public void setCashier(MaggiyanCashier c) {
 }
 
 @Override
-public void setCook(restaurant.restaurant_maggiyan.roles.MaggiyanCook c) {
+public void setCook(restaurant.restaurant_maggiyan.interfaces.MaggiyanCook c) {
 	// TODO Auto-generated method stub
 	
 }

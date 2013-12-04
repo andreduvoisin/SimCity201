@@ -19,6 +19,7 @@ import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Cook Agent
@@ -54,10 +55,14 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 	
 	public EventLog log = new EventLog();
 
-	public AndreCookRole(String name) {
-		super(null, 0);
+	public AndreCookRole(Person p) {
+		super(p, 0);
 		
-		this.name = name;
+		this.name = "AndreCook";
+		
+		CookGui g = new CookGui(this, gui);
+		gui.animationPanel.addGui(g);
+		this.setGui(g);
 		
 //		foods.put("steak", new Food("steak", 1000, 2, 1, 3, FoodState.None));
 //		foods.put("chicken", new Food("chicken", 1000, 2, 1, 3, FoodState.None));

@@ -14,14 +14,20 @@ import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
+import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
+import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
+import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
@@ -30,7 +36,6 @@ import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPanel;
-import city.gui.SimCityGui;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
@@ -50,37 +55,36 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
             super.mPerson = person;
         	switch(mRestaurantID){
 				case 0: //andre
-					subRole = ((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).cook;
-					subRole.setPerson(super.mPerson);
-					((AndreCookRole)subRole).runStandTimer();
+					subRole = new AndreCookRole(super.mPerson);
+					AndreRestaurantPanel.cook = (AndreCookRole) subRole;
 					break;
 				case 1: //chase
-					subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).cook;
-					subRole.setPerson(super.mPerson);
+					subRole = new CwagonerCookRole(super.mPerson);
+					CwagonerRestaurantPanel.cook = (CwagonerCookRole) subRole;
 					break;
 				case 2: //jerry
-					subRole = JerrywebRestaurantPanel.cook;
-					subRole.setPerson(super.mPerson);
+					subRole = new JerrywebCookRole(super.mPerson);
+					JerrywebRestaurantPanel.cook = (JerrywebCookRole) subRole;
 					break;
 				case 3: //maggi
-					subRole = ((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).cook;
-	                 subRole.setPerson(super.mPerson);
+					subRole = new MaggiyanCookRole(super.mPerson);
+					MaggiyanRestaurantPanel.cook = (MaggiyanCookRole) subRole;
 					break;
 				case 4: //david
-					subRole = ((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).cook;
-                    subRole.setPerson(super.mPerson);
+					subRole = new DavidCookRole(super.mPerson);
+					DavidRestaurantPanel.cook = (DavidCookRole) subRole;
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson);
 					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
 				case 6: //angelica
-					subRole = ((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).mCook;
-					subRole.setPerson(mPerson);
+					subRole = new TranacRestaurantCookRole(super.mPerson);
+					TranacRestaurantPanel.mCook = (TranacRestaurantCookRole) subRole;
 					break;
 				case 7: //rex
-					subRole = RexAnimationPanel.cook;
-					subRole.setPerson(super.mPerson);
+					subRole = new RexCookRole(super.mPerson);
+					RexAnimationPanel.cook = (RexCookRole) subRole;
 					break;
 			}
        }

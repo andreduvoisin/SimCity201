@@ -18,6 +18,7 @@ import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Cook Agent
@@ -84,8 +85,8 @@ public class JerrywebCookRole extends RestaurantCookRole {
 
 	//public HostGui hostGui = null;
 
-	public JerrywebCookRole(){//Person person) {
-		super(null, 2);
+	public JerrywebCookRole(Person p){ 
+		super(p, 2);
 		//this.name = person.getName();
 
 		//This populates the food map using the string names of the food items as keys and holds the

@@ -36,7 +36,7 @@ public class TranacRestaurantPanel extends CityCard implements ActionListener, R
     private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     
     public TranacRestaurantCashierRole mCashier = new TranacRestaurantCashierRole();
-    public TranacRestaurantCookRole mCook = new TranacRestaurantCookRole();
+    public static TranacRestaurantCookRole mCook;
     public TranacRestaurantHostRole mHost = new TranacRestaurantHostRole();
     
     private TranacHostGui hostGui = new TranacHostGui(mHost);

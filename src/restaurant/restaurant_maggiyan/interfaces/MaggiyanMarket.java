@@ -2,8 +2,6 @@ package restaurant.restaurant_maggiyan.interfaces;
 
 import java.util.Map;
 
-import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
-
 /**
  * A sample Customer interface built to unit test a CashierAgent.
  *

@@ -33,7 +33,7 @@ public class DavidRestaurantPanel extends JPanel implements RestaurantInterface 
 
 	// Host, cook, waiters and customers
 	public DavidHostRole host = new DavidHostRole("Host");
-	public DavidCookRole cook = new DavidCookRole("Cook");
+	public static DavidCookRole cook;
 	public DavidCashierRole cash = new DavidCashierRole("Cashier");
 	private HostGui hostGui = new HostGui(host);
 	MarketAgent mkt1, mkt2, mkt3;

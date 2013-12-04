@@ -21,7 +21,7 @@ public class CwagonerRestaurantPanel extends JPanel implements RestaurantInterfa
     
     public CwagonerHostRole host = new CwagonerHostRole(null);
     public CwagonerCashierRole cashier = new CwagonerCashierRole(null);
-    public CwagonerCookRole cook = new CwagonerCookRole(null);
+    public static CwagonerCookRole cook;
     private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
     private List<CwagonerWaiterRole> Waiters = new ArrayList<CwagonerWaiterRole>();
 
