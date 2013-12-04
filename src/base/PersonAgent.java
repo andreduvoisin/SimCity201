@@ -14,7 +14,10 @@ import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 import market.interfaces.MarketCustomer;
+import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
+import market.roles.MarketDeliveryTruckRole;
+import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
@@ -558,7 +561,10 @@ public class PersonAgent extends Agent implements Person {
 					iRole instanceof BankGuardRole ||
 					iRole instanceof BankMasterTellerRole ||
 					iRole instanceof BankTellerRole ||
-					//Housing jobs
+					//Market jobs
+					iRole instanceof MarketCashierRole ||
+					iRole instanceof MarketDeliveryTruckRole ||
+					iRole instanceof MarketWorkerRole ||
 					//Restaurant job
 					iRole instanceof RestaurantCashierRole ||
 					iRole instanceof RestaurantCookRole ||
