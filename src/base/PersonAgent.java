@@ -118,7 +118,7 @@ public class PersonAgent extends Agent implements Person {
 		//Add customer/rider role possibilities
 		mRoles.put(SortingHat.getHousingRole(this), true);
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
-		mRoles.put(new MarketCustomerRole(this), false);
+		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
