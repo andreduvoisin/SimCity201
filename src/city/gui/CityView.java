@@ -16,6 +16,7 @@ import market.gui.MarketPanel.EnumMarketType;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantGui;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
+import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -55,8 +56,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("R_cwagoner", cwagoner);
 
 		//Rest 2
-		JerrywebRestaurantGui jerryweb = new JerrywebRestaurantGui(city);
-		city.citypanel.masterRestaurantList.add(jerryweb.restPanel);
+		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city);
+		city.citypanel.masterRestaurantList.add(jerryweb);
 		cards.put("R_jerryweb", jerryweb);
 		
 		//Rest 3		
