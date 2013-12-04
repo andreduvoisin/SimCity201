@@ -10,14 +10,15 @@ import java.util.concurrent.Semaphore;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 
-public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
+public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter {
 
-	public CwagonerWaiterRole(Person person) {
+	public CwagonerSharedWaiterRole(Person person) {
 		super(person);
 		// Initialize menu
 		menu.put("Steak", 8);
@@ -26,7 +27,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		menu.put("Pizza", 4);
 	}
 
-	public CwagonerWaiterRole(Person person, CwagonerHostRole host,
+	public CwagonerSharedWaiterRole(Person person, CwagonerHostRole host,
 			CwagonerCookRole cook, CwagonerCashierRole cashier,
 			CwagonerRestaurantGui mainGui) {
 		super(person);
@@ -40,7 +41,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		this.cook = cook;
 		this.cashier = cashier;
 
-		this.setGui(new CwagonerWaiterGui(this, mainGui));
+		this.setGui(new CwagonerWaiterGui((CwagonerWaiter) this, mainGui));
 
 		mainGui.animationPanel.addGui(gui);
 
@@ -340,8 +341,8 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		gui.DoGoToCook();
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 
-		print("Messaging cook with order");
-		cook.msgHeresAnOrder(this, c.tableNum, c.food);
+		print("Adding to cook's revolving stand");
+		((CwagonerCookRole) cook).RevolvingStand.add(new Order((CwagonerWaiter) this, c.tableNum, c.food));
 
 		c.state = AssignedCustomer.State.orderDeliveredToCook;
 

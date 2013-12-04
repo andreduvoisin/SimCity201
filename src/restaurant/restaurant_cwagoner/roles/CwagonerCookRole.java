@@ -22,14 +22,8 @@ public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-	}
-	
-	public CwagonerCookRole() {
-		super(null, 1);
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+
+    	revolvingStandTimer.scheduleAtFixedRate(checkStand, 10000, 10000);
 	}
 
 	public String getName() {
@@ -40,18 +34,27 @@ public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook
 	CwagonerCookGui gui;
 	private Semaphore animationFinished = new Semaphore(0, true);
 	
-	// Remembers which market was previously ordered from
-	
 	// Remembers if currently ordering
 	boolean ordering = false;
 	
 	
 	// DATA
 
-	// Orders uses try-catch (method 2) instead of 'synchronized'
 	public List<Order> Orders = new ArrayList<Order>();
 	
+	// SharedWaiter list
+	public List<Order> RevolvingStand = new ArrayList<Order>();
+	
 	Timer cookingTimer = new Timer();
+	Timer revolvingStandTimer = new Timer();
+
+	TimerTask checkStand = new TimerTask() {
+		public void run() {
+			if (mPerson != null) {
+				stateChanged();
+			}
+		}
+	};
 	
 	
 	// MESSAGES

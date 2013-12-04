@@ -63,4 +63,10 @@ public class MockWaiter extends Mock implements CwagonerWaiter {
 	public int numCustomers() {
 		return 1;
 	}
+
+
+	@Override
+	public void msgAnimationFinished() {
+		// Needed (error for not implementing from CwagonerWaiter)
+	}
 }

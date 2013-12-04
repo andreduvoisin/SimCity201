@@ -11,5 +11,6 @@ public interface CwagonerWaiter {
 	public abstract void msgLeavingTable(CwagonerCustomer c);
 	public abstract int numCustomers();
 	public abstract String getName();
+	public abstract void msgAnimationFinished();
 
 }
