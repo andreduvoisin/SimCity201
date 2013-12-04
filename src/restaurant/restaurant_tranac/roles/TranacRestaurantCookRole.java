@@ -204,12 +204,12 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
                 //ANGELICA: add in functionality to order if low stock
                 if(food.stock == stockThreshold && food.s != FoodState.Ordered) {
                         food.s = FoodState.LowStock;
-                        Do("Low on food!");
+                        print("Low on food!");
                         food.numNeeded = baseNeed;
                 }
                 
                 if(food.stock == 0) {                                //handles if out of food item
-                        Do("Out of " + food.name);
+                        print("Out of " + food.name);
                         o.waiter.msgOutOfFood(o.choice, o.table);
                         orders.remove(o);
                         if(food.s != FoodState.NoStock && food.s != FoodState.Ordered) {
@@ -221,14 +221,14 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
                 */
                 
                 if(mItemInventory.get(food) == 0) {
-                        Do("Out of choice " + food);
+                        print("Out of choice " + food);
                         o.waiter.msgOutOfFood(o.choice.toString(), o.table);
                         orders.remove(o);
                         mItemsDesired.put(food,baseNeed);
                         return;
                 }
                 
-                Do("Cooking " + o.choice);
+                print("Cooking " + o.choice);
                 o.s = OrderState.Cooking;
 
                 for(int i=1;i<=NGRILLS;i++) {
@@ -252,7 +252,7 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         }
         
         private void plateIt(Order o) {
-                Do("Plating " + o.choice.toString());
+                print("Plating " + o.choice.toString());
                 o.s = OrderState.Plated;
                 DoGoToGrill(o);
                 grills.put(o.n, false);
@@ -272,7 +272,7 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         }
 
         private void removeOrder(Order o) {
-                Do("Removing " + o.choice);
+                print("Removing " + o.choice);
                 o.s = OrderState.Finished;
                 DoRemoveOrder(o);
                 plates.put(o.n, false);
@@ -280,7 +280,7 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         }
         /*
         private void orderFood() {                                //order all food items that are lowStock
-                Do("Ordering food");
+                print("Ordering food");
                 synchronized(inventory) {
                         for(Food f : inventory) {
                                 if(f.s == FoodState.LowStock) {

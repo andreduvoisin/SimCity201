@@ -217,7 +217,7 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 
 	/** Actions */
 	void showCustomerWaitingArea(MyCustomer c) {
-		Do("Please wait here.");
+		print("Please wait here.");
 		c.s = CustomerState.Walking;
 		for(Integer i : waitingAreas.keySet()) {
 			if(waitingAreas.get(i) == null) {
@@ -247,7 +247,7 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 		if(waiters.isEmpty())
 			return;
 		//checks if there is an available waiter
-		Do("Seating " + c.getName() + " at " + t.tableNumber);
+		print("Seating " + c.getName() + " at " + t.tableNumber);
 		c.s = CustomerState.Seating;
 		t.setOccupant(c);
 		//finds waiter with the lowest customer count
@@ -269,25 +269,25 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 	}
 	
 	void removeWaitingCustomer(MyCustomer c) {
-		Do("Removing customer off waitlist.");
+		print("Removing customer off waitlist.");
 		c.s = CustomerState.Eating;
 		waitingAreas.put(c.n,null);
 	}
 	
 	void tellCustomerRestaurantIsFull(MyCustomer c) {
-		Do("Telling customer restaurant is full.");
+		print("Telling customer restaurant is full.");
 		c.s = CustomerState.Debating;
 		c.c.msgRestaurantFull();
 	}
 	
 	void removeLeavingCustomer(MyCustomer c) {
-		Do("Removing customer who left.");
+		print("Removing customer who left.");
 		customers.remove(c);
 	}
 	
 	void removeCustomer(MyCustomer c) {
 		//changes customer status to done, sets table unoccupied
-		Do("Removing " + c.getName() + ".");
+		print("Removing " + c.getName() + ".");
 		c.s = CustomerState.Done;
 		c.w.decreaseCount();
 		for(Table t : tables) {
@@ -298,7 +298,7 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 	}
 /*
 	void checkIfBreakPossible(MyWaiter w) {
-		Do("Checking if waiter can go on break.");
+		print("Checking if waiter can go on break.");
 		if(numWaiters == 1) {
 			//send message saying no
 			w.s = WaiterState.Active;
