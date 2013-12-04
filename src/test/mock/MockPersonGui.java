@@ -3,10 +3,8 @@ package test.mock;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import city.gui.CityPerson;
-import astar.Position;
-import bank.interfaces.BankMasterTeller;
-import base.Item.EnumItemType;
+import javax.swing.text.Position;
+
 import base.Location;
 
 /**

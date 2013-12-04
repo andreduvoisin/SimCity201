@@ -3,13 +3,13 @@ package restaurant.restaurant_xurex.test;
 import java.util.HashMap;
 import java.util.Map;
 
+import junit.framework.TestCase;
 import restaurant.restaurant_xurex.agents.CookAgent;
 import restaurant.restaurant_xurex.agents.CookAgent.MarketOrderState;
+import restaurant.restaurant_xurex.agents.CookAgent.OrderState;
 import restaurant.restaurant_xurex.test.mock.MockCookGui;
 import restaurant.restaurant_xurex.test.mock.MockMarket;
 import restaurant.restaurant_xurex.test.mock.MockWaiter;
-import restaurant.restaurant_xurex.agents.CookAgent.OrderState;
-import junit.framework.*;
 
 /**
  * 

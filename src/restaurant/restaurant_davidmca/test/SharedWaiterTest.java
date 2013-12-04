@@ -1,11 +1,11 @@
 package restaurant.restaurant_davidmca.test;
 
-import base.PersonAgent;
 import junit.framework.TestCase;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_davidmca.test.mock.MockCook;
 import restaurant.restaurant_davidmca.test.mock.MockCustomer;
+import base.PersonAgent;
 
 public class SharedWaiterTest extends TestCase {
 	DavidWaiterRoleShared waiter;

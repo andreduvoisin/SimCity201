@@ -1,6 +1,6 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public interface MarketBaseGui {
 

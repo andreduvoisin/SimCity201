@@ -1,12 +1,19 @@
 package restaurant.restaurant_tranac.roles;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import restaurant.restaurant_tranac.gui.TranacHostGui;
+import restaurant.restaurant_tranac.interfaces.TranacCustomer;
+import restaurant.restaurant_tranac.interfaces.TranacHost;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
-import restaurant.restaurant_tranac.gui.TranacHostGui;
-import restaurant.restaurant_tranac.interfaces.*;
-
-import java.util.*;
 
 
 /**

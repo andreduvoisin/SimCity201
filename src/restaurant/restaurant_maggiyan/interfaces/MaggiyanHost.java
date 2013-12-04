@@ -1,9 +1,5 @@
 package restaurant.restaurant_maggiyan.interfaces;
 
-import restaurant.restaurant_maggiyan.Check;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole.WaiterState;
 
 
 /**

@@ -18,9 +18,9 @@ import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Event;
+import base.Event.EnumEventType;
 import base.Location;
 import base.PersonAgent;
-import base.Event.EnumEventType;
 import base.interfaces.Person;
 
 /**

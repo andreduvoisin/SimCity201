@@ -2,14 +2,16 @@ package market.test.mock;
 
 import java.util.Map;
 
+import market.MarketInvoice;
+import market.MarketOrder;
+import market.gui.MarketCustomerGui;
+import market.interfaces.MarketCustomer;
+import test.mock.LoggedEvent;
+import test.mock.Mock;
+import base.Item.EnumItemType;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.Item.EnumItemType;
-import market.*;
-import market.gui.MarketCustomerGui;
-import market.interfaces.MarketCustomer;
-import test.mock.*;
 
 public class MockCustomer extends Mock implements MarketCustomer, Role {
 	MarketCustomerGui mCustomerGui;

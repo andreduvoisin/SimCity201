@@ -2,15 +2,16 @@ package market.test.mock;
 
 import java.util.Map;
 
-import market.*;
+import market.MarketInvoice;
+import market.MarketOrder;
 import market.interfaces.MarketCashier;
-import market.interfaces.MarketCook;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-import test.mock.*;
+import test.mock.LoggedEvent;
+import test.mock.Mock;
+import base.Item.EnumItemType;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.Item.EnumItemType;
 
 public class MockCookCustomer extends Mock implements RestaurantCookInterface, Role {
 

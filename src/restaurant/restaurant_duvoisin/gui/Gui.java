@@ -1,6 +1,6 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public interface Gui {
 

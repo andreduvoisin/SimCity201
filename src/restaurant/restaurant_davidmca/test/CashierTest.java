@@ -3,13 +3,13 @@ package restaurant.restaurant_davidmca.test;
 import java.util.HashMap;
 import java.util.Map;
 
-import base.PersonAgent;
 import junit.framework.TestCase;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import restaurant.restaurant_davidmca.test.mock.MockCustomer;
 import restaurant.restaurant_davidmca.test.mock.MockMarket;
 import restaurant.restaurant_davidmca.test.mock.MockWaiter;
+import base.PersonAgent;
 
 public class CashierTest extends TestCase {
 	DavidCashierRole cashier;

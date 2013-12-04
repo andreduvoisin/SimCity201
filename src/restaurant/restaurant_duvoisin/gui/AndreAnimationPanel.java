@@ -1,15 +1,18 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import javax.swing.*;
-
-import base.Time;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+import base.Time;
 
 @SuppressWarnings("serial")
 public class AndreAnimationPanel extends JPanel implements ActionListener {

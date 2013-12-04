@@ -1,11 +1,7 @@
 package restaurant.restaurant_jerryweb.gui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 
 public class Menu {
 	public List<String> menuItems = new ArrayList<String>();

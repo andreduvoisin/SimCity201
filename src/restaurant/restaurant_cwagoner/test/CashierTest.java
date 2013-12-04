@@ -1,8 +1,10 @@
 package restaurant.restaurant_cwagoner.test;
 
+import junit.framework.TestCase;
 import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
-import restaurant.restaurant_cwagoner.test.mock.*;
-import junit.framework.*;
+import restaurant.restaurant_cwagoner.test.mock.MockCustomer;
+import restaurant.restaurant_cwagoner.test.mock.MockMarket;
+import restaurant.restaurant_cwagoner.test.mock.MockWaiter;
 
 public class CashierTest extends TestCase {
 	

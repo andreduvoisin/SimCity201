@@ -1,7 +1,5 @@
 package restaurant.restaurant_smileham.test.mock;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This is the base class for all mocks.

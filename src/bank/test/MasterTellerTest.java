@@ -1,7 +1,7 @@
 package bank.test;
 
-import test.mock.MockPerson;
 import junit.framework.TestCase;
+import test.mock.MockPerson;
 import bank.BankAccount;
 import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;

@@ -1,9 +1,9 @@
 package  restaurant.restaurant_jerryweb.gui;
 
-import  restaurant.restaurant_jerryweb.JerrywebCustomerRole;
-import  restaurant.restaurant_jerryweb.JerrywebHostRole;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
-import java.awt.*;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 
 public class CustomerGui implements Gui{
 

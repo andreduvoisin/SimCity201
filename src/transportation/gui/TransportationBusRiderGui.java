@@ -3,8 +3,8 @@ package transportation.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import city.gui.CityComponent;
 import transportation.roles.TransportationBusRiderRole;
+import city.gui.CityComponent;
 
 // CHASE: gui
 public class TransportationBusRiderGui extends CityComponent implements base.Gui {

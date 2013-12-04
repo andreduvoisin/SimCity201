@@ -1,13 +1,13 @@
 package housing.test;
 
-import city.gui.CityHousing;
-import city.gui.SimCityGui;
 import housing.roles.HousingLandlordRole;
 import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityHousing;
+import city.gui.SimCityGui;
 
 /**
  * 

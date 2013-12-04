@@ -1,9 +1,9 @@
 package test.mock;
 
+import housing.interfaces.HousingBase;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityHousing;
-import housing.interfaces.HousingBase;
 
 /**
  * MockRenter built to test PersonAgent

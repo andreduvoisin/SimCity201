@@ -1,15 +1,15 @@
 package restaurant.restaurant_jerryweb;
 
-import restaurant.restaurant_jerryweb.agent.Agent;
-import restaurant.restaurant_jerryweb.gui.HostGui;
-import restaurant.restaurant_jerryweb.gui.WaiterGui;
-import restaurant.restaurant_jerryweb.gui.Menu;
-import restaurant.restaurant_jerryweb.interfaces.Customer;
-import restaurant.restaurant_jerryweb.interfaces.Waiter;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_jerryweb.gui.Menu;
+import restaurant.restaurant_jerryweb.gui.WaiterGui;
+import restaurant.restaurant_jerryweb.interfaces.Customer;
+import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;

@@ -27,7 +27,6 @@ in this Software without prior written authorization from Stanford University.
 */
 package base;
 
-import java.util.*;
 
 /**
  * Constants of general use

@@ -1,5 +1,6 @@
 package restaurant.restaurant_xurex.test;
 
+import junit.framework.TestCase;
 import restaurant.restaurant_xurex.agents.WaiterAgent2;
 import restaurant.restaurant_xurex.test.mock.MockCashier;
 import restaurant.restaurant_xurex.test.mock.MockCook;
@@ -9,7 +10,6 @@ import restaurant.restaurant_xurex.test.mock.MockWaiterGui;
 import restaurant.restaurant_xurex.utilities.CustomerState;
 import restaurant.restaurant_xurex.utilities.OrderState;
 import restaurant.restaurant_xurex.utilities.WaiterState;
-import junit.framework.*;
 
 /**
  * 

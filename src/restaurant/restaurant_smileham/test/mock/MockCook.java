@@ -1,6 +1,5 @@
 package restaurant.restaurant_smileham.test.mock;
 
-import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;

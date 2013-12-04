@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Collection;
 
-import base.Gui;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.interfaces.Host;
+import base.Gui;
 
 public class HostGui implements Gui {
 

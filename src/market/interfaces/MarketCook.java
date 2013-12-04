@@ -2,8 +2,9 @@ package market.interfaces;
 
 import java.util.Map;
 
+import market.MarketInvoice;
+import market.MarketOrder;
 import base.Item.EnumItemType;
-import market.*;
 
 public interface MarketCook {
 	

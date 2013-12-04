@@ -1,23 +1,28 @@
 package restaurant.restaurant_tranac.gui;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import base.Time;
-import city.gui.CityCard;
-import city.gui.SimCityGui;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Vector;
 
-import restaurant.restaurant_tranac.roles.*;
+import javax.imageio.ImageIO;
+import javax.swing.Timer;
+
+import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
+import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
+import restaurant.restaurant_tranac.roles.TranacRestaurantHostRole;
+import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
+import base.Time;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 public class TranacRestaurantPanel extends CityCard implements ActionListener {
 	static TranacRestaurantPanel instance;

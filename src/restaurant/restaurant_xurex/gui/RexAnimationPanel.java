@@ -1,11 +1,18 @@
 package restaurant.restaurant_xurex.gui;
 
-import javax.swing.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Vector;
 
-import base.BaseRole;
-import base.Time;
-import city.gui.CityCard;
-import city.gui.SimCityGui;
+import javax.swing.Timer;
+
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.RexCustomerRole;
@@ -14,14 +21,10 @@ import restaurant.restaurant_xurex.RexWaiterRole1;
 import restaurant.restaurant_xurex.RexWaiterRole2;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Waiter;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Vector;
+import base.BaseRole;
+import base.Time;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 public class RexAnimationPanel extends CityCard implements ActionListener {
 

@@ -1,5 +1,7 @@
 package bank.test.mock;
 
+import test.mock.LoggedEvent;
+import test.mock.Mock;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
@@ -8,8 +10,6 @@ import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import test.mock.LoggedEvent;
-import test.mock.Mock;
 
 
 public class MockTellerRole extends Mock implements BankTeller, Role{

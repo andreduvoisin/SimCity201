@@ -1,10 +1,11 @@
 package restaurant.restaurant_duvoisin.gui;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
-
-import java.awt.*;
 
 public class WaiterGui implements Gui {
 

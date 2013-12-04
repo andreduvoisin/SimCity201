@@ -1,17 +1,13 @@
 package restaurant.restaurant_jerryweb.test;
 
+import junit.framework.TestCase;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
-import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole.CustomerState;
-import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole.MyCustomer;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
-import restaurant.restaurant_jerryweb.interfaces.Customer;
-import restaurant.restaurant_jerryweb.test.mock.MockCook;
 import restaurant.restaurant_jerryweb.test.mock.MockCustomer;
-import junit.framework.TestCase;
 
 public class WaiterRevolvingStandTest extends TestCase {
 	JerrywebCashierRole cashier;

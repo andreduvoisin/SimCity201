@@ -1,13 +1,13 @@
 package bank.gui;
 
-import bank.interfaces.BankGuard;
-import base.Gui;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
+import bank.interfaces.BankGuard;
+import base.Gui;
 
 public class BankGuardGui implements Gui {
 

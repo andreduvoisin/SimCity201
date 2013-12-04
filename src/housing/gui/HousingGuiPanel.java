@@ -1,8 +1,5 @@
 package housing.gui;
 
-import housing.roles.HousingRenterRole;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
@@ -16,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import base.Gui;
-import base.PersonAgent;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 

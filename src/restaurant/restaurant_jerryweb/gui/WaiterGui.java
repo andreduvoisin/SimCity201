@@ -1,13 +1,12 @@
 package restaurant.restaurant_jerryweb.gui;
 
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
-import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
-import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
-
-import java.awt.*;
 
 public class WaiterGui implements Gui {
 

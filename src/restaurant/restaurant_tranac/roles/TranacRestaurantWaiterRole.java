@@ -1,16 +1,24 @@
 package restaurant.restaurant_tranac.roles;
 
-import restaurant.restaurant_tranac.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.Semaphore;
+
+import restaurant.restaurant_tranac.TranacCheck;
+import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_tranac.gui.TranacWaiterGui;
-import restaurant.restaurant_tranac.interfaces.*;
+import restaurant.restaurant_tranac.interfaces.TranacCashier;
+import restaurant.restaurant_tranac.interfaces.TranacCook;
+import restaurant.restaurant_tranac.interfaces.TranacCustomer;
+import restaurant.restaurant_tranac.interfaces.TranacHost;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * Restaurant Waiter Agent

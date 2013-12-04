@@ -1,18 +1,23 @@
 package restaurant.restaurant_tranac.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import market.MarketInvoice;
-import market.MarketOrder;
-import market.interfaces.MarketCashier;
+import restaurant.intermediate.RestaurantCookRole;
+import restaurant.restaurant_tranac.gui.TranacCookGui;
+import restaurant.restaurant_tranac.interfaces.TranacCook;
+import restaurant.restaurant_tranac.interfaces.TranacMarket;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.ContactList;
 import base.Item;
-import base.Location;
 import base.Item.EnumItemType;
-import restaurant.intermediate.*;
-import restaurant.restaurant_tranac.gui.TranacCookGui;
-import restaurant.restaurant_tranac.interfaces.*;
+import base.Location;
 
 /**
  * Restaurant Cook Agent

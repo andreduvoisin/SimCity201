@@ -26,7 +26,11 @@ in this Software without prior written authorization from Stanford University.
 */
 package base;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Create a list of Object from a call list.

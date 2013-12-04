@@ -3,7 +3,8 @@ package market.test.mock;
 import market.MarketOrder;
 import market.gui.MarketWorkerGui;
 import market.interfaces.MarketWorker;
-import test.mock.*;
+import test.mock.LoggedEvent;
+import test.mock.Mock;
 
 public class MockWorker extends Mock implements MarketWorker {
 	MarketWorkerGui mWorkerGui;

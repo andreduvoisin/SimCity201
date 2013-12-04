@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import bank.gui.BankPanel;
 import bank.roles.BankMasterTellerRole;
 
 public class ContactList {

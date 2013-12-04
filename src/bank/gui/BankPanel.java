@@ -1,7 +1,11 @@
 package bank.gui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,10 +15,6 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
-import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
-import city.gui.CityCard;
-import city.gui.SimCityGui;
-import bank.interfaces.BankGuard;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
@@ -23,6 +23,8 @@ import base.Gui;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 
 public class BankPanel extends CityCard implements ActionListener{

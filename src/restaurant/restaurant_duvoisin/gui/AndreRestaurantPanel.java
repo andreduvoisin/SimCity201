@@ -1,5 +1,16 @@
 package restaurant.restaurant_duvoisin.gui;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
@@ -8,14 +19,7 @@ import restaurant.restaurant_duvoisin.roles.AndreHostRole;
 import restaurant.restaurant_duvoisin.roles.AndreMarketRole;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
-
-import javax.swing.*;
-
 import base.BaseRole;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * Panel in frame that contains all the restaurant information,

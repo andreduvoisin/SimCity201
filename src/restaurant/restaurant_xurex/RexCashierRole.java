@@ -1,15 +1,19 @@
 package restaurant.restaurant_xurex;
 
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
-import base.interfaces.Person;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
-
-import java.util.*;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Cashier Agent

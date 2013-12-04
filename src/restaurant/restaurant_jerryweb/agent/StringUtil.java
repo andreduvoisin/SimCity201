@@ -27,9 +27,17 @@ in this Software without prior written authorization from Stanford University.
 */
 package restaurant.restaurant_jerryweb.agent;
 
-import java.util.*;
-import java.io.*;
-import java.lang.reflect.*;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  * This is a class to contain generic string utilities

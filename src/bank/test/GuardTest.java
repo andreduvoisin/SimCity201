@@ -1,7 +1,6 @@
 package bank.test;
 
 import junit.framework.TestCase;
-
 //	INTERFACES
 import bank.interfaces.BankTeller;
 import bank.roles.BankGuardRole;

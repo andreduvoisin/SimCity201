@@ -6,9 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.SimCityGui;
 import bank.gui.BankGuardGui;
-import bank.gui.BankPanel;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -17,6 +15,7 @@ import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 //import interfaces
+import city.gui.SimCityGui;
 
 
 public class BankGuardRole extends BaseRole implements BankGuard{

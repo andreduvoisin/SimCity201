@@ -1,8 +1,9 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
-import java.awt.*;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 
 public class CustomerGui implements Gui{
 

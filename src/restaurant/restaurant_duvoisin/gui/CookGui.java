@@ -1,10 +1,11 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.roles.AndreCookRole;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
+
+import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 
 public class CookGui implements Gui {
     private AndreCookRole agent = null;
