@@ -39,13 +39,12 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	MarketCashier mCashier;
 	
-	public MarketCustomerRole(Person person) {
+	public MarketCustomerRole(Person person, int marketID) {
 		super(person);
-		
-		mCashier = CityPanel.getInstance().masterMarketList.get(getSSN()%2).mCashier;
+		mMarketID = marketID;
+		mCashier = CityPanel.getInstance().masterMarketList.get(mMarketID).mCashier;
 		mGui = new MarketCustomerGui(this);
-		CityPanel.getInstance().masterMarketList.get(getSSN()%2).addGui(mGui);
-		
+		CityPanel.getInstance().masterMarketList.get(mMarketID).addGui(mGui);
 		
 	//	mItemInventory = mPerson.getItemInventory();
 		//ANGELICA: hack for now
