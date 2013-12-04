@@ -7,7 +7,6 @@ import market.MarketOrder;
 import market.interfaces.MarketCashier;
 import base.Item.EnumItemType;
 
-
 /** MarketCookCustomer for SimCity Market agents.
  * 
  * @author Angelica Huyen Tran
