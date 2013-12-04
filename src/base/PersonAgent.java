@@ -130,7 +130,7 @@ public class PersonAgent extends Agent implements Person {
 //		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
 //			mEvents.add(new Event(EnumEventType.JOB, 0));
 //		}
-//		mEvents.add(new Event(EnumEventType.EAT, 1));
+		mEvents.add(new Event(EnumEventType.EAT, 2));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
@@ -362,10 +362,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void eatFood() {
-		if (isCheap() && getHouse() != null){
+		if (isCheap() && getHousingRole().getHouse() != null){
 			print("Going to eat at home");
 			getHousingRole().msgEatAtHome();
-			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHouse().mHouseNum));
+			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
 			acquireSemaphore(semAnimationDone);
 		}else{
 			print("Going to restaurant");
@@ -439,7 +439,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		
 		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
-		event.mHost.getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui); //REX 0 HOUSING THIS IS THE NEXT NULL POINTER
+		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui); //REX 0 HOUSING THIS IS THE NEXT NULL POINTER
 			//I'M PRETTY SURE THE HOST DOESN'T HAVE A HOUSE... ANY WAY TO GET AROUND THIS?
 		((HousingBaseRole) getHousingRole()).gui.DoParty();
 	}
@@ -526,7 +526,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return false;
+		return true;
 	}
 
 
@@ -667,7 +667,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public HousingBase getHousingRole() {
 		for (Role iRole : mRoles.keySet()){
-			if(!(iRole instanceof HousingBase)){
+			if(iRole instanceof HousingBase){
 				return (HousingBase) iRole;
 			}
 		}
@@ -677,16 +677,6 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public CityPerson getPersonGui() {
 		return (CityPerson)mPersonGui;
-	}
-
-	@Override
-	public CityHousing getHouse() {
-		for (Role iRole : mRoles.keySet()){
-			if(!(iRole instanceof HousingBase)){
-				return ((HousingBaseRole) iRole).mHouse;
-			}
-		}
-		return null;
 	}
 
 	@Override
