@@ -7,6 +7,7 @@ import market.interfaces.MarketDeliveryTruck;
 import base.ContactList;
 import base.Location;
 import city.gui.CityComponent;
+import city.gui.SimCityGui;
 
 public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseGui {
 	private MarketDeliveryTruck mAgent;
@@ -98,8 +99,14 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(xPos, yPos, SIZE, SIZE);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(Color.BLACK);
+			g.drawString("MDelivery",xPos,yPos);
+		}
+		else {
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(xPos, yPos, SIZE, SIZE);
+		}
 	}
 	
 /* Action Calls */
