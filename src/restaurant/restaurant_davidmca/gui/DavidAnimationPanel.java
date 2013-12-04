@@ -1,16 +1,19 @@
 package restaurant.restaurant_davidmca.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.Timer;
 
+import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
@@ -27,10 +30,15 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 
 	static int customerCount = 0;
 	static int waiterCount = 0;
-	
+	private final int NUMTABLES = 4;
+	private final int tableSize = 50;
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
-	private static List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
+	private static List<Gui> guis = Collections
+			.synchronizedList(new ArrayList<Gui>());
+	public static Collection<Table> tables;
+	private int[] xpositions = { 0, 125, 225, 325, 225 };
+	private int[] ypositions = { 0, 200, 100, 200, 300 };
 
 	/*
 	 * Data
@@ -50,6 +58,10 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 		customers = new Vector<DavidCustomerRole>();
+		tables = Collections.synchronizedList(new ArrayList<Table>(4));
+		for (int ix = 1; ix <= NUMTABLES; ix++) {
+			tables.add(new Table(ix, xpositions[ix], ypositions[ix], 1));
+		}
 		Timer timer = new Timer(Time.cSYSCLK / 40, this);
 		timer.start();
 	}
@@ -103,6 +115,11 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		// Clear the screen by painting a rectangle the size of the frame
 		g2.setColor(getBackground());
 		g2.fillRect(0, 0, WINDOWX, WINDOWY);
+
+		for (Table table : tables) {
+			g.setColor(Color.ORANGE);
+			g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
+		}
 
 		for (Gui gui : guis) {
 			if (gui.isPresent()) {

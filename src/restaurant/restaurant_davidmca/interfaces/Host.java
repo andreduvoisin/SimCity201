@@ -21,8 +21,6 @@ public interface Host {
 
 	public abstract Collection<Waiter> getWaitersList();
 
-	public abstract Collection<Table> getTables();
-
 	public abstract Table getAvailableTable();
 
 	public abstract MyWaiter getWaiter();

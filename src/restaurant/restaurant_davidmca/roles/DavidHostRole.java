@@ -7,6 +7,7 @@ import java.util.List;
 
 import restaurant.restaurant_davidmca.MyWaiter;
 import restaurant.restaurant_davidmca.Table;
+import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
@@ -21,12 +22,10 @@ import base.interfaces.Person;
  */
 
 public class DavidHostRole extends BaseRole implements Host {
-	static final int NTABLES = 4;// a global for the number of tables.
 	public List<DavidCustomerRole> waitingCustomers = Collections
 			.synchronizedList(new ArrayList<DavidCustomerRole>());
 	public List<DavidCustomerRole> indecisiveCustomers = Collections
 			.synchronizedList(new ArrayList<DavidCustomerRole>());
-	public Collection<Table> tables;
 	public Collection<MyWaiter> waiters = Collections
 			.synchronizedList(new ArrayList<MyWaiter>());
 	private int workingWaiters = 0;
@@ -34,9 +33,6 @@ public class DavidHostRole extends BaseRole implements Host {
 	public DavidCookRole cook = null;
 
 	private String name;
-	// Table positions
-	private int[] xpositions = { 0, 125, 225, 325, 225 };
-	private int[] ypositions = { 0, 200, 100, 200, 300 };
 
 	public enum WaiterState {
 		Normal, BreakRequested, OnBreak
@@ -46,14 +42,7 @@ public class DavidHostRole extends BaseRole implements Host {
 
 	public DavidHostRole(Person p) {
 		super(p);
-
 		this.name = "DavidHost";
-		// make some tables
-		tables = Collections.synchronizedList(new ArrayList<Table>(NTABLES));
-		// use array of positions
-		for (int ix = 1; ix <= NTABLES; ix++) {
-			tables.add(new Table(ix, xpositions[ix], ypositions[ix], 1));
-		}
 	}
 
 	public String getMaitreDName() {
@@ -85,31 +74,23 @@ public class DavidHostRole extends BaseRole implements Host {
 		return returnWaiters;
 	}
 
-	public Collection<Table> getTables() {
-		return tables;
-	}
-
 	public Table getAvailableTable() {
-		synchronized (tables) {
-			for (Table table : tables) {
+			for (Table table : DavidAnimationPanel.tables) {
 				if (!table.isOccupied()) {
 					return table;
 				}
 			}
-		}
 		return null;
 	}
 
 	private boolean getAvailability() {
 		int opentables = 0;
-		synchronized (tables) {
-			for (Table t : tables) {
+			for (Table t : DavidAnimationPanel.tables) {
 				if (!t.isOccupied()) {
 					opentables++;
 				}
 			}
-		}
-		if (opentables == 0 || (waitingCustomers.size() >= tables.size())) {
+		if (opentables == 0 || (waitingCustomers.size() >= DavidAnimationPanel.tables.size())) {
 			return false;
 		} else {
 			return true;
@@ -186,8 +167,7 @@ public class DavidHostRole extends BaseRole implements Host {
 				return true;
 			}
 		}
-		synchronized (tables) {
-			for (Table table : tables) {
+			for (Table table : DavidAnimationPanel.tables) {
 				if (!table.isOccupied() && !waitingCustomers.isEmpty()
 						&& !waiters.isEmpty()) {
 					MyWaiter waiterToUse = getWaiter();
@@ -196,7 +176,6 @@ public class DavidHostRole extends BaseRole implements Host {
 					return true;
 				}
 			}
-		}
 		synchronized (waiters) {
 			for (MyWaiter myw : waiters) {
 				if (myw.state == WaiterState.BreakRequested) {

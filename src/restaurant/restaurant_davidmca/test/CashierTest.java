@@ -26,8 +26,7 @@ public class CashierTest extends TestCase {
 		market1 = new MockMarket("Fresh 'n Easy");
 		market2 = new MockMarket("Superior");
 		PersonAgent testPerson = new PersonAgent();
-		cashier = new DavidCashierRole("testCashier");
-		cashier.setPerson(testPerson);
+		cashier = new DavidCashierRole(testPerson);
 		cashier.totalCash = 10000;
 		customer = new MockCustomer("mockcustomer");
 		customer2 = new MockCustomer("mockcustomer2");
