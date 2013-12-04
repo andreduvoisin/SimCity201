@@ -3,6 +3,7 @@ package restaurant.intermediate;
 import city.gui.SimCityGui;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
+import restaurant.restaurant_cwagoner.roles.CwagonerSharedWaiterRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
@@ -57,12 +58,19 @@ public class RestaurantWaiterRole extends BaseRole implements
 			}
 			break;
 		case 1: // chase
-			//CHASE: add shared data waiter
-			subRole = new CwagonerWaiterRole(super.mPerson);
-			((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
+			if (mWaiterType == 1) {
+				subRole = new CwagonerWaiterRole(super.mPerson);
+				((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
+			}
+			else if (mWaiterType == 0) {
+				subRole = new CwagonerSharedWaiterRole(super.mPerson);
+				((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
+			}
 			break;
 		case 2:
-			if (mWaiterType == 1) {
+			if (mWaiterType == 1) {//JERRY: shouldn't you use citypanel.masterRestaurantList.get(2)?
+									// This statically adds a waiter to your rest.panel class
+									// but not to the masterRestaurantList (is taken care of elsewhere?)
 				subRole = new JerrywebWaiterRole(super.mPerson);
 				JerrywebRestaurantPanel.addWaiter((JerrywebWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
