@@ -22,7 +22,7 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      * and the animation frame, (in variable animationFrame within gui)
      */
 	JFrame animationFrame = new JFrame("Restaurant Animation");
-	AnimationPanel animationPanel = new AnimationPanel();
+	JerrywebAnimationPanel animationPanel = new JerrywebAnimationPanel();
 	
     /* restPanel holds 2 panels
      * 1) the staff listing, menu, and lists of current customers all constructed

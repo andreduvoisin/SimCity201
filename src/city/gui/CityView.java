@@ -16,6 +16,7 @@ import market.gui.MarketPanel.EnumMarketType;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantGui;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
+import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -44,6 +45,32 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
 		
+<<<<<<< HEAD
+		//Rest 0		
+		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
+		city.citypanel.masterRestaurantList.add(aduvoisin.restPanel);
+		cards.put("R_aduvoisin", aduvoisin);
+		
+		//Rest 1
+		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
+		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
+		cards.put("R_cwagoner", cwagoner);
+
+		//Rest 2
+		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city);
+		city.citypanel.masterRestaurantList.add(jerryweb);
+		cards.put("R_jerryweb", jerryweb);
+		
+		//Rest 3		
+		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
+		city.citypanel.masterRestaurantList.add(maggiyan.restPanel);
+		cards.put("R_Maggiyan", maggiyan);
+		
+		//Rest 4
+		DavidRestaurantGui davidmca = new DavidRestaurantGui(city);
+		city.citypanel.masterRestaurantList.add(davidmca.restPanel);
+		cards.put("R_davidmca", davidmca);
+=======
 		//DAVID temporarily disabling restaurants
 		
 //		//Rest 0		
@@ -70,6 +97,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		DavidRestaurantGui davidmca = new DavidRestaurantGui(city);
 //		city.citypanel.masterRestaurantList.add(davidmca.restPanel);
 //		cards.put("R_davidmca", davidmca);
+>>>>>>> 00b80eb6677c26f706a80d1c30b3c358e743f6c9
 		
 		//Rest 5
 		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city);

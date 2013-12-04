@@ -34,7 +34,6 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityHousing;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
@@ -102,6 +101,10 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case NONE:
 				break;
+		}
+		
+		if (jobRole == null) {
+			print("jobRole is null!");
 		}
 		
 		//Link person and role
@@ -574,6 +577,7 @@ public class PersonAgent extends Agent implements Person {
 				return iRole;
 			}
 		}
+		print("job role null!");
 		return null;
 	}
 	

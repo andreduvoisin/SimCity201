@@ -86,6 +86,8 @@ public class JerrywebRestaurantPanel extends JPanel  {
         
     }
 
+    
+    
    public JCheckBox getLpChbx (){
 	   	return customerPanel.getChbx();
    }
