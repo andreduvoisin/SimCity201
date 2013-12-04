@@ -59,9 +59,6 @@ public class CityPerson extends CityComponent {
         else if (y > yDestination)	y--;
         
         if (x == xDestination && y == yDestination) {
-        	//this.disable();
-        	//mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
-        	
         	if(mNextDestination != null){
         		DoGoToNextDestination();
         	}else{
@@ -141,16 +138,43 @@ public class CityPerson extends CityComponent {
 //		
 //	}
 	
-	public void DoGoToDestination(Location location){
+	public void DoGoToDestination(Location destination){
 		this.enable(); 
+		mNextDestination = destination;//correct?
+
 		if(mPerson.hasCar()){
 			//MAGGI ANGELICA: write car gui code
-			//Suggestion: Just drive to the building..? 
-		}else{
-			Location myLocation = new Location(x, y);
-			DoGoToCorner(myLocation); 
+			//Suggestion: Just drive to the building..?
+		}
+
+		/* Given no car, what if it's closer to walk straight there than to take a bus?
+		 * NOTE: this could cause people to seldom take the bus, which would be bad. We'll see.
+		 *
+		 * totalBusDistance = distance to nearest corner
+		 * 						+ distance from bus-exit corner to destination
+		 * totalWalkDistance = distance from current location to destination
+		 *
+		 * if totalWalkDistance < totalBusDistance, then walk
+		 */
+
+		Location myLocation = new Location(x, y);
+		Location cornerNearCurrent = findNearestCorner(myLocation);
+		Location cornerNearDest = findNearestCorner(destination);
+
+		int totalBusDistance = Math.abs(cornerNearCurrent.mX - x)
+								+ Math.abs(cornerNearCurrent.mY - y)
+								+ Math.abs(cornerNearDest.mX - destination.mX)
+								+ Math.abs(cornerNearDest.mY - destination.mY);
+
+		int totalWalkDistance = Math.abs(destination.mX - x)
+								+ Math.abs(destination.mY - y);
+
+		if (totalWalkDistance < totalBusDistance) {
+			DoWalkToDestination();
+		}
+		else{
+			DoGoToCorner(myLocation); // created earlier
 			//Checks if the closest corner to person is also closest corner to destination
-	
 		}
 	}
 	
@@ -185,13 +209,13 @@ public class CityPerson extends CityComponent {
 	public void DoTakeBus(){
 		
 	}
-	
-	public void DoGoToBusStop(Location location){
-		
-	}
 
 	/**
 	 * Finds closest corner location to desired destination
+	 * <pre>
+	 * 1  0
+	 * 2  3
+	 * </pre>
 	 * @param destination Target position in form of a Location object
 	 * @return (Location object) corners.get(determined nearest corner)
 	 */
@@ -206,13 +230,13 @@ public class CityPerson extends CityComponent {
 				return corners.get(1); 
 			}
 		// Bottom
-			// right
-			else if (destination.mX > 180 && destination.mY > 180) {
-				return corners.get(3); 
-			}
 			// left
 			else if (destination.mX < 180 && destination.mY > 180) {
 				return corners.get(2); 
+			}
+			// right
+			else if (destination.mX > 180 && destination.mY > 180) {
+				return corners.get(3); 
 			}
 			else
 				return null;
