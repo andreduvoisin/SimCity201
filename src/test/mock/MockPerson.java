@@ -2,14 +2,14 @@ package test.mock;
 
 import java.util.Map;
 
-import city.gui.CityHousing;
-import city.gui.CityPerson;
 import bank.interfaces.BankMasterTeller;
 import base.Event;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityHousing;
+import city.gui.CityPerson;
 
 /**
  * MockPerson built to unit test Housing

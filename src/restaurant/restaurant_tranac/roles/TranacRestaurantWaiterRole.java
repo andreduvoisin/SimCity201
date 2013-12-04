@@ -1,16 +1,24 @@
 package restaurant.restaurant_tranac.roles;
 
-import restaurant.restaurant_tranac.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.Semaphore;
+
+import restaurant.restaurant_tranac.TranacCheck;
+import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_tranac.gui.TranacWaiterGui;
-import restaurant.restaurant_tranac.interfaces.*;
+import restaurant.restaurant_tranac.interfaces.TranacCashier;
+import restaurant.restaurant_tranac.interfaces.TranacCook;
+import restaurant.restaurant_tranac.interfaces.TranacCustomer;
+import restaurant.restaurant_tranac.interfaces.TranacHost;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * Restaurant Waiter Agent
@@ -148,20 +156,20 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	}
 
 	public void msgWantToGoOnBreak() {
-		Do("Want to go on break.");
+		print("Want to go on break.");
 		mState = WaiterState.WantToGoOnBreak;
 		stateChanged();
 	}
 	
 	public void msgGoOnBreak() {
-		Do("Go on break.");
+		print("Go on break.");
 		mState = WaiterState.CanGoOnBreak;
 		askingForBreak.release();
 		stateChanged();
 	}
 	
 	public void msgNoBreak() {
-		Do("No break for me.");
+		print("No break for me.");
 		mState = WaiterState.NoBreak;
 		askingForBreak.release();
 		stateChanged();
@@ -295,7 +303,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 
 	/** Actions */
 	private void seatCustomer(MyCustomer c) {
-		Do("Seating customer");
+		print("Seating customer");
 		DoGoToWaitingArea(c.n);
 		c.c.msgFollowMe(new TranacMenu(), this);	//tell customer to follow
 		mHost.msgCustomerSeated(c.c);		//tell host customer is seated
@@ -305,7 +313,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	
 	private void takeOrder(MyCustomer c) {
 		DoGoToTable(c.table);
-		Do("What do you want to eat, " + c.getName() + "?");
+		print("What do you want to eat, " + c.getName() + "?");
 		c.c.msgWhatDoYouWant();
 		try {
 			waitingForOrder.acquire();		//wait for customer to reply
@@ -316,21 +324,21 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	}
 
 	private void tellCustomerOutOfFood(MyCustomer c) {
-		Do("Telling customer out of food.");
+		print("Telling customer out of food.");
 		DoGoToTable(c.table);
 		c.c.msgOutOfChoice();
 		c.s = CustomerState.Reordering;
 	}
 	
 	private void sendOrder(MyCustomer c) {
-		Do("Sending order.");
+		print("Sending order.");
 		DoGoToCook();
 		c.s = CustomerState.WaitingForFood;
 		mCook.msgHereIsOrder(this, c.choice, c.table);
 	}
 	
 	private void deliverFood(MyCustomer c) {
-		Do("Delivering food to " + c.getName() + ".");
+		print("Delivering food to " + c.getName() + ".");
 		DoGoToGetOrder(c.orderNum);
 		mCook.msgOrderPickedUp(this, c.choice);
 		
@@ -343,14 +351,14 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	}
 	
 	private void computeCheck(MyCustomer c) {
-		Do("Asking cashier for check");
+		print("Asking cashier for check");
 		c.s = CustomerState.WaitingForCheck;
 		DoGoToCashier();
 		mCashier.msgComputeCheck(this,c.c,c.choice);
 	}
 	
 	private void giveCheck(MyCustomer c) {
-		Do("Giving check to customer.");
+		print("Giving check to customer.");
 		c.s = CustomerState.Paying;
 		DoGoToCashier();
 		waiterGui.setDeliveringCheck();
@@ -360,7 +368,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	}
 	
 	private void freeTable(MyCustomer c) {
-		Do("Freeing table.");
+		print("Freeing table.");
 		DoGoToTable(c.table);			//"clean" table
 		DoGoToHost();					//"tell" the host table is free
 		mHost.msgTableIsFree(c.table);
@@ -368,7 +376,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	}
 /*
 	private void askToGoOnBreak() {
-		Do("Asking to go on break.");
+		print("Asking to go on break.");
 		mHost.msgWantToGoOnBreak(this);
 		try {
 			askingForBreak.acquire();		//wait for customer to reply
@@ -379,7 +387,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	}
 	
 	private void goOnBreak() {
-		Do("Going on break.");
+		print("Going on break.");
 		mState = WaiterState.OnBreak;
 		DoGoToHome();
 		timer.schedule(new TimerTask() {
@@ -391,7 +399,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	}
 
 	private void goOffBreak() {
-		Do("Coming off of break.");
+		print("Coming off of break.");
 		mState = WaiterState.Active;
 		waiterGui.setBreak();
 		mHost.msgBackFromBreak(this);

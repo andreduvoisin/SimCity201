@@ -1,14 +1,21 @@
 package restaurant.restaurant_maggiyan.gui;
 
-import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
-
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.util.List;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 /**
  * Subpanel of restaurantPanel.

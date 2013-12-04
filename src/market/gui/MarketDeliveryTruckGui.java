@@ -1,11 +1,12 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
-import city.gui.CityComponent;
+import market.interfaces.MarketDeliveryTruck;
 import base.ContactList;
 import base.Location;
-import market.interfaces.MarketDeliveryTruck;
+import city.gui.CityComponent;
 
 public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseGui {
 	private MarketDeliveryTruck mAgent;

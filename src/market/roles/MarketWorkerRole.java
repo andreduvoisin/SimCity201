@@ -5,11 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import city.gui.SimCityGui;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
-import market.gui.MarketPanel;
 import market.gui.MarketWorkerGui;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketWorker;
@@ -17,6 +15,7 @@ import base.BaseRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import city.gui.SimCityGui;
 
 /**
  * MarketWorkerRole for SimCity Market agents.

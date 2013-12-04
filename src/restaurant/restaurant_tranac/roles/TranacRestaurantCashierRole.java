@@ -1,14 +1,19 @@
 package restaurant.restaurant_tranac.roles;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacCashierGui;
-import restaurant.restaurant_tranac.interfaces.*;
+import restaurant.restaurant_tranac.interfaces.TranacCashier;
+import restaurant.restaurant_tranac.interfaces.TranacCustomer;
+import restaurant.restaurant_tranac.interfaces.TranacMarket;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
-
-import java.util.*;
 
 /**
  * Restaurant Cook Agent

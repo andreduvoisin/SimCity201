@@ -1,18 +1,14 @@
 package restaurant.restaurant_maggiyan.roles;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Timer;
-import java.util.TimerTask;
 
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 
 
 /**

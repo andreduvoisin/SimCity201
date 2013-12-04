@@ -1,9 +1,11 @@
 package restaurant.restaurant_cwagoner.test.mock;
 
-import restaurant.restaurant_cwagoner.interfaces.*;
-
 import java.awt.Dimension;
 import java.util.HashMap;
+
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 
 
 public class MockCustomer extends Mock implements CwagonerCustomer {

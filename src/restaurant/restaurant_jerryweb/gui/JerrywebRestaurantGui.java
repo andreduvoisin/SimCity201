@@ -1,14 +1,18 @@
 package  restaurant.restaurant_jerryweb.gui;
 
-import  restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
-
-import java.awt.*;
-import java.awt.event.*;
 /**
  * Main GUI class.
  * Contains the main frame and subsequent panels

@@ -1,16 +1,14 @@
 package restaurant.restaurant_jerryweb.test;
 
-import java.util.Map;
-
+import junit.framework.TestCase;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole.mBillState;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 //import restaurant.CashierAgent.cashierBillState;
 //import restaurant.WaiterAgent.Bill;
 import restaurant.restaurant_jerryweb.test.mock.MockCustomer;
-import restaurant.restaurant_jerryweb.test.mock.MockWaiter;
 import restaurant.restaurant_jerryweb.test.mock.MockMarket;
-import junit.framework.*;
+import restaurant.restaurant_jerryweb.test.mock.MockWaiter;
 
 /**
  * 

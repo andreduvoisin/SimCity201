@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.SimCityGui;
 import bank.BankAccount;
 import bank.BankTransaction;
 import bank.gui.BankPanel;
@@ -15,6 +14,7 @@ import base.BaseRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import city.gui.SimCityGui;
 
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	

@@ -1,7 +1,5 @@
 package restaurant.restaurant_jerryweb.interfaces;
 
-import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
-import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 
 public interface Waiter {
 

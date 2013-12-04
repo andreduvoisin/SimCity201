@@ -4,7 +4,6 @@ package restaurant.restaurant_maggiyan.test.mock;
 import java.util.Map;
 
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCookRole;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 
 /**

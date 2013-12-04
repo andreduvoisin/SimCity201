@@ -1,13 +1,13 @@
 package restaurant.restaurant_maggiyan.gui;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*; 
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;

@@ -2,10 +2,8 @@ package restaurant.restaurant_smileham.roles;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,14 +18,12 @@ import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;
-import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
-import base.BaseRole;
 import base.ContactList;
-import base.Location;
-import base.interfaces.Person;
 import base.Item;
 import base.Item.EnumItemType;
+import base.Location;
+import base.interfaces.Person;
 
 public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook {
 	//Member Variables

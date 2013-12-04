@@ -1,6 +1,6 @@
 package base;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public interface Gui {
 

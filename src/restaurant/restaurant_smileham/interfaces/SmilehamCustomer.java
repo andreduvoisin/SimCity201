@@ -1,7 +1,7 @@
 package restaurant.restaurant_smileham.interfaces;
 
-import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
+import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
 import restaurant.restaurant_smileham.test.mock.EventLog;

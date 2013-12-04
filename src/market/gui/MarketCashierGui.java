@@ -1,12 +1,11 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import base.BaseRole;
 import market.interfaces.MarketCashier;
 import market.roles.MarketCashierRole;
 

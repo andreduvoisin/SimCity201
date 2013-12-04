@@ -1,8 +1,6 @@
 package restaurant.restaurant_jerryweb.agent;
 
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.Semaphore;
 
 /**
  * Base class for simple agents

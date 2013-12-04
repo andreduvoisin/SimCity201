@@ -1,7 +1,9 @@
 package restaurant.restaurant_tranac.test.mock;
 
-import restaurant.restaurant_tranac.interfaces.*;
-import test.mock.*;
+import restaurant.restaurant_tranac.interfaces.TranacCook;
+import restaurant.restaurant_tranac.interfaces.TranacMarket;
+import test.mock.LoggedEvent;
+import test.mock.Mock;
 
 /**
  * MockMarket built for unit testing.

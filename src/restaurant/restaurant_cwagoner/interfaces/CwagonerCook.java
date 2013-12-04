@@ -1,6 +1,7 @@
 package restaurant.restaurant_cwagoner.interfaces;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 

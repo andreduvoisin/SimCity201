@@ -1,16 +1,15 @@
 package bank.gui;
 
-import bank.interfaces.BankCustomer;
-import base.Gui;
-import base.Location;
-
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+
+import bank.interfaces.BankCustomer;
+import base.Gui;
 
 public class BankCustomerGui implements Gui {
 

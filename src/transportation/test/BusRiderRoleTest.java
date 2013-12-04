@@ -1,19 +1,6 @@
 package transportation.test;
 
-import city.gui.CityHousing;
-import city.gui.SimCityGui;
-import test.mock.MockPerson;
-import housing.roles.HousingLandlordRole;
-import housing.roles.HousingRenterRole;
-import housing.test.mock.MockLandlord;
-import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
-import bank.test.mock.MockMasterTellerRole;
-import base.ContactList;
-import base.Location;
-import base.PersonAgent;
-import base.interfaces.Person;
-import base.interfaces.Role;
 
 /**
  * 

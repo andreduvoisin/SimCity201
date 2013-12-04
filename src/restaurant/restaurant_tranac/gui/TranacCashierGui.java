@@ -1,14 +1,13 @@
 package restaurant.restaurant_tranac.gui;
 
-import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+
+import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
 
 public class TranacCashierGui implements Gui {
 

@@ -1,15 +1,21 @@
 package restaurant.restaurant_xurex.agents;
 
-import base.Agent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+//import java.util.concurrent.Semaphore;
+import java.util.concurrent.Semaphore;
+
 import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
-
-import java.util.*;
-//import java.util.concurrent.Semaphore;
-import java.util.concurrent.Semaphore;
+import base.Agent;
 
 /**
  * Restaurant Cook Agent

@@ -1,18 +1,18 @@
 package restaurant.restaurant_jerryweb;
 
-import restaurant.restaurant_jerryweb.agent.Agent;
-import restaurant.restaurant_jerryweb.JerrywebWaiterRole.CustomerState;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.concurrent.Semaphore;
+
 import restaurant.restaurant_jerryweb.gui.HostGui;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
-
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
-import base.interfaces.Role;
 
 /**
  * Restaurant Host Agent

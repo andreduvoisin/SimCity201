@@ -1,9 +1,11 @@
 package market.test.mock;
 
+import market.MarketInvoice;
+import market.MarketOrder;
 import market.gui.MarketCashierGui;
 import market.interfaces.MarketCashier;
-import test.mock.*;
-import market.*;
+import test.mock.LoggedEvent;
+import test.mock.Mock;
 
 /**
  * MockCashier for unit testing.

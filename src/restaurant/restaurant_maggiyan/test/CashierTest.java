@@ -3,11 +3,11 @@ package restaurant.restaurant_maggiyan.test;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.TestCase;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
 import restaurant.restaurant_maggiyan.test.mock.MockCustomer;
 import restaurant.restaurant_maggiyan.test.mock.MockMarket;
 import restaurant.restaurant_maggiyan.test.mock.MockWaiter;
-import junit.framework.*;
 
 /**
  * 

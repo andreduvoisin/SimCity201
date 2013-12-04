@@ -1,9 +1,8 @@
 package restaurant.restaurant_jerryweb.interfaces;
 
-import java.util.List;
 import java.util.Map;
+
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
-import restaurant.restaurant_jerryweb.JerrywebMarketRole.Order;
 
 public interface Market {
 

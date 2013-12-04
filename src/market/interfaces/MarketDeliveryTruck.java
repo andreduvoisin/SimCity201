@@ -1,6 +1,6 @@
 package market.interfaces;
 
-import market.*;
+import market.MarketOrder;
 
 /** 
  * DeliveryTruck interface for SimCity Markets.

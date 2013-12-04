@@ -1,6 +1,7 @@
 package restaurant.restaurant_duvoisin;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Restaurant Menu

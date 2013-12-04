@@ -1,17 +1,21 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.interfaces.Waiter;
-import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
-
-import javax.swing.*;
-
-import city.gui.CityCard;
-import city.gui.SimCityGui;
-
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+
+import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 /**
  * Main GUI class.

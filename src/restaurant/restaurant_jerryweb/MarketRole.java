@@ -1,18 +1,15 @@
 package restaurant.restaurant_jerryweb;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import restaurant.restaurant_jerryweb.agent.Agent;
-import restaurant.restaurant_jerryweb.CashierRole.mBillState;
-import restaurant.restaurant_jerryweb.CookRole.Food;
-import restaurant.restaurant_jerryweb.CookRole.FoodState;
-import restaurant.restaurant_jerryweb.CookRole.OrderState;
-import restaurant.restaurant_jerryweb.CustomerRole.AgentEvent;
-import restaurant.restaurant_jerryweb.WaiterRole.CustomerState;
-import restaurant.restaurant_jerryweb.gui.HostGui;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Market;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * Market Agent

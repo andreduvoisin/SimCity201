@@ -6,14 +6,14 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
-import base.interfaces.Person;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
+import base.interfaces.Person;
 
 
 /**

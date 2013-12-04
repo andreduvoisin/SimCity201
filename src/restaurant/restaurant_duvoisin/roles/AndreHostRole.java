@@ -1,14 +1,17 @@
 package restaurant.restaurant_duvoisin.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
 import restaurant.restaurant_duvoisin.gui.TableGui;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
 
 /**
  * Restaurant Host Agent

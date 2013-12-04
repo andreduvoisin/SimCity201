@@ -1,16 +1,15 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
-import market.gui.MarketPanel.EnumMarketType;
-import market.roles.MarketCashierRole;
-
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import market.gui.MarketPanel.EnumMarketType;
+import market.roles.MarketCashierRole;
 import base.Item.EnumItemType;
 
 

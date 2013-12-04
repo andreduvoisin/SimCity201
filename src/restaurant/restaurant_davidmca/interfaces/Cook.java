@@ -1,12 +1,9 @@
 package restaurant.restaurant_davidmca.interfaces;
 
-import java.util.Collection;
 import java.util.List;
 
 import restaurant.restaurant_davidmca.Order;
-import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.agents.MarketAgent;
 import restaurant.restaurant_davidmca.gui.CookGui;
 
 public interface Cook {

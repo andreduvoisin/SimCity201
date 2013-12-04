@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import bank.gui.BankPanel;
+import bank.roles.BankMasterTellerRole;
 
 public class ContactList {
 		
@@ -60,6 +60,7 @@ public class ContactList {
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	public static List<Location> cBUS_STOPS;
+	public static BankMasterTellerRole masterTeller;
 	
 	
 	//setup job locations
@@ -126,7 +127,7 @@ public class ContactList {
 	//----------------------------------------------------------OTHER----------------------------------------------------------
 		
 	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
-		BankPanel.getInstance().masterTeller.msgSendPayment(senderSSN, receiverSSN, amount);
+		masterTeller.msgSendPayment(senderSSN, receiverSSN, amount);
 	}
 	//REX: 5 change list iteration and put bank master teller outside
 }

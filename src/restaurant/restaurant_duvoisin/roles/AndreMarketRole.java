@@ -1,14 +1,20 @@
 package restaurant.restaurant_duvoisin.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
 import restaurant.restaurant_duvoisin.MarketPrices;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Market;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
 
 /**
  * Restaurant Market Agent

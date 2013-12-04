@@ -1,7 +1,6 @@
 package city.gui;
 
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import market.gui.MarketPanel;
 import transportation.TransportationBusDispatch;
 import bank.gui.BankPanel;
 import base.ContactList;
-import base.Location;
 import base.interfaces.Person;
 
 @SuppressWarnings("serial")

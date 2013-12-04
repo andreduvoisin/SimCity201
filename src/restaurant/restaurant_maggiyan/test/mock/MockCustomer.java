@@ -6,7 +6,6 @@ import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
-import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.

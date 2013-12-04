@@ -1,20 +1,23 @@
 package restaurant.restaurant_tranac.roles;
 
-import restaurant.restaurant_tranac.TranacCheck;
-import restaurant.restaurant_tranac.TranacMenu;
-import restaurant.restaurant_tranac.gui.TranacCustomerGui;
-import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
-import restaurant.restaurant_tranac.interfaces.*;
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
-import base.interfaces.Person;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import restaurant.restaurant_tranac.TranacCheck;
+import restaurant.restaurant_tranac.TranacMenu;
+import restaurant.restaurant_tranac.gui.TranacCustomerGui;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.interfaces.TranacCashier;
+import restaurant.restaurant_tranac.interfaces.TranacCustomer;
+import restaurant.restaurant_tranac.interfaces.TranacHost;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant customer agent.
@@ -301,40 +304,40 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	/** Actions */
 
 	private void goToRestaurant() {
-		Do("Going to restaurant.");
+		print("Going to restaurant.");
 		DoGoToHost();
 	}
 
 	private void tellHostAtRestaurant() {
-		Do("Helloooo.");
+		print("Helloooo.");
 		host.msgIWantFood(this);
 	}
 
 	private void goToWaitingArea() {
-		Do("Going to waiting area " + num);
+		print("Going to waiting area " + num);
 		DoGoToWaitingArea();
 		host.msgAtWaitingArea(this);
 	}
 
 	private void tellHostWillWait() {
-		Do("Telling host I will wait at restaurant.");
+		print("Telling host I will wait at restaurant.");
 		event = AgentEvent.none;
 		host.msgWillWait(this);
 	}
 
 	private void leaveRestaurantEarly() {
-		Do("Telling host I'm leaving.");
+		print("Telling host I'm leaving.");
 		host.msgLeavingEarly(this);
 		DoExitRestaurant();
 	}
 
 	private void sitDown() {
-		Do("Being seated. Going to table.");
+		print("Being seated. Going to table.");
 		DoGoToTable();
 	}
 
 	private void chooseOrder() {
-		Do("Choosing order.");
+		print("Choosing order.");
 		choiceFound = false;
 		boolean poor = false;
 
@@ -345,7 +348,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 		while (!choiceFound) {
 
 			if (pastChoices.size() == menu.getSize()) {
-				Do("No more choices available...");
+				print("No more choices available...");
 				event = AgentEvent.noAvailableFood;
 				return;
 			}
@@ -353,7 +356,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 			int c = Math.abs(rGenerator.nextInt() % 4);
 
 			choice = menu.getChoice(c);
-			Do("Want " + choice);
+			print("Want " + choice);
 
 			double p = menu.getCost(choice);
 
@@ -387,7 +390,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	}
 
 	private void chooseToStay() {
-		Do("Deciding to stay (and be a flake).");
+		print("Deciding to stay (and be a flake).");
 		if (flake)
 			event = AgentEvent.decidedToStay;
 		else
@@ -395,18 +398,18 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	}
 
 	private void orderFood() {
-		Do("Ordering " + choice + ".");
+		print("Ordering " + choice + ".");
 		customerGui.setFood(choice); // create food icon
 		customerGui.setOrdering();
 		waiter.msgReceivedOrder(this, choice);
 	}
 
 	private void eatFood() {
-		Do("Eating food.");
+		print("Eating food.");
 		customerGui.setEating(); // removes the question mark from food icon
 		timer.schedule(new TimerTask() {
 			public void run() {
-				Do("Done eating.");
+				print("Done eating.");
 				event = AgentEvent.doneEating;
 				stateChanged();
 			}
@@ -414,13 +417,13 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	}
 
 	private void askForCheck() {
-		Do("Asking for check.");
+		print("Asking for check.");
 		customerGui.setAlerting();
 		waiter.msgAskingForCheck(this);
 	}
 
 	private void payCheck() {
-		Do("Paying check of " + check.getAmount());
+		print("Paying check of " + check.getAmount());
 		// check if customer can afford payment. if he can't, he must be a flake
 		if (check.getAmount() <= money) {
 			money -= check.getAmount();
@@ -428,17 +431,17 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 					.SendPayment(getSSN(), check.getSsn(), check.getAmount());
 			cashier.msgHereIsPayment(this, check.getAmount());
 		} else {
-			Do("Flaking like a boss.");
+			print("Flaking like a boss.");
 			cashier.msgHereIsPayment(this, 0);
 		}
 	}
 
 	private void leaveRestaurant() {
-		Do("Leaving.");
+		print("Leaving.");
 
 		// check change from check
 		if (check != null) {
-			Do("Adding change " + check.getChange() + " to money.");
+			print("Adding change " + check.getChange() + " to money.");
 			money += check.getChange();
 		}
 

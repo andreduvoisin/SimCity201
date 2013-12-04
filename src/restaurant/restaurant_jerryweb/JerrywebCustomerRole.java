@@ -1,23 +1,18 @@
 package restaurant.restaurant_jerryweb;
 
-import restaurant.restaurant_jerryweb.gui.CustomerGui;
-import restaurant.restaurant_jerryweb.gui.Menu;
-import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
-import restaurant.restaurant_jerryweb.interfaces.Customer;
-import restaurant.restaurant_jerryweb.interfaces.Host;
-import restaurant.restaurant_jerryweb.interfaces.Waiter;
-import restaurant.restaurant_jerryweb.agent.Agent;
-
-import java.awt.MenuItem;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import restaurant.restaurant_jerryweb.gui.CustomerGui;
+import restaurant.restaurant_jerryweb.gui.Menu;
+import restaurant.restaurant_jerryweb.interfaces.Customer;
+import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Event;
-import base.Location;
 import base.Event.EnumEventType;
+import base.Location;
 import base.interfaces.Person;
 
 /**

@@ -2,8 +2,8 @@ package transportation;
 
 import java.util.ArrayList;
 
-import base.Location;
 import transportation.interfaces.TransportationRider;
+import base.Location;
 
 public class TransportationBusStop {
 	static int sStopNumber = 0;

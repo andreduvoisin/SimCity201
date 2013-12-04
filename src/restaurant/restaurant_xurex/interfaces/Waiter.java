@@ -1,6 +1,8 @@
 package restaurant.restaurant_xurex.interfaces;
 
-import restaurant.restaurant_xurex.utilities.*;
+import restaurant.restaurant_xurex.utilities.MyCustomer;
+import restaurant.restaurant_xurex.utilities.Order;
+import restaurant.restaurant_xurex.utilities.WaiterState;
 
 
 public interface Waiter {

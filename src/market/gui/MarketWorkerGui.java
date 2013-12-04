@@ -1,16 +1,15 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 import javax.imageio.ImageIO;
 
-import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
-import base.Item.EnumItemType;
-import market.*;
+import market.MarketOrder;
 import market.interfaces.MarketWorker;
+import base.Item.EnumItemType;
 
 public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorker mAgent;

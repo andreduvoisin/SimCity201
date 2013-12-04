@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import restaurant.restaurant_jerryweb.JerrywebMarketRole;
-
+import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebMarketRole.Order;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
 import restaurant.restaurant_jerryweb.interfaces.Cook;
-import  restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.interfaces.Market;
 
 public class MockMarket extends Mock implements Market {

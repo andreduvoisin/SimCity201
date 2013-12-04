@@ -2,10 +2,8 @@ package restaurant.restaurant_jerryweb.test.mock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimerTask;
 
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole.MyCustomer;
-import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;

@@ -1,6 +1,8 @@
 package restaurant.restaurant_cwagoner.test.mock;
 
-import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 
 public class MockWaiter extends Mock implements CwagonerWaiter {
 

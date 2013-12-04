@@ -2,7 +2,6 @@ package housing.gui;
 
 import housing.roles.HousingBaseRole;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import base.Gui;
-import base.Time;
 import city.gui.CityHousing;
 
 /*

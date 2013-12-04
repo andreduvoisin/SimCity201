@@ -1,10 +1,11 @@
 package restaurant.restaurant_cwagoner.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+
 import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
-
-import java.awt.*;
-
 import base.Location;
 
 public class CwagonerCustomerGui implements CwagonerGui {

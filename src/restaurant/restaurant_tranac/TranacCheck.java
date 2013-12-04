@@ -1,6 +1,7 @@
 package restaurant.restaurant_tranac;
 
-import restaurant.restaurant_tranac.interfaces.*;
+import restaurant.restaurant_tranac.interfaces.TranacCustomer;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 
 public class TranacCheck {
 	TranacWaiter waiter;
