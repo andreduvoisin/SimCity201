@@ -526,6 +526,8 @@ public class PersonAgent extends Agent implements Person {
 
 
 	private void boardBus() {
+		int boardAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		int exitAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
 		Role jobRole = getJobRole();
 		int boardAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
 		int exitAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mFinalDestination);
@@ -539,7 +541,7 @@ public class PersonAgent extends Agent implements Person {
 
 	private void exitBus() {
 		mRoleFinished = true;
-		mPersonGui.NewDestination(new Location(mPersonGui.mFinalDestination.mX, mPersonGui.mFinalDestination.mY));
+		mPersonGui.NewDestination(new Location(mPersonGui.mNextDestination.mX, mPersonGui.mNextDestination.mY));
 	}
 
 	private void acquireSemaphore(Semaphore semaphore){
