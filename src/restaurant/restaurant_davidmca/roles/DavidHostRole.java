@@ -14,6 +14,7 @@ import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Host Agent
@@ -43,10 +44,10 @@ public class DavidHostRole extends BaseRole implements Host {
 
 	public HostGui hostGui = null;
 
-	public DavidHostRole(String name) {
-		super(null);
+	public DavidHostRole(Person p) {
+		super(p);
 
-		this.name = name;
+		this.name = "DavidHost";
 		// make some tables
 		tables = Collections.synchronizedList(new ArrayList<Table>(NTABLES));
 		// use array of positions

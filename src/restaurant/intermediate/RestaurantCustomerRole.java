@@ -1,6 +1,8 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import base.BaseRole;
@@ -47,13 +49,11 @@ public class RestaurantCustomerRole extends BaseRole implements
 //			((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).addCustomer(
 //					(MaggiyanCustomerRole) subRole);
 //			break;
-//		case 4: // david
-//			subRole = new DavidCustomerRole(super.mPerson);
-//			((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).addCustomer(
-//					(DavidCustomerRole) subRole);
-//			break;
+		case 4: // david
+			subRole = new DavidCustomerRole(super.mPerson);
+			DavidAnimationPanel.addCustomer((DavidCustomerRole) subRole);
+			break;
 		case 5: // shane
-			System.out.println("Making Customer");
 			subRole = new SmilehamCustomerRole(super.mPerson);
 			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 			break;

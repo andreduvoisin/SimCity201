@@ -1,6 +1,8 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_davidmca.roles.DavidHostRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import base.BaseRole;
@@ -41,10 +43,10 @@ public class RestaurantHostRole extends BaseRole implements
 //			subRole = ((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).host;
 //			subRole.setPerson(super.mPerson);
 //			break;
-//		case 4: // david
-//			subRole = ((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).host;
-//			subRole.setPerson(super.mPerson);
-//			break;
+		case 4: // david
+			subRole = new DavidHostRole(super.mPerson);
+			DavidAnimationPanel.host = (DavidHostRole) subRole;
+			break;
 		case 5: // shane
 			subRole = new SmilehamHostRole(super.mPerson);
 			SmilehamAnimationPanel.addPerson((SmilehamHostRole) subRole);

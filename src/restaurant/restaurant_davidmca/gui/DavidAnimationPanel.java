@@ -30,7 +30,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 	
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
-	private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
+	private static List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
 
 	/*
 	 * Data
@@ -54,7 +54,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		timer.start();
 	}
 
-	public void addCustomer(DavidCustomerRole cust) {
+	public static void addCustomer(DavidCustomerRole cust) {
 		CustomerGui g = new CustomerGui(cust, customerCount);
 		customerCount++;
 		addGui(g);
@@ -65,7 +65,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		customers.add(cust);
 	}
 
-	public void addWaiter(DavidWaiterRole waiter) {
+	public static void addWaiter(DavidWaiterRole waiter) {
 		WaiterGui g = new WaiterGui(waiter, waiterCount);
 		waiterCount++;
 		addGui(g);
@@ -75,7 +75,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		waiter.setCashier(cashier);
 	}
 
-	public void addSharedWaiter(DavidWaiterRoleShared waiter) {
+	public static void addSharedWaiter(DavidWaiterRoleShared waiter) {
 		WaiterGui g = new WaiterGui(waiter, waiterCount);
 		waiterCount++;
 		addGui(g);
@@ -111,15 +111,15 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		}
 	}
 
-	public void addGui(WaiterGui g) {
+	public static void addGui(WaiterGui g) {
 		guis.add(g);
 	}
 
-	public void addGui(CustomerGui g) {
+	public static void addGui(CustomerGui g) {
 		guis.add(g);
 	}
 
-	public void addGui(HostGui gui) {
+	public static void addGui(HostGui gui) {
 		guis.add(gui);
 	}
 

@@ -1,6 +1,9 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.BaseRole;
@@ -8,6 +11,7 @@ import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.SimCityGui;
 
 public class RestaurantWaiterRole extends BaseRole implements
 		RestaurantBaseInterface {
@@ -70,17 +74,15 @@ public class RestaurantWaiterRole extends BaseRole implements
 //						(MaggiyanSharedWaiterRole) subRole);
 //			}
 //			break;
-//		case 4: // david
-//			if (mWaiterType == 1) {
-//				subRole = new DavidWaiterRole(super.mPerson);
-//				((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).addWaiter(
-//						(DavidWaiterRole) subRole);
-//			} else if (mWaiterType == 2) {
-//				subRole = new DavidWaiterRoleShared(super.mPerson);
-//				((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).addSharedWaiter(
-//						(DavidWaiterRoleShared) subRole);
-//			}
-//			break;
+		case 4: // david
+			if (mWaiterType == 1) {
+				subRole = new DavidWaiterRole(super.mPerson);
+				DavidAnimationPanel.addWaiter((DavidWaiterRole) subRole);
+			} else if (mWaiterType == 2) {
+				subRole = new DavidWaiterRoleShared(super.mPerson);
+				DavidAnimationPanel.addSharedWaiter((DavidWaiterRoleShared) subRole);
+			}
+			break;
 		case 5: // shane
 			if (mWaiterType == 1) {
 				subRole = new SmilehamWaiterRole(mPerson);

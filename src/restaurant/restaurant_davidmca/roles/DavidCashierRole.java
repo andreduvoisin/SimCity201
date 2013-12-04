@@ -14,6 +14,7 @@ import restaurant.restaurant_davidmca.test.mock.LoggedEvent;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
@@ -50,9 +51,9 @@ public class DavidCashierRole extends BaseRole implements Cashier {
 	 * @param name
 	 *            name of the customer
 	 */
-	public DavidCashierRole(String name) {
-		super(null);
-		this.name = name;
+	public DavidCashierRole(Person p) {
+		super(p);
+		this.name = "DavidCashier";
 		totalCash = 100.00;
 	}
 
