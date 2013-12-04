@@ -205,8 +205,4 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 		return mRenterList.size(); 
 	}
 
-	protected void print(String msg) {
-		System.out.println("Landlord - " + msg);
-	}
-
 }

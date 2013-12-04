@@ -35,14 +35,12 @@ public class HousingBaseRole extends BaseRole {
 	public void msgTimeToMaintain() {
 		print("msgTimeToMaintain recieved");
 		mTimeToMaintain = true;
-		System.out.println(mPerson.getName());
 		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}
 
 	public void msgEatAtHome() {
 		mHungry = true;
-		System.out.println(mHouse.mHouseNum);
 		mHouse.mPanel.addGui(gui);
 		stateChanged();
 	}

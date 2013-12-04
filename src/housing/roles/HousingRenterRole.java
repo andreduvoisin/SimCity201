@@ -131,8 +131,4 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 		myLandLord = landlord;
 	}
 
-	protected void print(String msg) {
-		System.out.println("Renter - " + msg);
-	}
-
 }

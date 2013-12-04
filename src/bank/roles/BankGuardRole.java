@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import bank.gui.BankGuardGui;
+import bank.gui.BankTellerGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -36,7 +37,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		super(person);
 		mBankID = bankNumber;
 		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).guard = this;
-		//REX: 1
+		mGUI = new BankGuardGui(this, SimCityGui.getInstance().citypanel.masterBankList.get(mBankID));
 		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).addGui(mGUI);
 	}
 	
