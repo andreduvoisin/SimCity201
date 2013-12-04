@@ -62,7 +62,12 @@ public class SortingHat {
 		
 		//Restaurants
 		int numRestaurants = 8;
-		for (int iRestaurantNum = 0; iRestaurantNum < numRestaurants; iRestaurantNum++){
+		int numStart = 0;
+		if (SimCityGui.TESTNUM >= 0) {
+			numStart = SimCityGui.TESTNUM;
+			numRestaurants = numStart + 1;
+		}
+		for (int iRestaurantNum = numStart; iRestaurantNum < numRestaurants; iRestaurantNum++){
 			sRoles.add(new RestaurantHostRole(null, iRestaurantNum));
 			sRoles.add(new RestaurantCashierRole(null, iRestaurantNum));
 			sRoles.add(new RestaurantCookRole(null, iRestaurantNum));
