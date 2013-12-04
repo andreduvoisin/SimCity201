@@ -57,6 +57,7 @@ public class SortingHat {
 			for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
 				sRoles.add(new MarketWorkerRole(null, iMarketNumber));
 			}
+		}
 		
 		//Restaurants
 		int numRestaurants = 8;
@@ -65,7 +66,7 @@ public class SortingHat {
 			sRoles.add(new RestaurantCashierRole(null, iRestaurantNum));
 			sRoles.add(new RestaurantCookRole(null, iRestaurantNum));
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-				sRoles.add(new RestaurantWaiterRole(null, iRestaurantNum));
+				sRoles.add(new RestaurantWaiterRole(null, iRestaurantNum, iNumRestaurantWaiters%2));
 			}
 		}
 		
