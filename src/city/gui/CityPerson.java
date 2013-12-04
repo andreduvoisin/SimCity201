@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import javax.swing.text.Position;
@@ -20,8 +22,10 @@ public class CityPerson extends CityComponent {
 	boolean atDestination = true;
 	SimCityGui gui;
 	
+	List<Location> corners = new ArrayList<Location>(); 
+	
 	public int xDestination = 120, yDestination = 35;
-	public Location mFinalDestination = null;
+	public Location mNextDestination = null;
 	
 	static final int waiterWidth = 10;
 	static final int waiterHeight = 10;
@@ -31,18 +35,24 @@ public class CityPerson extends CityComponent {
 	public boolean visible;
 
 //	Queue<Location> goToPosition = new LinkedList<Position>();
-	static int numTicks = 0;
+	//static int numTicks = 0;
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
 		super(x, y, Color.ORANGE, person.getName());
 		rectangle = new Rectangle(0, 0, 5, 5);
 		mPerson = person;
 		this.gui = gui;
+		
+		corners.add(new Location(500, 95)); 
+		corners.add(new Location(95, 95));
+		corners.add(new Location(95, 500)); 
+		corners.add(new Location(500, 500));
+		
 	}
 
 	@Override
 	public void updatePosition() {
-		numTicks++;
+		//numTicks++;
 		
 		int previousX = x;
 		int previousY = y;
@@ -54,9 +64,18 @@ public class CityPerson extends CityComponent {
         else if (y > yDestination)	y--;
         
         if (x == xDestination && y == yDestination) {
-        	this.disable();
-        	atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
-        	mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
+        	//this.disable();
+        	//atDestination = true; //SHANE: 0 where is this used? andre: I don't think it is, don't know why it's here.
+        	//mPerson.msgAnimationDone(); //SHANE: Add person then enable this line
+        	
+        	if(mNextDestination != null){
+        		DoGoToNextDestination();
+        	}else{
+        		this.disable(); 
+        		mPerson.msgAnimationDone();
+        	}
+       
+        	
     	}
 
 
@@ -99,31 +118,93 @@ public class CityPerson extends CityComponent {
 		g.drawString(name, x - 10, y);
 	}
 	
+//	public void DoGoToDestination(Location location){
+//		atDestination = false;
+//		this.enable();
+//		mFinalDestination = location;
+//		
+//		if (mFinalDestination == null){
+//			
+//		//set final location and go to corner of block first
+//		mFinalDestination = location;
+//		if (location.mX < 180){
+//			xDestination = 95;
+//		}else{
+//			xDestination = 500;
+//		}
+//		if (location.mY < 180){
+//			yDestination = 95;
+//		}else{
+//			yDestination = 500;
+//		}
+//		
+//		//SHANE: Change up to add queue of destinations
+//		
+//		xDestination = mFinalDestination.mX;
+//		yDestination = mFinalDestination.mY;
+//		mFinalDestination = null;
+//		}
+//		
+//	}
+	
 	public void DoGoToDestination(Location location){
-		atDestination = false;
-		this.enable();
-		mFinalDestination = location;
-
-		if (mFinalDestination == null){
-		//set final location and go to corner of block first
-		mFinalDestination = location;
-		if (location.mX < 180){
-			xDestination = 95;
+		this.enable(); 
+		if(mPerson.mHasCar){
+			//MAGGI ANGELICA: write car gui code
+			//Suggestion: Just drive to the building..? 
 		}else{
-			xDestination = 500;
+			Location myLocation = new Location(x, y);
+			DoGoToCorner(myLocation); 
+			//Checks if the closest corner to person is also closest corner to destination
+	
 		}
-		if (location.mY < 180){
-			yDestination = 95;
+	}
+	
+	//Already at corner closest to destination
+	public void DoGoToNextDestination(){
+		Location cornerLocation = findNearestCorner(mNextDestination); 
+		if(x == cornerLocation.mX && y == cornerLocation.mY){
+			DoWalkToDestination(); 
 		}else{
-			yDestination = 500;
-		}
+			DoTakeBus(); 
+		}	
+	}
+	
+	public void DoGoToCorner(Location location){
+		Location cornerLocation = findNearestCorner(location);
+		xDestination = cornerLocation.mX;
+		yDestination = cornerLocation.mY; 
 		
-		//SHANE: Change up to add queue of destinations
+	}
+	
+	public void DoWalkToDestination(){
+		xDestination = mNextDestination.mX;
+		yDestination = mNextDestination.mY;
+		mNextDestination = null; 
+	}
+	
+	public void DoTakeBus(){
 		
-		xDestination = mFinalDestination.mX;
-		yDestination = mFinalDestination.mY;
-		mFinalDestination = null;
-		}
+	}
+	
+	public void DoGoToBusStop(Location location){
+		
+	}
+	
+	public Location findNearestCorner(Location destination){
+		//Finds closest corner location to desired destination
+		
+		if (destination.mX > 180 && destination.mY < 180 ){
+			return corners.get(0); 
+		}else if(destination.mX < 180 && destination.mY < 180){
+			return corners.get(1); 
+		}else if(destination.mX < 180 && destination.mY > 180){
+			return corners.get(3); 
+		}else if(destination.mX > 180 && destination.mY > 180){
+			return corners.get(4); 
+		}else
+			return null; 
+		
 	}
 
 	@Override
@@ -147,8 +228,8 @@ public class CityPerson extends CityComponent {
 		visible = true;
 		x = location.mX;
 		y = location.mY;
-		xDestination = mFinalDestination.mX;
-		yDestination = mFinalDestination.mY;
-		mFinalDestination = null;
+		xDestination = mNextDestination.mX;
+		yDestination = mNextDestination.mY;
+		mNextDestination = null;
 	}
 }
