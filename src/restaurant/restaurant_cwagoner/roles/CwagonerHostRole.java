@@ -18,12 +18,6 @@ import base.interfaces.Person;
  */
 public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 
-	public CwagonerHostRole() {
-		super(null);
-		// CHASE Auto-generated constructor stub
-		// placeholder host when role not yet filled
-	}
-
 	public CwagonerHostRole(Person person) {
 		super(person);
 	}
@@ -159,7 +153,7 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 		return "CwagonerHost " + mPerson.getName();
 	}
 	
-	public void addWaiter(CwagonerWaiterRole w) {
+	public void addWaiter(CwagonerWaiter w) {
 		print("Adding waiter " + w.getName());
 		Waiters.add(new MyWaiter(w));
 		stateChanged();

@@ -1,5 +1,6 @@
 package restaurant.intermediate;
 
+import city.gui.SimCityGui;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
@@ -47,17 +48,18 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 0: // andre
 			if (mWaiterType == 1) {
 				subRole = new AndreWaiterRole(super.mPerson);
-				AndreRestaurantPanel.getInstance().addPerson(
+				((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).addPerson(
 						(AndreWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
 				subRole = new AndreSharedWaiterRole(super.mPerson);
-				AndreRestaurantPanel.getInstance().addPerson(
+				((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).addPerson(
 						(AndreSharedWaiterRole) subRole);
 			}
 			break;
 		case 1: // chase
+			//CHASE: add shared data waiter
 			subRole = new CwagonerWaiterRole(super.mPerson);
-			CwagonerRestaurantPanel.getInstance().addPerson(subRole);
+			((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
 			break;
 		case 2:
 			if (mWaiterType == 1) {
@@ -72,22 +74,22 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 3: // maggi
 			if (mWaiterType == 1) {
 				subRole = new MaggiyanWaiterRole(super.mPerson);
-				MaggiyanRestaurantPanel.getRestPanel().addWaiter(
+				((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).addWaiter(
 						(MaggiyanWaiterRole) subRole);
 			} else if (mWaiterType == 2) {
 				subRole = new MaggiyanSharedWaiterRole(super.mPerson);
-				MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter(
+				((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).addSharedWaiter(
 						(MaggiyanSharedWaiterRole) subRole);
 			}
 			break;
 		case 4: // david
 			if (mWaiterType == 1) {
 				subRole = new DavidWaiterRole(super.mPerson);
-				DavidRestaurantPanel.getInstance().addWaiter(
+				((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).addWaiter(
 						(DavidWaiterRole) subRole);
 			} else if (mWaiterType == 2) {
 				subRole = new DavidWaiterRoleShared(super.mPerson);
-				DavidRestaurantPanel.getInstance().addSharedWaiter(
+				((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).addSharedWaiter(
 						(DavidWaiterRoleShared) subRole);
 			}
 			break;
@@ -102,7 +104,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 6: // angelica
 			if (mWaiterType == 1) {
 				subRole = new TranacRestaurantWaiterRole(mPerson);
-				TranacRestaurantPanel.getInstance().addWaiter(
+				((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).addWaiter(
 						(TranacRestaurantWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
 				// ANGELICA: add shared waiter
@@ -113,7 +115,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 			// RestaurantPanel?
 			if (mWaiterType == 1) {
 				RexWaiterRole1 temp = new RexWaiterRole1(
-						RexAnimationPanel.getInstance());
+						((RexAnimationPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(7)));
 				temp.setHost(RexAnimationPanel.getHost());
 				temp.setCook(RexAnimationPanel.getCook());
 				temp.setCashier(RexAnimationPanel.getCashier());

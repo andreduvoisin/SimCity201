@@ -6,12 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.SimCityGui;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
-import market.gui.MarketPanel;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
@@ -31,6 +29,8 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityPanel;
+import city.gui.SimCityGui;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
@@ -173,7 +173,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void placeOrder(MarketOrder o) {
-        		mMarketCashier = MarketPanel.getInstance().mCashier;
+        		int m = (int) (Math.random() % 2);
+        		mMarketCashier = CityPanel.getInstance().masterMarketList.get(m).mCashier;
                 mMarketCashier.msgOrderPlacement(o);
         }
         

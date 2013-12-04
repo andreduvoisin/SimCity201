@@ -19,19 +19,18 @@ public class CwagonerRestaurantPanel extends JPanel implements RestaurantInterfa
 
     private CwagonerRestaurantGui mainGui; // Reference to main GUI
     
-    public CwagonerHostRole host = new CwagonerHostRole();
-    public CwagonerCashierRole cashier = new CwagonerCashierRole();
-    public CwagonerCookRole cook = new CwagonerCookRole();
+    public CwagonerHostRole host = new CwagonerHostRole(null);
+    public CwagonerCashierRole cashier = new CwagonerCashierRole(null);
+    public CwagonerCookRole cook = new CwagonerCookRole(null);
     private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
     private List<CwagonerWaiterRole> Waiters = new ArrayList<CwagonerWaiterRole>();
 
 	public CwagonerRestaurantPanel(CwagonerRestaurantGui g, int numTables) {
     	super();
-    	
-        mainGui = g;
 
+        mainGui = g;
         host.setNumTables(numTables);
-        
+
         CwagonerCookGui cg = new CwagonerCookGui(cook, mainGui);
         mainGui.animationPanel.addGui(cg);
         cook.setGui(cg);

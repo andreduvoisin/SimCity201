@@ -1,5 +1,6 @@
 package restaurant.intermediate;
 
+import city.gui.SimCityGui;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_davidmca.gui.DavidRestaurantPanel;
@@ -33,23 +34,23 @@ public class RestaurantHostRole extends BaseRole implements
 		super.mPerson = person;
 		switch (mRestaurantID) {
 		case 0: // andre
-			subRole = AndreRestaurantPanel.getInstance().host;
+			subRole = ((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).host;
 			subRole.setPerson(super.mPerson);
 			break;
 		case 1: // chase
-			subRole = CwagonerRestaurantPanel.getInstance().host;
+			subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).host;
 			subRole.setPerson(super.mPerson);
 			break;
 		case 2: // jerry
-			subRole = JerrywebRestaurantPanel.getInstance().host;
+			subRole = ((JerrywebRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(2)).host;
 			subRole.setPerson(super.mPerson);
 			break;
 		case 3: // maggi
-			subRole = MaggiyanRestaurantPanel.getRestPanel().host;
+			subRole = ((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).host;
 			subRole.setPerson(super.mPerson);
 			break;
 		case 4: // david
-			subRole = DavidRestaurantPanel.getInstance().host;
+			subRole = ((DavidRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(4)).host;
 			subRole.setPerson(super.mPerson);
 			break;
 		case 5: // shane
@@ -57,13 +58,12 @@ public class RestaurantHostRole extends BaseRole implements
 			SmilehamAnimationPanel.addPerson((SmilehamHostRole) subRole);
 			break;
 		case 6: // angelica
-			subRole = TranacRestaurantPanel.getInstance().mHost;
+			subRole = ((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).mHost;
 			subRole.setPerson(mPerson);
 			break;
 		case 7: // rex
-			subRole = RexAnimationPanel.getInstance().host;
+			subRole = ((RexAnimationPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(7)).host;
 			subRole.setPerson(super.mPerson);
-			// RexAnimationPanel.addPerson((RexHostRole)subRole);
 			break;
 		}
 	}

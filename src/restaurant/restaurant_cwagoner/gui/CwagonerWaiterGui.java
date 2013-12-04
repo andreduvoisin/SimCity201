@@ -1,22 +1,21 @@
 package restaurant.restaurant_cwagoner.gui;
 
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
-import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import base.Location;
 
 public class CwagonerWaiterGui implements CwagonerGui {
 
 	private static int waiterNum = 0;
 
-    private CwagonerWaiterRole agent;
+    private CwagonerWaiter agent;
     CwagonerRestaurantGui RestaurantGui;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
@@ -34,7 +33,7 @@ public class CwagonerWaiterGui implements CwagonerGui {
     
     BufferedImage waiterImg;
 
-    public CwagonerWaiterGui(CwagonerWaiterRole w, CwagonerRestaurantGui g) {
+    public CwagonerWaiterGui(CwagonerWaiter w, CwagonerRestaurantGui g) {
     	state = State.idle;
         agent = w;
         RestaurantGui = g;
