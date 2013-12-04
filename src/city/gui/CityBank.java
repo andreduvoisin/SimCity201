@@ -13,7 +13,7 @@ import base.Location;
 
 public class CityBank extends CityComponent {
 	private String bankName = "";
-	private int BANKWIDTH = 190;
+	private int BANKWIDTH = 80;
 	private int BANKHEIGHT = 80; 
 	
 	BufferedImage image;
@@ -67,12 +67,12 @@ public class CityBank extends CityComponent {
 	}
 
 	public void paint(Graphics g) {
-/*		g.setColor(color);
+		g.setColor(color);
 		g.fill3DRect(x, y, BANKWIDTH, BANKHEIGHT, true);
 		g.setColor(Color.WHITE);
 		g.drawString(bankName,x + 10 , y + 50);
-*/
-		g.drawImage(image, x, y, null);
+
+		//g.drawImage(image, x, y, null);
 	}
 
 	@Override

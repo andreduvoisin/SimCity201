@@ -41,8 +41,4 @@ public class HousingOwnerRole extends HousingBaseRole implements HousingOwner {
 
 	/* Actions */
 
-	/* Utilities */
-	protected void print(String msg) {
-		System.out.println("Owner - " + msg);
-	}
 }

@@ -189,8 +189,6 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	
 	public void setPerson(Person p) {
 		mPerson = p;
-//		if(p != null) 
-//		System.out.println("p!");
 	}
 
 	@Override

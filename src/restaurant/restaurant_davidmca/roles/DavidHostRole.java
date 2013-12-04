@@ -178,7 +178,6 @@ public class DavidHostRole extends BaseRole implements Host {
 	 * Scheduler. Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		//System.out.println("davidmca HostRole pAEA run");
 		synchronized (indecisiveCustomers) {
 			for (DavidCustomerRole cust : indecisiveCustomers) {
 				cust.msgAvailability(getAvailability());

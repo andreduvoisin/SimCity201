@@ -348,6 +348,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
+		print("goToJob");
 		mPersonGui.DoGoToDestination(getJobLocation()); //could be null???
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
@@ -362,12 +363,12 @@ public class PersonAgent extends Agent implements Person {
 
 	public void eatFood() {
 		if (isCheap() && getHouse() != null){
-			System.out.println(this + ": Going to eat at home");
+			print("Going to eat at home");
 			getHousingRole().msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHouse().mHouseNum));
 			acquireSemaphore(semAnimationDone);
 		}else{
-			System.out.println("Going to restaurant");
+			print("Going to restaurant");
 			//set random restaurant
 			Role restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -447,7 +448,7 @@ public class PersonAgent extends Agent implements Person {
 		print("First RSVP is sent out");
 		if(mFriends.isEmpty()){
 			int numPeople = CityPanel.getInstance().masterPersonList.size();
-			System.out.println("Num People in city: " + numPeople); //SHANE: Print remove
+			print("Num People in city: " + numPeople); //SHANE: Print remove
 			for (int i = 0; i < numPeople; i = i + 2){
 				mFriends.add(CityPanel.getInstance().masterPersonList.get(i));
 			}
