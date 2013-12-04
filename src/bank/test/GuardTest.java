@@ -29,8 +29,8 @@ public class GuardTest extends TestCase{
 		super.setUp();
 		
 		//Testee
-		mGuard = new BankGuardRole();
 		mPerson = new PersonAgent();
+		mGuard = new BankGuardRole(mPerson, 0);
 		mPerson.addRole((Role)mGuard, true);
 		
 		//Interfaces

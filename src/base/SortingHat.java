@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import market.gui.MarketPanel;
+import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
@@ -27,7 +28,7 @@ import city.gui.SimCityGui;
 public class SortingHat {
 	
 	//list of all (non-ubiquitous) roles, accessed and instantiated 
-	static List<Role> sRoles; //list of roles
+	private static List<Role> sRoles; //list of roles
 	static List<Map<Role, Boolean>> sRolesFilled;
 	
 	static int sNumBankTellers = 1;
@@ -35,12 +36,13 @@ public class SortingHat {
 	static int sNumRestaurantWaiters = 3;	
 	
 	public static void InstantiateBaseRoles(){
+		sRoles = new ArrayList<Role>();
 		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
 		//Bank
 		int numBanks = 2;
+		sRoles.add(new BankMasterTellerRole(null));
 		for (int iBankNumber = 0; iBankNumber < numBanks; iBankNumber++){
-			sRoles.add(new BankMasterTellerRole(null, iBankNumber));
 			sRoles.add(new BankGuardRole(null, iBankNumber));
 			for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
 				sRoles.add(new BankTellerRole(null, iBankNumber));
@@ -50,10 +52,10 @@ public class SortingHat {
 		//Market
 		int numMarkets = 2;
 		for (int iMarketNumber = 0; iMarketNumber < numMarkets; iMarketNumber++){
-			sRoles.add((MarketCashierRole)MarketPanel.getInstance().mCashier);
-			sRoles.add((MarketDeliveryTruckRole)MarketPanel.getInstance().mDeliveryTruck);
+			sRoles.add(new MarketCashierRole(null, EnumMarketType.BOTH, iMarketNumber));
+			sRoles.add(new MarketDeliveryTruckRole(null, iMarketNumber));
 			for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
-				sRoles.add(new MarketWorkerRole());
+				sRoles.add(new MarketWorkerRole(null, iMarketNumber));
 			}
 		}
 		
@@ -64,7 +66,7 @@ public class SortingHat {
 			sRoles.add(new RestaurantCashierRole(null, iRestaurantNum));
 			sRoles.add(new RestaurantCookRole(null, iRestaurantNum));
 			for (int iNumRestaurantWaiters = 0; iNumRestaurantWaiters < sNumRestaurantWaiters; iNumRestaurantWaiters++){
-				sRoles.add(new RestaurantWaiterRole(null, iRestaurantNum));
+				sRoles.add(new RestaurantWaiterRole(null, iRestaurantNum, iNumRestaurantWaiters%2));
 			}
 		}
 		
@@ -117,8 +119,7 @@ public class SortingHat {
 	
 	//MARKET
 	public static Role getMarketRole(int shift){
-//		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
-		Map<Role, Boolean> shiftRoles = sRolesFilled.get(0);
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 
 		
 		//MarketCashierRole (1) - first priority

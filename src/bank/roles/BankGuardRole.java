@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.SimCityGui;
 import bank.gui.BankGuardGui;
+import bank.gui.BankPanel;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -34,6 +36,9 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public BankGuardRole(Person person, int bankNumber) {
 		super(person);
 		mBankID = bankNumber;
+		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).guard = this;
+		//REX: 1
+		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).addGui(mGUI);
 	}
 	
 	
@@ -107,14 +112,12 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public void setGui(BankGuardGui g) {
 		mGUI = g;
 	}
-
+	
 	@Override
 	public Location getLocation() {
-		if (mBankID == 1) {
-			return ContactList.cBANK1_LOCATION;
-		}
-		else if (mBankID == 2) {
-			return ContactList.cBANK2_LOCATION;
+		switch (mBankID){
+			case 1: return ContactList.cBANK1_LOCATION;
+			case 2: return ContactList.cBANK2_LOCATION;
 		}
 		return null;
 	}

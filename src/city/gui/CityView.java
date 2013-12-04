@@ -23,6 +23,8 @@ import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 //import restaurant.restaurant_tranac.gui.TranacRestaurantPanel; // ANGELICA: error here
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.gui.BankPanel;
+import base.ContactList;
+import base.Location;
 
 @SuppressWarnings("serial")
 public class CityView extends JPanel implements MouseListener, ActionListener {
@@ -41,8 +43,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
-		cards.put("null", new CityCard(city));
-		//cards.put("Road", new CityCard(city));
 
 		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
 		cards.put("R_cwagoner", cwagoner);
@@ -66,21 +66,44 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		RexAnimationPanel xurex = new RexAnimationPanel(city);
 		cards.put("R_xurex", xurex);
+				
+		/*
+		 * Instantiate Market and Bank Panels and add to the Master Lists
+		 */
 		
-		cards.put("Gringotts Bank", new BankPanel(city));
-		cards.put("Test Restaurant",  new CityCard(city)); 
-		cards.put("Costco", new MarketPanel(city, EnumMarketType.BOTH));
+		MarketPanel market0 = new MarketPanel(city, EnumMarketType.BOTH);
+		city.citypanel.masterMarketList.add(market0);
+		cards.put("Costco", market0);
 		
-		cards.put("Sams Club", new MarketPanel(city, EnumMarketType.BOTH));
+		MarketPanel market1 = new MarketPanel(city, EnumMarketType.BOTH);
+		city.citypanel.masterMarketList.add(market1);
+		cards.put("Sams Club", market1);
 		
+		BankPanel bank0 = new BankPanel(city);
+		city.citypanel.masterBankList.add(bank0);
+		cards.put("Gringotts Bank", bank0);
 		
+		BankPanel bank1 = new BankPanel(city);
+		city.citypanel.masterBankList.add(bank1);
+		cards.put("Piggy Bank", bank1);
 		
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {
 			this.add(cards.get(key), key);
 		}
-	
+
+		// Create Houses
+		for (int iHouseCount = 0; iHouseCount < 80; iHouseCount++) {
+			Location houseLocation = ContactList.cHOUSE_LOCATIONS
+					.get(iHouseCount);
+			CityHousing newHouse = new CityHousing(city, houseLocation.mX,
+					houseLocation.mY, iHouseCount, 50.00);
+			addView(newHouse.mPanel, "House " + iHouseCount);
+			city.citypanel.addStatic(newHouse);
+			city.citypanel.masterHouseList.add(newHouse);
+		}
+
 		layout.show(this, "null");
 	}
 	

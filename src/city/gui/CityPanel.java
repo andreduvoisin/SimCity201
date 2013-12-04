@@ -10,7 +10,9 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import market.gui.MarketDeliveryTruckGui;
+import market.gui.MarketPanel;
 import transportation.TransportationBusDispatch;
+import bank.gui.BankPanel;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
@@ -28,6 +30,8 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	
 	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
+	public List<BankPanel> masterBankList = Collections.synchronizedList(new ArrayList<BankPanel>());
+	public List<MarketPanel> masterMarketList = Collections.synchronizedList(new ArrayList<MarketPanel>());
 	
 	// A*
 	public static final int ASC = 5;
@@ -141,15 +145,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Sams Club"));
-		
-		//Create Houses		
-		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
-			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
-			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, iHouseCount, 50.00);
-			simcitygui.cityview.addView(newHouse.mPanel, "House " + iHouseCount);
-			this.addStatic(newHouse);
-			masterHouseList.add(newHouse);
-		}
 			
 		//Create Timer Display
 		this.addStatic(new TimeGui(540, 560));

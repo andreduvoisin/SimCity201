@@ -62,12 +62,12 @@ public class TransportationBusDispatch extends Agent {
 	public void msgImOn(TransportationRider r) {
 		print("msgImOn()");
 
-		mBusStops.get(r.getLocation()).mWaitingPeople.remove(r);
+		mBusStops.get(r.getStop()).mWaitingPeople.remove(r);
 
-		if (mBus.mCurrentStop == r.getLocation()) {
+		if (mBus.mCurrentStop == r.getStop()) {
 			mBus.mRiders.add(r);
 
-			if (mBusStops.get(r.getLocation()).mWaitingPeople.isEmpty()) {
+			if (mBusStops.get(r.getStop()).mWaitingPeople.isEmpty()) {
 				mBus.state = TransportationBusInstance.enumState.readyToTravel;
 			}
 		}

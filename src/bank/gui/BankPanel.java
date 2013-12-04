@@ -26,7 +26,7 @@ import base.interfaces.Role;
 
 
 public class BankPanel extends CityCard implements ActionListener{
-	private static BankPanel instance = null;
+
 	private int WINDOWX = 500;
 	private int WINDOWY = 500;
 	static final int TIMERDELAY = 5;
@@ -48,11 +48,10 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int LINE_INCREMENT = -25;	// in the y
 	static int LINE_POSITION = 0;
 	
-	public static BankGuardRole guard = new BankGuardRole();
-	private static PersonAgent masterTellerPerson = new PersonAgent();
-	public static BankMasterTellerRole masterTeller = new BankMasterTellerRole(masterTellerPerson);
-	public static BankTellerRole teller = new BankTellerRole();
-	public static Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
+	public BankGuardRole guard;
+	public BankMasterTellerRole masterTeller;
+	public BankTellerRole teller;
+	public Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
 	
 	public BankPanel(SimCityGui city) {
 		super(city);
@@ -63,12 +62,10 @@ public class BankPanel extends CityCard implements ActionListener{
 		
 		timer = new Timer(TIMERDELAY, this);
     	timer.start();
-    	
-    	instance = this;
-    	
-    	guard.mGUI = new BankGuardGui(guard, this);
+    	    	
+//    	guard.mGUI = new BankGuardGui(guard, this);
     	//addGui(guard.mGUI);
-    	teller.mGUI = new BankTellerGui(teller, this);
+//    	teller.mGUI = new BankTellerGui(teller, this);
     	//addGui(teller.mGUI);
     	
     	//testBankGui();
@@ -83,49 +80,45 @@ public class BankPanel extends CityCard implements ActionListener{
     	}
 	}
 	
-	public static BankPanel getInstance() {
-		return instance;
-	}
-	
 	public void testBankGui() {
 		PersonAgent cust1 = new PersonAgent();
-		BankCustomerRole bcr1 = new BankCustomerRole(cust1);
+		BankCustomerRole bcr1 = new BankCustomerRole(cust1, 1);
 		BankCustomerGui bcg1 = new BankCustomerGui(bcr1, this);
 		bcr1.setGui(bcg1);
 		addGui(bcg1);
 		
 		PersonAgent cust2 = new PersonAgent();
-		BankCustomerRole bcr2 = new BankCustomerRole(cust2);
+		BankCustomerRole bcr2 = new BankCustomerRole(cust2, 1);
 		BankCustomerGui bcg2 = new BankCustomerGui(bcr2, this);
 		bcr2.setGui(bcg2);
 		addGui(bcg2);
 		
 		PersonAgent cust3 = new PersonAgent();
-		BankCustomerRole bcr3 = new BankCustomerRole(cust3);
+		BankCustomerRole bcr3 = new BankCustomerRole(cust3, 1);
 		BankCustomerGui bcg3 = new BankCustomerGui(bcr3, this);
 		bcr3.setGui(bcg3);
 		addGui(bcg3);
 		
 		PersonAgent teller1 = new PersonAgent();
-		BankTellerRole btr1 = new BankTellerRole(teller1);
+		BankTellerRole btr1 = new BankTellerRole(teller1, 1);
 		BankTellerGui btg1 = new BankTellerGui(btr1, this, 1);
 		btr1.setGui(btg1);
 		addGui(btg1);
 		
 		PersonAgent teller2 = new PersonAgent();
-		BankTellerRole btr2 = new BankTellerRole(teller2);
+		BankTellerRole btr2 = new BankTellerRole(teller2, 1);
 		BankTellerGui btg2 = new BankTellerGui(btr2, this, 2);
 		btr2.setGui(btg2);
 		addGui(btg2);
 
 		PersonAgent teller3 = new PersonAgent();
-		BankTellerRole btr3 = new BankTellerRole(teller3);
+		BankTellerRole btr3 = new BankTellerRole(teller3, 1);
 		BankTellerGui btg3 = new BankTellerGui(btr3, this, 3);
 		btr3.setGui(btg3);
 		addGui(btg3);
 		
 		PersonAgent guard = new PersonAgent();
-		BankGuardRole bgr = new BankGuardRole(guard);
+		BankGuardRole bgr = new BankGuardRole(guard, 1);
 		BankGuardGui bgg = new BankGuardGui(bgr, this);
 		bgr.setGui(bgg);
 		addGui(bgg);

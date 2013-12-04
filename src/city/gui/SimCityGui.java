@@ -11,7 +11,7 @@ import base.Time;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
-	public static boolean TESTING = false;
+	public static boolean TESTING = true;
 	public static int TESTNUM = 5;
 	
 	static SimCityGui instance = null;
@@ -29,8 +29,8 @@ public class SimCityGui extends JFrame {
 	public SimCityGui() throws HeadlessException, IOException {
 		instance = this;
 		CP = new CityControlPanel(this);
-		cityview = new CityView(this);
 		citypanel = new CityPanel(this);
+		cityview = new CityView(this);
 		infopanel = new InfoPanel(this);
 		
 		this.setLayout(new GridBagLayout());

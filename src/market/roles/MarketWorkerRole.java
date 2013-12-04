@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import city.gui.SimCityGui;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
@@ -30,18 +31,13 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	
 	private List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
-	public MarketWorkerRole() {
-		super(null);
-		
-		mGui = new MarketWorkerGui(this);
-		MarketPanel.getInstance().addGui(mGui);
-	}
-	
-	public MarketWorkerRole(Person person){
+	public MarketWorkerRole(Person person, int marketID){
 		super(person);
+		mMarketID = marketID;
 		
+		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashier.addWorker(this);
 		mGui = new MarketWorkerGui(this);
-		MarketPanel.getInstance().addGui(mGui);
+		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).addGui(mGui);
 	}
 	
 /* Messages */
