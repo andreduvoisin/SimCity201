@@ -30,7 +30,7 @@ public class MasterTellerTest extends TestCase{
 		
 		//Testee
 		mPerson = new PersonAgent();
-		mMasterTeller = new BankMasterTellerRole(mPerson, 0);
+		mMasterTeller = new BankMasterTellerRole(mPerson);
 		mPerson.addRole((Role)mMasterTeller, true);
 		
 		//Interfaces

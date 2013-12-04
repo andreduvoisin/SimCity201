@@ -35,6 +35,7 @@ import base.interfaces.Role;
 import city.gui.CityHousing;
 import city.gui.CityPanel;
 import city.gui.CityPerson;
+import city.gui.CityView;
 import city.gui.SimCityGui;
 
 
@@ -395,11 +396,13 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void depositCheck() {
 		mPersonGui.setPresent(true);
-		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION); //SHANE: 1 MAKE BANK 2 LOCATION
+		
+		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
-		int deposit = 50; //REX: deposit based on job type or constant amount
+		int deposit = 50; //REX: add mDeposit, and do after leaving job
+		
 		BankCustomerRole bankCustomerRole = null;
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof BankCustomerRole){
@@ -419,7 +422,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		BankPanel.getInstance().addPerson(bankCustomerRole);
+		CityPanel.getInstance().masterBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
