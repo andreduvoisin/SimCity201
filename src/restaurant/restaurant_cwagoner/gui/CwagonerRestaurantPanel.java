@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;

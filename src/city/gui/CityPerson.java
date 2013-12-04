@@ -222,24 +222,25 @@ public class CityPerson extends CityComponent {
 	public Location findNearestCorner(Location destination){
 		// Top
 			// right
-			if (destination.mX > 180 && destination.mY < 180) {
+			if (destination.mX >= 300 && destination.mY <= 300) {
 				return corners.get(0); 
 			}
 			// left
-			else if (destination.mX < 180 && destination.mY < 180) {
+			else if (destination.mX < 300 && destination.mY <= 300) {
 				return corners.get(1); 
 			}
 		// Bottom
 			// left
-			else if (destination.mX < 180 && destination.mY > 180) {
+			else if (destination.mX < 300 && destination.mY > 300) {
 				return corners.get(2); 
 			}
 			// right
-			else if (destination.mX > 180 && destination.mY > 180) {
+			else if (destination.mX >= 300 && destination.mY > 300) {
 				return corners.get(3); 
 			}
-			else
+			else {
 				return null;
+			}
 	}
 
 	@Override
