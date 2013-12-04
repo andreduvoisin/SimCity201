@@ -15,7 +15,6 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
@@ -27,7 +26,7 @@ import city.gui.CityCard;
 import city.gui.SimCityGui;
 
 @SuppressWarnings("serial")
-public class TranacRestaurantPanel extends CityCard implements ActionListener, RestaurantInterface {
+public class TranacRestaurantPanel extends CityCard implements ActionListener {
 	public static TranacRestaurantPanel instance;
 
 	private final int WINDOWX = 626;

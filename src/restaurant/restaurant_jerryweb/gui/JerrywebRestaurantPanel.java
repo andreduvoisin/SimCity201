@@ -26,7 +26,7 @@ import base.BaseRole;
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
-public class JerrywebRestaurantPanel extends JPanel implements RestaurantInterface {
+public class JerrywebRestaurantPanel extends JPanel  {
 	static final int rows = 1;
 	static final int cols = 2;
 	static final int hSpacing = 5;

@@ -14,7 +14,7 @@ import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import base.interfaces.Role;
 
 @SuppressWarnings("serial")
-public class CwagonerRestaurantPanel extends JPanel implements RestaurantInterface {
+public class CwagonerRestaurantPanel extends JPanel  {
 	// THIS!
 
     private CwagonerRestaurantGui mainGui; // Reference to main GUI

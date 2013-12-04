@@ -18,7 +18,7 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
  * Panel in frame that contains all the restaurant information,
  * including host, cook, waiters, and customers.
  */
-public class MaggiyanRestaurantPanel extends JPanel implements RestaurantInterface {
+public class MaggiyanRestaurantPanel extends JPanel  {
 		
     //Host, cook, waiters and customers
     public MaggiyanHostRole host = new MaggiyanHostRole(null);

@@ -10,7 +10,6 @@ import java.util.concurrent.Semaphore;
 
 import market.gui.MarketDeliveryTruckGui;
 import market.gui.MarketPanel;
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import transportation.TransportationBusDispatch;
 import bank.gui.BankPanel;
 import base.ContactList;
@@ -31,7 +30,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
 	public List<BankPanel> masterBankList = Collections.synchronizedList(new ArrayList<BankPanel>());
 	public List<MarketPanel> masterMarketList = Collections.synchronizedList(new ArrayList<MarketPanel>());
-	public List<RestaurantInterface> masterRestaurantList = Collections.synchronizedList(new ArrayList<RestaurantInterface>());
 	
 	// A*
 	public static final int ASC = 5;
