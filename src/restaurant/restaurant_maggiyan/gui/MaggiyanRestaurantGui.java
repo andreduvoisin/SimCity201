@@ -27,7 +27,7 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */   
-    private MaggiyanRestaurantPanel restPanel = new MaggiyanRestaurantPanel(this);
+    private MaggiyanRestaurantPanel restPanel;
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;
@@ -45,6 +45,7 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
      */
     public MaggiyanRestaurantGui(SimCityGui city) {
         super(city); 
+        restPanel = new MaggiyanRestaurantPanel(this);
     	int WINDOWX = 500;
         int WINDOWY = 500;
 

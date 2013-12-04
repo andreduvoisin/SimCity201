@@ -29,7 +29,7 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */    
-    private JerrywebRestaurantPanel restPanel = new JerrywebRestaurantPanel(this);
+    private JerrywebRestaurantPanel restPanel;
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;
@@ -55,6 +55,7 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      */
     public JerrywebRestaurantGui(SimCityGui city) {
     	super(city);
+    	restPanel = new JerrywebRestaurantPanel(this);
         int WINDOWX = 500;
         int WINDOWY = 500;
 

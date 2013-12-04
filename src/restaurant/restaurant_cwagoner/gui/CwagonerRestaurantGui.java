@@ -16,7 +16,7 @@ public class CwagonerRestaurantGui extends CityCard {
 	private int numTables = 4;
 
 	public CwagonerAnimationPanel animationPanel = new CwagonerAnimationPanel(CARD_WIDTH, CARD_HEIGHT);
-    CwagonerRestaurantPanel restPanel = new CwagonerRestaurantPanel(this, numTables);
+    CwagonerRestaurantPanel restPanel;
     ArrayList<Location> tableLocations = new ArrayList<Location>();
 
     /**
@@ -25,6 +25,8 @@ public class CwagonerRestaurantGui extends CityCard {
      */
     public CwagonerRestaurantGui(SimCityGui city) {
     	super(city);
+    	
+    	restPanel = new CwagonerRestaurantPanel(this, numTables);
 
     	setVisible(true);
 

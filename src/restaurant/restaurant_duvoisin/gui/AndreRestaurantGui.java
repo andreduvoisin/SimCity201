@@ -25,8 +25,8 @@ import city.gui.SimCityGui;
 public class AndreRestaurantGui extends CityCard implements ActionListener {
 	public AndreAnimationPanel animationPanel = new AndreAnimationPanel();
 	
-    public AndreRestaurantPanel restPanel = new AndreRestaurantPanel(this);
-    
+    public AndreRestaurantPanel restPanel;
+   
     private ArrayList<JCheckBox> listCB = new ArrayList<JCheckBox>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     Boolean waitHere[] = new Boolean[17];
@@ -49,7 +49,7 @@ public class AndreRestaurantGui extends CityCard implements ActionListener {
      */
     public AndreRestaurantGui(SimCityGui gui) {
     	super(gui);
-    	
+    	restPanel = new AndreRestaurantPanel(this);
     	setBounds(50, 50, WINDOWX, WINDOWY);
     	
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
