@@ -1,15 +1,15 @@
 package market.test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import junit.framework.TestCase;
+import market.MarketOrder;
 import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
-import market.test.mock.*;
-import market.*;
-import market.MarketOrder.EnumOrderEvent;
-import market.MarketOrder.EnumOrderStatus;
-
-import java.util.*;
-
+import market.test.mock.MockCookCustomer;
+import market.test.mock.MockCustomer;
+import market.test.mock.MockDeliveryTruck;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 

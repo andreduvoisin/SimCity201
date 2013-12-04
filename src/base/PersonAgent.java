@@ -14,7 +14,10 @@ import java.util.Set;
 import java.util.concurrent.Semaphore;
 
 import market.interfaces.MarketCustomer;
+import market.roles.MarketCashierRole;
 import market.roles.MarketCustomerRole;
+import market.roles.MarketDeliveryTruckRole;
+import market.roles.MarketWorkerRole;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
@@ -22,7 +25,6 @@ import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
-import bank.gui.BankPanel;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
 import bank.roles.BankGuardRole;
@@ -116,7 +118,7 @@ public class PersonAgent extends Agent implements Person {
 		//Add customer/rider role possibilities
 		mRoles.put(SortingHat.getHousingRole(this), true);
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
-		mRoles.put(new MarketCustomerRole(this), false);
+		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
@@ -395,11 +397,13 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void depositCheck() {
 		mPersonGui.setPresent(true);
-		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION); //SHANE: 1 MAKE BANK 2 LOCATION
+		
+		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
-		int deposit = 50; //REX: deposit based on job type or constant amount
+		int deposit = 50; //REX: add mDeposit, and do after leaving job
+		
 		BankCustomerRole bankCustomerRole = null;
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof BankCustomerRole){
@@ -419,7 +423,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		BankPanel.getInstance().addPerson(bankCustomerRole);
+		CityPanel.getInstance().masterBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -526,11 +530,9 @@ public class PersonAgent extends Agent implements Person {
 
 
 	private void boardBus() {
-		int boardAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		int exitAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
+		int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
 		Role jobRole = getJobRole();
-		int boardAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		int exitAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mFinalDestination);
 
 		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
@@ -559,8 +561,10 @@ public class PersonAgent extends Agent implements Person {
 					iRole instanceof BankGuardRole ||
 					iRole instanceof BankMasterTellerRole ||
 					iRole instanceof BankTellerRole ||
-					//Housing jobs
-					iRole instanceof HousingBaseRole ||
+					//Market jobs
+					iRole instanceof MarketCashierRole ||
+					iRole instanceof MarketDeliveryTruckRole ||
+					iRole instanceof MarketWorkerRole ||
 					//Restaurant job
 					iRole instanceof RestaurantCashierRole ||
 					iRole instanceof RestaurantCookRole ||
@@ -698,5 +702,9 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void setJobFalse() {
 		mAtJob = false;
+	}
+	
+	public boolean hasCar() {
+		return mHasCar;
 	}
 }

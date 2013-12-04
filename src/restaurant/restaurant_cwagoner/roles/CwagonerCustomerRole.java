@@ -1,15 +1,23 @@
 package restaurant.restaurant_cwagoner.roles;
 
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
+import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
-import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
-import restaurant.restaurant_cwagoner.interfaces.*;
-
-import java.awt.Dimension;
-import java.util.*;
 
 /**
  * Restaurant customer agent.

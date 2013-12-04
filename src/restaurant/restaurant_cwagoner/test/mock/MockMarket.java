@@ -2,7 +2,9 @@ package restaurant.restaurant_cwagoner.test.mock;
 
 import java.util.HashMap;
 
-import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerMarket;
 
 public class MockMarket extends Mock implements CwagonerMarket {
 

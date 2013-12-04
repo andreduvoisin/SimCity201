@@ -1,5 +1,13 @@
 package restaurant.restaurant_duvoisin.roles;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
+
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
@@ -7,10 +15,6 @@ import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
-
 import base.BaseRole;
 import base.ContactList;
 import base.Location;

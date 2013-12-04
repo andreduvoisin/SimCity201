@@ -1,6 +1,6 @@
 package restaurant.restaurant_duvoisin;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Semaphore;
 
 /**
  * Base class for simple agents

@@ -1,11 +1,12 @@
 package transportation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import city.gui.CityBus;
-import base.Location;
-import base.Agent;
 import transportation.interfaces.TransportationRider;
+import base.Agent;
+import base.Location;
+import city.gui.CityBus;
 
 /**
  * The controller who handles people waiting at bus stops, boarding buses, and

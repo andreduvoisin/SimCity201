@@ -1,11 +1,13 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import city.gui.SimCityGui;
 import market.interfaces.MarketCustomer;
 
 public class MarketCustomerGui implements MarketBaseGui {
@@ -72,9 +74,12 @@ public class MarketCustomerGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-/*		g.setColor(Color.BLUE);
-		g.fillRect(xPos,yPos,SIZE,SIZE);
-*/		g.drawImage(image, xPos, yPos, null);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(Color.BLACK);
+			g.drawString("MCustomer", xPos, yPos);
+		}
+		else
+			g.drawImage(image, xPos, yPos, null);
 		}
 
 /* Action Calls */

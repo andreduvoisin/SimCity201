@@ -2,8 +2,6 @@ package restaurant.restaurant_xurex.interfaces;
 
 import java.util.Map;
 
-import restaurant.restaurant_xurex.interfaces.Waiter;
-
 
 public interface Customer {
 	

@@ -1,14 +1,14 @@
 package restaurant.restaurant_duvoisin.test;
 
-import base.PersonAgent;
-import city.gui.SimCityGui;
+import junit.framework.TestCase;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_duvoisin.gui.CookGui;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.test.mock.MockCustomer;
-import junit.framework.*;
+import base.PersonAgent;
+import city.gui.SimCityGui;
 
 /**
  * This class is a JUnit test class to unit test the CashierAgent's basic interaction

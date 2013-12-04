@@ -1,14 +1,18 @@
 package  restaurant.restaurant_jerryweb.gui;
 
-import  restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
-
-import java.awt.*;
-import java.awt.event.*;
 /**
  * Main GUI class.
  * Contains the main frame and subsequent panels
@@ -25,7 +29,7 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */    
-    private JerrywebRestaurantPanel restPanel = new JerrywebRestaurantPanel(this);
+    private JerrywebRestaurantPanel restPanel;
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;
@@ -51,6 +55,7 @@ public class JerrywebRestaurantGui extends CityCard implements ActionListener {
      */
     public JerrywebRestaurantGui(SimCityGui city) {
     	super(city);
+    	restPanel = new JerrywebRestaurantPanel(this);
         int WINDOWX = 500;
         int WINDOWY = 500;
 

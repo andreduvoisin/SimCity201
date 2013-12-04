@@ -1,13 +1,13 @@
 package restaurant.restaurant_maggiyan.gui;
 
-import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*; 
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
@@ -27,7 +27,7 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
      *    in RestaurantPanel()
      * 2) the infoPanel about the clicked Customer (created just below)
      */   
-    private MaggiyanRestaurantPanel restPanel = new MaggiyanRestaurantPanel(this);
+    private MaggiyanRestaurantPanel restPanel;
     
     /* infoPanel holds information about the clicked customer, if there is one*/
     private JPanel infoPanel;
@@ -45,6 +45,7 @@ public class MaggiyanRestaurantGui extends CityCard implements ActionListener {
      */
     public MaggiyanRestaurantGui(SimCityGui city) {
         super(city); 
+        restPanel = new MaggiyanRestaurantPanel(this);
     	int WINDOWX = 500;
         int WINDOWY = 500;
 

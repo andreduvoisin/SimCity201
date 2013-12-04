@@ -1,13 +1,11 @@
 package restaurant.restaurant_maggiyan.gui;
 
-import javax.swing.*;
-
-import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
-
-import java.awt.*;
-import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.Arrays;
 import java.util.List;
+
+import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
 
 public class MaggiyanCookGui implements MaggiyanGui{
 

@@ -1,15 +1,14 @@
 package housing.test.mock;
 
+import housing.interfaces.HousingLandlord;
+import housing.interfaces.HousingRenter;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import city.gui.CityHousing;
-import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import test.mock.MockPerson;
-import housing.interfaces.HousingLandlord;
-import housing.interfaces.HousingRenter;
+import city.gui.CityHousing;
 
 /**
  * A sample MockRenter built to unit test a LandlordRole.

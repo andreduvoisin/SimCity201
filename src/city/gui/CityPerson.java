@@ -5,11 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-
-import javax.swing.text.Position;
 
 import base.ContactList;
 import base.Location;
@@ -149,7 +145,7 @@ public class CityPerson extends CityComponent {
 	
 	public void DoGoToDestination(Location location){
 		this.enable(); 
-		if(mPerson.mHasCar){
+		if(mPerson.hasCar()){
 			//MAGGI ANGELICA: write car gui code
 			//Suggestion: Just drive to the building..? 
 		}else{

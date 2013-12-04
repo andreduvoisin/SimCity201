@@ -2,7 +2,6 @@ package restaurant.restaurant_maggiyan.interfaces;
 
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
-import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 
 /**
  * A sample Customer interface built to unit test a CashierAgent.

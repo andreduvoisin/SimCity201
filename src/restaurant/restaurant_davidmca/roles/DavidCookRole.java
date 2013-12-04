@@ -12,18 +12,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import base.ContactList;
-import base.Item;
-import base.Location;
-import base.Item.EnumItemType;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_davidmca.Order;
-import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.gui.CookGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import base.ContactList;
+import base.Item;
+import base.Item.EnumItemType;
+import base.Location;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.

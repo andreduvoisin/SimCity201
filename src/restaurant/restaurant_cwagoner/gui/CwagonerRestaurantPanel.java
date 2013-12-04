@@ -1,12 +1,16 @@
 package restaurant.restaurant_cwagoner.gui;
 
-import restaurant.restaurant_cwagoner.roles.*;
-import base.interfaces.Role;
-
-import javax.swing.*;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JPanel;
+
+import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerHostRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
+import base.interfaces.Role;
 
 @SuppressWarnings("serial")
 public class CwagonerRestaurantPanel extends JPanel {

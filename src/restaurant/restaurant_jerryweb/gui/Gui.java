@@ -1,6 +1,6 @@
 package restaurant.restaurant_jerryweb.gui;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 public interface Gui {
 

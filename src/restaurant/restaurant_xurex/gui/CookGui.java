@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 

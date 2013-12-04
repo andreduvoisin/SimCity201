@@ -1,11 +1,11 @@
 package restaurant.restaurant_duvoisin.test;
 
+import junit.framework.TestCase;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole.CheckState;
 import restaurant.restaurant_duvoisin.test.mock.MockCustomer;
 import restaurant.restaurant_duvoisin.test.mock.MockMarket;
 import restaurant.restaurant_duvoisin.test.mock.MockWaiter;
-import junit.framework.*;
 
 /**
  * This class is a JUnit test class to unit test the CashierAgent's basic interaction

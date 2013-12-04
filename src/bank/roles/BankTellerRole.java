@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import city.gui.SimCityGui;
 import bank.BankAccount;
 import bank.gui.BankTellerGui;
 import bank.interfaces.BankCustomer;
@@ -17,6 +16,7 @@ import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
+import city.gui.SimCityGui;
 
 public class BankTellerRole extends BaseRole implements BankTeller{
 

@@ -1,7 +1,6 @@
 package restaurant.restaurant_jerryweb.test.mock;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This class should be used by Mock agents to log significant events. For

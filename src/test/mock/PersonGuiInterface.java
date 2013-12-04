@@ -3,7 +3,8 @@ package test.mock;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import astar.Position;
+import javax.swing.text.Position;
+
 import base.Location;
 
 public interface PersonGuiInterface {

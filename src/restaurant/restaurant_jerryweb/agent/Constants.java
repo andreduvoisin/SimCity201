@@ -27,7 +27,6 @@ in this Software without prior written authorization from Stanford University.
 */
 package restaurant.restaurant_jerryweb.agent;
 
-import java.util.*;
 
 /**
  * Constants of general use

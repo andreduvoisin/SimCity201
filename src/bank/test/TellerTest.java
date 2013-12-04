@@ -40,7 +40,7 @@ public class TellerTest extends TestCase{
 		mCustomer1.setPerson(mCP1);
 		mCustomer2 = new MockCustomerRole();
 		mCustomer2.setPerson(mCP2);
-		mMasterTeller = new BankMasterTellerRole(null, 0);
+		mMasterTeller = new BankMasterTellerRole(null);
 		
 		//clear logs
 	}

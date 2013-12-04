@@ -10,7 +10,6 @@ import restaurant.restaurant_jerryweb.JerrywebCookRole.OrderState;
 import restaurant.restaurant_jerryweb.JerrywebMarketRole;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
 import restaurant.restaurant_jerryweb.interfaces.Cook;
-import restaurant.restaurant_jerryweb.interfaces.Market;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 
 public class MockCook extends Mock implements Cook {

@@ -1,13 +1,13 @@
 package bank.test.mock;
 
+import test.mock.LoggedEvent;
+import test.mock.Mock;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import test.mock.LoggedEvent;
-import test.mock.Mock;
 
 
 public class MockGuardRole extends Mock implements BankGuard, Role{

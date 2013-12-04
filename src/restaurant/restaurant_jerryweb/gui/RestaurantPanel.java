@@ -1,6 +1,17 @@
 package restaurant.restaurant_jerryweb.gui;
 
 
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.util.Vector;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import restaurant.restaurant_jerryweb.CashierRole;
 import restaurant.restaurant_jerryweb.CookRole;
 import restaurant.restaurant_jerryweb.CustomerRole;
@@ -8,15 +19,7 @@ import restaurant.restaurant_jerryweb.HostRole;
 import restaurant.restaurant_jerryweb.MarketRole;
 import restaurant.restaurant_jerryweb.RSWaiterRole;
 import restaurant.restaurant_jerryweb.WaiterRole;
-import restaurant.restaurant_jerryweb.HostRole.MyWaiter;
-import restaurant.restaurant_jerryweb.HostRole.WaiterState;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
-
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Vector;
 
 /**
  * Panel in frame that contains all the restaurant information,

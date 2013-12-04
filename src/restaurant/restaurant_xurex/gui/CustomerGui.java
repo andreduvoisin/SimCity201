@@ -1,11 +1,12 @@
 package restaurant.restaurant_xurex.gui;
 
-import restaurant.restaurant_xurex.RexCustomerRole;
-import restaurant.restaurant_xurex.interfaces.Customer;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
+
+import restaurant.restaurant_xurex.RexCustomerRole;
+import restaurant.restaurant_xurex.interfaces.Customer;
 
 public class CustomerGui implements Gui{
 

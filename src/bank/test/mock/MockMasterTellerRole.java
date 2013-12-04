@@ -3,12 +3,12 @@ package bank.test.mock;
 import java.util.List;
 import java.util.Map;
 
+import test.mock.Mock;
 import bank.BankAccount;
 import bank.interfaces.BankMasterTeller;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import test.mock.Mock;
 
 
 public class MockMasterTellerRole extends Mock implements BankMasterTeller, Role{

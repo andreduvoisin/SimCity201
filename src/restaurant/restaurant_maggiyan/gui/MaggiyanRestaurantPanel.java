@@ -1,21 +1,12 @@
 package restaurant.restaurant_maggiyan.gui;
 
-import java.awt.BorderLayout;
-
-import base.PersonAgent.EnumJobType;
-
-import java.awt.Color;
-import java.awt.GridLayout;
 import java.util.Vector;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import base.PersonAgent;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCookRole;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCook;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanMarketRole;

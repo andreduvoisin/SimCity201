@@ -1,5 +1,12 @@
 package restaurant.restaurant_xurex.agents;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import restaurant.restaurant_xurex.gui.CustomerGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -7,13 +14,6 @@ import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 //import restaurant.gui.RestaurantGui;
 import base.Agent;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * Restaurant customer agent.

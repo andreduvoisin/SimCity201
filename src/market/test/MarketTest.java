@@ -2,9 +2,6 @@ package market.test;
 
 import junit.framework.TestCase;
 import base.PersonAgent;
-import market.*;
-import market.test.mock.*;
-import market.roles.*;
 
 public class MarketTest extends TestCase{
 	

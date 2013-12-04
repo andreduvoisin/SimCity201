@@ -1,9 +1,11 @@
 package restaurant.restaurant_tranac.test;
 
-import base.PersonAgent;
+import junit.framework.TestCase;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
-import restaurant.restaurant_tranac.test.mock.*;
-import junit.framework.*;
+import restaurant.restaurant_tranac.test.mock.TranacMockCustomer;
+import restaurant.restaurant_tranac.test.mock.TranacMockMarket;
+import restaurant.restaurant_tranac.test.mock.TranacMockWaiter;
+import base.PersonAgent;
 
 /**
  * This class is a JUnit test class to unit test the CashierAgent's basic interaction

@@ -1,17 +1,21 @@
 package restaurant.restaurant_duvoisin.gui;
 
-import restaurant.restaurant_duvoisin.interfaces.Waiter;
-import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
-
-import javax.swing.*;
-
-import city.gui.CityCard;
-import city.gui.SimCityGui;
-
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+
+import restaurant.restaurant_duvoisin.interfaces.Waiter;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 /**
  * Main GUI class.
@@ -21,8 +25,8 @@ import java.util.Vector;
 public class AndreRestaurantGui extends CityCard implements ActionListener {
 	public AndreAnimationPanel animationPanel = new AndreAnimationPanel();
 	
-    public AndreRestaurantPanel restPanel = new AndreRestaurantPanel(this);
-    
+    public AndreRestaurantPanel restPanel;
+   
     private ArrayList<JCheckBox> listCB = new ArrayList<JCheckBox>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     Boolean waitHere[] = new Boolean[17];
@@ -45,7 +49,7 @@ public class AndreRestaurantGui extends CityCard implements ActionListener {
      */
     public AndreRestaurantGui(SimCityGui gui) {
     	super(gui);
-    	
+    	restPanel = new AndreRestaurantPanel(this);
     	setBounds(50, 50, WINDOWX, WINDOWY);
     	
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));

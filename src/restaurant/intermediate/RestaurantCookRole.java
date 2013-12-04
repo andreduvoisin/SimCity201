@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.CityPanel;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -173,7 +174,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void placeOrder(MarketOrder o) {
-        		mMarketCashier = MarketPanel.getInstance().mCashier;
+        		int m = (int) (Math.random() % 2);
+        		mMarketCashier = CityPanel.getInstance().masterMarketList.get(m).mCashier;
                 mMarketCashier.msgOrderPlacement(o);
         }
         

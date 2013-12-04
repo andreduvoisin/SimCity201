@@ -1,6 +1,5 @@
 package base;
 
-import city.gui.SimCityGui;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
@@ -8,6 +7,7 @@ import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.SimCityGui;
 
 public abstract class BaseRole implements Role {
 

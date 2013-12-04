@@ -2,11 +2,11 @@ package market;
 
 import java.util.Map;
 
-import base.Item.EnumItemType;
-import base.interfaces.Role;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
+import base.Item.EnumItemType;
+import base.interfaces.Role;
 
 public class MarketOrder {
 	public static enum EnumOrderStatus {CARTED, PLACED, PAYING, PAID, ORDERING, DELIVERING, BEING_DELIVERED, FULFILLING, DONE, SENT};

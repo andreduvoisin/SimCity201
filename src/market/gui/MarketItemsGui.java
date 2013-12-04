@@ -1,16 +1,17 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
-import market.gui.MarketPanel.EnumMarketType;
-import market.roles.MarketCashierRole;
-
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import city.gui.SimCityGui;
+import market.gui.MarketPanel.EnumMarketType;
+import market.roles.MarketCashierRole;
 import base.Item.EnumItemType;
 
 
@@ -109,10 +110,12 @@ public class MarketItemsGui implements MarketBaseGui {
 		//draw all items
 		for(ItemGui i : mItems.keySet()) {
 			MarketCoordinates c = mItems.get(i);
-	//		g.setColor(i.mColor);
+			g.setColor(Color.BLACK);
 			for(int j=0;j<(int)(i.mNumber/10);j++) {
-		//		g.fillRect(c.getX()+30*j,c.getY(),SIZE,SIZE);
-				g.drawImage(i.mImage,c.getX()+30*j,c.getY(),null);
+				if(SimCityGui.GRADINGVIEW)
+					g.drawString(i.toString(), c.getX()+30*j,c.getY());
+				else
+					g.drawImage(i.mImage,c.getX()+30*j,c.getY(),null);
 			}
 		}
 	}
@@ -159,6 +162,23 @@ public class MarketItemsGui implements MarketBaseGui {
 			mItem = i;
 			mImage = c;
 			mNumber = n;
+		}
+		
+		public String toString() {
+			switch(mItem) {
+				case CHICKEN:
+					return "CHK";
+				case PIZZA:
+					return "PIZ";
+				case SALAD:
+					return "SLD";
+				case STEAK:
+					return "STK";
+				case CAR:
+					return "CAR";
+				default:
+					return null;
+			}
 		}
 	}
 }

@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import city.gui.CityPanel;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCustomerGui;
-import market.gui.MarketPanel;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
@@ -39,13 +39,12 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	MarketCashier mCashier;
 	
-	public MarketCustomerRole(Person person) {
+	public MarketCustomerRole(Person person, int marketID) {
 		super(person);
-		
-		mCashier = MarketPanel.getInstance().mCashier;
+		mMarketID = marketID;
+		mCashier = CityPanel.getInstance().masterMarketList.get(mMarketID).mCashier;
 		mGui = new MarketCustomerGui(this);
-		MarketPanel.getInstance().addGui(mGui);
-		
+		CityPanel.getInstance().masterMarketList.get(mMarketID).addGui(mGui);
 		
 	//	mItemInventory = mPerson.getItemInventory();
 		//ANGELICA: hack for now

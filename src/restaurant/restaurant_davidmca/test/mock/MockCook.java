@@ -1,17 +1,13 @@
 package restaurant.restaurant_davidmca.test.mock;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import restaurant.restaurant_davidmca.Order;
-import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.agents.MarketAgent;
 import restaurant.restaurant_davidmca.gui.CookGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
-import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 
 public class MockCook extends Mock implements Cook {

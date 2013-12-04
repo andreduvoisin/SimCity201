@@ -1,16 +1,17 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.concurrent.Semaphore;
 
 import javax.imageio.ImageIO;
 
-import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
-import base.Item.EnumItemType;
-import market.*;
+import city.gui.SimCityGui;
+import market.MarketOrder;
 import market.interfaces.MarketWorker;
+import base.Item.EnumItemType;
 
 public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorker mAgent;
@@ -101,10 +102,13 @@ public class MarketWorkerGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-/*		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, SIZE, SIZE);
-*/		g.drawImage(image,xPos,yPos,null);
-}
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(Color.BLACK);
+			g.drawString("MWorker",xPos,yPos);
+		}
+		else
+			g.drawImage(image,xPos,yPos,null);
+	}
 	
 /* Action Calls */
 	public void DoGoToMarket() {

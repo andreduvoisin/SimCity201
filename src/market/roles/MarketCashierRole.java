@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import city.gui.SimCityGui;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -26,6 +25,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.SimCityGui;
 
 /*
  	SHANE ANGELICA: Check to make sure all of these apply

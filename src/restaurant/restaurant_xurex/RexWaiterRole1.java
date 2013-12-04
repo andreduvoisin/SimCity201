@@ -1,9 +1,13 @@
 package restaurant.restaurant_xurex;
 
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
-import base.interfaces.Person;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
+
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import restaurant.restaurant_xurex.gui.WaiterGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
@@ -12,10 +16,15 @@ import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
-import restaurant.restaurant_xurex.utilities.*;
-
-import java.util.*;
-import java.util.concurrent.Semaphore;
+import restaurant.restaurant_xurex.utilities.CustomerState;
+import restaurant.restaurant_xurex.utilities.MyCustomer;
+import restaurant.restaurant_xurex.utilities.Order;
+import restaurant.restaurant_xurex.utilities.OrderState;
+import restaurant.restaurant_xurex.utilities.WaiterState;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Waiter Agent

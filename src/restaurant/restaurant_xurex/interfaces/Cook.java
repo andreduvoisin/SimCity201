@@ -6,7 +6,6 @@ import java.util.List;
 
 import restaurant.restaurant_xurex.agents.CookAgent.CookOrder;
 import restaurant.restaurant_xurex.gui.CookGui;
-import restaurant.restaurant_xurex.interfaces.Waiter;
 
 
 public interface Cook {

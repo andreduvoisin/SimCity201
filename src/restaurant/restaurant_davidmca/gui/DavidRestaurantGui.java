@@ -5,8 +5,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -22,11 +20,12 @@ import city.gui.SimCityGui;
 /**
  * Main GUI class. Contains the main frame and subsequent panels
  */
+@SuppressWarnings("serial")
 public class DavidRestaurantGui extends CityCard implements ActionListener {
 
 	AnimationPanel animationPanel = new AnimationPanel();
 
-	private DavidRestaurantPanel restPanel = new DavidRestaurantPanel(this);
+	private DavidRestaurantPanel restPanel;
 
 	/* infoPanel holds information about the clicked customer, if there is one */
 	boolean currentlyPaused = false;
@@ -56,6 +55,7 @@ public class DavidRestaurantGui extends CityCard implements ActionListener {
 
 	public DavidRestaurantGui(SimCityGui city) throws IOException {
 		super(city);
+		restPanel = new DavidRestaurantPanel(this);
 		int WINDOWX = 500;
 		int WINDOWY = 500;
 		int PAD = 0;

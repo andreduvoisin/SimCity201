@@ -1,13 +1,21 @@
 package restaurant.restaurant_cwagoner.roles;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerMarket;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
+import restaurant.restaurant_cwagoner.test.mock.EventLog;
+import restaurant.restaurant_cwagoner.test.mock.LoggedEvent;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import restaurant.restaurant_cwagoner.interfaces.*;
-import restaurant.restaurant_cwagoner.test.mock.*;
-
-import java.util.*;
 
 /**
  * Restaurant cashier agent.

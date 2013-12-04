@@ -1,16 +1,20 @@
 package restaurant.restaurant_cwagoner.gui;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import base.Location;
 import base.Time;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class CwagonerAnimationPanel extends JPanel implements ActionListener {

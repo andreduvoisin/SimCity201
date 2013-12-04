@@ -1,7 +1,5 @@
 package restaurant.intermediate;
 
-import java.util.Random;
-
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantPanel;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
@@ -11,9 +9,11 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanRestaurantPanel;
+import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
@@ -27,94 +27,113 @@ import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
-public class RestaurantWaiterRole extends BaseRole implements RestaurantBaseInterface {
+public class RestaurantWaiterRole extends BaseRole implements
+		RestaurantBaseInterface {
 
 	static int totalWaiters = 0;
 	Role subRole = null;
 	int mRestaurantID;
+	int mWaiterType;
 
-	public RestaurantWaiterRole(Person person, int restaurantID) {
+	public RestaurantWaiterRole(Person person, int restaurantID, int waiterType) {
 		super(person);
 		this.mRestaurantID = restaurantID;
+		this.mWaiterType = waiterType;
 	}
 
-	public void setPerson(Person person){
-		super.mPerson = person;	
-		switch(mRestaurantID){
-			case 0: //andre
-				int rn0 = new Random().nextInt();
-				if (rn0 % 2 == 0) {
-					subRole = new AndreWaiterRole(super.mPerson);
-					AndreRestaurantPanel.getInstance().addPerson((AndreWaiterRole) subRole);
-				} else {
-					subRole = new AndreSharedWaiterRole(super.mPerson);
-					AndreRestaurantPanel.getInstance().addPerson((AndreSharedWaiterRole) subRole);
-				}
-				
-				break;
-			case 1: //chase
-				subRole = new CwagonerWaiterRole(super.mPerson);
-				CwagonerRestaurantPanel.getInstance().addPerson(subRole);
-				break;
-			case 2:
-//				int rn2 = new Random().nextInt();
-//				if (rn2 % 2 == 0) {
-					subRole = new JerrywebWaiterRole(super.mPerson);
-					JerrywebRestaurantPanel.addWaiter((JerrywebWaiterRole) subRole);
-//				}else {
-//					subRole = new JerrywebRSWaiterRole(super.mPerson);
-//					JerrywebRestaurantPanel.addRSWaiter((JerrywebRSWaiterRole) subRole);
-//				}
-				break;
-			case 3: //maggi
-//				int rn1 = new Random().nextInt();
-//				
-//				if (rn1 % 2 == 0) {
-					subRole = new MaggiyanWaiterRole(super.mPerson);
-					MaggiyanRestaurantPanel.getRestPanel().addWaiter((MaggiyanWaiterRole) subRole);
-//				}else {
-//					subRole = new MaggiyanSharedWaiterRole(super.mPerson);
-//					MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
-//				}
-				break;
-			case 4: //david
-				int rn = new Random().nextInt();
-				if (rn % 2 == 0) {
-					subRole = new DavidWaiterRole(super.mPerson);
-					DavidRestaurantPanel.getInstance().addWaiter((DavidWaiterRole) subRole);
-				} else {
-					subRole = new DavidWaiterRoleShared(super.mPerson);
-					DavidRestaurantPanel.getInstance().addSharedWaiter(
-							(DavidWaiterRoleShared) subRole);
-				}
-				break;
-			case 5: //shane
+	public void setPerson(Person person) {
+		super.mPerson = person;
+		switch (mRestaurantID) {
+		case 0: // andre
+			if (mWaiterType == 1) {
+				subRole = new AndreWaiterRole(super.mPerson);
+				AndreRestaurantPanel.getInstance().addPerson(
+						(AndreWaiterRole) subRole);
+			} else if (mWaiterType == 0) {
+				subRole = new AndreSharedWaiterRole(super.mPerson);
+				AndreRestaurantPanel.getInstance().addPerson(
+						(AndreSharedWaiterRole) subRole);
+			}
+			break;
+		case 1: // chase
+			subRole = new CwagonerWaiterRole(super.mPerson);
+			CwagonerRestaurantPanel.getInstance().addPerson(subRole);
+			break;
+		case 2:
+			if (mWaiterType == 1) {
+				subRole = new JerrywebWaiterRole(super.mPerson);
+				JerrywebRestaurantPanel.addWaiter((JerrywebWaiterRole) subRole);
+			} else if (mWaiterType == 0) {
+				subRole = new JerrywebRSWaiterRole(super.mPerson);
+				JerrywebRestaurantPanel
+						.addRSWaiter((JerrywebRSWaiterRole) subRole);
+			}
+			break;
+		case 3: // maggi
+			if (mWaiterType == 1) {
+				subRole = new MaggiyanWaiterRole(super.mPerson);
+				MaggiyanRestaurantPanel.getRestPanel().addWaiter(
+						(MaggiyanWaiterRole) subRole);
+			} else if (mWaiterType == 2) {
+				subRole = new MaggiyanSharedWaiterRole(super.mPerson);
+				MaggiyanRestaurantPanel.getRestPanel().addSharedWaiter(
+						(MaggiyanSharedWaiterRole) subRole);
+			}
+			break;
+		case 4: // david
+			if (mWaiterType == 1) {
+				subRole = new DavidWaiterRole(super.mPerson);
+				DavidRestaurantPanel.getInstance().addWaiter(
+						(DavidWaiterRole) subRole);
+			} else if (mWaiterType == 2) {
+				subRole = new DavidWaiterRoleShared(super.mPerson);
+				DavidRestaurantPanel.getInstance().addSharedWaiter(
+						(DavidWaiterRoleShared) subRole);
+			}
+			break;
+		case 5: // shane
+			if (mWaiterType == 1) {
 				subRole = new SmilehamWaiterRole(mPerson);
 				SmilehamAnimationPanel.addPerson((SmilehamWaiterRole) subRole);
-				break;
-			case 6: //angelica
+			} else if (mWaiterType == 0) {
+				// SHANE: add shared waiter
+			}
+			break;
+		case 6: // angelica
+			if (mWaiterType == 1) {
 				subRole = new TranacRestaurantWaiterRole(mPerson);
-				TranacRestaurantPanel.getInstance().addWaiter((TranacRestaurantWaiterRole)subRole);
-				break;
-			case 7: //rex
-				RexWaiterRole1 temp = new RexWaiterRole1(RexAnimationPanel.getInstance());
+				TranacRestaurantPanel.getInstance().addWaiter(
+						(TranacRestaurantWaiterRole) subRole);
+			} else if (mWaiterType == 0) {
+				// ANGELICA: add shared waiter
+			}
+			break;
+		case 7: // rex
+			// REX: what is going on with this stuff? Can it go inside your
+			// RestaurantPanel?
+			if (mWaiterType == 1) {
+				RexWaiterRole1 temp = new RexWaiterRole1(
+						RexAnimationPanel.getInstance());
 				temp.setHost(RexAnimationPanel.getHost());
 				temp.setCook(RexAnimationPanel.getCook());
 				temp.setCashier(RexAnimationPanel.getCashier());
 				subRole = temp;
 				subRole.setPerson(super.mPerson);
-				RexAnimationPanel.addPerson((RexWaiterRole1)subRole);
-				//adds to host waiter list in addPerson
-				break;
+				RexAnimationPanel.addPerson((RexWaiterRole1) subRole);
+				// adds to host waiter list in addPerson
+			} else if (mWaiterType == 0) {
+				// REX: add shared waiter
+			}
+			break;
 		}
 
 	}
 
 	public boolean pickAndExecuteAnAction() {
-		//System.out.println("RestaurantWaiterRole pAEA run");
+		// System.out.println("RestaurantWaiterRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
 	}
-	
+
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);

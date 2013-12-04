@@ -1,12 +1,11 @@
 package transportation;
 
-import base.Location;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import city.gui.CityBus;
 import transportation.interfaces.TransportationRider;
+import base.Location;
+import city.gui.CityBus;
 
 public class TransportationBusInstance {
 	static int sBusNumber = 0;

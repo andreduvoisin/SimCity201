@@ -1,15 +1,16 @@
 package restaurant.restaurant_xurex;
 
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
-import base.interfaces.Person;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Host Agent

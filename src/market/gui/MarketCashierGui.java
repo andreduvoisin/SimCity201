@@ -1,12 +1,13 @@
 package market.gui;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import base.BaseRole;
+import city.gui.SimCityGui;
 import market.interfaces.MarketCashier;
 import market.roles.MarketCashierRole;
 
@@ -73,10 +74,13 @@ public class MarketCashierGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-/*		g.setColor(Color.ORANGE);
-		g.fillRect(xPos, yPos, SIZE, SIZE);
-*/		g.drawImage(image,xPos,yPos,null);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(Color.BLACK);
+			g.drawString("MCashier",xPos,yPos);
 		}
+		else
+			g.drawImage(image,xPos,yPos,null);
+	}
 	
 /* Action Calls */
 	public void DoGoToPosition() {

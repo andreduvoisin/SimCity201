@@ -1,7 +1,7 @@
 package bank.test;
 
-import test.mock.MockPerson;
 import junit.framework.TestCase;
+import test.mock.MockPerson;
 import bank.BankAccount;
 import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;
@@ -30,7 +30,7 @@ public class MasterTellerTest extends TestCase{
 		
 		//Testee
 		mPerson = new PersonAgent();
-		mMasterTeller = new BankMasterTellerRole(mPerson, 0);
+		mMasterTeller = new BankMasterTellerRole(mPerson);
 		mPerson.addRole((Role)mMasterTeller, true);
 		
 		//Interfaces

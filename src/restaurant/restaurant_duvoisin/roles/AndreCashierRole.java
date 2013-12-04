@@ -1,10 +1,9 @@
 package restaurant.restaurant_duvoisin.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import base.BaseRole;
-import base.ContactList;
-import base.Location;
 import restaurant.restaurant_duvoisin.MarketPrices;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
@@ -13,6 +12,9 @@ import restaurant.restaurant_duvoisin.interfaces.Market;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.test.mock.EventLog;
 import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
 
 /**
  * Restaurant Cashier Agent

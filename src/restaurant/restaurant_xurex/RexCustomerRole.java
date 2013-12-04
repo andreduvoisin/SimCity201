@@ -16,8 +16,8 @@ import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Event;
-import base.Location;
 import base.Event.EnumEventType;
+import base.Location;
 import base.interfaces.Person;
 
 /**

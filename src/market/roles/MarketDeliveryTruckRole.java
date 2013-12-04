@@ -1,15 +1,20 @@
 package market.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import city.gui.SimCityGui;
-import market.interfaces.*;
-import market.*;
+import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketDeliveryTruckGui;
-import base.*;
+import market.interfaces.MarketDeliveryTruck;
+import base.BaseRole;
+import base.ContactList;
+import base.Location;
+import base.PersonAgent;
+import city.gui.SimCityGui;
 
 /**
  * MarketDeliveryTruck for SimCity Market agents.
