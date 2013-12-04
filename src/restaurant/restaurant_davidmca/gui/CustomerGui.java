@@ -14,7 +14,7 @@ public class CustomerGui implements Gui {
         private static int CustomerSize = 20;
         private String labelText = "";
 
-        DavidRestaurantGui gui;
+//        DavidRestaurantGui gui;
 
         private int xPos, yPos;
         private int xHome, yHome;
@@ -26,7 +26,7 @@ public class CustomerGui implements Gui {
 
         private Command command = Command.noCommand;
 
-        public CustomerGui(Customer c, DavidRestaurantGui gui, int home) {
+        public CustomerGui(Customer c, int home) {
                 agent = c;
                 xPos = -40;
                 yPos = -40;
@@ -34,7 +34,7 @@ public class CustomerGui implements Gui {
                 xHome = 10+30*(home);
                 xDestination = -40;
                 yDestination = -40;
-                this.gui = gui;
+//                this.gui = gui;
         }
 
         public void updatePosition() {
@@ -58,7 +58,7 @@ public class CustomerGui implements Gui {
                                 System.out
                                                 .println("about to call gui.setCustomerEnabled(agent);");
                                 isHungry = false;
-                                gui.setCustomerEnabled(agent);
+//                                gui.setCustomerEnabled(agent);
                         }
                         command = Command.noCommand;
                 }
