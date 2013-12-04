@@ -145,7 +145,7 @@ public class CityPerson extends CityComponent {
 	
 	public void DoGoToDestination(Location location){
 		this.enable(); 
-		if(mPerson.mHasCar){
+		if(mPerson.hasCar()){
 			//MAGGI ANGELICA: write car gui code
 			//Suggestion: Just drive to the building..? 
 		}else{

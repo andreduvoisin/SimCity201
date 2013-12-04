@@ -51,4 +51,5 @@ public interface Person {
 	
 	public void msgRoleFinished();
 	public void setJobFalse();
+	public boolean hasCar();
 }

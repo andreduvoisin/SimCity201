@@ -529,11 +529,9 @@ public class PersonAgent extends Agent implements Person {
 
 
 	private void boardBus() {
-		int boardAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		int exitAtStop = ((TransportationBusRiderRole) mJobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
+		int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
 		Role jobRole = getJobRole();
-		int boardAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		int exitAtStop = ((TransportationBusRiderRole) jobRole).mBusDispatch.getBusStopClosestTo(mPersonGui.mFinalDestination);
 
 		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
@@ -701,5 +699,9 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public void setJobFalse() {
 		mAtJob = false;
+	}
+	
+	public boolean hasCar() {
+		return mHasCar;
 	}
 }
