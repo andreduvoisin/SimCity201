@@ -46,24 +46,14 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	private Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
 	private Semaphore askingForBreak = new Semaphore(0,true);
 	
-	public TranacRestaurantWaiterRole() {
-		super(null);
-
-		waiterGui = new TranacWaiterGui(this, TranacRestaurantPanel.getInstance().getWaiters());
-		TranacRestaurantPanel.getInstance().addGui(waiterGui);
-		mHost = TranacRestaurantPanel.getInstance().mHost;
-		mCook = TranacRestaurantPanel.getInstance().mCook;
-		mCashier = TranacRestaurantPanel.getInstance().mCashier;
-	}
-	
-	public TranacRestaurantWaiterRole(Person p) {
+	public TranacRestaurantWaiterRole(Person p) { //ANGELICA: 1 Why do you need two constructors?? -shane
 		super(p);
-
-		waiterGui = new TranacWaiterGui(this, TranacRestaurantPanel.getInstance().getWaiters());
-		TranacRestaurantPanel.getInstance().addGui(waiterGui);
-		mHost = TranacRestaurantPanel.getInstance().mHost;
-		mCook = TranacRestaurantPanel.getInstance().mCook;
-		mCashier = TranacRestaurantPanel.getInstance().mCashier;
+		waiterGui = new TranacWaiterGui(this, TranacRestaurantPanel.getNumWaiters());
+		TranacRestaurantPanel.getInstance().addPerson(this);
+		
+		mHost = TranacRestaurantPanel.getHost();
+		mCook = TranacRestaurantPanel.getCook();
+		mCashier = TranacRestaurantPanel.getCashier();
 	}
 	
 	/** Messages */

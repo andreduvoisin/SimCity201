@@ -67,6 +67,10 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	 */
 	public TranacRestaurantCustomerRole() {
 		super(null);
+		customerGui = new TranacCustomerGui(this);
+		TranacRestaurantPanel.getInstance().addPerson(this);
+		
+		
 		money = baseMoney; // ANGELICA: no longer necessary; will get from
 							// person
 		num = 0;

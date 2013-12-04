@@ -11,6 +11,7 @@ import java.util.concurrent.Semaphore;
 
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
+import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
 import restaurant.restaurant_tranac.interfaces.TranacMarket;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
@@ -50,6 +51,10 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
 
         public TranacRestaurantCookRole(Person p) {
                 super(p, 6);
+                cookGui = new TranacCookGui(this);
+                TranacRestaurantPanel.getInstance().addPerson(this);
+                
+                
                 /*
                 //create inventory
                 inventory.add(new Food("Steak",(int)(baseTime*2),DEFAULT_FOOD_QTY));
