@@ -63,9 +63,9 @@ public class BankPanel extends CityCard implements ActionListener{
 		timer = new Timer(TIMERDELAY, this);
     	timer.start();
     	    	
-    	guard.mGUI = new BankGuardGui(guard, this);
+//    	guard.mGUI = new BankGuardGui(guard, this);
     	//addGui(guard.mGUI);
-    	teller.mGUI = new BankTellerGui(teller, this);
+//    	teller.mGUI = new BankTellerGui(teller, this);
     	//addGui(teller.mGUI);
     	
     	//testBankGui();

@@ -23,6 +23,8 @@ import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
 //import restaurant.restaurant_tranac.gui.TranacRestaurantPanel; // ANGELICA: error here
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.gui.BankPanel;
+import base.ContactList;
+import base.Location;
 
 @SuppressWarnings("serial")
 public class CityView extends JPanel implements MouseListener, ActionListener {
@@ -90,7 +92,18 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		for (String key:cards.keySet()) {
 			this.add(cards.get(key), key);
 		}
-	
+
+		// Create Houses
+		for (int iHouseCount = 0; iHouseCount < 80; iHouseCount++) {
+			Location houseLocation = ContactList.cHOUSE_LOCATIONS
+					.get(iHouseCount);
+			CityHousing newHouse = new CityHousing(city, houseLocation.mX,
+					houseLocation.mY, iHouseCount, 50.00);
+			addView(newHouse.mPanel, "House " + iHouseCount);
+			city.citypanel.addStatic(newHouse);
+			city.citypanel.masterHouseList.add(newHouse);
+		}
+
 		layout.show(this, "null");
 	}
 	

@@ -145,15 +145,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Sams Club"));
-		
-		//Create Houses		
-		for (int iHouseCount = 0; iHouseCount< 80; iHouseCount++) {
-			Location houseLocation = ContactList.cHOUSE_LOCATIONS.get(iHouseCount);
-			CityHousing newHouse = new CityHousing(simcitygui, houseLocation.mX, houseLocation.mY, iHouseCount, 50.00);
-			simcitygui.cityview.addView(newHouse.mPanel, "House " + iHouseCount);
-			this.addStatic(newHouse);
-			masterHouseList.add(newHouse);
-		}
 			
 		//Create Timer Display
 		this.addStatic(new TimeGui(540, 560));
