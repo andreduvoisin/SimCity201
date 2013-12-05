@@ -38,7 +38,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	MarketCashierGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
-	EnumMarketType mMarketType;
 	int mMarketID;
 	
 	int mNumWorkers = 0;
