@@ -13,9 +13,9 @@ import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import restaurant.restaurant_cwagoner.test.mock.EventLog;
 import restaurant.restaurant_cwagoner.test.mock.LoggedEvent;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant cashier agent.

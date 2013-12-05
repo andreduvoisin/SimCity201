@@ -18,25 +18,13 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import base.BaseRole;
-import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.SimCityGui;
+import base.reference.ContactList;
 
-/*
- 	SHANE ANGELICA: Check to make sure all of these apply
- 	1) Each market has its own owner/cashier who handles money.
- 		-taken care of
-	2) Each market can have any restaurant/person as a client. 
-		-taken care of
-	3) Restaurants are delivered to, persons must go to the market.
-		-taken care of (functionality at least)
-	4) Markets can run out of inventory. They can be resupplied from the gui.
-		-taken care of; gui control panel needs to call MarketPanel.setInventory();
- */
 public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	MarketCashierGui mGui;
@@ -57,13 +45,14 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
 	public MarketCashierRole(Person person, int marketID) {
+		//setup
 		super(person);
 		mMarketID = marketID;
-		
-		ContactList.sMarketList.get(mMarketID).mCashier = this;
 		mGui = new MarketCashierGui(this);
-		ContactList.sMarketList.get(mMarketID).mCashierGui = mGui;
-		ContactList.sMarketList.get(mMarketID).addGui(mGui);		
+		
+		
+		ContactList.sMarketList.get(marketID).mCashier = this;
+		ContactList.sMarketList.get(marketID).mGuis.add(mGui);
 		
 		if(person != null)
 			mBankAccount = person.getSSN();

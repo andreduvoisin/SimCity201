@@ -11,9 +11,9 @@ import java.util.concurrent.Semaphore;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Market;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Market Agent

@@ -12,8 +12,8 @@ import market.gui.MarketDeliveryTruckGui;
 import market.gui.MarketPanel;
 import transportation.TransportationBusDispatch;
 import bank.gui.BankPanel;
-import base.ContactList;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 @SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {

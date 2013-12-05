@@ -11,9 +11,9 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant Host Agent

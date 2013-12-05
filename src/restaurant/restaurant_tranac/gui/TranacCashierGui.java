@@ -7,18 +7,18 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
+import restaurant.restaurant_tranac.roles.TranacCashierRole;
 
 public class TranacCashierGui implements Gui {
 
-    private TranacRestaurantCashierRole agent;
+    private TranacCashierRole agent;
 
     private int xPos = 230, yPos = 130;					//static host position
     private int xDestination = 230, yDestination = 130;	//static cashier position
 
     private BufferedImage image;
     
-    public TranacCashierGui(TranacRestaurantCashierRole agent) {
+    public TranacCashierGui(TranacCashierRole agent) {
         this.agent = agent;
         
     	image = null;

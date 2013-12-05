@@ -19,11 +19,11 @@ import restaurant.restaurant_davidmca.gui.CookGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
-import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.

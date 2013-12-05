@@ -12,10 +12,10 @@ import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 public class BankTellerRole extends BaseRole implements BankTeller{
@@ -58,9 +58,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
-		ContactList.sBankList.get(mBankID).teller = this;
-		mGUI = new BankTellerGui(this, ContactList.sBankList.get(mBankID));
-		ContactList.sBankList.get(mBankID).addGui(mGUI);
 	}
 	
 	//	MESSAGES

@@ -9,11 +9,13 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
+import restaurant.restaurant_tranac.roles.TranacCustomerRole;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.ContactList;
 
 public class RestaurantCustomerRole extends BaseRole implements
 		RestaurantBaseInterface {
@@ -59,11 +61,10 @@ public class RestaurantCustomerRole extends BaseRole implements
 			subRole = new SmilehamCustomerRole(super.mPerson);
 			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
 			break;
-//		case 6: // angelica
-//			subRole = new TranacRestaurantCustomerRole(mPerson);
-//			((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).addCustomer(
-//					(TranacRestaurantCustomerRole) subRole);
-//			break;
+		case 6: // angelica
+			subRole = new TranacCustomerRole(mPerson);
+			TranacAnimationPanel.addPerson((TranacCustomerRole)subRole);
+			break;
 //		case 7: // rex
 //			RexCustomerRole temp = new RexCustomerRole(
 //					((RexAnimationPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(7)),

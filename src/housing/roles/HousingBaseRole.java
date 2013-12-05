@@ -6,8 +6,8 @@ import housing.interfaces.HousingBase;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
+import base.reference.ContactList;
 import city.gui.CityHousing;
 
 public class HousingBaseRole extends BaseRole implements HousingBase {

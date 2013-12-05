@@ -15,11 +15,11 @@ import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
-import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant Cook Agent

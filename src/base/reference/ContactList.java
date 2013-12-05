@@ -1,23 +1,27 @@
-package base;
+package base.reference;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import market.gui.MarketPanel;
-import city.gui.CityHousing;
-import bank.gui.BankPanel;
 import bank.roles.BankMasterTellerRole;
+import base.Location;
 import base.interfaces.Person;
 
 public class ContactList {
-
+	
+	//------------------------------------------------------PROJECT SETTINGS----------------------------------------------------------
+	
+	
+	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
 	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
-	public static List<CityHousing> sHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
-	public static List<BankPanel> sBankList = Collections.synchronizedList(new ArrayList<BankPanel>());
-	public static List<MarketPanel> sMarketList = Collections.synchronizedList(new ArrayList<MarketPanel>());
+	public static List<Market> sMarketList = Collections.synchronizedList(new ArrayList<Market>());
+	public static List<House> sHouses = Collections.synchronizedList(new ArrayList<House>());
+	public static List<Bank> sBanks = Collections.synchronizedList(new ArrayList<Bank>());
+	
+	//DAVID JERRY SHANE: 0 TOP PRIORITY - add house/bank/market and separate data from gui
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
