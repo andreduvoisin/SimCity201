@@ -74,6 +74,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 				subRole = new MaggiyanSharedWaiterRole(mPerson);
 				MaggiyanAnimationPanel.addPerson((MaggiyanSharedWaiterRole) subRole);
 			}
+			break;
 		case 4: // david
 			if (mWaiterType == 1) {
 				subRole = new DavidWaiterRole(super.mPerson);
