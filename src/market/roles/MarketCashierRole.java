@@ -12,7 +12,6 @@ import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCashierGui;
-import market.gui.MarketPanel.EnumMarketType;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
