@@ -78,7 +78,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 			if (mWaiterType == 1) {
 				subRole = new DavidWaiterRole(super.mPerson);
 				DavidAnimationPanel.addWaiter((DavidWaiterRole) subRole);
-			} else if (mWaiterType == 2) {
+			} else if (mWaiterType == 0) {
 				subRole = new DavidWaiterRoleShared(super.mPerson);
 				DavidAnimationPanel.addSharedWaiter((DavidWaiterRoleShared) subRole);
 			}

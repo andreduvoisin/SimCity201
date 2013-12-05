@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import city.gui.SimCityGui;
-import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
 import base.Item.EnumItemType;
 
@@ -23,7 +22,6 @@ import base.Item.EnumItemType;
  */
 public class MarketItemsGui implements MarketBaseGui {
 	MarketCashierRole mCashier;
-	private EnumMarketType mMarketType;
 	public Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
 	private int xBase = 300, yBase = 30;
 	private static final int SIZE = 20;
@@ -35,8 +33,8 @@ public class MarketItemsGui implements MarketBaseGui {
 	BufferedImage image4;
 	BufferedImage image5;
 	
-	public MarketItemsGui(EnumMarketType t) {
-		mMarketType = t;
+	public MarketItemsGui() {
+	//	mMarketType = t;
 		//populate list of items; hack right now
 		
     	image1 = null;
@@ -84,22 +82,11 @@ public class MarketItemsGui implements MarketBaseGui {
     		System.out.println(e.getMessage());
     	}
 		
-		if(t == EnumMarketType.BOTH) {
-			mItems.put(new ItemGui(EnumItemType.STEAK,image1,sBaseInventory), new MarketCoordinates(xBase, yBase));
-			mItems.put(new ItemGui(EnumItemType.CHICKEN,image2,sBaseInventory), new MarketCoordinates(xBase, yBase+100));
-			mItems.put(new ItemGui(EnumItemType.SALAD,image3,sBaseInventory), new MarketCoordinates(xBase, yBase+200));
-			mItems.put(new ItemGui(EnumItemType.PIZZA,image4,sBaseInventory), new MarketCoordinates(xBase, yBase+300));
-			mItems.put(new ItemGui(EnumItemType.CAR,image5,sBaseInventory), new MarketCoordinates(xBase, yBase+400));
-		}
-		if(t == EnumMarketType.FOOD) {
-			mItems.put(new ItemGui(EnumItemType.STEAK,image1,sBaseInventory), new MarketCoordinates(xBase, yBase));
-			mItems.put(new ItemGui(EnumItemType.CHICKEN,image2,sBaseInventory), new MarketCoordinates(xBase, yBase+100));
-			mItems.put(new ItemGui(EnumItemType.SALAD,image3,sBaseInventory), new MarketCoordinates(xBase, yBase+200));
-			mItems.put(new ItemGui(EnumItemType.PIZZA,image4,sBaseInventory), new MarketCoordinates(xBase, yBase+300));
-		}
-		else
-			mItems.put(new ItemGui(EnumItemType.CAR,image5,sBaseInventory), new MarketCoordinates(xBase, yBase+400));
-		
+		mItems.put(new ItemGui(EnumItemType.STEAK,image1,sBaseInventory), new MarketCoordinates(xBase, yBase));
+		mItems.put(new ItemGui(EnumItemType.CHICKEN,image2,sBaseInventory), new MarketCoordinates(xBase, yBase+100));
+		mItems.put(new ItemGui(EnumItemType.SALAD,image3,sBaseInventory), new MarketCoordinates(xBase, yBase+200));
+		mItems.put(new ItemGui(EnumItemType.PIZZA,image4,sBaseInventory), new MarketCoordinates(xBase, yBase+300));
+		mItems.put(new ItemGui(EnumItemType.CAR,image5,sBaseInventory), new MarketCoordinates(xBase, yBase+400));	
 	}
 	
 	public void updatePosition() {
