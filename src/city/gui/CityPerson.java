@@ -103,10 +103,18 @@ public class CityPerson extends CityComponent {
 	}
 	
 	public void paint(Graphics g) {
-		g.setColor(color);
-		g.fillRect(x, y, 5, 5);
-		g.setColor(Color.WHITE);
-		g.drawString(name, x - 10, y);
+		if(SimCityGui.GRADINGVIEW) {
+			g.drawString(mPerson.getName(),x,y);
+		}
+		else if(mPerson.hasCar()) {
+			//paint car gui
+		}
+		else {
+			g.setColor(color);
+			g.fillRect(x, y, 5, 5);
+			g.setColor(Color.WHITE);
+			g.drawString(name, x - 10, y);
+		}
 	}
 	
 	public void DoDriveToDestination(Location location){
