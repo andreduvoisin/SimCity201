@@ -260,7 +260,7 @@ public class TransportationBusDispatch extends Agent {
 	}
 
 	public TransportationBusDispatch() {
-		List<Location> busStops = base.ContactList.cBUS_STOPS;
+		List<Location> busStops = base.reference.ContactList.cBUS_STOPS;
 		for (Location iL : busStops) {
 			mBusStops.add(new TransportationBusStop(iL));
 		}

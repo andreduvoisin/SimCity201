@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 public class Time {
 	
@@ -59,7 +60,7 @@ public class Time {
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
-							iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
+							//iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
 						}
 					}
 				}

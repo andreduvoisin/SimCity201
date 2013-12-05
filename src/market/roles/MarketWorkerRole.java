@@ -12,9 +12,9 @@ import market.gui.MarketWorkerGui;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketWorker;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 /**

@@ -9,11 +9,11 @@ import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
-import base.ContactList;
 import base.Event;
 import base.Event.EnumEventType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant customer agent.

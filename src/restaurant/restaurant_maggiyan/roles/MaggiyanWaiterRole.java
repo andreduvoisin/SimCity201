@@ -19,9 +19,9 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 
 /**
@@ -82,11 +82,15 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		
 		animationPanel = MaggiyanAnimationPanel.mInstance; 
 		waiterGui = new MaggiyanWaiterGui(this); 
+		waiterGui.atWork(animationPanel.positionCounter);
+		animationPanel.addGui(waiterGui);
+		
 		
 		host = MaggiyanAnimationPanel.getHost(); 
 		cook = MaggiyanAnimationPanel.getCook();
 		cashier = MaggiyanAnimationPanel.getCashier();
 		
+		animationPanel.positionCounter++; 
 	}
 
 	public String getMaitreDName() {

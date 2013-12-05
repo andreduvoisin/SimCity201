@@ -21,7 +21,7 @@ public class TransportationBusInstance {
 	public TransportationBusInstance(TransportationBusDispatch bd, List<Location> busStops) {
 		mBusNumber = sBusNumber++;
 		mCurrentStop = 0;
-		mGui = new CityBus(bd, base.ContactList.cBUS_STOPS);
+		mGui = new CityBus(bd, base.reference.ContactList.cBUS_STOPS);
 		mBusStops = busStops;
 		state = enumState.traveling;
 

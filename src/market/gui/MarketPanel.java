@@ -1,17 +1,18 @@
 package market.gui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import javax.swing.Timer;
 
-import base.Item.EnumItemType;
 import market.roles.MarketCashierRole;
 import market.roles.MarketDeliveryTruckRole;
+import base.Item.EnumItemType;
+import base.reference.Market;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -19,9 +20,7 @@ import city.gui.SimCityGui;
 public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
 		
-	private List<MarketBaseGui> guis = Collections.synchronizedList(new ArrayList<MarketBaseGui>());
-	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
-	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
+	private static Market mMarket;
 	
 	private MarketItemsGui mItemGui;
 	
@@ -34,9 +33,10 @@ public class MarketPanel extends CityCard implements ActionListener {
 	
 	BufferedImage image;
 	
-	public MarketPanel(SimCityGui city) {
+	public MarketPanel(SimCityGui city, Market market) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
+		mMarket = market;
 		
 		mItemGui = new MarketItemsGui();
 		

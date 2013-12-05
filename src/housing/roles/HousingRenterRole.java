@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import base.ContactList;
 import base.interfaces.Person;
+import base.reference.ContactList;
 import city.gui.CityHousing;
 
 /*

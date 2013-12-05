@@ -15,10 +15,10 @@ import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 public class RestaurantWaiterRole extends BaseRole implements

@@ -16,10 +16,10 @@ import market.gui.MarketCustomerGui;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
-import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	int mMarketID;
@@ -40,9 +40,10 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	public MarketCustomerRole(Person person, int marketID) {
 		super(person);
 		mMarketID = marketID;
-		mCashier = ContactList.sMarketList.get(mMarketID).mCashier;
-		mGui = new MarketCustomerGui(this);
-		ContactList.sMarketList.get(mMarketID).addGui(mGui);
+		
+//		mCashier = ContactList.sMarketList.get(mMarketID).mCashier;
+//		mGui = new MarketCustomerGui(this);
+//		ContactList.sMarketList.get(mMarketID).addGui(mGui);
 		
 		//ANGELICA: where is mItemsDesired populated? hack for now
 		mItemInventory = person.getItemInventory();
