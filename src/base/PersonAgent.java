@@ -247,7 +247,7 @@ public class PersonAgent extends Agent implements Person {
 
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
-			if (mRoles.get(iRole)) {
+			if (mRoles.get(iRole) && iRole!= null) {
 				if (!iRole.hasPerson()) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");

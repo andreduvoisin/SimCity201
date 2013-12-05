@@ -232,7 +232,8 @@ public class SortingHat {
 		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		newOwnerRole.setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCount));
+		int numHouse = SimCityGui.getInstance().citypanel.masterHouseList.size();
+		newOwnerRole.setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCount%numHouse));
 		sHouseCount++;
 		return newOwnerRole;
 	}
