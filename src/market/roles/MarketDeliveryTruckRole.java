@@ -23,6 +23,13 @@ import city.gui.SimCityGui;
  * @author Angelica Huyen Tran
  */
 
+/* ANGELICA: fix this shit up
+ * -change to allow multiple orders
+ * -pick up orders at one time from market
+ * -delivery all orders at one time
+ * -check if restaurants are open
+ */
+
 public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
 
 	MarketDeliveryTruckGui mGui;
