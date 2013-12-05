@@ -37,7 +37,7 @@ public class SimCityGui extends JFrame {
 		
 		this.setLayout(new GridBagLayout());
 		
-		Time globaltime = new Time(citypanel.masterPersonList); //starts the static timer
+		Time globaltime = new Time(); //starts the static timer
 		
 		//Create Grid/Gui
 			mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;

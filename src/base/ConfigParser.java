@@ -45,7 +45,7 @@ public class ConfigParser {
 			//Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			synchronized (person) {
-				simcitygui.citypanel.masterPersonList.add(person);
+				ContactList.sPersonList.add(person);
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
 				((PersonAgent) person).startThread();
 			}

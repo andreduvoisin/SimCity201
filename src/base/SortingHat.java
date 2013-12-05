@@ -222,7 +222,8 @@ public class SortingHat {
 		if (sLandlordCount < sMaxLandlords){
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
-			newLandLordRole.setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCount));
+			
+			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount));
 			sHouseCount++;
 			return newLandLordRole;
 		}
@@ -233,7 +234,7 @@ public class SortingHat {
 		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		newOwnerRole.setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCount));
+		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount));
 		sHouseCount++;
 		return newOwnerRole;
 	}
