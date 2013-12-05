@@ -70,7 +70,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				SmilehamAnimationPanel.addPerson((SmilehamCashierRole) subRole);
 				break;
 			case 6: //angelica
-				subRole = new TranacCashierRole(mPerson);
+				subRole = new TranacCashierRole(mPerson,this);
 				TranacAnimationPanel.addPerson((TranacCashierRole)subRole);
 				break;
 			case 7: //rex

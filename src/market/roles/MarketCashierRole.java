@@ -140,7 +140,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
         if (personRole instanceof RestaurantCookInterface){
         	order.mDeliveryTruck = mDeliveryTruck;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
-            cook.msgInvoiceToPerson(cannotFulfill, invoice);
+            cook.msgCannotFulfillItems(order, cannotFulfill);
             /* ANGELICA: implement this once restaurants are settled
              * choose correct restaurant cashier
              * send invoice to restaurant cashier
