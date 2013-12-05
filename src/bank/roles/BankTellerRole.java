@@ -58,9 +58,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
-		ContactList.sBankList.get(mBankID).teller = this;
-		mGUI = new BankTellerGui(this, ContactList.sBankList.get(mBankID));
-		ContactList.sBankList.get(mBankID).addGui(mGUI);
 	}
 	
 	//	MESSAGES

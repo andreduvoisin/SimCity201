@@ -64,10 +64,10 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		super(person);
 		mMarketID = marketID;
 		
-		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashier = this;
+		ContactList.sMarketList.get(mMarketID).mCashier = this;
 		mGui = new MarketCashierGui(this);
-		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashierGui = mGui;
-		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).addGui(mGui);		
+		ContactList.sMarketList.get(mMarketID).mCashierGui = mGui;
+		ContactList.sMarketList.get(mMarketID).addGui(mGui);		
 		
 		if(person != null)
 			mBankAccount = person.getSSN();
@@ -221,9 +221,9 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		mInventory.put(i, n);
 	}
 	
-	public void addDeliveryTruck(MarketDeliveryTruck d) {
-		mDeliveryTrucks.add(d);
-	}
+//	public void addDeliveryTruck(MarketDeliveryTruck d) {
+//		mDeliveryTrucks.add(d);
+//	}
 	
 	public void setPerson(Person p) {
 		mPerson = p;
