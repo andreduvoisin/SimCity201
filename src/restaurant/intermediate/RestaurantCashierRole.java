@@ -5,6 +5,8 @@ import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
+import restaurant.restaurant_xurex.RexCashierRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -54,10 +56,10 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 //				subRole = ((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).mCashier;
 //				subRole.setPerson(mPerson);
 //				break;
-//			case 7: //rex
-//				subRole =  RexAnimationPanel.cashier;
-//				subRole.setPerson(super.mPerson);
-//				break;
+			case 7: //rex
+				subRole =  new RexCashierRole(super.mPerson);
+				RexAnimationPanel.addPerson((RexCashierRole) subRole);
+				break;
 		}
 	}
 	

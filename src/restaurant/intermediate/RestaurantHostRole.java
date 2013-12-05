@@ -5,6 +5,8 @@ import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import restaurant.restaurant_xurex.RexHostRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -55,10 +57,10 @@ public class RestaurantHostRole extends BaseRole implements
 //			subRole = ((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).mHost;
 //			subRole.setPerson(mPerson);
 //			break;
-//		case 7: // rex
-//			subRole = ((RexAnimationPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(7)).host;
-//			subRole.setPerson(super.mPerson);
-//			break;
+		case 7: // rex
+			subRole = new RexHostRole(super.mPerson);
+			RexAnimationPanel.addPerson((RexHostRole)subRole);
+			break;
 		}
 	}
 
