@@ -114,7 +114,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 stateChanged();
         }
         
-        public void msgCannotFulfillItems(Map<EnumItemType,Integer> cannotFulfill, MarketOrder o) {
+        public void msgCannotFulfillItems(MarketOrder o, Map<EnumItemType,Integer> cannotFulfill) {
         	mCannotFulfill = cannotFulfill;
         	for(MarketOrder io : mOrders) {
         		if(io == o) {
