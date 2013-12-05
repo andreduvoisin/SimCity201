@@ -24,7 +24,7 @@ import base.reference.ContactList;
  * Restaurant Waiter Agent
  */
 
-public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter{
+public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 	public TranacWaiterGui waiterGui = null;
 	private Timer timer = new Timer();	//used for breaks
 	
@@ -46,7 +46,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	private Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
 	private Semaphore askingForBreak = new Semaphore(0,true);
 	
-	public TranacRestaurantWaiterRole(Person p) { //ANGELICA: 1 Why do you need two constructors?? -shane
+	public TranacWaiterRole(Person p) { //ANGELICA: 1 Why do you need two constructors?? -shane
 		super(p);
 		waiterGui = new TranacWaiterGui(this, TranacAnimationPanel.getNumWaiters());
 		TranacAnimationPanel.addPerson(this);

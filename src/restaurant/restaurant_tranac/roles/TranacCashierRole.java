@@ -20,7 +20,7 @@ import base.reference.ContactList;
 /**
  * Restaurant Cashier Agent
  */
-public class TranacRestaurantCashierRole extends BaseRole implements TranacCashier {
+public class TranacCashierRole extends BaseRole implements TranacCashier {
 	private TranacCashierGui cashierGui;
 	private TranacMenu menu = new TranacMenu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
@@ -29,7 +29,7 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
-	public TranacRestaurantCashierRole(Person person) {
+	public TranacCashierRole(Person person) {
 		super(person);
 		cashierGui = new TranacCashierGui(this);
 	}

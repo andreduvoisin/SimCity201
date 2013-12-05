@@ -22,7 +22,7 @@ import base.reference.ContactList;
 /**
  * Restaurant customer agent.
  */
-public class TranacRestaurantCustomerRole extends BaseRole implements
+public class TranacCustomerRole extends BaseRole implements
 		TranacCustomer {
 	private TranacCustomerGui customerGui;
 	private int hungerLevel = 10; // determines length of meal
@@ -65,7 +65,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	 *            reference to the customerGui so the customer can send it
 	 *            messages
 	 */
-	public TranacRestaurantCustomerRole() {
+	public TranacCustomerRole() {
 		super(null);
 		customerGui = new TranacCustomerGui(this);
 		TranacAnimationPanel.getInstance().addPerson(this);
@@ -84,7 +84,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 			willWait = true;
 	}
 
-	public TranacRestaurantCustomerRole(Person mPerson) {
+	public TranacCustomerRole(Person mPerson) {
 		super(mPerson);
 		money = baseMoney;
 		num = 0;

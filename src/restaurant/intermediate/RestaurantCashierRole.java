@@ -10,7 +10,7 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
-import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
+import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
@@ -59,8 +59,8 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInt
 				SmilehamAnimationPanel.addPerson((SmilehamCashierRole) subRole);
 				break;
 			case 6: //angelica
-				subRole = new TranacRestaurantCashierRole(mPerson);
-				TranacAnimationPanel.addPerson((TranacRestaurantCashierRole)subRole);
+				subRole = new TranacCashierRole(mPerson);
+				TranacAnimationPanel.addPerson((TranacCashierRole)subRole);
 				break;
 			case 7: //rex
 				subRole =  new RexCashierRole(super.mPerson);

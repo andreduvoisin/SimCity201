@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
+import restaurant.restaurant_tranac.roles.TranacCustomerRole;
 
 public class TranacCustomerGui implements Gui{
 
-	private TranacRestaurantCustomerRole agent = null;
+	private TranacCustomerRole agent = null;
 	private boolean isPresent = true;
 	private String food;
 
@@ -34,7 +34,7 @@ public class TranacCustomerGui implements Gui{
     BufferedImage alertBubble;
     BufferedImage askingBubble;
 
-	public TranacCustomerGui(TranacRestaurantCustomerRole c, TranacAnimationPanel gui){
+	public TranacCustomerGui(TranacCustomerRole c, TranacAnimationPanel gui){
 		agent = c;
 		xPos = -40;
 		yPos = -40;
@@ -80,7 +80,7 @@ public class TranacCustomerGui implements Gui{
     	}
 	}
 	
-	public TranacCustomerGui(TranacRestaurantCustomerRole c){
+	public TranacCustomerGui(TranacCustomerRole c){
 		agent = c;
 		xPos = -40;
 		yPos = -40;

@@ -11,11 +11,11 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
+import restaurant.restaurant_tranac.roles.TranacCookRole;
 
 public class TranacCookGui implements Gui {
 
-    private TranacRestaurantCookRole agent;
+    private TranacCookRole agent;
 
     private int xPos = 540, yPos = 60;					//default cook position
     private int xDestination = 540, yDestination = 60;	//default cook position
@@ -35,7 +35,7 @@ public class TranacCookGui implements Gui {
 
     private BufferedImage image;
     
-    public TranacCookGui(TranacRestaurantCookRole agent) {
+    public TranacCookGui(TranacCookRole agent) {
         this.agent = agent;
         
         //plating locations for food

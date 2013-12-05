@@ -22,7 +22,7 @@ import base.reference.ContactList;
  * Restaurant Host Agent
  */
 
-public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
+public class TranacHostRole extends BaseRole implements TranacHost{
 	private TranacHostGui hostGui;
 	
 	static final int NTABLES = 4;		//number of tables in rest
@@ -40,7 +40,7 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 	//MyWaiterState
 	enum WaiterState {Active, WantToGoOnBreak, OnBreak};
 	
-	public TranacRestaurantHostRole(Person mPerson) {
+	public TranacHostRole(Person mPerson) {
 		super(mPerson);
 		hostGui = new TranacHostGui(this);
 
