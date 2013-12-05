@@ -98,7 +98,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 6: // angelica
 			if(mWaiterType == 1) {
 				subRole = new TranacRestaurantWaiterRole(mPerson);
-				TranacAnimationPanel.addPerson(TranacRestaurantWaiterRole)subRole);
+				TranacAnimationPanel.addPerson((TranacRestaurantWaiterRole) subRole);
 			}
 			else if (mWaiterType == 0) {
 				//ANGELICA: add shared waiter
