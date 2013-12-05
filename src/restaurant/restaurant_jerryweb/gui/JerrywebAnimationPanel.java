@@ -16,7 +16,7 @@ import javax.swing.Timer;
 
 import city.gui.CityCard;
 import city.gui.SimCityGui;
-import restaurant.intermediate.interfaces.RestaurantInterface;
+
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
@@ -29,7 +29,7 @@ import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import base.BaseRole;
 import base.Time;
 
-public class JerrywebAnimationPanel extends CityCard implements ActionListener, RestaurantInterface {
+public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	
 	static final int tableWidth = 50;
 	static final int tableHeight = 50;

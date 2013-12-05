@@ -114,6 +114,17 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 stateChanged();
         }
         
+        public void msgCannotFulfillItems(Map<EnumItemType,Integer> cannotFulfill, MarketOrder o) {
+        	mCannotFulfill = cannotFulfill;
+        	for(MarketOrder io : mOrders) {
+        		if(io == o) {
+        			io.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
+        			//ANGELICA: change events?
+        		}
+        	}
+        	stateChanged();
+        }
+        
         public void msgHereIsCookOrder(MarketOrder o) {
                 o.mEvent = EnumOrderEvent.RECEIVED_ORDER;
                 stateChanged();
@@ -172,6 +183,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		int m = (int) (Math.random() % 2);
         		mMarketCashier = CityPanel.getInstance().masterMarketList.get(m).mCashier;
                 mMarketCashier.msgOrderPlacement(o);
+                //ANGELICA: send message to rest cashier about order
         }
         
         private void payAndProcessOrder(MarketInvoice i) {
