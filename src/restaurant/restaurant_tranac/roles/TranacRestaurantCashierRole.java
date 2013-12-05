@@ -17,7 +17,7 @@ import base.ContactList;
 import base.Location;
 
 /**
- * Restaurant Cook Agent
+ * Restaurant Cashier Agent
  */
 public class TranacRestaurantCashierRole extends BaseRole implements TranacCashier {
 	private TranacCashierGui cashierGui;
