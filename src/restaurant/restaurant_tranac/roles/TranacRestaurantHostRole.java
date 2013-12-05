@@ -15,6 +15,7 @@ import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.interfaces.Person;
 
 
 /**
@@ -39,10 +40,9 @@ public class TranacRestaurantHostRole extends BaseRole implements TranacHost{
 	//MyWaiterState
 	enum WaiterState {Active, WantToGoOnBreak, OnBreak};
 	
-	public TranacRestaurantHostRole() {
-		super(null);
+	public TranacRestaurantHostRole(Person mPerson) {
+		super(mPerson);
 		hostGui = new TranacHostGui(this);
-		TranacAnimationPanel.getInstance().addPerson(this);
 
 		//create the list of tables
 		tables = new ArrayList<Table>(NTABLES);

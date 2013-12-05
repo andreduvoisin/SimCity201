@@ -49,7 +49,7 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	public TranacRestaurantWaiterRole(Person p) { //ANGELICA: 1 Why do you need two constructors?? -shane
 		super(p);
 		waiterGui = new TranacWaiterGui(this, TranacAnimationPanel.getNumWaiters());
-		TranacAnimationPanel.getInstance().addPerson(this);
+		TranacAnimationPanel.addPerson(this);
 		
 		mHost = TranacAnimationPanel.getHost();
 		mCook = TranacAnimationPanel.getCook();

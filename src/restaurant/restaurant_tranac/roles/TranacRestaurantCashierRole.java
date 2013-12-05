@@ -15,6 +15,7 @@ import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.interfaces.Person;
 
 /**
  * Restaurant Cashier Agent
@@ -28,10 +29,9 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
-	public TranacRestaurantCashierRole() {
-		super(null);
+	public TranacRestaurantCashierRole(Person person) {
+		super(person);
 		cashierGui = new TranacCashierGui(this);
-		TranacAnimationPanel.getInstance().addPerson(this); //add to gui
 	}
 
 	/** Messages */

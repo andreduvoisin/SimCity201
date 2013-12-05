@@ -94,7 +94,7 @@ public class TranacAnimationPanel extends CityCard implements ActionListener {
     	}
     }
     
-    public void addPerson(BaseRole role){
+    public static void addPerson(BaseRole role){
     	if (role instanceof TranacRestaurantCustomerRole){
     		TranacRestaurantCustomerRole customer = (TranacRestaurantCustomerRole) role;
     		mCustomers.add(customer);

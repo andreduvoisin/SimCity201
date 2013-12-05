@@ -12,6 +12,8 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
+import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -93,15 +95,15 @@ public class RestaurantWaiterRole extends BaseRole implements
 				// SHANE: add shared waiter
 			}
 			break;
-//		case 6: // angelica
-//			if (mWaiterType == 1) {
-//				subRole = new TranacRestaurantWaiterRole(mPerson);
-//				((TranacRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(6)).addWaiter(
-//						(TranacRestaurantWaiterRole) subRole);
-//			} else if (mWaiterType == 0) {
-//				// ANGELICA: add shared waiter
-//			}
-//			break;
+		case 6: // angelica
+			if(mWaiterType == 1) {
+				subRole = new TranacRestaurantWaiterRole(mPerson);
+				TranacAnimationPanel.addPerson(TranacRestaurantWaiterRole)subRole);
+			}
+			else if (mWaiterType == 0) {
+				//ANGELICA: add shared waiter
+			}
+			break;
 //		case 7: // rex
 //			// REX: what is going on with this stuff? Can it go inside your
 //			// RestaurantPanel?
