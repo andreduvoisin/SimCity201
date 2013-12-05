@@ -15,7 +15,7 @@ public class TranacCustomerGui implements Gui{
 	private boolean isPresent = true;
 	private String food;
 
-	TranacRestaurantPanel gui;
+	TranacAnimationPanel gui;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -34,7 +34,7 @@ public class TranacCustomerGui implements Gui{
     BufferedImage alertBubble;
     BufferedImage askingBubble;
 
-	public TranacCustomerGui(TranacRestaurantCustomerRole c, TranacRestaurantPanel gui){
+	public TranacCustomerGui(TranacRestaurantCustomerRole c, TranacAnimationPanel gui){
 		agent = c;
 		xPos = -40;
 		yPos = -40;
@@ -86,7 +86,7 @@ public class TranacCustomerGui implements Gui{
 		yPos = -40;
 		xDestination = -40;
 		yDestination = -40;
-		this.gui = TranacRestaurantPanel.getInstance();
+		this.gui = TranacAnimationPanel.getInstance();
 		
 		//grabs the correct image using relative file paths
     	image = null;
