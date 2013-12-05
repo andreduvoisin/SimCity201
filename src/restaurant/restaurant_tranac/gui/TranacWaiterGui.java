@@ -10,15 +10,15 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
-import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
-import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
+import restaurant.restaurant_tranac.roles.TranacCookRole;
+import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 
 public class TranacWaiterGui implements Gui {
 
-    private TranacRestaurantWaiterRole agent = null;
+    private TranacWaiterRole agent = null;
     private TranacAnimationPanel gui = null;
     
-    private TranacRestaurantCookRole cook = null;
+    private TranacCookRole cook = null;
     
     private int xPos = -20, yPos = -20;						//default waiter position
     private int xDestination = -20, yDestination = -20;		//default start position
@@ -44,7 +44,7 @@ public class TranacWaiterGui implements Gui {
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
     
-    public TranacWaiterGui(TranacRestaurantWaiterRole agent, TranacAnimationPanel gui, int i) {
+    public TranacWaiterGui(TranacWaiterRole agent, TranacAnimationPanel gui, int i) {
         this.agent = agent;
         this.gui = gui;
         
@@ -93,7 +93,7 @@ public class TranacWaiterGui implements Gui {
     	}
     }
 
-    public TranacWaiterGui(TranacRestaurantWaiterRole agent, int i) {
+    public TranacWaiterGui(TranacWaiterRole agent, int i) {
         this.agent = agent;
         this.gui = TranacAnimationPanel.getInstance();
         

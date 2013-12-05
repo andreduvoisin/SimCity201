@@ -24,7 +24,7 @@ import base.reference.ContactList;
 /**
  * Restaurant Cook Agent
  */
-public class TranacRestaurantCookRole extends RestaurantCookRole implements TranacCook {
+public class TranacCookRole extends RestaurantCookRole implements TranacCook {
         private TranacCookGui cookGui;
         
         public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
@@ -49,7 +49,7 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         
         private Semaphore inTransit = new Semaphore(0, true);
 
-        public TranacRestaurantCookRole(Person p) {
+        public TranacCookRole(Person p) {
                 super(p, 6);
                 cookGui = new TranacCookGui(this);
                 TranacAnimationPanel.getInstance().addPerson(this);
