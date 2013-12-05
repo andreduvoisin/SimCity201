@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
@@ -48,12 +49,16 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	// Scenarios
 	JLabel scenarioTitle = new JLabel("Load Selected Scenario:");
 	JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-    JPanel view = new JPanel();
+	JScrollPane NormsPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	JScrollPane NonNormsPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+	JPanel view = new JPanel();
     
     // Tabs
     JTabbedPane tabbedPane = new JTabbedPane();
-    JPanel tab1 = new JPanel();
-    JPanel tab2 = new JPanel();
+    JPanel RestaurantTab = new JPanel();
+    JPanel CommercialTab = new JPanel();
+    JPanel ScenariosTab = new JPanel();
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
@@ -103,77 +108,18 @@ public class CityControlPanel extends JPanel implements ActionListener{
         pane.setMinimumSize(scrollPaneDim);
         pane.setMaximumSize(scrollPaneDim);
         
-        /*
-         * Choose Config File
-         */
-        Dimension panelSize = new Dimension(scrollPaneDim.width - 20, scrollPaneDim.height);
-    	configList = new JPanel();
-    	configOptions = new ArrayList<JButton>();
-    	configList.setPreferredSize(panelSize);
-    	configList.setMinimumSize(panelSize);
-    	configList.setMaximumSize(panelSize);
-    	configList.setLayout(new FlowLayout());
-    	
-    	Dimension buttonDim = new Dimension(panelSize.width, 20);
-    	JButton allBtn = new JButton("Simulate All");
-    	allBtn.addActionListener(this);
-    	allBtn.setPreferredSize(buttonDim);
-    	allBtn.setMinimumSize(buttonDim);
-    	allBtn.setMaximumSize(buttonDim);
-    	configList.add(allBtn);
-    	configOptions.add(allBtn);
-    	view.add(configList);
-    	for (int i=0; i<8; i++) {
-    		JButton config = new JButton("Restaurant "+i);
-	    	config.addActionListener(this);
-	    	config.setPreferredSize(buttonDim);
-	    	config.setMinimumSize(buttonDim);
-	    	config.setMaximumSize(buttonDim);
-	    	configList.add(config);
-	    	configOptions.add(config);
-    	}
-    	JButton bankBtn = new JButton("Bank");
-    	bankBtn.addActionListener(this);
-    	bankBtn.setPreferredSize(buttonDim);
-    	bankBtn.setMinimumSize(buttonDim);
-    	bankBtn.setMaximumSize(buttonDim);
-    	configList.add(bankBtn);
-    	configOptions.add(bankBtn);
-    	view.add(configList);
-    	JButton houseBtn = new JButton("Housing");
-    	houseBtn.addActionListener(this);
-    	houseBtn.setPreferredSize(buttonDim);
-    	houseBtn.setMinimumSize(buttonDim);
-    	houseBtn.setMaximumSize(buttonDim);
-    	configList.add(houseBtn);
-    	configOptions.add(houseBtn);
-    	view.add(configList);
-    	JButton marketBtn = new JButton("Food Market");
-    	marketBtn.addActionListener(this);
-    	marketBtn.setPreferredSize(buttonDim);
-    	marketBtn.setMinimumSize(buttonDim);
-    	marketBtn.setMaximumSize(buttonDim);
-    	configList.add(marketBtn);
-    	configOptions.add(marketBtn);
-    	view.add(configList);
-    	JButton partyBtn = new JButton("Party");
-    	partyBtn.addActionListener(this);
-    	partyBtn.setPreferredSize(buttonDim);
-    	partyBtn.setMinimumSize(buttonDim);
-    	partyBtn.setMaximumSize(buttonDim);
-    	configList.add(partyBtn);
-    	configOptions.add(partyBtn);
-    	view.add(configList);
-        add(pane);
+     // Tabs
+
+        JLabel filler2 = new JLabel("Panel #2");
+        filler2.setHorizontalAlignment(JLabel.CENTER);
+        RestaurantTab.setLayout(new GridLayout(1, 2));
+        ScenariosTab.setLayout(new GridLayout(1, 2));
         
-        // Tabs
-        //JLabel filler = new JLabel("Panel #1");
-        //filler.setHorizontalAlignment(JLabel.CENTER);
-        //tab1.setLayout(new GridLayout(1, 1));
-        //tab1.add(filler);
-        //tabbedPane.addTab("Scenario Details", tab1);
-//        tabbedPane.addTab("Advanced Configuration", tab2);
-        //add(tabbedPane);
+        //tabbedPane.setLayout(new GridLayout(1,3));
+        tabbedPane.addTab("Comercial", CommercialTab);
+        tabbedPane.addTab("Scenarios", ScenariosTab);
+        tabbedPane.addTab("Restaurants ", RestaurantTab);
+        add(tabbedPane);
         
         //tabbedPane.addTab("Tab 1", icon, panel1, "Does nothing");
         //tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -186,7 +132,100 @@ public class CityControlPanel extends JPanel implements ActionListener{
 //		addBank = new JButton("Add Bank");
 //		addBank.addActionListener(this);
 //		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		add(addBank);	
+//		add(addBank);
+        
+        // Scenario
+        view.setLayout(new BoxLayout((Container)view, BoxLayout.Y_AXIS));
+        pane.setViewportView(view);
+        
+        /*
+         * Choose Config File
+         */
+        Dimension panelSize = new Dimension(scrollPaneDim.width - 20, scrollPaneDim.height);
+    	configList = new JPanel();
+    	configOptions = new ArrayList<JButton>();
+    	configList.setPreferredSize(panelSize);
+    	configList.setMinimumSize(panelSize);
+    	configList.setMaximumSize(panelSize);
+    	configList.setLayout(new FlowLayout());
+    	
+    	Dimension buttonDim = new Dimension(panelSize.width, 20);
+    	/*JButton allBtn = new JButton("Simulate All");
+    	allBtn.addActionListener(this);
+    	allBtn.setPreferredSize(buttonDim);
+    	allBtn.setMinimumSize(buttonDim);
+    	allBtn.setMaximumSize(buttonDim);
+    	configList.add(allBtn);
+    	configOptions.add(allBtn);*/
+    	//view.add(configList);
+    	//tab1.add(configList);
+    	
+    	//Restaurant Config tab
+    	//for (int i=0; i<8; i++) {
+    		JButton Restaurant_Config = new JButton("Restaurant " + 0);
+    		Restaurant_Config.addActionListener(this);
+    		Restaurant_Config.setPreferredSize(buttonDim);
+	    	Restaurant_Config.setMinimumSize(buttonDim);
+	    	Restaurant_Config.setMaximumSize(buttonDim);
+	    	configList.add(Restaurant_Config);
+	    	configOptions.add(Restaurant_Config);
+    	//}
+    	
+    	view.add(configList);
+    	RestaurantTab.add(pane);
+    	
+    	
+    	
+    	
+    	
+    	//Commercial Config Tab (bank and markets)
+    	JButton bankBtn = new JButton("Bank");
+    	bankBtn.addActionListener(this);
+    	bankBtn.setPreferredSize(buttonDim);
+    	bankBtn.setMinimumSize(buttonDim);
+    	bankBtn.setMaximumSize(buttonDim);
+    	CommercialTab.add(bankBtn);
+    	configOptions.add(bankBtn);
+    	
+    	JButton marketBtn = new JButton("Food Market");
+    	marketBtn.addActionListener(this);
+    	marketBtn.setPreferredSize(buttonDim);
+    	marketBtn.setMinimumSize(buttonDim);
+    	marketBtn.setMaximumSize(buttonDim);
+    	CommercialTab.add(marketBtn);
+    	configOptions.add(marketBtn);
+    	
+    	//Scenarios Config Tab
+    	JLabel NormLabel = new JLabel("Norms");
+    	JLabel NonNormLabel = new JLabel("Non Norms");
+    	
+    	JButton partyBtn = new JButton("Party");
+    	partyBtn.addActionListener(this);
+    	partyBtn.setPreferredSize(buttonDim);
+    	partyBtn.setMinimumSize(buttonDim);
+    	partyBtn.setMaximumSize(buttonDim);
+    	//ScenariosTab.add(NormLabel);
+    	//ScenariosTab.add(NonNormLabel);
+    	ScenariosTab.add(partyBtn);
+    	configOptions.add(partyBtn);
+    	//view.add(configList);
+
+    	//pane.add(configList);
+    	/*
+    	JButton houseBtn = new JButton("Housing");
+    	houseBtn.addActionListener(this);
+    	houseBtn.setPreferredSize(buttonDim);
+    	houseBtn.setMinimumSize(buttonDim);
+    	houseBtn.setMaximumSize(buttonDim);
+    	configList.add(houseBtn);
+    	configOptions.add(houseBtn);
+    	view.add(configList);
+
+    	view.add(configList);
+    	 */
+        //add(pane);
+        
+        	
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -208,7 +247,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-		}
+		}/*
 		if (((JButton) e.getSource()).getText().equals("Housing")) {
 			ConfigParser config = ConfigParser.getInstanceOf();
 			try {
@@ -224,7 +263,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-		}
+		}*/
 		if (((JButton) e.getSource()).getText().equals("Party")) {
 			ConfigParser config = ConfigParser.getInstanceOf();
 			try {
@@ -232,7 +271,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-		}
+		}/*
 		if (((JButton) e.getSource()).getText().equals("Simulate All")) {
 			ConfigParser config = ConfigParser.getInstanceOf();
 			try {
@@ -240,7 +279,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
-		}
+		}*/
 		for (JButton b : configOptions) {
 			b.setEnabled(false);
 		}
