@@ -270,12 +270,13 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
-
+//ANGELICA MAGGI: change all test funcitons back later
 	private synchronized void processEvent(Event event) {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
-			getCar();
+//			getCar();
+			testGetCar();
 		}
 		
 		//Daily Recurring Events (Job, Eat)
@@ -283,19 +284,22 @@ public class PersonAgent extends Agent implements Person {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
-				goToJob();
+//				goToJob();
+				testGoToJob();
 			}
 			mEvents.add(new Event(event, 24));
 		}
 		else if (event.mEventType == EnumEventType.EAT) {
-			eatFood();
+//			eatFood();
+			testEatFood();
 			mEvents.add(new Event(event, 24));
 		}
 
 		//Intermittent Events (Deposit Check)
 		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
 			print("DepositCheck");
-			depositCheck();
+//			depositCheck();
+			testDepositCheck();
 		}
 		
 		else if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
@@ -343,6 +347,121 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.remove(event);
 	}
 	
+/**ANGELICA: MAGGI: Testing transportationnnnnnnnnnnnnnnnnnnnnnnnnnnnnn */
+	
+	private void testGetCar() {
+		//activate marketcustomer role
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof MarketCustomer){
+				if(!SimCityGui.TESTING) {
+					//ANGELICA: change to choosing which market to get a car
+					Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+					iRole.GoToDestination(location);
+					acquireSemaphore(semAnimationDone);
+				}
+				mPersonGui.setPresent(false);
+				mRoles.put(iRole, true); //set active
+				iRole.setPerson(this);
+				break;
+			}
+		}
+		
+		//add desired item
+		mItemsDesired.put(EnumItemType.CAR, 1); //want 1 car
+		//PAEA for role will message market cashier to start transaction
+		mHasCar = true;
+	}
+	
+	private void testGoToJob() {
+		print("goToJob");
+		Role jobRole = getJobRole();
+		if(jobRole == null){
+			print("didn't go to job"); return;
+		}
+		jobRole.GoToDestination(getJobLocation());
+		acquireSemaphore(semAnimationDone);
+		mAtJob = true; //set to false in msgTimeShift
+		mPersonGui.setPresent(false);
+		print("my job is " +jobRole.toString());
+		if(jobRole != null) {
+			jobRole.setPerson(this); //take over job role
+			mRoles.put(jobRole, true); //set role to active
+			jobRole.setActive();
+		}
+	}
+	
+	private void testEatFood() {
+		if (isCheap() && getHousingRole().getHouse() != null){
+			print("Going to eat at home");
+			getHousingRole().msgEatAtHome();
+			BaseRole r = (BaseRole)getHousingRole();
+			r.GoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+			acquireSemaphore(semAnimationDone);
+			mPersonGui.setPresent(false);
+		}else{
+			print("Going to restaurant");
+			//set random restaurant
+			Role restCustRole = null;
+			for (Role iRole : mRoles.keySet()){
+				if (iRole instanceof RestaurantCustomerRole){
+					restCustRole = iRole;
+				}
+			}
+			mRoles.put(restCustRole, true);
+			
+			//SHANE DAVID ALL: 3 make this random
+			int restaurantChoice = 0;
+			
+			if (SimCityGui.TESTING){
+				restaurantChoice = SimCityGui.TESTNUM; //override if testing
+			}
+
+			restCustRole.GoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
+			acquireSemaphore(semAnimationDone);
+			mPersonGui.setPresent(false);
+			
+			((RestaurantCustomerRole) restCustRole).setPerson(this);
+			((RestaurantCustomerRole) restCustRole).setRestaurant(restaurantChoice);
+		}
+	}
+	
+	private void testDepositCheck() {
+		mPersonGui.setPresent(true);
+		
+//		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
+		
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+		
+		int deposit = 50; //REX: add mDeposit, and do after leaving job
+		
+		BankCustomerRole bankCustomerRole = null;
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof BankCustomerRole){
+				bankCustomerRole.GoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION : ContactList.cBANK2_LOCATION);
+				acquireSemaphore(semAnimationDone);
+				mPersonGui.setPresent(false);
+				bankCustomerRole = (BankCustomerRole) iRole;
+				mRoles.put(iRole, true);
+				break;
+			}
+		}
+		
+		//deposit check
+		bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
+		
+		//pay back loan if needed
+		if(mLoan > 0){
+			double payment = Math.max(mCash, mLoan);
+			mCash -= payment;
+			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
+		}
+		bankCustomerRole.setPerson(this);
+		bankCustomerRole.setActive();
+		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
+	}
+	
+/*************************************************************************/
 	public void getCar(){
 		Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 		if(!SimCityGui.TESTING){
