@@ -38,7 +38,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		super(person);
 		mMarketID = marketID;
 		
-		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mDeliveryTruck = this;
+		ContactList.sMarketList.get(mMarketID).mDeliveryTruck = this;
 		mGui = new MarketDeliveryTruckGui(this);
 	}
 
