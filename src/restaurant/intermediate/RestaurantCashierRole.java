@@ -135,7 +135,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		MarketCashier cashier = null;
 		
 		//ANGELICA:
-		if(b.mMarketNumber == 0) {
+		if(b.mMarketNumber == 1) {
 			//figure out where market info is going to be
 		}
 		else {

@@ -14,6 +14,7 @@ import market.interfaces.MarketDeliveryTruck;
 import base.BaseRole;
 import base.Location;
 import base.PersonAgent;
+import base.interfaces.Person;
 import base.reference.ContactList;
 import city.gui.SimCityGui;
 
@@ -31,99 +32,85 @@ import city.gui.SimCityGui;
  */
 
 public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
-
 	MarketDeliveryTruckGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
 	int mMarketID;
 	
+	List<MarketOrder> mPendingDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
-	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
-	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
-	//ANGELICA: fix delivery truck status thing
-	public MarketDeliveryTruckRole(PersonAgent person, int marketID) {
+	public MarketDeliveryTruckRole(Person person, int marketID) {
 		super(person);
 		mMarketID = marketID;
 		
 		ContactList.sMarketList.get(mMarketID).mDeliveryTruck = this;
 		mGui = new MarketDeliveryTruckGui(this);
-	}
-
-/* Messages */
-	public void msgDeliverOrderToCook(MarketOrder o) {
-		mDeliveries.add(o);
-		o.mEvent = EnumOrderEvent.TOLD_TO_DELIVER;
+		//ANGELICA: add delivery truck gui to the city view
 	}
 	
-	public void msgAnimationAtRestaurant(int n) {
-		for(MarketOrder d : mDeliveries) {
-			if(d.mRestaurantNumber == n)
-			d.mEvent = EnumOrderEvent.READY_TO_DELIVER;
+/* Messages */
+	public void msgDeliverOrderToCook(MarketOrder o) {
+		synchronized(mPendingDeliveries) {
+			mPendingDeliveries.add(o);
 		}
+		stateChanged();
+	}
+	
+	public void msgAnimationAtRestaurant() {
 		inTransit.release();
 	}
 	
 	public void msgAnimationAtMarket() {
-		mStatus = EnumDeliveryTruckStatus.Ready;
 		inTransit.release();
-		stateChanged();
-	}
-	
-	public void msgAnimationLeftMarket() {
-		inTransit.release();
-	}
-	
-/* Scheduler */
-	public boolean pickAndExecuteAnAction() {
-		for(MarketOrder delivery : mDeliveries) {
-			if(delivery.mStatus == EnumOrderStatus.BEING_DELIVERED && delivery.mEvent == EnumOrderEvent.READY_TO_DELIVER) {
-				delivery.mStatus = EnumOrderStatus.FULFILLING;
-				deliverOrder(delivery);
-				return true;
-			}
-		}
-		for(MarketOrder delivery : mDeliveries) {
-			if(delivery.mStatus == EnumOrderStatus.DELIVERING && delivery.mEvent == EnumOrderEvent.TOLD_TO_DELIVER) {
-				delivery.mStatus = EnumOrderStatus.BEING_DELIVERED;
-				goToDeliverOrder(delivery);
-				return true;
-			}
-		}
-		if(mStatus == EnumDeliveryTruckStatus.Ready) {
-			mStatus = EnumDeliveryTruckStatus.Waiting;
-			return true;
-		}
-		DoGoToMarket();
-		/*
-		 * if time for role change,
-		 * DoLeaveMarket();
-		 */
-		return false;
 	}
 
+/* Scheduler */
+	public boolean pickAndExecuteAnAction() {
+		if(mDeliveries.size() != 0) {
+			deliverOrders();
+			return true;
+		}
+		if(mPendingDeliveries.size() != 0) {
+			pickUpOrdersFromMarket();
+			return true;
+		}
+		return false;
+	}
+	
 /* Actions */
-	private void goToDeliverOrder(MarketOrder o) {
-		DoGoToRestaurant(o.mRestaurantNumber);
+	public void deliverOrders() {
+		//check all the restaurants
+		for(int i=0;i<8;i++) {
+			for(MarketOrder o : mDeliveries) {
+				if(o.mRestaurantNumber == i) { //ANGELICA: check if restaurant is open
+					DoGoToRestaurant(i);
+					((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
+					mDeliveries.remove(o);
+				}
+			}
+		}
 	}
 	
-	private void deliverOrder(MarketOrder o) {
-		((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
-		mDeliveries.remove(o);
+	public void pickUpOrdersFromMarket() {
+		DoGoToMarket();
+		synchronized(mPendingDeliveries) {
+		for(MarketOrder o : mPendingDeliveries) {
+			mDeliveries.add(o);
+		}
+		mPendingDeliveries.clear();
+		}
 	}
 	
-	
+	public void waitAtMarket() {
+		DoGoToMarket();
+	}
+
 /* Animation Actions */
-	public void DoGoToRestaurant(int n) {
-//		mGui.DoGoToRestaurant(restaurant);
-		try {
-			inTransit.acquire();
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+	private void DoGoToRestaurant(int n) {
+		mGui.DoGoToRestaurant(n);
 	}
 	
-	public void DoGoToMarket() {
+	private void DoGoToMarket() {
 		mGui.DoGoToMarket();
 		try {
 			inTransit.acquire();
@@ -133,20 +120,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		}
 	}
 	
-	public void DoLeaveMarket() {
-		mGui.DoLeaveMarket();
-		try {
-			inTransit.acquire();
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
 /* Utilities */
-	public void setGui(MarketDeliveryTruckGui g) {
-		mGui = g;
-	}
 
 	@Override
 	public Location getLocation() {

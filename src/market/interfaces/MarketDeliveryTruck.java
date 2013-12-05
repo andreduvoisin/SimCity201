@@ -11,9 +11,9 @@ import market.MarketOrder;
 public interface MarketDeliveryTruck {
 	public abstract void msgDeliverOrderToCook(MarketOrder o);
 	
-	public abstract void msgAnimationAtRestaurant(int n);
+	public abstract void msgAnimationAtRestaurant();
 	
 	public abstract void msgAnimationAtMarket();
 	
-	public abstract void msgAnimationLeftMarket();
+//	public abstract void msgAnimationLeftMarket();
 }
