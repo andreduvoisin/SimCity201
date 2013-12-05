@@ -31,10 +31,10 @@ public abstract class BaseRole implements Role {
 	//TRANSPORTATION
 	public void GoToDestination(Location location){
 		if(mPerson.hasCar()){
-			mPerson.getGui().DoDriveToDestination(); 
+			mPerson.getGui().DoDriveToDestination(location); 
 		}
 		else{
-			mPerson.getGui().DoGoToDestination(location);
+			mPerson.getGui().testDoGoToDestination(location);
 		}
 	
 	}
