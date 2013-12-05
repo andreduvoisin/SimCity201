@@ -17,11 +17,14 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
+import base.Location;
 import base.interfaces.Person;
 
-public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook{
+public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
+	RestaurantCookRole mRole;
 	private String n; 
 	
 	//Cooking Food
@@ -52,19 +55,21 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 	public List<Order> rStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
 
-	public MaggiyanCookRole(Person p){
-		super(p, 3);
+	public MaggiyanCookRole(Person p, RestaurantCookRole r){
+		super(p);
+		mRole = r;
 		if(p == null){
 			this.n = "Null cook"; 
 		}
 		else{
 			this.n = p.getName();
 		}
+		/*ANGELICA:
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-        
+        */
         CookingTimes.put("Steak", foodCookingTime* 50);
         CookingTimes.put("Salad", foodCookingTime* 50);
         CookingTimes.put("Pizza", foodCookingTime* 50);
@@ -267,19 +272,19 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 //			stockInventory = true;
 //		}
 		
-		if(mItemInventory.get(Item.stringToEnum(o.c)) == 0){
-			mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);  
+		if(mRole.mItemInventory.get(Item.stringToEnum(o.c)) == 0){
+			mRole.mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);  
 			o.w.msgOutOfChoice(o.c, o.table);
 			orders.remove(o);
 			return;
 		}
 		
-		if(mItemInventory.get(Item.stringToEnum(o.c)) <= inventoryLOW){
+		if(mRole.mItemInventory.get(Item.stringToEnum(o.c)) <= inventoryLOW){
 			print("Inventory low"); 
-			mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);
+			mRole.mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);
 		}
 		
-		print("Order inventory: " + mItemInventory.get(Item.stringToEnum(o.c))); 
+		print("Order inventory: " + mRole.mItemInventory.get(Item.stringToEnum(o.c))); 
 		
 		o.s = state.cooking; 
 		print("Cooking order");
@@ -301,8 +306,8 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 				print("DONE!!");
 				o.s = state.done;
 				//decrement food qty
-				decreaseInventory(Item.stringToEnum(o.c));
-				print("Order inventory now: " + mItemInventory.get(Item.stringToEnum(o.c))); 
+				mRole.decreaseInventory(Item.stringToEnum(o.c));
+				print("Order inventory now: " + mRole.mItemInventory.get(Item.stringToEnum(o.c))); 
 				stateChanged();
 			}
 		},
@@ -356,6 +361,12 @@ public class MaggiyanCookRole extends RestaurantCookRole implements MaggiyanCook
 	
 	public void setGui(MaggiyanCookGui c){
 		cookGui = c; 
+	}
+
+	@Override
+	public Location getLocation() {
+		// ANGELICA Auto-generated method stub
+		return null;
 	}
 	
 //	private class Food{
