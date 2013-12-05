@@ -7,6 +7,7 @@ import java.util.Map;
 
 import market.MarketInvoice;
 import market.MarketOrder;
+import market.MarketOrder.EnumOrderEvent;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
@@ -133,7 +134,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		Map<EnumItemType, Integer> cf = b.mCannotFulfill;
 		MarketCashier cashier = null;
 		
-		//ANGELICA: hack for now; should we pass market cashier with order?
+		//ANGELICA:
 		if(b.mMarketNumber == 0) {
 			//figure out where market info is going to be
 		}

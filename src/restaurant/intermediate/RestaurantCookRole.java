@@ -110,20 +110,13 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         MarketCashier mMarketCashier;
         
-        /* Messages */
-        public void msgInvoiceToPerson(Map<EnumItemType,Integer> cannotFulfill, MarketInvoice invoice) {
-                mInvoices.add(invoice);
-                mCannotFulfill = cannotFulfill;
-                invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
-                stateChanged();
-        }
-        
+/* Messages */
         public void msgCannotFulfillItems(MarketOrder o, Map<EnumItemType,Integer> cannotFulfill) {
         	mCannotFulfill = cannotFulfill;
         	for(MarketOrder io : mOrders) {
         		if(io == o) {
         			io.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
-        			//ANGELICA: change events?
+        			break;
         		}
         	}
         	stateChanged();
@@ -134,14 +127,13 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 stateChanged();
         }
         
-        
 /* Scheduler */
         public boolean marketPickAndExecuteAnAction() {
                 for(MarketInvoice invoice : mInvoices) {
                         MarketOrder order = invoice.mOrder;
                         if(order.mStatus == EnumOrderStatus.PAYING && order.mEvent == EnumOrderEvent.RECEIVED_INVOICE) {
                                 order.mStatus = EnumOrderStatus.PAID;
-                                payAndProcessOrder(invoice);
+                                processOrder(invoice);
                                 return true;
                         }
                 }
@@ -190,17 +182,10 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 //ANGELICA: send message to rest cashier about order
         }
         
-        private void payAndProcessOrder(MarketInvoice i) {
-                i.mPayment = i.mTotal;
-                
-               	ContactList.SendPayment(mPerson.getSSN(), i.mMarketBankNumber, i.mPayment);
-                
+        private void processOrder(MarketInvoice i) {   
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
                 }
-                
-                mMarketCashier.msgPayingForOrder(i);
-                mInvoices.remove(i);
         }
         
         private void completeOrder(MarketOrder o) {
