@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
@@ -52,9 +54,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		cards.put("R_cwagoner", cwagoner);
 //
 //		//Rest 2
-//		JerrywebRestaurantGui jerryweb = new JerrywebRestaurantGui(city);
-//		city.citypanel.masterRestaurantList.add(jerryweb.restPanel);
-//		cards.put("R_jerryweb", jerryweb);
+		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city);
+		cards.put("R_jerryweb", jerryweb);
 //		
 //		//Rest 3		
 		MaggiyanAnimationPanel maggiyan = new MaggiyanAnimationPanel(city);
