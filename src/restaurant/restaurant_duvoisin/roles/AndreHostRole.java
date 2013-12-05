@@ -12,6 +12,7 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import base.BaseRole;
 import base.Location;
 import base.reference.ContactList;
+import base.interfaces.Person;
 
 /**
  * Restaurant Host Agent
@@ -37,10 +38,10 @@ public class AndreHostRole extends BaseRole implements Host {
 	
 	Boolean paused = false;
 
-	public AndreHostRole(String name) {
-		super(null);
+	public AndreHostRole(Person person) {
+		super(person);
 
-		this.name = name;
+		this.name = "AndreHost";
 		// make some tables
 		tables = Collections.synchronizedList(new ArrayList<Table>(tgui.getNumTables()));
 		synchronized(tables) {

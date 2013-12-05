@@ -66,6 +66,8 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	
 	// For formatting money output to console.
 	DecimalFormat formatOutput = new DecimalFormat("0.00");
+	
+	public static int customerNumber = 0;
 
 	/**
 	 * Constructor for CustomerAgent class
@@ -75,7 +77,9 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	 */
 	public AndreCustomerRole(Person person) {
 		super(person);
-		this.name = person.getName();
+		//this.name = person.getName();
+			this.name = "AndreCustomer" + customerNumber;
+			customerNumber++;
 		amountOwed = 0.00;
 		money = 0.00;
 	}

@@ -82,11 +82,15 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		
 		animationPanel = MaggiyanAnimationPanel.mInstance; 
 		waiterGui = new MaggiyanWaiterGui(this); 
+		waiterGui.atWork(animationPanel.positionCounter);
+		animationPanel.addGui(waiterGui);
+		
 		
 		host = MaggiyanAnimationPanel.getHost(); 
 		cook = MaggiyanAnimationPanel.getCook();
 		cashier = MaggiyanAnimationPanel.getCashier();
 		
+		animationPanel.positionCounter++; 
 	}
 
 	public String getMaitreDName() {

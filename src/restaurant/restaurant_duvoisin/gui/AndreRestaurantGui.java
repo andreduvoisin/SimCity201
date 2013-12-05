@@ -23,6 +23,8 @@ import city.gui.SimCityGui;
  */
 @SuppressWarnings("serial")
 public class AndreRestaurantGui extends CityCard implements ActionListener {
+	public static AndreRestaurantGui instance;
+	
 	public AndreAnimationPanel animationPanel = new AndreAnimationPanel();
 	
     public AndreRestaurantPanel restPanel;
@@ -49,6 +51,8 @@ public class AndreRestaurantGui extends CityCard implements ActionListener {
      */
     public AndreRestaurantGui(SimCityGui gui) {
     	super(gui);
+    	instance = this;
+    	
     	restPanel = new AndreRestaurantPanel(this);
     	setBounds(50, 50, WINDOWX, WINDOWY);
     	

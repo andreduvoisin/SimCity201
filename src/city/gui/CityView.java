@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
@@ -43,11 +44,10 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 
 		//DAVID temporarily disabling non-compliant restaurants
 		
-//		//Rest 0		
-//		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
-//		city.citypanel.masterRestaurantList.add(aduvoisin.restPanel);
-//		cards.put("R_aduvoisin", aduvoisin);
-//		
+		//Rest 0		
+		AndreRestaurantGui duvoisin = new AndreRestaurantGui(city);
+		cards.put("R_aduvoisin", duvoisin);
+		
 //		//Rest 1
 //		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
 //		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
@@ -56,7 +56,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		//Rest 2
 		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city);
 		cards.put("R_jerryweb", jerryweb);
-//		
+		
 //		//Rest 3		
 		MaggiyanAnimationPanel maggiyan = new MaggiyanAnimationPanel(city);
 		cards.put("R_Maggiyan", maggiyan);

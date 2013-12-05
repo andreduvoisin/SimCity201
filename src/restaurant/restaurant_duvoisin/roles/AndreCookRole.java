@@ -60,10 +60,6 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 		
 		this.name = "AndreCook";
 		
-		CookGui g = new CookGui(this, gui);
-		gui.animationPanel.addGui(g);
-		this.setGui(g);
-		
 //		foods.put("steak", new Food("steak", 1000, 2, 1, 3, FoodState.None));
 //		foods.put("chicken", new Food("chicken", 1000, 2, 1, 3, FoodState.None));
 //		foods.put("salad", new Food("salad", 1000, 2, 1, 4, FoodState.None));

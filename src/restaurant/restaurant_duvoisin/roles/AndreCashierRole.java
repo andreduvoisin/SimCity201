@@ -15,6 +15,7 @@ import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 import base.BaseRole;
 import base.Location;
 import base.reference.ContactList;
+import base.interfaces.Person;
 
 /**
  * Restaurant Cashier Agent
@@ -32,9 +33,9 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 	
 	public EventLog log = new EventLog();
 
-	public AndreCashierRole(String name) {
-		super(null);
-		this.name = name;
+	public AndreCashierRole(Person mPerson) {
+		super(mPerson);
+		this.name = "AndreCashier";
 	}
 	
 	public String getName() {
