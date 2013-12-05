@@ -4,6 +4,9 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
+import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
@@ -33,17 +36,15 @@ public class RestaurantWaiterRole extends BaseRole implements
 	public void setPerson(Person person) {
 		super.mPerson = person;
 		switch (mRestaurantID) {
-//		case 0: // andre
-//			if (mWaiterType == 1) {
-//				subRole = new AndreWaiterRole(super.mPerson);
-//				((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).addPerson(
-//						(AndreWaiterRole) subRole);
-//			} else if (mWaiterType == 0) {
-//				subRole = new AndreSharedWaiterRole(super.mPerson);
-//				((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).addPerson(
-//						(AndreSharedWaiterRole) subRole);
-//			}
-//			break;
+		case 0: // andre
+			if (mWaiterType == 1) {
+				subRole = new AndreWaiterRole(super.mPerson);
+				AndreRestaurantPanel.instance.addPerson((AndreWaiterRole) subRole);
+			} else if (mWaiterType == 0) {
+				subRole = new AndreSharedWaiterRole(super.mPerson);
+				AndreRestaurantPanel.instance.addPerson((AndreSharedWaiterRole) subRole);
+			}
+			break;
 //		case 1: // chase
 //			if (mWaiterType == 1) {
 //				subRole = new CwagonerWaiterRole(super.mPerson);
