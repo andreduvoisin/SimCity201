@@ -51,7 +51,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	JScrollPane NormsPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	JScrollPane NonNormsPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
+	
+	
 	JPanel view = new JPanel();
     
     // Tabs
@@ -116,7 +117,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
         ScenariosTab.setLayout(new GridLayout(1, 2));
         
         //tabbedPane.setLayout(new GridLayout(1,3));
-        tabbedPane.addTab("Comercial", CommercialTab);
+        tabbedPane.addTab("Commercial", CommercialTab);
         tabbedPane.addTab("Scenarios", ScenariosTab);
         tabbedPane.addTab("Restaurants ", RestaurantTab);
         add(tabbedPane);

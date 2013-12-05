@@ -13,9 +13,13 @@ import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
+import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.gui.BankPanel;
 import base.ContactList;
 import base.Location;
@@ -40,21 +44,19 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 
 		//DAVID temporarily disabling non-compliant restaurants
 		
-//		//Rest 0		
-//		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
-//		city.citypanel.masterRestaurantList.add(aduvoisin.restPanel);
-//		cards.put("R_aduvoisin", aduvoisin);
-//		
+		//Rest 0		
+		AndreRestaurantGui duvoisin = new AndreRestaurantGui(city);
+		cards.put("R_aduvoisin", duvoisin);
+		
 //		//Rest 1
 //		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
 //		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
 //		cards.put("R_cwagoner", cwagoner);
 //
 //		//Rest 2
-//		JerrywebRestaurantGui jerryweb = new JerrywebRestaurantGui(city);
-//		city.citypanel.masterRestaurantList.add(jerryweb.restPanel);
-//		cards.put("R_jerryweb", jerryweb);
-//		
+		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city);
+		cards.put("R_jerryweb", jerryweb);
+		
 //		//Rest 3		
 		MaggiyanAnimationPanel maggiyan = new MaggiyanAnimationPanel(city);
 		cards.put("R_Maggiyan", maggiyan);
@@ -73,30 +75,29 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
 //		city.citypanel.masterRestaurantList.add(tranac);
 //		cards.put("R_tranac", tranac);
-//		
-//		//Rest 7		
-//		RexAnimationPanel xurex = new RexAnimationPanel(city);
-//		city.citypanel.masterRestaurantList.add(xurex);
-//		cards.put("R_xurex", xurex);
+		
+		//Rest 7		
+		RexAnimationPanel xurex = new RexAnimationPanel(city);
+		cards.put("R_xurex", xurex);
 				
 		/*
 		 * Instantiate Market and Bank Panels and add to the Master Lists
 		 */
 		
 		MarketPanel market0 = new MarketPanel(city);
-		city.citypanel.masterMarketList.add(market0);
+		ContactList.sMarketList.add(market0);
 		cards.put("Costco", market0);
 		
 		MarketPanel market1 = new MarketPanel(city);
-		city.citypanel.masterMarketList.add(market1);
+		ContactList.sMarketList.add(market1);
 		cards.put("Sams Club", market1);
 		
 		BankPanel bank0 = new BankPanel(city);
-		city.citypanel.masterBankList.add(bank0);
+		ContactList.sBankList.add(bank0);
 		cards.put("Gringotts Bank", bank0);
 		
 		BankPanel bank1 = new BankPanel(city);
-		city.citypanel.masterBankList.add(bank1);
+		ContactList.sBankList.add(bank1);
 		cards.put("Piggy Bank", bank1);
 		
 		layout = new CardLayout();
@@ -113,7 +114,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 					houseLocation.mY, iHouseCount, 50.00);
 			addView(newHouse.mPanel, "House " + iHouseCount);
 			city.citypanel.addStatic(newHouse);
-			city.citypanel.masterHouseList.add(newHouse);
+			ContactList.sHouseList.add(newHouse);
 		}
 
 		layout.show(this, "null");

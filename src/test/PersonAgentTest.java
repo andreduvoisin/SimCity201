@@ -4,10 +4,12 @@ import housing.interfaces.HousingBase;
 import junit.framework.TestCase;
 import market.test.mock.MockCustomer;
 import bank.test.mock.MockTellerRole;
+import base.Event;
+import base.SortingHat;
+import base.Event.EnumEventType;
 import base.PersonAgent;
 import base.PersonAgent.EnumJobType;
 import city.gui.CityPerson;
-import city.gui.SimCityGui;
 
 public class PersonAgentTest extends TestCase {
 
@@ -21,9 +23,23 @@ public class PersonAgentTest extends TestCase {
 		super.setUp();
 //		mPerson = new PersonAgent();
 //		mPerson.semAnimationDone.release(1000);
-		SimCityGui.TESTING = true;
+//		SimCityGui.TESTING = true;
 		//mGui = new MockPersonGui();
 		//mPerson.setGui(mGui);
+	}
+	
+	public void testShaneOne() throws Exception{
+		setUp();
+		SortingHat.InstantiateBaseRoles();
+
+		
+		int cash = 100;
+		String name = "Dobby";
+		mPerson = new PersonAgent(EnumJobType.RESTAURANT, cash, name);
+		mPerson.msgAddEvent(new Event(EnumEventType.EAT, 0));
+		
+//		mPerson.msgTimeShift();
+		
 	}
 	
 	public void testOne_BasicSetUp () {
@@ -135,7 +151,7 @@ public class PersonAgentTest extends TestCase {
 	}
 
 	public void testPersonLifecycle() {
-		mPerson = new PersonAgent(EnumJobType.RESTAURANT, 200, "TestPerson");
+//		mPerson = new PersonAgent(EnumJobType.RESTAURANT, 200, "TestPerson");
 	}
 	
 //	public void testOne_BasicSetUp () {
@@ -245,5 +261,7 @@ public class PersonAgentTest extends TestCase {
 //		assertTrue("Person has eat event in 24", mPerson.mEvents.first().mTime == 0);
 //		//assertTrue("Person has eat event in 24", mPerson.mEvents.first().mLocation == null);	*/
 //	}
+	
+	
 	
 }

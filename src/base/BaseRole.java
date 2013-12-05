@@ -34,9 +34,13 @@ public abstract class BaseRole implements Role {
 	}
 
 	public Person getPerson() {
-		if(mPerson == null)
-			return null;
 		return mPerson;
+	}
+	
+	public boolean hasPerson() {
+		if (mPerson == null)
+			return false;
+		return true;
 	}
 
 	/* Utilities */

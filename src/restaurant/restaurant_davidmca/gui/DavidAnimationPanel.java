@@ -69,6 +69,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 	public static void addCook(DavidCookRole ck) {
 		cook = ck;
 		CookGui g = new CookGui(cook);
+		host.setCook(cook);
 		addGui(g);
 	}
 

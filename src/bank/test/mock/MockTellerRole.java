@@ -116,4 +116,9 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public boolean hasPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

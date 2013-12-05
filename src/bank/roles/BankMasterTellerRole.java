@@ -26,9 +26,6 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 		
 	public BankMasterTellerRole(Person person) {
 		super(person);
-		for (BankPanel bank: SimCityGui.getInstance().citypanel.masterBankList) {
-			bank.masterTeller = this;
-		}
 	}
 	
 	//	MESSAGES

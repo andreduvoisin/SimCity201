@@ -3,6 +3,8 @@ package restaurant.intermediate;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -32,11 +34,10 @@ public class RestaurantCustomerRole extends BaseRole implements
 	public void setRestaurant(int restaurantID) {
 		this.mRestaurantID = restaurantID;
 		switch (mRestaurantID) {
-//		case 0: // andre
-//			subRole = new AndreCustomerRole(super.mPerson);
-//			((AndreRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(0)).addPerson(
-//					(AndreCustomerRole) subRole);
-//			break;
+		case 0: // andre
+			subRole = new AndreCustomerRole(super.mPerson);
+			AndreRestaurantPanel.instance.addPerson((AndreCustomerRole) subRole);
+			break;
 //		case 1: // chase
 //			subRole = new CwagonerCustomerRole(super.mPerson);
 //			((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
