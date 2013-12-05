@@ -318,19 +318,11 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
 			if (event instanceof EventParty){
-				throwParty((EventParty)event);
-				if(((EventParty)event).mHost == this){
-					planParty(Time.GetTime()+24);
-				}
+				goParty((EventParty)event);
 			}
-			/*
-			int inviteNextDelay = 24*mSSN;
-			EventParty party = (EventParty) event;
-			mEvents.add(new EventParty(party, inviteNextDelay + 2));
-			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
-			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
-			*/
-			//SHANE: 3 check event classes
+		}
+		else if (event.mEventType == EnumEventType.PLANPARTY) {
+			planParty(Time.GetTime());
 		}
 
 		//Transportation
@@ -368,11 +360,14 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void goToJob() {
 		print("goToJob");
-		mPersonGui.DoGoToDestination(getJobLocation()); //could be null???
+		Role jobRole = getJobRole();
+		if(jobRole == null){
+			print("didn't go to job"); return;
+		}
+		mPersonGui.DoGoToDestination(getJobLocation()); 
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		Role jobRole = getJobRole();
 		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
 			jobRole.setPerson(this); //take over job role
@@ -450,17 +445,17 @@ public class PersonAgent extends Agent implements Person {
 	private void planParty(int time){
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-		mEvents.add(new Event(EnumEventType.PARTY,   time+4));
+		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, getBestFriends()));
 	}
 
-	private void throwParty(EventParty event) {
+	private void goParty(EventParty event) {
 		mPersonGui.DoGoToDestination(event.mLocation);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
 		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
-		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui); //REX 0 HOUSING THIS IS THE NEXT NULL POINTER
-			//I'M PRETTY SURE THE HOST DOESN'T HAVE A HOUSE... ANY WAY TO GET AROUND THIS?
+		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui); //REX: null pointer here
 		((HousingBaseRole) getHousingRole()).gui.DoParty();
 	}
 
@@ -476,13 +471,14 @@ public class PersonAgent extends Agent implements Person {
 		}
 		//party is in 3 days
 		//send RSVP1 and event invite
+//		Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
+		Location partyLocation = new Location(100, 0);
+//		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
+//		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
+		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, getBestFriends());
+		Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
+		
 		for (Person iFriend : mFriends){
-//			Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
-			Location partyLocation = new Location(100, 0);
-//			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
-//			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
-			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, getBestFriends());
-			Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
 			iFriend.msgAddEvent(rsvp);
 			iFriend.msgAddEvent(party);
 		}
@@ -600,6 +596,8 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private Location getJobLocation(){
+		if (getJobRole() == null)
+			return null;
 		return getJobRole().getLocation();
 	}
 	

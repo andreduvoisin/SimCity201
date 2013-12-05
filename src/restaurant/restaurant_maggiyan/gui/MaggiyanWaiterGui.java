@@ -38,7 +38,7 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     private boolean offBreak = false;
     private boolean atHomeChange = true; 
     
-    MaggiyanRestaurantGui gui;
+    //MaggiyanRestaurantGui gui;
     
     public void tablePositions(){
     	for(int i = 0; i<tableNum; i++){
@@ -47,9 +47,8 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     	}
     }
     
-    public MaggiyanWaiterGui(MaggiyanWaiter agent, MaggiyanRestaurantGui gui) {
-        this.agent = agent;
-        this.gui = gui;
+    public MaggiyanWaiterGui(MaggiyanWaiter waiter) {
+        this.agent = waiter;
         tablePositions();
     }
     

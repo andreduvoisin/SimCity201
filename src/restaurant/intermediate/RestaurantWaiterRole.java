@@ -4,6 +4,9 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
+import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
+import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.BaseRole;
@@ -63,17 +66,14 @@ public class RestaurantWaiterRole extends BaseRole implements
 //						.addRSWaiter((JerrywebRSWaiterRole) subRole);
 //			}
 //			break;
-//		case 3: // maggi
-//			if (mWaiterType == 1) {
-//				subRole = new MaggiyanWaiterRole(super.mPerson);
-//				((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).addWaiter(
-//						(MaggiyanWaiterRole) subRole);
-//			} else if (mWaiterType == 2) {
-//				subRole = new MaggiyanSharedWaiterRole(super.mPerson);
-//				((MaggiyanRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(3)).addSharedWaiter(
-//						(MaggiyanSharedWaiterRole) subRole);
-//			}
-//			break;
+		case 3: // maggi
+			if (mWaiterType == 1) {
+				subRole = new MaggiyanWaiterRole(mPerson);
+				MaggiyanAnimationPanel.addPerson((MaggiyanWaiterRole) subRole);
+			} else if (mWaiterType == 0) {
+				subRole = new MaggiyanSharedWaiterRole(mPerson);
+				MaggiyanAnimationPanel.addPerson((MaggiyanSharedWaiterRole) subRole);
+			}
 		case 4: // david
 			if (mWaiterType == 1) {
 				subRole = new DavidWaiterRole(super.mPerson);

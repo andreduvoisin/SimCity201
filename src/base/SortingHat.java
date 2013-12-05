@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;

@@ -551,6 +551,10 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(3);
 	}
+
+	public MaggiyanHost getHost() {
+		return host; 
+	}
 	
 }
 
