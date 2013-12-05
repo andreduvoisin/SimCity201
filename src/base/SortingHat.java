@@ -46,7 +46,8 @@ public class SortingHat {
 		for (int iBankNumber = 0; iBankNumber < numBanks; iBankNumber++){
 			sRoles.add(new BankGuardRole(null, iBankNumber));
 			for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
-				sRoles.add(new BankTellerRole(null, iBankNumber));
+				BankTellerRole bankTeller = new BankTellerRole(null, iBankNumber);
+				sRoles.add(bankTeller);
 			}
 		}
 		
