@@ -53,10 +53,14 @@ public class AndreSharedWaiterRole extends BaseRole implements Waiter {
 	public Timer timer = new Timer();
 	
 	public EventLog log = new EventLog();
+	
+	public static int sharedWaiterNumber = 0;
 
 	public AndreSharedWaiterRole(Person person) {
 		super(person);
-		this.name = person.getName();
+		//this.name = person.getName();
+			this.name = "AndreSharedWaiter" + sharedWaiterNumber;
+			sharedWaiterNumber++;
 	}
 
 	public String getName() {

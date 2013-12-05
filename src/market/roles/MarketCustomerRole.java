@@ -188,11 +188,6 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	}
 	
 /* Utilities */
-	public void setGui(MarketCustomerGui g) {
-		mGui = g;
-	}
-	
-	@Override
 	public Location getLocation() {
 		if (mMarketID == 1) {
 			return ContactList.cMARKET1_LOCATION;

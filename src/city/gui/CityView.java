@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
@@ -43,11 +44,10 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 
 		//DAVID temporarily disabling non-compliant restaurants
 		
-//		//Rest 0		
-//		AndreRestaurantGui aduvoisin = new AndreRestaurantGui(city);
-//		city.citypanel.masterRestaurantList.add(aduvoisin.restPanel);
-//		cards.put("R_aduvoisin", aduvoisin);
-//		
+		//Rest 0		
+		AndreRestaurantGui duvoisin = new AndreRestaurantGui(city);
+		cards.put("R_duvoisin", duvoisin);
+		
 //		//Rest 1
 //		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
 //		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
@@ -59,7 +59,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		
 //		//Rest 3		
 		MaggiyanAnimationPanel maggiyan = new MaggiyanAnimationPanel(city);
-		cards.put("R_Maggiyan", maggiyan);
+		cards.put("R_maggiyan", maggiyan);
 		
 		//Rest 4
 		DavidAnimationPanel davidmca = new DavidAnimationPanel(city);
@@ -85,19 +85,19 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		 */
 		
 		MarketPanel market0 = new MarketPanel(city);
-		city.citypanel.masterMarketList.add(market0);
+		ContactList.sMarketList.add(market0);
 		cards.put("Costco", market0);
 		
 		MarketPanel market1 = new MarketPanel(city);
-		city.citypanel.masterMarketList.add(market1);
+		ContactList.sMarketList.add(market1);
 		cards.put("Sams Club", market1);
 		
 		BankPanel bank0 = new BankPanel(city);
-		city.citypanel.masterBankList.add(bank0);
+		ContactList.sBankList.add(bank0);
 		cards.put("Gringotts Bank", bank0);
 		
 		BankPanel bank1 = new BankPanel(city);
-		city.citypanel.masterBankList.add(bank1);
+		ContactList.sBankList.add(bank1);
 		cards.put("Piggy Bank", bank1);
 		
 		layout = new CardLayout();
@@ -114,7 +114,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 					houseLocation.mY, iHouseCount, 50.00);
 			addView(newHouse.mPanel, "House " + iHouseCount);
 			city.citypanel.addStatic(newHouse);
-			city.citypanel.masterHouseList.add(newHouse);
+			ContactList.sHouseList.add(newHouse);
 		}
 
 		layout.show(this, "null");
