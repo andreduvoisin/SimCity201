@@ -60,7 +60,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 //					break;
 				case 4: //david
 					subRole = new DavidCookRole(super.mPerson);
-					DavidAnimationPanel.cook = (DavidCookRole) subRole;
+					DavidAnimationPanel.addCook((DavidCookRole) subRole);
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson);
