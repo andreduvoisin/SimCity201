@@ -24,7 +24,6 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	private TranacMenu menu = new TranacMenu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
 	public List<Bill> bills = Collections.synchronizedList(new ArrayList<Bill>());
-	//public double money;	//ANGELICA: switch to bank ssn?
 	
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};

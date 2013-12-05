@@ -159,7 +159,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             /* ANGELICA: send invoice to cashier, send cannotFulfill
              * to cook
              * 
-             * 
              */
         }
         
