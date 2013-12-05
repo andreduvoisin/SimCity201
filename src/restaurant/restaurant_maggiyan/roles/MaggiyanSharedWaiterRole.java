@@ -81,11 +81,15 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 		}
 	
 		animationPanel = MaggiyanAnimationPanel.mInstance; 
-		waiterGui = new MaggiyanWaiterGui(this); 
+		waiterGui = new MaggiyanWaiterGui(this);
+		waiterGui.atWork(animationPanel.positionCounter);
+		animationPanel.addGui(waiterGui);
 		
 		host = MaggiyanAnimationPanel.getHost(); 
 		cook = MaggiyanAnimationPanel.getCook();
 		cashier = MaggiyanAnimationPanel.getCashier();
+		
+		animationPanel.positionCounter++;
 	}
 	
 	public MaggiyanSharedWaiterRole(String n, MaggiyanCook cook, MaggiyanHost host) {
@@ -225,8 +229,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	}
 	
 	public void msgAnimationReady(){
-		animationReady.release();
-		print("PLEASE WORK"); 
+		animationReady.release(); 
 		stateChanged(); 
 	}
 	

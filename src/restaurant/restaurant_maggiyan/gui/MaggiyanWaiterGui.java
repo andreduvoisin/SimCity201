@@ -9,7 +9,7 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 public class MaggiyanWaiterGui implements MaggiyanGui {
     
     private MaggiyanWaiter agent = null; 
-  	public String customerOrder = " "; 
+  	public String customerOrder = " ";
 
     public int xHome;
     public static final int yHome = 75; 
@@ -155,7 +155,6 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     }
     
     public void setBreak(){
-    	System.out.println("setBreak");
     	agent.msgAskToGoOnBreak(); 
     }
     

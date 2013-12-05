@@ -38,7 +38,8 @@ import base.BaseRole;
 import base.Time;
 
 public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
-	public static MaggiyanAnimationPanel mInstance;  
+	public static MaggiyanAnimationPanel mInstance; 
+	public int positionCounter = 1; 
 	
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
@@ -57,10 +58,6 @@ public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
 	
 	private static int CookingAreaX = 275;
 	
-
-
-    
-
     public MaggiyanAnimationPanel(SimCityGui city) {
     	super(city); 
     	mInstance = this;
