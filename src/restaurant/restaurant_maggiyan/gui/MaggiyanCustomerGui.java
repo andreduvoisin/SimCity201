@@ -18,7 +18,7 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 	private String nameOfChoice = " "; 
 
 	//private HostAgent host;
-	MaggiyanRestaurantGui gui;
+	//MaggiyanRestaurantGui gui;
 
 	//Line up positions 
 	
@@ -50,7 +50,7 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 	    }
 	}
 
-	public MaggiyanCustomerGui(MaggiyanCustomerRole c, MaggiyanRestaurantGui gui){ //HostAgent m) {
+	public MaggiyanCustomerGui(MaggiyanCustomerRole c){ //HostAgent m) {
 		agent = c;
 		xPos = -40;
 		yPos = -40;
@@ -58,7 +58,7 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 		yDestination = -40;
 		tablePositions();
 		//maitreD = m;
-		this.gui = gui;
+
 	}
 	
 	public int[] getXCoord(){
