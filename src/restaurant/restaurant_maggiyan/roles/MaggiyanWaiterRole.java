@@ -11,6 +11,7 @@ import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
+import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
@@ -55,7 +56,8 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	private MaggiyanCook cook; 
 	private MaggiyanHost host; 
 	private MaggiyanCashier cashier; 
-	public MaggiyanWaiterGui waiterGui = null;
+	private MaggiyanWaiterGui waiterGui = null;
+	private MaggiyanAnimationPanel animationPanel; 
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
@@ -77,6 +79,14 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		else {
 			this.name = p.getName();
 		}
+		
+		animationPanel = MaggiyanAnimationPanel.mInstance; 
+		waiterGui = new MaggiyanWaiterGui(this); 
+		
+		host = MaggiyanAnimationPanel.getHost(); 
+		cook = MaggiyanAnimationPanel.getCook();
+		cashier = MaggiyanAnimationPanel.getCashier();
+		
 	}
 
 	public String getMaitreDName() {
