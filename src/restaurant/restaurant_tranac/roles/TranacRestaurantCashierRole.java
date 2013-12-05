@@ -7,7 +7,7 @@ import java.util.List;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacCashierGui;
-import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacMarket;
@@ -17,14 +17,13 @@ import base.ContactList;
 import base.Location;
 
 /**
- * Restaurant Cook Agent
+ * Restaurant Cashier Agent
  */
 public class TranacRestaurantCashierRole extends BaseRole implements TranacCashier {
 	private TranacCashierGui cashierGui;
 	private TranacMenu menu = new TranacMenu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
 	public List<Bill> bills = Collections.synchronizedList(new ArrayList<Bill>());
-	//public double money;	//ANGELICA: switch to bank ssn?
 	
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
@@ -32,7 +31,7 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	public TranacRestaurantCashierRole() {
 		super(null);
 		cashierGui = new TranacCashierGui(this);
-		TranacRestaurantPanel.getInstance().addPerson(this); //add to gui
+		TranacAnimationPanel.getInstance().addPerson(this); //add to gui
 	}
 
 	/** Messages */

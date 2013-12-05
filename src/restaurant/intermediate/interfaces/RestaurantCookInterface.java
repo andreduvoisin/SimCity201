@@ -15,6 +15,8 @@ import base.Item.EnumItemType;
 public interface RestaurantCookInterface {
         public abstract void msgInvoiceToPerson(Map<EnumItemType,Integer> cannotFulfill, MarketInvoice invoice);
         
+        //public abstract void msgCannotFulfillItems(MarketOrder o, Map<EnumItemType,Integer> cannotFulfill);
+        
         public abstract void msgHereIsCookOrder(MarketOrder o);
 
         public abstract void setMarketCashier(MarketCashier c);

@@ -3,6 +3,7 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.SimCityGui;
@@ -42,8 +43,15 @@ public class ConfigParser {
 //				SortingHat.InstantiateBaseRoles();
 //				mInstantiateRoles = false;
 //			}
+			
 			//Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
+			
+			//ALL HACK: CONFIG FILE HACKS 
+			if(name.equalsIgnoreCase("partyPerson")){
+				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
+			}
+			
 			synchronized (person) {
 				ContactList.sPersonList.add(person);
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move

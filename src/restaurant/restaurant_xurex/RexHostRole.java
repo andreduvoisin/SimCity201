@@ -43,10 +43,9 @@ public class RexHostRole extends BaseRole implements Host {
 	private String name;
 	//private boolean fullRestaurant = true;
 
-	public RexHostRole(String name, Person person) {
+	public RexHostRole(Person person) {
 		super(person);
 
-		this.name = name;
 		tables = new ArrayList<Table>(NTABLES);
 		tables.add(new Table(1));//nw
 		tables.add(new Table(2));//ne

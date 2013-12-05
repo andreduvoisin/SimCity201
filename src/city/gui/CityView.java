@@ -12,13 +12,15 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
-import market.gui.MarketPanel.EnumMarketType;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
+import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
+import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import bank.gui.BankPanel;
 import base.ContactList;
 import base.Location;
-//import restaurant.restaurant_tranac.gui.TranacRestaurantPanel; // ANGELICA: error here
 
 @SuppressWarnings("serial")
 public class CityView extends JPanel implements MouseListener, ActionListener {
@@ -51,14 +53,12 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		cards.put("R_cwagoner", cwagoner);
 //
 //		//Rest 2
-//		JerrywebRestaurantGui jerryweb = new JerrywebRestaurantGui(city);
-//		city.citypanel.masterRestaurantList.add(jerryweb.restPanel);
-//		cards.put("R_jerryweb", jerryweb);
+		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city);
+		cards.put("R_jerryweb", jerryweb);
 //		
 //		//Rest 3		
-//		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
-//		city.citypanel.masterRestaurantList.add(maggiyan.restPanel);
-//		cards.put("R_Maggiyan", maggiyan);
+		MaggiyanAnimationPanel maggiyan = new MaggiyanAnimationPanel(city);
+		cards.put("R_Maggiyan", maggiyan);
 		
 		//Rest 4
 		DavidAnimationPanel davidmca = new DavidAnimationPanel(city);
@@ -69,6 +69,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("R_smileham", smileham);
 		
 //		//Rest 6
+		TranacAnimationPanel tranac = new TranacAnimationPanel(city);
+		cards.put("R_tranac", tranac);
 //		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
 //		city.citypanel.masterRestaurantList.add(tranac);
 //		cards.put("R_tranac", tranac);
@@ -82,11 +84,11 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		 * Instantiate Market and Bank Panels and add to the Master Lists
 		 */
 		
-		MarketPanel market0 = new MarketPanel(city, EnumMarketType.BOTH);
+		MarketPanel market0 = new MarketPanel(city);
 		ContactList.sMarketList.add(market0);
 		cards.put("Costco", market0);
 		
-		MarketPanel market1 = new MarketPanel(city, EnumMarketType.BOTH);
+		MarketPanel market1 = new MarketPanel(city);
 		ContactList.sMarketList.add(market1);
 		cards.put("Sams Club", market1);
 		

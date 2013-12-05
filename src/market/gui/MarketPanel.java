@@ -1,10 +1,7 @@
 package market.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +9,7 @@ import java.util.List;
 
 import javax.swing.Timer;
 
+import base.Item.EnumItemType;
 import market.roles.MarketCashierRole;
 import market.roles.MarketDeliveryTruckRole;
 import city.gui.CityCard;
@@ -20,12 +18,10 @@ import city.gui.SimCityGui;
 @SuppressWarnings("serial")
 public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
-	public enum EnumMarketType {BOTH, CAR, FOOD};
 		
 	private List<MarketBaseGui> guis = Collections.synchronizedList(new ArrayList<MarketBaseGui>());
 	private List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
 	private List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
-	private EnumMarketType mMarketType;
 	
 	private MarketItemsGui mItemGui;
 	
@@ -38,13 +34,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 	
 	BufferedImage image;
 	
-	public MarketPanel(SimCityGui city, EnumMarketType t) {
+	public MarketPanel(SimCityGui city) {
 		super(city);
 		setSize(WINDOWX, WINDOWY);
-//		setVisible(true);
 		
-		mMarketType = t;
-		mItemGui = new MarketItemsGui(mMarketType);
+		mItemGui = new MarketItemsGui();
 		
     /*	image = null;
     	try {
@@ -115,4 +109,8 @@ public class MarketPanel extends CityCard implements ActionListener {
 		}
 	}
 	
+	public void setInventory(EnumItemType i, int n) {
+		mCashier.setInventory(i,n);
+		mItemGui.setInventory(i,n);
+	}
 }

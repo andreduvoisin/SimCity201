@@ -8,7 +8,7 @@ import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
-import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacWaiterGui;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
@@ -48,12 +48,12 @@ public class TranacRestaurantWaiterRole extends BaseRole implements TranacWaiter
 	
 	public TranacRestaurantWaiterRole(Person p) { //ANGELICA: 1 Why do you need two constructors?? -shane
 		super(p);
-		waiterGui = new TranacWaiterGui(this, TranacRestaurantPanel.getNumWaiters());
-		TranacRestaurantPanel.getInstance().addPerson(this);
+		waiterGui = new TranacWaiterGui(this, TranacAnimationPanel.getNumWaiters());
+		TranacAnimationPanel.getInstance().addPerson(this);
 		
-		mHost = TranacRestaurantPanel.getHost();
-		mCook = TranacRestaurantPanel.getCook();
-		mCashier = TranacRestaurantPanel.getCashier();
+		mHost = TranacAnimationPanel.getHost();
+		mCook = TranacAnimationPanel.getCook();
+		mCashier = TranacAnimationPanel.getCashier();
 	}
 	
 	/** Messages */

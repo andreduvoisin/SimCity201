@@ -12,7 +12,6 @@ import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketCashierGui;
-import market.gui.MarketPanel.EnumMarketType;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
@@ -30,15 +29,18 @@ import city.gui.SimCityGui;
 /*
  	SHANE ANGELICA: Check to make sure all of these apply
  	1) Each market has its own owner/cashier who handles money.
+ 		-taken care of
 	2) Each market can have any restaurant/person as a client. 
+		-taken care of
 	3) Restaurants are delivered to, persons must go to the market.
+		-taken care of (functionality at least)
 	4) Markets can run out of inventory. They can be resupplied from the gui.
+		-taken care of; gui control panel needs to call MarketPanel.setInventory();
  */
 public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	MarketCashierGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
-	EnumMarketType mMarketType;
 	int mMarketID;
 	
 	int mNumWorkers = 0;
@@ -49,7 +51,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketWorker> mWorkers = Collections.synchronizedList(new ArrayList<MarketWorker>());
 	static int mWorkerIndex;
 	
-	List<MarketDeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<MarketDeliveryTruck>());
+	MarketDeliveryTruck mDeliveryTruck;
+//	List<MarketDeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<MarketDeliveryTruck>());
 //	Map<MarketDeliveryTruck,Boolean> mDeliveryTrucks = new HashMap<MarketDeliveryTruck,Boolean>();
 	
 	int mBankAccount;
@@ -57,9 +60,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
-	public MarketCashierRole(Person person, EnumMarketType type, int marketID) {
+	public MarketCashierRole(Person person, int marketID) {
 		super(person);
-		mMarketType = type;
 		mMarketID = marketID;
 		
 		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashier = this;
@@ -71,22 +73,11 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 			mBankAccount = person.getSSN();
 		
 		//populate inventory
-		if(mMarketType == EnumMarketType.BOTH) {
 		mInventory.put(EnumItemType.STEAK, mBaseInventory);
 		mInventory.put(EnumItemType.SALAD, mBaseInventory);
 		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);
 		mInventory.put(EnumItemType.PIZZA, mBaseInventory);
 		mInventory.put(EnumItemType.CAR, mBaseInventory);
-		}
-		if(mMarketType == EnumMarketType.FOOD) {
-		mInventory.put(EnumItemType.STEAK, mBaseInventory);
-		mInventory.put(EnumItemType.SALAD, mBaseInventory);
-		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);
-		mInventory.put(EnumItemType.PIZZA, mBaseInventory);
-		}
-		else {
-			mInventory.put(EnumItemType.CAR, mBaseInventory);
-		}
 	}
 	
 //	Messages
@@ -162,11 +153,13 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 
 		//if a cook
         if (personRole instanceof RestaurantCookInterface){
-        	//ANGELICA: hack; add in functionality for mulitple delivery trucks
-        	MarketDeliveryTruck d = mDeliveryTrucks.get(0);
-        	order.mDeliveryTruck = d;
+        	order.mDeliveryTruck = mDeliveryTruck;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
             cook.msgInvoiceToPerson(cannotFulfill, invoice);
+            /* ANGELICA: send invoice to cashier, send cannotFulfill
+             * to cook
+             * 
+             */
         }
         
 		//if a customer
@@ -224,8 +217,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		return mInventory.get(item);
 	}
 	
-	public void setBankAccount(int n) {
-		mBankAccount = n;
+	public void setInventory(EnumItemType i, int n) {
+		mInventory.put(i, n);
 	}
 	
 	public void addDeliveryTruck(MarketDeliveryTruck d) {

@@ -15,8 +15,12 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
+import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
+import restaurant.restaurant_xurex.RexCookRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -54,13 +58,13 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 //					subRole = new JerrywebCookRole(super.mPerson);
 //					JerrywebRestaurantPanel.cook = (JerrywebCookRole) subRole;
 //					break;
-//				case 3: //maggi
-//					subRole = new MaggiyanCookRole(super.mPerson);
-//					MaggiyanRestaurantPanel.cook = (MaggiyanCookRole) subRole;
-//					break;
+				case 3: //maggi
+					subRole = new MaggiyanCookRole(super.mPerson);
+					MaggiyanAnimationPanel.addPerson((MaggiyanCookRole) subRole);
+					break;
 				case 4: //david
 					subRole = new DavidCookRole(super.mPerson);
-					DavidAnimationPanel.cook = (DavidCookRole) subRole;
+					DavidAnimationPanel.addCook((DavidCookRole) subRole);
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson);
@@ -70,10 +74,10 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 //					subRole = new TranacRestaurantCookRole(super.mPerson);
 //					TranacRestaurantPanel.mCook = (TranacRestaurantCookRole) subRole;
 //					break;
-//				case 7: //rex
-//					subRole = new RexCookRole(super.mPerson);
-//					RexAnimationPanel.cook = (RexCookRole) subRole;
-//					break;
+				case 7: //rex
+					subRole = new RexCookRole(super.mPerson);
+					RexAnimationPanel.addPerson((RexCookRole) subRole);
+					break;
 			}
        }
         
@@ -108,6 +112,17 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 mCannotFulfill = cannotFulfill;
                 invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
                 stateChanged();
+        }
+        
+        public void msgCannotFulfillItems(Map<EnumItemType,Integer> cannotFulfill, MarketOrder o) {
+        	mCannotFulfill = cannotFulfill;
+        	for(MarketOrder io : mOrders) {
+        		if(io == o) {
+        			io.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
+        			//ANGELICA: change events?
+        		}
+        	}
+        	stateChanged();
         }
         
         public void msgHereIsCookOrder(MarketOrder o) {
@@ -168,6 +183,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		int m = (int) (Math.random() % 2);
         		mMarketCashier = CityPanel.getInstance().masterMarketList.get(m).mCashier;
                 mMarketCashier.msgOrderPlacement(o);
+                //ANGELICA: send message to rest cashier about order
         }
         
         private void payAndProcessOrder(MarketInvoice i) {

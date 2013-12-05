@@ -7,9 +7,14 @@ import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
+import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCustomerGui;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole.EnumAgentEvent;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole.EnumAgentState;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -24,8 +29,12 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	private int tableNumber;
 	private int choiceIndex; 
 	private int hungerLevel = 10;        // determines length of meal
-	private double cash; 
+	private double cash;
+	
+	//GUI 
 	private MaggiyanCustomerGui customerGui;
+	private MaggiyanAnimationPanel mAnimationPanel; 
+	
 	private boolean reordering = false; 
 	public static int waitTime = 5000; 
 	Timer timer = new Timer();
@@ -36,10 +45,10 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	private boolean isImpatient = false;
 	
 	// Agent Correspondents
-	private MaggiyanCustomerRole me; 
-	private MaggiyanHostRole host;
+	private MaggiyanCustomer me; 
+	private MaggiyanHost host;
 	private MaggiyanWaiter waiter; 
-	private MaggiyanCashierRole cashier;
+	private MaggiyanCashier cashier;
 	private Menu menu; 
 	private Check check; 
 	public String choice; 
@@ -63,6 +72,16 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	public MaggiyanCustomerRole(Person p){
 		super(p);
 		this.name = p.getName();
+		
+		mAnimationPanel = MaggiyanAnimationPanel.mInstance; 
+		host = MaggiyanAnimationPanel.getHost(); 
+		cashier = MaggiyanAnimationPanel.getCashier();
+		
+		customerGui = new MaggiyanCustomerGui(this); 
+		mAnimationPanel.addGui(customerGui); 
+		
+		cash = normCashAmt; 
+	
 	}
 	
 	//-----UTILITIES-----
