@@ -241,6 +241,8 @@ public class PersonAgent extends Agent implements Person {
 		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
 			Collections.sort(mEvents);
+			if(mEvents.isEmpty())
+				return false;
 			Event event = mEvents.get(0); //next event
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
 				mRoleFinished = false; //doing a role
