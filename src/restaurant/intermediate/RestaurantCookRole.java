@@ -22,11 +22,11 @@ import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
-import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.ContactList;
 import city.gui.CityPanel;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
@@ -114,7 +114,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 stateChanged();
         }
         
-        public void msgCannotFulfillItems(Map<EnumItemType,Integer> cannotFulfill, MarketOrder o) {
+        public void msgCannotFulfillItems(MarketOrder o, Map<EnumItemType,Integer> cannotFulfill) {
         	mCannotFulfill = cannotFulfill;
         	for(MarketOrder io : mOrders) {
         		if(io == o) {

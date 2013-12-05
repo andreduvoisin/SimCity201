@@ -10,10 +10,10 @@ import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.ContactList;
 
 public class RestaurantCashierRole extends BaseRole implements RestaurantBaseInterface {
 	

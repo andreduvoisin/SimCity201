@@ -15,8 +15,8 @@ import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Market;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
+import base.reference.ContactList;
 
 /**
  * Restaurant Host Agent

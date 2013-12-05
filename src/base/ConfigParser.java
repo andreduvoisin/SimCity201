@@ -3,9 +3,12 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import market.gui.MarketPanel;
+import bank.gui.BankPanel;
 import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 /*
@@ -21,6 +24,7 @@ public class ConfigParser {
 		
 		//Instantiate the base roles before creating the people
 //		boolean mInstantiateRoles = true;
+		
 		SortingHat.InstantiateBaseRoles();
 		
 		while (scanFile.hasNext()) {

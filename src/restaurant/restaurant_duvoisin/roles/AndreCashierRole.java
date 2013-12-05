@@ -13,8 +13,8 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.test.mock.EventLog;
 import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
+import base.reference.ContactList;
 
 /**
  * Restaurant Cashier Agent

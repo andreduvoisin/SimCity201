@@ -15,11 +15,11 @@ import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
 import restaurant.restaurant_tranac.interfaces.TranacMarket;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
-import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant Cook Agent

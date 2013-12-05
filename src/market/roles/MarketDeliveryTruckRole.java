@@ -12,9 +12,9 @@ import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.PersonAgent;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 /**

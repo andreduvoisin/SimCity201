@@ -18,12 +18,12 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import base.BaseRole;
-import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 /*
@@ -43,8 +43,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	Semaphore inTransit = new Semaphore(0,true);
 	int mMarketID;
 	
-	int mNumWorkers = 0;
-	
 	Map<EnumItemType, Integer> mInventory = new HashMap<EnumItemType, Integer>();
 	int mBaseInventory = 100;
 	
@@ -52,8 +50,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	static int mWorkerIndex;
 	
 	MarketDeliveryTruck mDeliveryTruck;
-//	List<MarketDeliveryTruck> mDeliveryTrucks = Collections.synchronizedList(new ArrayList<MarketDeliveryTruck>());
-//	Map<MarketDeliveryTruck,Boolean> mDeliveryTrucks = new HashMap<MarketDeliveryTruck,Boolean>();
 	
 	int mBankAccount;
 
@@ -156,10 +152,33 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
         	order.mDeliveryTruck = mDeliveryTruck;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
             cook.msgInvoiceToPerson(cannotFulfill, invoice);
-            /* ANGELICA: send invoice to cashier, send cannotFulfill
-             * to cook
-             * 
-             */
+            /* ANGELICA: implement this once restaurants are settled
+             * choose correct restaurant cashier
+             * send invoice to restaurant cashier
+             * send cannot full items to restaurant cook
+            
+            RestaurantCashierInterface restaurantCashier;
+            switch(order.mRestaurantNumber) {
+            case 0: //andre
+            	restaurantCashier = (RestaurantCashierInterface) AndreAnimationPanel.cashier.msgInvoiceToPerson(invoice);
+            case 1: //chase  
+                restaurantCashier = (RestaurantCashierInterface)       	
+            case 2: //jerry
+            	restaurantCashier = (RestaurantCashierInterface) 
+            case 3: //maggi
+            	restaurantCashier = (RestaurantCashierInterface) 
+            case 4: //david
+            	restaurantCashier = (RestaurantCashierInterface) 
+            case 5: //shane
+            	restaurantCashier = (RestaurantCashierInterface) 
+            case 6: //angelica
+            	TranacAnimationPanel.mCashier.msgInvoiceToPerson(invoice);
+            case 7: //rex
+            	restaurantCashier = (RestaurantCashierInterface) 
+            }
+            restaurantCashier.msgInvoiceToPerson(invoice);
+            cook.msgCannotFulfillItems(order, cannotFulfill);
+            */
         }
         
 		//if a customer
@@ -176,16 +195,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 	
 /* Animation Actions */
-	private void DoLeaveMarket() {
-		mGui.DoLeaveMarket();
-		try {
-			inTransit.acquire();
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	private void DoGoToPosition() {
 		mGui.DoGoToPosition();
 		try {
@@ -196,15 +205,17 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		}
 	}
 	
+	private void DoLeaveMarket() {
+		mGui.DoLeaveMarket();
+		try {
+			inTransit.acquire();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 /* Utilities */
-	public void setGui(MarketCashierGui gui) {
-		mGui = gui;
-	}
-	
-	public int getNumWorkers(){
-		return mNumWorkers;
-	}
-	
 	public void addWorker(MarketWorker w) {
 		mWorkers.add(w);
 	}
@@ -221,16 +232,11 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		mInventory.put(i, n);
 	}
 	
-//	public void addDeliveryTruck(MarketDeliveryTruck d) {
-//		mDeliveryTrucks.add(d);
-//	}
-	
 	public void setPerson(Person p) {
 		mPerson = p;
 		mBankAccount = p.getSSN();
 	}
 
-	@Override
 	public Location getLocation() {
 		if (mMarketID == 1) {
 			return ContactList.cMARKET1_LOCATION;

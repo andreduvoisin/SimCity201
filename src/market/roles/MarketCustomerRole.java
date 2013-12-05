@@ -16,10 +16,10 @@ import market.gui.MarketCustomerGui;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
-import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	int mMarketID;
@@ -40,6 +40,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	public MarketCustomerRole(Person person, int marketID) {
 		super(person);
 		mMarketID = marketID;
+		
 		mCashier = CityPanel.getInstance().masterMarketList.get(mMarketID).mCashier;
 		mGui = new MarketCustomerGui(this);
 		CityPanel.getInstance().masterMarketList.get(mMarketID).addGui(mGui);
@@ -188,11 +189,6 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	}
 	
 /* Utilities */
-	public void setGui(MarketCustomerGui g) {
-		mGui = g;
-	}
-	
-	@Override
 	public Location getLocation() {
 		if (mMarketID == 1) {
 			return ContactList.cMARKET1_LOCATION;

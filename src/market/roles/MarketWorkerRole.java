@@ -12,9 +12,9 @@ import market.gui.MarketWorkerGui;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketWorker;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 /**
@@ -34,9 +34,9 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		super(person);
 		mMarketID = marketID;
 		
-		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashier.addWorker(this);
+		ContactList.sMarketList.get(mMarketID).mCashier.addWorker(this);
 		mGui = new MarketWorkerGui(this);
-		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).addGui(mGui);
+		ContactList.sMarketList.get(mMarketID).addGui(mGui);
 	}
 	
 /* Messages */

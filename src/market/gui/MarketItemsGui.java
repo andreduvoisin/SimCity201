@@ -25,7 +25,7 @@ public class MarketItemsGui implements MarketBaseGui {
 	public Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
 	private int xBase = 300, yBase = 30;
 	private static final int SIZE = 20;
-	public static final int sBaseInventory = 50;
+	public static final int sBaseInventory = 5;
 	
 	BufferedImage image1;
 	BufferedImage image2;
