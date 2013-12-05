@@ -35,7 +35,7 @@ public class MaggiyanCookGui implements MaggiyanGui{
 	private List<String> PlatedFoods = Arrays.asList(" ", " ", " "); 
 	
 	//private HostAgent host;
-	MaggiyanRestaurantGui gui;
+	//MaggiyanRestaurantGui gui;
 	
 	private int xPos, yPos, prevXPos, prevYPos;
 	private int xDestination, yDestination;
@@ -68,8 +68,6 @@ public class MaggiyanCookGui implements MaggiyanGui{
 		yPos = initialyPos;
 		xDestination = initialxPos;
 		yDestination = initialyPos;
-
-		this.gui = gui;
 	}
 	
 	public int[] getXCoord(){

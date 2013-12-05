@@ -22,20 +22,18 @@ import base.Location;
 import base.interfaces.Person;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
-	private static final Integer DEFAULT_FOOD_QTY = 0;
 	int mMarketID;
 	//DATA
-	//mCash accessed from Person
 	private MarketCustomerGui mGui;
 	private Semaphore inTransit = new Semaphore(0,true);
 	
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 
-	Map<EnumItemType, Integer> mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+	Map<EnumItemType, Integer> mItemInventory;// = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 	Map<EnumItemType, Integer> mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
 	
-	Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
+	Map<EnumItemType, Integer> mCannotFulfill;// = new HashMap<EnumItemType, Integer>();
 
 	MarketCashier mCashier;
 	
@@ -46,17 +44,11 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		mGui = new MarketCustomerGui(this);
 		CityPanel.getInstance().masterMarketList.get(mMarketID).addGui(mGui);
 		
-	//	mItemInventory = mPerson.getItemInventory();
-		//ANGELICA: hack for now
-		//mItemsDesired = mPerson.getItemsDesired();
-		//populate inventory
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-        
-		mItemsDesired.put(EnumItemType.SALAD,2);
-		mItemsDesired.put(EnumItemType.PIZZA,1);
+		//ANGELICA: where is mItemsDesired populated? hack for now
+		mItemInventory = person.getItemInventory();
+		//mItemsDesired = person.getItemsDesired();
+		mItemsDesired.put(EnumItemType.CHICKEN,2);
+		mItemsDesired.put(EnumItemType.STEAK,1);
 	}
 	
 	//MESSAGES

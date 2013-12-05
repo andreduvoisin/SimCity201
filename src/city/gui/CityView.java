@@ -12,8 +12,8 @@ import java.util.HashMap;
 import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
-import market.gui.MarketPanel.EnumMarketType;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
+import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import bank.gui.BankPanel;
@@ -57,9 +57,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		cards.put("R_jerryweb", jerryweb);
 //		
 //		//Rest 3		
-//		MaggiyanRestaurantGui maggiyan = new MaggiyanRestaurantGui(city); 
-//		city.citypanel.masterRestaurantList.add(maggiyan.restPanel);
-//		cards.put("R_Maggiyan", maggiyan);
+		MaggiyanAnimationPanel maggiyan = new MaggiyanAnimationPanel(city);
+		cards.put("R_Maggiyan", maggiyan);
 		
 		//Rest 4
 		DavidAnimationPanel davidmca = new DavidAnimationPanel(city);
@@ -85,11 +84,11 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		 * Instantiate Market and Bank Panels and add to the Master Lists
 		 */
 		
-		MarketPanel market0 = new MarketPanel(city, EnumMarketType.BOTH);
+		MarketPanel market0 = new MarketPanel(city);
 		city.citypanel.masterMarketList.add(market0);
 		cards.put("Costco", market0);
 		
-		MarketPanel market1 = new MarketPanel(city, EnumMarketType.BOTH);
+		MarketPanel market1 = new MarketPanel(city);
 		city.citypanel.masterMarketList.add(market1);
 		cards.put("Sams Club", market1);
 		

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
 import market.roles.MarketDeliveryTruckRole;
 import market.roles.MarketWorkerRole;
@@ -53,7 +52,7 @@ public class SortingHat {
 		//Market
 		int numMarkets = 2;
 		for (int iMarketNumber = 0; iMarketNumber < numMarkets; iMarketNumber++){
-			sRoles.add(new MarketCashierRole(null, EnumMarketType.BOTH, iMarketNumber));
+			sRoles.add(new MarketCashierRole(null, iMarketNumber));
 			sRoles.add(new MarketDeliveryTruckRole(null, iMarketNumber));
 			for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
 				sRoles.add(new MarketWorkerRole(null, iMarketNumber));

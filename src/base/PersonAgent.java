@@ -2,7 +2,9 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
+import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -125,9 +127,23 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
+		/*
+		 * Give houses to landlords and owners
+		 */
+		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
+			getHousingRole().setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+			sHouseCounter++;
+		}
+		/*
+		 * Add event for renters to request a house
+		 */
+		if (getHousingRole() instanceof HousingRenterRole) {
+//			DAVID MAGGI add event for requesting a house
+		}
+		
 		
 		//Add events
-		mEvents.add(new Event(EnumEventType.JOB, 0));
+		mEvents.add(new Event(EnumEventType.JOB, mTimeShift+1));
 		
 //		if (mJobType != EnumJobType.NONE){
 //		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
@@ -352,6 +368,7 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
+		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
 			jobRole.setPerson(this); //take over job role
 			mRoles.put(jobRole, true); //set role to active
@@ -384,7 +401,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-			acquireSemaphore(semAnimationDone);
+//			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
 			
 			((RestaurantCustomerRole) restCustRole).setPerson(this);
@@ -503,16 +520,17 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
+		//ALL: this is a hack needs to be fixed
 //		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-		Role jobRole = new HousingOwnerRole(this);
-		jobRole.setPerson(this);
-		((HousingBaseRole) jobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
-		mPersonGui.setPresent(true);
-		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
-		sHouseCounter++;
-		acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-		((HousingBaseRole) jobRole).msgTimeToMaintain();
+//		Role jobRole = new HousingOwnerRole(this);
+//		jobRole.setPerson(this);
+//		((HousingBaseRole) jobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+//		mPersonGui.setPresent(true);
+//		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
+//		sHouseCounter++;
+//		acquireSemaphore(semAnimationDone);
+//		mPersonGui.setPresent(false);
+//		((HousingBaseRole) jobRole).msgTimeToMaintain();
 	}
 	
 	private List<Person> getBestFriends(){
