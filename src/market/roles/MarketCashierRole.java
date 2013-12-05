@@ -57,9 +57,9 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
-	public MarketCashierRole(Person person, EnumMarketType type, int marketID) {
+	public MarketCashierRole(Person person, int marketID) {
 		super(person);
-		mMarketType = type;
+//		mMarketType = type;
 		mMarketID = marketID;
 		
 		SimCityGui.getInstance().citypanel.masterMarketList.get(mMarketID).mCashier = this;
@@ -71,22 +71,11 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 			mBankAccount = person.getSSN();
 		
 		//populate inventory
-		if(mMarketType == EnumMarketType.BOTH) {
 		mInventory.put(EnumItemType.STEAK, mBaseInventory);
 		mInventory.put(EnumItemType.SALAD, mBaseInventory);
 		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);
 		mInventory.put(EnumItemType.PIZZA, mBaseInventory);
 		mInventory.put(EnumItemType.CAR, mBaseInventory);
-		}
-		if(mMarketType == EnumMarketType.FOOD) {
-		mInventory.put(EnumItemType.STEAK, mBaseInventory);
-		mInventory.put(EnumItemType.SALAD, mBaseInventory);
-		mInventory.put(EnumItemType.CHICKEN, mBaseInventory);
-		mInventory.put(EnumItemType.PIZZA, mBaseInventory);
-		}
-		else {
-			mInventory.put(EnumItemType.CAR, mBaseInventory);
-		}
 	}
 	
 //	Messages
