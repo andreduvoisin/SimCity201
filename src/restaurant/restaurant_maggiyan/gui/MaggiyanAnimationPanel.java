@@ -8,14 +8,48 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
+import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamCook;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
+import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
+import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
+import restaurant.restaurant_smileham.roles.SmilehamCookRole;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
+import base.BaseRole;
 import base.Time;
 
-public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
-
+public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
+	public static MaggiyanAnimationPanel mInstance;  
+	
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
+    private List<MaggiyanGui> guis = Collections.synchronizedList(new ArrayList<MaggiyanGui>());
+    
+    //DATA
+    private static MaggiyanHostRole mHost;
+    private static MaggiyanCookRole mCook;
+    private static MaggiyanCashierRole mCashier;
+    private static Vector<MaggiyanCustomerRole> mCustomers; 
+    
 	private static int XPOS = 50; 
 	private static int YPOS = 175; 
 	private static int GWIDTH = 50;
@@ -23,16 +57,19 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 	
 	private static int CookingAreaX = 275;
 	
-    private final int WINDOWX = 500;
-    private final int WINDOWY = 500;
 
-    private List<MaggiyanGui> guis = Collections.synchronizedList(new ArrayList<MaggiyanGui>());
 
-    public MaggiyanAnimationPanel() {
+    
+
+    public MaggiyanAnimationPanel(SimCityGui city) {
+    	super(city); 
+    	mInstance = this;
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         setBackground(Color.white);
  
+        mCustomers = new Vector<MaggiyanCustomerRole>(); 
+        
     	Timer timer = new Timer(Time.cSYSCLK/40, this );
     	timer.start();
     }
@@ -91,15 +128,37 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
             }
         }
     }
-//    public void showChoice(CustomerGui gui){
-//    	add(gui.myChoice);
-//    	gui.myChoice.setLocation(gui.getXPos(), gui.getYPos() - 10);
-//    }
-//    
-//    public void showChoice(WaiterGui gui){
-//    	add(gui.customerChoice);
-//    	gui.customerChoice.setLocation(gui.getXPos(), gui.getYPos() - 10);
-//    }
+
+    public static void addPerson(BaseRole role) {
+    	if (role instanceof MaggiyanCustomerRole){
+    		MaggiyanCustomerRole customer = (MaggiyanCustomerRole) role;
+    		mCustomers.add(customer);
+    		customer.gotHungry();
+    	}
+    	else if (role instanceof MaggiyanWaiterRole){
+    		MaggiyanWaiterRole waiter = (MaggiyanWaiterRole) role;
+    		
+    		MaggiyanHost host = waiter.getHost();
+            host.msgIAmHere((MaggiyanWaiter)waiter);
+            
+    	}
+    	else if (role instanceof MaggiyanSharedWaiterRole){
+    		MaggiyanSharedWaiterRole waiter = (MaggiyanSharedWaiterRole) role;
+    		
+    		MaggiyanHost host = waiter.getHost();
+            host.msgIAmHere((MaggiyanWaiter)waiter);
+            
+    	}
+    	else if (role instanceof MaggiyanHostRole){
+    		mHost = (MaggiyanHostRole) role;
+    	}
+    	else if (role instanceof MaggiyanCookRole){
+    		mCook = (MaggiyanCookRole) role;
+    	}
+    	else if (role instanceof MaggiyanCashierRole){
+    		mCashier = (MaggiyanCashierRole) role;
+    	}
+    }
 
     public void addGui(MaggiyanCustomerGui gui) {
         guis.add(gui);
@@ -112,5 +171,17 @@ public class MaggiyanAnimationPanel extends JPanel implements ActionListener {
 	public void addGui(MaggiyanCookGui gui) {
 		guis.add(gui); 
 		
+	}
+	
+	public static MaggiyanHost getHost(){
+		return mHost;
+	}
+	
+	public static MaggiyanCashier getCashier(){
+		return mCashier;
+	}
+
+	public static MaggiyanCook getCook() {
+		return mCook;
 	}
 }
