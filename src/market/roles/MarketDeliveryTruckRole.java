@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import restaurant.intermediate.RestaurantCookRole;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
@@ -32,7 +33,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	
 	enum EnumDeliveryTruckStatus {Ready, Deliverying, Waiting};
 	EnumDeliveryTruckStatus mStatus = EnumDeliveryTruckStatus.Waiting;
-	
+	//ANGELICA: fix delivery truck status thing
 	public MarketDeliveryTruckRole(PersonAgent person, int marketID) {
 		super(person);
 		mMarketID = marketID;
@@ -83,7 +84,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		}
 		if(mStatus == EnumDeliveryTruckStatus.Ready) {
 			mStatus = EnumDeliveryTruckStatus.Waiting;
-			notifyCashier();
 			return true;
 		}
 		DoGoToMarket();
@@ -100,14 +100,10 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	private void deliverOrder(MarketOrder o) {
-		((MarketCookCustomerRole)o.mPersonRole).msgHereIsCookOrder(o);
+		((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
 		mDeliveries.remove(o);
 	}
 	
-	//not necessary for V1?
-	private void notifyCashier() {
-		//ANGELICA: message cashier that deliveryTruck is active
-	}
 	
 /* Animation Actions */
 	public void DoGoToRestaurant(int n) {

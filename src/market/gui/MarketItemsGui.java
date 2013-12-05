@@ -25,7 +25,7 @@ public class MarketItemsGui implements MarketBaseGui {
 	public Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
 	private int xBase = 300, yBase = 30;
 	private static final int SIZE = 20;
-	public static final int sBaseInventory = 50;
+	public static final int sBaseInventory = 5;
 	
 	BufferedImage image1;
 	BufferedImage image2;
@@ -130,9 +130,18 @@ public class MarketItemsGui implements MarketBaseGui {
 		for(ItemGui i : mItems.keySet()) {
 			if(i.mItem == item) {
 				n = i.mNumber;
+				break;
 			}
 		}
 		return n;
+	}
+	
+	public void setInventory(EnumItemType i, int n) {
+		for(ItemGui item : mItems.keySet()) {
+			if(item.mItem.equals(i)) {
+				item.mNumber = n;
+			}
+		}
 	}
 	
 	public boolean isPresent() {

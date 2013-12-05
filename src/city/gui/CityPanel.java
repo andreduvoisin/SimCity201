@@ -26,20 +26,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 
 	TransportationBusDispatch busDispatch;
 	
-	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
-	public List<CityHousing> masterHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
-	public List<BankPanel> masterBankList = Collections.synchronizedList(new ArrayList<BankPanel>());
-	public List<MarketPanel> masterMarketList = Collections.synchronizedList(new ArrayList<MarketPanel>());
-	
-	// A*
-	public static final int ASC = 5;
-	public static final int NG = 4;
-	public static Semaphore[][] grid = new Semaphore[CITY_WIDTH / ASC][CITY_HEIGHT / ASC];
-	public static Semaphore[][] gridNW = new Semaphore[60][60];
-	public static Semaphore[][] gridNE = new Semaphore[60][60];
-	public static Semaphore[][] gridSW = new Semaphore[60][60];
-	public static Semaphore[][] gridSE = new Semaphore[60][60];
-	
 	public CityPanel(SimCityGui city) {
 		//Setup
 		super(city);
@@ -48,69 +34,22 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 		
-		try {
-			for(int i = 0; i < (CITY_WIDTH/ASC); i++) {
-				for(int j = 0; j < (CITY_HEIGHT/ASC); j++) {
-					grid[i][j] = new Semaphore(1, true);
-				}
+		// Houses
+		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
+			int xCord, yCord = 0;
+			if (iHouse / 20 == 0) {					//North
+				xCord = 100 + 20 * (iHouse % 20);
+				yCord = 0;
+			} else if (iHouse / 20 == 2) {			//South
+				xCord = 100 + 20 * (iHouse % 20);
+				yCord = 580;
+			} else if (iHouse / 20 == 3) {			//West
+				xCord = 0;
+				yCord = 100 + 20 * (iHouse % 20);
+			} else {								//East
+				xCord = 580;
+				yCord = 100 + 20 * (iHouse % 20);
 			}
-			
-			// Center (100,100 to 500,500)
-			for(int i = 100/ASC; i < 500/ASC; i++) {
-				for(int j = 100/ASC; j < 500/ASC; j++) {
-					grid[i][j].acquire();
-				}
-			}
-			// Houses
-			for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
-				int xCord, yCord = 0;
-				if (iHouse / 20 == 0) {					//North
-					xCord = 100 + 20 * (iHouse % 20);
-					yCord = 0;
-				} else if (iHouse / 20 == 2) {			//South
-					xCord = 100 + 20 * (iHouse % 20);
-					yCord = 580;
-				} else if (iHouse / 20 == 3) {			//West
-					xCord = 0;
-					yCord = 100 + 20 * (iHouse % 20);
-				} else {								//East
-					xCord = 580;
-					yCord = 100 + 20 * (iHouse % 20);
-				}
-				for(int i = 0; i < 4; i++)
-					for(int j = 0; j < 4; j++)
-						grid[(xCord / ASC) + i][(yCord / ASC) + j].acquire();
-			}
-			// Roads (temp...)
-			for(int i = 35/ASC; i < 85/ASC; i++)
-				for(int j = 0; j < 600/ASC; j++) {
-					grid[i][j].tryAcquire();
-					grid[j][i].tryAcquire();
-				}
-			for(int i = 515/ASC; i < 565/ASC; i++)
-				for(int j = 0; j < 600/ASC; j++) {
-					grid[i][j].tryAcquire();
-					grid[j][i].tryAcquire();
-				}
-			for(int i = 0; i < 600/ASC; i++)
-				grid[i][7].release();
-			for(int j = 0; j < 600/ASC; j++)
-				grid[85/ASC][j].release();
-			for(int i = 0; i < 600/ASC; i++)
-				grid[i][17].release();
-			for(int j = 0; j < 600/ASC; j++)
-				grid[35/ASC][j].release();
-			
-			// Apply to 4 grids.
-			for(int i = 0; i < 60; i++)
-				for(int j = 0; j < 60; j++) {
-					gridNW[i][j] = grid[i][j];
-					gridNE[i][j] = grid[i + 60][j];
-					gridSW[i][j] = grid[i][j + 60];
-					gridSE[i][j] = grid[i + 60][j + 60];
-				}
-		} catch (Exception e) {
-			System.out.println("Exception During A* Setup: " + e);
 		}
 /*
 		//Add Background and city block

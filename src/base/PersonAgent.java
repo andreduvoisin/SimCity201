@@ -36,7 +36,6 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 
@@ -105,10 +104,6 @@ public class PersonAgent extends Agent implements Person {
 				break;
 		}
 		
-		if (jobRole == null) {
-			print("jobRole is null!");
-		}
-		
 		//Link person and role
 		boolean active = (mTimeShift == Time.GetShift());	//set active if job shift is now
 		if (jobRole != null){
@@ -131,7 +126,7 @@ public class PersonAgent extends Agent implements Person {
 		 * Give houses to landlords and owners
 		 */
 		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			getHousingRole().setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter));
 			sHouseCounter++;
 		}
 		/*
@@ -143,13 +138,18 @@ public class PersonAgent extends Agent implements Person {
 		
 		
 		//Add events
-		mEvents.add(new Event(EnumEventType.JOB, mTimeShift+1));
+//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift+1));
 		
+		//These will now take place in the config file / config parser / addEvent method
+		
+		
+//		mEvents.add(new Event(EnumEventType.JOB, 0));
+//		
 //		if (mJobType != EnumJobType.NONE){
 //		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
 //			mEvents.add(new Event(EnumEventType.JOB, 0));
 //		}
-		mEvents.add(new Event(EnumEventType.EAT, 2));
+//		mEvents.add(new Event(EnumEventType.EAT, 2));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
@@ -252,7 +252,7 @@ public class PersonAgent extends Agent implements Person {
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
-				if (iRole.getPerson() == null) {
+				if (!iRole.hasPerson()) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
@@ -318,19 +318,11 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
 			if (event instanceof EventParty){
-				throwParty((EventParty)event);
-				if(((EventParty)event).mHost == this){
-					planParty(Time.GetTime()+24);
-				}
+				goParty((EventParty)event);
 			}
-			/*
-			int inviteNextDelay = 24*mSSN;
-			EventParty party = (EventParty) event;
-			mEvents.add(new EventParty(party, inviteNextDelay + 2));
-			mEvents.add(new EventParty(party, EnumEventType.INVITE1, inviteNextDelay, getBestFriends()));
-			mEvents.add(new EventParty(party, EnumEventType.INVITE2, inviteNextDelay + 1, getBestFriends()));
-			*/
-			//SHANE: 3 check event classes
+		}
+		else if (event.mEventType == EnumEventType.PLANPARTY) {
+			planParty(Time.GetTime());
 		}
 
 		//Transportation
@@ -368,11 +360,14 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void goToJob() {
 		print("goToJob");
-		mPersonGui.DoGoToDestination(getJobLocation()); //could be null???
+		Role jobRole = getJobRole();
+		if(jobRole == null){
+			print("didn't go to job"); return;
+		}
+		mPersonGui.DoGoToDestination(getJobLocation()); 
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		Role jobRole = getJobRole();
 		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
 			jobRole.setPerson(this); //take over job role
@@ -444,45 +439,46 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		CityPanel.getInstance().masterBankList.get(mSSN%2).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-		mEvents.add(new Event(EnumEventType.PARTY,   time+4));
+		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, getBestFriends()));
 	}
 
-	private void throwParty(EventParty event) {
+	private void goParty(EventParty event) {
 		mPersonGui.DoGoToDestination(event.mLocation);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
 		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
-		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui); //REX 0 HOUSING THIS IS THE NEXT NULL POINTER
-			//I'M PRETTY SURE THE HOST DOESN'T HAVE A HOUSE... ANY WAY TO GET AROUND THIS?
+		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui);
 		((HousingBaseRole) getHousingRole()).gui.DoParty();
 	}
 
 	private void inviteToParty() {
 		print("First RSVP is sent out");
 		if(mFriends.isEmpty()){
-			int numPeople = CityPanel.getInstance().masterPersonList.size();
+			int numPeople = ContactList.sPersonList.size();
 			print("Num People in city: " + numPeople); //SHANE: Print remove
 			for (int i = 0; i < numPeople; i = i + 2){
-				mFriends.add(CityPanel.getInstance().masterPersonList.get(i));
+				mFriends.add(ContactList.sPersonList.get(i));
 			}
 			print("Created friends for party host");
 		}
 		//party is in 3 days
 		//send RSVP1 and event invite
+//		Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
+		Location partyLocation = new Location(100, 0);
+//		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
+//		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
+		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, getBestFriends());
+		Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
+		
 		for (Person iFriend : mFriends){
-//			Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
-			Location partyLocation = new Location(100, 0);
-//			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
-//			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
-			Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, getBestFriends());
-			Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
 			iFriend.msgAddEvent(rsvp);
 			iFriend.msgAddEvent(party);
 		}
@@ -528,7 +524,7 @@ public class PersonAgent extends Agent implements Person {
 //		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 //		Role jobRole = new HousingOwnerRole(this);
 //		jobRole.setPerson(this);
-//		((HousingBaseRole) jobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+//		((HousingBaseRole) jobRole).setHouse(ContactList.sHouseList.get(sHouseCounter));
 //		mPersonGui.setPresent(true);
 //		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
 //		sHouseCounter++;
@@ -595,11 +591,13 @@ public class PersonAgent extends Agent implements Person {
 				return iRole;
 			}
 		}
-		print("job role null!");
+		//print("job role null!");
 		return null;
 	}
 	
 	private Location getJobLocation(){
+		if (getJobRole() == null)
+			return null;
 		return getJobRole().getLocation();
 	}
 	

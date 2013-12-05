@@ -4,10 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import market.gui.MarketPanel;
+import city.gui.CityHousing;
+import bank.gui.BankPanel;
 import bank.roles.BankMasterTellerRole;
+import base.interfaces.Person;
 
 public class ContactList {
-		
+
+	//----------------------------------------------------------LISTS----------------------------------------------------------
+	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
+	
+	public static List<CityHousing> sHouseList = Collections.synchronizedList(new ArrayList<CityHousing>());
+	public static List<BankPanel> sBankList = Collections.synchronizedList(new ArrayList<BankPanel>());
+	public static List<MarketPanel> sMarketList = Collections.synchronizedList(new ArrayList<MarketPanel>());
+	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in A**)
