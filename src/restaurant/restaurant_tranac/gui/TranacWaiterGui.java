@@ -16,7 +16,7 @@ import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
 public class TranacWaiterGui implements Gui {
 
     private TranacRestaurantWaiterRole agent = null;
-    private TranacRestaurantPanel gui = null;
+    private TranacAnimationPanel gui = null;
     
     private TranacRestaurantCookRole cook = null;
     
@@ -44,7 +44,7 @@ public class TranacWaiterGui implements Gui {
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
     
-    public TranacWaiterGui(TranacRestaurantWaiterRole agent, TranacRestaurantPanel gui, int i) {
+    public TranacWaiterGui(TranacRestaurantWaiterRole agent, TranacAnimationPanel gui, int i) {
         this.agent = agent;
         this.gui = gui;
         
@@ -95,7 +95,7 @@ public class TranacWaiterGui implements Gui {
 
     public TranacWaiterGui(TranacRestaurantWaiterRole agent, int i) {
         this.agent = agent;
-        this.gui = TranacRestaurantPanel.getInstance();
+        this.gui = TranacAnimationPanel.getInstance();
         
         //home coordinates based off of what num waiter is
         xHome = xBase + 30*(i % 10);

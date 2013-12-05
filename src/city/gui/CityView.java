@@ -15,6 +15,7 @@ import market.gui.MarketPanel;
 import market.gui.MarketPanel.EnumMarketType;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import bank.gui.BankPanel;
 import base.ContactList;
 import base.Location;
@@ -69,6 +70,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("R_smileham", smileham);
 		
 //		//Rest 6
+		TranacAnimationPanel tranac = new TranacAnimationPanel(city);
+		cards.put("R_tranac", tranac);
 //		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
 //		city.citypanel.masterRestaurantList.add(tranac);
 //		cards.put("R_tranac", tranac);

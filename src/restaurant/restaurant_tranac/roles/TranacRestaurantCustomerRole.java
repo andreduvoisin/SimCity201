@@ -9,7 +9,7 @@ import java.util.TimerTask;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacCustomerGui;
-import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
@@ -68,7 +68,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 	public TranacRestaurantCustomerRole() {
 		super(null);
 		customerGui = new TranacCustomerGui(this);
-		TranacRestaurantPanel.getInstance().addPerson(this);
+		TranacAnimationPanel.getInstance().addPerson(this);
 		
 		
 		money = baseMoney; // ANGELICA: no longer necessary; will get from
@@ -76,7 +76,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 		num = 0;
 
 		customerGui = new TranacCustomerGui(this);
-		TranacRestaurantPanel.getInstance().addGui(customerGui);
+		TranacAnimationPanel.getInstance().addGui(customerGui);
 		// randomly chooses waiting unless set later
 		if (rGenerator.nextInt() % 2 == 0)
 			willWait = false;
@@ -90,7 +90,7 @@ public class TranacRestaurantCustomerRole extends BaseRole implements
 		num = 0;
 
 		customerGui = new TranacCustomerGui(this);
-		TranacRestaurantPanel.getInstance().addGui(customerGui);
+		TranacAnimationPanel.getInstance().addGui(customerGui);
 		// randomly chooses waiting unless set later
 		if (rGenerator.nextInt() % 2 == 0)
 			willWait = false;
