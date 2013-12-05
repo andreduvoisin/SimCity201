@@ -36,9 +36,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public BankGuardRole(Person person, int bankNumber) {
 		super(person);
 		mBankID = bankNumber;
-		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).guard = this;
-		mGUI = new BankGuardGui(this, SimCityGui.getInstance().citypanel.masterBankList.get(mBankID));
-		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).addGui(mGUI);
+//		mGUI = new BankGuardGui(this, SimCityGui.getInstance().citypanel.masterBankList.get(mBankID));
 	}
 	
 	

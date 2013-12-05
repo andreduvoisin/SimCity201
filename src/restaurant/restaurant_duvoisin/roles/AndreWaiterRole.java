@@ -49,10 +49,14 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	
 	static final long breakTime = 20000;
 	Timer timer = new Timer();
+	
+	public static int waiterNumber = 0;
 
 	public AndreWaiterRole(Person person) {
 		super(person);
-		this.name = person.getName();
+		//this.name = person.getName();
+			this.name = "AndreWaiter" + waiterNumber;
+			waiterNumber++;
 	}
 
 	public String getName() {

@@ -36,7 +36,6 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 
@@ -127,7 +126,7 @@ public class PersonAgent extends Agent implements Person {
 		 * Give houses to landlords and owners
 		 */
 		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			getHousingRole().setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter));
 			sHouseCounter++;
 		}
 		/*
@@ -139,13 +138,18 @@ public class PersonAgent extends Agent implements Person {
 		
 		
 		//Add events
-		mEvents.add(new Event(EnumEventType.JOB, mTimeShift+1));
+//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift+1));
 		
+		//These will now take place in the config file / config parser / addEvent method
+		
+		
+//		mEvents.add(new Event(EnumEventType.JOB, 0));
+//		
 //		if (mJobType != EnumJobType.NONE){
 //		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
 //			mEvents.add(new Event(EnumEventType.JOB, 0));
 //		}
-		mEvents.add(new Event(EnumEventType.EAT, 2));
+//		mEvents.add(new Event(EnumEventType.EAT, 2));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
@@ -247,7 +251,7 @@ public class PersonAgent extends Agent implements Person {
 
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
-			if (mRoles.get(iRole)) {
+			if (mRoles.get(iRole) && iRole!= null) {
 				if (!iRole.hasPerson()) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
@@ -435,7 +439,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		CityPanel.getInstance().masterBankList.get(mSSN%2).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -458,10 +462,10 @@ public class PersonAgent extends Agent implements Person {
 	private void inviteToParty() {
 		print("First RSVP is sent out");
 		if(mFriends.isEmpty()){
-			int numPeople = CityPanel.getInstance().masterPersonList.size();
+			int numPeople = ContactList.sPersonList.size();
 			print("Num People in city: " + numPeople); //SHANE: Print remove
 			for (int i = 0; i < numPeople; i = i + 2){
-				mFriends.add(CityPanel.getInstance().masterPersonList.get(i));
+				mFriends.add(ContactList.sPersonList.get(i));
 			}
 			print("Created friends for party host");
 		}
@@ -520,7 +524,7 @@ public class PersonAgent extends Agent implements Person {
 //		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
 //		Role jobRole = new HousingOwnerRole(this);
 //		jobRole.setPerson(this);
-//		((HousingBaseRole) jobRole).setHouse(SimCityGui.getInstance().citypanel.masterHouseList.get(sHouseCounter));
+//		((HousingBaseRole) jobRole).setHouse(ContactList.sHouseList.get(sHouseCounter));
 //		mPersonGui.setPresent(true);
 //		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
 //		sHouseCounter++;

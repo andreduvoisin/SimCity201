@@ -58,14 +58,9 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
-		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).teller = this;
-		mGUI = new BankTellerGui(this, SimCityGui.getInstance().citypanel.masterBankList.get(mBankID));
-		SimCityGui.getInstance().citypanel.masterBankList.get(mBankID).addGui(mGUI);
-		
-		//  REX: what is this?
-//		((BankTellerRole)jobRole).addGuard(BankPanel.getInstance().guard);
-//		((BankTellerRole)jobRole).setMaster(BankPanel.getInstance().masterTeller);
-//		BankPanel.getInstance().guard.msgReadyToWork((BankTellerRole)jobRole);
+		ContactList.sBankList.get(mBankID).teller = this;
+		mGUI = new BankTellerGui(this, ContactList.sBankList.get(mBankID));
+		ContactList.sBankList.get(mBankID).addGui(mGUI);
 	}
 	
 	//	MESSAGES

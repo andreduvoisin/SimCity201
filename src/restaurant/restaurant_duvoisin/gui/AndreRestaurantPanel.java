@@ -27,14 +27,15 @@ import base.BaseRole;
  */
 @SuppressWarnings("serial")
 public class AndreRestaurantPanel extends JPanel  {
+	public static AndreRestaurantPanel instance;
 
     //Host, cook, waiters and customers
-	public AndreHostRole host = new AndreHostRole("Kevin G");
-	public static AndreCookRole cook;
+	public AndreHostRole host = new AndreHostRole(null);
+	public AndreCookRole cook = new AndreCookRole(null);
 	private Vector<Waiter> waiters = new Vector<Waiter>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     private Vector<AndreMarketRole> markets = new Vector<AndreMarketRole>();
-    public AndreCashierRole cashier = new AndreCashierRole("Cashier");
+    public AndreCashierRole cashier = new AndreCashierRole(null);
 
     private JPanel restLabel = new JPanel();
     private ListPanel addMembers = new ListPanel(this);
@@ -44,6 +45,7 @@ public class AndreRestaurantPanel extends JPanel  {
 
     public AndreRestaurantPanel(AndreRestaurantGui gui) {
         this.gui = gui;
+        instance = this;
         setLayout(new GridLayout(1, 2, 20, 20));
         group.setLayout(new GridLayout(1, 2, 10, 10));
 
@@ -125,30 +127,37 @@ public class AndreRestaurantPanel extends JPanel  {
     		((AndreCustomerRole)role).getGui().setHungry();
     		//c.startThread();
     	} else if(role instanceof AndreSharedWaiterRole) {	//if(waiters.size() % 2 == 0) { // Odd = Shared, Even = Normal
-    			//AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
-				WaiterGui g = new WaiterGui(((AndreSharedWaiterRole)role), gui);
-				
-				gui.animationPanel.addGui(g);
-				((AndreSharedWaiterRole)role).setGui(g);
-				waiters.add(((AndreSharedWaiterRole)role));
-				host.addWaiter(((AndreSharedWaiterRole)role));
-				((AndreSharedWaiterRole)role).setHost(host);
-				((AndreSharedWaiterRole)role).setCook(cook);
-				((AndreSharedWaiterRole)role).setCashier(cashier);
-	            //w.startThread();
+			//AndreSharedWaiterRole w = new AndreSharedWaiterRole(host, cook, cashier, name);
+			WaiterGui g = new WaiterGui(((AndreSharedWaiterRole)role), gui);
+			
+			gui.animationPanel.addGui(g);
+			((AndreSharedWaiterRole)role).setGui(g);
+			waiters.add(((AndreSharedWaiterRole)role));
+			host.addWaiter(((AndreSharedWaiterRole)role));
+			((AndreSharedWaiterRole)role).setHost(host);
+			((AndreSharedWaiterRole)role).setCook(cook);
+			((AndreSharedWaiterRole)role).setCashier(cashier);
+            //w.startThread();
     	} else if(role instanceof AndreWaiterRole) {	//} else {
-	    		//AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
-	    		WaiterGui g = new WaiterGui(((AndreWaiterRole)role), gui);
-	    		
-	    		gui.animationPanel.addGui(g);
-	    		((AndreWaiterRole)role).setGui(g);
-	    		waiters.add(((AndreWaiterRole)role));
-	    		host.addWaiter(((AndreWaiterRole)role));
-	    		((AndreWaiterRole)role).setHost(host);
-	    		((AndreWaiterRole)role).setCook(cook);
-	    		((AndreWaiterRole)role).setCashier(cashier);
-	            //w.startThread();
+    		//AndreWaiterRole w = new AndreWaiterRole(host, cook, cashier, name);
+    		WaiterGui g = new WaiterGui(((AndreWaiterRole)role), gui);
+    		
+    		gui.animationPanel.addGui(g);
+    		((AndreWaiterRole)role).setGui(g);
+    		waiters.add(((AndreWaiterRole)role));
+    		host.addWaiter(((AndreWaiterRole)role));
+    		((AndreWaiterRole)role).setHost(host);
+    		((AndreWaiterRole)role).setCook(cook);
+    		((AndreWaiterRole)role).setCashier(cashier);
+            //w.startThread();
     	}
+    }
+    
+    public void addCook(AndreCookRole role) {
+    	cook = role;
+    	CookGui g = new CookGui(cook, gui);
+		gui.animationPanel.addGui(g);
+		cook.setGui(g);
     }
     
     public void pauseAgents() {

@@ -19,12 +19,11 @@ public class Time {
 	
 	static boolean sFastForward = false;
 	
-	List<Person> mPersons;
+	List<Person> mPersons = ContactList.sPersonList;
 	
 	Timer mTimer;
 	
-	public Time(List<Person> people){
-		mPersons = people;
+	public Time(){
 		mTimer = new Timer();
 		runTimer();
 	}
