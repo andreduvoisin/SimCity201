@@ -34,6 +34,8 @@ public abstract class BaseRole implements Role {
 	}
 
 	public Person getPerson() {
+		if(mPerson == null)
+			return null;
 		return mPerson;
 	}
 

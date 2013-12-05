@@ -19,7 +19,6 @@ import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import bank.gui.BankPanel;
 import base.ContactList;
 import base.Location;
-//import restaurant.restaurant_tranac.gui.TranacRestaurantPanel; // ANGELICA: error here
 
 @SuppressWarnings("serial")
 public class CityView extends JPanel implements MouseListener, ActionListener {

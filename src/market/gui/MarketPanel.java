@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.Timer;
 
+import base.Item.EnumItemType;
 import market.roles.MarketCashierRole;
 import market.roles.MarketDeliveryTruckRole;
 import city.gui.CityCard;
@@ -108,4 +109,8 @@ public class MarketPanel extends CityCard implements ActionListener {
 		}
 	}
 	
+	public void setInventory(EnumItemType i, int n) {
+		mCashier.setInventory(i,n);
+		mItemGui.setInventory(i,n);
+	}
 }

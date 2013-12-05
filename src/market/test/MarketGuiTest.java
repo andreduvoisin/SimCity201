@@ -10,7 +10,6 @@ import market.gui.MarketCustomerGui;
 import market.gui.MarketDeliveryTruckGui;
 import market.gui.MarketItemsGui;
 import market.gui.MarketPanel;
-import market.gui.MarketPanel.EnumMarketType;
 import market.gui.MarketWorkerGui;
 import market.test.mock.MockCashier;
 import market.test.mock.MockCustomer;
@@ -32,8 +31,8 @@ public class MarketGuiTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		mMarketPanel = new MarketPanel(null, EnumMarketType.BOTH);
-		mMarketItems = new MarketItemsGui(EnumMarketType.BOTH);
+		mMarketPanel = new MarketPanel(null);
+		mMarketItems = new MarketItemsGui();
 		mMarketPanel.addGui(mMarketItems);
 	}
 	

@@ -130,9 +130,18 @@ public class MarketItemsGui implements MarketBaseGui {
 		for(ItemGui i : mItems.keySet()) {
 			if(i.mItem == item) {
 				n = i.mNumber;
+				break;
 			}
 		}
 		return n;
+	}
+	
+	public void setInventory(EnumItemType i, int n) {
+		for(ItemGui item : mItems.keySet()) {
+			if(item.mItem.equals(i)) {
+				item.mNumber = n;
+			}
+		}
 	}
 	
 	public boolean isPresent() {
