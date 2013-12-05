@@ -16,11 +16,10 @@ import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.reference.ContactList;
-import city.gui.SimCityGui;
 
 public class BankTellerRole extends BaseRole implements BankTeller{
 
-	//DATA
+	//------------------------------------------------------DATA------------------------------------------------------
 	int mBankID;
 	
 	public class MyCustomer{
@@ -44,7 +43,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	//GUI
 	public BankTellerGui mGUI;
 	//GUI Coordinate
-	int mLocation;
+	int mWindow;
 	//Agent Correspodents
 	BankGuard mGuard;
 	public MyCustomer mCustomer;
@@ -54,13 +53,16 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public List <BankAccount> mAccounts;
 	
 	
-	//CONSTRUCTOR
+	//------------------------------------------------------CONSTRUCTOR------------------------------------------------------
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
+		
+		mGUI = new BankTellerGui(this);
+//		ContactList.sBanks.get(bankID)
 	}
 	
-	//	MESSAGES
+	//------------------------------------------------------MESSAGES------------------------------------------------------
 	
 	public void msgDeposit(BankCustomer c, int SSN, double amount){
 		mCustomer = new MyCustomer(c, SSN, amount, EnumTransaction.Deposit);
@@ -88,7 +90,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		stateChanged();
 	}
 
-//	SCHEDULER
+	//------------------------------------------------------SCHEDULER------------------------------------------------------
 	public boolean pickAndExecuteAnAction() {
 		if (!(mCustomer == null)) {
 			if (mCustomer.transaction == EnumTransaction.Deposit) {
@@ -120,7 +122,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		return false;
 	}
 	
-//	ACTIONS
+	//------------------------------------------------------ACTIONS------------------------------------------------------
 	
 	private void deposit(){
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
@@ -164,12 +166,12 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
 	}
 	
-//	UTILITIES
+	//------------------------------------------------------UTILITIES------------------------------------------------------
 	public void addGuard(BankGuard guard){
 		mGuard = guard;
 	}
 	public void setLocation(int location){
-		mLocation = location;
+		mWindow = location;
 	}
 	public void setMaster(BankMasterTeller masterTeller) {
 		mMasterTeller = masterTeller;

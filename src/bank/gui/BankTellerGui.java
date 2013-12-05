@@ -11,9 +11,8 @@ import base.Gui;
 
 public class BankTellerGui implements Gui {
 
-	private BankTeller agent = null;
+	private BankTeller bankTeller = null;
 	private boolean isPresent = true;
-	private BankPanel bankPanel;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -24,9 +23,8 @@ public class BankTellerGui implements Gui {
 	static final int STARTPOSX3 = 300;
 	static final int STARTPOSY = 450;
 	
-	public BankTellerGui(BankTeller bt, BankPanel bp) {
-		agent = bt;
-		bankPanel = bp;
+	public BankTellerGui(BankTeller bt) {
+		bankTeller = bt;
 		xPos =  225;
 		yPos = 0;
 		xDestination = STARTPOSX1;
@@ -45,21 +43,6 @@ public class BankTellerGui implements Gui {
 	//Animation Upgrades
 	private BufferedImage bankTellerImage;
 	
-	public BankTellerGui(BankTeller bt, BankPanel bp, int position) {
-		agent = bt;
-		bankPanel = bp;
-		xPos = -20;
-		yPos = -20;
-		yDestination = STARTPOSY;
-		
-		
-		switch (position){
-		case 1:	xDestination = STARTPOSX1; break;
-		case 2: xDestination = STARTPOSX2; break;
-		case 3: xDestination = STARTPOSX3; break;
-		default: xDestination = STARTPOSX1; break;
-		}
-	}
 
 	public void updatePosition() {
 		if (xPos < xDestination)
