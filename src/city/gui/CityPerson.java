@@ -138,6 +138,10 @@ public class CityPerson extends CityComponent {
 //		
 //	}
 	
+	public void DoDriveToDestination(){
+		
+	}
+	
 	public void DoGoToDestination(Location destination){
 		this.enable(); 
 		mNextDestination = destination;//correct?
@@ -160,7 +164,9 @@ public class CityPerson extends CityComponent {
 		Location myLocation = new Location(x, y);
 		Location cornerNearCurrent = findNearestCorner(myLocation);
 		Location cornerNearDest = findNearestCorner(destination);
-
+		
+		//CHASE: Is it better to just calculate the closest corner vs distance b/c 
+		// 		 we don't know if it's safe to assume b* will take the path specified in totalBusDistance
 		int totalBusDistance = Math.abs(cornerNearCurrent.mX - x)
 								+ Math.abs(cornerNearCurrent.mY - y)
 								+ Math.abs(cornerNearDest.mX - destination.mX)

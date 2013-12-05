@@ -27,7 +27,18 @@ public abstract class BaseRole implements Role {
 	public boolean pickAndExecuteAnAction() {
 		return false;
 	}
-
+	
+	//TRANSPORTATION
+	public void GoToDestination(Location location){
+		if(mPerson.hasCar()){
+			mPerson.getGui().DoDriveToDestination(); 
+		}
+		else{
+			mPerson.getGui().DoGoToDestination(location);
+		}
+	
+	}
+	
 	// ACCESSORS
 	public void setPerson(Person person) {
 		mPerson = person;
