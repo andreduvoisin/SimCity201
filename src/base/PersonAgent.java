@@ -283,7 +283,9 @@ public class PersonAgent extends Agent implements Person {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
-				goToJob();
+//				goToJob();
+//ANGELICA: MAGGI: change this back later
+				testGoToJob();
 			}
 			mEvents.add(new Event(event, 24));
 		}
@@ -372,6 +374,25 @@ public class PersonAgent extends Agent implements Person {
 			print("didn't go to job"); return;
 		}
 		mPersonGui.DoGoToDestination(getJobLocation()); 
+		acquireSemaphore(semAnimationDone);
+		mAtJob = true; //set to false in msgTimeShift
+		mPersonGui.setPresent(false);
+		print("my job is " +jobRole.toString());
+		if(jobRole != null) {
+			jobRole.setPerson(this); //take over job role
+			mRoles.put(jobRole, true); //set role to active
+			jobRole.setActive();
+		}
+	}
+	
+//ANGELICA: MAGGI: Testing transportation
+	private void testGoToJob() {
+		print("goToJob");
+		Role jobRole = getJobRole();
+		if(jobRole == null){
+			print("didn't go to job"); return;
+		}
+		jobRole.GoToDestination(getJobLocation());
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
