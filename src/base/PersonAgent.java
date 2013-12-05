@@ -105,10 +105,6 @@ public class PersonAgent extends Agent implements Person {
 				break;
 		}
 		
-		if (jobRole == null) {
-			print("jobRole is null!");
-		}
-		
 		//Link person and role
 		boolean active = (mTimeShift == Time.GetShift());	//set active if job shift is now
 		if (jobRole != null){
@@ -252,7 +248,7 @@ public class PersonAgent extends Agent implements Person {
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole)) {
-				if (iRole.getPerson() == null) {
+				if (!iRole.hasPerson()) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
@@ -455,7 +451,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		
 		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
-		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui); //REX: null pointer here
+		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui);
 		((HousingBaseRole) getHousingRole()).gui.DoParty();
 	}
 
@@ -591,7 +587,7 @@ public class PersonAgent extends Agent implements Person {
 				return iRole;
 			}
 		}
-		print("job role null!");
+		//print("job role null!");
 		return null;
 	}
 	
