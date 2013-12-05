@@ -18,6 +18,7 @@ import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.gui.BankPanel;
 import base.ContactList;
 import base.Location;
@@ -74,11 +75,10 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
 //		city.citypanel.masterRestaurantList.add(tranac);
 //		cards.put("R_tranac", tranac);
-//		
-//		//Rest 7		
-//		RexAnimationPanel xurex = new RexAnimationPanel(city);
-//		city.citypanel.masterRestaurantList.add(xurex);
-//		cards.put("R_xurex", xurex);
+		
+		//Rest 7		
+		RexAnimationPanel xurex = new RexAnimationPanel(city);
+		cards.put("R_xurex", xurex);
 				
 		/*
 		 * Instantiate Market and Bank Panels and add to the Master Lists
