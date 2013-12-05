@@ -126,7 +126,7 @@ public class PersonAgent extends Agent implements Person {
 		 * Give houses to landlords and owners
 		 */
 		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter));
+			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
 			sHouseCounter++;
 		}
 		/*
