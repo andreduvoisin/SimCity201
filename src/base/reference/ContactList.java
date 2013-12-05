@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import market.gui.MarketPanel;
-import city.gui.CityHousing;
-import bank.gui.BankPanel;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
 import base.interfaces.Person;
 
 public class ContactList {
-
+	
+	//------------------------------------------------------PROJECT SETTINGS----------------------------------------------------------
+	
+	
+	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
 	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	

@@ -50,15 +50,15 @@ public class MarketPanel extends CityCard implements ActionListener {
     		System.out.println(e.getMessage());
     	}
    */ 	
-		guis.add(mItemGui);
+		mMarket.mGuis.add(mItemGui);
 		
 		timer = new Timer(TIMERDELAY, this);
 		timer.start();
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		synchronized(guis) {
-		for(MarketBaseGui gui : guis) {
+		synchronized(mMarket.mGuis) {
+		for(MarketBaseGui gui : mMarket.mGuis) {
 			if (gui.isPresent()) {
 				gui.updatePosition();
 			}
@@ -75,8 +75,8 @@ public class MarketPanel extends CityCard implements ActionListener {
 
 	//	g2.drawImage(image,0,0,null);
 		
-		synchronized(guis) {
-		for(MarketBaseGui gui : guis) {
+		synchronized(mMarket.mGuis) {
+		for(MarketBaseGui gui : mMarket.mGuis) {
 			if (gui.isPresent()) {
 				gui.draw(g2);
 			}
@@ -85,27 +85,27 @@ public class MarketPanel extends CityCard implements ActionListener {
 	}
 
 	public void addGui(MarketBaseGui g) {
-		synchronized(guis) {
-			guis.add(g);
+		synchronized(mMarket.mGuis) {
+			mMarket.mGuis.add(g);
 		}
 		if(g instanceof MarketWorkerGui) {
-			mWorkerGuis.add((MarketWorkerGui)g);
+			mMarket.mWorkerGuis.add((MarketWorkerGui)g);
 			((MarketWorkerGui) g).setItemsGui(mItemGui);
 		}
 		else if (g instanceof MarketCustomerGui) {
-			mCustomerGuis.add((MarketCustomerGui)g);
+			mMarket.mCustomerGuis.add((MarketCustomerGui)g);
 		}
 	}
 	
 	public void removeGui(MarketBaseGui g) {
-		synchronized(guis) {
-			guis.remove(g);
+		synchronized(mMarket.mGuis) {
+			mMarket.mGuis.remove(g);
 		}
 		if(g instanceof MarketWorkerGui) {
-			mWorkerGuis.remove((MarketWorkerGui)g);
+			mMarket.mWorkerGuis.remove((MarketWorkerGui)g);
 		}
 		else if (g instanceof MarketCustomerGui) {
-			mCustomerGuis.remove((MarketCustomerGui)g);
+			mMarket.mCustomerGuis.remove((MarketCustomerGui)g);
 		}
 	}
 	
