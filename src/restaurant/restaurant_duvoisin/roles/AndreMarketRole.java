@@ -13,8 +13,8 @@ import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Market;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
+import base.reference.ContactList;
 
 /**
  * Restaurant Market Agent

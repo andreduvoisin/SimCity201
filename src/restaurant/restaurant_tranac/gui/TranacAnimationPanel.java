@@ -15,11 +15,11 @@ import java.util.Vector;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
-import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
-import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
-import restaurant.restaurant_tranac.roles.TranacRestaurantCustomerRole;
-import restaurant.restaurant_tranac.roles.TranacRestaurantHostRole;
-import restaurant.restaurant_tranac.roles.TranacRestaurantWaiterRole;
+import restaurant.restaurant_tranac.roles.TranacCashierRole;
+import restaurant.restaurant_tranac.roles.TranacCookRole;
+import restaurant.restaurant_tranac.roles.TranacCustomerRole;
+import restaurant.restaurant_tranac.roles.TranacHostRole;
+import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 import base.BaseRole;
 import base.Time;
 import city.gui.CityCard;
@@ -34,12 +34,12 @@ public class TranacAnimationPanel extends CityCard implements ActionListener {
     private BufferedImage background;
     private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
     
-    private static TranacRestaurantCashierRole mCashier;
-    private static TranacRestaurantCookRole mCook;
-    private static TranacRestaurantHostRole mHost;
+    private static TranacCashierRole mCashier;
+    private static TranacCookRole mCook;
+    private static TranacHostRole mHost;
       
-    private static Vector<TranacRestaurantWaiterRole> mWaiters = new Vector<TranacRestaurantWaiterRole>();
-    private static Vector<TranacRestaurantCustomerRole> mCustomers = new Vector<TranacRestaurantCustomerRole>();
+    private static Vector<TranacWaiterRole> mWaiters = new Vector<TranacWaiterRole>();
+    private static Vector<TranacCustomerRole> mCustomers = new Vector<TranacCustomerRole>();
 
     public TranacAnimationPanel(SimCityGui city) {
     	super(city);
@@ -94,21 +94,21 @@ public class TranacAnimationPanel extends CityCard implements ActionListener {
     	}
     }
     
-    public void addPerson(BaseRole role){
-    	if (role instanceof TranacRestaurantCustomerRole){
-    		TranacRestaurantCustomerRole customer = (TranacRestaurantCustomerRole) role;
+    public static void addPerson(BaseRole role){
+    	if (role instanceof TranacCustomerRole){
+    		TranacCustomerRole customer = (TranacCustomerRole) role;
     		mCustomers.add(customer);
     		customer.setHost(mHost);
     		customer.setCashier(mCashier);
     		customer.msgGotHungry();
     	}
-    	else if (role instanceof TranacRestaurantWaiterRole){
-    		TranacRestaurantWaiterRole waiter = (TranacRestaurantWaiterRole) role;
+    	else if (role instanceof TranacWaiterRole){
+    		TranacWaiterRole waiter = (TranacWaiterRole) role;
     		mWaiters.add(waiter);
         	mHost.addWaiter(waiter);
     	}
-    	else if (role instanceof TranacRestaurantCashierRole){
-    		TranacRestaurantCashierRole cashier = (TranacRestaurantCashierRole) role;
+    	else if (role instanceof TranacCashierRole){
+    		TranacCashierRole cashier = (TranacCashierRole) role;
     		//ANGELICA: 1 add necessary logic here
     	}
     }
@@ -121,15 +121,15 @@ public class TranacAnimationPanel extends CityCard implements ActionListener {
     	return mWaiters.size();
     }
     
-    public static TranacRestaurantCashierRole getCashier(){
+    public static TranacCashierRole getCashier(){
     	return mCashier;
     }
     
-    public static TranacRestaurantCookRole getCook(){
+    public static TranacCookRole getCook(){
     	return mCook;
     }
     
-    public static TranacRestaurantHostRole getHost(){
+    public static TranacHostRole getHost(){
     	return mHost;
     }
     

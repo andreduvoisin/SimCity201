@@ -10,21 +10,24 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import restaurant.intermediate.RestaurantCookRole;
+import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
 import restaurant.restaurant_tranac.interfaces.TranacMarket;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
-import base.ContactList;
+import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant Cook Agent
  */
-public class TranacRestaurantCookRole extends RestaurantCookRole implements TranacCook {
+public class TranacCookRole extends BaseRole implements TranacCook {
+		private RestaurantCookRole mRole;
         private TranacCookGui cookGui;
         
         public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
@@ -49,24 +52,16 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         
         private Semaphore inTransit = new Semaphore(0, true);
 
-        public TranacRestaurantCookRole(Person p) {
-                super(p, 6);
+        public TranacCookRole(Person p, RestaurantCookRole r) {
+                super(p);
                 cookGui = new TranacCookGui(this);
-                TranacAnimationPanel.getInstance().addPerson(this);
+                mRole = r;
                 
-                
-                /*
-                //create inventory
-                inventory.add(new Food("Steak",(int)(baseTime*2),DEFAULT_FOOD_QTY));
-                inventory.add(new Food("Chicken",(int)(baseTime*1.75),DEFAULT_FOOD_QTY));
-                inventory.add(new Food("Salad",baseTime,DEFAULT_FOOD_QTY));
-                inventory.add(new Food("Pizza",(int)(baseTime*1.5),DEFAULT_FOOD_QTY));
-                */
                 //inventory created in restaurantCookRole
-                mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-                mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-                mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-                mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+                mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
+                mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
+                mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
+                mRole.mItemInventory.put(EnumItemType.PIZZA,mRole.DEFAULT_FOOD_QTY);
 
                 //create cook times
                 mCookTimes.put(EnumItemType.STEAK,(int)(baseTime*2));
@@ -188,10 +183,6 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
                                 return true;
                         }
                 }
-
-                //ordering food items
- //               if(marketPickAndExecuteAnAction())
- //                       return true;
                 DoGoToHome();
                 return false;
         }
@@ -226,11 +217,11 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
                 }
                 */
                 
-                if(mItemInventory.get(food) == 0) {
+                if(mRole.mItemInventory.get(food) == 0) {
                         print("Out of choice " + food);
                         o.waiter.msgOutOfFood(o.choice.toString(), o.table);
                         orders.remove(o);
-                        mItemsDesired.put(food,baseNeed);
+                        mRole.mItemsDesired.put(food,baseNeed);
                         return;
                 }
                 
@@ -254,7 +245,7 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
                                 msgOrderDone(o);
                         }
                 },mCookTimes.get(food));
-                mItemInventory.put(food,mItemInventory.get(food)-1);
+                mRole.mItemInventory.put(food,mRole.mItemInventory.get(food)-1);
         }
         
         private void plateIt(Order o) {
@@ -357,16 +348,13 @@ public class TranacRestaurantCookRole extends RestaurantCookRole implements Tran
         }
         
         public void setGui(TranacCookGui c) {
-                setCookGui(c);
+               cookGui = c;
         }
         
         public TranacCookGui getCookGui() {
                 return cookGui;
         }
 
-        public void setCookGui(TranacCookGui cookGui) {
-                this.cookGui = cookGui;
-        }
         /*
         public void addMarket(Market m) {
                 markets.add(m);

@@ -12,11 +12,11 @@ import restaurant.restaurant_cwagoner.gui.CwagonerCookGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
-import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 
 public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacCashierGui;
@@ -13,13 +14,15 @@ import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacMarket;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
+import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant Cashier Agent
  */
-public class TranacRestaurantCashierRole extends BaseRole implements TranacCashier {
+public class TranacCashierRole extends BaseRole implements TranacCashier {
+	private RestaurantCashierRole mRole;
 	private TranacCashierGui cashierGui;
 	private TranacMenu menu = new TranacMenu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
@@ -28,10 +31,10 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
-	public TranacRestaurantCashierRole() {
-		super(null);
+	public TranacCashierRole(Person person, RestaurantCashierRole r) {
+		super(person);
 		cashierGui = new TranacCashierGui(this);
-		TranacAnimationPanel.getInstance().addPerson(this); //add to gui
+		mRole = r;
 	}
 
 	/** Messages */
@@ -194,6 +197,10 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	public int getNumBills() {
 		return bills.size();
 	}
+
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
 
 	/** Classes */
 	

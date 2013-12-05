@@ -16,9 +16,9 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole.EnumAgentEvent;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole.EnumAgentState;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant customer agent.

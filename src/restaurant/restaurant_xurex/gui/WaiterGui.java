@@ -1,9 +1,13 @@
 package restaurant.restaurant_xurex.gui;
 
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
@@ -13,11 +17,14 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private Waiter role = null;
     RexAnimationPanel animationPanel;
     
+    //Animation Image
+    private BufferedImage image;
+    
     private static int sNum = 0;
     private int mNum;
     
     private boolean msgSent = true;
-    private static final int waiterDim = 10;
+    //private static final int waiterDim = 10;
     
     public Map<Integer, Point> places = new HashMap<Integer, Point>();
     
@@ -31,18 +38,29 @@ public class WaiterGui implements Gui, WaiterGui_ {
     public WaiterGui(Waiter agent, RexAnimationPanel animationPanel) {
         this.role = agent;
         this.animationPanel = animationPanel;
+        image = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+        //TABLES
         places.put(new Integer(1), new Point(200,150));
 		places.put(new Integer(2), new Point(300,150));
 		places.put(new Integer(3), new Point(200,250));
 		places.put(new Integer(4), new Point(300,250));
-		places.put(new Integer(5), new Point(100,300)); //Cook 
-		//SERVICE LINE//
-		places.put(new Integer(6), new Point(100,150)); //serve1
-		places.put(new Integer(7), new Point(100,175)); //serve2
-		places.put(new Integer(8), new Point(100,200)); //serve3
-		places.put(new Integer(9), new Point(100,225)); //serve4
-		places.put(new Integer(10), new Point(100,250));//serve5
-		places.put(new Integer(11), new Point(25,50));   ///cashier
+		//COOK
+		places.put(new Integer(5), new Point(100,300));
+		//SERVICE LINE
+		places.put(new Integer(6), new Point(100,150)); 
+		places.put(new Integer(7), new Point(100,175)); 
+		places.put(new Integer(8), new Point(100,200)); 
+		places.put(new Integer(9), new Point(100,225)); 
+		places.put(new Integer(10), new Point(100,250));
+		//CASHIER
+		places.put(new Integer(11), new Point(25,50)); 
 		
 		mNum = sNum++;
 		//Creates unique position for WaiterGui
@@ -67,8 +85,9 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
 
     public void draw(Graphics2D g) {
-        g.setColor(Color.MAGENTA);
-        g.fillRect(xPos, yPos, waiterDim, waiterDim);
+    	g.drawImage(image, xPos, yPos, null);
+//        g.setColor(Color.MAGENTA);
+//        g.fillRect(xPos, yPos, waiterDim, waiterDim);
     }
     
     public void DoServeFood(String choice){

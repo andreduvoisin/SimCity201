@@ -19,10 +19,10 @@ import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
 import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant customer agent.

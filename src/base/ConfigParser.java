@@ -3,9 +3,12 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import market.gui.MarketPanel;
+import bank.gui.BankPanel;
 import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 /*
@@ -21,6 +24,7 @@ public class ConfigParser {
 		
 		//Instantiate the base roles before creating the people
 //		boolean mInstantiateRoles = true;
+		
 		SortingHat.InstantiateBaseRoles();
 		
 		while (scanFile.hasNext()) {
@@ -48,7 +52,7 @@ public class ConfigParser {
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
 			//ALL HACK: CONFIG FILE HACKS 
-			if(name.equalsIgnoreCase("partyPerson")){
+			if(name.contains("partyPerson")){
 				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
 			}
 			

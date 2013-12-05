@@ -1,7 +1,7 @@
 package restaurant.restaurant_tranac.test;
 
 import junit.framework.TestCase;
-import restaurant.restaurant_tranac.roles.TranacRestaurantCashierRole;
+import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_tranac.test.mock.TranacMockCustomer;
 import restaurant.restaurant_tranac.test.mock.TranacMockMarket;
 import restaurant.restaurant_tranac.test.mock.TranacMockWaiter;
@@ -18,7 +18,7 @@ public class CashierTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
 	PersonAgent person;
-	TranacRestaurantCashierRole cashier;
+	TranacCashierRole cashier;
 	TranacMockWaiter waiter;
 	TranacMockCustomer customer;
 	TranacMockMarket market;
@@ -31,7 +31,7 @@ public class CashierTest extends TestCase
 	public void setUp() throws Exception{
 		super.setUp();
 		person = new PersonAgent();
-		cashier = new TranacRestaurantCashierRole();
+		cashier = new TranacCashierRole();
 		cashier.setPerson(person);
 		customer = new TranacMockCustomer();		
 		waiter = new TranacMockWaiter();
@@ -59,7 +59,7 @@ public class CashierTest extends TestCase
 				cashier.getNumBills(),1);
 	  //assert bill is pending
 		assertEquals("Cashier's bill should be pending. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Pending);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Pending);
 		
 		
 		cashier.pickAndExecuteAnAction();
@@ -72,7 +72,7 @@ public class CashierTest extends TestCase
 						+ "Item = " + item + ". Payment = " + cost));
 	  //cashier bill should be fulfilled
 		assertEquals("Cashier's bill should be fulfilled. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Fulfilled);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Fulfilled);
 	  //assert money no longer has cost
 	//	assertEquals("Cashier should have " + (double)(baseMoney-cost) + ". It doesn't.",
 	//			cashier.money,baseMoney-cost);
@@ -104,7 +104,7 @@ public class CashierTest extends TestCase
 				cashier.getNumBills(),1);
 	  //assert bill is pending
 		assertEquals("Cashier's bill should be pending. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Pending);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Pending);
 			
 		
 		cashier.msgHereIsBill(market2,item2,cost2);
@@ -113,9 +113,9 @@ public class CashierTest extends TestCase
 				cashier.getNumBills(),2);
 	  //assert both bills are pending
 		assertEquals("Cashier's bill should be pending. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Pending);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Pending);
 		assertEquals("Cashier's bill should be pending. It isn't.",
-				cashier.bills.get(1).getStatus(),TranacRestaurantCashierRole.BillStatus.Pending);
+				cashier.bills.get(1).getStatus(),TranacCashierRole.BillStatus.Pending);
 		
 		
 		cashier.pickAndExecuteAnAction();
@@ -128,9 +128,9 @@ public class CashierTest extends TestCase
 						+ "Item = " + item + ". Payment = " + cost));
 	  //assert first bill is fulfilled, second bill is pending
 		assertEquals("Cashier's first bill should be fulfilled. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Fulfilled);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Fulfilled);
 		assertEquals("Cashier's second bill should be pending. It isn't.",
-				cashier.bills.get(1).getStatus(),TranacRestaurantCashierRole.BillStatus.Pending);
+				cashier.bills.get(1).getStatus(),TranacCashierRole.BillStatus.Pending);
 	  //assert money no longer has cost
 	//	assertEquals("Cashier should have " + (double)(baseMoney-cost) + ". It doesn't.",
 	//				cashier.money,baseMoney-cost);
@@ -146,9 +146,9 @@ public class CashierTest extends TestCase
 							+ "Item = " + item2 + ". Payment = " + cost2));
 	  //assert both bills are fulfilled
 		assertEquals("Cashier's first bill should be fulfilled. It isn't.",
-					cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Fulfilled);
+					cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Fulfilled);
 		assertEquals("Cashier's second bill should be fulfilled. It isn't.",
-					cashier.bills.get(1).getStatus(),TranacRestaurantCashierRole.BillStatus.Fulfilled);
+					cashier.bills.get(1).getStatus(),TranacCashierRole.BillStatus.Fulfilled);
 	  //assert money no longer has cost and cost2
 	//	assertEquals("Cashier should have " + (double)(baseMoney-cost-cost2) + ". It doesn't.",
 	//						cashier.money,baseMoney-cost-cost2);
@@ -174,7 +174,7 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 1 check. It doesn't.",cashier.getNumChecks(), 1);
 	  //assert check is pending
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Pending);
 		
 		
 		cashier.pickAndExecuteAnAction();
@@ -185,13 +185,13 @@ public class CashierTest extends TestCase
 				waiter.log.containsString("Received msgHereIsCheck from cashier. Check = " + cost));
 	  //assert check is computed
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		
 		
 		cashier.msgHereIsPayment(customer, cost);
 	  //assert check is paying
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 	
 		
 		cashier.pickAndExecuteAnAction();
@@ -202,7 +202,7 @@ public class CashierTest extends TestCase
 				customer.log.containsString("Received msgHereIsChange from cashier. Change = 0.0"));
 	  //assert check is finished
 		assertEquals("Check should be finished. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(baseMoney+cost) + ". It doesn't.",
 	//			cashier.money,baseMoney+cost);
@@ -231,7 +231,7 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 1 check. It doesn't.",cashier.getNumChecks(), 1);
 	  //assert check is pending
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Pending);
 
 		
 		cashier.msgComputeCheck(waiter, customer2, item2);
@@ -239,9 +239,9 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 2 checks. It doesn't.",cashier.getNumChecks(), 2);
 	  //assert both checks are pending
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Pending);
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Pending);
 		
 		
 		cashier.pickAndExecuteAnAction();
@@ -252,9 +252,9 @@ public class CashierTest extends TestCase
 				waiter.log.containsString("Received msgHereIsCheck from cashier. Check = " + cost));		
 	  //assert check one is computed, check two is pending
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Pending);
 
 			
 		cashier.pickAndExecuteAnAction();
@@ -265,25 +265,25 @@ public class CashierTest extends TestCase
 				waiter.log.containsString("Received msgHereIsCheck from cashier. Check = " + cost2));		
 	  //assert both are computed
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		
 		
 		cashier.msgHereIsPayment(customer, cost);
 	  //assert check one is paying, check two is computed
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Computed);
 
 		
 		cashier.msgHereIsPayment(customer2, cost2);
 	  //assert both checks are paying
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		
 		
 		cashier.pickAndExecuteAnAction();
@@ -294,9 +294,9 @@ public class CashierTest extends TestCase
 				customer.log.containsString("Received msgHereIsChange from cashier. Change = 0.0"));		
 	  //assert check one is finished, check two is paying
 		assertEquals("Check should be finished. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);		
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Paying);		
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(baseMoney+cost) + ". It doesn't.",
 	//			cashier.money,baseMoney+cost);
@@ -310,9 +310,9 @@ public class CashierTest extends TestCase
 				customer2.log.containsString("Received msgHereIsChange from cashier. Change = 0.0"));
 	  //assert both checks are finished
 		assertEquals("Check should be finished. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 		assertEquals("Check should be finished. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);		
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Finished);		
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(baseMoney+cost+cost2) + ". It doesn't.",
 	//			cashier.money,baseMoney+cost+cost2);
@@ -338,7 +338,7 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 1 check. It doesn't.",cashier.getNumChecks(), 1);
 	  //assert bill is pending
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Pending);
 			
 			
 		cashier.pickAndExecuteAnAction();
@@ -349,13 +349,13 @@ public class CashierTest extends TestCase
 				waiter.log.containsString("Received msgHereIsCheck from cashier. Check = " + cost));
 	  //assert check is computed
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		
 		
 		cashier.msgHereIsPayment(customer, 0);
 	  //assert check is paying
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 	
 			
 		cashier.pickAndExecuteAnAction();
@@ -366,7 +366,7 @@ public class CashierTest extends TestCase
 				customer.log.containsString("Received msgPayNextTime from cashier."));
 	  //assert check is finished
 		assertEquals("Check should be unfulfilled. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Unfulfilled);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Unfulfilled);
 	  //assert money
 	//	assertEquals("Cashier should have " + baseMoney + ". It doesn't.",
 	//			cashier.money,baseMoney);
@@ -398,7 +398,7 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 1 check. It doesn't.",cashier.getNumChecks(), 1);
 	  //assert one check is pending
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Pending);
 
 		
 		cashier.pickAndExecuteAnAction();
@@ -409,7 +409,7 @@ public class CashierTest extends TestCase
 				waiter.log.containsString("Received msgHereIsCheck from cashier. Check = " + cost));		
 	  //assert one check is computed
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 	
 		
 		cashier.msgComputeCheck(waiter2, customer2, item2);
@@ -417,17 +417,17 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 2 checks. It doesn't.",cashier.getNumChecks(), 2);		
 	  //assert one check is computed, one check is pending
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Pending);
 		
 		
 		cashier.msgHereIsPayment(customer, cost);
 	  //assert one check is pending, one check is paying
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Pending);
 
 		
 		cashier.pickAndExecuteAnAction();
@@ -438,17 +438,17 @@ public class CashierTest extends TestCase
 				waiter2.log.containsString("Received msgHereIsCheck from cashier. Check = " + cost2));		
 	  //assert check one is paying, check two is computed
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Computed);
 			
 			
 		cashier.msgHereIsPayment(customer2, 0);
 	  //assert both checks are paying
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		
 		
 		cashier.pickAndExecuteAnAction();
@@ -459,9 +459,9 @@ public class CashierTest extends TestCase
 				customer.log.containsString("Received msgHereIsChange from cashier. Change = 0.0"));		
 	  //assert check one is finished, check two is paying
 		assertEquals("Check should be finished. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);		
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Paying);		
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(baseMoney+cost) + ". It doesn't.",
 	//			cashier.money,baseMoney+cost);
@@ -475,9 +475,9 @@ public class CashierTest extends TestCase
 				customer2.log.containsString("Received msgPayNextTime from cashier."));
 	  //assert both checks are finished
 		assertEquals("Check should be finished. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 		assertEquals("Check should be unfulfilled It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Unfulfilled);		
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Unfulfilled);		
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(baseMoney+cost) + ". It doesn't.",
 	//			cashier.money,baseMoney+cost);
@@ -509,7 +509,7 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 1 check. It doesn't.",cashier.getNumChecks(), 1);
 	  //assert check is pending
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);	
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Pending);	
 		
 		
 		cashier.pickAndExecuteAnAction();	//compute bill
@@ -517,7 +517,7 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 1 check. It doesn't.",cashier.getNumChecks(), 1);
 	  //assert check is computed
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		
 		
 		cashier.msgComputeCheck(waiter, customer2, item2);
@@ -525,9 +525,9 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 2 checks. It doesn't.",cashier.getNumChecks(), 2);
 	  //assert check one is computed, check two is pending
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Pending);
 	  //assert waiter has received message from cashier
 		assertTrue("MockWaiter should have logged \"Received msgHereIsCheck from cashier. Check = " + cost + "\" but didn't."
 				+ "Instead his log reads: "
@@ -538,22 +538,22 @@ public class CashierTest extends TestCase
 		cashier.msgHereIsBill(market, item3, cost3);
 	  //assert check one is computed, check two is pending
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Pending);
 	  //assert number of bills
 		assertEquals("Cashier should have 1 bill. It doesn't.",cashier.getNumBills(), 1);		
 	  //assert bill is pending
 		assertEquals("Cashier's bill should be pending. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Pending);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Pending);
 			
 		
 		cashier.pickAndExecuteAnAction();	//compute bill
 	  //assert both checks are computed
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);		
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Computed);		
 	  //assert waiter has received message from cashier
 		assertTrue("MockWaiter should have logged \"Received msgHereIsCheck from cashier. Check = " + cost2 + "\" but didn't."
 				+ "Instead his log reads: "
@@ -564,25 +564,25 @@ public class CashierTest extends TestCase
 		cashier.msgHereIsPayment(customer2, cost2);
 	  //assert check one is computed, check two is paying
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 		assertEquals("Check should be paying It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);		
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Paying);		
 		
 		
 		cashier.msgHereIsPayment(customer, cost);
 	  //assert both checks are paying
 		assertEquals("Check should be paying It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		assertEquals("Check should be paying It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Paying);
 
 		
 		cashier.pickAndExecuteAnAction();	//cust pay bill
 	  //assert check one is finished, check two is paying
 		assertEquals("Check should be finished It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 		assertEquals("Check should be paying It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);		
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Paying);		
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(baseMoney+cost) + ". It doesn't.",
 	//			cashier.money,baseMoney+cost);
@@ -596,9 +596,9 @@ public class CashierTest extends TestCase
 		cashier.pickAndExecuteAnAction();	//cust pay bill 2
 	  //assert both checks are finished
 		assertEquals("Check should be finished It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 		assertEquals("Check should be finished It isn't.",
-				cashier.checks.get(1).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(1).getStatus(),TranacCashierRole.CheckStatus.Finished);
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(baseMoney+cost+cost2) + ". It doesn't.",
 	//			cashier.money,baseMoney+cost+cost2);
@@ -615,7 +615,7 @@ public class CashierTest extends TestCase
 	//			cashier.money,baseMoney+cost+cost2-cost3);
 	  //assert bill is finished
 		assertEquals("Cashier's bill should be fulfilled. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Fulfilled);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Fulfilled);
 	  //assert market has received message from cashier
 		assertTrue("MockMarket should have logged \"Received msgHereIsPayment from cashier."
 				+ "Item = " + item3 + ". Payment = " + cost3
@@ -650,13 +650,13 @@ public class CashierTest extends TestCase
 				cashier.getNumBills(),1);
 	  //assert bill is pending
 		assertEquals("Cashier's bill should be pending. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Pending);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Pending);
 		
 		
 		cashier.pickAndExecuteAnAction();
 	  //assert bill is outstanding
 		assertEquals("Cashier's bill should be outstanding. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Outstanding);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Outstanding);
 	  //assert market received message from cashier
 		assertTrue("MockMarket should have logged \"Received msgWillPaySoon from cashier. "
 				+ "Item = " + item2 + ". Payment = " + cost2
@@ -671,7 +671,7 @@ public class CashierTest extends TestCase
 		assertEquals("Cashier should have 1 check. It doesn't.",cashier.getNumChecks(), 1);
 	  //assert check is pending
 		assertEquals("Check should be pending. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Pending);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Pending);
 			
 			
 		cashier.pickAndExecuteAnAction();
@@ -682,13 +682,13 @@ public class CashierTest extends TestCase
 				waiter.log.containsString("Received msgHereIsCheck from cashier. Check = " + cost));
 	  //assert check is computed
 		assertEquals("Check should be computed. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Computed);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Computed);
 			
 			
 		cashier.msgHereIsPayment(customer, cost);
 	  //assert check is paying
 		assertEquals("Check should be paying. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Paying);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Paying);
 		
 			
 		cashier.pickAndExecuteAnAction();
@@ -699,7 +699,7 @@ public class CashierTest extends TestCase
 				customer.log.containsString("Received msgHereIsChange from cashier. Change = 0.0"));
 	  //assert check is finished
 		assertEquals("Check should be finished. It isn't.",
-				cashier.checks.get(0).getStatus(),TranacRestaurantCashierRole.CheckStatus.Finished);
+				cashier.checks.get(0).getStatus(),TranacCashierRole.CheckStatus.Finished);
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(cost) + ". It doesn't.",
 	//			cashier.money,cost);
@@ -709,7 +709,7 @@ public class CashierTest extends TestCase
 		cashier.pickAndExecuteAnAction();
 	  //assert bill is finished
 		assertEquals("Cashier's first bill should be fulfilled. It isn't.",
-				cashier.bills.get(0).getStatus(),TranacRestaurantCashierRole.BillStatus.Fulfilled);
+				cashier.bills.get(0).getStatus(),TranacCashierRole.BillStatus.Fulfilled);
 	  //assert money
 	//	assertEquals("Cashier should have " + (double)(cost-cost2) + ". It doesn't.",
 	//			cashier.money,cost-cost2);

@@ -10,10 +10,10 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 public class BankCustomerRole extends BaseRole implements BankCustomer{
 	

@@ -36,6 +36,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.ContactList;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 
@@ -320,6 +321,10 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else if (event.mEventType == EnumEventType.PARTY) {
 			if (event instanceof EventParty){
+				if(((EventParty)event).mAttendees.isEmpty()){
+					print("OMG THIS PARTY SUCKS");
+					return;
+				}
 				goParty((EventParty)event);
 			}
 		}
@@ -447,8 +452,8 @@ public class PersonAgent extends Agent implements Person {
 	private void planParty(int time){
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
-		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, getBestFriends()));
+//		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+//		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, getBestFriends()));
 	}
 
 	private void goParty(EventParty event) {
@@ -505,13 +510,18 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void respondToRSVP(){
-		print("Responding to RSVP");
 		for (Event iEvent : mEvents){
 			if (iEvent instanceof EventParty){
-				if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
+				if(((EventParty) iEvent).mHost.getName().equals("partyPersonNO")){
+					((EventParty) iEvent).mAttendees.remove(this);
+					print("Responding to RSVP: NO");
+				}
+				else if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
 					((EventParty) iEvent).mAttendees.put(this, true);
+					print("Responding to RSVP: YES");
 				}else{
 					((EventParty) iEvent).mAttendees.remove(this);
+					print("Responding to RSVP: NO");
 				}
 			}
 		}
@@ -554,7 +564,7 @@ public class PersonAgent extends Agent implements Person {
 		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
 		Role jobRole = getJobRole();
 
-		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
+		mPersonGui.DoGoToDestination(base.reference.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
 
 		((TransportationBusRiderRole) jobRole).msgReset();

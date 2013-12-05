@@ -7,9 +7,9 @@ import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.BaseRole;
-import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * "Greets" customers as they enter.

@@ -21,6 +21,7 @@ import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 public class SortingHat {
@@ -223,7 +224,7 @@ public class SortingHat {
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
 			
-			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount));
+//			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount));
 			sHouseCount++;
 			return newLandLordRole;
 		}
@@ -234,7 +235,7 @@ public class SortingHat {
 		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
+//		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
 		sHouseCount++;
 		return newOwnerRole;
 	}

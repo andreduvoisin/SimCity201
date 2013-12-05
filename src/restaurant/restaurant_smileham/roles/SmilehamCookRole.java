@@ -19,11 +19,11 @@ import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
-import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook {
 	//Member Variables
