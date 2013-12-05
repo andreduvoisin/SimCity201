@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.restaurant_davidmca.DavidRestaurant;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
 import base.interfaces.Person;
@@ -80,6 +81,7 @@ public class ContactList {
 	
 	//setup job locations
 	static final Location cRESTAURANT_LOCATION1 = gridLocation(1, 0); //aduvoisin	0
+	public static final DavidRestaurant davidmca = new DavidRestaurant();
 	static final Location cRESTAURANT_LOCATION2 = gridLocation(2, 0); //cwagoner	1
 	static final Location cRESTAURANT_LOCATION3 = gridLocation(1, 3); //jerrywebb	2
 	static final Location cRESTAURANT_LOCATION4 = gridLocation(2, 3); //maggiyang	3
