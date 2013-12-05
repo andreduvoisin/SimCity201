@@ -59,7 +59,7 @@ public class Time {
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
-							iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
+							//iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
 						}
 					}
 				}
