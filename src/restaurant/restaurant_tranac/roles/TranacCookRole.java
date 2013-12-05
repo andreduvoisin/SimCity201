@@ -10,11 +10,8 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import restaurant.intermediate.RestaurantCookRole;
-import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
-import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
-import restaurant.restaurant_tranac.interfaces.TranacMarket;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.Item;
@@ -48,7 +45,6 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         
         private final int baseTime = 5000;
         private final int baseNeed = 3;
-        private final int stockThreshold = 1;
         
         private Semaphore inTransit = new Semaphore(0, true);
 
@@ -404,7 +400,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                         s = OrderState.Pending;
                 }
         }
-        
+        /*
         private class Food {
                 String name;
                 int cookingTime;
@@ -425,7 +421,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                         outOfItem.add(m);
                 }
         } 
-        
+        */
         @Override
     	public Location getLocation() {
     		return ContactList.cRESTAURANT_LOCATIONS.get(6);
