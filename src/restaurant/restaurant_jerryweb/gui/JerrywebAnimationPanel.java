@@ -121,7 +121,7 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 			repaint();  //Will have paintComponent called
 	}
 
-    public void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame
