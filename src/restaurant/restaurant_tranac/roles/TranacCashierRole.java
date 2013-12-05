@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacCashierGui;
@@ -21,6 +22,7 @@ import base.reference.ContactList;
  * Restaurant Cashier Agent
  */
 public class TranacCashierRole extends BaseRole implements TranacCashier {
+	private RestaurantCashierRole mRole;
 	private TranacCashierGui cashierGui;
 	private TranacMenu menu = new TranacMenu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
@@ -29,9 +31,10 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
 	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
-	public TranacCashierRole(Person person) {
+	public TranacCashierRole(Person person, RestaurantCashierRole r) {
 		super(person);
 		cashierGui = new TranacCashierGui(this);
+		mRole = r;
 	}
 
 	/** Messages */
@@ -194,6 +197,10 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 	public int getNumBills() {
 		return bills.size();
 	}
+
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
 
 	/** Classes */
 	

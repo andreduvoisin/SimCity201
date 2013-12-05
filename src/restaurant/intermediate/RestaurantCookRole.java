@@ -40,7 +40,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        protected int DEFAULT_FOOD_QTY = 100;
+        public int DEFAULT_FOOD_QTY = 100;
         
         public RestaurantCookRole(Person person, int restaurantID){
                 super(person); 
@@ -75,7 +75,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
 				case 6: //angelica
-					subRole = new TranacCookRole(mPerson);
+					subRole = new TranacCookRole(mPerson, this);
 					TranacAnimationPanel.addPerson((TranacCookRole)subRole);
 					break;
 				case 7: //rex
@@ -93,10 +93,9 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		if(marketPickAndExecuteAnAction())
         			return true;
         		return false;
-      //          subRole.pickAndExecuteAnAction();
         }
 
-        /** MarketCookCustomerRole Data, Actions, Scheduler, etc **/
+/** MarketCookCustomerRole Data, Actions, Scheduler, etc **/
 
         public Map<EnumItemType, Integer> mItemInventory = new HashMap<EnumItemType, Integer>();
     	public Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
@@ -110,30 +109,22 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         MarketCashier mMarketCashier;
         
-        /* Messages */
-        public void msgInvoiceToPerson(Map<EnumItemType,Integer> cannotFulfill, MarketInvoice invoice) {
-                mInvoices.add(invoice);
-                mCannotFulfill = cannotFulfill;
-                invoice.mOrder.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
-                stateChanged();
-        }
-        
+/* Messages */
         public void msgCannotFulfillItems(MarketOrder o, Map<EnumItemType,Integer> cannotFulfill) {
         	mCannotFulfill = cannotFulfill;
         	for(MarketOrder io : mOrders) {
         		if(io == o) {
         			io.mEvent = EnumOrderEvent.RECEIVED_INVOICE;
-        			//ANGELICA: change events?
+        			break;
         		}
         	}
         	stateChanged();
         }
         
         public void msgHereIsCookOrder(MarketOrder o) {
-                o.mEvent = EnumOrderEvent.RECEIVED_ORDER;
-                stateChanged();
+        	o.mEvent = EnumOrderEvent.RECEIVED_ORDER;
+        	stateChanged();
         }
-        
         
 /* Scheduler */
         public boolean marketPickAndExecuteAnAction() {
@@ -141,7 +132,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                         MarketOrder order = invoice.mOrder;
                         if(order.mStatus == EnumOrderStatus.PAYING && order.mEvent == EnumOrderEvent.RECEIVED_INVOICE) {
                                 order.mStatus = EnumOrderStatus.PAID;
-                                payAndProcessOrder(invoice);
+                                processOrder(invoice);
                                 return true;
                         }
                 }
@@ -159,7 +150,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                                 return true;
                         }
                 }
-                //check efficiency of method
                 for(EnumItemType i : mItemsDesired.keySet()) {
                         if(mItemsDesired.get(i) != 0) {
                                 createOrder();
@@ -187,20 +177,35 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		int m = (int) (Math.random() % 2);
         		mMarketCashier = CityPanel.getInstance().masterMarketList.get(m).mCashier;
                 mMarketCashier.msgOrderPlacement(o);
-                //ANGELICA: send message to rest cashier about order
+                //ANGELICA: fill in each restaurant
+                RestaurantCashierRole restaurantCashier = null;
+                /*
+                switch(mRestaurantID) {
+                case 0:
+                	restaurantCashier = 
+                case 1:
+                	
+                case 2:
+                	
+                case 3:
+                	
+                case 4:
+                
+                case 5:
+                	
+                case 6:
+                	
+                case 7:
+                	 
+                }
+                */
+                restaurantCashier.msgPlacedMarketOrder(o,m);
         }
         
-        private void payAndProcessOrder(MarketInvoice i) {
-                i.mPayment = i.mTotal;
-                
-               	ContactList.SendPayment(mPerson.getSSN(), i.mMarketBankNumber, i.mPayment);
-                
+        private void processOrder(MarketInvoice i) {   
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
                 }
-                
-                mMarketCashier.msgPayingForOrder(i);
-                mInvoices.remove(i);
         }
         
         private void completeOrder(MarketOrder o) {
