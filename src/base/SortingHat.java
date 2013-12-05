@@ -234,7 +234,7 @@ public class SortingHat {
 		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount));
+		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
 		sHouseCount++;
 		return newOwnerRole;
 	}

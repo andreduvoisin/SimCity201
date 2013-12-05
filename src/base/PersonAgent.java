@@ -126,7 +126,7 @@ public class PersonAgent extends Agent implements Person {
 		 * Give houses to landlords and owners
 		 */
 		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter));
+			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
 			sHouseCounter++;
 		}
 		/*
@@ -241,6 +241,8 @@ public class PersonAgent extends Agent implements Person {
 		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
 			Collections.sort(mEvents);
+			if(mEvents.isEmpty())
+				return false;
 			Event event = mEvents.get(0); //next event
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
 				mRoleFinished = false; //doing a role
@@ -251,7 +253,7 @@ public class PersonAgent extends Agent implements Person {
 
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
-			if (mRoles.get(iRole)) {
+			if (mRoles.get(iRole) && iRole!= null) {
 				if (!iRole.hasPerson()) {
 					print(iRole.toString());
 					print("getPerson in iRole was null");

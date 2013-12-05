@@ -40,9 +40,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	public MarketCustomerRole(Person person, int marketID) {
 		super(person);
 		mMarketID = marketID;
-		mCashier = CityPanel.getInstance().masterMarketList.get(mMarketID).mCashier;
+		mCashier = ContactList.sMarketList.get(mMarketID).mCashier;
 		mGui = new MarketCustomerGui(this);
-		CityPanel.getInstance().masterMarketList.get(mMarketID).addGui(mGui);
+		ContactList.sMarketList.get(mMarketID).addGui(mGui);
 		
 		//ANGELICA: where is mItemsDesired populated? hack for now
 		mItemInventory = person.getItemInventory();
