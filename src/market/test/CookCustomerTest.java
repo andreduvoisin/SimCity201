@@ -13,7 +13,7 @@ import market.test.mock.MockWorker;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
-import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.roles.TranacRestaurantCookRole;
 import base.Item.EnumItemType;
 import base.PersonAgent;
@@ -55,7 +55,7 @@ public class CookCustomerTest extends TestCase {
  	 */
  	public void testTranacRestaurant() {
  	  //set up the test
- 		TranacRestaurantPanel mPanel = new TranacRestaurantPanel(null);
+ 		TranacAnimationPanel mPanel = new TranacAnimationPanel(null);
  		TranacCookGui mCookGui = new TranacCookGui((TranacRestaurantCookRole) mCookCustomer.subRole);
  		mCookCustomer.setRestaurant(6);
  		TranacRestaurantCookRole r = (TranacRestaurantCookRole)(mCookCustomer.subRole);

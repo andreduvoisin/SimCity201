@@ -17,6 +17,8 @@ import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
+import restaurant.restaurant_xurex.RexCookRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item.EnumItemType;
@@ -70,10 +72,10 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 //					subRole = new TranacRestaurantCookRole(super.mPerson);
 //					TranacRestaurantPanel.mCook = (TranacRestaurantCookRole) subRole;
 //					break;
-//				case 7: //rex
-//					subRole = new RexCookRole(super.mPerson);
-//					RexAnimationPanel.cook = (RexCookRole) subRole;
-//					break;
+				case 7: //rex
+					subRole = new RexCookRole(super.mPerson);
+					RexAnimationPanel.addPerson((RexCookRole) subRole);
+					break;
 			}
        }
         

@@ -26,8 +26,8 @@ import city.gui.CityCard;
 import city.gui.SimCityGui;
 
 @SuppressWarnings("serial")
-public class TranacRestaurantPanel extends CityCard implements ActionListener {
-	public static TranacRestaurantPanel instance;
+public class TranacAnimationPanel extends CityCard implements ActionListener {
+	public static TranacAnimationPanel instance;
 
 	private final int WINDOWX = 626;
 	private final int WINDOWY = 507;
@@ -41,12 +41,12 @@ public class TranacRestaurantPanel extends CityCard implements ActionListener {
     private static Vector<TranacRestaurantWaiterRole> mWaiters = new Vector<TranacRestaurantWaiterRole>();
     private static Vector<TranacRestaurantCustomerRole> mCustomers = new Vector<TranacRestaurantCustomerRole>();
 
-    public TranacRestaurantPanel(SimCityGui city) {
+    public TranacAnimationPanel(SimCityGui city) {
     	super(city);
     	setBounds(0,0,WINDOWX, WINDOWY);
     	setBackground(Color.white);
     	
-    	TranacRestaurantPanel.instance = this;
+    	TranacAnimationPanel.instance = this;
  
     	Timer timer = new Timer(Time.cSYSCLK/25, this );
     	timer.start();
@@ -113,7 +113,7 @@ public class TranacRestaurantPanel extends CityCard implements ActionListener {
     	}
     }
     
-    public static TranacRestaurantPanel getInstance() {
+    public static TranacAnimationPanel getInstance() {
     	return instance;
     }
     

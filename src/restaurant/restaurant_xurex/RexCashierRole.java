@@ -51,9 +51,8 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	Map<Market, Float> marketBills = new HashMap<Market, Float>();
 	
 	//CONSTRUCTORS //
-	public RexCashierRole(String name, Person person){
+	public RexCashierRole(Person person){
 		super(person);
-		this.name = name;
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));

@@ -7,7 +7,7 @@ import java.util.List;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacCashierGui;
-import restaurant.restaurant_tranac.gui.TranacRestaurantPanel;
+import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacMarket;
@@ -32,7 +32,7 @@ public class TranacRestaurantCashierRole extends BaseRole implements TranacCashi
 	public TranacRestaurantCashierRole() {
 		super(null);
 		cashierGui = new TranacCashierGui(this);
-		TranacRestaurantPanel.getInstance().addPerson(this); //add to gui
+		TranacAnimationPanel.getInstance().addPerson(this); //add to gui
 	}
 
 	/** Messages */
