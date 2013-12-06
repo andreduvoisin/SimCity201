@@ -2,6 +2,8 @@ package city.gui;
 
 //import housing.gui.HousingHouseGuiPanel;
 
+import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -18,11 +20,13 @@ import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import city.gui.trace.*;
 import base.ConfigParser;
 
 @SuppressWarnings("serial")
@@ -30,6 +34,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	SimCityGui city;
 	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
+	public static final int TABBED_HEIGHT_ADJ = 42;
 	public static final int numConfigs = 5;
 	JButton addRestaurant, addBank, housingGUIButton;
 	JPanel configList;
@@ -60,6 +65,22 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JPanel RestaurantTab = new JPanel();
     JPanel CommercialTab = new JPanel();
     JPanel ScenariosTab = new JPanel();
+    JPanel TraceTab = new JPanel();
+    
+    // Trace Panel
+    TracePanel tracePanel;
+    
+    // Selection for Trace Panel
+    JPanel traceSelectionPanel;
+    // Levels
+    Checkbox CBLevel_ERROR;
+    Checkbox CBLevel_WARNING;
+    Checkbox CBLevel_INFO;
+    Checkbox CBLevel_MESSAGE;
+    Checkbox CBLevel_DEBUG;
+    // Tags
+    JComboBox tags;
+    String[] tagList = { "All", "Person", "Bank Teller", "Bank Customer", "Bus Stop", "Restaurant", "Bank", "General City" };
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
@@ -116,11 +137,23 @@ public class CityControlPanel extends JPanel implements ActionListener{
         RestaurantTab.setLayout(new GridLayout(1, 2));
         ScenariosTab.setLayout(new GridLayout(1, 2));
         
+        Dimension tabbedPaneDim = new Dimension(CP_WIDTH, CP_HEIGHT - TABBED_HEIGHT_ADJ);
+        tabbedPane.setPreferredSize(tabbedPaneDim);
+        tabbedPane.setMinimumSize(tabbedPaneDim);
+        tabbedPane.setMaximumSize(tabbedPaneDim);
+        
         //tabbedPane.setLayout(new GridLayout(1,3));
+        tabbedPane.addTab("Trace", TraceTab);
         tabbedPane.addTab("Commercial", CommercialTab);
         tabbedPane.addTab("Scenarios", ScenariosTab);
         tabbedPane.addTab("Restaurants ", RestaurantTab);
         add(tabbedPane);
+        
+        // Trace Panel
+        initTrace();
+        TraceTab.setLayout(new BorderLayout(0, 5));
+        TraceTab.add(traceSelectionPanel, BorderLayout.NORTH);
+        TraceTab.add(tracePanel, BorderLayout.CENTER);
         
         //tabbedPane.addTab("Tab 1", icon, panel1, "Does nothing");
         //tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
@@ -227,6 +260,59 @@ public class CityControlPanel extends JPanel implements ActionListener{
         //add(pane);
         
         	
+	}
+	
+	public void initTrace() {
+		tracePanel = new TracePanel();
+		
+		// Show/Hide Alerts (defaults set here)
+		tracePanel.showAlertsForAllLevels();
+		tracePanel.showAlertsForAllTags();
+		
+		// Action Listener
+		AlertLog.getInstance().addAlertListener(tracePanel);
+		
+		// Trace Selection Panel Panel
+		traceSelectionPanel = new JPanel();
+		traceSelectionPanel.setLayout(new BorderLayout());
+		
+		// NOTE: Must do SOUTH before NORTH or ComboBox gets overlapped. lol
+	    // South: CHECKBOXES
+		JPanel holdLevels = new JPanel();
+		holdLevels.setLayout(new BorderLayout());
+		
+		JLabel levelsTitle = new JLabel("Select Levels to View:");
+		
+		JPanel holdCBs = new JPanel();
+		holdCBs.setLayout(new GridLayout(3, 2));
+	    CBLevel_ERROR = new Checkbox("Errors", true);
+	    CBLevel_WARNING = new Checkbox("Warnings", true);
+	    CBLevel_INFO = new Checkbox("Info", true);
+	    CBLevel_MESSAGE = new Checkbox("Messages", true);
+	    CBLevel_DEBUG = new Checkbox("Debugs", true);
+	    holdCBs.add(CBLevel_ERROR);
+	    holdCBs.add(CBLevel_WARNING);
+	    holdCBs.add(CBLevel_INFO);
+	    holdCBs.add(CBLevel_MESSAGE);
+	    holdCBs.add(CBLevel_DEBUG);
+	    
+	    holdLevels.add(levelsTitle, BorderLayout.NORTH);
+	    holdLevels.add(holdCBs, BorderLayout.CENTER);
+	    traceSelectionPanel.add(holdLevels, BorderLayout.CENTER);
+	    
+		// North: COMBOBOX
+		JPanel holdTags = new JPanel();
+		holdTags.setLayout(new BorderLayout());
+		
+		JLabel tagsTitle = new JLabel("Select Tags to View:");
+		
+	    tags = new JComboBox(tagList);
+	    tags.setSelectedIndex(0);
+	    tags.addActionListener(this);
+	    
+	    holdTags.add(tagsTitle, BorderLayout.NORTH);
+	    holdTags.add(tags, BorderLayout.CENTER);
+	    traceSelectionPanel.add(holdTags, BorderLayout.NORTH);
 	}
 	
 	public void actionPerformed(ActionEvent e) {

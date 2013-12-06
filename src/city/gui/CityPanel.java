@@ -3,16 +3,8 @@ package city.gui;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Semaphore;
-
 import market.gui.MarketDeliveryTruckGui;
-import market.gui.MarketPanel;
 import transportation.TransportationBusDispatch;
-import bank.gui.BankPanel;
-import base.interfaces.Person;
 import base.reference.ContactList;
 
 @SuppressWarnings("serial")
