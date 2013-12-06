@@ -31,6 +31,7 @@ import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import base.reference.ContactList;
+import base.reference.Market;
 import city.gui.CityPanel;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
@@ -180,8 +181,11 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void placeOrder(MarketOrder o) {
-        		int m = (int) (Math.random() % 2);
-        		mMarketCashier = CityPanel.getInstance().masterMarketList.get(m).mCashier;
+        		int m;
+        		if(mMarketCashier == null) {
+        			m = (int) (Math.random() % 2);
+        			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
+        		}
                 mMarketCashier.msgOrderPlacement(o);
                 //ANGELICA: fill in each restaurant
                 RestaurantCashierRole restaurantCashier = null;
@@ -205,7 +209,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	 
                 }
                 */
-                restaurantCashier.msgPlacedMarketOrder(o,m);
+                restaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
         }
         
         private void processOrder(MarketInvoice i) {   
@@ -222,8 +226,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
 /* Utilities */
-        public void setMarketCashier(MarketCashier c) {
-                mMarketCashier = c;
+        public void setMarketCashier(int n) {
+        		mMarketCashier = ContactList.sMarketList.get(n).mCashier;
         }
         
         public void decreaseInventory(EnumItemType i) {

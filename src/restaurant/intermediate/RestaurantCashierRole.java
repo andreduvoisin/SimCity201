@@ -98,8 +98,8 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	enum EnumBillStatus {PLACED, PAYING};
 	
 /* Messages */
-	public void msgPlacedMarketOrder(MarketOrder o, int n) {
-		mMarketBills.add(new MarketBill(o, n));
+	public void msgPlacedMarketOrder(MarketOrder o, MarketCashier c) {
+		mMarketBills.add(new MarketBill(o, c));
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumItemType, Integer> cannotFulfill, MarketInvoice invoice) {
@@ -132,21 +132,12 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		MarketOrder o = b.mOrder;
 		MarketInvoice i = b.mInvoice;
 		Map<EnumItemType, Integer> cf = b.mCannotFulfill;
-		MarketCashier cashier = null;
-		
-		//ANGELICA:
-		if(b.mMarketNumber == 1) {
-			//figure out where market info is going to be
-		}
-		else {
-			//figure out where market info is going to be
-		}
 		
 		for(EnumItemType type : o.mItems.keySet()) {
 			int orderNum = o.mItems.get(type);
 			int billNum = i.mOrder.mItems.get(type) + cf.get(type);
 			if(orderNum != billNum) {
-				//message market that invoice is invalid
+				//ANGELICA: message market that invoice is invalid
 				mMarketBills.remove(b);
 				return;
 			}
@@ -154,7 +145,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		
 		i.mPayment = i.mTotal;
 		ContactList.SendPayment(getSSN(), i.mMarketBankNumber, i.mTotal);
-		cashier.msgPayingForOrder(i);
+		b.mMarketCashier.msgPayingForOrder(i);
 		
 		synchronized(mMarketBills) {
 			mMarketBills.remove(b);
@@ -165,13 +156,13 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	class MarketBill {
 		MarketOrder mOrder;
 		MarketInvoice mInvoice;
-		int mMarketNumber;
+		MarketCashier mMarketCashier;
 		Map<EnumItemType, Integer> mCannotFulfill;
 		EnumBillStatus mStatus;
 		
-		MarketBill(MarketOrder o, int n) {
+		MarketBill(MarketOrder o, MarketCashier c) {
 			mOrder = o;
-			mMarketNumber = n;
+			mMarketCashier = c;
 			mInvoice = null;
 			mStatus = EnumBillStatus.PLACED;
 		}

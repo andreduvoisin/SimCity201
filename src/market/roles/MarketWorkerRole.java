@@ -36,7 +36,8 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		
 		ContactList.sMarketList.get(mMarketID).mCashier.addWorker(this);
 		mGui = new MarketWorkerGui(this);
-		ContactList.sMarketList.get(mMarketID).addGui(mGui);
+		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
+		ContactList.sMarketList.get(mMarketID).mWorkerGuis.add(mGui);
 	}
 	
 /* Messages */
