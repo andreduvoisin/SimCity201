@@ -274,7 +274,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		// Trace Selection Panel Panel
 		traceSelectionPanel = new JPanel();
-		traceSelectionPanel.setLayout(new BorderLayout());
+		traceSelectionPanel.setLayout(new BorderLayout(0, 5));
 		
 		// NOTE: Must do SOUTH before NORTH or ComboBox gets overlapped. lol
 	    // South: CHECKBOXES
@@ -316,59 +316,135 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		for (int i = 0; i < 8; i++) {
-			if (((JButton) e.getSource()).getText()
-					.equals("Restaurant " + i)) {
+		// JComboBox
+		if(e.getSource() instanceof JComboBox) {
+			tracePanel.hideAlertsForAllTags();
+			switch((String)tags.getSelectedItem()) {
+				case "All":
+					tracePanel.showAlertsForAllTags();
+					break;
+				case "Person":
+					tracePanel.showAlertsWithTag(AlertTag.PERSON);
+					break;
+				case "Bank Teller":
+					tracePanel.showAlertsWithTag(AlertTag.BANK_TELLER);
+					break;
+				case "Bank Customer":
+					tracePanel.showAlertsWithTag(AlertTag.BANK_CUSTOMER);
+					break;
+				case "Bus Stop":
+					tracePanel.showAlertsWithTag(AlertTag.BUS_STOP);
+					break;
+				case "Restaurant":
+					tracePanel.showAlertsWithTag(AlertTag.RESTAURANT);
+					break;
+				case "Bank":
+					tracePanel.showAlertsWithTag(AlertTag.BANK);
+					break;
+				case "General City":
+					tracePanel.showAlertsWithTag(AlertTag.GENERAL_CITY);
+					break;
+			}
+		}
+		
+		// Checkbox
+		if(e.getSource() instanceof Checkbox) {
+			Checkbox tempCB = (Checkbox)e.getSource();
+			switch(tempCB.getLabel()) {
+				case "Errors":
+					if(tempCB.getState()) {
+						tracePanel.showAlertsWithLevel(AlertLevel.ERROR);
+					} else {
+						tracePanel.hideAlertsWithLevel(AlertLevel.ERROR);
+					}
+					break;
+				case "Warnings":
+					if(tempCB.getState()) {
+						tracePanel.showAlertsWithLevel(AlertLevel.WARNING);
+					} else {
+						tracePanel.hideAlertsWithLevel(AlertLevel.WARNING);
+					}
+					break;
+				case "Info":
+					if(tempCB.getState()) {
+						tracePanel.showAlertsWithLevel(AlertLevel.INFO);
+					} else {
+						tracePanel.hideAlertsWithLevel(AlertLevel.INFO);
+					}
+					break;
+				case "Messages":
+					if(tempCB.getState()) {
+						tracePanel.showAlertsWithLevel(AlertLevel.MESSAGE);
+					} else {
+						tracePanel.hideAlertsWithLevel(AlertLevel.MESSAGE);
+					}
+					break;
+				case "Debugs":
+					if(tempCB.getState()) {
+						tracePanel.showAlertsWithLevel(AlertLevel.DEBUG);
+					} else {
+						tracePanel.hideAlertsWithLevel(AlertLevel.DEBUG);
+					}
+					break;
+			}
+		}
+		
+		// JButton
+		if(e.getSource() instanceof JButton) {
+			for (int i = 0; i < 8; i++) {
+				if (((JButton) e.getSource()).getText()
+						.equals("Restaurant " + i)) {
+					ConfigParser config = ConfigParser.getInstanceOf();
+					try {
+						config.readFileCreatePersons(city, "restConfig"+i+".txt");
+					} catch (FileNotFoundException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+			if (((JButton) e.getSource()).getText().equals("Bank")) {
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
-					config.readFileCreatePersons(city, "restConfig"+i+".txt");
+					config.readFileCreatePersons(city, "BankConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}/*
+			if (((JButton) e.getSource()).getText().equals("Housing")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "HouseConfig"+".txt");
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
 			}
-		}
-		if (((JButton) e.getSource()).getText().equals("Bank")) {
-			ConfigParser config = ConfigParser.getInstanceOf();
-			try {
-				config.readFileCreatePersons(city, "BankConfig"+".txt");
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
+			if (((JButton) e.getSource()).getText().equals("Food Market")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "marketConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}*/
+			if (((JButton) e.getSource()).getText().equals("Party")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig"+".txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}/*
+			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "config1.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}*/
+			for (JButton b : configOptions) {
+				b.setEnabled(false);
 			}
-		}/*
-		if (((JButton) e.getSource()).getText().equals("Housing")) {
-			ConfigParser config = ConfigParser.getInstanceOf();
-			try {
-				config.readFileCreatePersons(city, "HouseConfig"+".txt");
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			}
-		}
-		if (((JButton) e.getSource()).getText().equals("Food Market")) {
-			ConfigParser config = ConfigParser.getInstanceOf();
-			try {
-				config.readFileCreatePersons(city, "marketConfig"+".txt");
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			}
-		}*/
-		if (((JButton) e.getSource()).getText().equals("Party")) {
-			ConfigParser config = ConfigParser.getInstanceOf();
-			try {
-				config.readFileCreatePersons(city, "PartyConfig"+".txt");
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			}
-		}/*
-		if (((JButton) e.getSource()).getText().equals("Simulate All")) {
-			ConfigParser config = ConfigParser.getInstanceOf();
-			try {
-				config.readFileCreatePersons(city, "config1.txt");
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			}
-		}*/
-		for (JButton b : configOptions) {
-			b.setEnabled(false);
 		}
 	}
 }
