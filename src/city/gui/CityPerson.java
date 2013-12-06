@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import transportation.roles.CommuterRole;
 import base.Location;
 import base.PersonAgent;
 import base.reference.ContactList;
@@ -191,9 +192,10 @@ public class CityPerson extends CityComponent {
 	public void testDoGoToDestination(Location location){
 		this.enable(); 
 		mNextDestination = location; 
+		Location myLocation = new Location(x, y);
 		
 		//Walk to nearest corner 
-		Location cornerLocation = findNearestCorner(location);
+		Location cornerLocation = findNearestCorner(myLocation);
 		xDestination = cornerLocation.mX;
 		yDestination = cornerLocation.mY; 
 
@@ -213,7 +215,7 @@ public class CityPerson extends CityComponent {
 		}
 		// Otherwise, can get to a closer corner by taking the bus
 		else {
-			DoTakeBus(); 
+			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
 		}	
 	}
 	
@@ -230,10 +232,20 @@ public class CityPerson extends CityComponent {
 		mNextDestination = null; 
 	}
 	
-	public void DoTakeBus(){
-		
+	public void DoTakeBus(int currentStop, int destinationStop){
+		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
+		cRole.msgAtBusStop(currentStop, destinationStop); 
 	}
-
+	
+	public int getBusStop(int x, int y){
+		for(int i = 0; i < corners.size(); i++){
+			if(x == corners.get(i).mX && y == corners.get(i).mY){
+				return i;
+			}
+		}	
+		return -1; 
+	}
+	
 	/**
 	 * Finds closest corner location to desired destination
 	 * <pre>
@@ -245,20 +257,20 @@ public class CityPerson extends CityComponent {
 	 */
 	public Location findNearestCorner(Location destination){
 		// Top
-			// right
+			// Right
 			if (destination.mX >= 300 && destination.mY <= 300) {
 				return corners.get(0); 
 			}
-			// left
+			// Left
 			else if (destination.mX < 300 && destination.mY <= 300) {
 				return corners.get(1); 
 			}
 		// Bottom
-			// left
+			// Left
 			else if (destination.mX < 300 && destination.mY > 300) {
 				return corners.get(2); 
 			}
-			// right
+			// Right
 			else if (destination.mX >= 300 && destination.mY > 300) {
 				return corners.get(3); 
 			}
@@ -266,6 +278,7 @@ public class CityPerson extends CityComponent {
 				return null;
 			}
 	}
+	
 
 	@Override
 	public void draw(Graphics2D g) {

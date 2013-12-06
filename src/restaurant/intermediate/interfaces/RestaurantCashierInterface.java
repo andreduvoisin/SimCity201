@@ -5,6 +5,7 @@ import java.util.Map;
 import base.Item.EnumItemType;
 import market.MarketInvoice;
 import market.MarketOrder;
+import market.interfaces.MarketCashier;
 
 /**
  * Interface/functionality to allow restaurant cashiers
@@ -13,7 +14,7 @@ import market.MarketOrder;
  */
 
 public interface RestaurantCashierInterface {
-	public abstract void msgPlacedMarketOrder(MarketOrder o, int n);
+	public abstract void msgPlacedMarketOrder(MarketOrder o, MarketCashier c);
 	
 	public abstract void msgInvoiceToPerson(Map<EnumItemType,Integer> cannotFulfill, MarketInvoice invoice);
 }
