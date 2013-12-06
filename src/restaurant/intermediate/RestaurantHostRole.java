@@ -71,7 +71,6 @@ public class RestaurantHostRole extends BaseRole implements
 	}
 
 	public boolean pickAndExecuteAnAction() {
-		// System.out.println("RestaurantHostRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
 	}
 	

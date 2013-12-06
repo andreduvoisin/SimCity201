@@ -862,4 +862,12 @@ public class PersonAgent extends Agent implements Person {
 	public boolean hasCar() {
 		return mHasCar;
 	}
+
+	public void print(String msg) {
+		super.print(msg);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, e);
+	}
 }

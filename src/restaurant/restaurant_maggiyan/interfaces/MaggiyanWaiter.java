@@ -61,7 +61,9 @@ public interface MaggiyanWaiter {
 	
 	public void setCook(MaggiyanCook c);
 	
-	public void setCashier(MaggiyanCashier c); 
+	public void setCashier(MaggiyanCashier c);
 
+	public void print(String string); 
 
+	public void print(String string, Throwable e);
 }

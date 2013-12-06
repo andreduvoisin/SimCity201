@@ -50,4 +50,7 @@ public interface Person {
 	public void msgRoleFinished();
 	public void setJobFalse();
 	public boolean hasCar();
+
+	abstract void print(String msg);
+	abstract void print(String msg, Throwable e);
 }
