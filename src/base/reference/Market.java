@@ -18,7 +18,6 @@ public class Market {
 	
 	//people
 	public MarketCashier mCashier;
-//	public MarketWorker mWorker;
 	public List<MarketWorker> mWorkers = Collections.synchronizedList(new ArrayList<MarketWorker>());
 	public MarketDeliveryTruck mDeliveryTruck;
 
