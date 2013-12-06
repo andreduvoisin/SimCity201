@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_duvoisin.MarketPrices;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
@@ -23,6 +24,7 @@ import base.interfaces.Person;
 public class AndreCashierRole extends BaseRole implements Cashier {
 	public double money = 15.00;
 	
+	private RestaurantCashierRole mRole;
 	private String name;
 	Boolean paused = false;
 	public List<Check> openChecks = Collections.synchronizedList(new ArrayList<Check>());
@@ -33,8 +35,9 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 	
 	public EventLog log = new EventLog();
 
-	public AndreCashierRole(Person mPerson) {
+	public AndreCashierRole(Person mPerson, RestaurantCashierRole r) {
 		super(mPerson);
+		mRole = r;
 		this.name = "AndreCashier";
 	}
 	
@@ -179,4 +182,9 @@ public class AndreCashierRole extends BaseRole implements Cashier {
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(0);
 	}
+	
+
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
 }

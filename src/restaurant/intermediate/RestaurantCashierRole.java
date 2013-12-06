@@ -46,7 +46,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		super.mPerson = person;
 		switch(mRestaurantID){
 			case 0: //andre
-				subRole = new AndreCashierRole(super.mPerson);
+				subRole = new AndreCashierRole(super.mPerson, this);
 				AndreRestaurantPanel.instance.cashier = (AndreCashierRole) subRole;
 				break;
 //			case 1: //chase
@@ -58,15 +58,15 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 //				subRole.setPerson(super.mPerson);
 //				break;
 			case 3: //maggi
-				subRole = new MaggiyanCashierRole(super.mPerson);
+				subRole = new MaggiyanCashierRole(super.mPerson, this);
 				MaggiyanAnimationPanel.addPerson((MaggiyanCashierRole) subRole);
 				break;
 			case 4: //david
-				subRole = new DavidCashierRole(super.mPerson);
+				subRole = new DavidCashierRole(super.mPerson, this);
 				DavidAnimationPanel.cashier = (DavidCashierRole) subRole;
 				break;
 			case 5: //shane
-				subRole = new SmilehamCashierRole(super.mPerson);
+				subRole = new SmilehamCashierRole(super.mPerson, this);
 				SmilehamAnimationPanel.addPerson((SmilehamCashierRole) subRole);
 				break;
 			case 6: //angelica
@@ -74,7 +74,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				TranacAnimationPanel.addPerson((TranacCashierRole)subRole);
 				break;
 			case 7: //rex
-				subRole =  new RexCashierRole(super.mPerson);
+				subRole =  new RexCashierRole(super.mPerson, this);
 				RexAnimationPanel.addPerson((RexCashierRole) subRole);
 				break;
 		}
