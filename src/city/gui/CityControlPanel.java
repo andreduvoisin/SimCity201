@@ -3,7 +3,6 @@ package city.gui;
 //import housing.gui.HousingHouseGuiPanel;
 
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -20,6 +19,7 @@ import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -73,11 +73,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     // Selection for Trace Panel
     JPanel traceSelectionPanel;
     // Levels
-    Checkbox CBLevel_ERROR;
-    Checkbox CBLevel_WARNING;
-    Checkbox CBLevel_INFO;
-    Checkbox CBLevel_MESSAGE;
-    Checkbox CBLevel_DEBUG;
+    JCheckBox CBLevel_ERROR;
+    JCheckBox CBLevel_WARNING;
+    JCheckBox CBLevel_INFO;
+    JCheckBox CBLevel_MESSAGE;
+    JCheckBox CBLevel_DEBUG;
     // Tags
     JComboBox tags;
     String[] tagList = { "All", "Person", "Bank Teller", "Bank Customer", "Bus Stop", "Restaurant", "Bank", "General City" };
@@ -277,7 +277,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		traceSelectionPanel.setLayout(new BorderLayout(0, 5));
 		
 		// NOTE: Must do SOUTH before NORTH or ComboBox gets overlapped. lol
-	    // South: CHECKBOXES
+	    // South: JCheckBoxES
 		JPanel holdLevels = new JPanel();
 		holdLevels.setLayout(new BorderLayout());
 		
@@ -285,11 +285,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		JPanel holdCBs = new JPanel();
 		holdCBs.setLayout(new GridLayout(3, 2));
-	    CBLevel_ERROR = new Checkbox("Errors", true);
-	    CBLevel_WARNING = new Checkbox("Warnings", true);
-	    CBLevel_INFO = new Checkbox("Info", true);
-	    CBLevel_MESSAGE = new Checkbox("Messages", true);
-	    CBLevel_DEBUG = new Checkbox("Debugs", true);
+	    CBLevel_ERROR = new JCheckBox("Errors", true);
+	    CBLevel_WARNING = new JCheckBox("Warnings", true);
+	    CBLevel_INFO = new JCheckBox("Info", true);
+	    CBLevel_MESSAGE = new JCheckBox("Messages", true);
+	    CBLevel_DEBUG = new JCheckBox("Debugs", true);
 	    holdCBs.add(CBLevel_ERROR);
 	    holdCBs.add(CBLevel_WARNING);
 	    holdCBs.add(CBLevel_INFO);
@@ -308,87 +308,98 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 	    tags = new JComboBox(tagList);
 	    tags.setSelectedIndex(0);
-	    tags.addActionListener(this);
 	    
 	    holdTags.add(tagsTitle, BorderLayout.NORTH);
 	    holdTags.add(tags, BorderLayout.CENTER);
 	    traceSelectionPanel.add(holdTags, BorderLayout.NORTH);
+	    
+	    // Add action listeners.
+	    CBLevel_ERROR.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_ERROR.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.ERROR);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.ERROR);
+				}
+			}
+		});
+	    CBLevel_WARNING.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_WARNING.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.WARNING);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.WARNING);
+				}
+			}
+		});
+	    CBLevel_INFO.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_INFO.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.INFO);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.INFO);
+				}
+			}
+		});
+	    CBLevel_MESSAGE.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_MESSAGE.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.MESSAGE);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.MESSAGE);
+				}
+			}
+		});
+	    CBLevel_DEBUG.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_DEBUG.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.DEBUG);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.DEBUG);
+				}
+			}
+		});
+	    
+	    tags.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tracePanel.hideAlertsForAllTags();
+				switch((String)tags.getSelectedItem()) {
+					case "All":
+						tracePanel.showAlertsForAllTags();
+						break;
+					case "Person":
+						tracePanel.showAlertsWithTag(AlertTag.PERSON);
+						break;
+					case "Bank Teller":
+						tracePanel.showAlertsWithTag(AlertTag.BANK_TELLER);
+						break;
+					case "Bank Customer":
+						tracePanel.showAlertsWithTag(AlertTag.BANK_CUSTOMER);
+						break;
+					case "Bus Stop":
+						tracePanel.showAlertsWithTag(AlertTag.BUS_STOP);
+						break;
+					case "Restaurant":
+						tracePanel.showAlertsWithTag(AlertTag.RESTAURANT);
+						break;
+					case "Bank":
+						tracePanel.showAlertsWithTag(AlertTag.BANK);
+						break;
+					case "General City":
+						tracePanel.showAlertsWithTag(AlertTag.GENERAL_CITY);
+						break;
+				}
+			}
+		});
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		// JComboBox
-		if(e.getSource() instanceof JComboBox) {
-			tracePanel.hideAlertsForAllTags();
-			switch((String)tags.getSelectedItem()) {
-				case "All":
-					tracePanel.showAlertsForAllTags();
-					break;
-				case "Person":
-					tracePanel.showAlertsWithTag(AlertTag.PERSON);
-					break;
-				case "Bank Teller":
-					tracePanel.showAlertsWithTag(AlertTag.BANK_TELLER);
-					break;
-				case "Bank Customer":
-					tracePanel.showAlertsWithTag(AlertTag.BANK_CUSTOMER);
-					break;
-				case "Bus Stop":
-					tracePanel.showAlertsWithTag(AlertTag.BUS_STOP);
-					break;
-				case "Restaurant":
-					tracePanel.showAlertsWithTag(AlertTag.RESTAURANT);
-					break;
-				case "Bank":
-					tracePanel.showAlertsWithTag(AlertTag.BANK);
-					break;
-				case "General City":
-					tracePanel.showAlertsWithTag(AlertTag.GENERAL_CITY);
-					break;
-			}
-		}
-		
-		// Checkbox
-		if(e.getSource() instanceof Checkbox) {
-			Checkbox tempCB = (Checkbox)e.getSource();
-			switch(tempCB.getLabel()) {
-				case "Errors":
-					if(tempCB.getState()) {
-						tracePanel.showAlertsWithLevel(AlertLevel.ERROR);
-					} else {
-						tracePanel.hideAlertsWithLevel(AlertLevel.ERROR);
-					}
-					break;
-				case "Warnings":
-					if(tempCB.getState()) {
-						tracePanel.showAlertsWithLevel(AlertLevel.WARNING);
-					} else {
-						tracePanel.hideAlertsWithLevel(AlertLevel.WARNING);
-					}
-					break;
-				case "Info":
-					if(tempCB.getState()) {
-						tracePanel.showAlertsWithLevel(AlertLevel.INFO);
-					} else {
-						tracePanel.hideAlertsWithLevel(AlertLevel.INFO);
-					}
-					break;
-				case "Messages":
-					if(tempCB.getState()) {
-						tracePanel.showAlertsWithLevel(AlertLevel.MESSAGE);
-					} else {
-						tracePanel.hideAlertsWithLevel(AlertLevel.MESSAGE);
-					}
-					break;
-				case "Debugs":
-					if(tempCB.getState()) {
-						tracePanel.showAlertsWithLevel(AlertLevel.DEBUG);
-					} else {
-						tracePanel.hideAlertsWithLevel(AlertLevel.DEBUG);
-					}
-					break;
-			}
-		}
-		
+	public void actionPerformed(ActionEvent e) {		
 		// JButton
 		if(e.getSource() instanceof JButton) {
 			for (int i = 0; i < 8; i++) {

@@ -803,13 +803,6 @@ public class PersonAgent extends Agent implements Person {
 		return mItemInventory;
 	}
 	
-
-	protected void print(String msg) {
-		if (SimCityGui.TESTING){
-			System.out.println("" + mName + ": "  + msg);
-		}
-	}
-	
 	public String getName(){
 		return mName;
 	}

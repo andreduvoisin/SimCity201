@@ -2,6 +2,7 @@ package base;
 
 import java.util.concurrent.Semaphore;
 
+import city.gui.SimCityGui;
 import restaurant.restaurant_smileham.test.mock.EventLog;
 
 // ALL: DO NOT COMMIT CODE THAT CAUSES ERRORS IN THE PROJECT
@@ -54,7 +55,8 @@ public abstract class Agent {
      * Print message
      */
     protected void print(String msg) {
-        print(msg, null);
+    	if (SimCityGui.TESTING)
+    		print(msg, null);
     }
 
     /**
