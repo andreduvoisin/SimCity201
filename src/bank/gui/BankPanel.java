@@ -20,13 +20,13 @@ import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.Gui;
-import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
 
+@SuppressWarnings("serial")
 public class BankPanel extends CityCard implements ActionListener{
 
 	private int WINDOWX = 500;
