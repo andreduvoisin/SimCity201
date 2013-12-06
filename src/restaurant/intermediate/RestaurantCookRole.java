@@ -45,13 +45,19 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public RestaurantCookRole(Person person, int restaurantID){
                 super(person); 
                 this.mRestaurantID = restaurantID;
+                
+                //populate inventory
+        		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
+        		mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
+        		mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
+        		mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
         }
         
         public void setPerson(Person person){
             super.mPerson = person;
         	switch(mRestaurantID){
 				case 0: //andre
-					subRole = new AndreCookRole(super.mPerson);
+					subRole = new AndreCookRole(super.mPerson, this);
 					AndreRestaurantPanel.instance.addCook((AndreCookRole) subRole);
 					break;
 //				case 1: //chase
@@ -63,15 +69,15 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 //					JerrywebRestaurantPanel.cook = (JerrywebCookRole) subRole;
 //					break;
 				case 3: //maggi
-					subRole = new MaggiyanCookRole(super.mPerson);
+					subRole = new MaggiyanCookRole(super.mPerson, this);
 					MaggiyanAnimationPanel.addPerson((MaggiyanCookRole) subRole);
 					break;
 				case 4: //david
-					subRole = new DavidCookRole(super.mPerson);
+					subRole = new DavidCookRole(super.mPerson, this);
 					DavidAnimationPanel.addCook((DavidCookRole) subRole);
 					break;
 				case 5: //shane
-					subRole = new SmilehamCookRole(super.mPerson);
+					subRole = new SmilehamCookRole(super.mPerson, this);
 					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
 					break;
 				case 6: //angelica
@@ -79,7 +85,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					TranacAnimationPanel.addPerson((TranacCookRole)subRole);
 					break;
 				case 7: //rex
-					subRole = new RexCookRole(super.mPerson);
+					subRole = new RexCookRole(super.mPerson, this);
 					RexAnimationPanel.addPerson((RexCookRole) subRole);
 					break;
 			}

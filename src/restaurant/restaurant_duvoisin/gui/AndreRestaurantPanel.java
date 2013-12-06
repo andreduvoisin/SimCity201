@@ -31,7 +31,9 @@ public class AndreRestaurantPanel extends JPanel  {
 
     //Host, cook, waiters and customers
 	public AndreHostRole host = new AndreHostRole(null);
-	public AndreCookRole cook = new AndreCookRole(null);
+//	public AndreCookRole cook = new AndreCookRole(null);
+	public AndreCookRole cook;		//ANDRE: i changed this so the role isn't be created anymore here, only in restaurantCookRole
+									// because the constructor is different - angelica
 	private Vector<Waiter> waiters = new Vector<Waiter>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     private Vector<AndreMarketRole> markets = new Vector<AndreMarketRole>();

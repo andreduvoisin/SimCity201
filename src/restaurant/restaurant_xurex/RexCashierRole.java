@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Market;
@@ -24,6 +25,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	{pendingWaiter, ignore, pendingCustomer}; 
 	//ignore while bill is unpaid and after is paid
 	
+	private RestaurantCashierRole mRole;
 	private String name;
 	private float assets = 100;
 	public class Bill{
@@ -51,8 +53,9 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	Map<Market, Float> marketBills = new HashMap<Market, Float>();
 	
 	//CONSTRUCTORS //
-	public RexCashierRole(Person person){
+	public RexCashierRole(Person person, RestaurantCashierRole r){
 		super(person);
+		mRole = r;
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));
@@ -60,6 +63,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	}
 	public RexCashierRole(){
 		super(null);
+		mRole = null;
 		menu.put("Steak", new Integer(16));
 		menu.put("Chicken", new Integer(11));
 		menu.put("Salad", new Integer(6));
@@ -159,6 +163,10 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	public float getAssets(){
 		return this.assets;
 	}
+
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
 
 	@Override
 	public Location getLocation() {

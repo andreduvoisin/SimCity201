@@ -2,7 +2,6 @@ package restaurant.restaurant_tranac.test.mock;
 
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
-import restaurant.restaurant_tranac.interfaces.TranacMarket;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import test.mock.LoggedEvent;
 import test.mock.Mock;
@@ -25,9 +24,5 @@ public class TranacMockCashier extends Mock implements TranacCashier {
 	
 	public void msgHereIsPayment(TranacCustomer c, double p) {
 		log.add(new LoggedEvent("Received msgHereIsPayment from customer. Payment = " + p));
-	}
-	
-	public void msgHereIsBill(TranacMarket m, String i, double c) {
-		log.add(new LoggedEvent("Received msgHereIsBill from market. Item = " + i + ". Price = " + c));
 	}
 }

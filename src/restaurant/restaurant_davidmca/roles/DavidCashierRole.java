@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
 import restaurant.restaurant_davidmca.interfaces.Customer;
@@ -20,7 +21,8 @@ import base.reference.ContactList;
  * Restaurant customer restaurant_davidmca.agent.
  */
 public class DavidCashierRole extends BaseRole implements Cashier {
-
+	private RestaurantCashierRole mRole;
+	
 	private String name;
 	public double totalCash;
 	private double loans = 0;
@@ -51,8 +53,9 @@ public class DavidCashierRole extends BaseRole implements Cashier {
 	 * @param name
 	 *            name of the customer
 	 */
-	public DavidCashierRole(Person p) {
+	public DavidCashierRole(Person p, RestaurantCashierRole r) {
 		super(p);
+		mRole = r;
 		this.name = "DavidCashier";
 		totalCash = 100.00;
 	}
@@ -164,5 +167,9 @@ public class DavidCashierRole extends BaseRole implements Cashier {
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(4);
 	}
+
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
 
 }

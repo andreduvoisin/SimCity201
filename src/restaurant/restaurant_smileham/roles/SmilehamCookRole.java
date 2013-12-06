@@ -19,13 +19,16 @@ import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
+import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
 
-public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook {
+public class SmilehamCookRole extends BaseRole implements SmilehamCook {
+	RestaurantCookRole mRole;
+	
 	//Member Variables
 	private String mName;
 	private Timer mTimer;
@@ -37,7 +40,8 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 */	private Set<SmilehamWaiter> mWaiters;
 //	private int mNumMarkets;
 //	private boolean mFoodArrived; //change this to states next version
-	
+
+	private static int sBaseNeed = 3;
 	//Labels
 	private LabelGui mFoodsCooking;
 	private LabelGui mFoodsPlated;
@@ -54,8 +58,9 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamCookRole(Person person){
-		super(person, 5);
+	public SmilehamCookRole(Person person, RestaurantCookRole r){
+		super(person);
+		mRole = r;
 		mName = person.getName();
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Cook Constructor");
@@ -64,11 +69,12 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 		mCookGui = new CookGui(this);
     	mAnimationPanel.addGui(mCookGui);
     	
-    	//Set up inventory map
+    	/*ANGELICA: Set up inventory map
     	mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+        */
     	mFoodsOut = new ArrayList<EnumFoodOptions>();
     	
     	mWaiters = new HashSet<SmilehamWaiter>();
@@ -163,10 +169,10 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 						}
 						*/
 						EnumItemType foodChoice = Item.enumToEnum(iOrder.mFood.mChoice);
-						int stock = mItemInventory.get(foodChoice);
+						int stock = mRole.mItemInventory.get(foodChoice);
 						if(stock == 0) {
 							mOrders.remove(iOrder);
-							mItemsDesired.put(foodChoice,sBaseNeed);
+							mRole.mItemsDesired.put(foodChoice,sBaseNeed);
 							mFoodsOut.add(iOrder.mFood.mChoice);
 							iOrder.mWaiter.msgOutOfFood(iOrder, mFoodsOut);
 							return true;
@@ -223,7 +229,7 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 //			mInventory.get(food.mChoice).mQuantity--;
 			
 			EnumItemType iType = Item.enumToEnum(food.mChoice);
-			decreaseInventory(iType);
+			mRole.decreaseInventory(iType);
 			
 		/*	//if food amount below threshold
 			if (mInventory.get(food.mChoice).mQuantity < Food.cTHRESHOLD){
@@ -231,8 +237,8 @@ public class SmilehamCookRole extends RestaurantCookRole implements SmilehamCook
 			}*/
 			
 			//if food amount below threshold
-			if(mItemInventory.get(iType) < Food.cTHRESHOLD) {
-				mItemsDesired.put(iType, sBaseNeed);
+			if(mRole.mItemInventory.get(iType) < Food.cTHRESHOLD) {
+				mRole.mItemsDesired.put(iType, sBaseNeed);
 			}
 			
 			mCookGui.DoGoToCooking();

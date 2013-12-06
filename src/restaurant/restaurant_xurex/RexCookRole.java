@@ -15,6 +15,7 @@ import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
+import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
@@ -25,7 +26,9 @@ import base.reference.ContactList;
  * Restaurant Cook Agent
  */
 
-public class RexCookRole extends RestaurantCookRole implements Cook {
+public class RexCookRole extends BaseRole implements Cook {
+	private RestaurantCookRole mRole;
+	
 	public enum OrderState
 	{pending, cooking, cooked, served};
 	public enum MarketOrderState
@@ -100,31 +103,36 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 		cookTimes.put("Salad", 5);
 		cookTimes.put("Pizza", 15);
 	}
-	public RexCookRole(Person p){
-		super(p, 7);
+	public RexCookRole(Person p, RestaurantCookRole r){
+		super(p);
+		mRole = r;
 		//initializeInventory();
 		makeCookTimes();
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+		mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
+		mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
+		mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
+		mRole.mItemInventory.put(EnumItemType.PIZZA,mRole.DEFAULT_FOOD_QTY);
 		//runTimer();
 	}
-	public RexCookRole(String name, Person person) {
-		super(person, 7);
+	
+	public RexCookRole(String name, Person person, RestaurantCookRole r) {
+		super(person);
+		mRole = r;
+		
 		this.name = name;
 		//initializeInventory();
 		makeCookTimes();
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+		/*ANGELICA: mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
+		mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
+		mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
+		mRole.mItemInventory.put(EnumItemType.PIZZA,mRole.DEFAULT_FOOD_QTY);
+		*/
 		//runTimer();
 	}
 
@@ -239,12 +247,12 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	}
 	
 	private void TryToCookOrder(CookOrder o){ 
-		if(mItemInventory.get(Item.stringToEnum(o.choice))==0){
+		if(mRole.mItemInventory.get(Item.stringToEnum(o.choice))==0){
 			Do("Out of Food message sent"); 
 			o.w.OutOfFood(o.table, o.choice);
 			orders.remove(o); return;
 		}
-		decreaseInventory(Item.stringToEnum(o.choice));
+		mRole.decreaseInventory(Item.stringToEnum(o.choice));
 		CheckInventory();
 		o.s = OrderState.cooking;
 		DoCooking(o);
@@ -317,9 +325,9 @@ public class RexCookRole extends RestaurantCookRole implements Cook {
 	
 	//UTILITIES
 	private void CheckInventory(){
-		for(EnumItemType iType : mItemInventory.keySet()){
-			if(mItemInventory.get(iType)<=5){
-				mItemsDesired.put(iType, 20);
+		for(EnumItemType iType : mRole.mItemInventory.keySet()){
+			if(mRole.mItemInventory.get(iType)<=5){
+				mRole.mItemsDesired.put(iType, 20);
 			}
 		}
 	}
