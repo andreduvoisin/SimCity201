@@ -25,6 +25,7 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
+import transportation.roles.CommuterRole;
 import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
@@ -118,6 +119,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Add customer/rider role possibilities
 		mRoles.put(SortingHat.getHousingRole(this), true);
+		mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
@@ -217,6 +219,10 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
+	public void msgCommuteAnimationDone(){
+		mRoles.put(getCommuterRole(), false); 
+	}
+	
 	public void msgRoleFinished(){ //SHANE ALL: 3 Call at end of role
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
@@ -259,7 +265,12 @@ public class PersonAgent extends Agent implements Person {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
-				else if (iRole.pickAndExecuteAnAction()) {
+				else if (iRole instanceof CommuterRole){
+					if(mRoles.get(iRole))
+						if(iRole.pickAndExecuteAnAction())
+							return true; 
+				}
+				else if (iRole.pickAndExecuteAnAction()){
 					return true;
 				}
 			}
@@ -270,7 +281,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
-//ANGELICA MAGGI: change all test funcitons back later
+//ANGELICA MAGGI: change all test functions back later
 	private synchronized void processEvent(Event event) {
 		mAtJob = false;
 		//One time events (Car)
@@ -378,13 +389,14 @@ public class PersonAgent extends Agent implements Person {
 		if(jobRole == null){
 			print("didn't go to job"); return;
 		}
-		jobRole.GoToDestination(getJobLocation());
-		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
 		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
 			jobRole.setPerson(this); //take over job role
+			mRoles.put(getCommuterRole(), true); 
+			CommuterRole cRole = (CommuterRole)getCommuterRole(); 
+			cRole.setLocation(getJobLocation()); 
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
 		}
@@ -701,6 +713,14 @@ public class PersonAgent extends Agent implements Person {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Role getCommuterRole(){
+		for(Role iRole : mRoles.keySet()){
+			if(iRole instanceof CommuterRole)
+				return iRole; 
+		}
+		return null; 
 	}
 	
 	private Role getJobRole(){
