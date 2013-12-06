@@ -41,7 +41,7 @@ public class CashierTest extends TestCase {
  	 * Test food market cashier with customer.
  	 */
  	public void testCashierCustomer() {
- 		mCashier = new MarketCashierRole(mPerson, EnumMarketType.BOTH);
+ 		mCashier = new MarketCashierRole(mPerson);
  	}
  	
  	/**

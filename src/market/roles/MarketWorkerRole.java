@@ -34,7 +34,8 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		super(person);
 		mMarketID = marketID;
 		
-		ContactList.sMarketList.get(mMarketID).mCashier.addWorker(this);
+		ContactList.sMarketList.get(mMarketID).mWorkers.add(this);
+		//ANGELICA: add worker to list of cashier workesr or change cashier to check market
 		mGui = new MarketWorkerGui(this);
 		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
 		ContactList.sMarketList.get(mMarketID).mWorkerGuis.add(mGui);
