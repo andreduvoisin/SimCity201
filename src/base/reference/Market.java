@@ -13,6 +13,7 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 
 public class Market {
+	public int mMarketID;
 	
 	//people
 	public MarketCashier mCashier;
@@ -25,4 +26,8 @@ public class Market {
 	public List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
 	public List<MarketCashierGui> mCashierGuis = new ArrayList<MarketCashierGui>();
 	//delivery truck gui in cityView
+	
+	public Market(int n) {
+		mMarketID = n;
+	}
 }

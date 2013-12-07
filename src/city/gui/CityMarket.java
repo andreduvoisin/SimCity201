@@ -35,10 +35,12 @@ public class CityMarket extends CityComponent{
 	}
 	
 	public void paint(Graphics g) {
-		g.setColor(color);
-		g.fill3DRect(x, y, sMARKET_SIZE, sMARKET_SIZE, true);
-		g.setColor(Color.WHITE);
-		g.drawString(marketName, x + 10 , y + 50);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(color);
+			g.fill3DRect(x, y, sMARKET_SIZE, sMARKET_SIZE, true);
+			g.setColor(Color.WHITE);
+			g.drawString(marketName, x + 10 , y + 50);
+		}
 	}
 
 	@Override

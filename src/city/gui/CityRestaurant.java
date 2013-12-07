@@ -34,11 +34,12 @@ public class CityRestaurant extends CityComponent {
 
 	
 	public void paint(Graphics g) {
-		g.setColor(color);
-//		g.fillOval(x, y, 100, 60);
-		g.fill3DRect(x, y, RESTAURANTSIZE, RESTAURANTSIZE, true);
-		g.setColor(Color.BLACK);
-		g.drawString(restaurantName,x + 5 , y + 15);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(color);
+			g.fill3DRect(x, y, RESTAURANTSIZE, RESTAURANTSIZE, true);
+			g.setColor(Color.BLACK);
+			g.drawString(restaurantName,x + 5 , y + 15);
+		}
 	}
 
 	@Override
