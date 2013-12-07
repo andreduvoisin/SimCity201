@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
+import market.gui.MarketPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
@@ -81,16 +82,12 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		 * Instantiate Market and Bank Panels and add to the Master Lists
 		 */
 		
-		// ANGELICA: Fix these! Commented out temporarily so city will run.
-		/*
-		MarketPanel market0 = new MarketPanel(city);
-		ContactList.sMarketList.add(market0);
+		MarketPanel market0 = new MarketPanel(city, ContactList.sMarketList.get(0));
 		cards.put("Costco", market0);
 		
-		MarketPanel market1 = new MarketPanel(city);
-		ContactList.sMarketList.add(market1);
+		MarketPanel market1 = new MarketPanel(city, ContactList.sMarketList.get(1));
 		cards.put("Sams Club", market1);
-		
+		/*
 		BankPanel bank0 = new BankPanel(city);
 		ContactList.sBankList.add(bank0);
 		cards.put("Gringotts Bank", bank0);
