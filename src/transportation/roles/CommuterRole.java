@@ -55,7 +55,8 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 			NotifyBusDispatch(); 
 		}
 		if(mPerson.hasCar()){
-			TryDrivingToDestination(); 
+			DriveToDestination(); 
+			//TryDrivingToDestination(); 
 		}
 		else{
 			GoToDestination(); 
@@ -68,6 +69,10 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	//Manages Bus Transportation
 	private void NotifyBusDispatch(){
 		//mBusDispatch.msgNeedARide(this, mCurrentBusStop);
+	}
+	
+	private void DriveToDestination(){
+		mPerson.getGui().DoDriveToDestination(); 
 	}
 	
 	private void TryDrivingToDestination(){

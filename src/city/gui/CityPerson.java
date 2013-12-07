@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import transportation.roles.CommuterRole;
+import base.Block;
 import base.Location;
 import base.PersonAgent;
-import base.reference.Block;
 import base.reference.ContactList;
 
 public class CityPerson extends CityComponent {
