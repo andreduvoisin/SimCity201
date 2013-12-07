@@ -1,5 +1,6 @@
 package market.test.mock;
 
+import base.Item.EnumItemType;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.gui.MarketCashierGui;
@@ -47,5 +48,8 @@ public class MockCashier extends Mock implements MarketCashier {
 	
 	public void DoLeaveMarket() {
 		mCashierGui.DoLeaveMarket();
+	}
+	
+	public void setInventory(EnumItemType i, int n) {
 	}
 }

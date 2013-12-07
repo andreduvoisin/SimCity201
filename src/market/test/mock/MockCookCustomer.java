@@ -2,13 +2,13 @@ package market.test.mock;
 
 import java.util.Map;
 
-import market.MarketInvoice;
 import market.MarketOrder;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import test.mock.LoggedEvent;
 import test.mock.Mock;
 import base.Item.EnumItemType;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -19,10 +19,10 @@ public class MockCookCustomer extends Mock implements RestaurantCookInterface, R
 		super();
 	}
 	
-	public void msgInvoiceToPerson(Map<EnumItemType,Integer> cannotFulfill, MarketInvoice invoice) {
-		log.add(new LoggedEvent("Received msgInvoiceToPerson."));
+	public void msgCannotFulfillItems(MarketOrder o, Map<EnumItemType, Integer> cannotFulfill) {
+		log.add(new LoggedEvent("Received msgCannotFulfillItems."));
 	}
-	
+
 	public void msgHereIsCookOrder(MarketOrder o) {
 		log.add(new LoggedEvent("Received msgHereIsCookOrder."));
 	}
@@ -63,6 +63,26 @@ public class MockCookCustomer extends Mock implements RestaurantCookInterface, R
 	public void setActive() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean hasPerson() {
+		// ANGELICA Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void GoToDestination(Location location) {
+	}
+
+	@Override
+	public Location getLocation() {
+		return null;
+	}
+
+	@Override
+	public void setMarketCashier(int n) {
+
 	}
 
 }

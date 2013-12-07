@@ -15,6 +15,7 @@ import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.test.mock.EventLog;
 import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
+import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
@@ -24,11 +25,12 @@ import base.reference.ContactList;
 /**
  * Restaurant Cook Agent
  */
-public class AndreCookRole extends RestaurantCookRole implements Cook {
+public class AndreCookRole extends BaseRole implements Cook {
 	public List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
 	public enum OrderState { Pending, Cooking, Done };
 //	Map<String, Food> foods = new HashMap<String, Food>();
+	RestaurantCookRole mRole;
 	private String name;
 	Boolean paused = false;
 //	Boolean orderFood;
@@ -55,8 +57,9 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 	
 	public EventLog log = new EventLog();
 
-	public AndreCookRole(Person p) {
-		super(p, 0);
+	public AndreCookRole(Person p, RestaurantCookRole r) {
+		super(p);
+		mRole = r;
 		
 		this.name = "AndreCook";
 		
@@ -76,11 +79,13 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 		
 		checkRevolvingStand = false;
 		
+		/*ANGELICA: 
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-        
+        */
+		
         cookingTimes.put("steak", 10000);
         cookingTimes.put("chicken", 7500);
         cookingTimes.put("salad", 5000);
@@ -213,16 +218,16 @@ public class AndreCookRole extends RestaurantCookRole implements Cook {
 	void TryToCookFood(Order o) {
 		//print("Doing TryToCookFood");
 		log.add(new LoggedEvent("Doing TryToCookFood"));
-		int foodAmount = mItemInventory.get(Item.stringToEnum(o.choice));
+		int foodAmount = mRole.mItemInventory.get(Item.stringToEnum(o.choice));
 		if(foodAmount <= 0) {
 			o.waiter.msgOutOfFood(o.table, o.choice);
 			orders.remove(o);
 			return;
 		}
-		decreaseInventory(Item.stringToEnum(o.choice));
+		mRole.decreaseInventory(Item.stringToEnum(o.choice));
 		//ANDRE: Null Pointer Exception in integration?
 		if(foodAmount <= FOOD_LOW /*&& !hasOrdered.get(o.choice)*/) {
-			mItemsDesired.put(Item.stringToEnum(o.choice), mItemsDesired.get(Item.stringToEnum(o.choice)) + FOOD_ORDER);
+			mRole.mItemsDesired.put(Item.stringToEnum(o.choice), mRole.mItemsDesired.get(Item.stringToEnum(o.choice)) + FOOD_ORDER);
 			hasOrdered.put(o.choice, true);
 		}
 		o.state = OrderState.Cooking;

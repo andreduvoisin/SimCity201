@@ -44,6 +44,4 @@ public interface Customer {
 	public abstract void msgAnimationFinishedLeaveRestaurant();
 
 	public abstract void msgAnimationFinishedGoToSeat();
-
-
 }

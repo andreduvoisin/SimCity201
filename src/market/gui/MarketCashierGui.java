@@ -97,14 +97,14 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		MarketCashierRole c = (MarketCashierRole) mAgent;
+	//	MarketCashierRole c = (MarketCashierRole) mAgent;
 	//	return c.getActive();
 		return isPresent;
 	}
 	
 	public void setPresent() {
-		MarketCashierRole c = (MarketCashierRole) mAgent;
-		c.setActive();
+	//	MarketCashierRole c = (MarketCashierRole) mAgent;
+	//	c.setActive();
 	//	isPresent = !isPresent;
 		isPresent= true;
 	}

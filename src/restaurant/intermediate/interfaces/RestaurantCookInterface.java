@@ -19,5 +19,5 @@ public interface RestaurantCookInterface {
         
         public abstract void msgHereIsCookOrder(MarketOrder o);
 
-        public abstract void setMarketCashier(MarketCashier c);
+        public abstract void setMarketCashier(int n);
 }

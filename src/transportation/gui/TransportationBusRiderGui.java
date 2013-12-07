@@ -25,7 +25,7 @@ public class TransportationBusRiderGui extends CityComponent implements base.Gui
 
 	// Once boarded, don't draw anymore ("inside" the bus)
 	public void draw(Graphics2D g) {
-		System.out.println("draw() in BusRiderGui");
+		role.print("draw() in BusRiderGui");
 		if (! mBoarded) {
 			g.setColor(Color.orange);
 			g.fillRect(x, y, 5, 5);
@@ -33,7 +33,7 @@ public class TransportationBusRiderGui extends CityComponent implements base.Gui
 	}
 	
 	public void updatePosition() {
-		System.out.println("updatePos() in BusRiderGui");
+		role.print("updatePos() in BusRiderGui");
 		if (! mBoarded) {
 			if (x < xDest)		x++;
 			else if (x > xDest)	x--;
@@ -44,8 +44,8 @@ public class TransportationBusRiderGui extends CityComponent implements base.Gui
 			setY(y);
 		}
 
-		System.out.println("x = " + x + ", xDest = " + xDest);
-		System.out.println("y = " + y + ", yDest = " + yDest);
+		role.print("x = " + x + ", xDest = " + xDest);
+		role.print("y = " + y + ", yDest = " + yDest);
 		if (x == xDest && y == yDest) {
 			role.msgGuiDone();
 		}

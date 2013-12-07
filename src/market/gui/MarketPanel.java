@@ -20,13 +20,13 @@ import city.gui.SimCityGui;
 public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
 		
-	private static Market mMarket;
+	private Market mMarket;
 	
 	private MarketItemsGui mItemGui;
 	
-	public MarketCashierRole mCashier;
-	public MarketDeliveryTruckRole mDeliveryTruck;
-	public MarketCashierGui mCashierGui;
+//	public MarketCashierRole mCashier;
+//	public MarketDeliveryTruckRole mDeliveryTruck;
+//	public MarketCashierGui mCashierGui;
 	
 	private Timer timer;
 	private final int TIMERDELAY = 8;
@@ -110,7 +110,7 @@ public class MarketPanel extends CityCard implements ActionListener {
 	}
 	
 	public void setInventory(EnumItemType i, int n) {
-		mCashier.setInventory(i,n);
+		mMarket.mCashier.setInventory(i,n);
 		mItemGui.setInventory(i,n);
 	}
 }

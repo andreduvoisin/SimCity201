@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
@@ -20,6 +21,7 @@ import base.reference.ContactList;
  */
 
 public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
+	private RestaurantCashierRole mRole;
 	private String n; 
 	private Double TOTALMONEY = 500.00; 
 	private Menu menu = new Menu(); 
@@ -33,8 +35,9 @@ public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
 		this.n = name;
 	}
 	
-	public MaggiyanCashierRole(Person p){
+	public MaggiyanCashierRole(Person p, RestaurantCashierRole r){
 		super(p); 
+		mRole = r;
 		if(p == null){
 			this.n = "null"; 
 		}
@@ -209,5 +212,9 @@ public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(3);
 	}
+
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
 
 }

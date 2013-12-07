@@ -13,7 +13,7 @@ public class BankGuardGui implements Gui {
 
 	private BankGuard agent = null;
 	private boolean isPresent = true;
-	private BankPanel bankPanel;
+	
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -24,10 +24,9 @@ public class BankGuardGui implements Gui {
 	
 	//Animation upgrades
 	private BufferedImage bankguardimage;
-
-	public BankGuardGui(BankGuard bg, BankPanel bp) {
+	//Jerry changed the constructors for both this and the customer constructers
+	public BankGuardGui(BankGuard bg){
 		agent = bg;
-		bankPanel = bp;
 		xPos = STARTPOSX;
 		yPos = STARTPOSY;
 		xDestination = STARTPOSX;
