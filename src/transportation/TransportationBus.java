@@ -27,7 +27,7 @@ public class TransportationBus extends Agent {
 		}
 
 		mCurrentStop = 0;
-		state = enumState.traveling;
+		state = enumState.readyToBoard;
 	}
 
 	// ==================================================================================
@@ -51,7 +51,7 @@ public class TransportationBus extends Agent {
 	 * From GUI - bus arrived at stop
 	 */
 	public void msgGuiArrivedAtStop() {
-		//print("msgGuiArrivedAtStop()");
+		print("msgGuiArrivedAtStop(" + mCurrentStop + ")");
 
 		state = enumState.readyToUnload;
 		stateChanged();
@@ -116,7 +116,7 @@ public class TransportationBus extends Agent {
 	// ==================================================================================
 
 	public boolean pickAndExecuteAnAction() {
-		if (state.equals(enumState.readyToUnload)) {
+		if (state == enumState.readyToUnload) {
 			if (! mRiders.isEmpty()) {
 				TellRidersToGetOff();
 			}
@@ -126,7 +126,7 @@ public class TransportationBus extends Agent {
 			}
 		}
 
-		if (state.equals(enumState.readyToBoard)) {
+		if (state == enumState.readyToBoard) {
 			if (! mBusStops.get(mCurrentStop).mWaitingPeople.isEmpty()) {
 				TellRidersToBoard();
 				return true;
@@ -137,7 +137,7 @@ public class TransportationBus extends Agent {
 			}
 		}
 		
-		if (state.equals(enumState.readyToTravel)) {
+		if (state == enumState.readyToTravel) {
 			AdvanceToNextStop();
 			return true;
 		}
