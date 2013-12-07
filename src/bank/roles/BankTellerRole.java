@@ -167,6 +167,8 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
 		mAccounts.get(accountIndex).balance += mCustomer.amount;
 		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
+		mGuard.msgRobberAlert(mCustomer.customer);
+		print("MESSAGED GUARD ABOUT ROBBERY");
 	}
 	
 	//------------------------------------------------------UTILITIES------------------------------------------------------

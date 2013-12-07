@@ -63,7 +63,7 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
     private static JerrywebCashierRole mCashier;*/
     public static JerrywebRestaurant restaurant;
     //private static Vector<JerrywebCustomerRole> mCustomers;
-    public static JerrywebAnimationPanel mInstance;
+    //public static JerrywebAnimationPanel mInstance;
     private List<Gui> guis = new ArrayList<Gui>();
 
     public JerrywebAnimationPanel(SimCityGui city, JerrywebRestaurant r) {

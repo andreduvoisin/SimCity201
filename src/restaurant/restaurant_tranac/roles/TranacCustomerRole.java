@@ -70,8 +70,6 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 		customerGui = new TranacCustomerGui(this);
 		TranacRestaurant.getInstance().addPerson(this);
 		
-		money = baseMoney; // ANGELICA: no longer necessary; will get from
-							// person
 		num = 0;
 
 		customerGui = new TranacCustomerGui(this);

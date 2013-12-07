@@ -30,7 +30,7 @@ public class JerrywebCookRole extends RestaurantCookRole {
 	public List<Order>  RevolvingStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Food> foodItems= new ArrayList<Food>();
 	//public Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
-
+	private RestaurantCookRole mRole;
 	Timer cookingTimer = new Timer();
 	private Timer checkRevolvingStand = new Timer();
 	public List<JerrywebWaiterRole> Waiters = new ArrayList<JerrywebWaiterRole>();
@@ -86,8 +86,9 @@ public class JerrywebCookRole extends RestaurantCookRole {
 
 	//public HostGui hostGui = null;
 
-	public JerrywebCookRole(Person p){ 
+	public JerrywebCookRole(Person p, RestaurantCookRole r){ 
 		super(p, 2);
+		mRole = r;
 		//this.name = person.getName();
 
 		//This populates the food map using the string names of the food items as keys and holds the
@@ -290,12 +291,12 @@ public class JerrywebCookRole extends RestaurantCookRole {
 	public void TryToCookIt(Order order, int orderLocation){
 		EnumItemType food = Item.stringToEnum(order.choice);
 		print("" + food);
-		if(mItemInventory.get(food) == 0){
+		if(mRole.mItemInventory.get(food) == 0){
 			//Do("Out of choice " + order.choice);
 			Orders.get(orderLocation).w.msgOutOfFood(Orders.get(orderLocation).choice, Orders.get(orderLocation).table);
 			//Orders.get(orderLocation).s = OrderState.needToRestock;
 			Orders.remove(order);
-			 mItemsDesired.put(food,baseNeed);
+			mRole.mItemsDesired.put(food,baseNeed);
 			 return;
 		}
 		
@@ -304,7 +305,7 @@ public class JerrywebCookRole extends RestaurantCookRole {
 			int cookTime = 0;
 			final int  orderLocationFinal = orderLocation;
 			cookTime = mCookTimes.get(food);
-			mItemInventory.put(food,mItemInventory.get(food) -1);
+			mRole.mItemInventory.put(food,mRole.mItemInventory.get(food) -1);
 
 			cookingTimer.schedule(new TimerTask() {
 				public void run() {

@@ -47,6 +47,8 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         private final int baseTime = 5000;
         private final int baseNeed = 3;
         
+        private int mItemThreshold = 1;
+        
         private Semaphore inTransit = new Semaphore(0, true);
 
         public TranacCookRole(Person p, RestaurantCookRole r) {
@@ -54,7 +56,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 cookGui = new TranacCookGui(this);
                 mRole = r;
                 
-                /*ANGELICA: inventory created in restaurantCookRole
+                /*ANGELICA: 
                 mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
@@ -195,13 +197,11 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                                         food = i;
                         }
                 }
-                //ANGELICA: add in functionality to order if low stock
-                if(food.stock == stockThreshold && food.s != FoodState.Ordered) {
-                        food.s = FoodState.LowStock;
-                        print("Low on food!");
-                        food.numNeeded = baseNeed;
+                ANGELICA: add in functionality to order if low stock
+                if(mRole.mItemInventory.get(food) < mItemThreshold) {
+                       
                 }
-                
+                /*
                 if(food.stock == 0) {                                //handles if out of food item
                         print("Out of " + food.name);
                         o.waiter.msgOutOfFood(o.choice, o.table);
@@ -219,6 +219,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                         o.waiter.msgOutOfFood(o.choice.toString(), o.table);
                         orders.remove(o);
                         mRole.mItemsDesired.put(food,baseNeed);
+                        //ANGELICA: set flag
                         return;
                 }
                 

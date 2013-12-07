@@ -139,4 +139,16 @@ public class BankCustomerGui implements Gui {
 			yDestination = LINE_Y + (LINE_INCREMENT * positionInLine);
 		}
 	}
+	
+	public void die(){
+		xDestination = xPos;
+		yDestination = yPos;
+		try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/Blood_Splatter.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+	}
 }

@@ -17,6 +17,8 @@ import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
+import restaurant.restaurant_jerryweb.JerrywebCookRole;
+import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -63,10 +65,10 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 //					subRole = new CwagonerCookRole(super.mPerson);
 //					CwagonerRestaurantPanel.cook = (CwagonerCookRole) subRole;
 //					break;
-//				case 2: //jerry
-//					subRole = new JerrywebCookRole(super.mPerson);
-//					JerrywebRestaurantPanel.cook = (JerrywebCookRole) subRole;
-//					break;
+				case 2: //jerry
+					subRole = new JerrywebCookRole(super.mPerson, this);
+					JerrywebRestaurant.cook = ((JerrywebCookRole) subRole);
+					break;
 				case 3: //maggi
 					subRole = new MaggiyanCookRole(super.mPerson, this);
 					MaggiyanAnimationPanel.addPerson((MaggiyanCookRole) subRole);

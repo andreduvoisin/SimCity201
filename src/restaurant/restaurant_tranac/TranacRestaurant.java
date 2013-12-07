@@ -48,8 +48,13 @@ public class TranacRestaurant {
         	mHost.addWaiter(waiter);
     	}
     	else if (role instanceof TranacCashierRole){
-    		TranacCashierRole cashier = (TranacCashierRole) role;
-    		//ANGELICA: 1 add necessary logic here
+    		mCashier = (TranacCashierRole) role;
+    	}
+    	else if (role instanceof TranacHostRole){
+    		mHost = (TranacHostRole) role;
+    	}
+    	else if (role instanceof TranacCookRole){
+    		mCook = (TranacCookRole) role;
     	}
     }
     

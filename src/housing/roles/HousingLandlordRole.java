@@ -49,12 +49,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	/* Constructor */
 	
 	public HousingLandlordRole(Person person){
-		super();
-		mPerson = person;
-	}
-	
-	public HousingLandlordRole(){
-		super();
+		super(person);
 	}
 
 	/* Messages */

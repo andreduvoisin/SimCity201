@@ -67,7 +67,7 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 		super(mPerson);
 		this.name = "jerrywaiterrs";
 		//print("I am an rs waiter");
-
+		
 	}
 
 	public JerrywebRSWaiterRole(String string) {
@@ -548,6 +548,11 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 
+	public JerrywebHostRole getHost() {
+		return host;
+	}
+
+
 	public void Do(String msg) {
 		super.Do(msg, AlertTag.R2);
 	}
@@ -559,4 +564,5 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.R2, e);
 	}
+
 }

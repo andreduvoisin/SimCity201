@@ -67,6 +67,10 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 	public RexWaiterRole1(Person person) {
 		super(person);
 		//this.name = name;
+		WaiterGui gui = new WaiterGui(this, RexAnimationPanel.getInstance());
+		gui.setRole(this);
+		this.setGui(gui);
+		RexAnimationPanel.getInstance().addGui(gui);
 		initializeMenu();
 	}
 	public RexWaiterRole1(String name, Host host, Cook cook, Person person){
