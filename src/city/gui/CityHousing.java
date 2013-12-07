@@ -41,12 +41,31 @@ public class CityHousing extends CityComponent {
 	}
 	
 	public void paint(Graphics g) {
-		//g.drawImage(image, x, y, null);
-		
-		g.setColor(color);
-		g.fillRect(x, y, 20, 20);
-		g.setColor(Color.WHITE);
-		g.drawString("H"+mHouseNum,x + 7 , y + 17);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(color);
+			g.fillRect(x, y, 20, 20);
+			g.setColor(Color.WHITE);
+			
+			String prefixNum = "";
+			switch(mHouseNum) {
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+					prefixNum += "0";
+					break;
+			}
+			
+			g.drawString(prefixNum + mHouseNum, x + 5, y + 15);
+		} else {
+			g.drawImage(image, x, y, null);
+		}
 	}
 
 	@Override

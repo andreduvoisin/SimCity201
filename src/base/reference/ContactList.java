@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import restaurant.restaurant_davidmca.DavidRestaurant;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
 import base.interfaces.Person;
@@ -28,7 +29,7 @@ public class ContactList {
 		
 		//Markets
 		for (int iMarketNum = 0; iMarketNum < cNumMarkets; iMarketNum ++){
-			sMarketList.add(new Market());
+			sMarketList.add(new Market(iMarketNum));
 		}
 	}
 	
@@ -36,16 +37,11 @@ public class ContactList {
 	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	public static List<Market> sMarketList = Collections.synchronizedList(new ArrayList<Market>());
+
 	public static List<House> sHouseList = Collections.synchronizedList(new ArrayList<House>());
 	public static List<Bank> sBankList = Collections.synchronizedList(new ArrayList<Bank>());
-	
-	public static List<Restaurant> sRestaurants = Collections.synchronizedList(new ArrayList<Restaurant>());
-	
+
 	//DAVID JERRY SHANE: 0 TOP PRIORITY - add house/bank/market and separate data from gui
-	//DAVID JERRY SHANE: 1 i created an intermediate restaurant class for now. we'd have to go in and alter everyone's code to use 
-	//the same reference names and have a list or we can do individual ones like getInstance()? btw didn't update references to
-	//restaurant anywhere besides creating the intermediate class and the list here because i wasn't sure what you guys wanted to do.
-	//feel free to use this or scrap this - angelica
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in A**)
@@ -109,6 +105,7 @@ public class ContactList {
 	static final Location cRESTAURANT_LOCATION4 = gridLocation(2, 3); //maggiyang	3
 	static final Location cRESTAURANT_LOCATION5 = gridLocation(0, 1); //davidmca	4
 	static final Location cRESTAURANT_LOCATION6 = gridLocation(0, 2); //smileham	5
+	public static final TranacRestaurant tranac = new TranacRestaurant();
 	static final Location cRESTAURANT_LOCATION7 = gridLocation(3, 1); //tranac		6
 	static final Location cRESTAURANT_LOCATION8 = gridLocation(3, 2); //xurex		7
 	static {

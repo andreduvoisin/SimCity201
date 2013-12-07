@@ -25,7 +25,7 @@ public class Bank {
 	public BankTellerRole teller; 
 	//guis
 	public List<BankCustomerGui> mCustomerGuis = new ArrayList<BankCustomerGui>();
-	//public List<BankGuardGui> mGuardGuis = new ArrayList<BankGuardGui>();
+	public List<BankGuardGui> mGuardGuis = new ArrayList<BankGuardGui>();
 	public List<BankTellerGui> mTellerGuis = new ArrayList<BankTellerGui>();
 	//private BankPanel BankPanel;
 	

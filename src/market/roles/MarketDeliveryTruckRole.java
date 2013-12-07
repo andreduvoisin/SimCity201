@@ -39,9 +39,11 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		super(person);
 		mMarketID = marketID;
 		
-		ContactList.sMarketList.get(mMarketID).mDeliveryTruck = this;
+		
 		mGui = new MarketDeliveryTruckGui(this);
-		//ANGELICA: add delivery truck gui to the city view
+		ContactList.sMarketList.get(mMarketID).mDeliveryTruck = this;
+		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
+//		ContactList.sMarketList.get(mMarketID)..add(mGui); //ANGELICA: add delivery truck to gui...
 	}
 	
 /* Messages */
