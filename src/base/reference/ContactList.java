@@ -19,22 +19,25 @@ public class ContactList {
 	public static final int cNumRestaurants = 8;
 	
 	//Setup
-	public void setup(){
+	public static void setup(){
 		
 		//Banks
 		for (int iBankNum = 0; iBankNum < cNumBanks; iBankNum++){
-			sBanks.add(new Bank());
+			sBankList.add(new Bank());
 		}
 		
 		//Markets
+		for (int iMarketNum = 0; iMarketNum < cNumMarkets; iMarketNum ++){
+			sMarketList.add(new Market());
+		}
 	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
 	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	public static List<Market> sMarketList = Collections.synchronizedList(new ArrayList<Market>());
-	public static List<House> sHouses = Collections.synchronizedList(new ArrayList<House>());
-	public static List<Bank> sBanks = Collections.synchronizedList(new ArrayList<Bank>());
+	public static List<House> sHouseList = Collections.synchronizedList(new ArrayList<House>());
+	public static List<Bank> sBankList = Collections.synchronizedList(new ArrayList<Bank>());
 	
 	public static List<Restaurant> sRestaurants = Collections.synchronizedList(new ArrayList<Restaurant>());
 	
