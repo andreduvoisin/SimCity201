@@ -204,4 +204,10 @@ public class MockPerson extends Mock implements Person {
 		
 	}
 
+	@Override
+	public void msgStateChanged() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
