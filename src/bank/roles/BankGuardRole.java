@@ -25,11 +25,10 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	private int mBankID;
 	
 	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
-	public List<BankCustomer> mCustomers = Collections.synchronizedList(new ArrayList<BankCustomer>());
-	public List<BankCustomer> mCriminals = Collections.synchronizedList(new ArrayList<BankCustomer>());
-	//REX : I would instead make an enum for both the customer state such as "CUSTOMER, CRIMINAL" instead of using
-	//using two different arrays becasue you would have to remove the customer from the first one when adding it to 
-	//the second
+	public Map <BankCustomer, Boolean> mCustomers = Collections.synchronizedMap(new HashMap<BankCustomer, Boolean>());
+	//public List<BankCustomer> mCustomers = Collections.synchronizedList(new ArrayList<BankCustomer>());
+	//public List<BankCustomer> mCriminals = Collections.synchronizedList(new ArrayList<BankCustomer>());
+
 	//GUI
 	public BankGuardGui mGUI;
 	
@@ -44,7 +43,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 	public void msgNeedService(BankCustomer c){
 		synchronized(mCustomers) {
-			mCustomers.add(c);
+			mCustomers.put(c, false);
 		}
 		stateChanged();
 	}
@@ -57,8 +56,8 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		stateChanged();
 	}*/
 	public void msgRobberAlert(BankCustomer c){
-		synchronized(mCriminals) {
-			mCriminals.add(c);
+		synchronized(mCustomers) {
+			mCustomers.put(c, true);
 		}
 		stateChanged();
 	}
@@ -66,15 +65,17 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 //	SCHEDULER
 	
 	public boolean pickAndExecuteAnAction(){
-		synchronized(mCriminals) {
-			for (BankCustomer c : mCriminals){
-				killRobber(c);
-				mCriminals.remove(c);
+		synchronized(mCustomers) {
+			for (BankCustomer c : mCustomers.keySet()){
+				if(mCustomers.get(c)){
+					killRobber(c);
+					mCustomers.remove(c);
+				}
 				return true;
 			}
 		}
 		synchronized(mCustomers) {
-			for (BankCustomer c : mCustomers){
+			for (BankCustomer c : mCustomers.keySet()){
 				for (BankTeller t : mTellers.keySet()){
 					//if Teller t is available
 					if (mTellers.get(t)){
