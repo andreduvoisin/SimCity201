@@ -17,6 +17,7 @@ import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
+import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import base.BaseRole;
 import base.Time;
@@ -63,25 +64,27 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
     private final int WINDOWY = 500;
     private Image bufferImage;
     private Dimension bufferSize;
-    
+    /*
     private static JerrywebHostRole mHost;
     private static JerrywebCookRole mCook;
-    private static JerrywebCashierRole mCashier;
-    private static Vector<JerrywebCustomerRole> mCustomers;
+    private static JerrywebCashierRole mCashier;*/
+    public static JerrywebRestaurant restaurant;
+    //private static Vector<JerrywebCustomerRole> mCustomers;
     public static JerrywebAnimationPanel mInstance;
     private List<Gui> guis = new ArrayList<Gui>();
 
-    public JerrywebAnimationPanel(SimCityGui city) {
+    public JerrywebAnimationPanel(SimCityGui city, JerrywebRestaurant r) {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
     	setVisible(true);
-        mInstance = this;
-        bufferSize = this.getSize();
-        mCustomers = new Vector<JerrywebCustomerRole>();
+    	this.restaurant = r; 
+        //mInstance = this;
+        //bufferSize = this.getSize();
+        //mCustomers = new Vector<JerrywebCustomerRole>();
     	Timer timer = new Timer(Time.cSYSCLK/10, this );
     	timer.start();
     }
-
+    /*
     public static void addPerson(BaseRole role){
     	if (role instanceof JerrywebCustomerRole){
     		JerrywebCustomerRole customer = (JerrywebCustomerRole) role;
@@ -102,11 +105,11 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
     	else if (role instanceof JerrywebCashierRole){
     		mCashier = (JerrywebCashierRole) role;
     	}
-    }
+    }*/
 	public void actionPerformed(ActionEvent e) {
 		
-			synchronized (guis) {
-	        	for(Gui gui : guis) {
+			synchronized (restaurant.guis) {
+	        	for(Gui gui : restaurant.guis) {
 	                if (gui.isPresent()) {
 	                    gui.updatePosition();
 	                }
@@ -117,7 +120,10 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 
     public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
-
+        
+		// Clear the screen by painting a rectangle the size of the frame
+		g2.setColor(getBackground());
+		g2.fillRect(0, 0, WINDOWX, WINDOWY);
         //Clear the screen by painting a rectangle the size of the frame
         g2.setColor(getBackground());
         g2.fillRect(panelXpos, panelYpos, WINDOWX, WINDOWY ); //This centers the screen on the restaurant scene with the table located in it... if not located at 0,0 then 
@@ -146,15 +152,15 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
         g2.setColor(Color.YELLOW);
         g2.fillRect(cookXpos, cookYpos, cookWidth, cookHeight);
 
-        synchronized(guis){
-        	for(Gui gui : guis) {
+        synchronized(restaurant.guis){
+        	for(Gui gui : restaurant.guis) {
         		if (gui.isPresent()) {
         			gui.draw(g2);
         		}
         	}
         }
     }
-
+    /*
     public void addGui(CustomerGui gui) {
         guis.add(gui);
     }
@@ -171,7 +177,7 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	public void removeGui(Gui gui){
 		guis.remove(gui);
 	}
-	
+	/*
 	public static JerrywebHostRole getHost(){
 		return mHost;
 	}
@@ -182,5 +188,5 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	
 	public static JerrywebCookRole getCook(){
 		return mCook;
-	}
+	}*/
 }

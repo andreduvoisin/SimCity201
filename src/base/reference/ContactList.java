@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import restaurant.restaurant_davidmca.DavidRestaurant;
+import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
@@ -21,6 +22,7 @@ public class ContactList {
 	public static final int cNumHouses = 80;
 	public static DavidRestaurant DavidRestaurant;
 	public static TranacRestaurant TranacRestaurant;
+	public static JerrywebRestaurant JerrywebRestaurant;
 	static double rent = 10;
 	//Setup
 	public static void setup(){
@@ -42,6 +44,8 @@ public class ContactList {
 		// Restaurants
 		DavidRestaurant = new DavidRestaurant();
 		TranacRestaurant = new TranacRestaurant();
+		JerrywebRestaurant = new JerrywebRestaurant();
+
 		cRESTAURANT_LOCATIONS = new ArrayList<Location>();
 		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION1);
 		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION2);
@@ -51,7 +55,7 @@ public class ContactList {
 		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION6);
 		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION7);
 		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION8);
-		
+
 	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
