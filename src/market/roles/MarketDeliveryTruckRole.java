@@ -5,18 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import restaurant.intermediate.RestaurantCookRole;
 import market.MarketOrder;
-import market.MarketOrder.EnumOrderEvent;
-import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
+import restaurant.intermediate.RestaurantCookRole;
 import base.BaseRole;
 import base.Location;
-import base.PersonAgent;
 import base.interfaces.Person;
 import base.reference.ContactList;
-import city.gui.SimCityGui;
 
 /**
  * MarketDeliveryTruck for SimCity Market agents.

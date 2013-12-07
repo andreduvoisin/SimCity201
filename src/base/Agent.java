@@ -2,10 +2,9 @@ package base;
 
 import java.util.concurrent.Semaphore;
 
-import city.gui.SimCityGui;
+import restaurant.restaurant_smileham.test.mock.EventLog;
 import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
-import restaurant.restaurant_smileham.test.mock.EventLog;
 
 // ALL: DO NOT COMMIT CODE THAT CAUSES ERRORS IN THE PROJECT
 

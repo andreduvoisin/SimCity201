@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import market.gui.MarketBaseGui;
 import bank.gui.BankCustomerGui;
 import bank.gui.BankGuardGui;
 import bank.gui.BankTellerGui;
-import bank.gui.BankPanel;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
@@ -27,7 +25,7 @@ public class Bank {
 	public BankTellerRole teller; 
 	//guis
 	public List<BankCustomerGui> mCustomerGuis = new ArrayList<BankCustomerGui>();
-	//public List<BankGuardGui> mGuardGuis = new ArrayList<BankGuardGui>();
+	public List<BankGuardGui> mGuardGuis = new ArrayList<BankGuardGui>();
 	public List<BankTellerGui> mTellerGuis = new ArrayList<BankTellerGui>();
 	//private BankPanel BankPanel;
 	

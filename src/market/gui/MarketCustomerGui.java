@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import city.gui.SimCityGui;
 import market.interfaces.MarketCustomer;
+import city.gui.SimCityGui;
 
 public class MarketCustomerGui implements MarketBaseGui {
 	private MarketCustomer mAgent;

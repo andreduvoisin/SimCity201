@@ -3,7 +3,6 @@ package city.gui;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,8 +19,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import city.gui.trace.*;
 import base.ConfigParser;
+import city.gui.trace.AlertLevel;
+import city.gui.trace.AlertLog;
+import city.gui.trace.AlertTag;
+import city.gui.trace.TracePanel;
 
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{

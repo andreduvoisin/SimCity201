@@ -1,12 +1,12 @@
 package market.test.mock;
 
-import base.Item.EnumItemType;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.gui.MarketCashierGui;
 import market.interfaces.MarketCashier;
 import test.mock.LoggedEvent;
 import test.mock.Mock;
+import base.Item.EnumItemType;
 
 /**
  * MockCashier for unit testing.
