@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Vector;
 
 import restaurant.restaurant_jerryweb.gui.Gui;
+import restaurant.restaurant_jerryweb.gui.WaiterGui;
+import restaurant.restaurant_jerryweb.interfaces.Host;
+import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
 
 public class JerrywebRestaurant {
@@ -36,6 +39,9 @@ public class JerrywebRestaurant {
     		NumOfCustomers++;
     	}
     	else if (role instanceof JerrywebWaiterRole){
+    		WaiterGui gui = new WaiterGui((Waiter) role, host);
+    		((JerrywebWaiterRole) role).setGui(gui);
+    		guis.add(gui);
     		JerrywebWaiterRole waiter = (JerrywebWaiterRole) role;
     		waiter.setHost(host);
     		JerrywebHostRole host = waiter.getHost();
@@ -43,6 +49,9 @@ public class JerrywebRestaurant {
     		NumOfWatiers++;
     	}
     	else if (role instanceof JerrywebRSWaiterRole){
+    		WaiterGui gui = new WaiterGui((Waiter) role, host);
+    		((JerrywebWaiterRole) role).setGui(gui);
+    		guis.add(gui);
     		JerrywebRSWaiterRole rswaiter = (JerrywebRSWaiterRole) role;
     		rswaiter.setHost(host);
     		JerrywebHostRole host = rswaiter.getHost();

@@ -112,7 +112,7 @@ public class JerrywebHostRole extends BaseRole {
 		Waiters.add(new MyWaiter(w, WaiterState.free));
 //		print("Added waiter " + w.getName());
 //		print("" + Waiters.size());
-		stateChanged();
+//		stateChanged();
 	}
 
 	public Collection getTables() {
