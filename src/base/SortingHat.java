@@ -77,7 +77,7 @@ public class SortingHat {
 		}
 		
 		//Create roles filled matrix
-		for (int i = 0; i < 3; i++){
+		for (int i = 0; i < 2; i++){
 			Map<Role, Boolean> shiftRoles = new HashMap<Role, Boolean>();
 			for (Role iRole : sRoles){
 				shiftRoles.put(iRole, false);
