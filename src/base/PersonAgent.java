@@ -581,6 +581,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void planParty(int time){
+		print("Planning a party");
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		mEvents.add(new Event(EnumEventType.INVITE2, time+2));
 //		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host

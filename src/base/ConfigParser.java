@@ -64,7 +64,7 @@ public class ConfigParser {
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
 			//ALL HACK: CONFIG FILE HACKS
-			if(name.contains("partyPerson")){
+			if(name.equals("partyPerson") || name.equals("partyPersonNO")){
 				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
 			}
 			
