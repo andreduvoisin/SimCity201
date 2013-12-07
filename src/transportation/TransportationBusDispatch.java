@@ -21,8 +21,13 @@ public class TransportationBusDispatch extends Agent {
 	// ------------------------------------- DATA ---------------------------------------
 	// ==================================================================================
 
-	TransportationBusInstance mBus;
 	public List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
+	public List<TransportationRider> mRiders = new ArrayList<TransportationRider>();
+	CityBus mGui;
+	int mCurrentStop;
+	
+	enum enumState { readyToTravel, traveling, readyToUnload, unloading, readyToBoard, boarding }
+	enumState state;
 
 
 	// ==================================================================================
@@ -36,7 +41,7 @@ public class TransportationBusDispatch extends Agent {
 	public void msgGuiArrivedAtStop() {
 		//print("msgGuiArrivedAtStop()");
 
-		mBus.state = TransportationBusInstance.enumState.readyToUnload;
+		state = enumState.readyToUnload;
 
 		// If no buses are busy, run scheduler
 		if (NoBusesBusy()) {
@@ -66,11 +71,11 @@ public class TransportationBusDispatch extends Agent {
 
 		mBusStops.get(r.getStop()).mWaitingPeople.remove(r);
 
-		if (mBus.mCurrentStop == r.getStop()) {
-			mBus.mRiders.add(r);
+		if (mCurrentStop == r.getStop()) {
+			mRiders.add(r);
 
 			if (mBusStops.get(r.getStop()).mWaitingPeople.isEmpty()) {
-				mBus.state = TransportationBusInstance.enumState.readyToTravel;
+				state = enumState.readyToTravel;
 			}
 		}
 
@@ -88,22 +93,22 @@ public class TransportationBusDispatch extends Agent {
 		print("msgImOff()");
 
 		// Remove rider from correct bus's rider list
-			for (TransportationRider iRider : mBus.mRiders) {
+			for (TransportationRider iRider : mRiders) {
 				if (iRider.equals(r)) {
-					mBus.mRiders.remove(iRider);
+					mRiders.remove(iRider);
 					break;
 				}
 			}
 
 			// If more riders need to get off here, do nothing (wait for them)
-			for (TransportationRider iRider : mBus.mRiders) {
-				if (iRider.getDestination() == mBus.mCurrentStop) {
+			for (TransportationRider iRider : mRiders) {
+				if (iRider.getDestination() == mCurrentStop) {
 					return;
 				}
 			}
 
 			// Otherwise change state and run scheduler to board waiting people
-			mBus.state = TransportationBusInstance.enumState.readyToBoard;
+			state = enumState.readyToBoard;
 
 		if (NoBusesBusy()) {
 			stateChanged();
@@ -116,28 +121,28 @@ public class TransportationBusDispatch extends Agent {
 	// ==================================================================================
 
 	public boolean pickAndExecuteAnAction() {
-		if (mBus.state.equals(TransportationBusInstance.enumState.readyToUnload)) {
-			if (! mBus.mRiders.isEmpty()) {
+		if (state.equals(enumState.readyToUnload)) {
+			if (! mRiders.isEmpty()) {
 				TellRidersToGetOff();
 			}
 			else {
-				mBus.state = TransportationBusInstance.enumState.readyToBoard;
+				state = enumState.readyToBoard;
 				return true;
 			}
 		}
 
-		if (mBus.state.equals(TransportationBusInstance.enumState.readyToBoard)) {
-			if (! mBusStops.get(mBus.mCurrentStop).mWaitingPeople.isEmpty()) {
+		if (state.equals(enumState.readyToBoard)) {
+			if (! mBusStops.get(mCurrentStop).mWaitingPeople.isEmpty()) {
 				TellRidersToBoard();
 				return true;
 			}
 			else {
-				mBus.state = TransportationBusInstance.enumState.readyToTravel;
+				state = enumState.readyToTravel;
 				return true;
 			}
 		}
 		
-		if (mBus.state.equals(TransportationBusInstance.enumState.readyToTravel)) {
+		if (state.equals(enumState.readyToTravel)) {
 			AdvanceToNextStop();
 			return true;
 		}
@@ -158,17 +163,14 @@ public class TransportationBusDispatch extends Agent {
 	private void TellRidersToGetOff() {
 		//print("TellRidersToGetOff()");
 
-			mBus.state = TransportationBusInstance.enumState.unloading;
+			state = enumState.unloading;
 			boolean needToWait = false;
 	
-			for (TransportationRider iRider : mBus.mRiders) {
-				if (iRider.getDestination() == mBus.mCurrentStop) {
-					needToWait = true;
-					iRider.msgAtYourStop();
-				}
+			for (TransportationRider iRider : mRiders) {
+				iRider.msgAtStop(mCurrentStop);
 			}
 
-			if (! needToWait) mBus.state = TransportationBusInstance.enumState.readyToBoard;
+			state = enumState.readyToBoard;
 
 		// If no buses have riders to unload move on in scheduler
 		if (NoBusesBusy()) {
@@ -183,13 +185,13 @@ public class TransportationBusDispatch extends Agent {
 	private void TellRidersToBoard() {
 		print("TellRidersToBoard()");
 
-			if (mBusStops.get(mBus.mCurrentStop).mWaitingPeople.isEmpty()) {
-				mBus.state = TransportationBusInstance.enumState.readyToTravel;
+			if (mBusStops.get(mCurrentStop).mWaitingPeople.isEmpty()) {
+				state = enumState.readyToTravel;
 			}
 			else {
-				mBus.state = TransportationBusInstance.enumState.boarding;
+				state = enumState.boarding;
 
-				for (TransportationRider r : mBusStops.get(mBus.mCurrentStop).mWaitingPeople) {
+				for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
 					r.msgBoardBus();
 				}
 			}
@@ -207,27 +209,21 @@ public class TransportationBusDispatch extends Agent {
 	private void AdvanceToNextStop() {
 		//print("AdvanceToNextStop()");
 
-		mBus.state = TransportationBusInstance.enumState.traveling;
+		state = enumState.traveling;
 
 		// Gui has a list of bus stop coordinates
-		mBus.mGui.DoAdvanceToNextStop();
+		mGui.DoAdvanceToNextStop();
 	}
 
 	private boolean NoBusesBusy() {
 		//print("NoBusesBusy?");
 
-			if (mBus.isBusy()) {
+			if (this.isBusy()) {
 				//print("False!");
 				return false;
 			}
 		//print("True!");
 		return true;
-	}
-
-	public void addBus(TransportationBusInstance tbi) {
-		//print("addBus()");
-//CHASE
-		//mBus.add(tbi);
 	}
 
 	public String getName() {
@@ -238,7 +234,7 @@ public class TransportationBusDispatch extends Agent {
 	 * @return Most recently added BusInstance's GUI
 	 */
 	public CityBus getBusGui() {
-		return mBus.mGui;
+		return mGui;
 	}
 
 	public int getBusStopClosestTo(Location loc) {
@@ -261,14 +257,12 @@ public class TransportationBusDispatch extends Agent {
 	}
 
 	public TransportationBusDispatch() {
-		List<Location> busStops = base.reference.ContactList.cBUS_STOPS;
-		for (Location iL : busStops) {
-			mBusStops.add(new TransportationBusStop(iL));
-		}
-		
 		instance = this;
 
-		mBus = new TransportationBusInstance(this, busStops);
+		mGui = new CityBus(this);
+
+		mCurrentStop = 0;
+		state = enumState.traveling;
 	}
 	
 	public void Do(String msg) {
@@ -281,5 +275,11 @@ public class TransportationBusDispatch extends Agent {
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.TRANSPORTATION, e);
+	}
+
+	public boolean isBusy() {
+		return state.equals(enumState.traveling)
+				|| state.equals(enumState.unloading)
+				|| state.equals(enumState.boarding);
 	}
 }
