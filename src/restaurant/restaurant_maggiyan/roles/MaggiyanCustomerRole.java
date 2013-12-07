@@ -13,8 +13,6 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
-import restaurant.restaurant_smileham.roles.SmilehamCustomerRole.EnumAgentEvent;
-import restaurant.restaurant_smileham.roles.SmilehamCustomerRole.EnumAgentState;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;

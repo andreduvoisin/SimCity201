@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
@@ -23,19 +22,10 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
-import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
-import restaurant.restaurant_smileham.interfaces.SmilehamCook;
-import restaurant.restaurant_smileham.interfaces.SmilehamHost;
-import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
-import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
-import restaurant.restaurant_smileham.roles.SmilehamCookRole;
-import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
-import restaurant.restaurant_smileham.roles.SmilehamHostRole;
-import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
-import city.gui.CityCard;
-import city.gui.SimCityGui;
 import base.BaseRole;
 import base.Time;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
 	public static MaggiyanAnimationPanel mInstance; 

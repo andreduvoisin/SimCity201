@@ -2,10 +2,10 @@ package restaurant.intermediate.interfaces;
 
 import java.util.Map;
 
-import base.Item.EnumItemType;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.interfaces.MarketCashier;
+import base.Item.EnumItemType;
 
 /**
  * Interface/functionality to allow restaurant cashiers

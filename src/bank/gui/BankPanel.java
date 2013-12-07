@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -20,8 +19,6 @@ import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.Gui;
-import base.interfaces.Person;
-import base.interfaces.Role;
 import base.reference.Bank;
 import city.gui.CityCard;
 import city.gui.SimCityGui;

@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import base.Gui;
 import restaurant.restaurant_davidmca.gui.CookGui;
 import restaurant.restaurant_davidmca.gui.CustomerGui;
 import restaurant.restaurant_davidmca.gui.WaiterGui;
@@ -16,6 +15,7 @@ import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
+import base.Gui;
 
 public class DavidRestaurant {
 	

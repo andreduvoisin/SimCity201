@@ -10,9 +10,6 @@ import market.gui.MarketWorkerGui;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
-import market.roles.MarketCashierRole;
-import market.roles.MarketDeliveryTruckRole;
-import market.roles.MarketWorkerRole;
 
 public class Market {
 	public int mMarketID;

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import base.Event;
 import base.Item.EnumItemType;
-import city.gui.CityHousing;
 import city.gui.CityPerson;
 
 public interface Person {
