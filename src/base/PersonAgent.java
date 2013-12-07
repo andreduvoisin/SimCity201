@@ -375,10 +375,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		print("goToJob");
+		//print("goToJob");
 		Role jobRole = getJobRole();
 		if(jobRole == null){
-			print("didn't go to job"); return;
+			//print("didn't go to job"); 
+			return;
 		}
 		mPersonGui.DoGoToDestination(getJobLocation()); 
 		acquireSemaphore(semAnimationDone);

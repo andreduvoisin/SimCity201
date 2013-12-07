@@ -24,6 +24,8 @@ import base.interfaces.Person;
 	• Don't forget to go to the parties when the time arrives!!
  */
 
+//REX: remove redundancies by removing event location
+
 public class EventParty extends Event{
 	public EventParty(EnumEventType type, int time, Location location, Person host, List<Person> pplInvited) {
 		super(type, time, location);
