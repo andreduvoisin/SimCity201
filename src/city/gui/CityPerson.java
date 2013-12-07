@@ -249,7 +249,7 @@ public class CityPerson extends CityComponent {
 	/**
 	 * Finds closest corner location to desired destination
 	 * <pre>
-	 * 1  0
+	 * 1  0 //CHASE: do these correlate with busStop numbers?
 	 * 2  3
 	 * </pre>
 	 * @param destination Target position in form of a Location object
