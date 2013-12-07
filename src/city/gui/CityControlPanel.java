@@ -1,7 +1,5 @@
 package city.gui;
 
-//import housing.gui.HousingHouseGuiPanel;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -31,10 +29,11 @@ import city.gui.trace.TracePanel;
 public class CityControlPanel extends JPanel implements ActionListener{
 	SimCityGui city;
 	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
-	public static final int TABBED_HEIGHT_ADJ = 26;
+	public static final int TABBED_HEIGHT_ADJ = 60;
 	
-	// Title & Pause Button
-	JLabel title = new JLabel("Control Panel");
+	// Title & Display Button
+	JLabel title;
+	JButton toggleGUI;
     
     // Tabs
     JTabbedPane tabbedPane = new JTabbedPane();
@@ -54,18 +53,23 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JCheckBox CBLevel_MESSAGE;
     JCheckBox CBLevel_DEBUG;
     // Tags
-    JComboBox tags;
-    String[] tagList = { "All", "Person", "Bank Teller", "Bank Customer", "Bus Stop", "Restaurant", "Bank", "General City" };
+    @SuppressWarnings("rawtypes")
+	JComboBox tags;
+    String[] tagList = {"All", "Person", "Bank Teller", "Bank Customer", "Bus Stop", "Restaurant", "Bank", "General City"};
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
 		this.city = city;
 		this.setPreferredSize(new Dimension(CP_WIDTH, CP_HEIGHT));
+		this.setMinimumSize(new Dimension(CP_WIDTH, CP_HEIGHT));
+		this.setMaximumSize(new Dimension(CP_WIDTH, CP_HEIGHT));
 		this.setVisible(true);
 		
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 2));
 		
 		// Title
+		title = new JLabel("Control Panel");
 		Font font = title.getFont();
 		Map attributes = font.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
@@ -74,8 +78,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(title);
         
-		// Tabs        
-        Dimension tabbedPaneDim = new Dimension(CP_WIDTH, CP_HEIGHT - TABBED_HEIGHT_ADJ);
+		// Tabs
+		Dimension tabbedPaneDim = new Dimension(CP_WIDTH, CP_HEIGHT - TABBED_HEIGHT_ADJ);
         tabbedPane.setPreferredSize(tabbedPaneDim);
         tabbedPane.setMinimumSize(tabbedPaneDim);
         tabbedPane.setMaximumSize(tabbedPaneDim);
@@ -88,153 +92,40 @@ public class CityControlPanel extends JPanel implements ActionListener{
         tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
         add(tabbedPane);
         
+        // Pretty/Ugly View
+        toggleGUI = new JButton("Show Grading View");
+        Dimension tgDim = toggleGUI.getPreferredSize();
+        tgDim.width += 10;
+        toggleGUI.setPreferredSize(tgDim);
+        toggleGUI.setMinimumSize(tgDim);
+        toggleGUI.setMaximumSize(tgDim);
+        toggleGUI.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(SimCityGui.GRADINGVIEW)
+					toggleGUI.setText("Show Grading View");
+				else
+					toggleGUI.setText("Show Beautiful View");
+				
+				SimCityGui.GRADINGVIEW = !SimCityGui.GRADINGVIEW;
+			}
+		});
+        add(toggleGUI);
+        
+        // Scenarios Panel
+        initScenarios();
+        
         // Trace Panel
         initTrace();
-        TraceTab.setLayout(new BorderLayout(0, 5));
-        TraceTab.add(traceSelectionPanel, BorderLayout.NORTH);
-        TraceTab.add(tracePanel, BorderLayout.CENTER);
         
-    	//Scenarios Config Tab
-    	initScenarios();
+        // People Panel
+        initPeople();
+        
+        // Properties Panel
+        initProperties();
 	}
 	
-	public void initTrace() {
-		tracePanel = new TracePanel();
-		
-		// Show/Hide Alerts (defaults set here)
-		tracePanel.showAlertsForAllLevels();
-		tracePanel.showAlertsForAllTags();
-		
-		// Action Listener
-		AlertLog.getInstance().addAlertListener(tracePanel);
-		
-		// Trace Selection Panel Panel
-		traceSelectionPanel = new JPanel();
-		traceSelectionPanel.setLayout(new BorderLayout(0, 5));
-		
-		// NOTE: Must do SOUTH before NORTH or ComboBox gets overlapped. lol
-	    // South: JCheckBoxES
-		JPanel holdLevels = new JPanel();
-		holdLevels.setLayout(new BorderLayout());
-		
-		JLabel levelsTitle = new JLabel("Select Levels to View:");
-		
-		JPanel holdCBs = new JPanel();
-		holdCBs.setLayout(new GridLayout(3, 2));
-	    CBLevel_ERROR = new JCheckBox("Errors", true);
-	    CBLevel_WARNING = new JCheckBox("Warnings", true);
-	    CBLevel_INFO = new JCheckBox("Info", true);
-	    CBLevel_MESSAGE = new JCheckBox("Messages", true);
-	    CBLevel_DEBUG = new JCheckBox("Debugs", true);
-	    holdCBs.add(CBLevel_ERROR);
-	    holdCBs.add(CBLevel_WARNING);
-	    holdCBs.add(CBLevel_INFO);
-	    holdCBs.add(CBLevel_MESSAGE);
-	    holdCBs.add(CBLevel_DEBUG);
-	    
-	    holdLevels.add(levelsTitle, BorderLayout.NORTH);
-	    holdLevels.add(holdCBs, BorderLayout.CENTER);
-	    traceSelectionPanel.add(holdLevels, BorderLayout.CENTER);
-	    
-		// North: COMBOBOX
-		JPanel holdTags = new JPanel();
-		holdTags.setLayout(new BorderLayout());
-		
-		JLabel tagsTitle = new JLabel("Select Tags to View:");
-		
-	    tags = new JComboBox(tagList);
-	    tags.setSelectedIndex(0);
-	    
-	    holdTags.add(tagsTitle, BorderLayout.NORTH);
-	    holdTags.add(tags, BorderLayout.CENTER);
-	    traceSelectionPanel.add(holdTags, BorderLayout.NORTH);
-	    
-	    // Add action listeners.
-	    CBLevel_ERROR.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(CBLevel_ERROR.isSelected()) {
-					tracePanel.showAlertsWithLevel(AlertLevel.ERROR);
-				} else {
-					tracePanel.hideAlertsWithLevel(AlertLevel.ERROR);
-				}
-			}
-		});
-	    CBLevel_WARNING.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(CBLevel_WARNING.isSelected()) {
-					tracePanel.showAlertsWithLevel(AlertLevel.WARNING);
-				} else {
-					tracePanel.hideAlertsWithLevel(AlertLevel.WARNING);
-				}
-			}
-		});
-	    CBLevel_INFO.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(CBLevel_INFO.isSelected()) {
-					tracePanel.showAlertsWithLevel(AlertLevel.INFO);
-				} else {
-					tracePanel.hideAlertsWithLevel(AlertLevel.INFO);
-				}
-			}
-		});
-	    CBLevel_MESSAGE.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(CBLevel_MESSAGE.isSelected()) {
-					tracePanel.showAlertsWithLevel(AlertLevel.MESSAGE);
-				} else {
-					tracePanel.hideAlertsWithLevel(AlertLevel.MESSAGE);
-				}
-			}
-		});
-	    CBLevel_DEBUG.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if(CBLevel_DEBUG.isSelected()) {
-					tracePanel.showAlertsWithLevel(AlertLevel.DEBUG);
-				} else {
-					tracePanel.hideAlertsWithLevel(AlertLevel.DEBUG);
-				}
-			}
-		});
-	    
-	    tags.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				tracePanel.hideAlertsForAllTags();
-				switch((String)tags.getSelectedItem()) {
-					case "All":
-						tracePanel.showAlertsForAllTags();
-						break;
-					case "Person":
-						tracePanel.showAlertsWithTag(AlertTag.PERSON);
-						break;
-					case "Bank Teller":
-						tracePanel.showAlertsWithTag(AlertTag.BANK_TELLER);
-						break;
-					case "Bank Customer":
-						tracePanel.showAlertsWithTag(AlertTag.BANK_CUSTOMER);
-						break;
-					case "Bus Stop":
-						tracePanel.showAlertsWithTag(AlertTag.BUS_STOP);
-						break;
-					case "Restaurant":
-						tracePanel.showAlertsWithTag(AlertTag.RESTAURANT);
-						break;
-					case "Bank":
-						tracePanel.showAlertsWithTag(AlertTag.BANK);
-						break;
-					case "General City":
-						tracePanel.showAlertsWithTag(AlertTag.GENERAL_CITY);
-						break;
-				}
-			}
-		});
-	}
-	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initScenarios() {
 		//ScenariosTab.setLayout(new GridLayout(18, 1));
 		
@@ -295,7 +186,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		// Dimensions of Buttons
 		Dimension buttonDim = scenarioA.getPreferredSize();
-		buttonDim.height -= 2;
+		buttonDim.height -= 4;
 		buttonDim.width = 180;
 		scenarioA.setPreferredSize(buttonDim);
 		scenarioB.setPreferredSize(buttonDim);
@@ -404,6 +295,157 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				
 			}
 		});
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void initTrace() {
+		tracePanel = new TracePanel();
+		
+		// Show/Hide Alerts (defaults set here)
+		tracePanel.showAlertsForAllLevels();
+		tracePanel.showAlertsForAllTags();
+		
+		// Action Listener
+		AlertLog.getInstance().addAlertListener(tracePanel);
+		
+		// Trace Selection Panel Panel
+		traceSelectionPanel = new JPanel();
+		traceSelectionPanel.setLayout(new BorderLayout(0, 5));
+		
+		// NOTE: Must do SOUTH before NORTH or ComboBox gets overlapped. lol
+	    // South: JCheckBoxES
+		JPanel holdLevels = new JPanel();
+		holdLevels.setLayout(new BorderLayout());
+		
+		JLabel levelsTitle = new JLabel("Select Levels to View:");
+		
+		JPanel holdCBs = new JPanel();
+		holdCBs.setLayout(new GridLayout(3, 2));
+	    CBLevel_ERROR = new JCheckBox("Errors", true);
+	    CBLevel_WARNING = new JCheckBox("Warnings", true);
+	    CBLevel_INFO = new JCheckBox("Info", true);
+	    CBLevel_MESSAGE = new JCheckBox("Messages", true);
+	    CBLevel_DEBUG = new JCheckBox("Debugs", true);
+	    holdCBs.add(CBLevel_ERROR);
+	    holdCBs.add(CBLevel_WARNING);
+	    holdCBs.add(CBLevel_INFO);
+	    holdCBs.add(CBLevel_MESSAGE);
+	    holdCBs.add(CBLevel_DEBUG);
+	    
+	    holdLevels.add(levelsTitle, BorderLayout.NORTH);
+	    holdLevels.add(holdCBs, BorderLayout.CENTER);
+	    traceSelectionPanel.add(holdLevels, BorderLayout.CENTER);
+	    
+		// North: COMBOBOX
+		JPanel holdTags = new JPanel();
+		holdTags.setLayout(new BorderLayout());
+		
+		JLabel tagsTitle = new JLabel("Select Tags to View:");
+		
+	    tags = new JComboBox(tagList);
+	    tags.setSelectedIndex(0);
+	    
+	    holdTags.add(tagsTitle, BorderLayout.NORTH);
+	    holdTags.add(tags, BorderLayout.CENTER);
+	    traceSelectionPanel.add(holdTags, BorderLayout.NORTH);
+	    
+	    // Add to TraceTab
+	    TraceTab.setLayout(new BorderLayout(0, 5));
+        TraceTab.add(traceSelectionPanel, BorderLayout.NORTH);
+        TraceTab.add(tracePanel, BorderLayout.CENTER);
+	    
+	    // Add action listeners.
+	    CBLevel_ERROR.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_ERROR.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.ERROR);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.ERROR);
+				}
+			}
+		});
+	    CBLevel_WARNING.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_WARNING.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.WARNING);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.WARNING);
+				}
+			}
+		});
+	    CBLevel_INFO.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_INFO.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.INFO);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.INFO);
+				}
+			}
+		});
+	    CBLevel_MESSAGE.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_MESSAGE.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.MESSAGE);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.MESSAGE);
+				}
+			}
+		});
+	    CBLevel_DEBUG.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(CBLevel_DEBUG.isSelected()) {
+					tracePanel.showAlertsWithLevel(AlertLevel.DEBUG);
+				} else {
+					tracePanel.hideAlertsWithLevel(AlertLevel.DEBUG);
+				}
+			}
+		});
+	    
+	    tags.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				tracePanel.hideAlertsForAllTags();
+				switch((String)tags.getSelectedItem()) {
+					case "All":
+						tracePanel.showAlertsForAllTags();
+						break;
+					case "Person":
+						tracePanel.showAlertsWithTag(AlertTag.PERSON);
+						break;
+					case "Bank Teller":
+						tracePanel.showAlertsWithTag(AlertTag.BANK_TELLER);
+						break;
+					case "Bank Customer":
+						tracePanel.showAlertsWithTag(AlertTag.BANK_CUSTOMER);
+						break;
+					case "Bus Stop":
+						tracePanel.showAlertsWithTag(AlertTag.BUS_STOP);
+						break;
+					case "Restaurant":
+						tracePanel.showAlertsWithTag(AlertTag.RESTAURANT);
+						break;
+					case "Bank":
+						tracePanel.showAlertsWithTag(AlertTag.BANK);
+						break;
+					case "General City":
+						tracePanel.showAlertsWithTag(AlertTag.GENERAL_CITY);
+						break;
+				}
+			}
+		});
+	}
+	
+	public void initPeople() {
+		
+	}
+	
+	public void initProperties() {
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {		

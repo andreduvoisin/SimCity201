@@ -59,7 +59,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mBankID = bankID;
 		
 		mGUI = new BankTellerGui(this);
-//		ContactList.sBanks.get(bankID)
+//		ContactList.sBanks.get(bankID).addPerson(this); //index out of bounds
 	}
 	
 	//------------------------------------------------------MESSAGES------------------------------------------------------
