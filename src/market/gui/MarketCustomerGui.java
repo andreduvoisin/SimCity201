@@ -23,7 +23,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 
 	private static final int xStart = -20, yStart = -20;
 	private static final int xMarket = 70, yMarket = 50;
-	private static final int xWaitingArea = 70, yWaitingArea = 200;
+	private static final int xWaitingArea = 50, yWaitingArea = 420;
 	
 	private int xPos = xStart, yPos = yStart;
 	private int xDestination = xStart, yDestination = yStart;
