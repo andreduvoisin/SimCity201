@@ -189,26 +189,30 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 mMarketCashier.msgOrderPlacement(o);
                 //ANGELICA: fill in each restaurant
                 RestaurantCashierRole restaurantCashier = null;
-                /*
-                switch(mRestaurantID) {
-                case 0:
-                	restaurantCashier = 
-                case 1:
-                	
-                case 2:
-                	
-                case 3:
-                	
-                case 4:
                 
-                case 5:
+                switch(mRestaurantID) {
+                case 0:	//andre
+                	restaurantCashier = AndreRestaurant.cashier.mRole;
+                	break;
+                case 1: //chase
                 	
-                case 6:
+                case 2: //jerry
+                	restaurantCashier = JerrywebRestaurant.cashier.mRole;
+                	break;
+                case 3: //maggi
                 	
-                case 7:
+                case 4: //david
+                	restaurantCashier = DavidRestaurant.cashier.mRole;
+                	break;
+                case 5: //shane
+                	
+                case 6: //angel
+                	restaurantCashier = TranacRestaurant.mCashier.mRole;
+                	break;
+                case 7: //rex
                 	 
                 }
-                */
+                
                 restaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
         }
         

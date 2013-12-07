@@ -22,7 +22,7 @@ import city.gui.trace.AlertTag;
  * Restaurant customer restaurant_davidmca.agent.
  */
 public class DavidCashierRole extends BaseRole implements Cashier {
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	
 	private String name;
 	public double totalCash;

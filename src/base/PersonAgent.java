@@ -337,8 +337,12 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof MarketCustomer){
 				if(!SimCityGui.TESTING) {
-					
-					Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+					Location location;
+					if(mSSN%2 == 0) {
+						location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+					} else {
+						location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
+					}
 					iRole.GoToDestination(location);
 					acquireSemaphore(semAnimationDone);
 				}
@@ -456,7 +460,12 @@ public class PersonAgent extends Agent implements Person {
 	
 /*************************************************************************/
 	public void getCar(){
-		Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+		Location location;
+		if(mSSN%2 == 0) {
+			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+		} else {
+			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
+		}
 		if(!SimCityGui.TESTING){
 			mPersonGui.DoGoToDestination(location);
 			acquireSemaphore(semAnimationDone);
