@@ -74,7 +74,7 @@ public class ConfigParser {
 			if(name.contains("renter"))
 				person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 0));
 
-			//DAVID SHANE - add more events
+			//DAVID SHANE: add more events
 			
 			synchronized (person) {
 				ContactList.sPersonList.add(person);

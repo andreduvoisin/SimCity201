@@ -37,11 +37,13 @@ public class PersonAgentTest extends TestCase {
 		
 		int cash = 100;
 		String name = "Dobby";
-		mPerson = new PersonAgent(EnumJobType.RESTAURANT, cash, name);
+		mPerson = new PersonAgent(EnumJobType.MARKET, cash, name);
 		mPerson.msgAddEvent(new Event(EnumEventType.EAT, 0));
 		
-//		mPerson.msgTimeShift();
-		
+		mPerson.msgTimeShift();
+		mPerson.msgAnimationDone();
+		mPerson.pickAndExecuteAnAction();
+		mPerson.addCash(0);
 	}
 	
 	public void testOne_BasicSetUp () {

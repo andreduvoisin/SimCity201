@@ -70,7 +70,7 @@ public class Time {
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 0
+		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 2
 		
 		/*mTimer.schedule(new TimerTask() {
 			
