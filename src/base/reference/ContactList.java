@@ -35,14 +35,8 @@ public class ContactList {
 	public static List<Market> sMarketList = Collections.synchronizedList(new ArrayList<Market>());
 	public static List<House> sHouses = Collections.synchronizedList(new ArrayList<House>());
 	public static List<Bank> sBanks = Collections.synchronizedList(new ArrayList<Bank>());
-	
-	public static List<Restaurant> sRestaurants = Collections.synchronizedList(new ArrayList<Restaurant>());
-	
+		
 	//DAVID JERRY SHANE: 0 TOP PRIORITY - add house/bank/market and separate data from gui
-	//DAVID JERRY SHANE: 1 i created an intermediate restaurant class for now. we'd have to go in and alter everyone's code to use 
-	//the same reference names and have a list or we can do individual ones like getInstance()? btw didn't update references to
-	//restaurant anywhere besides creating the intermediate class and the list here because i wasn't sure what you guys wanted to do.
-	//feel free to use this or scrap this - angelica
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in A**)

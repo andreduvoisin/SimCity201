@@ -22,8 +22,7 @@ import base.reference.ContactList;
 /**
  * Restaurant customer agent.
  */
-public class TranacCustomerRole extends BaseRole implements
-		TranacCustomer {
+public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	private TranacCustomerGui customerGui;
 	private int hungerLevel = 10; // determines length of meal
 	private final int baseMoney = 30;
