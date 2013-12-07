@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import restaurant.restaurant_jerryweb.gui.CustomerGui;
 import restaurant.restaurant_jerryweb.gui.Gui;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
 import restaurant.restaurant_jerryweb.interfaces.Host;
@@ -33,9 +34,18 @@ public class JerrywebRestaurant {
 	
 	public static void addPerson(BaseRole role){
     	if (role instanceof JerrywebCustomerRole){
+    		CustomerGui gui = new CustomerGui((JerrywebCustomerRole) role);
+    		//((JerrywebCustomerRole) role).setGui(gui);
+    		guis.add(gui);
     		JerrywebCustomerRole customer = (JerrywebCustomerRole) role;
-    		customers.add(customer);
+    		customer.setGui(gui);
+    		
+    		customer.setHost(host);
+    		customer.setCashier(cashier);
     		customer.gotHungry();
+    		customers.add(customer);
+    		
+    		
     		NumOfCustomers++;
     	}
     	else if (role instanceof JerrywebWaiterRole){
