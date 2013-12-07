@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.trace.AlertTag;
 import bank.BankAccount;
 import bank.BankTransaction;
 import bank.interfaces.BankMasterTeller;
@@ -14,6 +13,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	

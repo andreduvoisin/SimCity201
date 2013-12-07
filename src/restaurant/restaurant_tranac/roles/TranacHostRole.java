@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_tranac.gui.TranacHostGui;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
@@ -16,6 +15,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 
 /**

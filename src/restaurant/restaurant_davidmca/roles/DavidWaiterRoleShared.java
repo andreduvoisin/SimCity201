@@ -7,7 +7,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.Menu;
 import restaurant.restaurant_davidmca.Order;
@@ -22,6 +21,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Waiter Agent with Shared Data Uses Revolving Stand instead of

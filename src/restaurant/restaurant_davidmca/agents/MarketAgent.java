@@ -9,7 +9,6 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_davidmca.Menu;
 import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
@@ -17,6 +16,7 @@ import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import base.Agent;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.

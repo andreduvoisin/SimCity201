@@ -3,7 +3,6 @@ package restaurant.restaurant_cwagoner.roles;
 import java.util.ArrayList;
 import java.util.List;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
@@ -11,6 +10,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * "Greets" customers as they enter.

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import city.gui.trace.AlertTag;
 import bank.gui.BankGuardGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
@@ -14,6 +13,7 @@ import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
 //import interfaces
+import city.gui.trace.AlertTag;
 
 
 public class BankGuardRole extends BaseRole implements BankGuard{

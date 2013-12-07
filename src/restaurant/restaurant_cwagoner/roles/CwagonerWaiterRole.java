@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
@@ -19,6 +18,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 

@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_xurex.gui.CustomerGui;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import restaurant.restaurant_xurex.interfaces.Cashier;
@@ -20,6 +19,7 @@ import base.Event.EnumEventType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer agent.

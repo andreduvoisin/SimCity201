@@ -2,13 +2,13 @@ package transportation.roles;
 
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import transportation.TransportationBusDispatch;
 import transportation.gui.TransportationBusRiderGui;
 import transportation.interfaces.TransportationRider;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
+import city.gui.trace.AlertTag;
 
 public class TransportationBusRiderRole extends BaseRole implements TransportationRider {
 

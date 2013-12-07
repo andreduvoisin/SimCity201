@@ -8,7 +8,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
@@ -19,6 +18,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer agent.

@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_duvoisin.gui.TableGui;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
@@ -14,6 +13,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Host Agent

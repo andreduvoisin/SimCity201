@@ -9,7 +9,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
@@ -20,6 +19,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cook Agent

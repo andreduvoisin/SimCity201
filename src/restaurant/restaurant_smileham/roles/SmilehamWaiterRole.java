@@ -8,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_smileham.Food;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Menu;
@@ -27,6 +26,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Host Agent

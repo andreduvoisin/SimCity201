@@ -7,7 +7,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
@@ -23,6 +22,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 
 /**

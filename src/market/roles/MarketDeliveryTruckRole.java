@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import market.MarketOrder;
 import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
@@ -14,6 +13,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * MarketDeliveryTruck for SimCity Market agents.

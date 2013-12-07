@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import city.gui.trace.AlertTag;
 import bank.BankAccount;
 import bank.gui.BankTellerGui;
 import bank.interfaces.BankCustomer;
@@ -17,6 +16,7 @@ import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class BankTellerRole extends BaseRole implements BankTeller{
 

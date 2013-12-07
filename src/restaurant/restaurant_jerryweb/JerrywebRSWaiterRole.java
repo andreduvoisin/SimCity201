@@ -6,7 +6,6 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_jerryweb.JerrywebCookRole.OrderState;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
@@ -16,6 +15,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Waiter Agent

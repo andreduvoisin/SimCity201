@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.TranacRestaurant;
@@ -20,6 +19,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Waiter Agent

@@ -6,7 +6,6 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
@@ -16,6 +15,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 
 /**

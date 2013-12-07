@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
 import bank.interfaces.BankCustomer;
@@ -15,6 +14,7 @@ import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class BankCustomerRole extends BaseRole implements BankCustomer{
 	

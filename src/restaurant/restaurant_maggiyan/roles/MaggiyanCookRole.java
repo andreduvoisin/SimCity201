@@ -10,7 +10,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.Order.state;
@@ -22,6 +21,7 @@ import base.BaseRole;
 import base.Item;
 import base.Location;
 import base.interfaces.Person;
+import city.gui.trace.AlertTag;
 
 public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	RestaurantCookRole mRole;

@@ -4,7 +4,6 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_jerryweb.gui.CustomerGui;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
@@ -15,6 +14,7 @@ import base.Event.EnumEventType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer agent.

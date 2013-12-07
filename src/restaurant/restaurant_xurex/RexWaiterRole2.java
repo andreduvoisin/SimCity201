@@ -8,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -24,6 +23,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Waiter Agent

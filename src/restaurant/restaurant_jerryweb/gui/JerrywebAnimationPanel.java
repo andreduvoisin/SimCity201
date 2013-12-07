@@ -9,17 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.Timer;
 
-import restaurant.restaurant_jerryweb.JerrywebCashierRole;
-import restaurant.restaurant_jerryweb.JerrywebCookRole;
-import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
-import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
-import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
-import base.BaseRole;
 import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_duvoisin.MarketPrices;
 import restaurant.restaurant_duvoisin.Menu;
@@ -18,6 +17,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cashier Agent

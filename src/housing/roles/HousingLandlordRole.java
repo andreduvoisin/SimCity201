@@ -10,7 +10,6 @@ import java.util.List;
 
 import base.interfaces.Person;
 import base.reference.House;
-import city.gui.CityHousing;
 
 /*
  * @author David Carr, Maggi Yang

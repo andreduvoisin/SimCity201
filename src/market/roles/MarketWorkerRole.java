@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
@@ -16,6 +15,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * MarketWorkerRole for SimCity Market agents.
