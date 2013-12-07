@@ -187,7 +187,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
         		}
                 mMarketCashier.msgOrderPlacement(o);
-                //ANGELICA: fill in each restaurant
+                //ANGELICA: 0 fill in each restaurant
                 RestaurantCashierRole restaurantCashier = null;
                 
                 switch(mRestaurantID) {
@@ -196,21 +196,25 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	break;
                 case 1: //chase
                 	
+                	break;
                 case 2: //jerry
                 	restaurantCashier = JerrywebRestaurant.cashier.mRole;
                 	break;
                 case 3: //maggi
                 	
+                	break;
                 case 4: //david
                 	restaurantCashier = DavidRestaurant.cashier.mRole;
                 	break;
                 case 5: //shane
                 	
+                	break;
                 case 6: //angel
                 	restaurantCashier = TranacRestaurant.mCashier.mRole;
                 	break;
                 case 7: //rex
                 	 
+                	break;
                 }
                 
                 restaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);

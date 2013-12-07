@@ -79,7 +79,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 		
 		checkRevolvingStand = false;
 		
-		/*ANGELICA: 
+		/*ANGELICA: z
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);

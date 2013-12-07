@@ -56,7 +56,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 cookGui = new TranacCookGui(this);
                 mRole = r;
                 
-                /*ANGELICA: 
+                /*ANGELICA: z
                 mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
@@ -197,7 +197,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                                         food = i;
                         }
                 }
-                ANGELICA: add in functionality to order if low stock
+                ANGELICA: y add in functionality to order if low stock
                 if(mRole.mItemInventory.get(food) < mItemThreshold) {
                        
                 }

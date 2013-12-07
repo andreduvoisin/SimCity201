@@ -48,7 +48,8 @@ public class MarketGuiTest extends TestCase {
 		mCashier.setGui(mCashierGui);
 		mMarketPanel.addGui(mCashierGui);
 		
-		/**ANGELICA : assert preconditions */
+	  //assert preconditions
+		
 		
 		mCashier.DoGoToPosition();
 	  //wait for animation to finish
@@ -83,7 +84,7 @@ public class MarketGuiTest extends TestCase {
 		mCustomer.setGui(mCustomerGui);
 		mMarketPanel.addGui(mCustomerGui);
 		
-		/**ANGELICA : assert preconditions */
+	  //assert preconditions
 		
 		mCustomer.DoGoToMarket();
 		try {
@@ -135,7 +136,8 @@ public class MarketGuiTest extends TestCase {
 		items.put(EnumItemType.STEAK,1);
 		MarketOrder order = new MarketOrder(items, null);
 		
-		/**ANGELICA : assert preconditions */
+		
+	  //assert preconditions
 		
 		
 		mWorker.DoGoToMarket();	//also tests for DoGoToHomePosition
@@ -161,7 +163,7 @@ public class MarketGuiTest extends TestCase {
 		assertTrue("Worker should have received msgOrderFulfilled. Instead "
 				+ mWorker.log.getLastLoggedEvent().toString(),
 				mWorker.log.containsString("Received msgOrderFulfilled."));
-	  //ANGELICA: assert item inventory	
+		
 		
 		mWorker.DoGoToCustomer();
 		try {
@@ -194,7 +196,7 @@ public class MarketGuiTest extends TestCase {
 		catch(InterruptedException e) {
 			e.printStackTrace();
 		}
-	  ///assert
+	  //assert
 		assertTrue("Worker should have received msgAnimationLeftMarket. Instead " + mWorker.log.getLastLoggedEvent().toString(),
 				mWorker.log.containsString("Received msgAnimationLeftMarket."));
 	}
@@ -205,6 +207,6 @@ public class MarketGuiTest extends TestCase {
 		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck);
 		mDeliveryTruck.setGui(mDeliveryTruckGui);
 		
-		/**ANGELICA : assert preconditions */
+	  //assert preconditions
 	}
 }
