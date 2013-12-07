@@ -1,14 +1,12 @@
 package restaurant.restaurant_duvoisin.test;
 
 import junit.framework.TestCase;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_duvoisin.gui.CookGui;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.test.mock.MockCustomer;
 import base.PersonAgent;
-import city.gui.SimCityGui;
 
 /**
  * This class is a JUnit test class to unit test the CashierAgent's basic interaction
@@ -31,24 +29,19 @@ public class CookTest extends TestCase
 		super.setUp();
 		PersonAgent person = new PersonAgent();
 		waiter = new AndreSharedWaiterRole(person);
-		cook = new AndreCookRole("cook");
+		//cook = new AndreCookRole("cook");
 		customer1 = new MockCustomer("customer1");
 	}
 	
 	public void testOneOrderScenario() {
 		WaiterGui wg = null;
 		CookGui cg = null;
-		try {
-			AndreRestaurantGui gui = new AndreRestaurantGui(new SimCityGui());
-			wg = new WaiterGui(waiter, gui);
-			cg = new CookGui(cook, gui);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		wg = new WaiterGui(waiter);
+		cg = new CookGui(cook);
 		waiter.setGui(wg);
 		cook.setGui(cg);
 		customer1.waiter = waiter;
-		waiter.cook = cook;
+		//waiter.cook = cook;
 		waiter.msgSitAtTable(customer1, 1, 1);
 		waiter.msgImReadyToOrder(customer1);
 		waiter.msgHereIsMyChoice(customer1, "steak");
