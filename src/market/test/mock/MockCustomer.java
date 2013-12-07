@@ -22,7 +22,7 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumItemType, Integer> cannotFulfill, MarketInvoice invoice) {
-		log.add(new LoggedEvent("Received msgInvoiceToPerson"));
+		log.add(new LoggedEvent("Received msgInvoiceToPerson."));
 	}
 		
 	public void msgHereIsCustomerOrder(MarketOrder order) {

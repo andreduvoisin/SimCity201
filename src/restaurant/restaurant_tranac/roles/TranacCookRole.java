@@ -56,7 +56,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 cookGui = new TranacCookGui(this);
                 mRole = r;
                 
-                /*ANGELICA: inventory created in restaurantCookRole
+                /*ANGELICA: 
                 mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);

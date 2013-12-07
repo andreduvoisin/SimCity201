@@ -70,7 +70,8 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 		mCookGui = new CookGui(this);
     	mAnimationPanel.addGui(mCookGui);
     	
-    	/*ANGELICA: Set up inventory map
+    	/*ANGELICA:
+    	Set up inventory map
     	mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);

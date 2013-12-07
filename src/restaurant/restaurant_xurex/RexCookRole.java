@@ -129,7 +129,8 @@ public class RexCookRole extends BaseRole implements Cook {
 		for(int i=1; i<11; i++){
 			Kitchen.put(new Integer(i), false);
 		}
-		/*ANGELICA: mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
+		/*ANGELICA: 
+		mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
 		mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
 		mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
 		mRole.mItemInventory.put(EnumItemType.PIZZA,mRole.DEFAULT_FOOD_QTY);
