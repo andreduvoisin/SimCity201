@@ -61,9 +61,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		
 		synchronized(guis) {
 			for (CwagonerGui gui : guis) {
-	            if (gui.isPresent()) {
-	                gui.updatePosition();
-	            }
+	            gui.updatePosition();
 	        }
 		}
 	}
@@ -84,9 +82,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
         }
         synchronized(guis) {
 	        for (CwagonerGui gui : guis) {
-	            if (gui.isPresent()) {
-	                gui.draw(g2);
-	            }
+	            gui.draw(g2);
 	        }
         }
     }
