@@ -173,7 +173,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		else if (action == EnumAction.Open){
 			mPerson.setCash(mTransactionAmount);
 		}
-		else if (action == EnumAction.Robbery){// REX : is this needed??
+		else if (action == EnumAction.Robbery){// REX : is this needed?? Actually.. not really. but it's for completion sake
 			mPerson.addCash(mTransactionAmount);
 		}
 	}

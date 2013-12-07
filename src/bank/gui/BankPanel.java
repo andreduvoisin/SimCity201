@@ -148,7 +148,7 @@ public class BankPanel extends CityCard implements ActionListener{
             }
         }
 	}
-	
+	/*
 	public void updateCustomerLine() {
 		//LINE_POSITION--;
 		for(Gui gui : guis) {
@@ -158,7 +158,7 @@ public class BankPanel extends CityCard implements ActionListener{
                 }
             }
         }
-	}
+	}*/
 	
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
