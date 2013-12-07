@@ -33,7 +33,7 @@ public class MarketGuiTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		mMarket = new Market();
+		mMarket = new Market(0);
 		mMarketPanel = new MarketPanel(null,mMarket);
 		mMarketItems = new MarketItemsGui();
 		mMarketPanel.addGui(mMarketItems);
