@@ -40,7 +40,7 @@ public class RestaurantCustomerRole extends BaseRole implements
 		switch (mRestaurantID) {
 		case 0: // andre
 			subRole = new AndreCustomerRole(super.mPerson);
-			AndreRestaurantPanel.instance.addPerson((AndreCustomerRole) subRole);
+			AndreRestaurantPanel.instance.addPerson((AndreCustomerRole) subRole); //ANDRE: 1 Make addPerson a static method
 			break;
 //		case 1: // chase
 //			subRole = new CwagonerCustomerRole(super.mPerson);

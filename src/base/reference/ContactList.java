@@ -59,14 +59,14 @@ public class ContactList {
 	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
+	//List of all people
 	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
+	//Decoupled data
 	public static List<Market> sMarketList = Collections.synchronizedList(new ArrayList<Market>());
-
 	public static List<House> sHouseList = Collections.synchronizedList(new ArrayList<House>());
 	public static List<Bank> sBankList = Collections.synchronizedList(new ArrayList<Bank>());
-
-	//DAVID JERRY SHANE: 0 TOP PRIORITY - add house/bank/market and separate data from gui
+	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in A**)
