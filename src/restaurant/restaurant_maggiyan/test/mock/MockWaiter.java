@@ -155,4 +155,16 @@ public void setCook(restaurant.restaurant_maggiyan.interfaces.MaggiyanCook c) {
 	
 }
 
+@Override
+public void print(String string) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void print(String string, Throwable e) {
+	// TODO Auto-generated method stub
+	
+}
+
 }
