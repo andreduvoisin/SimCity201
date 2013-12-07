@@ -60,7 +60,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Sams Club"));
 			
 		//Create Timer Display
-		this.addStatic(new TimeGui(540, 560));
+		this.addStatic(new TimeGui(540, 575));
 		
 		addMouseListener(this);
 		addMouseMotionListener(this);

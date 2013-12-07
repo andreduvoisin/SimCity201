@@ -25,13 +25,13 @@ public class TimeGui extends CityComponent{
 	public void paint(Graphics g) {
 		String printThis;
 		
-		g.setColor(Color.BLACK);
-		g.fillRect(mX, mY, mXspan-1, mYspan);
+		//g.setColor(Color.BLACK);
+		//g.fillRect(mX, mY, mXspan, mYspan);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.BOLD, fontSize));
 //		String hour = Integer.toString(Time.GetHour());
 //		String minute = Integer.toString(Time.GetMinute());
-		printThis = "TIME ";
+		printThis = "TIME:  ";
 		switch(Time.GetHour()) {
 			case 0:
 			case 1:
