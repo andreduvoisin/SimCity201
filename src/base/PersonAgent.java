@@ -129,7 +129,7 @@ public class PersonAgent extends Agent implements Person {
 		 * Give houses to landlords and owners
 		 */
 		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			getHousingRole().setHouse(ContactList.sHouses.get(sHouseCounter % ContactList.sHouses.size()));
+			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
 			sHouseCounter++;
 		}
 		/*
@@ -470,7 +470,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBanks.get(mSSN%2).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 /*************************************************************************/
@@ -577,7 +577,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBanks.get(mSSN%2).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
