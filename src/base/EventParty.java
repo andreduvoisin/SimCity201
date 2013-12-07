@@ -34,6 +34,12 @@ public class EventParty extends Event{
 		}
 	}
 	
+	public EventParty(EnumEventType type, int time, Person host) {
+		super(type, time, null);
+		mAttendees = new HashMap<Person, Boolean>();
+		mHost = host;
+	}
+	
 	public EventParty(EventParty party, EnumEventType type, int timeDelay, List<Person> pplInvited){
 		super(type, party.mTime + timeDelay, party.mLocation);
 		mAttendees = new HashMap<Person, Boolean>();

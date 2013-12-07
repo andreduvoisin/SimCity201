@@ -228,7 +228,5 @@ public class CashierRole extends Agent implements Cashier {
 		//print("Can't find check in cashier find function!");
 		return 0;
 	}
-
-
 }
 

@@ -7,6 +7,7 @@ import transportation.interfaces.TransportationRider;
 import base.Agent;
 import base.Location;
 import city.gui.CityBus;
+import city.gui.trace.AlertTag;
 
 /**
  * The controller who handles people waiting at bus stops, boarding buses, and
@@ -268,5 +269,17 @@ public class TransportationBusDispatch extends Agent {
 		instance = this;
 
 		mBus = new TransportationBusInstance(this, busStops);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.TRANSPORTATION, e);
 	}
 }

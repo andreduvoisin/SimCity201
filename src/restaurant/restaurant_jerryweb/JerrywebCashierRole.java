@@ -17,6 +17,7 @@ import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
 import base.Location;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Host Agent
@@ -235,6 +236,16 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 
-
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R2, e);
+	}
 }
 

@@ -14,6 +14,7 @@ import base.Event.EnumEventType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer agent.
@@ -495,6 +496,18 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(2);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R2, e);
 	}
 }
 

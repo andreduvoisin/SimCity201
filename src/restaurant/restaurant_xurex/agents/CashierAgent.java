@@ -8,6 +8,7 @@ import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.Agent;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cashier Agent
@@ -147,6 +148,18 @@ public class CashierAgent extends Agent implements Cashier {
 	
 	public void addBill(Waiter waiter, Customer customer, float due){
 		bills.put(customer.getName(), new Bill(waiter, customer, due));
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R7, e);
 	}
 	
 }

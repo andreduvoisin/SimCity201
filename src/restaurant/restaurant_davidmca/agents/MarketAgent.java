@@ -16,6 +16,7 @@ import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import base.Agent;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
@@ -148,4 +149,15 @@ public class MarketAgent extends Agent implements Market {
 		pendingOrders.remove(thisOrder);
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
+	}
 }

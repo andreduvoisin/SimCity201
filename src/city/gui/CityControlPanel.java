@@ -12,7 +12,6 @@ import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -56,7 +55,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
     // Tags
     @SuppressWarnings("rawtypes")
 	JComboBox tags;
-    String[] tagList = {"All", "Person", "Bank Teller", "Bank Customer", "Bus Stop", "Restaurant", "Bank", "General City"};
+    String[] tagList = {"All", "Person", "r_duvoisin", "r_cwagoner", "r_jerryweb", "r_maggiyan", "r_davidmca", "r_smileham", "r_tranac", "r_xurex", "Bank", "Market", "Housing", "Transportation", "None"};
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
@@ -231,7 +230,12 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioD.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig_D.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioE.addActionListener(new ActionListener() {
@@ -255,13 +259,23 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioH.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig_H.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioI.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig_I.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioJ.addActionListener(new ActionListener() {
@@ -422,23 +436,44 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					case "Person":
 						tracePanel.showAlertsWithTag(AlertTag.PERSON);
 						break;
-					case "Bank Teller":
-						tracePanel.showAlertsWithTag(AlertTag.BANK_TELLER);
+					case "r_duvoisin":
+						tracePanel.showAlertsWithTag(AlertTag.R0);
 						break;
-					case "Bank Customer":
-						tracePanel.showAlertsWithTag(AlertTag.BANK_CUSTOMER);
+					case "r_cwagoner":
+						tracePanel.showAlertsWithTag(AlertTag.R1);
 						break;
-					case "Bus Stop":
-						tracePanel.showAlertsWithTag(AlertTag.BUS_STOP);
+					case "r_jerryweb":
+						tracePanel.showAlertsWithTag(AlertTag.R2);
 						break;
-					case "Restaurant":
-						tracePanel.showAlertsWithTag(AlertTag.RESTAURANT);
+					case "r_maggiyan":
+						tracePanel.showAlertsWithTag(AlertTag.R3);
+						break;
+					case "r_davidmca":
+						tracePanel.showAlertsWithTag(AlertTag.R4);
+						break;
+					case "r_smileham":
+						tracePanel.showAlertsWithTag(AlertTag.R5);
+						break;
+					case "r_tranac":
+						tracePanel.showAlertsWithTag(AlertTag.R6);
+						break;
+					case "r_xurex":
+						tracePanel.showAlertsWithTag(AlertTag.R7);
 						break;
 					case "Bank":
 						tracePanel.showAlertsWithTag(AlertTag.BANK);
 						break;
-					case "General City":
-						tracePanel.showAlertsWithTag(AlertTag.GENERAL_CITY);
+					case "Market":
+						tracePanel.showAlertsWithTag(AlertTag.MARKET);
+						break;
+					case "Housing":
+						tracePanel.showAlertsWithTag(AlertTag.HOUSING);
+						break;
+					case "Transportation":
+						tracePanel.showAlertsWithTag(AlertTag.TRANSPORTATION);
+						break;
+					case "None":
+						tracePanel.hideAlertsForAllTags();
 						break;
 				}
 			}

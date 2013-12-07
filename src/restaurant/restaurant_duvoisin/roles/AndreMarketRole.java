@@ -15,6 +15,7 @@ import restaurant.restaurant_duvoisin.interfaces.Market;
 import base.BaseRole;
 import base.Location;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Market Agent
@@ -50,7 +51,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 	// Messages
 	
 	public void msgOrderFood(Map<String, Integer> orders) {
-		//print("msgOrderFood received");
+		print("msgOrderFood received");
 		//currentOrders.putAll(orders);
 		String[] keys = orders.keySet().toArray(new String[0]);
 		Integer[] values = orders.values().toArray(new Integer[0]);
@@ -60,7 +61,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 	}
 	
 	public void msgFoodPayment(String type, double payment) {
-		//print("msgFoodPayment received");
+		print("msgFoodPayment received");
 		synchronized(myChecks) {
 			for(MyCheck mc : myChecks)
 				if (mc.type.equals(type) && mc.amount == payment) {
@@ -71,7 +72,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 	}
 	
 	public void msgNotEnoughMoney(String type, double payment) {
-		//print("msgNotEnoughMoney received");
+		print("msgNotEnoughMoney received");
 		synchronized(myChecks) {
 			for(MyCheck mc : myChecks)
 				if(mc.type.equals(type) && mc.amount > payment) {
@@ -115,7 +116,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 
 	// Actions
 	void ProcessOrder(MarketOrder mo) {
-		//print("Doing ProcessOrder");
+		print("Doing ProcessOrder");
 		if(inventory.get(mo.type) <= 0) {
 			//cook.msgFailedToFulfillRequest(this, mo.type, mo.amount);
 			marketOrders.remove(mo);
@@ -133,7 +134,7 @@ public class AndreMarketRole extends BaseRole implements Market {
 	}
 	
 	void FinishOrder(MarketOrder mo) {
-		//print("Doing FinishOrder");
+		print("Doing FinishOrder");
 		//cook.msgReplenishFood(mo.type, mo.amount);
 		myChecks.add(new MyCheck(mo.type, marketPrices.currentRate.get(mo.type) * mo.amount));
 		cashier.msgComputeMarketBill(this, mo.type, mo.amount);
@@ -181,5 +182,17 @@ public class AndreMarketRole extends BaseRole implements Market {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R0, e);
 	}
 }

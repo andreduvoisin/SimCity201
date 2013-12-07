@@ -14,6 +14,7 @@ import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
@@ -73,7 +74,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mEvent = EnumEvent.Received;
 		stateChanged();
 	}
-	public void msgStopRobber() {// Jerry- Why is this in the customer Role...shouldn't it be in the guard role?
+	public void msgStopRobber() {
 		// REX ANDRE: robber gui interactions, non-norm
 	}
 	
@@ -206,5 +207,17 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 	public int getBankID() {
 		return mBankID;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.BANK, e);
 	}
 }

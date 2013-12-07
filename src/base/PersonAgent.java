@@ -4,7 +4,6 @@ import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
-import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +39,7 @@ import base.interfaces.Role;
 import base.reference.ContactList;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
+import city.gui.trace.AlertTag;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -132,36 +132,6 @@ public class PersonAgent extends Agent implements Person {
 			//getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
 			sHouseCounter++;
 		}
-		/*
-		 * Add event for renters to request a house
-		 */
-		if (getHousingRole() instanceof HousingRenterRole) {
-//			DAVID MAGGI add event for requesting a house
-		}
-		
-		
-		//Add events
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift+1));
-		
-		//These will now take place in the config file / config parser / addEvent method
-		
-		
-		mEvents.add(new Event(EnumEventType.JOB, mTimeShift));
-//		
-//		if (mJobType != EnumJobType.NONE){
-//		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
-//			mEvents.add(new Event(EnumEventType.JOB, 0));
-//		}
-		mEvents.add(new Event(EnumEventType.EAT, 0));
-//		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-//		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift*2));
-//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-//		mEvents.add(new Event(EnumEventType.EAT, 1)); //THIS IS A PROBLEM
-//		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
-//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
-//		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 	private void initializePerson(){
@@ -194,11 +164,7 @@ public class PersonAgent extends Agent implements Person {
 		//finished role if job
 		mRoleFinished = true;
 		if (Time.GetShift() == mTimeShift) {
-			for(Role iRole : mRoles.keySet()){
-				if (iRole == getJobRole()){
-					mRoles.put(iRole, true);
-				}
-			}
+			mRoles.put(getJobRole(), true);
 		}
 		//Leave job
 		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
@@ -211,7 +177,12 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void msgAddEvent(Event event) {
-		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond (half are deadbeats) - everyone always responds
+		if(event.mEventType == EnumEventType.RSVP1){
+			if(((EventParty)event).mHost.getName().equals("partyPersonFlake") && mSSN%2==0){
+				print("I am a deadbeat");
+				return;
+			}
+		}
 		mEvents.add(event);
 	}
 	
@@ -296,13 +267,11 @@ public class PersonAgent extends Agent implements Person {
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
 				goToJob();
-//				testGoToJob();
 			}
 			mEvents.add(new Event(event, 24));
 		}
 		else if (event.mEventType == EnumEventType.EAT) {
 			eatFood();
-//			testEatFood();
 			mEvents.add(new Event(event, 24));
 		}
 
@@ -310,7 +279,6 @@ public class PersonAgent extends Agent implements Person {
 		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
 			print("DepositCheck");
 			depositCheck();
-//			testDepositCheck();
 		}
 		
 		else if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
@@ -337,7 +305,7 @@ public class PersonAgent extends Agent implements Person {
 		else if (event.mEventType == EnumEventType.PARTY) {
 			if (event instanceof EventParty){
 				if(((EventParty)event).mAttendees.isEmpty()){
-					print("OMG THIS PARTY SUCKS");
+					print("OMG THIS PARTY SUCKS and is cancelled");
 					return;
 				}
 				goParty((EventParty)event);
@@ -381,96 +349,6 @@ public class PersonAgent extends Agent implements Person {
 		mItemsDesired.put(EnumItemType.CAR, 1); //want 1 car
 		//PAEA for role will message market cashier to start transaction
 		mHasCar = true;
-	}
-	
-	private void testGoToJob() {
-		print("goToJob");
-		Role jobRole = getJobRole();
-		if(jobRole == null){
-			print("didn't go to job"); return;
-		}
-		mAtJob = true; //set to false in msgTimeShift
-		mPersonGui.setPresent(false);
-		print("my job is " +jobRole.toString());
-		if(jobRole != null) {
-			jobRole.setPerson(this); //take over job role
-			mRoles.put(getCommuterRole(), true); 
-			CommuterRole cRole = (CommuterRole)getCommuterRole(); 
-			cRole.setLocation(getJobLocation()); 
-			mRoles.put(jobRole, true); //set role to active
-			jobRole.setActive();
-		}
-	}
-	
-	private void testEatFood() {
-		if (isCheap() && getHousingRole().getHouse() != null){
-			print("Going to eat at home");
-			getHousingRole().msgEatAtHome();
-			BaseRole r = (BaseRole)getHousingRole();
-			r.GoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-		}else{
-			print("Going to restaurant");
-			//set random restaurant
-			Role restCustRole = null;
-			for (Role iRole : mRoles.keySet()){
-				if (iRole instanceof RestaurantCustomerRole){
-					restCustRole = iRole;
-				}
-			}
-			mRoles.put(restCustRole, true);
-			
-			//SHANE DAVID ALL: 3 make this random
-			int restaurantChoice = 0;
-			
-			if (SimCityGui.TESTING){
-				restaurantChoice = SimCityGui.TESTNUM; //override if testing
-			}
-
-			restCustRole.GoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-			
-			((RestaurantCustomerRole) restCustRole).setPerson(this);
-			((RestaurantCustomerRole) restCustRole).setRestaurant(restaurantChoice);
-		}
-	}
-	
-	private void testDepositCheck() {
-		mPersonGui.setPresent(true);
-		
-//		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
-		
-		acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-		
-		int deposit = 50; //REX: add mDeposit, and do after leaving job
-		
-		BankCustomerRole bankCustomerRole = null;
-		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof BankCustomerRole){
-				bankCustomerRole.GoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION : ContactList.cBANK2_LOCATION);
-				acquireSemaphore(semAnimationDone);
-				mPersonGui.setPresent(false);
-				bankCustomerRole = (BankCustomerRole) iRole;
-				mRoles.put(iRole, true);
-				break;
-			}
-		}
-		
-		//deposit check
-		bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
-		
-		//pay back loan if needed
-		if(mLoan > 0){
-			double payment = Math.max(mCash, mLoan);
-			mCash -= payment;
-			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
-		}
-		bankCustomerRole.setPerson(this);
-		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 /*************************************************************************/
@@ -581,13 +459,17 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void planParty(int time){
+		print("Planning a party");
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
-		mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-//		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
-//		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, getBestFriends()));
+		if(!mName.equals("partyPerson"))
+			mEvents.add(new Event(EnumEventType.INVITE2, time+2));
+		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
+		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
 	}
 
 	private void goParty(EventParty event) {
+		print("Going to party");
 		mPersonGui.DoGoToDestination(event.mLocation);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
@@ -599,7 +481,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void inviteToParty() {
-		print("First RSVP is sent out");
 		if(mFriends.isEmpty()){
 			int numPeople = ContactList.sPersonList.size();
 			print("Num People in city: " + numPeople); //SHANE: Print remove
@@ -608,18 +489,28 @@ public class PersonAgent extends Agent implements Person {
 			}
 			print("Created friends for party host");
 		}
+		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
 //		Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
 		Location partyLocation = new Location(100, 0);
-//		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
-//		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
-		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, getBestFriends());
-		Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
+		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		
-		for (Person iFriend : mFriends){
-			iFriend.msgAddEvent(rsvp);
-			iFriend.msgAddEvent(party);
+		//Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends);
+		Event rsvp  = new EventParty(EnumEventType.RSVP1, -1, this); //respond immediately
+		if(mName.equals("partyPersonFlake")){
+			for (Person iFriend : mFriends){
+				iFriend.msgAddEvent(rsvp);
+				iFriend.msgAddEvent(party);
+			}
+		}
+		else{ //partyPerson or partyPersonNO
+			for (Person iFriend : mFriends){
+				if(iFriend.getTimeShift()==mTimeShift){
+					iFriend.msgAddEvent(rsvp);
+					iFriend.msgAddEvent(party);
+				}
+			}
 		}
 	}
 
@@ -635,7 +526,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		for (Person iPerson : party.mAttendees.keySet()){
 			if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
-				Event rsvp = new Event(EnumEventType.RSVP2, -1);
+				Event rsvp = new EventParty(EnumEventType.RSVP2, -1, this);
 				iPerson.msgAddEvent(rsvp);
 			}
 		}
@@ -863,12 +754,16 @@ public class PersonAgent extends Agent implements Person {
 	public boolean hasCar() {
 		return mHasCar;
 	}
-
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.PERSON);
+	}
+	
 	public void print(String msg) {
-		super.print(msg);
+		super.print(msg, AlertTag.PERSON);
 	}
 	
 	public void print(String msg, Throwable e) {
-		super.print(msg, e);
+		super.print(msg, AlertTag.PERSON, e);
 	}
 }

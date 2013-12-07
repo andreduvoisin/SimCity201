@@ -2,7 +2,6 @@ package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
-import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
@@ -17,7 +16,6 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
-import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 import restaurant.restaurant_xurex.RexWaiterRole1;
 import restaurant.restaurant_xurex.RexWaiterRole2;

@@ -16,6 +16,7 @@ import restaurant.restaurant_xurex.interfaces.CookGui_;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.Agent;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cook Agent
@@ -366,5 +367,16 @@ public class CookAgent extends Agent implements Cook {
 		
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R7, e);
+	}
 }
 

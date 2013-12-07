@@ -12,6 +12,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityHousing;
 import city.gui.CityPerson;
+import city.gui.trace.AlertTag;
 
 /**
  * MockPerson built to unit test Housing
@@ -192,13 +193,13 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	@Override
-	public void print(String msg) {
+	public void print(String msg, AlertTag tag) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void print(String msg, Throwable e) {
+	public void print(String msg, AlertTag tag, Throwable e) {
 		// TODO Auto-generated method stub
 		
 	}

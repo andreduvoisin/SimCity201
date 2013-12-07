@@ -5,11 +5,12 @@ import housing.interfaces.HousingBase;
 
 import java.util.concurrent.Semaphore;
 
-import city.gui.SimCityGui;
 import base.BaseRole;
 import base.Location;
 import base.reference.ContactList;
 import base.reference.House;
+import city.gui.SimCityGui;
+import city.gui.trace.AlertTag;
 
 public class HousingBaseRole extends BaseRole implements HousingBase {
 	
@@ -114,4 +115,15 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 		return this.mHouse;
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.HOUSING);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.HOUSING);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.HOUSING, e);
+	}
 }

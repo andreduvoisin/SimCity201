@@ -54,19 +54,27 @@ public class ConfigParser {
 			//Name
 			String name = scanPerson.next();
 			
-			//Instantiate Roles
-//			if (mInstantiateRoles){
-//				SortingHat.InstantiateBaseRoles();
-//				mInstantiateRoles = false;
-//			}
-			
-			//Person
+			//Instantiate Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
-			//ALL HACK: CONFIG FILE HACKS
-			if(name.contains("partyPerson")){
+			//Events
+			
+			person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * 8));
+			person.msgAddEvent(new Event(EnumEventType.EAT, (person.getTimeShift() + 8 + person.getSSN() % 4) % 24)); 
+			
+			if(name.contains("party"))
 				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
-			}
+			
+			if(name.contains("car")) 
+				person.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
+
+			if(name.contains("house"))
+				person.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
+			
+			if(name.contains("renter"))
+				person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 0));
+
+			//DAVID SHANE - add more events
 			
 			synchronized (person) {
 				ContactList.sPersonList.add(person);

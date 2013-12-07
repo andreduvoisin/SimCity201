@@ -7,6 +7,7 @@ import java.util.Map;
 import base.Event;
 import base.Item.EnumItemType;
 import city.gui.CityPerson;
+import city.gui.trace.AlertTag;
 
 public interface Person {
 	void msgTimeShift();
@@ -49,7 +50,7 @@ public interface Person {
 	public void msgRoleFinished();
 	public void setJobFalse();
 	public boolean hasCar();
-
-	abstract void print(String msg);
-	abstract void print(String msg, Throwable e);
+	
+	abstract void print(String msg, AlertTag tag);
+	abstract void print(String msg, AlertTag tag, Throwable e);
 }

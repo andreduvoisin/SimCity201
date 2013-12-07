@@ -15,6 +15,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cashier Agent
@@ -163,6 +164,18 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(6);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R6);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R6);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R6, e);
 	}
 }
 

@@ -1,14 +1,12 @@
 package restaurant.restaurant_jerryweb;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import base.BaseRole;
-import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_jerryweb.gui.Gui;
+import base.BaseRole;
 
 public class JerrywebRestaurant {
 	/*
