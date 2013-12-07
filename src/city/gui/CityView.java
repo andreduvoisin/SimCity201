@@ -55,7 +55,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		cards.put("R_cwagoner", cwagoner);
 		
 //		//Rest 2
-		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city);
+		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city, ContactList.JerrywebRestaurant);
 		cards.put("R_jerryweb", jerryweb);
 		
 //		//Rest 3		
