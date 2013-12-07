@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.Menu;
 import restaurant.restaurant_davidmca.Order;
@@ -423,4 +424,15 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 		return ContactList.cRESTAURANT_LOCATIONS.get(4);
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
+	}
 }

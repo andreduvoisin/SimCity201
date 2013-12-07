@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
@@ -573,6 +574,18 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 
 	public MaggiyanHost getHost() {
 		return host; 
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R3, e);
 	}
 }
 

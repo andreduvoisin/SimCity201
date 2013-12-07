@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
@@ -217,4 +218,15 @@ public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
     	return mRole;
     }
 
+    public void Do(String msg) {
+		super.Do(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R3, e);
+	}
 }

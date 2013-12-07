@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
@@ -197,5 +198,17 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 		@Override
 		public Location getLocation() {
 			return ContactList.cRESTAURANT_LOCATIONS.get(5);
+		}
+		
+		public void Do(String msg) {
+			super.Do(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg) {
+			super.print(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg, Throwable e) {
+			super.print(msg, AlertTag.R5, e);
 		}
 }

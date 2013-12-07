@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_xurex.gui.CustomerGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -343,6 +344,18 @@ public class CustomerAgent extends Agent implements Customer{
 	}
 	public void SetChoice(String choice){
 		this.choice = choice;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R7, e);
 	}
 }
 

@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_davidmca.Menu;
 import restaurant.restaurant_davidmca.Stock;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
@@ -148,4 +149,15 @@ public class MarketAgent extends Agent implements Market {
 		pendingOrders.remove(thisOrder);
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
+	}
 }

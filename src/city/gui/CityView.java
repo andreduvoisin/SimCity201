@@ -47,39 +47,39 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		//Rest 0		
 		AndreRestaurantGui duvoisin = new AndreRestaurantGui(city);
-		cards.put("R_aduvoisin", duvoisin);
+		cards.put("r_duvoisin", duvoisin);
 		
 //		//Rest 1
 //		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
 //		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
-//		cards.put("R_cwagoner", cwagoner);
+//		cards.put("r_cwagoner", cwagoner);
 		
 //		//Rest 2
 		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city, ContactList.JerrywebRestaurant);
-		cards.put("R_jerryweb", jerryweb);
+		cards.put("r_jerryweb", jerryweb);
 		
 //		//Rest 3		
 		MaggiyanAnimationPanel maggiyan = new MaggiyanAnimationPanel(city);
-		cards.put("R_Maggiyan", maggiyan);
+		cards.put("r_maggiyan", maggiyan);
 		
 		//Rest 4
 		DavidAnimationPanel davidmca = new DavidAnimationPanel(city, ContactList.DavidRestaurant);
-		cards.put("R_davidmca", davidmca);
+		cards.put("r_davidmca", davidmca);
 		
 		//Rest 5
 		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city);
-		cards.put("R_smileham", smileham);
+		cards.put("r_smileham", smileham);
 		
 //		//Rest 6
 		TranacAnimationPanel tranac = new TranacAnimationPanel(city, ContactList.TranacRestaurant);
-		cards.put("R_tranac", tranac);
+		cards.put("r_tranac", tranac);
 //		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
 //		city.citypanel.masterRestaurantList.add(tranac);
-//		cards.put("R_tranac", tranac);
+//		cards.put("r_tranac", tranac);
 		
 		//Rest 7		
 		RexAnimationPanel xurex = new RexAnimationPanel(city);
-		cards.put("R_xurex", xurex);
+		cards.put("r_xurex", xurex);
 				
 		/*
 		 * Instantiate Market and Bank Panels and add to the Master Lists

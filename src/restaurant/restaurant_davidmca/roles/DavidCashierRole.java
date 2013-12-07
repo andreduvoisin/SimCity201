@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_davidmca.Check;
 import restaurant.restaurant_davidmca.interfaces.Cashier;
@@ -172,4 +173,15 @@ public class DavidCashierRole extends BaseRole implements Cashier {
     	return mRole;
     }
 
+    public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
+	}
 }

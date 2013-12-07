@@ -10,6 +10,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.Order.state;
@@ -384,4 +385,16 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 //		}
 //		
 //	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R3, e);
+	}
 }

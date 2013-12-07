@@ -7,6 +7,7 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_jerryweb.gui.HostGui;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
@@ -349,6 +350,18 @@ public class JerrywebHostRole extends BaseRole {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(2);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R2, e);
 	}
 }
 

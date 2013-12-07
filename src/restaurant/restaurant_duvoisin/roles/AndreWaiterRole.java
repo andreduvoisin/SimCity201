@@ -8,6 +8,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
@@ -69,13 +70,13 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	// Messages
 	
 	public void msgSitAtTable(Customer c, int table, int waitingPosition) {
-		//print("msgSitAtTable received");
+		print("msgSitAtTable received");
 		customers.add(new MyCustomer(c, table, waitingPosition, CustomerState.Waiting));
 		stateChanged();
 	}
 	
 	public void msgImReadyToOrder(Customer c) {
-		//print("msgImReadyToOrder received");
+		print("msgImReadyToOrder received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.customer == c) {
@@ -86,7 +87,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgHereIsMyChoice(Customer c, String choice) {
-		//print("msgHereIsMyChoice received");
+		print("msgHereIsMyChoice received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.customer == c) {
@@ -98,7 +99,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgOrderIsReady(String choice, int table, int position) {
-		//print("msgOrderIsReady received");
+		print("msgOrderIsReady received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.choice != null && mc.choice.equals(choice) && mc.table == table) {
@@ -110,7 +111,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgDoneEatingAndLeaving(Customer c) {
-		//print("msgDoneEatingAndLeaving received");
+		print("msgDoneEatingAndLeaving received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.customer == c) {
@@ -121,7 +122,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgOutOfFood(int table, String choice) {
-		//print("msgOutOfFood received");
+		print("msgOutOfFood received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.table == table && mc.choice == choice) {
@@ -132,13 +133,13 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgRequestBreak() { //from animation
-		//print("msgRequestBreak() called");
+		print("msgRequestBreak() called");
 		state = MyState.RequestBreak;
 		stateChanged();
 	}
 	
 	public void msgRespondToBreakRequest(Boolean answer) {
-		//print("msgRespondToBreakRequest received");
+		print("msgRespondToBreakRequest received");
 		// T = Yes, F = No
 		if(answer)
 			state = MyState.OnBreakPending;
@@ -150,7 +151,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgRequestCheck(Customer c) {
-		//print("msgRequestCheck received");
+		print("msgRequestCheck received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.customer == c)
@@ -160,7 +161,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgHereIsCheck(Customer c, double amount) {
-		//print("msgHereIsCheck received");
+		print("msgHereIsCheck received");
 		synchronized(customers) {
 			for(MyCustomer mc : customers)
 				if(mc.customer == c) {
@@ -172,19 +173,19 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgAtCustomer() { //from animation
-		//print("msgAtEntrance() called");
+		print("msgAtEntrance() called");
 		atCustomer.release();
 		stateChanged();
 	}
 	
 	public void msgAtTable() { //from animation
-		//print("msgAtTable() called");
+		print("msgAtTable() called");
 		atTable.release();
 		stateChanged();
 	}
 	
 	public void msgAtCook() { //from animation
-		//print("msgAtCook() called");
+		print("msgAtCook() called");
 		atCook.release();
 		stateChanged();
 	}
@@ -268,13 +269,13 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 
 	// Actions
 	private void RequestToTakeBreak() {
-		//print("Doing RequestToTakeBreak");
+		print("Doing RequestToTakeBreak");
 		state = MyState.RequestedBreak;
 		host.msgRequestGoOnBreak(this);
 	}
 	
 	private void SeatCustomer(MyCustomer c, int table) {
-		//print("Doing SeatCustomer");
+		print("Doing SeatCustomer");
 		waiterGui.DoGoToCustomer(c.waitingPosition);
 		try {
 			atCustomer.acquire();
@@ -293,7 +294,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void TakeOrder(MyCustomer c) {
-		//print("Doing TakeOrder");
+		print("Doing TakeOrder");
 		waiterGui.DoGoToTable(c.table);	//animation
 		try {
 			atTable.acquire();
@@ -305,7 +306,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void GiveOrderToCook(MyCustomer c) {
-		//print("Doing GiveOrderToCook");
+		print("Doing GiveOrderToCook");
 		waiterGui.DoGiveOrderToCook();	//animation
 		try {
 			atCook.acquire();
@@ -318,7 +319,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void WeAreOutOfChoice(MyCustomer c) {
-		//print("Doing WeAreOutOfChoice");
+		print("Doing WeAreOutOfChoice");
 		c.menu.removeMenuOption(c.choice);
 		waiterGui.DoGoToTable(c.table);
 		try {
@@ -331,7 +332,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void TakeFoodToCustomer(MyCustomer c) {
-		//print("Doing TakeFoodToCustomer");
+		print("Doing TakeFoodToCustomer");
 		waiterGui.DoGoToCook(c.foodPosition);
 		try {
 			atCook.acquire();
@@ -353,13 +354,13 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void AskCashierToComputeCheck(MyCustomer c) {
-		//print("Doing AskCashierToComputeCheck");
+		print("Doing AskCashierToComputeCheck");
 		cashier.msgComputeBill(this, c.customer, c.choice);
 		c.state = CustomerState.WaitingForCheck;
 	}
 	
 	private void GiveCustomerCheck(MyCustomer c) {
-		//print("Doing GiveCustomerCheck");
+		print("Doing GiveCustomerCheck");
 		waiterGui.DoGoToCashier();
 		try {
 			atCashier.acquire();
@@ -378,13 +379,13 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void CleanTable(MyCustomer c) {
-		//print("Doing CleanTable");
+		print("Doing CleanTable");
 		host.msgTableIsFree(this, c.table);
 		customers.remove(c);
 	}
 	
 	private void GoOnBreak() {
-		//print("Doing GoOnBreak");
+		print("Doing GoOnBreak");
 		state = MyState.OnBreak;
 		waiterGui.DoGoOnBreak(); // Animation
 		timer.schedule(new TimerTask() {
@@ -396,7 +397,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	private void GoOffBreak() {
-		//print("Doing GoOffBreak");
+		print("Doing GoOffBreak");
 		waiterGui.DoGoOffBreak(); // Animation
 		host.msgOffBreak(this);
 		state = MyState.Working;
@@ -408,7 +409,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	private void DoSeatCustomer(Customer customer, int table) {
 		//Notice how we print "customer" directly. It's toString method will do it.
 		//Same with "table"
-		//print("Seating " + customer + " at " + table);
+		print("Seating " + customer + " at " + table);
 		waiterGui.DoBringToTable(customer, table); 
 	}
 	*/
@@ -457,5 +458,17 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R0, e);
 	}
 }

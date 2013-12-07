@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
 import bank.interfaces.BankCustomer;
@@ -206,5 +207,17 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 	public int getBankID() {
 		return mBankID;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.BANK, e);
 	}
 }

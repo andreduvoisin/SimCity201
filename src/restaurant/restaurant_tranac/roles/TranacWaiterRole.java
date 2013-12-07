@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.TranacRestaurant;
@@ -529,5 +530,17 @@ public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(6);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R6);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R6);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R6, e);
 	}
 }

@@ -1,5 +1,6 @@
 package transportation.roles;
 
+import city.gui.trace.AlertTag;
 import transportation.TransportationBusDispatch;
 import base.BaseRole;
 import base.Location;
@@ -66,5 +67,17 @@ public class CommuterRole extends BaseRole{
 	@Override
 	public Location getLocation() {
 		return null;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.TRANSPORTATION, e);
 	}
 }

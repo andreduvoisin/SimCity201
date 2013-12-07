@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_jerryweb.gui.CustomerGui;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
@@ -495,6 +496,18 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(2);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R2, e);
 	}
 }
 

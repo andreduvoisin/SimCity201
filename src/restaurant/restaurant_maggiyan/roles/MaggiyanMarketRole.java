@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
@@ -190,5 +191,17 @@ public class MaggiyanMarketRole extends BaseRole implements MaggiyanMarket{
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(3);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R3, e);
 	}
 }

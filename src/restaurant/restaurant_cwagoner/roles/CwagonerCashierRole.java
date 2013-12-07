@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
@@ -217,5 +218,17 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(1);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R1);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R1);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R1, e);
 	}
 }

@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_duvoisin.gui.CookGui;
 import restaurant.restaurant_duvoisin.interfaces.Cook;
@@ -112,13 +113,13 @@ public class AndreCookRole extends BaseRole implements Cook {
 
 	// Messages
 	public void msgHereIsOrder(Waiter w, String choice, int table) {
-		//print("msgHereIsOrder received");
+		print("msgHereIsOrder received");
 		orders.add(new Order(w, choice, table, OrderState.Pending));
 		stateChanged();
 	}
 	
 //	public void msgFailedToFulfillRequest(Market ma, String item, int amount) {
-//		//print("msgFailedToFulfillRequest received");
+//		print("msgFailedToFulfillRequest received");
 //		foods.get(item).state = FoodState.Rejected;
 //		foods.get(item).rejectedAmount = amount;
 //		foods.get(item).rejectedMarkets.add(ma);
@@ -126,7 +127,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 //	}
 //	
 //	public void msgReplenishFood(String item, int amount) {
-//		//print("msgReplenishFood received");
+//		print("msgReplenishFood received");
 //		foods.get(item).state = FoodState.None;
 //		foods.get(item).amount += amount;
 //		foods.get(item).rejectedAmount = 0;
@@ -215,7 +216,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 
 	// Actions
 	void TryToCookFood(Order o) {
-		//print("Doing TryToCookFood");
+		print("Doing TryToCookFood");
 		log.add(new LoggedEvent("Doing TryToCookFood"));
 		int foodAmount = mRole.mItemInventory.get(Item.stringToEnum(o.choice));
 		if(foodAmount <= 0) {
@@ -255,7 +256,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 	}
 	
 	void PlateFood(Order o) {
-		//print("Doing PlateFood");
+		print("Doing PlateFood");
 		cookGui.DoCooking(o.position);
 		try {
 			atGrill.acquire();
@@ -283,7 +284,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 	}
 	
 //	void OrderFoodThatIsLow() {
-//		//print("Doing OrderFoodThatIsLow");
+//		print("Doing OrderFoodThatIsLow");
 //		Map<String, Integer> foodToOrder = new HashMap<String, Integer>();
 //		for(Food f : foods.values())
 //			if(f.amount <= f.low) {
@@ -299,7 +300,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 //	}
 	
 //	void OrderRejectedFood(Food f) {
-//		//print("Doing OrderRejectedFood");
+//		print("Doing OrderRejectedFood");
 //		/*
 //		if(f.rejectedMarkets.size() == markets.size()) {
 //			f.state = FoodState.None;
@@ -318,7 +319,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 //	}
 	
 	public void CheckRevolvingStand() {
-		//print("Doing CheckRevolvingStand");
+		print("Doing CheckRevolvingStand");
 		log.add(new LoggedEvent("Doing CheckRevolvingStand"));
 		checkRevolvingStand = false;
 		cookGui.DoGoToRevolvingStand();
@@ -331,7 +332,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 			synchronized(orders) {
 				while(!revolvingStand.isEmpty()) {
 					orders.add(revolvingStand.remove(0));
-					//print("o: " + orders.size() + " && rS: " + revolvingStand.size());
+					print("o: " + orders.size() + " && rS: " + revolvingStand.size());
 				}
 			}
 		}
@@ -395,5 +396,17 @@ public class AndreCookRole extends BaseRole implements Cook {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R0, e);
 	}
 }

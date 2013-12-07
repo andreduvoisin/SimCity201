@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import market.MarketOrder;
 import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
@@ -129,5 +130,17 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			return ContactList.cMARKET2_LOCATION;
 		}
 		return null;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.MARKET);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.MARKET);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.MARKET, e);
 	}
 }
