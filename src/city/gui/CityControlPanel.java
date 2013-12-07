@@ -66,7 +66,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		this.setMaximumSize(new Dimension(CP_WIDTH, CP_HEIGHT));
 		this.setVisible(true);
 		
-		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 2));
 		
 		// Title
