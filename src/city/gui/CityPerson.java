@@ -106,6 +106,10 @@ public class CityPerson extends CityComponent {
 	public void paint(Graphics g) {
 		if(SimCityGui.GRADINGVIEW) {
 			g.drawString(mPerson.getName(),x,y);
+			g.setColor(color);
+			g.fillRect(x, y, 5, 5);
+			g.setColor(Color.WHITE);
+			g.drawString(name, x - 10, y);
 		}
 		else if(mPerson.hasCar()) {
 			//paint car gui
