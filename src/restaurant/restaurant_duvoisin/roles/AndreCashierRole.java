@@ -25,7 +25,7 @@ import city.gui.trace.AlertTag;
 public class AndreCashierRole extends BaseRole implements Cashier {
 	public double money = 15.00;
 	
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	private String name;
 	Boolean paused = false;
 	public List<Check> openChecks = Collections.synchronizedList(new ArrayList<Check>());

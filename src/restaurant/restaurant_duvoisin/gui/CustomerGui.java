@@ -3,16 +3,14 @@ package restaurant.restaurant_duvoisin.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import base.Gui;
 
 public class CustomerGui implements Gui{
-
 	private AndreCustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
-
-	//private HostAgent host;
-	public AndreRestaurantGui gui;
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -28,20 +26,17 @@ public class CustomerGui implements Gui{
 	static final int TEXT_OFFSET_X = 24;
     static final int TEXT_OFFSET_Y = 45;
 	
-	TableGui myTables;
-	
 	private String myChoice = "";
 	
 	Boolean notifiedAtWait = false;
 
-	public CustomerGui(AndreCustomerRole c, AndreRestaurantGui gui){ //HostAgent m) {
+	public CustomerGui(AndreCustomerRole c){ //HostAgent m) {
 		agent = c;
 		xPos = STARTPOS;
 		yPos = STARTPOS;
 		xDestination = STARTPOS;
 		yDestination = STARTPOS;
 		//maitreD = m;
-		this.gui = gui;
 	}
 
 	public void updatePosition() {
@@ -66,7 +61,7 @@ public class CustomerGui implements Gui{
 				agent.msgDoneLeaving();
 				//System.out.println("about to call gui.setCustomerEnabled(agent);");
 				isHungry = false;
-				gui.setCustomerEnabled(agent);
+				//gui.setCustomerEnabled(agent);
 			}
 			command=Command.noCommand;
 		}
@@ -96,21 +91,21 @@ public class CustomerGui implements Gui{
 	}
 	
 	public void DoGoToWaitingArea() {
-		for(int i = 0; i < gui.waitHere.length; i++)
-			if(gui.waitHere[i] == false) {
+		for(int i = 0; i < AndreRestaurant.waitHere.length; i++)
+			if(AndreRestaurant.waitHere[i] == false) {
 				xDestination = WAIT_X + (WAIT_INCREMENT * i);
 				yDestination = WAIT_Y;
 				WAIT_POS = i;
-				gui.waitHere[i] = true;
+				AndreRestaurant.waitHere[i] = true;
 				notifiedAtWait = false;
 				break;
 			}
 	}
 
 	public void DoGoToSeat(int table) {//later you will map seatnumber to table coordinates.
-		xDestination = myTables.getTableX(table - 1);
-		yDestination = myTables.getTableY(table - 1);
-		gui.waitHere[WAIT_POS] = false;
+		xDestination = AndreRestaurant.tgui.getTableX(table - 1);
+		yDestination = AndreRestaurant.tgui.getTableY(table - 1);
+		AndreRestaurant.waitHere[WAIT_POS] = false;
 		command = Command.GoToSeat;
 	}
 
@@ -126,10 +121,8 @@ public class CustomerGui implements Gui{
 		yDestination = STARTPOS;
 		command = Command.LeaveRestaurant;
 		myChoice = "";
-		gui.waitHere[WAIT_POS] = false;
+		AndreRestaurant.waitHere[WAIT_POS] = false;
 	}
-	
-	public void setTables(TableGui tg) { myTables = tg; }
 	
 	public void OrderedChoice(String choice) {
 		switch(choice) {

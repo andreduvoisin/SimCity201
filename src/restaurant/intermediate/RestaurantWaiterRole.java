@@ -4,10 +4,9 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
-import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
@@ -46,10 +45,10 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 0: // andre
 			if (mWaiterType == 1) {
 				subRole = new AndreWaiterRole(super.mPerson);
-				AndreRestaurantPanel.instance.addPerson((AndreWaiterRole) subRole);
+				AndreRestaurant.addWaiter((AndreWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
 				subRole = new AndreSharedWaiterRole(super.mPerson);
-				AndreRestaurantPanel.instance.addPerson((AndreSharedWaiterRole) subRole);
+				AndreRestaurant.addSharedWaiter((AndreSharedWaiterRole) subRole);
 			}
 			break;
 //		case 1: // chase

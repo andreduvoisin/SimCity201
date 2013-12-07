@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import restaurant.restaurant_tranac.roles.TranacCashierRole;
+import city.gui.SimCityGui;
 
 public class TranacCashierGui implements Gui {
 
@@ -44,9 +45,15 @@ public class TranacCashierGui implements Gui {
 	}
 	
     public void draw(Graphics2D g) {
-    	g.setColor(Color.WHITE);
-    	g.drawImage(image, xPos, yPos, null);
-    	g.drawString("The Cashier", xPos-25, yPos-3);
+    	if(SimCityGui.GRADINGVIEW) {
+    		g.setColor(Color.WHITE);
+    		g.drawString("Cashier", xPos, yPos);
+    	}
+    	else {
+    		g.setColor(Color.WHITE);
+    		g.drawImage(image, xPos, yPos, null);
+    		g.drawString("The Cashier", xPos-25, yPos-3);
+    	}
     }
 
     public boolean isPresent() {

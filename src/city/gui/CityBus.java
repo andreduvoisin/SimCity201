@@ -18,8 +18,7 @@ public class CityBus extends CityComponent {
 
 	List<Location> mStopCoords;
 
-	private int mStopNumber,
-				mSize = 25;
+	private int mStopNumber;
 	private Location destination = new Location(0, 0);
 	private boolean mTraveling, firstRun = true;
 	BufferedImage front, right, left, back;
@@ -29,11 +28,11 @@ public class CityBus extends CityComponent {
 	 * @param b Bus "driver"
 	 * @param busNum Index of this instance of bus
 	 */
-	public CityBus(TransportationBusDispatch b, List<Location> stopCoords) {
+	public CityBus(TransportationBusDispatch b) {
 		mBusDispatch = b;
 		mTraveling = true;
 		mStopNumber = 0;
-		mStopCoords = stopCoords;
+		mStopCoords = base.reference.ContactList.cBUS_STOPS;
 
 		// Inherited from CityComponent
 		x = mStopCoords.get(mStopNumber).mX;

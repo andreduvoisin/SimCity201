@@ -15,7 +15,7 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
@@ -59,7 +59,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         	switch(mRestaurantID){
 				case 0: //andre
 					subRole = new AndreCookRole(super.mPerson, this);
-					AndreRestaurantPanel.instance.addCook((AndreCookRole) subRole);
+					AndreRestaurant.addCook((AndreCookRole) subRole);
 					break;
 //				case 1: //chase
 //					subRole = new CwagonerCookRole(super.mPerson);
@@ -189,26 +189,30 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 mMarketCashier.msgOrderPlacement(o);
                 //ANGELICA: fill in each restaurant
                 RestaurantCashierRole restaurantCashier = null;
-                /*
-                switch(mRestaurantID) {
-                case 0:
-                	restaurantCashier = 
-                case 1:
-                	
-                case 2:
-                	
-                case 3:
-                	
-                case 4:
                 
-                case 5:
+                switch(mRestaurantID) {
+                case 0:	//andre
+                	restaurantCashier = AndreRestaurant.cashier.mRole;
+                	break;
+                case 1: //chase
                 	
-                case 6:
+                case 2: //jerry
+                	restaurantCashier = JerrywebRestaurant.cashier.mRole;
+                	break;
+                case 3: //maggi
                 	
-                case 7:
+                case 4: //david
+                	restaurantCashier = DavidRestaurant.cashier.mRole;
+                	break;
+                case 5: //shane
+                	
+                case 6: //angel
+                	restaurantCashier = TranacRestaurant.mCashier.mRole;
+                	break;
+                case 7: //rex
                 	 
                 }
-                */
+                
                 restaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
         }
         
@@ -234,6 +238,10 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         	mItemInventory.put(i,mItemInventory.get(i)-1);
         }
 
+        public void setInventory(EnumItemType i, int n) {
+        	mItemInventory.put(i,n);
+        }
+        
         @Override
     	public Location getLocation() {
     		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);

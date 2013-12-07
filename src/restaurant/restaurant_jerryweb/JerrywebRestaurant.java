@@ -8,7 +8,6 @@ import java.util.Vector;
 import restaurant.restaurant_jerryweb.gui.CustomerGui;
 import restaurant.restaurant_jerryweb.gui.Gui;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
-import restaurant.restaurant_jerryweb.interfaces.Host;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
 

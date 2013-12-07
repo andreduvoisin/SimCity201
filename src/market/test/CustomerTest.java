@@ -10,8 +10,13 @@ import market.test.mock.MockCashier;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
 import base.PersonAgent;
+import base.reference.ContactList;
+import base.reference.Market;
 
 public class CustomerTest extends TestCase {
+	Market mMarket;
+	int mMarketNum = 0;
+	
 	PersonAgent mPerson;
 	MarketCustomerRole mCustomer;
 	
@@ -20,24 +25,42 @@ public class CustomerTest extends TestCase {
 	
  	Map<EnumItemType, Integer> mItems = new HashMap<EnumItemType, Integer>();
  	MarketOrder mOrder;
+ 	
+ 	int mNumItemOne = 1;
+ 	int mNumItemTwo = 3;
  
  	public void setUp() throws Exception {
  		super.setUp();
  		
+ 		ContactList.setup();
+ 		mMarket = ContactList.sMarketList.get(mMarketNum);
  		mPerson = new PersonAgent();
- 		mCustomer = new MarketCustomerRole(mPerson);
+ 		mCustomer = new MarketCustomerRole(mPerson, mMarketNum);
  		
  		mMockCashier = new MockCashier();
  		mMockWorker = new MockWorker();
  		
- 		mItems.put(EnumItemType.CHICKEN, 3);
- 		mItems.put(EnumItemType.STEAK, 1);
+ 		mCustomer.mItemsDesired.put(EnumItemType.CHICKEN, 3);
+ 		mCustomer.mItemsDesired.put(EnumItemType.STEAK, 1);
  	}
  	
  	/**
  	 * Test customer for a completed order.
  	 */
  	public void testCompletedOrder() {
+ 	  //assert preconditions
+ 		
+ 		
+ 		
+ 	}
+ 	
+ 	/**
+ 	 * Test customer for a partial order.
+ 	 */
+ 	public void testPartialOrder() {
+ 	  //assert preconditions
+ 		
+ 		
  		
  	}
 }
