@@ -27,6 +27,7 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 	static final int NTABLES = 4;		//number of tables in rest
 	static final int NWAITINGAREA = 20;
 	public Collection<Table> tables;
+	private int numWaiters;
 
 	//list of agents interacting in the restaurant
 	public List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
