@@ -162,12 +162,14 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
+		if(!(guis==null)){
 		synchronized (guis) {
 			for (Gui gui : guis) {
 				if (gui.isPresent()) {
 					gui.updatePosition();
 				}
 			}
+		}
 		}
 	}
 	
