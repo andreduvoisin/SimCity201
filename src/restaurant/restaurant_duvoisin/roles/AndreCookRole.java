@@ -17,7 +17,6 @@ import restaurant.restaurant_duvoisin.test.mock.EventLog;
 import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 import base.BaseRole;
 import base.Item;
-import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;

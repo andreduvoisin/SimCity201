@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import restaurant.restaurant_tranac.gui.TranacHostGui;
-import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;

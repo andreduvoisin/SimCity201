@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import market.gui.MarketBaseGui;
 import bank.gui.BankCustomerGui;
 import bank.gui.BankGuardGui;
 import bank.gui.BankTellerGui;
-import bank.gui.BankPanel;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;

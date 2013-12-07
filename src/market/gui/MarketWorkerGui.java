@@ -8,10 +8,10 @@ import java.util.concurrent.Semaphore;
 
 import javax.imageio.ImageIO;
 
-import city.gui.SimCityGui;
 import market.MarketOrder;
 import market.interfaces.MarketWorker;
 import base.Item.EnumItemType;
+import city.gui.SimCityGui;
 
 public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorker mAgent;

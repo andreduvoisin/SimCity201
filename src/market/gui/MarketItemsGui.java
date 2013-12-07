@@ -9,9 +9,9 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import city.gui.SimCityGui;
 import market.roles.MarketCashierRole;
 import base.Item.EnumItemType;
+import city.gui.SimCityGui;
 
 
 /**

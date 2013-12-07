@@ -3,8 +3,6 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import market.gui.MarketPanel;
-import bank.gui.BankPanel;
 import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;

@@ -11,23 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.JPanel;
 import javax.swing.Timer;
-
-import city.gui.CityCard;
-import city.gui.SimCityGui;
 
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
-import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
-import restaurant.restaurant_smileham.roles.SmilehamCookRole;
-import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
-import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import base.BaseRole;
 import base.Time;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	

@@ -4,17 +4,13 @@ package city.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.BoxLayout;
@@ -23,11 +19,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import city.gui.trace.*;
 import base.ConfigParser;
+import city.gui.trace.AlertLevel;
+import city.gui.trace.AlertLog;
+import city.gui.trace.AlertTag;
+import city.gui.trace.TracePanel;
 
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{

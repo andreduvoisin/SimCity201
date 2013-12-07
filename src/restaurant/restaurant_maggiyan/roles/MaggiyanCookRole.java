@@ -19,7 +19,6 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
 import base.Item;
-import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 

@@ -5,10 +5,10 @@ import junit.framework.TestCase;
 import market.test.mock.MockCustomer;
 import bank.test.mock.MockTellerRole;
 import base.Event;
-import base.SortingHat;
 import base.Event.EnumEventType;
 import base.PersonAgent;
 import base.PersonAgent.EnumJobType;
+import base.SortingHat;
 import city.gui.CityPerson;
 
 public class PersonAgentTest extends TestCase {
