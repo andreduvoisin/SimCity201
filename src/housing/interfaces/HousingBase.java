@@ -1,6 +1,6 @@
 package housing.interfaces;
 
-import city.gui.CityHousing;
+import base.reference.House;
 
 public interface HousingBase {
 
@@ -12,8 +12,8 @@ public interface HousingBase {
 
 	public abstract void msgDoneAnimating();
 
-	public abstract void setHouse(CityHousing h);
+	public abstract void setHouse(House h);
 	
-	public abstract CityHousing getHouse();
+	public abstract House getHouse();
 
 }
