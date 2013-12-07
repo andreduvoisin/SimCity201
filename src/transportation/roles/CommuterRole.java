@@ -1,6 +1,6 @@
 package transportation.roles;
 
-import transportation.TransportationBusDispatch;
+import transportation.TransportationBus;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
@@ -17,7 +17,7 @@ public class CommuterRole extends BaseRole{
 	private int mDestinationBusStop; 
 	private PersonBusState mState; 
 	//MAGGI: put where MasterTeller is being created 
-	private TransportationBusDispatch mBusDispatch = new TransportationBusDispatch(); 
+	private TransportationBus mBus = new TransportationBus(); 
 	
 	//CONSTRUCTOR
 	public CommuterRole(Person person) {
@@ -26,6 +26,9 @@ public class CommuterRole extends BaseRole{
 	}	
 	
 	//MESSAGES
+	/** From GUI
+	 * When arrived at a corner
+	 */
 	public void msgAtBusStop(int currentStop, int destinationStop){
 		mCurrentBusStop = currentStop;
 		mDestinationBusStop = destinationStop; 

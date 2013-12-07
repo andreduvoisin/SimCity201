@@ -8,6 +8,7 @@ import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import transportation.TransportationBus;
 import bank.interfaces.BankMasterTeller;
 import base.Location;
 import base.interfaces.Person;
@@ -110,6 +111,7 @@ public class ContactList {
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	public static List<Location> cBUS_STOPS;
+	public static TransportationBus cBus;
 	public static BankMasterTeller masterTeller;
 	
 	
@@ -147,6 +149,8 @@ public class ContactList {
 		bslist.add(cBusStop2);
 		bslist.add(cBusStop3);
 		cBUS_STOPS = Collections.unmodifiableList(bslist);
+
+		cBus = new TransportationBus();
 	}
 	
 	//setup housing locations

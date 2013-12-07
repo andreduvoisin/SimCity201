@@ -39,7 +39,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	int mMarketID;
 	
 	public Map<EnumItemType, Integer> mInventory = new HashMap<EnumItemType, Integer>();
-	public int mBaseInventory = 100;
+	public int mBaseInventory = 32;
 	
 	public List<MarketWorker> mWorkers;
 	static int mWorkerIndex;

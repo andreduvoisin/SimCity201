@@ -77,7 +77,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 		for(int i = 0; i < plateHere.length; i++)
 			plateHere[i] = false;
 		
-		checkRevolvingStand = false;
+		checkRevolvingStand = true;
 		
 		/*ANGELICA: z
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
