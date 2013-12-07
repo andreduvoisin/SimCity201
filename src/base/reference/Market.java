@@ -22,11 +22,7 @@ public class Market {
 
 	//guis
 	public List<MarketBaseGui> mGuis = Collections.synchronizedList(new ArrayList<MarketBaseGui>());
-	public List<MarketWorkerGui> mWorkerGuis = new ArrayList<MarketWorkerGui>();
-	public List<MarketCustomerGui> mCustomerGuis = new ArrayList<MarketCustomerGui>();
-	public List<MarketCashierGui> mCashierGuis = new ArrayList<MarketCashierGui>();
 	//delivery truck gui in cityView
-	//SHANE: what is the purpose of having multiple gui lists? -rex
 	
 	public Market(int n) {
 		mMarketID = n;

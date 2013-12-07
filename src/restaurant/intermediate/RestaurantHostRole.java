@@ -3,7 +3,7 @@ package restaurant.intermediate;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreHostRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
@@ -39,7 +39,7 @@ public class RestaurantHostRole extends BaseRole implements
 		switch (mRestaurantID) {
 		case 0: // andre
 			subRole = new AndreHostRole(super.mPerson);
-			AndreRestaurantPanel.instance.host = (AndreHostRole) subRole;
+			AndreRestaurant.host = (AndreHostRole) subRole;
 			break;
 //		case 1: // chase
 //			subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).host;

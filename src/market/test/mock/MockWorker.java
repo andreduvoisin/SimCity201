@@ -14,7 +14,7 @@ public class MockWorker extends Mock implements MarketWorker {
 	}
 	
 	public void msgFulfillOrder(MarketOrder o) {
-		log.add(new LoggedEvent("Received msgFulfillOrder for " + o.mPersonRole));
+		log.add(new LoggedEvent("Received msgFulfillOrder."));
 	}
 	
 	public void msgOrderFulfilled(MarketOrder o) {

@@ -2,9 +2,11 @@ package housing.test.mock;
 
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import base.reference.House;
 import city.gui.CityHousing;
 
 /**
@@ -98,6 +100,30 @@ public class MockRenter extends Mock implements Role, HousingRenter {
 	public void setActive() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void msgApplicationAccepted(House newHouse) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean hasPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void GoToDestination(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Location getLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

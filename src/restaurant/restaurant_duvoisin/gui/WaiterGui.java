@@ -3,6 +3,8 @@ package restaurant.restaurant_duvoisin.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import base.Gui;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
@@ -14,8 +16,6 @@ public class WaiterGui implements Gui {
     static final int STARTPOS = -20;
     private int currentTable = 0;
     
-    AndreRestaurantGui gui;
-    
     private int xPos = STARTPOS, yPos = STARTPOS;//default waiter position
     private int xDestination = STARTPOS, yDestination = STARTPOS;//default start position
     
@@ -26,8 +26,7 @@ public class WaiterGui implements Gui {
     static final int CASHIER_Y = 175;
     static final int COOK_DELIVER_X = 250;
     static final int COOK_DELIVER_Y = 390;
-    //static final int WAIT_X = 215;
-    //static final int WAIT_Y = 100;
+    
     static final int BREAK_X = 420;
     static final int BREAK_Y = 10;
     static final int TEXT_OFFSET_X = 1;
@@ -44,33 +43,31 @@ public class WaiterGui implements Gui {
 	static final int STAND_X = 410 - WAITERSIZE;
 	static final int STAND_Y = 401 - WAITERSIZE;
     
-    TableGui myTables;
-    
     private String currentOrder;
     int foodPosition;
 
-    public WaiterGui(AndreSharedWaiterRole role, AndreRestaurantGui gui) {
+    public WaiterGui(AndreSharedWaiterRole role) {
         this.agent = role;
-        this.gui = gui;
+        
         currentOrder = "";
         
-        for(int i = 0; i < gui.idleHere.length; i++)
-			if(gui.idleHere[i] == false) {
+        for(int i = 0; i < AndreRestaurant.idleHere.length; i++)
+			if(AndreRestaurant.idleHere[i] == false) {
 				IDLE_Y += IDLE_INCREMENT * i;
-				gui.idleHere[i] = true;
+				AndreRestaurant.idleHere[i] = true;
 				break;
 			}
     }
     
-    public WaiterGui(AndreWaiterRole role, AndreRestaurantGui gui) {
+    public WaiterGui(AndreWaiterRole role) {
         this.agent = role;
-        this.gui = gui;
+        
         currentOrder = "";
         
-        for(int i = 0; i < gui.idleHere.length; i++)
-			if(gui.idleHere[i] == false) {
+        for(int i = 0; i < AndreRestaurant.idleHere.length; i++)
+			if(AndreRestaurant.idleHere[i] == false) {
 				IDLE_Y += IDLE_INCREMENT * i;
-				gui.idleHere[i] = true;
+				AndreRestaurant.idleHere[i] = true;
 				break;
 			}
     }
@@ -87,7 +84,7 @@ public class WaiterGui implements Gui {
             yPos--;
 
         if (xPos == xDestination && yPos == yDestination
-        		& (xDestination == myTables.getTableX(currentTable) + WAITERSIZE) & (yDestination == myTables.getTableY(currentTable) - WAITERSIZE)) {
+        		& (xDestination == AndreRestaurant.tgui.getTableX(currentTable) + WAITERSIZE) & (yDestination == AndreRestaurant.tgui.getTableY(currentTable) - WAITERSIZE)) {
         	agent.msgAtTable();
         }
         if (xPos == xDestination && yPos == yDestination
@@ -125,8 +122,8 @@ public class WaiterGui implements Gui {
 
     public void DoGoToTable(int table) {
     	currentTable = table - 1;
-        xDestination = myTables.getTableX(currentTable) + WAITERSIZE;
-        yDestination = myTables.getTableY(currentTable) - WAITERSIZE;
+        xDestination = AndreRestaurant.tgui.getTableX(currentTable) + WAITERSIZE;
+        yDestination = AndreRestaurant.tgui.getTableY(currentTable) - WAITERSIZE;
     }
 
     public void DoGoWait() {
@@ -172,7 +169,7 @@ public class WaiterGui implements Gui {
     	yDestination = STAND_Y;
     }
     
-    public void enableButton() { gui.setWaiterEnabled(agent); }
+    public void enableButton() { }
 
     public int getXPos() {
         return xPos;
@@ -181,8 +178,6 @@ public class WaiterGui implements Gui {
     public int getYPos() {
         return yPos;
     }
-    
-    public void setTables(TableGui tg) { myTables = tg; }
     
     public void setCurrentOrder(String co) {
     	switch(co) {
@@ -203,4 +198,10 @@ public class WaiterGui implements Gui {
 				break;
     	}
     }
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }
