@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_jerryweb.gui.HostGui;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Cashier;
@@ -16,6 +17,7 @@ import restaurant.restaurant_jerryweb.interfaces.Market;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
 import base.Location;
+import base.interfaces.Person;
 import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
@@ -30,7 +32,7 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 	public Map<String,Food> foodMap = new HashMap<String,Food>(4);
 	public double money = 200;
 	public double change = 0;
-	
+	private RestaurantCashierRole mRole;
 	public class MarketBill{
 		public Market market;
 		public double amount;
@@ -98,14 +100,15 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 
 	public HostGui hostGui = null;
 
-	public JerrywebCashierRole(String name) {
+	public JerrywebCashierRole(Person person, RestaurantCashierRole rcr) {
 		super(null);
-		this.name = name;
+		 name = person.getName();
 		foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 0, 15.99));
 		foodMap.put("chicken",new Food("chicken", FoodState.delivered, 12000, 7, 0, 10.99));
 		foodMap.put("salad",new Food("salad", FoodState.delivered, 2000, 10, 1, 5.99));
 		foodMap.put("pizza",new Food("pizza", FoodState.delivered, 14000, 8, 0, 8.99));
 	}
+
 
 	public String getMaitreDName() {
 		return name;
@@ -231,6 +234,10 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 		return 0;
 	}
 	
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
+    
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(2);

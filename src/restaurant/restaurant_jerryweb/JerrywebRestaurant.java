@@ -31,19 +31,20 @@ public class JerrywebRestaurant {
 	public static void addPerson(BaseRole role){
     	if (role instanceof JerrywebCustomerRole){
     		JerrywebCustomerRole customer = (JerrywebCustomerRole) role;
-    		
     		customers.add(customer);
     		customer.gotHungry();
     		NumOfCustomers++;
     	}
     	else if (role instanceof JerrywebWaiterRole){
     		JerrywebWaiterRole waiter = (JerrywebWaiterRole) role;
+    		waiter.setHost(host);
     		JerrywebHostRole host = waiter.getHost();
     		host.addWaiter((JerrywebWaiterRole)waiter);
     		NumOfWatiers++;
     	}
-    	else if (role instanceof JerrywebWaiterRole){
+    	else if (role instanceof JerrywebRSWaiterRole){
     		JerrywebRSWaiterRole rswaiter = (JerrywebRSWaiterRole) role;
+    		rswaiter.setHost(host);
     		JerrywebHostRole host = rswaiter.getHost();
     		host.addWaiter((JerrywebRSWaiterRole)rswaiter);
     		NumOfWatiers++;
