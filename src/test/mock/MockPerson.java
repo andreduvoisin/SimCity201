@@ -1,5 +1,7 @@
 package test.mock;
 
+import housing.interfaces.HousingBase;
+
 import java.util.Map;
 
 import bank.interfaces.BankMasterTeller;
@@ -131,7 +133,7 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	@Override
-	public Role getHousingRole() {
+	public HousingBase getHousingRole() {
 		
 		return null;
 	}
@@ -154,7 +156,6 @@ public class MockPerson extends Mock implements Person {
 		
 	}
 
-	@Override
 	public CityHousing getHouse() {
 		// TODO Auto-generated method stub
 		return null;
@@ -180,6 +181,24 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public void setJobFalse() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean hasCar() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void print(String msg) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void print(String msg, Throwable e) {
 		// TODO Auto-generated method stub
 		
 	}

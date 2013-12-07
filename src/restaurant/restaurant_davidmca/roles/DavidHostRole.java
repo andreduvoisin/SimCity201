@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.MyWaiter;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
@@ -75,7 +76,7 @@ public class DavidHostRole extends BaseRole implements Host {
 	}
 
 	public Table getAvailableTable() {
-			for (Table table : DavidAnimationPanel.tables) {
+			for (Table table : DavidRestaurant.tables) {
 				if (!table.isOccupied()) {
 					return table;
 				}
@@ -85,12 +86,12 @@ public class DavidHostRole extends BaseRole implements Host {
 
 	private boolean getAvailability() {
 		int opentables = 0;
-			for (Table t : DavidAnimationPanel.tables) {
+			for (Table t : DavidRestaurant.tables) {
 				if (!t.isOccupied()) {
 					opentables++;
 				}
 			}
-		if (opentables == 0 || (waitingCustomers.size() >= DavidAnimationPanel.tables.size())) {
+		if (opentables == 0 || (waitingCustomers.size() >= DavidRestaurant.tables.size())) {
 			return false;
 		} else {
 			return true;
@@ -167,7 +168,7 @@ public class DavidHostRole extends BaseRole implements Host {
 				return true;
 			}
 		}
-			for (Table table : DavidAnimationPanel.tables) {
+			for (Table table : DavidRestaurant.tables) {
 				if (!table.isOccupied() && !waitingCustomers.isEmpty()
 						&& !waiters.isEmpty()) {
 					MyWaiter waiterToUse = getWaiter();

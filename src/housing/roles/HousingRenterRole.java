@@ -9,7 +9,7 @@ import java.util.List;
 
 import base.interfaces.Person;
 import base.reference.ContactList;
-import city.gui.CityHousing;
+import base.reference.House;
 
 /*
  * @author David Carr, Maggi Yang
@@ -46,7 +46,7 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 
 	/* Messages */
 
-	public void msgApplicationAccepted(CityHousing newHouse) {
+	public void msgApplicationAccepted(House newHouse) {
 		print("Message - msgApplicationAccepted");
 		mHouse = newHouse;
 		stateChanged();

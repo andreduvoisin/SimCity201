@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
@@ -84,10 +85,10 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 4: // david
 			if (mWaiterType == 1) {
 				subRole = new DavidWaiterRole(super.mPerson);
-				DavidAnimationPanel.addWaiter((DavidWaiterRole) subRole);
+				DavidRestaurant.addWaiter((DavidWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
 				subRole = new DavidWaiterRoleShared(super.mPerson);
-				DavidAnimationPanel.addSharedWaiter((DavidWaiterRoleShared) subRole);
+				DavidRestaurant.addSharedWaiter((DavidWaiterRoleShared) subRole);
 			}
 			break;
 		case 5: // shane

@@ -13,6 +13,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
@@ -74,7 +75,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					break;
 				case 4: //david
 					subRole = new DavidCookRole(super.mPerson, this);
-					DavidAnimationPanel.addCook((DavidCookRole) subRole);
+					DavidRestaurant.addCook((DavidCookRole) subRole);
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson, this);

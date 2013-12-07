@@ -591,9 +591,10 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.DoGoToDestination(event.mLocation);
 		acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
-		
 		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
-		event.mHost.getHousingRole().getHouse().mPanel.addGui((Gui)((HousingBaseRole) getHousingRole()).gui);
+		SimCityGui.getInstance().cityview.mCityHousingList.get(event.mHost
+				.getHousingRole().getHouse().mHouseNum).mPanel
+				.addGui((Gui) ((HousingBaseRole) getHousingRole()).gui);
 		((HousingBaseRole) getHousingRole()).gui.DoParty();
 	}
 
