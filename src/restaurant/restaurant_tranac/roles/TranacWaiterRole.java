@@ -8,7 +8,7 @@ import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
-import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacWaiterGui;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
@@ -48,12 +48,12 @@ public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 	
 	public TranacWaiterRole(Person p) {
 		super(p);
-		waiterGui = new TranacWaiterGui(this, TranacAnimationPanel.getNumWaiters());
-		TranacAnimationPanel.addPerson(this);
+		waiterGui = new TranacWaiterGui(this, TranacRestaurant.getNumWaiters());
+		TranacRestaurant.getInstance().addPerson(this);
 		
-		mHost = TranacAnimationPanel.getHost();
-		mCook = TranacAnimationPanel.getCook();
-		mCashier = TranacAnimationPanel.getCashier();
+		mHost = TranacRestaurant.getHost();
+		mCook = TranacRestaurant.getCook();
+		mCashier = TranacRestaurant.getCashier();
 	}
 	
 	/** Messages */

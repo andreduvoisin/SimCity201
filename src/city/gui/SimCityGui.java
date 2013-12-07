@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import base.Time;
+import base.reference.ContactList;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
@@ -42,22 +43,21 @@ public class SimCityGui extends JFrame {
 		Time globaltime = new Time(); //starts the static timer
 		
 		//Create Grid/Gui
-			mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
-			mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
-			this.add(CP, mGridBagConstraints);
-			
-			mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
-			mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
-			this.add(citypanel, mGridBagConstraints);
-			
-			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
-			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
-			this.add(infopanel, mGridBagConstraints);
-	
-			mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
-			mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
-			this.add(cityview, mGridBagConstraints);	
+		mGridBagConstraints.gridx = 0; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 2; mGridBagConstraints.gridheight = 6;
+		this.add(CP, mGridBagConstraints);
 		
+		mGridBagConstraints.gridx = 2; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 6; mGridBagConstraints.gridheight = 6;
+		this.add(citypanel, mGridBagConstraints);
+		
+		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 0;
+		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 1;
+		this.add(infopanel, mGridBagConstraints);
+
+		mGridBagConstraints.gridx = 8; mGridBagConstraints.gridy = 1;
+		mGridBagConstraints.gridwidth = 5; mGridBagConstraints.gridheight = 5;
+		this.add(cityview, mGridBagConstraints);	
 	}
 
 	/**
@@ -66,6 +66,7 @@ public class SimCityGui extends JFrame {
 	 * @throws HeadlessException 
 	 */
 	public static void main(String[] args) throws HeadlessException, IOException {
+		ContactList.setup();
 		SimCityGui test = new SimCityGui("SimCity201 - Team 28");
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		test.setResizable(false);

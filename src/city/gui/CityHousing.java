@@ -1,7 +1,6 @@
 package city.gui;
 
 import housing.gui.HousingGuiPanel;
-import housing.interfaces.HousingRenter;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,24 +12,17 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class CityHousing extends CityComponent {
-	public int mHouseNum;
-	public int xLocation, yLocation;
-	public double mRent;
-	public HousingRenter mOccupant;
-	public enum HousingType{Apartment, House}; 
-	public HousingType type; 
-	public final double maxAptRent = 450.00;  
-	public HousingGuiPanel mPanel;
 	
+	public int xLocation, yLocation;
+	public HousingGuiPanel mPanel;
+	public int mHouseNum;
 	private BufferedImage image;
 	
-	public CityHousing(SimCityGui city, int x, int y, int ID, double rent) {
+	public CityHousing(SimCityGui city, int x, int y, int ID) {
 		super(x, y, Color.blue, "House "+ID);
 		mHouseNum = ID;
 		xLocation = x;
 		yLocation = y;
-		mOccupant = null;
-		mRent = rent;
 		rectangle = new Rectangle(x, y, 20, 20);
 		mPanel = new HousingGuiPanel(city);
 		
@@ -42,28 +34,6 @@ public class CityHousing extends CityComponent {
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-		if(rent <= maxAptRent){
-			type = HousingType.Apartment; 
-		}
-		else{
-			type = HousingType.House; 
-		}	
-	}
-
-	//For unit testing
-	public CityHousing(int x, int y, int ID, double rent) {
-		xLocation = x;
-		yLocation = y;
-		mRent = rent;
-		mOccupant = null;
-		mHouseNum = ID;
-		if(rent <= maxAptRent){
-			type = HousingType.Apartment; 
-		}
-		else{
-			type = HousingType.House; 
-		}	
 	}
 	
 	public void updatePosition() {
@@ -71,12 +41,31 @@ public class CityHousing extends CityComponent {
 	}
 	
 	public void paint(Graphics g) {
-		//g.drawImage(image, x, y, null);
-		
-		g.setColor(color);
-		g.fillRect(x, y, 20, 20);
-		g.setColor(Color.WHITE);
-		g.drawString("H"+mHouseNum,x + 7 , y + 17);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(color);
+			g.fillRect(x, y, 20, 20);
+			g.setColor(Color.WHITE);
+			
+			String prefixNum = "";
+			switch(mHouseNum) {
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+					prefixNum += "0";
+					break;
+			}
+			
+			g.drawString(prefixNum + mHouseNum, x + 5, y + 15);
+		} else {
+			g.drawImage(image, x, y, null);
+		}
 	}
 
 	@Override

@@ -28,11 +28,8 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	};
 
 	public HousingRenterRole(Person person) {
-		mPerson = person;
-	}
-
-	public HousingRenterRole() {
 		super();
+		mPerson = person;
 	}
 
 	private class Bill {

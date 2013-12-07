@@ -48,11 +48,14 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		//setup
 		super(person);
 		mMarketID = marketID;
+		
+		
+		//Add gui
 		mGui = new MarketCashierGui(this);
+		ContactList.sMarketList.get(mMarketID).mCashier = this;
+		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
+		ContactList.sMarketList.get(mMarketID).mCashierGuis.add(mGui);
 		
-		
-		ContactList.sMarketList.get(marketID).mCashier = this;
-		ContactList.sMarketList.get(marketID).mGuis.add(mGui);
 		
 		if(person != null)
 			mBankAccount = person.getSSN();

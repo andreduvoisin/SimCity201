@@ -58,8 +58,10 @@ public abstract class CityComponent implements Gui{
 	
 	public void paint(Graphics g) {
 		if (isActive) {
-			g.setColor(color);
-			g.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+			if(SimCityGui.GRADINGVIEW) {
+				g.setColor(color);
+				g.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+			}
 		}
 	}
 	

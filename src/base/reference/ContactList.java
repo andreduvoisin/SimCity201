@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import restaurant.restaurant_davidmca.DavidRestaurant;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
 import base.interfaces.Person;
@@ -28,7 +29,7 @@ public class ContactList {
 		
 		//Markets
 		for (int iMarketNum = 0; iMarketNum < cNumMarkets; iMarketNum ++){
-			sMarketList.add(new Market());
+			sMarketList.add(new Market(iMarketNum));
 		}
 	}
 	
@@ -104,6 +105,7 @@ public class ContactList {
 	static final Location cRESTAURANT_LOCATION4 = gridLocation(2, 3); //maggiyang	3
 	static final Location cRESTAURANT_LOCATION5 = gridLocation(0, 1); //davidmca	4
 	static final Location cRESTAURANT_LOCATION6 = gridLocation(0, 2); //smileham	5
+	public static final TranacRestaurant tranac = new TranacRestaurant();
 	static final Location cRESTAURANT_LOCATION7 = gridLocation(3, 1); //tranac		6
 	static final Location cRESTAURANT_LOCATION8 = gridLocation(3, 2); //xurex		7
 	static {
