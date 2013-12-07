@@ -34,7 +34,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	SimCityGui city;
 	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
-	public static final int TABBED_HEIGHT_ADJ = 42;
+	public static final int TABBED_HEIGHT_ADJ = 26;
 	public static final int numConfigs = 5;
 	JButton addRestaurant, addBank, housingGUIButton;
 	JPanel configList;
@@ -62,9 +62,9 @@ public class CityControlPanel extends JPanel implements ActionListener{
     
     // Tabs
     JTabbedPane tabbedPane = new JTabbedPane();
-    JPanel RestaurantTab = new JPanel();
-    JPanel CommercialTab = new JPanel();
     JPanel ScenariosTab = new JPanel();
+    JPanel PeopleTab = new JPanel();
+    JPanel PropertiesTab = new JPanel();
     JPanel TraceTab = new JPanel();
     
     // Trace Panel
@@ -118,8 +118,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 //		currentDay.setMaximumSize(dayCBDim);
 //		add(currentDay);
 		
-		scenarioTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-		add(scenarioTitle);
+//		scenarioTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		add(scenarioTitle);
 		
 		// Scenario
 		view.setLayout(new BoxLayout((Container)view, BoxLayout.Y_AXIS));
@@ -134,19 +134,18 @@ public class CityControlPanel extends JPanel implements ActionListener{
 
         JLabel filler2 = new JLabel("Panel #2");
         filler2.setHorizontalAlignment(JLabel.CENTER);
-        RestaurantTab.setLayout(new GridLayout(1, 2));
-        ScenariosTab.setLayout(new GridLayout(1, 2));
         
         Dimension tabbedPaneDim = new Dimension(CP_WIDTH, CP_HEIGHT - TABBED_HEIGHT_ADJ);
         tabbedPane.setPreferredSize(tabbedPaneDim);
         tabbedPane.setMinimumSize(tabbedPaneDim);
         tabbedPane.setMaximumSize(tabbedPaneDim);
         
-        //tabbedPane.setLayout(new GridLayout(1,3));
-        tabbedPane.addTab("Trace", TraceTab);
-        tabbedPane.addTab("Commercial", CommercialTab);
+        // 3 4 1 2
+        tabbedPane.addTab("People", PeopleTab);
+        tabbedPane.addTab("Properties", PropertiesTab);
         tabbedPane.addTab("Scenarios", ScenariosTab);
-        tabbedPane.addTab("Restaurants ", RestaurantTab);
+        tabbedPane.addTab("Trace", TraceTab);
+        tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
         add(tabbedPane);
         
         // Trace Panel
@@ -167,10 +166,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 //		addBank.addActionListener(this);
 //		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
 //		add(addBank);
-        
-        // Scenario
-        view.setLayout(new BoxLayout((Container)view, BoxLayout.Y_AXIS));
-        pane.setViewportView(view);
         
         /*
          * Choose Config File
@@ -206,7 +201,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	//}
     	
     	view.add(configList);
-    	RestaurantTab.add(pane);
+    	//RestaurantTab.add(pane);
     	
     	
     	
@@ -218,7 +213,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	bankBtn.setPreferredSize(buttonDim);
     	bankBtn.setMinimumSize(buttonDim);
     	bankBtn.setMaximumSize(buttonDim);
-    	CommercialTab.add(bankBtn);
+    	//CommercialTab.add(bankBtn);
     	configOptions.add(bankBtn);
     	
     	JButton marketBtn = new JButton("Food Market");
@@ -226,22 +221,12 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	marketBtn.setPreferredSize(buttonDim);
     	marketBtn.setMinimumSize(buttonDim);
     	marketBtn.setMaximumSize(buttonDim);
-    	CommercialTab.add(marketBtn);
+    	//CommercialTab.add(marketBtn);
     	configOptions.add(marketBtn);
     	
     	//Scenarios Config Tab
-    	JLabel NormLabel = new JLabel("Norms");
-    	JLabel NonNormLabel = new JLabel("Non Norms");
+    	initScenarios();
     	
-    	JButton partyBtn = new JButton("Party");
-    	partyBtn.addActionListener(this);
-    	partyBtn.setPreferredSize(buttonDim);
-    	partyBtn.setMinimumSize(buttonDim);
-    	partyBtn.setMaximumSize(buttonDim);
-    	//ScenariosTab.add(NormLabel);
-    	//ScenariosTab.add(NonNormLabel);
-    	ScenariosTab.add(partyBtn);
-    	configOptions.add(partyBtn);
     	//view.add(configList);
 
     	//pane.add(configList);
@@ -395,6 +380,177 @@ public class CityControlPanel extends JPanel implements ActionListener{
 						tracePanel.showAlertsWithTag(AlertTag.GENERAL_CITY);
 						break;
 				}
+			}
+		});
+	}
+	
+	public void initScenarios() {
+		//ScenariosTab.setLayout(new GridLayout(18, 1));
+		
+    	JLabel label1 = new JLabel("Normative - Baseline");
+    	JButton scenarioA = new JButton("A: All Behaviors");
+    	JButton scenarioB = new JButton("B: All Behaviors");
+    	JButton scenarioC = new JButton("C: Cook/Cashier/Market");
+    	JButton scenarioD = new JButton("D: Parties");
+    	JButton scenarioE = new JButton("E: Bus Stops");
+    	
+    	JLabel label2 = new JLabel("Non-Normative - Baseline");
+    	JButton scenarioF = new JButton("F: Can't Visit Building");
+    	JButton scenarioG = new JButton("G: Market");
+    	JButton scenarioH = new JButton("H: Party with Flakes");
+    	JButton scenarioI = new JButton("I: Party Cancelled");
+    	
+    	JLabel label3 = new JLabel("Normative - Interleaving");
+    	JButton scenarioJ = new JButton("J: Simulate All");
+    	
+    	JLabel label4 = new JLabel("Non-Normative - We Design");
+    	JButton scenarioO = new JButton("O: Bank Robbery");
+    	JButton scenarioP = new JButton("P: Vehicle Accident");
+    	JButton scenarioQ = new JButton("Q: Vehicle Hits Person");
+    	JButton scenarioR = new JButton("R: Different on Weekends");
+    	JButton scenarioS = new JButton("S: Job Shifts");
+    	
+    	ScenariosTab.add(label1);
+    	ScenariosTab.add(scenarioA);
+    	ScenariosTab.add(scenarioB);
+    	ScenariosTab.add(scenarioC);
+    	ScenariosTab.add(scenarioD);
+    	ScenariosTab.add(scenarioE);
+
+    	ScenariosTab.add(label2);
+    	ScenariosTab.add(scenarioF);
+    	ScenariosTab.add(scenarioG);
+    	ScenariosTab.add(scenarioH);
+    	ScenariosTab.add(scenarioI);
+    	
+    	ScenariosTab.add(label3);
+    	ScenariosTab.add(scenarioJ);
+    	
+    	ScenariosTab.add(label4);
+    	ScenariosTab.add(scenarioO);
+    	ScenariosTab.add(scenarioP);
+    	ScenariosTab.add(scenarioQ);
+    	ScenariosTab.add(scenarioR);
+    	ScenariosTab.add(scenarioS);
+    	
+    	// Underline Labels
+    	Font font = label1.getFont();
+		Map attributes = font.getAttributes();
+		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		label1.setFont(font.deriveFont(attributes));
+		label2.setFont(font.deriveFont(attributes));
+		label3.setFont(font.deriveFont(attributes));
+		label4.setFont(font.deriveFont(attributes));
+		
+		// Dimensions of Buttons
+		Dimension buttonDim = scenarioA.getPreferredSize();
+		buttonDim.height -= 2;
+		buttonDim.width = 180;
+		scenarioA.setPreferredSize(buttonDim);
+		scenarioB.setPreferredSize(buttonDim);
+		scenarioC.setPreferredSize(buttonDim);
+		scenarioD.setPreferredSize(buttonDim);
+		scenarioE.setPreferredSize(buttonDim);
+		scenarioF.setPreferredSize(buttonDim);
+		scenarioG.setPreferredSize(buttonDim);
+		scenarioH.setPreferredSize(buttonDim);
+		scenarioI.setPreferredSize(buttonDim);
+		scenarioJ.setPreferredSize(buttonDim);
+		scenarioO.setPreferredSize(buttonDim);
+		scenarioP.setPreferredSize(buttonDim);
+		scenarioQ.setPreferredSize(buttonDim);
+		scenarioR.setPreferredSize(buttonDim);
+		scenarioS.setPreferredSize(buttonDim);
+		
+		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
+		scenarioA.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioB.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioC.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioD.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioE.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioF.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioG.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioH.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioI.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioJ.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioO.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioP.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioQ.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioR.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		scenarioS.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 	}
