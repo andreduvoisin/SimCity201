@@ -14,7 +14,7 @@ import base.reference.ContactList;
 public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
 	public static int TESTNUM = 4;
-	
+
 	public static boolean GRADINGVIEW = false;
 	
 	static SimCityGui instance = null;

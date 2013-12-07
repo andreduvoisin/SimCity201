@@ -12,6 +12,7 @@ import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
 import base.Location;
+import base.interfaces.Person;
 import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
@@ -88,7 +89,7 @@ public class JerrywebHostRole extends BaseRole {
 
 	public HostGui hostGui = null;
 
-	public JerrywebHostRole(String name) {
+	public JerrywebHostRole(Person mPerson) {
 		super(null);
 		
 		this.name = "jerryhost";

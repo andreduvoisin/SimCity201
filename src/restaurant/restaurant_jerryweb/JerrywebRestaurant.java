@@ -37,8 +37,16 @@ public class JerrywebRestaurant {
     	}
     	else if (role instanceof JerrywebWaiterRole){
     		JerrywebWaiterRole waiter = (JerrywebWaiterRole) role;
+    		waiter.setHost(host);
     		JerrywebHostRole host = waiter.getHost();
     		host.addWaiter((JerrywebWaiterRole)waiter);
+    		NumOfWatiers++;
+    	}
+    	else if (role instanceof JerrywebRSWaiterRole){
+    		JerrywebRSWaiterRole rswaiter = (JerrywebRSWaiterRole) role;
+    		rswaiter.setHost(host);
+    		JerrywebHostRole host = rswaiter.getHost();
+    		host.addWaiter((JerrywebRSWaiterRole)rswaiter);
     		NumOfWatiers++;
     	}
     	else if (role instanceof JerrywebHostRole){

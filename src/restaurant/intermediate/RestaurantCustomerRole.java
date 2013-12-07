@@ -5,6 +5,8 @@ import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -44,11 +46,10 @@ public class RestaurantCustomerRole extends BaseRole implements
 //			subRole = new CwagonerCustomerRole(super.mPerson);
 //			((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
 //			break;
-//		case 2: // jerry
-//			subRole = new JerrywebCustomerRole(super.mPerson);
-//			((JerrywebRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(2)).addPerson(
-//					(JerrywebCustomerRole) subRole);
-//			break;
+		case 2: // jerry
+			subRole = new JerrywebCustomerRole(super.mPerson);
+			JerrywebRestaurant.addPerson((JerrywebCustomerRole) subRole);
+			break;
 		case 3: // maggi
 			subRole = new MaggiyanCustomerRole(super.mPerson);
 			MaggiyanAnimationPanel.addPerson((MaggiyanCustomerRole) subRole);

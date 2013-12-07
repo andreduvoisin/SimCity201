@@ -35,7 +35,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	Map<EnumItemType, Integer> mInventory = new HashMap<EnumItemType, Integer>();
 	int mBaseInventory = 100;
 	
-	List<MarketWorker> mWorkers = Collections.synchronizedList(new ArrayList<MarketWorker>());
+	List<MarketWorker> mWorkers;
 	static int mWorkerIndex;
 	
 	MarketDeliveryTruck mDeliveryTruck;
@@ -50,13 +50,13 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		super(person);
 		mMarketID = marketID;
 		
-		
-		//Add gui
 		mGui = new MarketCashierGui(this);
 		ContactList.sMarketList.get(mMarketID).mCashier = this;
 		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
-		ContactList.sMarketList.get(mMarketID).mCashierGuis.add(mGui);
 		
+//		ContactList.sMarketList.get(mMarketID).mCashierGuis.add(mGui);
+		
+		mWorkers = ContactList.sMarketList.get(mMarketID).mWorkers;
 		
 		if(person != null)
 			mBankAccount = person.getSSN();

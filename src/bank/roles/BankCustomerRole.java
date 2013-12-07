@@ -76,6 +76,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	}
 	public void msgStopRobber() {
 		// REX ANDRE: robber gui interactions, non-norm
+		print("I'M BEING APPREHENDED");
 	}
 	
 //	SCHEDULER

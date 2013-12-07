@@ -21,6 +21,7 @@ import base.BaseRole;
 import base.Item;
 import base.Location;
 import base.interfaces.Person;
+import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
@@ -365,8 +366,7 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 
 	@Override
 	public Location getLocation() {
-		// ANGELICA Auto-generated method stub
-		return null;
+		return ContactList.cRESTAURANT_LOCATIONS.get(3);
 	}
 	
 //	private class Food{

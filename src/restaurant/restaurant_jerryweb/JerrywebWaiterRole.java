@@ -530,6 +530,9 @@ public class JerrywebWaiterRole extends BaseRole implements Waiter {
 		return host;
 	}
 
+	public JerrywebCookRole getCook(){
+		return cook;
+	}
 	public WaiterGui getGui() {
 		return waiterGui;
 	}
