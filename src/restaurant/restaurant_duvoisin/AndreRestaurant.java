@@ -17,9 +17,9 @@ import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import base.Gui;
 
 public class AndreRestaurant {
-	public static AndreHostRole host;
-	public static AndreCookRole cook;
-	public static AndreCashierRole cashier;
+	public static AndreHostRole host = null;
+	public static AndreCookRole cook = null;
+	public static AndreCashierRole cashier = null;
 	public static List<Gui> guis;
 	
 	public static TableGui tgui;
