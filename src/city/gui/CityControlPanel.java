@@ -31,34 +31,12 @@ import base.ConfigParser;
 
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{
-	
 	SimCityGui city;
 	public static final int CP_WIDTH = 200, CP_HEIGHT = 600;
 	public static final int TABBED_HEIGHT_ADJ = 26;
-	public static final int numConfigs = 5;
-	JButton addRestaurant, addBank, housingGUIButton;
-	JPanel configList;
-	List<JButton> configOptions;
 	
 	// Title & Pause Button
 	JLabel title = new JLabel("Control Panel");
-//	JButton startButton = new JButton("Start SimCity201");
-	
-	/* ANDRE JERRY No days of week - discuss w/Shane
-	// Select Day
-	JLabel dayTitle = new JLabel("Day of Week:");
-	String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-	JComboBox currentDay = new JComboBox(days);
-	*/
-
-	// Scenarios
-	JLabel scenarioTitle = new JLabel("Load Selected Scenario:");
-	JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	JScrollPane NormsPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	JScrollPane NonNormsPane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	
-	
-	JPanel view = new JPanel();
     
     // Tabs
     JTabbedPane tabbedPane = new JTabbedPane();
@@ -69,7 +47,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
     
     // Trace Panel
     TracePanel tracePanel;
-    
     // Selection for Trace Panel
     JPanel traceSelectionPanel;
     // Levels
@@ -98,43 +75,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		title.setFont(font.deriveFont(attributes));
 		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 		add(title);
-		
-		// Pause Button
-//		Dimension pauseBtnDim = new Dimension(CP_WIDTH - 10, 30);
-//		startButton.setPreferredSize(pauseBtnDim);
-//		startButton.setMinimumSize(pauseBtnDim);
-//		startButton.setMaximumSize(pauseBtnDim);
-//		startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		startButton.addActionListener(this);
-//		add(startButton);
-		
-//		// Select Day
-//		dayTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		add(dayTitle);
-//		
-//		Dimension dayCBDim = new Dimension(CP_WIDTH - 10, 25);
-//		currentDay.setPreferredSize(dayCBDim);
-//		currentDay.setMinimumSize(dayCBDim);
-//		currentDay.setMaximumSize(dayCBDim);
-//		add(currentDay);
-		
-//		scenarioTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		add(scenarioTitle);
-		
-		// Scenario
-		view.setLayout(new BoxLayout((Container)view, BoxLayout.Y_AXIS));
-        pane.setViewportView(view);
         
-        Dimension scrollPaneDim = new Dimension(CP_WIDTH - 10, 550);
-        pane.setPreferredSize(scrollPaneDim);
-        pane.setMinimumSize(scrollPaneDim);
-        pane.setMaximumSize(scrollPaneDim);
-        
-     // Tabs
-
-        JLabel filler2 = new JLabel("Panel #2");
-        filler2.setHorizontalAlignment(JLabel.CENTER);
-        
+		// Tabs        
         Dimension tabbedPaneDim = new Dimension(CP_WIDTH, CP_HEIGHT - TABBED_HEIGHT_ADJ);
         tabbedPane.setPreferredSize(tabbedPaneDim);
         tabbedPane.setMinimumSize(tabbedPaneDim);
@@ -154,97 +96,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
         TraceTab.add(traceSelectionPanel, BorderLayout.NORTH);
         TraceTab.add(tracePanel, BorderLayout.CENTER);
         
-        //tabbedPane.addTab("Tab 1", icon, panel1, "Does nothing");
-        //tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-		
-        //Add Buttons
-//		addRestaurant = new JButton("Add Restaurant");
-//		addRestaurant.addActionListener(this);
-//		addRestaurant.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		add(addRestaurant);
-//		addBank = new JButton("Add Bank");
-//		addBank.addActionListener(this);
-//		addBank.setAlignmentX(Component.CENTER_ALIGNMENT);
-//		add(addBank);
-        
-        /*
-         * Choose Config File
-         */
-        Dimension panelSize = new Dimension(scrollPaneDim.width - 20, scrollPaneDim.height);
-    	configList = new JPanel();
-    	configOptions = new ArrayList<JButton>();
-    	configList.setPreferredSize(panelSize);
-    	configList.setMinimumSize(panelSize);
-    	configList.setMaximumSize(panelSize);
-    	configList.setLayout(new FlowLayout());
-    	
-    	Dimension buttonDim = new Dimension(panelSize.width, 20);
-    	/*JButton allBtn = new JButton("Simulate All");
-    	allBtn.addActionListener(this);
-    	allBtn.setPreferredSize(buttonDim);
-    	allBtn.setMinimumSize(buttonDim);
-    	allBtn.setMaximumSize(buttonDim);
-    	configList.add(allBtn);
-    	configOptions.add(allBtn);*/
-    	//view.add(configList);
-    	//tab1.add(configList);
-    	
-    	//Restaurant Config tab
-    	//for (int i=0; i<8; i++) {
-    		JButton Restaurant_Config = new JButton("Restaurant " + 0);
-    		Restaurant_Config.addActionListener(this);
-    		Restaurant_Config.setPreferredSize(buttonDim);
-	    	Restaurant_Config.setMinimumSize(buttonDim);
-	    	Restaurant_Config.setMaximumSize(buttonDim);
-	    	configList.add(Restaurant_Config);
-	    	configOptions.add(Restaurant_Config);
-    	//}
-    	
-    	view.add(configList);
-    	//RestaurantTab.add(pane);
-    	
-    	
-    	
-    	
-    	
-    	//Commercial Config Tab (bank and markets)
-    	JButton bankBtn = new JButton("Bank");
-    	bankBtn.addActionListener(this);
-    	bankBtn.setPreferredSize(buttonDim);
-    	bankBtn.setMinimumSize(buttonDim);
-    	bankBtn.setMaximumSize(buttonDim);
-    	//CommercialTab.add(bankBtn);
-    	configOptions.add(bankBtn);
-    	
-    	JButton marketBtn = new JButton("Food Market");
-    	marketBtn.addActionListener(this);
-    	marketBtn.setPreferredSize(buttonDim);
-    	marketBtn.setMinimumSize(buttonDim);
-    	marketBtn.setMaximumSize(buttonDim);
-    	//CommercialTab.add(marketBtn);
-    	configOptions.add(marketBtn);
-    	
     	//Scenarios Config Tab
     	initScenarios();
-    	
-    	//view.add(configList);
-
-    	//pane.add(configList);
-    	/*
-    	JButton houseBtn = new JButton("Housing");
-    	houseBtn.addActionListener(this);
-    	houseBtn.setPreferredSize(buttonDim);
-    	houseBtn.setMinimumSize(buttonDim);
-    	houseBtn.setMaximumSize(buttonDim);
-    	configList.add(houseBtn);
-    	configOptions.add(houseBtn);
-    	view.add(configList);
-
-    	view.add(configList);
-    	 */
-        //add(pane);
-        
-        	
 	}
 	
 	public void initTrace() {
@@ -576,7 +429,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
-			}/*
+			}
 			if (((JButton) e.getSource()).getText().equals("Housing")) {
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
@@ -592,7 +445,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
-			}*/
+			}
 			if (((JButton) e.getSource()).getText().equals("Party")) {
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
@@ -600,7 +453,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
-			}/*
+			}
 			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
@@ -608,9 +461,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
-			}*/
-			for (JButton b : configOptions) {
-				b.setEnabled(false);
 			}
 		}
 	}
