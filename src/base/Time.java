@@ -11,7 +11,7 @@ public class Time {
 	
 	public static int sGlobalTimeInt = 0;
 	public static int sGlobalMinute = 0;
-	public static int sGlobalHour = 0;
+	public static int sGlobalHour = 1;
 	public static int sGlobalShift = 0;
 	public static int sGlobalDate = 0;
 	
