@@ -231,7 +231,12 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioD.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig_D.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioE.addActionListener(new ActionListener() {
@@ -255,13 +260,23 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioH.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig_H.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioI.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "PartyConfig_I.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioJ.addActionListener(new ActionListener() {
