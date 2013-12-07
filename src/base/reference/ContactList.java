@@ -29,7 +29,7 @@ public class ContactList {
 		
 		//Markets
 		for (int iMarketNum = 0; iMarketNum < cNumMarkets; iMarketNum ++){
-			sMarketList.add(new Market());
+			sMarketList.add(new Market(iMarketNum));
 		}
 	}
 	
