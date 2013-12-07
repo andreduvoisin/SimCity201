@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
+import restaurant.restaurant_duvoisin.gui.AndreAnimationPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -44,7 +44,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards = new HashMap<String, CityCard>();
 		
 		//Rest 0		
-		AndreRestaurantGui duvoisin = new AndreRestaurantGui(city);
+		AndreAnimationPanel duvoisin = new AndreAnimationPanel(city);
 		cards.put("r_duvoisin", duvoisin);
 		
 //		//Rest 1

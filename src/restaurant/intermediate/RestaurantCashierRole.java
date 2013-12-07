@@ -12,7 +12,7 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
@@ -46,7 +46,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		switch(mRestaurantID){
 			case 0: //andre
 				subRole = new AndreCashierRole(super.mPerson, this);
-				AndreRestaurantPanel.instance.cashier = (AndreCashierRole) subRole;
+				AndreRestaurant.cashier = (AndreCashierRole) subRole;
 				break;
 //			case 1: //chase
 //				subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).cashier;

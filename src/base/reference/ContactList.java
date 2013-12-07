@@ -7,6 +7,7 @@ import java.util.List;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
 import base.interfaces.Person;
@@ -23,6 +24,7 @@ public class ContactList {
 	public static DavidRestaurant DavidRestaurant;
 	public static TranacRestaurant TranacRestaurant;
 	public static JerrywebRestaurant JerrywebRestaurant;
+	public static AndreRestaurant AndreRestaurant;
 	static double rent = 10;
 	//Setup
 	public static void setup(){
@@ -45,7 +47,7 @@ public class ContactList {
 		DavidRestaurant = new DavidRestaurant();
 		TranacRestaurant = new TranacRestaurant();
 		JerrywebRestaurant = new JerrywebRestaurant();
-
+		AndreRestaurant = new AndreRestaurant();
 	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------

@@ -3,7 +3,7 @@ package restaurant.intermediate;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
@@ -38,7 +38,7 @@ public class RestaurantCustomerRole extends BaseRole implements
 		switch (mRestaurantID) {
 		case 0: // andre
 			subRole = new AndreCustomerRole(super.mPerson);
-			AndreRestaurantPanel.instance.addPerson((AndreCustomerRole) subRole); //ANDRE: 1 Make addPerson a static method
+			AndreRestaurant.addCustomer((AndreCustomerRole) subRole);
 			break;
 //		case 1: // chase
 //			subRole = new CwagonerCustomerRole(super.mPerson);
