@@ -20,13 +20,13 @@ import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.Gui;
-import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
 
+@SuppressWarnings("serial")
 public class BankPanel extends CityCard implements ActionListener{
 
 	private int WINDOWX = 500;
@@ -82,7 +82,7 @@ public class BankPanel extends CityCard implements ActionListener{
     	}
 	}
 	
-	public void testBankGui() {
+	/*public void testBankGui() {
 		PersonAgent cust1 = new PersonAgent();
 		BankCustomerRole bcr1 = new BankCustomerRole(cust1, 1);
 		BankCustomerGui bcg1 = new BankCustomerGui(bcr1, this);
@@ -132,7 +132,7 @@ public class BankPanel extends CityCard implements ActionListener{
 		bcg1.DoGoToTeller(1);
 		bcg2.DoGoToTeller(2);
 		bcg3.DoGoToTeller(3);
-	}
+	}*/
 	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
