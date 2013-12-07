@@ -52,8 +52,7 @@ public class DavidRestaurant {
 	}
 
 	public static void addCustomer(DavidCustomerRole cust) {
-		CustomerGui g = new CustomerGui(cust, customerCount);
-		customerCount++;
+		CustomerGui g = new CustomerGui(cust, customerCount++);
 		guis.add(g);
 		cust.setHost(host);
 		cust.setCashier(cashier);
@@ -63,9 +62,9 @@ public class DavidRestaurant {
 	}
 
 	public static void addWaiter(DavidWaiterRole waiter) {
-		WaiterGui g = new WaiterGui(waiter, waiterCount);
-		waiterCount++;
+		WaiterGui g = new WaiterGui(waiter, waiterCount++);
 		guis.add(g);
+		g.DoGoToFront();
 		waiter.setHost(host);
 		waiter.setGui(g);
 		host.addWaiter(waiter);
@@ -73,9 +72,9 @@ public class DavidRestaurant {
 	}
 
 	public static void addSharedWaiter(DavidWaiterRoleShared waiter) {
-		WaiterGui g = new WaiterGui(waiter, waiterCount);
-		waiterCount++;
+		WaiterGui g = new WaiterGui(waiter, waiterCount++);
 		guis.add(g);
+		g.DoGoToFront();
 		waiter.setHost(host);
 		waiter.setCook(cook);
 		waiter.setGui(g);
