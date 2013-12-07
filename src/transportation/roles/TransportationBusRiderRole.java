@@ -8,6 +8,7 @@ import transportation.interfaces.TransportationRider;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
+import city.gui.trace.AlertTag;
 
 public class TransportationBusRiderRole extends BaseRole implements TransportationRider {
 
@@ -200,4 +201,15 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 		return null;
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.TRANSPORTATION, e);
+	}
 }

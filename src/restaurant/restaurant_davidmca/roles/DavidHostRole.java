@@ -8,7 +8,6 @@ import java.util.List;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.MyWaiter;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
@@ -17,6 +16,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Host Agent
@@ -230,5 +230,17 @@ public class DavidHostRole extends BaseRole implements Host {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(4);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
 	}
 }

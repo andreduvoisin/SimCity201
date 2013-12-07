@@ -20,6 +20,7 @@ import restaurant.restaurant_xurex.utilities.Order;
 import restaurant.restaurant_xurex.utilities.OrderState;
 import restaurant.restaurant_xurex.utilities.WaiterState;
 import base.Agent;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Waiter Agent
@@ -408,6 +409,18 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	
 	public void releaseSem(){
 		atLocation.release();
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R7, e);
 	}
 }
 

@@ -10,6 +10,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * "Greets" customers as they enter.
@@ -215,6 +216,18 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(1);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R1);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R1);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R1, e);
 	}
 }
 

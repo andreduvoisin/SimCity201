@@ -15,6 +15,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 
 /**
@@ -332,6 +333,18 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(3);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R3);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R3, e);
 	}
 }
 

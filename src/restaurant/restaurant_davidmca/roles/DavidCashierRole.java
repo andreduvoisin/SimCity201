@@ -16,6 +16,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
@@ -172,4 +173,15 @@ public class DavidCashierRole extends BaseRole implements Cashier {
     	return mRole;
     }
 
+    public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
+	}
 }

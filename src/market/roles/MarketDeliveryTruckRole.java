@@ -13,6 +13,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * MarketDeliveryTruck for SimCity Market agents.
@@ -129,5 +130,17 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			return ContactList.cMARKET2_LOCATION;
 		}
 		return null;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.MARKET);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.MARKET);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.MARKET, e);
 	}
 }
