@@ -156,7 +156,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
 		
 		// Event Setup
-		mEvents = new ArrayList<Event>(); //SHANE: 0 CHANGE THIS TO LIST - sorted set
+		mEvents = new ArrayList<Event>();
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -173,6 +173,10 @@ public class PersonAgent extends Agent implements Person {
 			mPersonGui.setPresent(true);
 		}
 		
+		stateChanged();
+	}
+	
+	public void msgStateChanged() {
 		stateChanged();
 	}
 
@@ -375,10 +379,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void goToJob() {
-		print("goToJob");
+		//print("goToJob");
 		Role jobRole = getJobRole();
 		if(jobRole == null){
-			print("didn't go to job"); return;
+			//print("didn't go to job"); 
+			return;
 		}
 		mPersonGui.DoGoToDestination(getJobLocation()); 
 		acquireSemaphore(semAnimationDone);
@@ -417,7 +422,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-//			acquireSemaphore(semAnimationDone);
+			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
 			
 			((RestaurantCustomerRole) restCustRole).setPerson(this);
@@ -492,7 +497,7 @@ public class PersonAgent extends Agent implements Person {
 		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
-//		Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
+//		Location test = ContactList.sRoleLocations.get(); //SHANE REX: 2 This is null...
 		Location partyLocation = new Location(100, 0);
 		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		

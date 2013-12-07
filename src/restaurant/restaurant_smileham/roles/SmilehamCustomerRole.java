@@ -81,7 +81,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		
 		//set up customer
 		mCustomerGui = new CustomerGui(this);
-		mAnimationPanel.addGui(mCustomerGui);
+		mAnimationPanel.addGui(mCustomerGui); //SHANE: 1 Decouple your restaurant!!!
 		
 		//set data
 		mHunger = cHUNGER_LEVEL;

@@ -53,4 +53,6 @@ public interface Person {
 	
 	abstract void print(String msg, AlertTag tag);
 	abstract void print(String msg, AlertTag tag, Throwable e);
+
+	void msgStateChanged();
 }

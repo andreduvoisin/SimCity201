@@ -51,6 +51,11 @@ public class Time {
 //					sGlobalTimeInt++;
 					sGlobalMinute = 0;
 					sGlobalHour++;
+					synchronized (mPersons) {
+						for (Person iPerson : mPersons) {
+							iPerson.msgStateChanged();
+						}
+					}
 				}
 				if (sGlobalHour == 24){
 					sGlobalHour = 0;
@@ -65,7 +70,7 @@ public class Time {
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 0
+		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 2
 		
 		/*mTimer.schedule(new TimerTask() {
 			
