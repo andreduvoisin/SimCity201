@@ -63,7 +63,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("R_Maggiyan", maggiyan);
 		
 		//Rest 4
-		DavidAnimationPanel davidmca = new DavidAnimationPanel(city, ContactList.davidmca);
+		DavidAnimationPanel davidmca = new DavidAnimationPanel(city, ContactList.DavidRestaurant);
 		cards.put("R_davidmca", davidmca);
 		
 		//Rest 5
@@ -71,7 +71,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("R_smileham", smileham);
 		
 //		//Rest 6
-		TranacAnimationPanel tranac = new TranacAnimationPanel(city, ContactList.tranac);
+		TranacAnimationPanel tranac = new TranacAnimationPanel(city, ContactList.TranacRestaurant);
 		cards.put("R_tranac", tranac);
 //		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
 //		city.citypanel.masterRestaurantList.add(tranac);

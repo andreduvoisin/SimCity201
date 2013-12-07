@@ -39,8 +39,18 @@ public class ContactList {
 			sHouseList.add(new House(iHouseNum, rent));
 		}
 		
+		// Restaurants
 		DavidRestaurant = new DavidRestaurant();
 		TranacRestaurant = new TranacRestaurant();
+		cRESTAURANT_LOCATIONS = new ArrayList<Location>();
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION1);
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION2);
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION3);
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION4);
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION5);
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION6);
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION7);
+		cRESTAURANT_LOCATIONS.add(cRESTAURANT_LOCATION8);
 		
 	}
 	
@@ -110,27 +120,13 @@ public class ContactList {
 	
 	//setup job locations
 	static final Location cRESTAURANT_LOCATION1 = gridLocation(1, 0); //aduvoisin	0
-	public static final DavidRestaurant davidmca = new DavidRestaurant();
 	static final Location cRESTAURANT_LOCATION2 = gridLocation(2, 0); //cwagoner	1
 	static final Location cRESTAURANT_LOCATION3 = gridLocation(1, 3); //jerrywebb	2
 	static final Location cRESTAURANT_LOCATION4 = gridLocation(2, 3); //maggiyang	3
 	static final Location cRESTAURANT_LOCATION5 = gridLocation(0, 1); //davidmca	4
 	static final Location cRESTAURANT_LOCATION6 = gridLocation(0, 2); //smileham	5
-	public static final TranacRestaurant tranac = new TranacRestaurant();
 	static final Location cRESTAURANT_LOCATION7 = gridLocation(3, 1); //tranac		6
 	static final Location cRESTAURANT_LOCATION8 = gridLocation(3, 2); //xurex		7
-	static {
-		List<Location> list = new ArrayList<Location>();
-		list.add(cRESTAURANT_LOCATION1);
-		list.add(cRESTAURANT_LOCATION2);
-		list.add(cRESTAURANT_LOCATION3);
-		list.add(cRESTAURANT_LOCATION4);
-		list.add(cRESTAURANT_LOCATION5);
-		list.add(cRESTAURANT_LOCATION6);
-		list.add(cRESTAURANT_LOCATION7);
-		list.add(cRESTAURANT_LOCATION8);
-		cRESTAURANT_LOCATIONS = Collections.unmodifiableList(list);
-	}
 	
 	// Bus Stop locations
 	static final Location cBusStop0 = new Location(60, 60);
