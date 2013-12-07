@@ -71,13 +71,13 @@ public class CityHousing extends CityComponent {
 	}
 	
 	public void paint(Graphics g) {
-		g.drawImage(image, x, y, null);
-		/*
+		//g.drawImage(image, x, y, null);
+		
 		g.setColor(color);
 		g.fillRect(x, y, 20, 20);
 		g.setColor(Color.WHITE);
 		g.drawString("H"+mHouseNum,x + 7 , y + 17);
-*/	}
+	}
 
 	@Override
 	public void draw(Graphics2D g) {
