@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import market.Market;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -13,9 +14,8 @@ import market.test.mock.MockCookCustomer;
 import market.test.mock.MockCustomer;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
+import base.ContactList;
 import base.PersonAgent;
-import base.reference.ContactList;
-import base.reference.Market;
 
 public class CashierTest extends TestCase {
 	Market mMarket;

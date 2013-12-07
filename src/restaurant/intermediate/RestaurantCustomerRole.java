@@ -15,10 +15,10 @@ import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantCustomerRole extends BaseRole implements
 		RestaurantBaseInterface {

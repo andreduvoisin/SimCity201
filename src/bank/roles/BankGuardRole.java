@@ -9,9 +9,9 @@ import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 //import interfaces
 import city.gui.trace.AlertTag;
 

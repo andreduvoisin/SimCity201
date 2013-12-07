@@ -1,16 +1,19 @@
-package base.reference;
+package base;
+
+import housing.House;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import market.Market;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import transportation.TransportationBus;
+import bank.Bank;
 import bank.interfaces.BankMasterTeller;
-import base.Location;
 import base.interfaces.Person;
 
 public class ContactList {

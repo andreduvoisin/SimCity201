@@ -10,9 +10,9 @@ import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
 import restaurant.intermediate.RestaurantCookRole;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**

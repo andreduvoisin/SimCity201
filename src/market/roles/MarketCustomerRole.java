@@ -15,10 +15,10 @@ import market.gui.MarketCustomerGui;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
+import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {

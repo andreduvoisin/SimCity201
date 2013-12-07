@@ -1,12 +1,12 @@
 package housing.test;
 
+import housing.House;
 import housing.gui.HousingPersonGui;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;
-import base.reference.House;
 
 /*
  * Basic test to ensure that PersonAgent and Roles are interacting correctly and

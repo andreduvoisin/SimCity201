@@ -28,11 +28,11 @@ import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         

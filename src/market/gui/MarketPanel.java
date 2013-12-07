@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
+import market.Market;
 import base.Item.EnumItemType;
-import base.reference.Market;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 

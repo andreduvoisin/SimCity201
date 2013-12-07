@@ -14,11 +14,11 @@ import restaurant.restaurant_tranac.gui.TranacCookGui;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**

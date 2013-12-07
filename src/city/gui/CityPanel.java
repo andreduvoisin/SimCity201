@@ -7,7 +7,7 @@ import java.awt.event.MouseMotionListener;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
-import base.reference.ContactList;
+import base.ContactList;
 
 @SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {

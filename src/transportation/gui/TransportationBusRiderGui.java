@@ -52,8 +52,8 @@ public class TransportationBusRiderGui extends CityComponent implements base.Gui
 	}
 
 	public void DoGoToStop(int num) {
-		xDest = base.reference.ContactList.cBUS_STOPS.get(num).mX;
-		yDest = base.reference.ContactList.cBUS_STOPS.get(num).mY;
+		xDest = base.ContactList.cBUS_STOPS.get(num).mX;
+		yDest = base.ContactList.cBUS_STOPS.get(num).mY;
 	}
 
 	public void DoBoardBus() {

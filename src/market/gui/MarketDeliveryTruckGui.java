@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import market.interfaces.MarketDeliveryTruck;
+import base.ContactList;
 import base.Location;
-import base.reference.ContactList;
 import city.gui.CityComponent;
 import city.gui.SimCityGui;
 

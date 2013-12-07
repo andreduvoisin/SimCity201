@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import market.Market;
 import market.MarketOrder;
 import market.gui.MarketCashierGui;
 import market.gui.MarketCustomerGui;
@@ -16,7 +17,6 @@ import market.test.mock.MockCustomer;
 import market.test.mock.MockDeliveryTruck;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
-import base.reference.Market;
 
 /** 
  * This tests the gui functionality for each of the agents.

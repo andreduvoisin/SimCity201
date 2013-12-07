@@ -8,10 +8,10 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
+import bank.Bank;
 import bank.interfaces.BankCustomer;
+import base.ContactList;
 import base.Gui;
-import base.reference.Bank;
-import base.reference.ContactList;
 
 public class BankCustomerGui implements Gui {
 

@@ -1,6 +1,6 @@
 package housing.interfaces;
 
-import base.reference.House;
+import housing.House;
 
 /*
  * @author David Carr, Maggi Yang

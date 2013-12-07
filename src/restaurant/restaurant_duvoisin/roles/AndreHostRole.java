@@ -10,9 +10,9 @@ import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**

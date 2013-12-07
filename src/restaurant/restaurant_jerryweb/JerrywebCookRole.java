@@ -15,11 +15,11 @@ import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Market;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**

@@ -18,10 +18,10 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{

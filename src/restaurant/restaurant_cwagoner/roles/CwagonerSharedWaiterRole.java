@@ -8,9 +8,9 @@ import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.*;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter {
