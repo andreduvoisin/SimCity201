@@ -94,7 +94,7 @@ public class DavidCookRole extends BaseRole implements Cook {
 //		foodList.put("Salad", new Stock("Salad", qty));
 //		foodList.put("Chicken", new Stock("Chicken", qty));
 //		foodList.put("Pizza", new Stock("Pizza", qty));
-		/*ANGELICA:
+		/*ANGELICA: z
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);

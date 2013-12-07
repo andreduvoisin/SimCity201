@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import city.gui.SimCityGui;
 import restaurant.restaurant_tranac.roles.TranacHostRole;
+import city.gui.SimCityGui;
 
 public class TranacHostGui implements Gui {
 

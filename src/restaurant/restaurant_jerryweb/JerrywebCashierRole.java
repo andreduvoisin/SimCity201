@@ -32,7 +32,7 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 	public Map<String,Food> foodMap = new HashMap<String,Food>(4);
 	public double money = 200;
 	public double change = 0;
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	public class MarketBill{
 		public Market market;
 		public double amount;
@@ -102,6 +102,7 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 
 	public JerrywebCashierRole(Person person, RestaurantCashierRole rcr) {
 		super(null);
+		mRole = rcr;
 		 name = person.getName();
 		foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 0, 15.99));
 		foodMap.put("chicken",new Food("chicken", FoodState.delivered, 12000, 7, 0, 10.99));

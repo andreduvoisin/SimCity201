@@ -11,8 +11,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import city.gui.SimCityGui;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
+import city.gui.SimCityGui;
 
 public class TranacCookGui implements Gui {
 

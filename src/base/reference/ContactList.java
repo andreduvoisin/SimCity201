@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import restaurant.restaurant_davidmca.DavidRestaurant;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
-import restaurant.restaurant_duvoisin.AndreRestaurant;
-import bank.roles.BankMasterTellerRole;
+import bank.interfaces.BankMasterTeller;
 import base.Location;
 import base.interfaces.Person;
 
@@ -110,7 +110,7 @@ public class ContactList {
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	public static List<Location> cBUS_STOPS;
-	public static BankMasterTellerRole masterTeller;
+	public static BankMasterTeller masterTeller;
 	
 	
 	//setup job locations

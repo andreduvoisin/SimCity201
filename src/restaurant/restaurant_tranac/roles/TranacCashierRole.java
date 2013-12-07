@@ -21,7 +21,7 @@ import city.gui.trace.AlertTag;
  * Restaurant Cashier Agent
  */
 public class TranacCashierRole extends BaseRole implements TranacCashier {
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	private TranacCashierGui cashierGui;
 	
 	private TranacMenu menu = new TranacMenu();
