@@ -129,7 +129,7 @@ public class PersonAgent extends Agent implements Person {
 		 * Give houses to landlords and owners
 		 */
 		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
+			//getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
 			sHouseCounter++;
 		}
 	}
@@ -256,8 +256,8 @@ public class PersonAgent extends Agent implements Person {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
-//			getCar();
-			testGetCar();
+			getCar();
+//			testGetCar();
 		}
 		
 		//Daily Recurring Events (Job, Eat)
@@ -279,8 +279,8 @@ public class PersonAgent extends Agent implements Person {
 		//Intermittent Events (Deposit Check)
 		else if (event.mEventType == EnumEventType.DEPOSIT_CHECK) {
 			print("DepositCheck");
-//			depositCheck();
-			testDepositCheck();
+			depositCheck();
+//			testDepositCheck();
 		}
 		
 		else if (event.mEventType == EnumEventType.ASK_FOR_RENT) {
@@ -551,6 +551,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void planParty(int time){
+		print("Planning a party");
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		mEvents.add(new Event(EnumEventType.INVITE2, time+2));
 //		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host

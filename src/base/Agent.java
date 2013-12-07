@@ -65,7 +65,7 @@ public abstract class Agent {
     public void print(String msg, Throwable e) {
     	AlertLog.getInstance().logMessage(AlertTag.PERSON, getName(), msg);
     	if(e != null) {
-    		AlertLog.getInstance().logError(AlertTag.PERSON, getName(), msg);
+    		AlertLog.getInstance().logError(AlertTag.PERSON, getName(), StringUtil.stackTraceString(e));
     	}
 //        StringBuffer sb = new StringBuffer();
 //        sb.append(getName());
