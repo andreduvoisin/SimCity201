@@ -211,7 +211,12 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void msgAddEvent(Event event) {
-		if ((event.mEventType == EnumEventType.RSVP1) && (mSSN % 2 == 1)) return; // maybe don't respond (half are deadbeats) - everyone always responds
+		if(event.mEventType == EnumEventType.RSVP1){
+			if(((EventParty)event).mHost.getName().equals("partyPersonFlake") && mSSN%2==0){
+				print("I am a deadbeat");
+				return;
+			}
+		}
 		mEvents.add(event);
 	}
 	
@@ -337,7 +342,7 @@ public class PersonAgent extends Agent implements Person {
 		else if (event.mEventType == EnumEventType.PARTY) {
 			if (event instanceof EventParty){
 				if(((EventParty)event).mAttendees.isEmpty()){
-					print("OMG THIS PARTY SUCKS");
+					print("OMG THIS PARTY SUCKS and is cancelled");
 					return;
 				}
 				goParty((EventParty)event);
@@ -600,7 +605,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void inviteToParty() {
-		print("First RSVP is sent out");
 		if(mFriends.isEmpty()){
 			int numPeople = ContactList.sPersonList.size();
 			print("Num People in city: " + numPeople); //SHANE: Print remove
@@ -609,18 +613,28 @@ public class PersonAgent extends Agent implements Person {
 			}
 			print("Created friends for party host");
 		}
+		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
 //		Location test = ContactList.sRoleLocations.get(); //SHANE: 0 This is null...
 		Location partyLocation = new Location(100, 0);
 //		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, ContactList.sRoleLocations.get(this), this, getBestFriends());
 //		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+24, partyLocation, this, getBestFriends());
-		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, getBestFriends());
+		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		Event rsvp = new Event(EnumEventType.RSVP1, -1); //respond immediately
-		
-		for (Person iFriend : mFriends){
-			iFriend.msgAddEvent(rsvp);
-			iFriend.msgAddEvent(party);
+		if(mName.equals("partyPersonFlake")){
+			for (Person iFriend : mFriends){
+				iFriend.msgAddEvent(rsvp);
+				iFriend.msgAddEvent(party);
+			}
+		}
+		else{ //partyPerson or partyPersonNO
+			for (Person iFriend : mFriends){
+				if(iFriend.getTimeShift()==mTimeShift){
+					iFriend.msgAddEvent(rsvp);
+					iFriend.msgAddEvent(party);
+				}
+			}
 		}
 	}
 
