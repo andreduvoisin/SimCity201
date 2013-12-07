@@ -39,11 +39,10 @@ public class SortingHat {
 		sRolesFilled = new ArrayList<Map<Role, Boolean>>();
 		
 		//Bank
-		int numBanks = 2;
 		BankMasterTellerRole masterTeller = new BankMasterTellerRole(null);
 		sRoles.add(masterTeller);
 		ContactList.masterTeller = masterTeller;
-		for (int iBankNumber = 0; iBankNumber < numBanks; iBankNumber++){
+		for (int iBankNumber = 0; iBankNumber < ContactList.cNumBanks; iBankNumber++){
 			sRoles.add(new BankGuardRole(null, iBankNumber));
 			for (int iNumBankTellers = 0; iNumBankTellers < sNumBankTellers; iNumBankTellers++){
 				BankTellerRole bankTeller = new BankTellerRole(null, iBankNumber);
@@ -52,17 +51,17 @@ public class SortingHat {
 		}
 		
 		//Market
-		int numMarkets = 2;
-		for (int iMarketNumber = 0; iMarketNumber < numMarkets; iMarketNumber++){
+		for (int iMarketNumber = 0; iMarketNumber < ContactList.cNumMarkets; iMarketNumber++){
 			sRoles.add(new MarketCashierRole(null, iMarketNumber));
 			sRoles.add(new MarketDeliveryTruckRole(null, iMarketNumber));
 			for (int iNumMarketWorkers = 0; iNumMarketWorkers < sNumMarketWorkers; iNumMarketWorkers++){
-				sRoles.add(new MarketWorkerRole(null, iMarketNumber));
+				MarketWorkerRole marketWorker = new MarketWorkerRole(null, iMarketNumber);
+				sRoles.add(marketWorker);
 			}
 		}
 		
 		//Restaurants
-		int numRestaurants = 8;
+		int numRestaurants = 8; //SHANE: 4 use ContactList.cNumRestaurants
 		int numStart = 0;
 		if (SimCityGui.TESTNUM >= 0) {
 			numStart = SimCityGui.TESTNUM;
@@ -224,7 +223,7 @@ public class SortingHat {
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
 			
-//			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount));
+//			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount)); //DAVID: fix this eventually
 			sHouseCount++;
 			return newLandLordRole;
 		}

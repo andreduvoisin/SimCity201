@@ -11,8 +11,8 @@ import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import base.BaseRole;
 import base.Location;
-import base.reference.ContactList;
 import base.interfaces.Person;
+import base.reference.ContactList;
 
 /**
  * Restaurant Host Agent

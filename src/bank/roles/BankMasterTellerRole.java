@@ -8,13 +8,11 @@ import java.util.Map;
 
 import bank.BankAccount;
 import bank.BankTransaction;
-import bank.gui.BankPanel;
 import bank.interfaces.BankMasterTeller;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
-import city.gui.SimCityGui;
 
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	

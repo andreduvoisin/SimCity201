@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import restaurant.restaurant_tranac.gui.TranacHostGui;
-import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
@@ -28,7 +27,6 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 	static final int NTABLES = 4;		//number of tables in rest
 	static final int NWAITINGAREA = 20;
 	public Collection<Table> tables;
-	private int numWaiters;
 
 	//list of agents interacting in the restaurant
 	public List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());

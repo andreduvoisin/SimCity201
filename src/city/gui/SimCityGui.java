@@ -28,7 +28,9 @@ public class SimCityGui extends JFrame {
 		return instance;
 	}
 
-	public SimCityGui() throws HeadlessException, IOException {
+	public SimCityGui(String title) throws HeadlessException, IOException {
+		super(title);
+		
 		instance = this;
 		CP = new CityControlPanel(this);
 		citypanel = new CityPanel(this);
@@ -64,12 +66,11 @@ public class SimCityGui extends JFrame {
 	 * @throws HeadlessException 
 	 */
 	public static void main(String[] args) throws HeadlessException, IOException {
-		SimCityGui test = new SimCityGui();
+		SimCityGui test = new SimCityGui("SimCity201 - Team 28");
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		test.setResizable(false);
 		test.pack();
-		test.setVisible(true);
-		
+		test.setVisible(true);	
 	}
 	
 }

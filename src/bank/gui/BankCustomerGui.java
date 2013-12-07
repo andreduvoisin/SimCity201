@@ -15,7 +15,6 @@ public class BankCustomerGui implements Gui {
 
 	private BankCustomer agent = null;
 	private boolean isPresent = false;
-	private BankPanel bankPanel;
 
 	private Timer timer = new Timer(); 
 	
@@ -38,9 +37,8 @@ public class BankCustomerGui implements Gui {
 	static final int INTERACT_X3 = 300;
 	static final int INTERACT_Y = 420;
 
-	public BankCustomerGui(BankCustomer bc, BankPanel bp) {
+	public BankCustomerGui(BankCustomer bc) {
 		agent = bc;
-		bankPanel = bp;
 		xPos = STARTPOSX;
 		yPos = STARTPOSY;
 		xDestination = STARTPOSX;
@@ -106,7 +104,7 @@ public class BankCustomerGui implements Gui {
 		xDestination = 225;
 		yDestination = -50;
 	}
-
+	//ANDRE: how do we fix this... Possible to call mBank.mCustomerGuis() in bankPanel?
 	public void DoGoToTeller() {
 		xDestination = INTERACT_X1;
 		yDestination = INTERACT_Y;

@@ -8,8 +8,8 @@ import java.util.TimerTask;
 
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
-import restaurant.restaurant_tranac.gui.TranacCustomerGui;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
+import restaurant.restaurant_tranac.gui.TranacCustomerGui;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
@@ -22,8 +22,7 @@ import base.reference.ContactList;
 /**
  * Restaurant customer agent.
  */
-public class TranacCustomerRole extends BaseRole implements
-		TranacCustomer {
+public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	private TranacCustomerGui customerGui;
 	private int hungerLevel = 10; // determines length of meal
 	private final int baseMoney = 30;

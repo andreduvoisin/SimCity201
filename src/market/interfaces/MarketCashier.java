@@ -1,8 +1,8 @@
 package market.interfaces;
 
-import base.Item.EnumItemType;
 import market.MarketInvoice;
 import market.MarketOrder;
+import base.Item.EnumItemType;
 
 public interface MarketCashier {
 		

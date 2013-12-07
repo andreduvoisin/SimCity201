@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -20,8 +19,7 @@ import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.Gui;
-import base.interfaces.Person;
-import base.interfaces.Role;
+import base.reference.Bank;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -35,7 +33,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	private Image image;
     private Dimension bufferSize;
-    public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
+    //public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	Timer timer;
 	private List<Gui> guis = new ArrayList<Gui>();
@@ -53,6 +51,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	public BankGuardRole guard;
 	public BankMasterTellerRole masterTeller;
 	public BankTellerRole teller;
+	public Bank Bank;
 	public Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
 	
 	public BankPanel(SimCityGui city) {
@@ -187,6 +186,18 @@ public class BankPanel extends CityCard implements ActionListener{
 		guis.add(gui);
 	}
 	
+	public void setBank(Bank b){
+		Bank = b;
+	}
+	
+	public void setMasterTeller(BankMasterTellerRole mt){
+		masterTeller = mt;
+	}
+	
+	public void setGuard(BankGuardRole g){
+		guard = g;
+	}	
+	/*
 	public void addPerson(Role role) {
 		if(role instanceof BankCustomerRole) {
 			customers.add((BankCustomerRole)role);
@@ -195,5 +206,5 @@ public class BankPanel extends CityCard implements ActionListener{
 			((BankCustomerRole)role).mGUI = new BankCustomerGui((BankCustomerRole)role, this);
 			addGui(((BankCustomerRole)role).mGUI);
 		}
-	}
+	}*/
 }

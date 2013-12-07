@@ -46,7 +46,7 @@ public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 	private Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
 	private Semaphore askingForBreak = new Semaphore(0,true);
 	
-	public TranacWaiterRole(Person p) { //ANGELICA: 1 Why do you need two constructors?? -shane
+	public TranacWaiterRole(Person p) {
 		super(p);
 		waiterGui = new TranacWaiterGui(this, TranacAnimationPanel.getNumWaiters());
 		TranacAnimationPanel.addPerson(this);

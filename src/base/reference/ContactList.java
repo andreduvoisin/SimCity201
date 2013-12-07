@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.restaurant_davidmca.DavidRestaurant;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
 import base.interfaces.Person;
@@ -12,22 +13,34 @@ public class ContactList {
 	
 	//------------------------------------------------------PROJECT SETTINGS----------------------------------------------------------
 	
+	//Variables
+	public static final int cNumBanks = 2;
+	public static final int cNumMarkets = 2;
+	public static final int cNumRestaurants = 8;
 	
+	//Setup
+	public static void setup(){
+		
+		//Banks
+		for (int iBankNum = 0; iBankNum < cNumBanks; iBankNum++){
+			sBankList.add(new Bank());
+		}
+		
+		//Markets
+		for (int iMarketNum = 0; iMarketNum < cNumMarkets; iMarketNum ++){
+			sMarketList.add(new Market());
+		}
+	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
 	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	public static List<Market> sMarketList = Collections.synchronizedList(new ArrayList<Market>());
-	public static List<House> sHouses = Collections.synchronizedList(new ArrayList<House>());
-	public static List<Bank> sBanks = Collections.synchronizedList(new ArrayList<Bank>());
-	
-	public static List<Restaurant> sRestaurants = Collections.synchronizedList(new ArrayList<Restaurant>());
-	
+
+	public static List<House> sHouseList = Collections.synchronizedList(new ArrayList<House>());
+	public static List<Bank> sBankList = Collections.synchronizedList(new ArrayList<Bank>());
+
 	//DAVID JERRY SHANE: 0 TOP PRIORITY - add house/bank/market and separate data from gui
-	//DAVID JERRY SHANE: 1 i created an intermediate restaurant class for now. we'd have to go in and alter everyone's code to use 
-	//the same reference names and have a list or we can do individual ones like getInstance()? btw didn't update references to
-	//restaurant anywhere besides creating the intermediate class and the list here because i wasn't sure what you guys wanted to do.
-	//feel free to use this or scrap this - angelica
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in A**)
@@ -85,6 +98,7 @@ public class ContactList {
 	
 	//setup job locations
 	static final Location cRESTAURANT_LOCATION1 = gridLocation(1, 0); //aduvoisin	0
+	public static final DavidRestaurant davidmca = new DavidRestaurant();
 	static final Location cRESTAURANT_LOCATION2 = gridLocation(2, 0); //cwagoner	1
 	static final Location cRESTAURANT_LOCATION3 = gridLocation(1, 3); //jerrywebb	2
 	static final Location cRESTAURANT_LOCATION4 = gridLocation(2, 3); //maggiyang	3
