@@ -164,11 +164,7 @@ public class PersonAgent extends Agent implements Person {
 		//finished role if job
 		mRoleFinished = true;
 		if (Time.GetShift() == mTimeShift) {
-			for(Role iRole : mRoles.keySet()){
-				if (iRole == getJobRole()){
-					mRoles.put(iRole, true);
-				}
-			}
+			mRoles.put(getJobRole(), true);
 		}
 		//Leave job
 		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
