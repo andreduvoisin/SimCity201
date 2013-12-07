@@ -75,7 +75,7 @@ public class ConfigParser {
 			if(name.contains("renter"))
 				person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 0));
 			if(name.contains("robber"))
-				person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, -1));
+				person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 4));
 
 			//DAVID SHANE: add more events
 			
