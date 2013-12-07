@@ -25,11 +25,11 @@ import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantCashierRole extends BaseRole implements RestaurantCashierInterface, RestaurantBaseInterface {
 	

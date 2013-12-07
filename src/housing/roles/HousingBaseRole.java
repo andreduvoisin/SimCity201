@@ -1,15 +1,15 @@
 package housing.roles;
 
+import housing.House;
 import housing.gui.HousingPersonGui;
 import housing.interfaces.HousingBase;
 
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
-import base.reference.House;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
 

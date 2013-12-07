@@ -24,12 +24,12 @@ import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class MarketCashierRole extends BaseRole implements MarketCashier{

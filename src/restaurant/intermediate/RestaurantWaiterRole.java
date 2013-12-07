@@ -20,10 +20,10 @@ import restaurant.restaurant_xurex.RexWaiterRole1;
 import restaurant.restaurant_xurex.RexWaiterRole2;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantWaiterRole extends BaseRole implements
 		RestaurantBaseInterface {

@@ -1,15 +1,15 @@
 package housing.test;
 
+import housing.House;
 import housing.roles.HousingRenterRole;
 import housing.test.mock.MockLandlord;
 import junit.framework.TestCase;
 import test.mock.MockPerson;
 import bank.test.mock.MockMasterTellerRole;
+import base.ContactList;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
-import base.reference.House;
 import city.gui.SimCityGui;
 
 /**

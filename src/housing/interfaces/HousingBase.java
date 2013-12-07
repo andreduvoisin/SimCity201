@@ -1,7 +1,7 @@
 package housing.interfaces;
 
+import housing.House;
 import base.Location;
-import base.reference.House;
 
 public interface HousingBase {
 

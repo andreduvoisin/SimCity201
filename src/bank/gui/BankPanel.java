@@ -11,8 +11,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
+import bank.Bank;
 import base.Gui;
-import base.reference.Bank;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 

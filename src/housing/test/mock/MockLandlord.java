@@ -1,5 +1,6 @@
 package housing.test.mock;
 
+import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -9,7 +10,6 @@ import java.util.List;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.House;
 
 /**
  * A sample MockRenter built to unit test a LandlordRole.

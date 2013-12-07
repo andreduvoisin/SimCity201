@@ -16,10 +16,10 @@ import restaurant.restaurant_tranac.roles.TranacHostRole;
 import restaurant.restaurant_xurex.RexHostRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantHostRole extends BaseRole implements
 		RestaurantBaseInterface {

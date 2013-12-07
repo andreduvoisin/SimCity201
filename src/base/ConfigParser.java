@@ -6,7 +6,6 @@ import java.util.Scanner;
 import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 /*

@@ -12,9 +12,9 @@ import restaurant.restaurant_jerryweb.gui.WaiterGui;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**

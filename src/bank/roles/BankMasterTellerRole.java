@@ -10,9 +10,9 @@ import bank.BankAccount;
 import bank.BankTransaction;
 import bank.interfaces.BankMasterTeller;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{

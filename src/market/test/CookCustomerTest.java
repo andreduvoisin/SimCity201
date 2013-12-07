@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import market.Market;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -14,7 +15,6 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import base.Item.EnumItemType;
 import base.PersonAgent;
-import base.reference.Market;
 
 public class CookCustomerTest extends TestCase {
 	PersonAgent mPerson;

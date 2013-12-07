@@ -16,10 +16,10 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.test.mock.EventLog;
 import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**

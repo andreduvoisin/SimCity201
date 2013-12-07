@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import market.Market;
 import market.MarketOrder;
 import market.roles.MarketCustomerRole;
 import market.test.mock.MockCashier;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
+import base.ContactList;
 import base.PersonAgent;
-import base.reference.ContactList;
-import base.reference.Market;
 
 public class CustomerTest extends TestCase {
 	Market mMarket;

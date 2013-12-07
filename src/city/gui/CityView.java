@@ -21,10 +21,10 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
+import bank.Bank;
 import bank.gui.BankPanel;
+import base.ContactList;
 import base.Location;
-import base.reference.Bank;
-import base.reference.ContactList;
 
 @SuppressWarnings("serial")
 public class CityView extends JPanel implements MouseListener, ActionListener {

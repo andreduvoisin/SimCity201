@@ -21,7 +21,6 @@ import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 public class SortingHat {

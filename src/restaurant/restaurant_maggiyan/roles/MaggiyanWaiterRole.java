@@ -19,9 +19,9 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 

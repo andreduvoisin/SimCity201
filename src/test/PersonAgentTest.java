@@ -4,12 +4,12 @@ import housing.interfaces.HousingBase;
 import junit.framework.TestCase;
 import market.test.mock.MockCustomer;
 import bank.test.mock.MockTellerRole;
+import base.ContactList;
 import base.Event;
 import base.Event.EnumEventType;
 import base.PersonAgent;
 import base.PersonAgent.EnumJobType;
 import base.SortingHat;
-import base.reference.ContactList;
 import city.gui.CityPerson;
 
 public class PersonAgentTest extends TestCase {
@@ -45,6 +45,18 @@ public class PersonAgentTest extends TestCase {
 		mPerson.pickAndExecuteAnAction();
 		mPerson.addCash(0);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void testOne_BasicSetUp () {
 	//	setUp()

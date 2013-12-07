@@ -6,7 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.interfaces.Person;
-import base.reference.ContactList;
 
 public class Time {
 	
@@ -17,10 +16,9 @@ public class Time {
 	public static int sGlobalDate = 0;
 	
 	public final static int cSYSCLK = 200;
+//	static boolean sFastForward = false;
 	
-	static boolean sFastForward = false;
-	
-	List<Person> mPersons = ContactList.sPersonList;
+	List<Person> mPersons = ContactList.sPersonList; //same pointer
 	
 	Timer mTimer;
 	
@@ -76,7 +74,7 @@ public class Time {
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 2
+		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 2
 		
 	}
 
@@ -100,9 +98,9 @@ public class Time {
 		return sGlobalTimeInt;
 	}
 	
-	public static void FlipFastForward(){ //turn FF on or off
-		sFastForward = !sFastForward;
-	}
+//	public static void FlipFastForward(){ //turn FF on or off
+//		sFastForward = !sFastForward;
+//	}
 	
 	public static boolean IsWeekend(){ //sat and sun = 5 and 6
 		return ((sGlobalDate%7 == 5) || (sGlobalDate%7 == 6));
