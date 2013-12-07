@@ -9,8 +9,8 @@ import base.interfaces.Person;
 
 public class Time {
 	
-	public static int sGlobalTimeInt = 0;
-	public final static int cSYSCLK = 200;
+	public static int sGlobalTimeInt = 0; //minutes
+	public final static int cSYSCLK = 20;
 //	static boolean sFastForward = false;
 	List<Person> mPersons = ContactList.sPersonList; //same pointer
 	Timer mTimer;
@@ -31,14 +31,14 @@ public class Time {
 				sGlobalTimeInt++;
 				
 				//state changed
-				if (sGlobalTimeInt % 3600 == 0){
+				if (sGlobalTimeInt % 60 == 0){
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
 							iPerson.msgStateChanged();
 						}
 					}
 					
-					if (sGlobalTimeInt % (12*3600) == 0){
+					if (sGlobalTimeInt % (12*60) == 0){
 						System.out.println("Time Shift");
 						synchronized (mPersons) {
 							for (Person iPerson : mPersons) {
@@ -53,19 +53,19 @@ public class Time {
 	}
 
 	public static int GetMinute(){
-		return (sGlobalTimeInt/60) % 60;
+		return (sGlobalTimeInt) % 60;
 	}
 	
 	public static int GetHour(){ //0 to 23
-		return (sGlobalTimeInt/3600) % 24;
+		return (sGlobalTimeInt/60) % 24;
 	}
 	
 	public static int GetShift(){ //0 to 1
-		return (sGlobalTimeInt/(12*3600)) % 2;
+		return (sGlobalTimeInt/(12*60)) % 2;
 	}
 	
 	public static int GetDate(){
-		return (sGlobalTimeInt/(24*3600)) % 7;
+		return (sGlobalTimeInt/(24*60)) % 7;
 	}
 	
 	public static int GetTime(){
