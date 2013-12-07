@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.swing.JFrame;
 
 import base.Time;
+import base.reference.ContactList;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
@@ -65,6 +66,7 @@ public class SimCityGui extends JFrame {
 	 * @throws HeadlessException 
 	 */
 	public static void main(String[] args) throws HeadlessException, IOException {
+		ContactList.setup();
 		SimCityGui test = new SimCityGui("SimCity201 - Team 28");
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		test.setResizable(false);
