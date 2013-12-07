@@ -337,7 +337,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof MarketCustomer){
 				if(!SimCityGui.TESTING) {
-					//ANGELICA: change to choosing which market to get a car
+					
 					Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 					iRole.GoToDestination(location);
 					acquireSemaphore(semAnimationDone);

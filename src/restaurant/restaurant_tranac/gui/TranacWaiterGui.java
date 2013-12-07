@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import city.gui.SimCityGui;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
@@ -17,6 +18,7 @@ public class TranacWaiterGui implements Gui {
 
     private TranacWaiterRole agent = null;
     private TranacAnimationPanel gui = null;
+    private int mNum;
     
     private TranacCookRole cook = null;
     
@@ -47,6 +49,7 @@ public class TranacWaiterGui implements Gui {
     public TranacWaiterGui(TranacWaiterRole agent, TranacAnimationPanel gui, int i) {
         this.agent = agent;
         this.gui = gui;
+        mNum = i;
         
         //home coordinates based off of what num waiter is
         xHome = xBase + 30*(i % 10);
@@ -197,19 +200,28 @@ public class TranacWaiterGui implements Gui {
 
     public void draw(Graphics2D g) {
         g.setColor(Color.WHITE);
+        if(SimCityGui.GRADINGVIEW) {
+    		g.drawString("W"+mNum, xPos+10, yPos);
+    	}
+        else {
     	g.drawImage(image, xPos, yPos, null);
-    	
+        }
+        
     	switch(state) {
     		case deliveringFood: {
             	g.drawString(food, xPos-2, yPos-5);
             	break;
     		}
     		case deliveringCheck: {
-    			g.drawImage(check, xPos-14, yPos+10, null);
+    			if(!SimCityGui.GRADINGVIEW) {
+    				g.drawImage(check, xPos-14, yPos+10, null);
+    			}
     			break;
     		}
     		case asking: {
-    			g.drawImage(askingBubble, xPos-14, yPos+10, null);
+    			if(!SimCityGui.GRADINGVIEW) {
+    				g.drawImage(askingBubble, xPos-14, yPos+10, null);
+    			}
     			break;
     		}
     		default:

@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import city.gui.SimCityGui;
 import restaurant.restaurant_tranac.roles.TranacHostRole;
 
 public class TranacHostGui implements Gui {
@@ -45,8 +46,13 @@ public class TranacHostGui implements Gui {
 
     public void draw(Graphics2D g) {
     	g.setColor(Color.WHITE);
-    	g.drawImage(image, xPos, yPos, null);
-    	g.drawString("The Host", xPos-15, yPos-3);
+    	if(SimCityGui.GRADINGVIEW) {
+    		g.drawString("Host",xPos,yPos);
+    	}
+    	else {
+    		g.drawImage(image, xPos, yPos, null);
+    		g.drawString("The Host", xPos-15, yPos-3);
+    	}
     }
 
     public boolean isPresent() {
