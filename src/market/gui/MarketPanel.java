@@ -50,9 +50,6 @@ public class MarketPanel extends CityCard implements ActionListener {
    */ 	
 		mMarket.mGuis.add(mItemGui);
 		
-		for(int i=0;i<10;i++) {
-			mMarket.mGuis.add(new MarketWorkerGui(null,i));
-		}
 		timer = new Timer(TIMERDELAY, this);
 		timer.start();
 	}
