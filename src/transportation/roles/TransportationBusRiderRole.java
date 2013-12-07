@@ -2,6 +2,7 @@ package transportation.roles;
 
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import transportation.TransportationBusDispatch;
 import transportation.gui.TransportationBusRiderGui;
 import transportation.interfaces.TransportationRider;
@@ -200,4 +201,15 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 		return null;
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.TRANSPORTATION);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.TRANSPORTATION, e);
+	}
 }

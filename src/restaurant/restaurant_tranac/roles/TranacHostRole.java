@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_tranac.gui.TranacHostGui;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
@@ -431,6 +432,18 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(6);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R6);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R6);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R6, e);
 	}
 }
 

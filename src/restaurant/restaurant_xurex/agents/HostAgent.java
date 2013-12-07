@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_xurex.interfaces.Customer;
 import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
@@ -207,6 +208,18 @@ public class HostAgent extends Agent implements Host {
 
 	public int getWaiterNumber() {
 		return waiters.size();
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R7, e);
 	}
 }
 

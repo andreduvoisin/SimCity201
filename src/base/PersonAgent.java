@@ -40,6 +40,7 @@ import base.interfaces.Role;
 import base.reference.ContactList;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
+import city.gui.trace.AlertTag;
 
 
 public class PersonAgent extends Agent implements Person {
@@ -751,12 +752,16 @@ public class PersonAgent extends Agent implements Person {
 	public boolean hasCar() {
 		return mHasCar;
 	}
-
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.PERSON);
+	}
+	
 	public void print(String msg) {
-		super.print(msg);
+		super.print(msg, AlertTag.PERSON);
 	}
 	
 	public void print(String msg, Throwable e) {
-		super.print(msg, e);
+		super.print(msg, AlertTag.PERSON, e);
 	}
 }

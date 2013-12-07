@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_duvoisin.gui.TableGui;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
@@ -73,13 +74,13 @@ public class AndreHostRole extends BaseRole implements Host {
 	// Messages
 
 	public void msgIWantToEat(Customer cust, int waitingPosition) {
-		//print("msgIWantToEat received");
+		print("msgIWantToEat received");
 		waitingCustomers.add(new MyCustomer(cust, waitingPosition, CustomerState.Added));
 		stateChanged();
 	}
 	
 	public void msgLeavingBecauseRestaurantFull(Customer cust) {
-		//print("msgLeavingBecauseRestaurantFull received");
+		print("msgLeavingBecauseRestaurantFull received");
 		synchronized(waitingCustomers) {
 			for(MyCustomer mc : waitingCustomers)
 				if(mc.customer == cust) {
@@ -91,7 +92,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 
 	public void msgTableIsFree(Waiter w, int table) {
-		//print("msgTableIsFree received");
+		print("msgTableIsFree received");
 		//Free table.
 		synchronized(tables) {
 			for(Table t : tables)
@@ -108,7 +109,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	public void msgRequestGoOnBreak(Waiter w) {
-		//print("msgRequestGoOnBreak received");
+		print("msgRequestGoOnBreak received");
 		synchronized(waiters) {
 			for(MyWaiter mw : waiters)
 				if(mw.waiter == w)
@@ -118,7 +119,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	public void msgOffBreak(Waiter w) {
-		//print("msgOffBreak received");
+		print("msgOffBreak received");
 		synchronized(waiters) {
 			for(MyWaiter mw : waiters)
 				if(mw.waiter == w)
@@ -185,7 +186,7 @@ public class AndreHostRole extends BaseRole implements Host {
 	// Actions
 
 	private void SeatCustomer(MyCustomer mc, Table table) {
-		//print("Doing SeatCustomer");
+		print("Doing SeatCustomer");
 		// Which waiter to use?
 		// Use the one with the least customers who is not on break.
 			// Will still assign to waiters who have requested breaks, but have not been responded to.
@@ -210,13 +211,13 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	private void NotifyRestaurantFull(MyCustomer mc) {
-		//print("Doing NotifyRestaurantFull");
+		print("Doing NotifyRestaurantFull");
 		mc.customer.msgRestaurantFull();
 		mc.state = CustomerState.NotifiedFull;
 	}
 	
 	private void ProcessRequest(MyWaiter waiter) {
-		//print("Doing ProcessRequest");
+		print("Doing ProcessRequest");
 		// T = Yes, F = No
 		Boolean response = false;
 		synchronized(waiters) {
@@ -281,6 +282,18 @@ public class AndreHostRole extends BaseRole implements Host {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R0, e);
 	}
 }
 

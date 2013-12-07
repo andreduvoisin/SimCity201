@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_jerryweb.agent.Agent;
 import restaurant.restaurant_jerryweb.gui.HostGui;
 import restaurant.restaurant_jerryweb.gui.Menu;
@@ -228,7 +229,5 @@ public class CashierRole extends Agent implements Cashier {
 		//print("Can't find check in cashier find function!");
 		return 0;
 	}
-
-
 }
 

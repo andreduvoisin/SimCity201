@@ -6,6 +6,7 @@ import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
@@ -539,5 +540,15 @@ public class JerrywebWaiterRole extends BaseRole implements Waiter {
 	}
 
 
-
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R2);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R2, e);
+	}
 }

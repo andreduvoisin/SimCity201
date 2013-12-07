@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import bank.gui.BankGuardGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
@@ -119,5 +120,17 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 			case 2: return ContactList.cBANK2_LOCATION;
 		}
 		return null;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.BANK, e);
 	}
 }

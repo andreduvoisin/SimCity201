@@ -10,6 +10,7 @@ import java.util.TimerTask;
 //import java.util.concurrent.Semaphore;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
@@ -367,5 +368,16 @@ public class RexCookRole extends BaseRole implements Cook {
 		return ContactList.cRESTAURANT_LOCATIONS.get(7);
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R7, e);
+	}
 }
 

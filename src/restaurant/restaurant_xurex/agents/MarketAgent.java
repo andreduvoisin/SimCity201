@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
@@ -202,6 +203,18 @@ public class MarketAgent extends Agent implements Market{
 	}
 	public int getQuantity(String food){
 		return Inventory.get(food);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R7);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R7, e);
 	}
 }
 

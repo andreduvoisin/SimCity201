@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.WaitingArea;
@@ -442,6 +443,18 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(5);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R5);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R5);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R5, e);
 	}
 }
 

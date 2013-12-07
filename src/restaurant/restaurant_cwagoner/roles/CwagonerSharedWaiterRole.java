@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
@@ -433,6 +434,18 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(1);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R1);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R1);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R1, e);
 	}
 }
 	

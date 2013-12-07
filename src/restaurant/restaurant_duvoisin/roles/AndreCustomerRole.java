@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.CustomerGui;
 import restaurant.restaurant_duvoisin.interfaces.Cashier;
@@ -103,13 +104,13 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 
 	public void msgGotHungry() {
 		//from animation
-		//print("msgGotHungry received");
+		print("msgGotHungry received");
 		event = AgentEvent.gotHungry;
 		stateChanged();
 	}
 	
 	public void msgFollowMeToTable(Waiter w, Menu m, int t) {
-		//print("msgFollowMeToTable received");
+		print("msgFollowMeToTable received");
 		this.waiter = w;
 		this.menu = m;
 		this.table = t;
@@ -118,34 +119,34 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	}
 	
 	public void msgAtSeat() {
-		//print("msgAtSeat received");
+		print("msgAtSeat received");
 		//from animation
 		event = AgentEvent.seated;
 		stateChanged();
 	}
 	
 	public void msgWhatWouldYouLike() {
-		//print("msgWhatWouldYouLike received");
+		print("msgWhatWouldYouLike received");
 		event = AgentEvent.waiterAskedForOrder;
 		stateChanged();
 	}
 	
 	public void msgOutOfChoice(Menu m) {
-		//print("msgOutOfChoice received");
+		print("msgOutOfChoice received");
 		menu = m;
 		event = AgentEvent.outOfFood;
 		stateChanged();
 	}
 	
 	public void msgHereIsYourFood(String myChoice) {
-		//print("msgHereIsYourFood received");
+		print("msgHereIsYourFood received");
 		customerGui.RecievedChoice(myChoice);
 		event = AgentEvent.foodHere;
 		stateChanged();
 	}
 	
 	public void msgHereIsCheck(double amount, Cashier ca) {
-		//print("msgHereIsCheck received");
+		print("msgHereIsCheck received");
 		amountOwed = amount;
 		cashier = ca;
 		event = AgentEvent.checkHere;
@@ -153,7 +154,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	}
 	
 	public void msgHereIsChange(double change) {
-		//print("msgHereIsChange received");
+		print("msgHereIsChange received");
 		// Add change to total money, when implemented.
 		event = AgentEvent.gotChange;
 		stateChanged();
@@ -161,13 +162,13 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	
 	public void msgDoneLeaving() {
 		//from animation
-		//print("msgDoneLeaving received");
+		print("msgDoneLeaving received");
 		event = AgentEvent.doneLeaving;
 		stateChanged();
 	}
 	
 	public void msgRestaurantFull() {
-		//print("msgRestaurantFull received");
+		print("msgRestaurantFull received");
 		event = AgentEvent.restaurantFull;
 		stateChanged();
 	}
@@ -249,7 +250,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	// Actions
 	private void GoToRestaurant() {
 		state = AgentState.WaitingInRestaurant;
-		//print("Doing GoToRestaurant");
+		print("Doing GoToRestaurant");
 		switch(name) {
 			case "0.00":
 				money = 0.00;
@@ -277,7 +278,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 			money = 40.00;
 			owesMoney = false;
 		}
-		//print("$" + formatOutput.format(money));
+		print("$" + formatOutput.format(money));
 		choice = null;
 		customerGui.DoGoToWaitingArea();
 		try {
@@ -289,7 +290,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	}
 	
 	private void DecideStayOrLeave() {
-		//print("Doing DecideStayOrLeave");
+		print("Doing DecideStayOrLeave");
 		Random rng = new Random();
 		switch(rng.nextInt(2)) {
 			case 0:
@@ -306,13 +307,13 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	
 	private void SitDown() {
 		state = AgentState.BeingSeated;
-		//print("Doing SitDown");
+		print("Doing SitDown");
 		customerGui.DoGoToSeat(table);
 	}
 	
 	private void DecideOrder() {
 		state = AgentState.Deciding;
-		//print("Doing DecideOrder");
+		print("Doing DecideOrder");
 		tTask = new TimerTask() {
 			public void run() {
 				Random rng = new Random();
@@ -363,7 +364,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	
 	private void PickNewChoice() {
 		event = AgentEvent.waiterAskedForOrder;	//Should probably rename this...
-		//print("Doing PickNewChoice");
+		print("Doing PickNewChoice");
 		Random rng = new Random();
 		String[] myMenuOptions = menu.menuItems.keySet().toArray(new String[0]);
 		//Double[] myMenuPrices = menu.menuItems.values().toArray(new Double[0]);
@@ -379,20 +380,20 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	
 	private void ReadyToOrder() {
 		state = AgentState.Decided;
-		//print("Doing ReadyToOrder");
+		print("Doing ReadyToOrder");
 		waiter.msgImReadyToOrder(this);
 	}
 	
 	private void OrderFood() {
 		state = AgentState.Ordered;
-		//print("Doing OrderFood");
+		print("Doing OrderFood");
 		waiter.msgHereIsMyChoice(this, choice);
 		customerGui.OrderedChoice(choice);
 	}
 
 	private void EatFood() {
 		state = AgentState.Eating;
-		//print("Doing EatFood");
+		print("Doing EatFood");
 		//This next complicated line creates and starts a timer thread.
 		//We schedule a deadline of getHungerLevel()*1000 milliseconds.
 		//When that time elapses, it will call back to the run routine
@@ -402,9 +403,9 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 		//So, we use Java syntactic mechanism to create an
 		//anonymous inner class that has the public method run() in it.
 		tTask = new TimerTask() {
-			//Object cookie = 1;
+			Object cookie = 1;
 			public void run() {
-				//print("Done Eating! cookie = " + cookie);
+				print("Done Eating! cookie = " + cookie);
 				event = AgentEvent.doneEating;
 				//isHungry = false;
 				stateChanged();
@@ -418,13 +419,13 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	
 	private void RequestCheck() {
 		state = AgentState.RequestedCheck;
-		//print("Doing RequestCheck");
+		print("Doing RequestCheck");
 		waiter.msgRequestCheck(this);
 	}
 	
 	private void PayCheck() {
 		state = AgentState.Paying;
-		//print("Doing PayCheck");
+		print("Doing PayCheck");
 		if(!owesMoney)
 			cashier.msgPayment(this, amountOwed);
 		else
@@ -436,14 +437,14 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 
 	private void LeaveTable() {
 		state = AgentState.Leaving;
-		//print("Doing LeaveTable");
+		print("Doing LeaveTable");
 		waiter.msgDoneEatingAndLeaving(this);
 		customerGui.DoExitRestaurant();
 	}
 	
 	private void DoNothing() {
 		state = AgentState.DoingNothing;
-		//print("Doing DoNothing");
+		print("Doing DoNothing");
 		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 		mPerson.setJobFalse();
 		mPerson.msgRoleFinished();
@@ -522,5 +523,17 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(0);
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R0);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R0, e);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import city.gui.trace.AlertTag;
 import bank.BankAccount;
 import bank.gui.BankTellerGui;
 import bank.interfaces.BankCustomer;
@@ -202,5 +203,17 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	@Override
 	public int getWindowNumber() {
 		return mWindow;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.BANK, e);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.gui.HostGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -179,6 +180,18 @@ public class SmilehamHostRole extends BaseRole implements SmilehamHost{
 		@Override
 		public Location getLocation() {
 			return ContactList.cRESTAURANT_LOCATIONS.get(5);
+		}
+		
+		public void Do(String msg) {
+			super.Do(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg) {
+			super.print(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg, Throwable e) {
+			super.print(msg, AlertTag.R5, e);
 		}
 }
 

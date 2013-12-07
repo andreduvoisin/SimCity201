@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
@@ -425,5 +426,16 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         @Override
     	public Location getLocation() {
     		return ContactList.cRESTAURANT_LOCATIONS.get(6);
+    	}
+        public void Do(String msg) {
+    		super.Do(msg, AlertTag.R6);
+    	}
+    	
+    	public void print(String msg) {
+    		super.print(msg, AlertTag.R6);
+    	}
+    	
+    	public void print(String msg, Throwable e) {
+    		super.print(msg, AlertTag.R6, e);
     	}
 }
