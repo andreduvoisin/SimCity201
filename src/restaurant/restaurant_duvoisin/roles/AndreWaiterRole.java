@@ -8,12 +8,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.WaiterGui;
-import restaurant.restaurant_duvoisin.interfaces.Cashier;
-import restaurant.restaurant_duvoisin.interfaces.Cook;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
-import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import base.BaseRole;
 import base.Location;
@@ -30,10 +28,6 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	enum CustomerState { Waiting, Seated, ReadyToOrder, AskedToOrder, Ordered, OutOfFood, FoodCooking, FoodReady, Eating, RequestedCheck, WaitingForCheck, CheckComputed, Paying, Done };
 	
 	enum MyState { Working, RequestBreak, RequestedBreak, OnBreakPending, OnBreak, OffBreak };
-
-	Cook cook;
-	Host host;
-	Cashier cashier;
 	
 	private String name;
 
@@ -64,9 +58,6 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 		return name;
 	}
 	
-	public void setHost(AndreHostRole host) { this.host = host; }
-	public void setCashier(AndreCashierRole cashier) { this.cashier = cashier; }
-	public void setCook(AndreCookRole cook) { this.cook = cook; }
 	// Messages
 	
 	public void msgSitAtTable(Customer c, int table, int waitingPosition) {
@@ -271,7 +262,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	private void RequestToTakeBreak() {
 		print("Doing RequestToTakeBreak");
 		state = MyState.RequestedBreak;
-		host.msgRequestGoOnBreak(this);
+		AndreRestaurant.host.msgRequestGoOnBreak(this);
 	}
 	
 	private void SeatCustomer(MyCustomer c, int table) {
@@ -314,7 +305,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 			e.printStackTrace();
 		}
 		waiterGui.DoGoWait();
-		cook.msgHereIsOrder(this, c.choice, c.table);
+		AndreRestaurant.cook.msgHereIsOrder(this, c.choice, c.table);
 		c.state = CustomerState.FoodCooking;
 	}
 	
@@ -339,7 +330,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		cook.msgGotFood(c.foodPosition);
+		AndreRestaurant.cook.msgGotFood(c.foodPosition);
 		waiterGui.DoGoToTable(c.table);	//animation
 		waiterGui.setCurrentOrder(c.choice);
 		try {
@@ -355,7 +346,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	
 	private void AskCashierToComputeCheck(MyCustomer c) {
 		print("Doing AskCashierToComputeCheck");
-		cashier.msgComputeBill(this, c.customer, c.choice);
+		AndreRestaurant.cashier.msgComputeBill(this, c.customer, c.choice);
 		c.state = CustomerState.WaitingForCheck;
 	}
 	
@@ -373,14 +364,14 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		c.customer.msgHereIsCheck(c.amountOwed, cashier);
+		c.customer.msgHereIsCheck(c.amountOwed);
 		c.state = CustomerState.Paying;
 		waiterGui.DoGoWait();
 	}
 	
 	private void CleanTable(MyCustomer c) {
 		print("Doing CleanTable");
-		host.msgTableIsFree(this, c.table);
+		AndreRestaurant.host.msgTableIsFree(this, c.table);
 		customers.remove(c);
 	}
 	
@@ -399,7 +390,7 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	private void GoOffBreak() {
 		print("Doing GoOffBreak");
 		waiterGui.DoGoOffBreak(); // Animation
-		host.msgOffBreak(this);
+		AndreRestaurant.host.msgOffBreak(this);
 		state = MyState.Working;
 		stateChanged();
 	}

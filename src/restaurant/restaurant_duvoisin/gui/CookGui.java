@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
+import base.Gui;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 
 public class CookGui implements Gui {
@@ -15,8 +16,6 @@ public class CookGui implements Gui {
     
     static final int IDLE_X = 250;
     static final int IDLE_Y = 428;
-    
-    AndreRestaurantGui gui;
     
     private int xPos = STARTPOS_X, yPos = STARTPOS_Y;//default waiter position
     private int xDestination = STARTPOS_X, yDestination = STARTPOS_Y;//default start position
@@ -42,9 +41,8 @@ public class CookGui implements Gui {
     Map<Integer, String> grilledItems = new HashMap<Integer, String>();
     Map<Integer, String> platedItems = new HashMap<Integer, String>();
 
-    public CookGui(AndreCookRole agent, AndreRestaurantGui gui) {
+    public CookGui(AndreCookRole agent) {
         this.agent = agent;
-        this.gui = gui;
         currentOrder = "";
     }
 
@@ -160,4 +158,10 @@ public class CookGui implements Gui {
 				break;
     	}
     }
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

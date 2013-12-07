@@ -15,7 +15,7 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
@@ -59,7 +59,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         	switch(mRestaurantID){
 				case 0: //andre
 					subRole = new AndreCookRole(super.mPerson, this);
-					AndreRestaurantPanel.instance.addCook((AndreCookRole) subRole);
+					AndreRestaurant.addCook((AndreCookRole) subRole);
 					break;
 //				case 1: //chase
 //					subRole = new CwagonerCookRole(super.mPerson);
