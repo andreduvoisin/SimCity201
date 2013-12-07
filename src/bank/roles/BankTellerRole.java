@@ -12,10 +12,10 @@ import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class BankTellerRole extends BaseRole implements BankTeller{

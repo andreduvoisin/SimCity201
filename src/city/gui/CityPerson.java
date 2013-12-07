@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import transportation.roles.CommuterRole;
+
 import base.Location;
 import base.PersonAgent;
-import base.reference.ContactList;
+import base.Block;
+import base.ContactList;
 
 public class CityPerson extends CityComponent {
 	
@@ -18,13 +20,14 @@ public class CityPerson extends CityComponent {
 	PersonAgent mPerson = null;
 	SimCityGui gui;
 	
-	List<Location> corners = new ArrayList<Location>(); 
+	List<Location> corners = new ArrayList<Location>();
+	
+	//Car Data
+	List<Block> blocks = new ArrayList<Block>(); 
 	
 	public int xDestination = 120, yDestination = 35;
 	public Location mNextDestination = null;
 	
-	static final int waiterWidth = 10;
-	static final int waiterHeight = 10;
 	static final int xIndex = 10;
 	static final int yIndex = 10;
 	
@@ -44,6 +47,28 @@ public class CityPerson extends CityComponent {
 		corners.add(new Location(95, 500)); 
 		corners.add(new Location(500, 500));
 		
+		/*Gui Grid Blocks
+		 * Used to to maintain car gui movement 
+		 * 
+		 * B A
+		 * C D
+		 * 
+		 * NOTE: No blocks are needed for traveling paths AD, DC, CB, BA
+		 * 
+		 */
+		//Paths: AB, BC, CD, DA
+		blocks.add(new Block (100, 80, 500, 520)); 
+		blocks.add(new Block (80, 100, 520, 500)); 
+		//Paths: AC, CA
+		blocks.add(new Block (90, 90, 280, 300)); 
+		blocks.add(new Block (90, 90, 300, 280)); 
+		blocks.add(new Block (300, 320, 500, 500)); 
+		blocks.add(new Block (320, 300, 500, 500)); 
+		//Paths: BD, DB
+		blocks.add(new Block (100, 300, 280, 500)); 
+		blocks.add(new Block (100, 320, 300, 500)); 
+		blocks.add(new Block (300, 100, 500, 280)); 
+		blocks.add(new Block (320, 100, 500, 300)); 
 	}
 
 	@Override
@@ -193,7 +218,13 @@ public class CityPerson extends CityComponent {
 			//Checks if the closest corner to person is also closest corner to destination
 		}
 	}
-	//MAGGI: reorganize once done with transportation  
+	//MAGGI: reorganize once done with transportation 
+	public void DoDriveToDestination(){
+		mNextDestination  = ContactList.cPARKING_LOCATION; 
+		//gui work to make driving happen
+		
+	}
+	
 	public void testDoGoToDestination(Location location){
 		this.enable(); 
 		mNextDestination = location; 

@@ -22,7 +22,7 @@ public class TransportationBus extends Agent {
 
 		mGui = new CityBus(this);
 
-		for (Location iLoc: base.reference.ContactList.cBUS_STOPS) {
+		for (Location iLoc: base.ContactList.cBUS_STOPS) {
 			mBusStops.add(new TransportationBusStop(iLoc));
 		}
 

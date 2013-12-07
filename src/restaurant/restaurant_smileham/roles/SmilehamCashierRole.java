@@ -14,9 +14,9 @@ import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
 import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{

@@ -1,21 +1,27 @@
 package transportation.roles;
 
+
+import transportation.interfaces.TransportationRider;
+
 import transportation.TransportationBus;
+
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
-public class CommuterRole extends BaseRole{
+public class CommuterRole extends BaseRole implements TransportationRider{
 	
 	//DATA
 	private Location mDestination;
+	private Location mHousingLocation; 
+	private Location mCurrentLocation; 
 	
 	//Bus Data 
 	private enum PersonBusState {WaitingForBus}; 
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
-	private PersonBusState mState; 
+	private PersonBusState mState;
 	//MAGGI: put where MasterTeller is being created 
 	private TransportationBus mBus = new TransportationBus(); 
 	
@@ -23,6 +29,8 @@ public class CommuterRole extends BaseRole{
 	public CommuterRole(Person person) {
 		super(person);
 		mPerson = person;
+		
+		mHousingLocation = mPerson.getHousingRole().getLocation(); 
 	}	
 	
 	//MESSAGES
@@ -36,13 +44,19 @@ public class CommuterRole extends BaseRole{
 		stateChanged(); 
 	}
 	
+	//From Animation
+	public void msgAnimationDone(){
+		
+	}
+	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
 		if(mState == PersonBusState.WaitingForBus){
 			NotifyBusDispatch(); 
 		}
 		if(mPerson.hasCar()){
-			//mPerson.getGui().DoDriveToDestination(); 
+			DriveToDestination(); 
+			//TryDrivingToDestination(); 
 		}
 		else{
 			GoToDestination(); 
@@ -57,10 +71,31 @@ public class CommuterRole extends BaseRole{
 		//mBusDispatch.msgNeedARide(this, mCurrentBusStop);
 	}
 	
+	private void DriveToDestination(){
+		mPerson.getGui().DoDriveToDestination(); 
+	}
+	
+	private void TryDrivingToDestination(){
+		if(mCurrentLocation == mHousingLocation){
+			mPerson.getGui().DoDriveToDestination(); 
+		}
+		else{
+			if(mDestination == mHousingLocation){
+				mPerson.getGui().DoDriveToDestination(); 
+				mPerson.getGui().testDoGoToDestination(mDestination);
+				mCurrentLocation = mDestination; 
+			}
+			else{
+				
+			}
+		}
+	
+	}
 	
 	private void GoToDestination(){
 		if(mDestination != null)
 			mPerson.getGui().testDoGoToDestination(mDestination);
+			mCurrentLocation = mDestination; 
 	}
 	
 	public void setLocation(Location location){
@@ -82,5 +117,41 @@ public class CommuterRole extends BaseRole{
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.TRANSPORTATION, e);
+	}
+
+	@Override
+	public int getStop() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getDestination() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void msgBoardBus() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtYourStop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtStop(int stopBusIsAt) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	//UTILITES
+	
+	public void setCurrentLocation(Location location){
+		mCurrentLocation = location; 
 	}
 }

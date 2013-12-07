@@ -1,16 +1,19 @@
-package base.reference;
+package base;
+
+import housing.House;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import market.Market;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import transportation.TransportationBus;
+import bank.Bank;
 import bank.interfaces.BankMasterTeller;
-import base.Location;
 import base.interfaces.Person;
 
 public class ContactList {
@@ -108,6 +111,7 @@ public class ContactList {
 	public static final Location cBANK2_LOCATION = gridLocation(3, 0);
 	public static final Location cMARKET1_LOCATION = gridLocation(0, 3);
 	public static final Location cMARKET2_LOCATION = gridLocation(3, 3);
+	public static final Location cPARKING_LOCATION = new Location(300, 300); //MAGGI: fix later after B* is fixed or A* implemented
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	public static List<Location> cBUS_STOPS;

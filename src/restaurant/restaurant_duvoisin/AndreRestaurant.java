@@ -28,8 +28,10 @@ public class AndreRestaurant {
 	
 	public static AndreWaiterRole lastWaiter = null;
 	public static AndreSharedWaiterRole lastSharedWaiter = null;
+	public static AndreCustomerRole lastCustomer = null;
 	public static int waiters = 0;
 	public static int sharedWaiters = 0;
+	public static int customers = 0;
 	
 	public AndreRestaurant() {
 		guis = Collections.synchronizedList(new ArrayList<Gui>());
@@ -56,7 +58,8 @@ public class AndreRestaurant {
 			CustomerGui g = new CustomerGui(role);
 			role.setGui(g);
 			guis.add(g);
-			
+			lastCustomer = role;
+			customers++;
 			role.getGui().setHungry();
 		}
 	}

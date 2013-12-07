@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
+import market.Market;
 import base.Item.EnumItemType;
-import base.reference.Market;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -86,24 +86,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 		synchronized(mMarket.mGuis) {
 			mMarket.mGuis.add(g);
 		}
-		if(g instanceof MarketWorkerGui) {
-			mMarket.mWorkerGuis.add((MarketWorkerGui)g);
-			((MarketWorkerGui) g).setItemsGui(mItemGui);
-		}
-		else if (g instanceof MarketCustomerGui) {
-			mMarket.mCustomerGuis.add((MarketCustomerGui)g);
-		}
 	}
 	
 	public void removeGui(MarketBaseGui g) {
 		synchronized(mMarket.mGuis) {
 			mMarket.mGuis.remove(g);
-		}
-		if(g instanceof MarketWorkerGui) {
-			mMarket.mWorkerGuis.remove((MarketWorkerGui)g);
-		}
-		else if (g instanceof MarketCustomerGui) {
-			mMarket.mCustomerGuis.remove((MarketCustomerGui)g);
 		}
 	}
 	

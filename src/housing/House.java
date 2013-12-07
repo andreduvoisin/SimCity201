@@ -1,4 +1,4 @@
-package base.reference;
+package housing;
 
 import housing.interfaces.HousingRenter;
 import city.gui.CityHousing;

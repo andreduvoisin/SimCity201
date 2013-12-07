@@ -6,22 +6,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import base.interfaces.Person;
-import base.reference.ContactList;
 
 public class Time {
 	
-	public static int sGlobalTimeInt = 0;
-	public static int sGlobalMinute = 0;
-	public static int sGlobalHour = 0;
-	public static int sGlobalShift = 0;
-	public static int sGlobalDate = 0;
-	
-	public final static int cSYSCLK = 200;
-	
-	static boolean sFastForward = false;
-	
-	List<Person> mPersons = ContactList.sPersonList;
-	
+	public static int sGlobalTimeInt = 0; //minutes
+	public final static int cSYSCLK = 100;
+//	static boolean sFastForward = false;
+	List<Person> mPersons = ContactList.sPersonList; //same pointer
 	Timer mTimer;
 	
 	public Time(){
@@ -37,68 +28,55 @@ public class Time {
 			@Override
 			//Broadcast time
 			public void run() {
-				sGlobalMinute++;
 				sGlobalTimeInt++;
 				
-//				synchronized (mPersons) {
-//					for (Person iPerson : mPersons) {
-//						iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
-//						do a state changed here?
-//					}
-//				}
-				
-				if (sGlobalMinute == 60){
-//					sGlobalTimeInt++;
-					sGlobalMinute = 0;
-					sGlobalHour++;
+				//state changed
+				if (sGlobalTimeInt % 60 == 0){
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
 							iPerson.msgStateChanged();
 						}
 					}
-				}
-				if (sGlobalHour == 24){
-					sGlobalHour = 0;
-					sGlobalDate++;
-				}
-				if (sGlobalHour % 12 == 0){
-					sGlobalShift = (sGlobalShift + 1) % 2;
-					synchronized (mPersons) {
-						for (Person iPerson : mPersons) {
-							iPerson.msgTimeShift(); 
+					
+					if (sGlobalTimeInt % (12*60) == 0){
+						System.out.println("Time Shift");
+						synchronized (mPersons) {
+							for (Person iPerson : mPersons) {
+								iPerson.msgTimeShift(); 
+							}
 						}
 					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 2
+		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 2
 		
 	}
 
 	public static int GetMinute(){
-		return sGlobalMinute;
+		return (sGlobalTimeInt) % 60;
 	}
 	
 	public static int GetHour(){ //0 to 23
-		return sGlobalHour;
+		return (sGlobalTimeInt/60) % 24;
 	}
 	
-	public static int GetShift(){ //0 to 2
-		return sGlobalShift;
+	public static int GetShift(){ //0 to 1
+		return (sGlobalTimeInt/(12*60)) % 2;
 	}
 	
 	public static int GetDate(){
-		return sGlobalDate;
+		return (sGlobalTimeInt/(24*60)) % 7;
 	}
 	
 	public static int GetTime(){
 		return sGlobalTimeInt;
 	}
 	
-	public static void FlipFastForward(){ //turn FF on or off
-		sFastForward = !sFastForward;
-	}
+//	public static void FlipFastForward(){ //turn FF on or off
+//		sFastForward = !sFastForward;
+//	}
 	
 	public static boolean IsWeekend(){ //sat and sun = 5 and 6
-		return ((sGlobalDate%7 == 5) || (sGlobalDate%7 == 6));
+		return ((GetDate()%7 == 5) || (GetDate()%7 == 6));
 	}
 }

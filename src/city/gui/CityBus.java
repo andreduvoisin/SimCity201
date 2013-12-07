@@ -32,7 +32,7 @@ public class CityBus extends CityComponent {
 		mBus = b;
 		mTraveling = true;
 		mStopNumber = 0;
-		mStopCoords = base.reference.ContactList.cBUS_STOPS;
+		mStopCoords = base.ContactList.cBUS_STOPS;
 
 		// Inherited from CityComponent
 		x = mStopCoords.get(mStopNumber).mX;

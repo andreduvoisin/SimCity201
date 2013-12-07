@@ -7,8 +7,8 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import base.ContactList;
 import base.Time;
-import base.reference.ContactList;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {

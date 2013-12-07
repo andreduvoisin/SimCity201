@@ -1,5 +1,6 @@
 package housing.roles;
 
+import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -7,9 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import base.ContactList;
 import base.interfaces.Person;
-import base.reference.ContactList;
-import base.reference.House;
 
 /*
  * @author David Carr, Maggi Yang

@@ -1,12 +1,12 @@
 package housing.test.mock;
 
+import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.House;
 
 /**
  * A sample MockRenter built to unit test a LandlordRole.
