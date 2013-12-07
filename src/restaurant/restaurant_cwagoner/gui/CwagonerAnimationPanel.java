@@ -9,38 +9,51 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
+import restaurant.restaurant_cwagoner.roles.*;
+import city.gui.*;
 import base.Location;
 import base.Time;
+import base.interfaces.Role;
 
 @SuppressWarnings("serial")
-public class CwagonerAnimationPanel extends JPanel implements ActionListener {
+public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 
-	int width, height, tableSize = 50;
+	int tableSize = 50, numTables = 4;
     List<CwagonerGui> guis = Collections.synchronizedList(new ArrayList<CwagonerGui>());
     ArrayList<Location> tableLocations = new ArrayList<Location>();
 
-    public CwagonerAnimationPanel(int width, int height) {
-    	super();
+    public CwagonerHostRole host;
+    public CwagonerCashierRole cashier;
+    public static CwagonerCookRole cook;
+    private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
+    private List<CwagonerWaiter> Waiters = new ArrayList<CwagonerWaiter>();
 
+    public CwagonerAnimationPanel(SimCityGui g) {
+    	super(g);
     	this.setVisible(true);
 
-    	this.width = width;
-    	this.height = height;
+    	this.setBounds(0, 0, CARD_WIDTH, CARD_HEIGHT);
+        this.setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
 
-    	this.setBounds(0, 0, width, height);
-        this.setPreferredSize(new Dimension(width, height));
-        //CHASE: here's your lag
     	Timer timer = new Timer(Time.cSYSCLK/15, this);
     	timer.addActionListener(this);
     	timer.start();
+
+    	initializeTables();
     }
     
-    public void addTable(Location l) {
-    	tableLocations.add(l);
+    private void initializeTables() {
+        tableLocations.add(new Location(100, 100));
+        tableLocations.add(new Location(300, 100));
+        tableLocations.add(new Location(100, 200));
+        tableLocations.add(new Location(300, 200));
+    }
+
+    public Location getTableLocation(int tableNum) {
+    	return tableLocations.get(tableNum);
     }
 
 	public void actionPerformed(ActionEvent e) {
@@ -60,7 +73,7 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
 
         // Clear the screen by painting a rectangle the size of the panel
         g2.setColor(getBackground());
-        g2.fillRect(0, 0, width, height);
+        g2.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 
         // Here are the tables
         g2.setColor(Color.ORANGE);
@@ -81,6 +94,28 @@ public class CwagonerAnimationPanel extends JPanel implements ActionListener {
     public void addGui(CwagonerGui gui) {
     	synchronized(guis) {
     		guis.add(gui);
+    	}
+    }
+
+    public void addPerson(Role subRole) {
+    	if (subRole instanceof CwagonerHostRole) {
+    		host = (CwagonerHostRole)subRole;
+    		host.setNumTables(numTables);
+    	}
+    	else if (subRole instanceof CwagonerCashierRole) {
+    		cashier = (CwagonerCashierRole)subRole;
+    	}
+    	else if (subRole instanceof CwagonerCookRole) {
+    		cook = (CwagonerCookRole)subRole;
+    	}
+    	else if (subRole instanceof CwagonerCustomerRole) {	
+    		Customers.add((CwagonerCustomerRole) subRole);
+    	}
+    	else if (subRole instanceof CwagonerSharedWaiterRole) {
+    		Waiters.add((CwagonerSharedWaiterRole)subRole);
+    	}
+    	else if (subRole instanceof CwagonerWaiterRole) {	
+    		Waiters.add((CwagonerWaiterRole) subRole);
     	}
     }
 }
