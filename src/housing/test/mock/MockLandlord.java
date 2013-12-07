@@ -6,6 +6,7 @@ import housing.interfaces.HousingRenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityHousing;
@@ -79,6 +80,24 @@ public class MockLandlord extends Mock implements Role, HousingLandlord {
 	public void setActive() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean hasPerson() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void GoToDestination(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Location getLocation() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
