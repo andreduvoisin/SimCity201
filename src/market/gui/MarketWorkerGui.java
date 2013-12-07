@@ -25,7 +25,6 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private int xCustomer = 100, yCustomer = 250;
 	
 	private int xPos = xStart, yPos = yStart;
-//	private int xDestination = xStart, yDestination = yStart;
 	private int xDestination = xHome, yDestination = yHome;
 	private static final int SIZE = 20;
 	
@@ -36,9 +35,12 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketWorkerGui(MarketWorker agent) {
+	public MarketWorkerGui(MarketWorker agent, int i) {
 		mAgent = agent;
 		
+        xHome = xBase + 30*(i % 10);
+        yHome = yBase + 40*(int)(i/10);
+        
     	image = null;
     	try {
     	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/worker.png");
@@ -47,11 +49,6 @@ public class MarketWorkerGui implements MarketBaseGui {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
-	}
-	
-	public MarketWorkerGui(MarketWorker agent, MarketItemsGui g) {
-		mAgent = agent;
-		mItems = g;
 	}
 	
 	public void updatePosition() {
