@@ -1,10 +1,10 @@
 package transportation.roles;
 
-import city.gui.trace.AlertTag;
 import transportation.TransportationBusDispatch;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
+import city.gui.trace.AlertTag;
 
 public class CommuterRole extends BaseRole{
 	

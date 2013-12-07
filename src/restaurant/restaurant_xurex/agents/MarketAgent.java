@@ -7,11 +7,11 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Market;
 import base.Agent;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Market Agent

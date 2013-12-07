@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -25,6 +24,7 @@ import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class MarketCashierRole extends BaseRole implements MarketCashier{
 	

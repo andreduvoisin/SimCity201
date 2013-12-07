@@ -7,7 +7,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_cwagoner.gui.CwagonerCookGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
@@ -18,6 +17,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 
 public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook {

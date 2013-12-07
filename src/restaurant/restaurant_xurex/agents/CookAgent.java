@@ -10,13 +10,13 @@ import java.util.TimerTask;
 //import java.util.concurrent.Semaphore;
 import java.util.concurrent.Semaphore;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_xurex.gui.CookGui;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
 import restaurant.restaurant_xurex.interfaces.Market;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.Agent;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cook Agent

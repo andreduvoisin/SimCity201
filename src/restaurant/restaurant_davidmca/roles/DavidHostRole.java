@@ -5,11 +5,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import city.gui.trace.AlertTag;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.MyWaiter;
 import restaurant.restaurant_davidmca.Table;
-import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.gui.HostGui;
 import restaurant.restaurant_davidmca.interfaces.Customer;
 import restaurant.restaurant_davidmca.interfaces.Host;
@@ -18,6 +16,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Host Agent
