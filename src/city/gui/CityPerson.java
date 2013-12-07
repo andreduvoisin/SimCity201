@@ -11,7 +11,7 @@ import transportation.roles.CommuterRole;
 
 import base.Location;
 import base.PersonAgent;
-import base.reference.Block;
+import base.Block;
 import base.ContactList;
 
 public class CityPerson extends CityComponent {
