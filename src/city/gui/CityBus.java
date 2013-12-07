@@ -1,5 +1,6 @@
 package city.gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -89,13 +90,20 @@ public class CityBus extends CityComponent {
 
 	@Override
 	public void draw(Graphics2D g) {
-		if (mStopNumber == 0) g.drawImage(left, x, y, null);
-		// hack firstRun
-		if (mStopNumber == 1) g.drawImage(front, x, y, null);
-		if (mStopNumber == 2) g.drawImage(right, x, y, null);
-		if (mStopNumber == 3) g.drawImage(back, x, y, null);
-
-		if (firstRun) g.drawImage(front, x, y, null);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(Color.YELLOW);
+			g.fill3DRect(x, y, 25, 25, true);
+			g.setColor(Color.BLACK);
+			g.drawString("Bus", x + 2 , y + 15);
+		} else {
+			if (mStopNumber == 0) g.drawImage(left, x, y, null);
+			// hack firstRun
+			if (mStopNumber == 1) g.drawImage(front, x, y, null);
+			if (mStopNumber == 2) g.drawImage(right, x, y, null);
+			if (mStopNumber == 3) g.drawImage(back, x, y, null);
+	
+			if (firstRun) g.drawImage(front, x, y, null);
+		}
 	}
 
 	@Override

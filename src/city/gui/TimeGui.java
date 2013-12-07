@@ -26,7 +26,7 @@ public class TimeGui extends CityComponent{
 		String printThis;
 		
 		g.setColor(Color.BLACK);
-		g.fillRect(mX, mY, mXspan-2, mYspan);
+		g.fillRect(mX, mY, mXspan-1, mYspan);
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("TimesRoman", Font.BOLD, fontSize));
 //		String hour = Integer.toString(Time.GetHour());
