@@ -9,7 +9,7 @@ import java.util.List;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityHousing;
+import base.reference.House;
 
 /**
  * A sample MockRenter built to unit test a LandlordRole.
@@ -19,7 +19,7 @@ import city.gui.CityHousing;
  */
 public class MockLandlord extends Mock implements Role, HousingLandlord {
 
-	public List<CityHousing> mHousesList = new ArrayList<CityHousing>(); 
+	public List<House> mHousesList = new ArrayList<House>(); 
 	
 	public MockLandlord(String name) {
 		super();

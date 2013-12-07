@@ -7,7 +7,6 @@ import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import base.reference.House;
-import city.gui.CityHousing;
 
 /**
  * A sample MockRenter built to unit test a LandlordRole.
@@ -23,15 +22,13 @@ public class MockRenter extends Mock implements Role, HousingRenter {
 		super();
 
 	}
-
-	public void msgApplicationAccepted(CityHousing newHouse) {
+	
+	public void msgApplicationAccepted(House newHouse) {
 		log.add(new LoggedEvent("Received msgApplicationAccepted"));
-		
 	}
 
 	public void msgApplicationDenied() {
 		log.add(new LoggedEvent("Received msgApplicationDenied"));
-		
 	}
 
 	public void msgRentDue(int lordssn, double total) {
@@ -98,12 +95,6 @@ public class MockRenter extends Mock implements Role, HousingRenter {
 
 	@Override
 	public void setActive() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void msgApplicationAccepted(House newHouse) {
 		// TODO Auto-generated method stub
 		
 	}

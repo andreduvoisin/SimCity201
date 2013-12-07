@@ -12,11 +12,7 @@ public class HousingOwnerRole extends HousingBaseRole implements HousingOwner {
 	/* Data */
 
 	public HousingOwnerRole(Person person) {
-		mPerson = person;
-	}
-	
-	public HousingOwnerRole() {
-		super();
+		super(person);
 	}
 
 	/* Scheduler */

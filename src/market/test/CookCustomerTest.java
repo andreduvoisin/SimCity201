@@ -60,7 +60,7 @@ public class CookCustomerTest extends TestCase {
  		mCookCustomer.mItemsDesired.put(EnumItemType.CHICKEN,3);
  		mCookCustomer.mItemsDesired.put(EnumItemType.SALAD, 1);
 
- 	//ANGELICA: assert preconditions
+ 	//assert preconditions
  		
  		
  		mCookCustomer.pickAndExecuteAnAction();
@@ -145,7 +145,7 @@ public class CookCustomerTest extends TestCase {
 // 		SmilehamAnimationPanel mPanel = new SmilehamAnimationPanel(null);
 // 		mCookCustomer.setRestaurant(5);
 //	
-// 	  //ANGELICA: assert preconditions
+// 	  //assert preconditions
 // 		
 // 		
 // 		

@@ -166,7 +166,7 @@ public class CityPerson extends CityComponent {
 		 *
 		 * totalBusDistance = distance to nearest corner
 		 * 						+ distance from bus-exit corner to destination
-		 * totalWalkDistance = distance from current location to destination
+		 * totalWalkDist ance = distance from current location to destination
 		 *
 		 * if totalWalkDistance < totalBusDistance, then walk
 		 */

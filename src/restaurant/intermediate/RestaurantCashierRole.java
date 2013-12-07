@@ -142,7 +142,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 			int orderNum = o.mItems.get(type);
 			int billNum = i.mOrder.mItems.get(type) + cf.get(type);
 			if(orderNum != billNum) {
-				//ANGELICA: message market that invoice is invalid
+				//message market that invoice is invalid
 				mMarketBills.remove(b);
 				return;
 			}

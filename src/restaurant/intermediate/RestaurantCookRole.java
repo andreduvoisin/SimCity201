@@ -113,6 +113,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         public Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
         
+        public Map<EnumItemType, Boolean> mHasCreatedOrder = new HashMap<EnumItemType, Boolean>();
+        
         public List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
         public List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
         
@@ -177,6 +179,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 for(EnumItemType item : mItemsDesired.keySet()) {
                 		items.put(item, mItemsDesired.get(item));
                         mItemsDesired.put(item,0);
+                        mHasCreatedOrder.put(item,false);
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
@@ -191,28 +194,36 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
         		}
                 mMarketCashier.msgOrderPlacement(o);
-                //ANGELICA: fill in each restaurant
+                //ANGELICA: 0 fill in each restaurant
                 RestaurantCashierRole restaurantCashier = null;
-                /*
-                switch(mRestaurantID) {
-                case 0:
-                	restaurantCashier = 
-                case 1:
-                	
-                case 2:
-                	
-                case 3:
-                	
-                case 4:
                 
-                case 5:
+                switch(mRestaurantID) {
+                case 0:	//andre
+                	restaurantCashier = AndreRestaurant.cashier.mRole;
+                	break;
+                case 1: //chase
                 	
-                case 6:
+                	break;
+                case 2: //jerry
+                	restaurantCashier = JerrywebRestaurant.cashier.mRole;
+                	break;
+                case 3: //maggi
                 	
-                case 7:
+                	break;
+                case 4: //david
+                	restaurantCashier = DavidRestaurant.cashier.mRole;
+                	break;
+                case 5: //shane
+                	
+                	break;
+                case 6: //angel
+                	restaurantCashier = TranacRestaurant.mCashier.mRole;
+                	break;
+                case 7: //rex
                 	 
+                	break;
                 }
-                */
+                
                 restaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
         }
         

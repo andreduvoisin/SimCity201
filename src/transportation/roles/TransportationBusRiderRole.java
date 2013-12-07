@@ -212,4 +212,10 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.TRANSPORTATION, e);
 	}
+
+	@Override
+	public void msgAtStop(int stopBusIsAt) {
+		// TODO Auto-generated method stub
+		
+	}
 }

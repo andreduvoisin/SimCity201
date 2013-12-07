@@ -16,8 +16,12 @@ import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_davidmca.DavidRestaurant;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
+import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import base.BaseRole;
 import base.Item;
@@ -145,41 +149,37 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
         	order.mDeliveryTruck = mDeliveryTruck;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
             cook.msgCannotFulfillItems(order, cannotFulfill);
-            /* ANGELICA: implement this once restaurants are settled
-             * choose correct restaurant cashier
-             * send invoice to restaurant cashier
-             * send cannot full items to restaurant cook
-             */
+            // ANGELICA: 0 fill in each restaurant
             RestaurantCashierInterface restaurantCashier = null;
+            
             switch(order.mRestaurantNumber) {
-           /* case 0: //andre
-            	restaurantCashier = (RestaurantCashierInterface) 
+            case 0:	//andre
+            	restaurantCashier = AndreRestaurant.cashier.mRole;
             	break;
-            case 1: //chase  
-                restaurantCashier = (RestaurantCashierInterface) 
-                break;
+            case 1: //chase
+            	
+            	break;
             case 2: //jerry
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	restaurantCashier = JerrywebRestaurant.cashier.mRole;
             	break;
             case 3: //maggi
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	
             	break;
             case 4: //david
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	restaurantCashier = DavidRestaurant.cashier.mRole;
             	break;
             case 5: //shane
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	
             	break;
-       */     case 6: //angelica
-            	restaurantCashier = (RestaurantCashierInterface) TranacRestaurant.getCashier();
+            case 6: //angel
+            	restaurantCashier = TranacRestaurant.mCashier.mRole;
             	break;
-       /*     case 7: //rex
-            	restaurantCashier = (RestaurantCashierInterface) 
-            	break; */
+            case 7: //rex
+            	 
+            	break;
             }
             restaurantCashier.msgInvoiceToPerson(cannotFulfill, invoice);
             cook.msgCannotFulfillItems(order, cannotFulfill);
-            
         }
         
 		//if a customer
