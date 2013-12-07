@@ -72,7 +72,7 @@ public class CityPerson extends CityComponent {
 
 
         //B* Algorithm :)
-        
+        /*
         boolean xOldInBlock = 	(((previousX > ContactList.cGRID_POINT1-5) && (previousX < ContactList.cGRID_POINT2)) || 
 								((previousX > ContactList.cGRID_POINT3-5) && (previousX < ContactList.cGRID_POINT4)) ||
 								((previousX > ContactList.cGRID_POINT5-5) && (previousX < ContactList.cGRID_POINT6)) ||
@@ -101,6 +101,7 @@ public class CityPerson extends CityComponent {
         		x = previousX;
         	}
         }
+        */
 	}
 	
 	public void paint(Graphics g) {

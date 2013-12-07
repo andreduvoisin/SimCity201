@@ -59,7 +59,11 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         	switch(mRestaurantID){
 				case 0: //andre
 					subRole = new AndreCookRole(super.mPerson, this);
-					AndreRestaurant.addCook((AndreCookRole) subRole);
+					if(AndreRestaurant.cook == null) {
+						AndreRestaurant.addCook((AndreCookRole) subRole);
+					} else {
+						subRole = AndreRestaurant.cook;
+					}
 					break;
 //				case 1: //chase
 //					subRole = new CwagonerCookRole(super.mPerson);

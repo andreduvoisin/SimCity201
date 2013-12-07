@@ -7,7 +7,6 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
-import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
