@@ -166,7 +166,7 @@ public class PersonAgent extends Agent implements Person {
 			mRoles.put(getJobRole(), true);
 		}
 		//Leave job
-		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
+		if ((mTimeShift + 1) % 2 == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(getJobRole(), false); //set job role to false;
 			mPersonGui.setPresent(true);
