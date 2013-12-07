@@ -56,7 +56,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 cookGui = new TranacCookGui(this);
                 mRole = r;
                 
-                /*ANGELICA: 
+                /*ANGELICA: z
                 mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
                 mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
@@ -196,30 +196,20 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                                 if(i.name == o.choice)
                                         food = i;
                         }
-                }
-                ANGELICA: add in functionality to order if low stock
+                }*/
                 if(mRole.mItemInventory.get(food) < mItemThreshold) {
-                       
+                    if(!mRole.mHasCreatedOrder.get(food)) {
+                    	mRole.mItemsDesired.put(food,baseNeed);
+                    }
                 }
-                /*
-                if(food.stock == 0) {                                //handles if out of food item
-                        print("Out of " + food.name);
-                        o.waiter.msgOutOfFood(o.choice, o.table);
-                        orders.remove(o);
-                        if(food.s != FoodState.NoStock && food.s != FoodState.Ordered) {
-                                food.s = FoodState.LowStock;
-                                food.numNeeded = baseNeed;
-                        }
-                        return;
-                }
-                */
                 
                 if(mRole.mItemInventory.get(food) == 0) {
                         print("Out of choice " + food);
                         o.waiter.msgOutOfFood(o.choice.toString(), o.table);
                         orders.remove(o);
-                        mRole.mItemsDesired.put(food,baseNeed);
-                        //ANGELICA: set flag
+                        if(!mRole.mHasCreatedOrder.get(food)) {
+                        	mRole.mItemsDesired.put(food,baseNeed);
+                        }
                         return;
                 }
                 

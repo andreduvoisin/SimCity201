@@ -65,7 +65,7 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		else{
 			this.n = p.getName();
 		}
-		/*ANGELICA:
+		/*ANGELICA: z
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);

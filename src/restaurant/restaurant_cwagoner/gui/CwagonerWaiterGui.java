@@ -16,7 +16,7 @@ public class CwagonerWaiterGui implements CwagonerGui {
 	private static int waiterNum = 0;
 
     private CwagonerWaiter agent;
-    CwagonerRestaurantGui RestaurantGui;
+    CwagonerAnimationPanel animationPanel;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
     						movingToCashier, onBreak }
@@ -33,11 +33,13 @@ public class CwagonerWaiterGui implements CwagonerGui {
     
     BufferedImage waiterImg;
 
-    public CwagonerWaiterGui(CwagonerWaiter w, CwagonerRestaurantGui g) {
+    public CwagonerWaiterGui(CwagonerWaiter w, CwagonerAnimationPanel panel) {
     	state = State.idle;
         agent = w;
-        RestaurantGui = g;
+        animationPanel = panel;
         waiterNum++;
+
+        panel.addGui(this);
 
         position = new Location(homePos.mX, homePos.mY);
         destination = new Location(homePos.mX, homePos.mY);
@@ -90,7 +92,7 @@ public class CwagonerWaiterGui implements CwagonerGui {
     // and returning to table to take order or deliver food
     public void DoGoToTable(int tableNum) {
     	state = State.movingToTable;
-    	Location tableLoc = RestaurantGui.getTableLocation(tableNum);
+    	Location tableLoc = animationPanel.getTableLocation(tableNum);
         destination.mX = tableLoc.mX + size;
         destination.mY = tableLoc.mY - size;
     }

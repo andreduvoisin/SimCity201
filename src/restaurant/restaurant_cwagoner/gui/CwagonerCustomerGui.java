@@ -18,7 +18,7 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	private boolean isHungry = false;
 
 	CwagonerWaiterRole waiter; 
-	CwagonerRestaurantGui RestaurantGui;
+	CwagonerAnimationPanel animationPanel;
 
 	private int size = 20;
 	private Location gonePos = new Location(-2 * size, -2 * size),
@@ -33,17 +33,19 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	
 	private String food = "";
 
-	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerRestaurantGui g) {
+	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerAnimationPanel panel) {
 		agent = c;
-		RestaurantGui = g;
+		animationPanel = panel;
 		customerNum++;
+
+		panel.addGui(this);
 
         position = new Location(waitingPos.mX, waitingPos.mY);
         destination = new Location(waitingPos.mX, waitingPos.mY);
 	}
 	
 	public void setTableLocation(int tableNum) {
-		Location tableLoc = RestaurantGui.getTableLocation(tableNum);
+		Location tableLoc = animationPanel.getTableLocation(tableNum);
 		tablePos.setTo(tableLoc);
 	}
 

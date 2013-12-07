@@ -15,7 +15,7 @@ import base.Location;
 public class CwagonerCookGui implements CwagonerGui {
 
     private CwagonerCookRole agent = null;
-    CwagonerRestaurantGui cwagoner_RestaurantGui = null;
+    CwagonerAnimationPanel animationPanel;
     
     private enum State { idle, goingToFridge, goingToCooking, goingToPlating }
     private State state;
@@ -34,12 +34,14 @@ public class CwagonerCookGui implements CwagonerGui {
 
     BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
 
-    public CwagonerCookGui(CwagonerCookRole c, CwagonerRestaurantGui g) {
+    public CwagonerCookGui(CwagonerCookRole c, CwagonerAnimationPanel panel) {
     	state = State.idle;
         agent = c;
-        cwagoner_RestaurantGui = g;
+        animationPanel = panel;
         position.setTo(homePos);
         destination.setTo(homePos);
+
+        panel.addGui(this);
 
 		try {
 			java.net.URL cookURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cook.png");

@@ -16,8 +16,7 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	private boolean isPresent;
 	int mMarketID;
 	
-//	ANGELICA this needs to be updated to use the right location based on Market ID; see getLocation() method
-	private static final int xMarketBase = ContactList.cMARKET1_LOCATION.mX-35, yMarketBase = ContactList.cMARKET1_LOCATION.mY-35;
+	private int xMarketBase, yMarketBase;
 	
 	private int xPos = xMarketBase, yPos = yMarketBase;
 	private int xDestination = xMarketBase, yDestination = yMarketBase;
@@ -26,12 +25,18 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	private enum EnumCommand {noCommand, goToMarket, goToRestaurant, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
 	
-	public MarketDeliveryTruckGui(MarketDeliveryTruck agent) {
+	public MarketDeliveryTruckGui(MarketDeliveryTruck agent, int n) {
 		mAgent = agent;
 		
 		isPresent = false;
-		//add in functionality to choose distinct
-		//market spots
+		if(n == 0) {
+			xMarketBase = ContactList.cMARKET1_LOCATION.mX-35;
+			yMarketBase = ContactList.cMARKET1_LOCATION.mY-35;
+		}
+		else {
+			xMarketBase = ContactList.cMARKET2_LOCATION.mX-35;
+			yMarketBase = ContactList.cMARKET2_LOCATION.mY-35;
+		}
 	}
 	
 	public void updatePosition() {
