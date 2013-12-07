@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import restaurant.restaurant_davidmca.DavidRestaurant;
+import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import bank.roles.BankMasterTellerRole;
 import base.Location;
@@ -21,6 +22,7 @@ public class ContactList {
 	public static final int cNumHouses = 80;
 	public static DavidRestaurant DavidRestaurant;
 	public static TranacRestaurant TranacRestaurant;
+	public static JerrywebRestaurant JerrywebRestaurant;
 	static double rent = 10;
 	//Setup
 	public static void setup(){
@@ -41,7 +43,7 @@ public class ContactList {
 		
 		DavidRestaurant = new DavidRestaurant();
 		TranacRestaurant = new TranacRestaurant();
-		
+		JerrywebRestaurant = new JerrywebRestaurant();
 	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
@@ -110,13 +112,11 @@ public class ContactList {
 	
 	//setup job locations
 	static final Location cRESTAURANT_LOCATION1 = gridLocation(1, 0); //aduvoisin	0
-	public static final DavidRestaurant davidmca = new DavidRestaurant();
 	static final Location cRESTAURANT_LOCATION2 = gridLocation(2, 0); //cwagoner	1
 	static final Location cRESTAURANT_LOCATION3 = gridLocation(1, 3); //jerrywebb	2
 	static final Location cRESTAURANT_LOCATION4 = gridLocation(2, 3); //maggiyang	3
 	static final Location cRESTAURANT_LOCATION5 = gridLocation(0, 1); //davidmca	4
 	static final Location cRESTAURANT_LOCATION6 = gridLocation(0, 2); //smileham	5
-	public static final TranacRestaurant tranac = new TranacRestaurant();
 	static final Location cRESTAURANT_LOCATION7 = gridLocation(3, 1); //tranac		6
 	static final Location cRESTAURANT_LOCATION8 = gridLocation(3, 2); //xurex		7
 	static {

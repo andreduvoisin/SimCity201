@@ -5,13 +5,13 @@ import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
-import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
+
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
 import restaurant.restaurant_jerryweb.test.mock.MockCustomer;
 
 public class WaiterRevolvingStandTest extends TestCase {
 	JerrywebCashierRole cashier;
-	JerrywebRestaurantGui gui;
+	//JerrywebRestaurantGui gui;
 	JerrywebHostRole host;
 	JerrywebCookRole cook;
 	JerrywebRSWaiterRole rsWaiter;
@@ -25,7 +25,7 @@ public class WaiterRevolvingStandTest extends TestCase {
 		rsWaiter = new JerrywebRSWaiterRole("rs waiter");
 		cook = new JerrywebCookRole(null);
 		host = new JerrywebHostRole("host");
-		waiterGui = new WaiterGui(rsWaiter, gui, host);
+		waiterGui = new WaiterGui(rsWaiter, host);
 	}
 	
 	public void testOneNormalRSWaiterScenario(){
