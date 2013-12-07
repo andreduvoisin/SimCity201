@@ -67,8 +67,7 @@ public class MockCookCustomer extends Mock implements RestaurantCookInterface, R
 
 	@Override
 	public boolean hasPerson() {
-		// ANGELICA Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
