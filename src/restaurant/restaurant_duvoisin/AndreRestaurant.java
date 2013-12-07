@@ -26,6 +26,11 @@ public class AndreRestaurant {
 	public static Boolean waitHere[] = new Boolean[17];
 	public static Boolean idleHere[] = new Boolean[12];
 	
+	public static AndreWaiterRole lastWaiter = null;
+	public static AndreSharedWaiterRole lastSharedWaiter = null;
+	public static int waiters = 0;
+	public static int sharedWaiters = 0;
+	
 	public AndreRestaurant() {
 		guis = Collections.synchronizedList(new ArrayList<Gui>());
 		
@@ -61,7 +66,8 @@ public class AndreRestaurant {
 			WaiterGui g = new WaiterGui(role);
 			role.setGui(g);
 			guis.add(g);
-			
+			lastWaiter = role;
+			waiters++;
 			host.addWaiter(role);
 		}
 	}
@@ -71,7 +77,8 @@ public class AndreRestaurant {
 			WaiterGui g = new WaiterGui(role);
 			role.setGui(g);
 			guis.add(g);
-			
+			lastSharedWaiter = role;
+			sharedWaiters++;
 			host.addWaiter(role);
 		}
 	}

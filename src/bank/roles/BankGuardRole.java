@@ -46,7 +46,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		synchronized(mCustomers) {
 			mCustomers.put(c, false);
 		}
-		stateChanged();
+		//stateChanged(); REX: CAUSING NULL POINTERS
 	}
 	public void msgReadyToWork(BankTeller t){
 		mTellers.put(t, true);

@@ -61,8 +61,8 @@ public class Time {
 					sGlobalHour = 0;
 					sGlobalDate++;
 				}
-				if (sGlobalHour % 8 == 0){
-					sGlobalShift = (sGlobalShift + 1) % 3;
+				if (sGlobalHour % 24 == 0){
+					sGlobalShift = (sGlobalShift + 1) % 2;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
 							iPerson.msgTimeShift(); 
