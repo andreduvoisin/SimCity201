@@ -201,7 +201,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 
 	@Override
 	public int getWindowNumber() {
-		// TODO Auto-generated method stub REX ADD THIS
-		return 0;
+		return mWindow;
 	}
 }

@@ -10,6 +10,8 @@ import javax.imageio.ImageIO;
 
 import bank.interfaces.BankCustomer;
 import base.Gui;
+import base.reference.Bank;
+import base.reference.ContactList;
 
 public class BankCustomerGui implements Gui {
 
@@ -27,7 +29,7 @@ public class BankCustomerGui implements Gui {
 	static final int STARTPOSX = 235;
 	static final int STARTPOSY = -50;
 	
-	private BankPanel bankPanel;
+	private Bank	mBank;
 	private int positionInLine;
 	
 	//Animation Upgrades 
@@ -61,7 +63,7 @@ public class BankCustomerGui implements Gui {
     		System.out.println(e.getMessage());
     	}
     	
-    	
+    	mBank = ContactList.sBankList.get(bc.getBankID());
 	}
 
 	public void updatePosition() {
@@ -119,14 +121,14 @@ public class BankCustomerGui implements Gui {
 		xDestination = INTERACT_X1;
 		yDestination = INTERACT_Y;
 		LINE_POSITION--;
-		bankPanel.updateCustomerLine();
+		mBank.updateCustomerLine();
 		isMovingToTeller = true;
 	}
 	
 	public void DoGoToTeller(int location) {
 		xDestination = INTERACT_X1;
 		yDestination = INTERACT_Y;
-		bankPanel.updateCustomerLine();
+		mBank.updateCustomerLine();
 		isMovingToTeller = true;
 	}
 	
