@@ -129,7 +129,7 @@ public class PersonAgent extends Agent implements Person {
 		 * Give houses to landlords and owners
 		 */
 		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
+			getHousingRole().setHouse(ContactList.sHouses.get(sHouseCounter % ContactList.sHouses.size()));
 			sHouseCounter++;
 		}
 		/*
@@ -470,7 +470,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
+		ContactList.sBanks.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 /*************************************************************************/
@@ -577,7 +577,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
+		ContactList.sBanks.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -803,13 +803,6 @@ public class PersonAgent extends Agent implements Person {
 		return mItemInventory;
 	}
 	
-
-	protected void print(String msg) {
-		if (SimCityGui.TESTING){
-			System.out.println("" + mName + ": "  + msg);
-		}
-	}
-	
 	public String getName(){
 		return mName;
 	}
@@ -868,5 +861,13 @@ public class PersonAgent extends Agent implements Person {
 	
 	public boolean hasCar() {
 		return mHasCar;
+	}
+
+	public void print(String msg) {
+		super.print(msg);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, e);
 	}
 }

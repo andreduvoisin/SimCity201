@@ -72,7 +72,7 @@ public class DemoLauncher extends JFrame {
 		//that says it is from a MARKET_EMPLOYEE).  Here we decide to hide debug messages and things
 		//tagged as AlertTag.BUS_STOP
 		tracePanel.showAlertsWithLevel(AlertLevel.ERROR);		//THESE PRINT RED, WARNINGS PRINT YELLOW on a black background... :/
-		tracePanel.showAlertsWithLevel(AlertLevel.INFO);		//THESE PRINT BLUE
+		tracePanel.showAlertsWithLevel(AlertLevel.INFO);		//THESE PRINT BLUE (sucks)
 		tracePanel.showAlertsWithLevel(AlertLevel.MESSAGE);		//THESE SHOULD BE THE MOST COMMON AND PRINT BLACK
 		
 		tracePanel.hideAlertsWithLevel(AlertLevel.DEBUG);

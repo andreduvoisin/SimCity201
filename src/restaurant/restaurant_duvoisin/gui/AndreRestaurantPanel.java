@@ -37,8 +37,8 @@ public class AndreRestaurantPanel extends JPanel  {
 	private Vector<Waiter> waiters = new Vector<Waiter>();
     private Vector<AndreCustomerRole> customers = new Vector<AndreCustomerRole>();
     private Vector<AndreMarketRole> markets = new Vector<AndreMarketRole>();
-    public AndreCashierRole cashier = new AndreCashierRole(null);
-
+//    public AndreCashierRole cashier = new AndreCashierRole(null);
+    public AndreCashierRole cashier;	//ANDRE: changed it here too - angelica
     private JPanel restLabel = new JPanel();
     private ListPanel addMembers = new ListPanel(this);
     private JPanel group = new JPanel();

@@ -12,14 +12,14 @@ public class MockDeliveryTruck extends Mock implements MarketDeliveryTruck {
 	public MockDeliveryTruck() {
 		super();
 	}
-	
+
 	public void msgDeliverOrderToCook(MarketOrder o) {
 		log.add(new LoggedEvent("Received msgDeliverOrderToCook."));
 	}
 	
 /** Animation Functions and Messages */
-	public void msgAnimationAtRestaurant(int n) {
-		log.add(new LoggedEvent("Received msgAnimationAtRestaurant for " + n));
+	public void msgAnimationAtRestaurant() {
+		log.add(new LoggedEvent("Received msgAnimationAtRestaurant."));
 		inTransit.release();
 	}
 	

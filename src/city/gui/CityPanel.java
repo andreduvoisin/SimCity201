@@ -1,18 +1,12 @@
 package city.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.Semaphore;
 
 import market.gui.MarketDeliveryTruckGui;
-import market.gui.MarketPanel;
 import transportation.TransportationBusDispatch;
-import bank.gui.BankPanel;
-import base.interfaces.Person;
 import base.reference.ContactList;
 
 @SuppressWarnings("serial")
@@ -34,28 +28,11 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.setPreferredSize(new Dimension(CITY_WIDTH, CITY_HEIGHT));
 		this.setVisible(true);
 		
-		// Houses
-		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
-			int xCord, yCord = 0;
-			if (iHouse / 20 == 0) {					//North
-				xCord = 100 + 20 * (iHouse % 20);
-				yCord = 0;
-			} else if (iHouse / 20 == 2) {			//South
-				xCord = 100 + 20 * (iHouse % 20);
-				yCord = 580;
-			} else if (iHouse / 20 == 3) {			//West
-				xCord = 0;
-				yCord = 100 + 20 * (iHouse % 20);
-			} else {								//East
-				xCord = 580;
-				yCord = 100 + 20 * (iHouse % 20);
-			}
-		}
-/*
+		// Houses - DONE IN CITYVIEW
+		
 		//Add Background and city block
 		background = new Color(100,100,100);
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
-*/
 
 		//CHASE: Add bus
 
@@ -65,10 +42,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 
 
 		//Add Roads
-//		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
-//		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
-//		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL));
-//		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL));
+		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
+		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
+		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL));
+		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL));
 		
 //		Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "R_aduvoisin"));

@@ -92,7 +92,7 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
     			if(xPos != prevXPos && yPos != prevYPos){
     				prevXPos = xPos;
     				prevYPos = yPos;
-            		System.out.println("Release animation"); 
+            		agent.print("Release animation"); 
             		agent.msgAnimationReady(); 
             	}
     		}

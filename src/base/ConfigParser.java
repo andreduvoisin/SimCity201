@@ -32,8 +32,22 @@ public class ConfigParser {
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
 			
 			//Job
-			String jobString = scanPerson.next();			
-			EnumJobType jobType = EnumJobType.valueOf(jobString);
+			String jobString = scanPerson.next();	
+			EnumJobType jobType = null;
+			switch(jobString) {
+				case "BANK":
+					jobType = EnumJobType.BANK;
+					break;
+				case "MARKET":
+					jobType = EnumJobType.MARKET;
+					break;
+				case "RESTAURANT":
+					jobType = EnumJobType.RESTAURANT;
+					break;
+				case "NONE":
+					jobType = EnumJobType.NONE;
+					break;
+			}
 
 			//Cash
 			String cashString = scanPerson.next();

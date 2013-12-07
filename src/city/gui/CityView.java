@@ -11,16 +11,13 @@ import java.util.HashMap;
 
 import javax.swing.JPanel;
 
-import market.gui.MarketPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
 import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
-import restaurant.restaurant_jerryweb.gui.JerrywebRestaurantGui;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
-import bank.gui.BankPanel;
 import base.Location;
 import base.reference.ContactList;
 
@@ -84,6 +81,8 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		 * Instantiate Market and Bank Panels and add to the Master Lists
 		 */
 		
+		// ANGELICA: Fix these! Commented out temporarily so city will run.
+		/*
 		MarketPanel market0 = new MarketPanel(city);
 		ContactList.sMarketList.add(market0);
 		cards.put("Costco", market0);
@@ -99,7 +98,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		BankPanel bank1 = new BankPanel(city);
 		ContactList.sBankList.add(bank1);
 		cards.put("Piggy Bank", bank1);
-		
+		*/
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {
@@ -114,7 +113,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 					houseLocation.mY, iHouseCount, 50.00);
 			addView(newHouse.mPanel, "House " + iHouseCount);
 			city.citypanel.addStatic(newHouse);
-			ContactList.sHouseList.add(newHouse);
+			//ContactList.sHouseList.add(newHouse);
 		}
 
 		layout.show(this, "null");

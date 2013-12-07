@@ -9,6 +9,7 @@ import market.interfaces.MarketCustomer;
 import test.mock.LoggedEvent;
 import test.mock.Mock;
 import base.Item.EnumItemType;
+import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -91,8 +92,19 @@ public class MockCustomer extends Mock implements MarketCustomer, Role {
 
 	@Override
 	public void setActive() {
-		// TODO Auto-generated method stub
-		
 	}
 
+	@Override
+	public boolean hasPerson() {
+		return false;
+	}
+
+	@Override
+	public void GoToDestination(Location location) {
+	}
+
+	@Override
+	public Location getLocation() {
+		return null;
+	}
 }

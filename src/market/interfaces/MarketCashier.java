@@ -1,5 +1,6 @@
 package market.interfaces;
 
+import base.Item.EnumItemType;
 import market.MarketInvoice;
 import market.MarketOrder;
 
@@ -14,4 +15,6 @@ public interface MarketCashier {
 	public abstract void msgAnimationAtPosition();
 	
 	public abstract void msgAnimationLeftMarket();
+
+	public abstract void setInventory(EnumItemType i, int n);
 }

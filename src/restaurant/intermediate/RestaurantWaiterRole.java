@@ -126,7 +126,6 @@ public class RestaurantWaiterRole extends BaseRole implements
 	}
 
 	public boolean pickAndExecuteAnAction() {
-		// System.out.println("RestaurantWaiterRole pAEA run");
 		return subRole.pickAndExecuteAnAction();
 	}
 

@@ -16,6 +16,7 @@ import market.test.mock.MockCustomer;
 import market.test.mock.MockDeliveryTruck;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
+import base.reference.Market;
 
 /** 
  * This tests the gui functionality for each of the agents.
@@ -26,12 +27,14 @@ import base.Item.EnumItemType;
  * 
  */
 public class MarketGuiTest extends TestCase {
+	Market mMarket;
 	MarketPanel mMarketPanel;
 	MarketItemsGui mMarketItems;
 
 	public void setUp() throws Exception {
 		super.setUp();
-		mMarketPanel = new MarketPanel(null);
+		mMarket = new Market();
+		mMarketPanel = new MarketPanel(null,mMarket);
 		mMarketItems = new MarketItemsGui();
 		mMarketPanel.addGui(mMarketItems);
 	}
