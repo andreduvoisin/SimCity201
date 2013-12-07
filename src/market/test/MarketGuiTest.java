@@ -30,10 +30,11 @@ public class MarketGuiTest extends TestCase {
 	Market mMarket;
 	MarketPanel mMarketPanel;
 	MarketItemsGui mMarketItems;
+	int mMarketNum = 0;
 
 	public void setUp() throws Exception {
 		super.setUp();
-		mMarket = new Market(0);
+		mMarket = new Market(mMarketNum);
 		mMarketPanel = new MarketPanel(null,mMarket);
 		mMarketItems = new MarketItemsGui();
 		mMarketPanel.addGui(mMarketItems);
@@ -204,7 +205,7 @@ public class MarketGuiTest extends TestCase {
 	// ANGELICA: Finish deliveryTruckGui
 	public void testDeliveryTruckGui() {
 		MockDeliveryTruck mDeliveryTruck = new MockDeliveryTruck();
-		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck);
+		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck,mMarketNum);
 		mDeliveryTruck.setGui(mDeliveryTruckGui);
 		
 	  //assert preconditions

@@ -109,6 +109,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         
         public Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
         
+        public Map<EnumItemType, Boolean> mHasCreatedOrder = new HashMap<EnumItemType, Boolean>();
+        
         public List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
         public List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
         
@@ -173,6 +175,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 for(EnumItemType item : mItemsDesired.keySet()) {
                 		items.put(item, mItemsDesired.get(item));
                         mItemsDesired.put(item,0);
+                        mHasCreatedOrder.put(item,false);
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
