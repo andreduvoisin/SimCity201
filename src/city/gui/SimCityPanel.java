@@ -51,25 +51,22 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		g.fillRect(0, 0, getWidth(), getHeight());
 		moveComponents();
 		drawComponents(g);
-		
 	}
 	
 	
 	public void drawComponents(Graphics g) {
+		if(!SimCityGui.GRADINGVIEW)
+			g.drawImage(backgroundImage, -15, -15, null);
 		
-		//g.drawImage(backgroundImage, -15, -15,null);
 		synchronized(statics) {
 			for (CityComponent c:statics) {
-				//if (c instanceof CityHousing || c instanceof TimeGui)
 				c.paint(g);
 			}
 		}
 		
 		synchronized(movings) {
 			for (CityComponent c:movings) {
-				if(c.isActive){
-					c.paint(g);
-				}
+				c.paint(g);
 			}
 		}
 	}
@@ -84,8 +81,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	/*
 	public void addGui(WPersonGui gui) {
 		guis.add(gui);
-	}*/
-	
+	}
+	*/
 	public void addStatic(CityComponent c) {
 		synchronized(statics) {
 			statics.add(c);

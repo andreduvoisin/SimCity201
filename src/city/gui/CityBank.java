@@ -67,12 +67,15 @@ public class CityBank extends CityComponent {
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(color);
-		g.fill3DRect(x, y, BANKWIDTH, BANKHEIGHT, true);
-		g.setColor(Color.WHITE);
-		g.drawString(bankName,x + 10 , y + 50);
-
-		//g.drawImage(image, x, y, null);
+		if(SimCityGui.GRADINGVIEW) {
+			g.setColor(color);
+			g.fill3DRect(x, y, BANKWIDTH, BANKHEIGHT, true);
+			g.setColor(Color.WHITE);
+			g.drawString(bankName,x + 10 , y + 50);
+		} else {
+			// We don't use the hut anymore!
+			//g.drawImage(image, x, y, null);
+		}
 	}
 
 	@Override
