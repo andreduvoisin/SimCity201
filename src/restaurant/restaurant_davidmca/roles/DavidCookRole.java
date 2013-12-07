@@ -19,6 +19,7 @@ import restaurant.restaurant_davidmca.gui.CookGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
+import base.BaseRole;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
@@ -28,8 +29,8 @@ import base.reference.ContactList;
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
-public class DavidCookRole extends RestaurantCookRole implements Cook {
-
+public class DavidCookRole extends BaseRole implements Cook {
+	private RestaurantCookRole mRole;
 	private CookGui cookGui;
 	private Semaphore isAnimating = new Semaphore(1, true);
 	private boolean ordering;
@@ -83,8 +84,9 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 	 * @param name
 	 *            name of the customer
 	 */
-	public DavidCookRole(Person p) {
-		super(p, 4);
+	public DavidCookRole(Person p, RestaurantCookRole r) {
+		super(p);
+		mRole = r;
 		this.name = "DavidCook";
 		ordering = false;
 		reorder = false;
@@ -92,10 +94,12 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 //		foodList.put("Salad", new Stock("Salad", qty));
 //		foodList.put("Chicken", new Stock("Chicken", qty));
 //		foodList.put("Pizza", new Stock("Pizza", qty));
+		/*ANGELICA:
 		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+        */
 		standTimer.scheduleAtFixedRate(standTimerTask, new Date( System.currentTimeMillis() + 10000), 10000);
 	}
 
@@ -236,7 +240,7 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 			e.printStackTrace();
 		}
 		final String thischoice = order.choice;
-		if (mItemInventory.get(Item.stringToEnum(thischoice)) == 0) {
+		if (mRole.mItemInventory.get(Item.stringToEnum(thischoice)) == 0) {
 			order.waiter.msgOutOfFood(thischoice);
 			pendingOrders.remove(order);
 			return;
@@ -258,9 +262,9 @@ public class DavidCookRole extends RestaurantCookRole implements Cook {
 				}
 				pendingOrders.get(0).status = OrderState.Finished;
 //				foodList.get(thischoice).decrementQuantity();
-				mItemInventory.put(Item.stringToEnum(thischoice), mItemInventory.get(Item.stringToEnum(thischoice))-1);
-				if (mItemInventory.get(Item.stringToEnum(thischoice)) < orderThreshold) {
-					mItemsDesired.put(Item.stringToEnum(thischoice), 5);
+				mRole.mItemInventory.put(Item.stringToEnum(thischoice), mRole.mItemInventory.get(Item.stringToEnum(thischoice))-1);
+				if (mRole.mItemInventory.get(Item.stringToEnum(thischoice)) < orderThreshold) {
+					mRole.mItemsDesired.put(Item.stringToEnum(thischoice), 5);
 				}
 				cookGui.setLabelText("");
 				cookGui.removeFood();

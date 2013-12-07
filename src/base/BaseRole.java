@@ -8,6 +8,8 @@ import restaurant.intermediate.RestaurantWaiterRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.SimCityGui;
+import city.gui.trace.AlertLog;
+import city.gui.trace.AlertTag;
 
 public abstract class BaseRole implements Role {
 
@@ -27,7 +29,18 @@ public abstract class BaseRole implements Role {
 	public boolean pickAndExecuteAnAction() {
 		return false;
 	}
-
+	
+	//TRANSPORTATION
+	public void GoToDestination(Location location){
+		if(mPerson.hasCar()){
+			mPerson.getGui().DoDriveToDestination(location); 
+		}
+		else{
+			mPerson.getGui().testDoGoToDestination(location);
+		}
+	
+	}
+	
 	// ACCESSORS
 	public void setPerson(Person person) {
 		mPerson = person;
@@ -63,31 +76,22 @@ public abstract class BaseRole implements Role {
 	/**
 	 * The simulated action code
 	 */
-	protected void Do(String msg) {
-		print(msg, null);
+	public void Do(String msg) {
+		mPerson.print(msg);
 	}
 
 	/**
 	 * Print message
 	 */
-	protected void print(String msg) {
-		if (SimCityGui.TESTING)
-			print(msg, null);
+	public void print(String msg) {
+		mPerson.print(msg);
 	}
 
 	/**
 	 * Print message with exception stack trace
 	 */
-	protected void print(String msg, Throwable e) {
-		StringBuffer sb = new StringBuffer();
-		sb.append(mPerson.getName());
-		sb.append(": ");
-		sb.append(msg);
-		sb.append("\n");
-		if (e != null) {
-			sb.append(StringUtil.stackTraceString(e));
-		}
-		System.out.print(sb.toString());
+	public void print(String msg, Throwable e) {
+		mPerson.print(msg, e);
 	}
 	
 	public boolean isRestaurantPerson(){ //DAVID: Put this in base rest class

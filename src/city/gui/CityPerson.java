@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import transportation.roles.CommuterRole;
 import base.Location;
 import base.PersonAgent;
 import base.reference.ContactList;
@@ -103,40 +104,48 @@ public class CityPerson extends CityComponent {
 	}
 	
 	public void paint(Graphics g) {
-		g.setColor(color);
-		g.fillRect(x, y, 5, 5);
-		g.setColor(Color.WHITE);
-		g.drawString(name, x - 10, y);
+		if(SimCityGui.GRADINGVIEW) {
+			g.drawString(mPerson.getName(),x,y);
+		}
+		else if(mPerson.hasCar()) {
+			//paint car gui
+		}
+		else {
+			g.setColor(color);
+			g.fillRect(x, y, 5, 5);
+			g.setColor(Color.WHITE);
+			g.drawString(name, x - 10, y);
+		}
 	}
 	
-//	public void DoGoToDestination(Location location){
-//		atDestination = false;
-//		this.enable();
-//		mFinalDestination = location;
-//		
-//		if (mFinalDestination == null){
-//			
-//		//set final location and go to corner of block first
-//		mFinalDestination = location;
-//		if (location.mX < 180){
-//			xDestination = 95;
-//		}else{
-//			xDestination = 500;
-//		}
-//		if (location.mY < 180){
-//			yDestination = 95;
-//		}else{
-//			yDestination = 500;
-//		}
-//		
-//		//SHANE: Change up to add queue of destinations
-//		
-//		xDestination = mFinalDestination.mX;
-//		yDestination = mFinalDestination.mY;
-//		mFinalDestination = null;
-//		}
-//		
-//	}
+	public void DoDriveToDestination(Location location){
+		//atDestination = false;
+		this.enable();
+		mNextDestination = location;
+		
+		if (mNextDestination == null){
+			
+		//set final location and go to corner of block first
+		mNextDestination = location;
+		if (location.mX < 180){
+			xDestination = 95;
+		}else{
+			xDestination = 500;
+		}
+		if (location.mY < 180){
+			yDestination = 95;
+		}else{
+			yDestination = 500;
+		}
+		
+		//SHANE: Change up to add queue of destinations
+		
+		xDestination = mNextDestination.mX;
+		yDestination = mNextDestination.mY;
+		mNextDestination = null;
+		}
+		
+	}
 	
 	public void DoGoToDestination(Location destination){
 		this.enable(); 
@@ -160,7 +169,9 @@ public class CityPerson extends CityComponent {
 		Location myLocation = new Location(x, y);
 		Location cornerNearCurrent = findNearestCorner(myLocation);
 		Location cornerNearDest = findNearestCorner(destination);
-
+		
+		//CHASE: Is it better to just calculate the closest corner vs distance b/c 
+		// 		 we don't know if it's safe to assume b* will take the path specified in totalBusDistance
 		int totalBusDistance = Math.abs(cornerNearCurrent.mX - x)
 								+ Math.abs(cornerNearCurrent.mY - y)
 								+ Math.abs(cornerNearDest.mX - destination.mX)
@@ -173,11 +184,23 @@ public class CityPerson extends CityComponent {
 			DoWalkToDestination();
 		}
 		else{
-			DoGoToCorner(myLocation); // created earlier
+			DoWalkToNearestCorner(myLocation); // created earlier
 			//Checks if the closest corner to person is also closest corner to destination
 		}
 	}
-	
+	//MAGGI: reorganize once done with transportation  
+	public void testDoGoToDestination(Location location){
+		this.enable(); 
+		mNextDestination = location; 
+		Location myLocation = new Location(x, y);
+		
+		//Walk to nearest corner 
+		Location cornerLocation = findNearestCorner(myLocation);
+		xDestination = cornerLocation.mX;
+		yDestination = cornerLocation.mY; 
+
+	}
+
 	//Already at corner closest to destination
 	public void DoGoToNextDestination(){
 		Location cornerLocation = findNearestCorner(mNextDestination); 
@@ -185,15 +208,18 @@ public class CityPerson extends CityComponent {
 		// the bus (since it would take you to a corner farther from mNextDestination;
 		// walk to mNextDestination.
 		if (x == cornerLocation.mX && y == cornerLocation.mY) {
-			DoWalkToDestination(); 
+			//Walk to destination from corner location/bus stop
+			xDestination = mNextDestination.mX;
+			yDestination = mNextDestination.mY;
+			mNextDestination = null; 
 		}
 		// Otherwise, can get to a closer corner by taking the bus
 		else {
-			DoTakeBus(); 
+			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
 		}	
 	}
 	
-	public void DoGoToCorner(Location location){
+	public void DoWalkToNearestCorner(Location location){
 		Location cornerLocation = findNearestCorner(location);
 		xDestination = cornerLocation.mX;
 		yDestination = cornerLocation.mY; 
@@ -206,14 +232,24 @@ public class CityPerson extends CityComponent {
 		mNextDestination = null; 
 	}
 	
-	public void DoTakeBus(){
-		
+	public void DoTakeBus(int currentStop, int destinationStop){
+		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
+		cRole.msgAtBusStop(currentStop, destinationStop); 
 	}
-
+	
+	public int getBusStop(int x, int y){
+		for(int i = 0; i < corners.size(); i++){
+			if(x == corners.get(i).mX && y == corners.get(i).mY){
+				return i;
+			}
+		}	
+		return -1; 
+	}
+	
 	/**
 	 * Finds closest corner location to desired destination
 	 * <pre>
-	 * 1  0
+	 * 1  0 //CHASE: do these correlate with busStop numbers?
 	 * 2  3
 	 * </pre>
 	 * @param destination Target position in form of a Location object
@@ -221,20 +257,20 @@ public class CityPerson extends CityComponent {
 	 */
 	public Location findNearestCorner(Location destination){
 		// Top
-			// right
+			// Right
 			if (destination.mX >= 300 && destination.mY <= 300) {
 				return corners.get(0); 
 			}
-			// left
+			// Left
 			else if (destination.mX < 300 && destination.mY <= 300) {
 				return corners.get(1); 
 			}
 		// Bottom
-			// left
+			// Left
 			else if (destination.mX < 300 && destination.mY > 300) {
 				return corners.get(2); 
 			}
-			// right
+			// Right
 			else if (destination.mX >= 300 && destination.mY > 300) {
 				return corners.get(3); 
 			}
@@ -242,6 +278,7 @@ public class CityPerson extends CityComponent {
 				return null;
 			}
 	}
+	
 
 	@Override
 	public void draw(Graphics2D g) {

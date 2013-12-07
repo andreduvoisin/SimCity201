@@ -78,4 +78,9 @@ public class MockGuardRole extends Mock implements BankGuard, Role{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public void GoToDestination(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -121,4 +121,9 @@ public class MockTellerRole extends Mock implements BankTeller, Role{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public void GoToDestination(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
 }

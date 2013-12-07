@@ -7,17 +7,17 @@ import market.MarketOrder;
 import market.interfaces.MarketCashier;
 import base.Item.EnumItemType;
 
-/** MarketCookCustomer for SimCity Market agents.
- * 
+/** 
+ * MarketCookCustomer for SimCity Market agents.
+ * Needed as an interface for restaurant cooks
+ * because those are the roles that place orders.
  * @author Angelica Huyen Tran
  */
 
-public interface RestaurantCookInterface {
-        public abstract void msgInvoiceToPerson(Map<EnumItemType,Integer> cannotFulfill, MarketInvoice invoice);
-        
+public interface RestaurantCookInterface {        
         public abstract void msgCannotFulfillItems(MarketOrder o, Map<EnumItemType,Integer> cannotFulfill);
         
         public abstract void msgHereIsCookOrder(MarketOrder o);
 
-        public abstract void setMarketCashier(MarketCashier c);
+        public abstract void setMarketCashier(int n);
 }

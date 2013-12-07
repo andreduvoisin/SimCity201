@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import city.gui.SimCityGui;
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Check;
@@ -24,6 +25,7 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 	public static final int cRESTAURANT_CASH = 100;
 	
 	//Member Variables
+	private RestaurantCashierRole mRole;
 	private String mName;
 	private int mCash;
 	
@@ -36,8 +38,9 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
-	public SmilehamCashierRole(Person person){
+	public SmilehamCashierRole(Person person, RestaurantCashierRole r){
 		super(person);
+		mRole = r;
 		mName = person.getName();
 		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Cashier Created");
@@ -188,6 +191,10 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 			this.mMarketBills = mMarketBills;
 		}
 		
+	    public RestaurantCashierRole getIntermediateRole() {
+	    	return mRole;
+	    }
+
 		@Override
 		public Location getLocation() {
 			return ContactList.cRESTAURANT_LOCATIONS.get(5);

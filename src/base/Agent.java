@@ -2,6 +2,9 @@ package base;
 
 import java.util.concurrent.Semaphore;
 
+import city.gui.SimCityGui;
+import city.gui.trace.AlertLog;
+import city.gui.trace.AlertTag;
 import restaurant.restaurant_smileham.test.mock.EventLog;
 
 // ALL: DO NOT COMMIT CODE THAT CAUSES ERRORS IN THE PROJECT
@@ -46,30 +49,34 @@ public abstract class Agent {
     /**
      * The simulated action code
      */
-    protected void Do(String msg) {
+    public void Do(String msg) {
         print(msg, null);
     }
 
     /**
      * Print message
      */
-    protected void print(String msg) {
-        print(msg, null);
+    public void print(String msg) {
+		print(msg, null);
     }
 
     /**
      * Print message with exception stack trace
      */
-    protected void print(String msg, Throwable e) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(getName());
-        sb.append(": ");
-        sb.append(msg);
-        sb.append("\n");
-        if (e != null) {
-            sb.append(StringUtil.stackTraceString(e));
-        }
-        System.out.print(sb.toString());
+    public void print(String msg, Throwable e) {
+    	AlertLog.getInstance().logMessage(AlertTag.PERSON, getName(), msg);
+    	if(e != null) {
+    		AlertLog.getInstance().logError(AlertTag.PERSON, getName(), msg);
+    	}
+//        StringBuffer sb = new StringBuffer();
+//        sb.append(getName());
+//        sb.append(": ");
+//        sb.append(msg);
+//        sb.append("\n");
+//        if (e != null) {
+//            sb.append(StringUtil.stackTraceString(e));
+//        }
+//        System.out.print(sb.toString());
     }
 
     /**

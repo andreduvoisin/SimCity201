@@ -88,4 +88,10 @@ public class MockCustomerRole extends Mock implements BankCustomer, Role{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void GoToDestination(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -11,6 +11,8 @@ public interface Role {
 	public abstract Person  getPerson();
 	public abstract boolean hasPerson();
 	
+	public abstract void GoToDestination(Location location);
+	
 	public abstract void setPerson(Person person);
 
 	public abstract int getSSN();

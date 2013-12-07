@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
 import restaurant.restaurant_tranac.gui.TranacCashierGui;
-import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
-import restaurant.restaurant_tranac.interfaces.TranacMarket;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.Location;
@@ -21,17 +20,18 @@ import base.reference.ContactList;
  * Restaurant Cashier Agent
  */
 public class TranacCashierRole extends BaseRole implements TranacCashier {
+	private RestaurantCashierRole mRole;
 	private TranacCashierGui cashierGui;
+	
 	private TranacMenu menu = new TranacMenu();
 	public List<MyCheck> checks = Collections.synchronizedList(new ArrayList<MyCheck>());
-	public List<Bill> bills = Collections.synchronizedList(new ArrayList<Bill>());
 	
 	public enum CheckStatus {Pending, Computed, Paying, Finished, Unfulfilled};
-	public enum BillStatus {Pending, Outstanding, Fulfilled};
 	
-	public TranacCashierRole(Person person) {
+	public TranacCashierRole(Person person, RestaurantCashierRole r) {
 		super(person);
 		cashierGui = new TranacCashierGui(this);
+		mRole = r;
 	}
 
 	/** Messages */
@@ -55,13 +55,6 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 		}
 	}
 	
-	public void msgHereIsBill(TranacMarket m, String i, double c) {
-		synchronized(bills) {
-			bills.add(new Bill(m,i,c));
-		}
-		stateChanged();
-	}
-	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -83,22 +76,7 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 				}
 			}
 		}
-/*		synchronized(bills) {
-			for(Bill b : bills) {
-				if(b.s == BillStatus.Outstanding) {
-					tryToFulfillBill(b);
-				}
-			}
-		}
-		synchronized(bills) {
-			for(Bill b : bills) {
-				if(b.s == BillStatus.Pending) {
-					tryToPayBill(b);
-					return true;
-				}
-			}
-		}
-*/		return false;
+		return false;
 	}
 
 	/** Actions */
@@ -144,35 +122,6 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 			customer.msgPayNextTime();
 		}
 	}
-	/*
-	private void tryToFulfillBill(Bill b) {
-		Do("Trying to fulfill outstanding bill.");
-		if(money >= b.cost) {
-			payBill(b);
-		}
-		else {
-			Do("It will have to wait...");
-		}
-	}
-	
-	private void tryToPayBill(Bill b) {
-		Do("Trying to pay market bill of " + b.cost + " for " + b.item);
-		if(money < b.cost) {
-			Do("Our restaruant can't afford it...");
-			b.s = BillStatus.Outstanding;
-			b.market.msgWillPaySoon(b.item, b.cost);
-		}
-		else
-			payBill(b);
-	}
-
-	private void payBill(Bill b) {
-		Do("Paying bill of " + b.cost + " for " + b.item);
-		money -= b.cost;
-		b.s = BillStatus.Fulfilled;
-		b.market.msgHereIsPayment(b.item, b.cost);
-	}
-	*/
 	/** Utilities */
 
 	public String getName() {
@@ -190,10 +139,10 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 	public int getNumChecks() {
 		return checks.size();
 	}
-	
-	public int getNumBills() {
-		return bills.size();
-	}
+
+    public RestaurantCashierRole getIntermediateRole() {
+    	return mRole;
+    }
 
 	/** Classes */
 	
@@ -210,25 +159,7 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 			return s;
 		}
 	}
-	
-	public class Bill {
-		String item;
-		double cost;
-		BillStatus s;
-		TranacMarket market;
-		
-		Bill(TranacMarket m, String i, double c) {
-			item = i;
-			market = m;
-			cost = c;
-			s = BillStatus.Pending;
-		}
-		
-		public BillStatus getStatus() {
-			return s;
-		}
-	}
-	
+
 	@Override
 	public Location getLocation() {
 		return ContactList.cRESTAURANT_LOCATIONS.get(6);
