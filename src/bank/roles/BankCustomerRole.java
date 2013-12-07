@@ -6,7 +6,6 @@ import java.util.concurrent.Semaphore;
 
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
-import bank.gui.BankGuardGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
 import bank.interfaces.BankTeller;
@@ -48,7 +47,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		//Add Gui to list
 		mGUI = new BankCustomerGui(this);
 		ContactList.sBankList.get(bankID).addPerson(this);
-		ContactList.sBankList.get(bankID).mCustomerGuis.add(mGUI);
+		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
 	}
 	
 //	MESSAGES

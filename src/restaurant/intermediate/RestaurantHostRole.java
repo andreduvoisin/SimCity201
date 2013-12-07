@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
@@ -54,7 +55,7 @@ public class RestaurantHostRole extends BaseRole implements
 			break;
 		case 4: // david
 			subRole = new DavidHostRole(super.mPerson);
-			DavidAnimationPanel.host = (DavidHostRole) subRole;
+			DavidRestaurant.host = (DavidHostRole) subRole;
 			break;
 		case 5: // shane
 			subRole = new SmilehamHostRole(super.mPerson);

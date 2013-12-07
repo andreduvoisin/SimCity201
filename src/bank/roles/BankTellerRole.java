@@ -6,7 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import bank.BankAccount;
-import bank.gui.BankGuardGui;
 import bank.gui.BankTellerGui;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGuard;
@@ -62,7 +61,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		//Add Gui to list
 		mGUI = new BankTellerGui(this);
 		ContactList.sBankList.get(bankID).addPerson(this);
-		ContactList.sBankList.get(bankID).mTellerGuis.add(mGUI);
+		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
 	}
 	
 	//------------------------------------------------------MESSAGES------------------------------------------------------

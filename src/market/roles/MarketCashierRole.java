@@ -41,8 +41,8 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	int mBankAccount;
 
-	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
-	List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
+	public List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	public List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
 	
 	public MarketCashierRole(Person person, int marketID) {
 		//setup

@@ -1,9 +1,7 @@
 package bank.roles;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import bank.gui.BankGuardGui;
@@ -37,7 +35,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		//Add Gui to list
 		mGUI = new BankGuardGui(this);
 		ContactList.sBankList.get(bankID).addPerson(this);
-		ContactList.sBankList.get(bankID).mGuardGuis.add(mGUI);
+		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
 	}
 	
 	

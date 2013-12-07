@@ -25,10 +25,11 @@ public class Bank {
 	public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	public BankTellerRole teller; 
 	//guis
-	public List<BankCustomerGui> mCustomerGuis = new ArrayList<BankCustomerGui>();
-	public List<BankGuardGui> mGuardGuis = new ArrayList<BankGuardGui>();
-	public List<BankTellerGui> mTellerGuis = new ArrayList<BankTellerGui>();
+//	public List<BankCustomerGui> mCustomerGuis = new ArrayList<BankCustomerGui>();
+//	public List<BankGuardGui> mGuardGuis = new ArrayList<BankGuardGui>();
+//	public List<BankTellerGui> mTellerGuis = new ArrayList<BankTellerGui>();
 	//private BankPanel BankPanel;
+	public List<Gui> mGuis = new ArrayList<Gui>();
 	
 	public Bank(){
 		
@@ -42,8 +43,8 @@ public class Bank {
 			((BankCustomerRole)role).setGuard(mGuard);
 			((BankCustomerRole)role).setTeller(teller);
 			((BankCustomerRole)role).mGUI = new BankCustomerGui((BankCustomerRole)role);
-			mCustomerGuis.add(((BankCustomerRole)role).mGUI);
-			
+			//mCustomerGuis.add(((BankCustomerRole)role).mGUI);
+			mGuis.add(((BankCustomerRole)role).mGUI);
 		}
 		
 		if(role instanceof BankTellerRole) {
@@ -52,7 +53,8 @@ public class Bank {
 				((BankTellerRole)role).addGuard(mGuard);
 				((BankTellerRole)role).setMaster(mMasterTeller);
 				((BankTellerRole)role).mGUI = new BankTellerGui((BankTellerRole)role);//, BankPanel);
-				mTellerGuis.add(((BankTellerRole)role).mGUI);
+				//mTellerGuis.add(((BankTellerRole)role).mGUI);
+				mGuis.add(((BankTellerRole)role).mGUI);
 			}
 		}
 		
@@ -72,9 +74,10 @@ public class Bank {
 	
 	public void updateCustomerLine() {
 		//LINE_POSITION--;
-		for(BankCustomerGui gui : mCustomerGuis) {
+		for(Gui gui : mGuis) {
             if (gui.isPresent()) {
-                gui.moveForwardInLine();
+            	if(gui instanceof BankCustomerGui)
+                ((BankCustomerGui)gui).moveForwardInLine();
             }
         }
 	}

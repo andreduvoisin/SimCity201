@@ -10,6 +10,7 @@ import market.MarketOrder;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
+import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
@@ -63,7 +64,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				break;
 			case 4: //david
 				subRole = new DavidCashierRole(super.mPerson, this);
-				DavidAnimationPanel.cashier = (DavidCashierRole) subRole;
+				DavidRestaurant.cashier = (DavidCashierRole) subRole;
 				break;
 			case 5: //shane
 				subRole = new SmilehamCashierRole(super.mPerson, this);
