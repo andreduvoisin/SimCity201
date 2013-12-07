@@ -146,13 +146,13 @@ public class PersonAgent extends Agent implements Person {
 		//These will now take place in the config file / config parser / addEvent method
 		
 		
-//		mEvents.add(new Event(EnumEventType.JOB, 0));
+		mEvents.add(new Event(EnumEventType.JOB, mTimeShift));
 //		
 //		if (mJobType != EnumJobType.NONE){
 //		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
 //			mEvents.add(new Event(EnumEventType.JOB, 0));
 //		}
-//		mEvents.add(new Event(EnumEventType.EAT, 2));
+		mEvents.add(new Event(EnumEventType.EAT, 0));
 //		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
 //		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
 //		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
@@ -295,14 +295,14 @@ public class PersonAgent extends Agent implements Person {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
-//				goToJob();
-				testGoToJob();
+				goToJob();
+//				testGoToJob();
 			}
 			mEvents.add(new Event(event, 24));
 		}
 		else if (event.mEventType == EnumEventType.EAT) {
-//			eatFood();
-			testEatFood();
+			eatFood();
+//			testEatFood();
 			mEvents.add(new Event(event, 24));
 		}
 
