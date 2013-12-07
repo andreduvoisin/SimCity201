@@ -1,13 +1,11 @@
 package bank.gui;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -27,7 +25,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	static final int TIMERDELAY = 5;
 	
 	private Image image;
-    private Dimension bufferSize;
+    //private Dimension bufferSize;
     //public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	Timer timer;
@@ -50,7 +48,7 @@ public class BankPanel extends CityCard implements ActionListener{
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
 		
-		bufferSize = this.getSize();
+		//bufferSize = this.getSize();
 		
 		timer = new Timer(TIMERDELAY, this);
     	timer.start();
@@ -175,8 +173,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	public void setBank(Bank b){
 		Bank = b;
-		//guis = b.
-		//REX: add list of guis when setting bank
+		guis = b.mGuis;
 	}
 	
 	/*
