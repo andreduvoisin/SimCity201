@@ -1,5 +1,6 @@
 package housing.interfaces;
 
+import base.Location;
 import base.reference.House;
 
 public interface HousingBase {
@@ -15,5 +16,7 @@ public interface HousingBase {
 	public abstract void setHouse(House h);
 	
 	public abstract House getHouse();
+
+	public abstract Location getLocation();
 
 }

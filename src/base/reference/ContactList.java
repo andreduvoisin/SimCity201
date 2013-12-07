@@ -107,6 +107,7 @@ public class ContactList {
 	public static final Location cBANK2_LOCATION = gridLocation(3, 0);
 	public static final Location cMARKET1_LOCATION = gridLocation(0, 3);
 	public static final Location cMARKET2_LOCATION = gridLocation(3, 3);
+	public static final Location cPARKING_LOCATION = new Location(300, 300); //MAGGI: fix later after B* is fixed or A* implemented
 	public static List<Location> cHOUSE_LOCATIONS;
 	public static List<Location> cRESTAURANT_LOCATIONS;
 	public static List<Location> cBUS_STOPS;

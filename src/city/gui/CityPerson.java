@@ -192,7 +192,13 @@ public class CityPerson extends CityComponent {
 			//Checks if the closest corner to person is also closest corner to destination
 		}
 	}
-	//MAGGI: reorganize once done with transportation  
+	//MAGGI: reorganize once done with transportation 
+	public void DoDriveToDestination(){
+		mNextDestination  = ContactList.cPARKING_LOCATION; 
+		//gui work to make driving happen
+		
+	}
+	
 	public void testDoGoToDestination(Location location){
 		this.enable(); 
 		mNextDestination = location; 
