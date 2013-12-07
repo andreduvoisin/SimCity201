@@ -502,6 +502,7 @@ public class PersonAgent extends Agent implements Person {
 			getHousingRole().msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
 			acquireSemaphore(semAnimationDone);
+			mPersonGui.setPresent(false);
 		}else{
 			print("Going to restaurant");
 			//set random restaurant
