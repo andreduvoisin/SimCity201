@@ -1,6 +1,7 @@
 package housing.interfaces;
 
 import housing.House;
+import base.Location;
 
 public interface HousingBase {
 
@@ -15,5 +16,7 @@ public interface HousingBase {
 	public abstract void setHouse(House h);
 	
 	public abstract House getHouse();
+
+	public abstract Location getLocation();
 
 }
