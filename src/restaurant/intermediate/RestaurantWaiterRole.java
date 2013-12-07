@@ -49,6 +49,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 					AndreRestaurant.addWaiter((AndreWaiterRole) subRole);
 				} else {
 					subRole = AndreRestaurant.lastWaiter;
+					AndreRestaurant.waiters++;
 				}
 			} else if (mWaiterType == 0) {
 				subRole = new AndreSharedWaiterRole(super.mPerson);
@@ -56,6 +57,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 					AndreRestaurant.addSharedWaiter((AndreSharedWaiterRole) subRole);
 				} else {
 					subRole = AndreRestaurant.lastSharedWaiter;
+					AndreRestaurant.waiters++;
 				}
 			}
 			break;

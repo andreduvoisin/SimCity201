@@ -62,6 +62,12 @@ public class Time {
 					sGlobalDate++;
 				}
 				if (sGlobalHour % 12 == 0){
+					//SHANE: This isn't working correctly. In it's current state, a time shift happens every minute (!) passed.
+					//SHANE: This is because 0 % 12 = 0.
+					//SHANE: (On a funny note, when this is taken out, delay issues on animations are fixed.)
+					//SHANE: I was fixing it by changing global hour to start at 1 (at the top), and increasing the rate at
+					//SHANE: which the timer fires (the 10000 below). :D
+					System.out.println("Time shift.");
 					sGlobalShift = (sGlobalShift + 1) % 2;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
