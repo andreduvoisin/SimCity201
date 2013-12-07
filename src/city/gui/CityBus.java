@@ -9,12 +9,12 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import transportation.TransportationBusDispatch;
+import transportation.TransportationBus;
 import base.Location;
 
 public class CityBus extends CityComponent {
 
-	private TransportationBusDispatch mBusDispatch;
+	private TransportationBus mBus;
 
 	List<Location> mStopCoords;
 
@@ -28,8 +28,8 @@ public class CityBus extends CityComponent {
 	 * @param b Bus "driver"
 	 * @param busNum Index of this instance of bus
 	 */
-	public CityBus(TransportationBusDispatch b) {
-		mBusDispatch = b;
+	public CityBus(TransportationBus b) {
+		mBus = b;
 		mTraveling = true;
 		mStopNumber = 0;
 		mStopCoords = base.reference.ContactList.cBUS_STOPS;
@@ -79,7 +79,7 @@ public class CityBus extends CityComponent {
 
         if (x == destination.mX && y == destination.mY && mTraveling) {
         	mStopNumber = (mStopNumber + 1) % 4;
-        	mBusDispatch.msgGuiArrivedAtStop();
+        	mBus.msgGuiArrivedAtStop();
 			mTraveling = false;
 			firstRun = false;
         }

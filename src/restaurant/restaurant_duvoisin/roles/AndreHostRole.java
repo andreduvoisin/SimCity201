@@ -46,8 +46,8 @@ public class AndreHostRole extends BaseRole implements Host {
 		// make some tables
 		tables = Collections.synchronizedList(new ArrayList<Table>(AndreRestaurant.tgui.getNumTables()));
 		synchronized(tables) {
-			for (int ix = 1; ix <= AndreRestaurant.tgui.getNumTables(); ix++) {
-				tables.add(new Table(ix));//how you add to a collections
+			for (int i = 1; i <= AndreRestaurant.tgui.getNumTables(); i++) {
+				tables.add(new Table(i));
 			}
 		}
 	}
@@ -69,7 +69,9 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	public void addWaiter(Waiter wa) {
-		waiters.add(new MyWaiter(wa, WaiterState.Working));
+		synchronized(waiters) {
+			waiters.add(new MyWaiter(wa, WaiterState.Working));
+		}
 	}
 	// Messages
 
@@ -157,12 +159,14 @@ public class AndreHostRole extends BaseRole implements Host {
 			if(!waiters.isEmpty()) {
 				synchronized(waitingCustomers) {
 					synchronized(tables) {
-						for(MyCustomer c : waitingCustomers)
-							for(Table t : tables)
+						for(MyCustomer c : waitingCustomers) {
+							for(Table t : tables) {
 								if(t.isOccupied == false) {
 									SeatCustomer(c, t);
 									return true;
 								}
+							}
+						}
 					}
 				}
 			} else {

@@ -5,8 +5,8 @@ import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map;
 
-import base.Gui;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
+import base.Gui;
 
 public class CookGui implements Gui {
     private AndreCookRole agent = null;

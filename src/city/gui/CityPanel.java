@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 import market.gui.MarketDeliveryTruckGui;
-import transportation.TransportationBusDispatch;
+import transportation.TransportationBus;
 import base.reference.ContactList;
 
 @SuppressWarnings("serial")
@@ -18,7 +18,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	CityComponent temp;
 	SimCityGui simcitygui;
 
-	TransportationBusDispatch busDispatch;
+	TransportationBus busDispatch;
 	
 	public CityPanel(SimCityGui city) {
 		//Setup
@@ -35,7 +35,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
 
 		//Add Bus
-		busDispatch = new TransportationBusDispatch();
+		busDispatch = new TransportationBus();
 		this.addMoving(busDispatch.getBusGui());
 		busDispatch.startThread();
 		

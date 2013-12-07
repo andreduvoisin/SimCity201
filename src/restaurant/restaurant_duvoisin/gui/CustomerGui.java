@@ -3,9 +3,9 @@ package restaurant.restaurant_duvoisin.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import base.Gui;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import base.Gui;
 
 public class CustomerGui implements Gui{
 	private AndreCustomerRole agent = null;

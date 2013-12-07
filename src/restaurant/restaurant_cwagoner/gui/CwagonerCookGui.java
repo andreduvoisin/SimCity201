@@ -12,10 +12,7 @@ import javax.imageio.ImageIO;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import base.Location;
 
-public class CwagonerCookGui implements CwagonerGui {
-
-    private CwagonerCookRole agent = null;
-    CwagonerRestaurantGui cwagoner_RestaurantGui = null;
+public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
     
     private enum State { idle, goingToFridge, goingToCooking, goingToPlating }
     private State state;
@@ -34,12 +31,13 @@ public class CwagonerCookGui implements CwagonerGui {
 
     BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
 
-    public CwagonerCookGui(CwagonerCookRole c, CwagonerRestaurantGui g) {
+    public CwagonerCookGui(CwagonerCookRole c, CwagonerAnimationPanel panel) {
+    	super(c, panel);
     	state = State.idle;
-        agent = c;
-        cwagoner_RestaurantGui = g;
         position.setTo(homePos);
         destination.setTo(homePos);
+
+        animationPanel.addGui(this);
 
 		try {
 			java.net.URL cookURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cook.png");
@@ -69,7 +67,7 @@ public class CwagonerCookGui implements CwagonerGui {
 
 			if (! state.equals(State.idle)) {
         		state = State.idle;
-        		agent.msgAnimationFinished();
+        		((CwagonerCookRole)role).msgAnimationFinished();
 			}
         }
     }
@@ -98,10 +96,6 @@ public class CwagonerCookGui implements CwagonerGui {
     		g.setColor(Color.BLACK);
     		g.drawString(food, (int) (position.mX + size / 2), position.mY + size);
 		}
-    }
-
-    public boolean isPresent() {
-        return true;
     }
 
 	public void DoGoToHomePosition() {

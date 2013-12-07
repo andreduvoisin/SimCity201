@@ -21,13 +21,6 @@ import city.gui.trace.AlertTag;
  * @author Angelica Huyen Tran
  */
 
-/* ANGELICA: fix this shit up
- * -change to allow multiple orders
- * -pick up orders at one time from market
- * -delivery all orders at one time
- * -check if restaurants are open
- */
-
 public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
 	MarketDeliveryTruckGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
@@ -41,7 +34,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		mMarketID = marketID;
 		
 		
-		mGui = new MarketDeliveryTruckGui(this);
+		mGui = new MarketDeliveryTruckGui(this, marketID);
 		ContactList.sMarketList.get(mMarketID).mDeliveryTruck = this;
 //		//ANGELICA: add delivery truck to city view gui
 	}

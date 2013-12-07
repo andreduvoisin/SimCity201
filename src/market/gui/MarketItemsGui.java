@@ -23,9 +23,9 @@ import city.gui.SimCityGui;
 public class MarketItemsGui implements MarketBaseGui {
 	MarketCashierRole mCashier;
 	public Map<ItemGui, MarketCoordinates> mItems = new HashMap<ItemGui, MarketCoordinates>();
-	private int xBase = 300, yBase = 30;
+	private int xBase = 260, yBase = 10;
 	private static final int SIZE = 20;
-	public static final int sBaseInventory = 5;
+	public static final int sBaseInventory = 32;
 	
 	BufferedImage image1;
 	BufferedImage image2;
@@ -98,11 +98,13 @@ public class MarketItemsGui implements MarketBaseGui {
 		for(ItemGui i : mItems.keySet()) {
 			MarketCoordinates c = mItems.get(i);
 			g.setColor(Color.BLACK);
-			for(int j=0;j<(int)(i.mNumber/10);j++) {
+			for(int j=0;j<(int)(i.mNumber);j++) {
+				int x = c.getX()+30*(j % 8);
+				int y = c.getY() + 20*(int)(j/8);
 				if(SimCityGui.GRADINGVIEW)
-					g.drawString(i.toString(), c.getX()+30*j,c.getY());
+					g.drawString(i.toString(), x, y);
 				else
-					g.drawImage(i.mImage,c.getX()+30*j,c.getY(),null);
+					g.drawImage(i.mImage,x,y,null);
 			}
 		}
 	}

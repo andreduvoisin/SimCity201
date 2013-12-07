@@ -10,13 +10,11 @@ import javax.imageio.ImageIO;
 
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.Location;
+import base.interfaces.Role;
 
-public class CwagonerWaiterGui implements CwagonerGui {
+public class CwagonerWaiterGui extends CwagonerBaseGui implements CwagonerGui {
 
 	private static int waiterNum = 0;
-
-    private CwagonerWaiter agent;
-    CwagonerRestaurantGui RestaurantGui;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
     						movingToCashier, onBreak }
@@ -33,11 +31,12 @@ public class CwagonerWaiterGui implements CwagonerGui {
     
     BufferedImage waiterImg;
 
-    public CwagonerWaiterGui(CwagonerWaiter w, CwagonerRestaurantGui g) {
+    public CwagonerWaiterGui(CwagonerWaiter w, CwagonerAnimationPanel panel) {
+    	super((Role)w, panel);
     	state = State.idle;
-        agent = w;
-        RestaurantGui = g;
         waiterNum++;
+
+        animationPanel.addGui(this);
 
         position = new Location(homePos.mX, homePos.mY);
         destination = new Location(homePos.mX, homePos.mY);
@@ -60,7 +59,7 @@ public class CwagonerWaiterGui implements CwagonerGui {
         if (position.mX == destination.mX && position.mY == destination.mY) {
 			if (! state.equals(State.idle)) {
         		state = State.idle;
-        		agent.msgAnimationFinished();
+        		((CwagonerWaiter)role).msgAnimationFinished();
 			}
         }
     }
@@ -76,10 +75,6 @@ public class CwagonerWaiterGui implements CwagonerGui {
 		}
     }
 
-    public boolean isPresent() {
-        return true;
-    }
-
     public void DoGoGetCustomer(Dimension custPos) {
     	state = State.gettingCustomer;
     	destination.mX = custPos.width + size;
@@ -90,21 +85,19 @@ public class CwagonerWaiterGui implements CwagonerGui {
     // and returning to table to take order or deliver food
     public void DoGoToTable(int tableNum) {
     	state = State.movingToTable;
-    	Location tableLoc = RestaurantGui.getTableLocation(tableNum);
+    	Location tableLoc = animationPanel.getTableLocation(tableNum);
         destination.mX = tableLoc.mX + size;
         destination.mY = tableLoc.mY - size;
     }
 
     public void DoGoToHomePosition() {
     	state = State.idle; // Prevents updatePosition() from calling animationFinished.release()
-        destination.mX = homePos.mX;
-        destination.mY = homePos.mY;
+        destination.setTo(homePos);
     }
 
     public void DoGoToCook() {
     	state = State.movingToCook;
-    	destination.mX = cookPos.mX;
-    	destination.mY = cookPos.mY;
+    	destination.setTo(cookPos);
     }
     
     public void DoDeliverFood(int tableNum) {
@@ -114,8 +107,7 @@ public class CwagonerWaiterGui implements CwagonerGui {
     
     public void DoGoToCashier() {
     	state = State.movingToCashier;
-    	destination.mX = cashierPos.mX;
-    	destination.mY = cashierPos.mY;
+    	destination.setTo(cashierPos);
     }
     
     // Adds food to waiter's GUI (to drop it off at customer)

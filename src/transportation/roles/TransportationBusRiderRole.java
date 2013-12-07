@@ -2,7 +2,7 @@ package transportation.roles;
 
 import java.util.concurrent.Semaphore;
 
-import transportation.TransportationBusDispatch;
+import transportation.TransportationBus;
 import transportation.gui.TransportationBusRiderGui;
 import transportation.interfaces.TransportationRider;
 import base.BaseRole;
@@ -24,7 +24,7 @@ public class TransportationBusRiderRole extends BaseRole implements Transportati
 	// ------------------------------------- DATA ---------------------------------------
 	// ==================================================================================
 
-	public TransportationBusDispatch mBusDispatch;
+	public TransportationBus mBusDispatch;
 	public TransportationBusRiderGui mGui;
 	public Semaphore semGuiMoving = new Semaphore(0, true);
 

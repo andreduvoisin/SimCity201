@@ -6,7 +6,7 @@ import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;
-import base.reference.ContactList;
+import base.reference.House;
 
 /*
  * Basic test to ensure that PersonAgent and Roles are interacting correctly and
@@ -21,9 +21,18 @@ public class BasicTest extends TestCase {
 	HousingLandlordRole landlord;
 	HousingRenterRole renter;
 	BankMasterTellerRole master;
+	House mHouse1;
+	House mHouse2;
 
 	public void setUp() throws Exception {
 		super.setUp();
+		mPerson = new PersonAgent();
+		mPerson2 = new PersonAgent();
+		landlord = new HousingLandlordRole(mPerson);
+		mHouse1 = new House(1, 300.00);
+		mHouse2 = new House(2, 200.00);
+		landlord.mHousesList.add(mHouse1);
+		landlord.mHousesList.add(mHouse2);
 	}
 
 	// TESTS
@@ -43,10 +52,7 @@ public class BasicTest extends TestCase {
 	}
 
 	public void testInstantiatePeopleAndAssignRoles() {
-		mPerson = new PersonAgent();
-		mPerson2 = new PersonAgent();
-		landlord = new HousingLandlordRole(mPerson);
-		master = ContactList.masterTeller;
+		
 		assertEquals("Landlord housing size correct",
 				landlord.mHousesList.size(), 2);
 		renter = new HousingRenterRole(null);

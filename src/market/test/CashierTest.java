@@ -11,7 +11,6 @@ import market.MarketOrder.EnumOrderStatus;
 import market.roles.MarketCashierRole;
 import market.test.mock.MockCookCustomer;
 import market.test.mock.MockCustomer;
-import market.test.mock.MockDeliveryTruck;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
 import base.PersonAgent;

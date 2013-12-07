@@ -39,7 +39,11 @@ public class RestaurantHostRole extends BaseRole implements
 		switch (mRestaurantID) {
 		case 0: // andre
 			subRole = new AndreHostRole(super.mPerson);
-			AndreRestaurant.host = (AndreHostRole) subRole;
+			if(AndreRestaurant.host == null) {
+				AndreRestaurant.host = (AndreHostRole) subRole;
+			} else {
+				subRole = AndreRestaurant.host;
+			}
 			break;
 //		case 1: // chase
 //			subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).host;

@@ -9,11 +9,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
-import city.gui.CityCard;
-import city.gui.SimCityGui;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import base.Gui;
 import base.Time;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 @SuppressWarnings("serial")
 public class AndreAnimationPanel extends CityCard implements ActionListener {

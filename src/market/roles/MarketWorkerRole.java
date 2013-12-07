@@ -15,6 +15,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import base.reference.Market;
 import city.gui.trace.AlertTag;
 
 /**
@@ -26,17 +27,19 @@ import city.gui.trace.AlertTag;
 public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	MarketWorkerGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
+	Market mMarket;
 	int mMarketID;
 	
 	private List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	public MarketWorkerRole(Person person, int marketID){
 		super(person);
+		mMarket = ContactList.sMarketList.get(marketID);
 		mMarketID = marketID;
 		
-		mGui = new MarketWorkerGui(this);
-		ContactList.sMarketList.get(mMarketID).mWorkers.add(this);
-		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
+		mGui = new MarketWorkerGui(this,mMarket.mWorkers.size());
+		mMarket.mWorkers.add(this);
+		mMarket.mGuis.add(mGui);
 	}
 	
 /* Messages */
