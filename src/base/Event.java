@@ -5,10 +5,10 @@ public class Event implements Comparable<Event> {
 	public enum EnumEventType {GET_CAR, 								//One time event
 						JOB, EAT, 										//Daily Recurring Events
 						DEPOSIT_CHECK, 									//Intermittent Events
-						ASK_FOR_RENT, MAINTAIN_HOUSE,					//Housing Events
-						INVITE1, INVITE2,  
-						RSVP1, RSVP2, PLANPARTY, PARTY,					//Party Events
-						BOARD_BUS, EXIT_BUS};							//Transportation Events
+						REQUEST_HOUSE, ASK_FOR_RENT, MAINTAIN_HOUSE,	//Housing Events
+						INVITE1, INVITE2, RSVP1, RSVP2, 				//Party Events
+						PLANPARTY, PARTY,								
+						BOARD_BUS, EXIT_BUS, };							//Transportation Events
 
 	EnumEventType mEventType;
 	public int mTime;
