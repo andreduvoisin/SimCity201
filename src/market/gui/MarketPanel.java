@@ -50,6 +50,9 @@ public class MarketPanel extends CityCard implements ActionListener {
    */ 	
 		mMarket.mGuis.add(mItemGui);
 		
+		for(int i=0;i<10;i++) {
+			mMarket.mGuis.add(new MarketWorkerGui(null,i));
+		}
 		timer = new Timer(TIMERDELAY, this);
 		timer.start();
 	}
@@ -86,24 +89,11 @@ public class MarketPanel extends CityCard implements ActionListener {
 		synchronized(mMarket.mGuis) {
 			mMarket.mGuis.add(g);
 		}
-		if(g instanceof MarketWorkerGui) {
-			mMarket.mWorkerGuis.add((MarketWorkerGui)g);
-			((MarketWorkerGui) g).setItemsGui(mItemGui);
-		}
-		else if (g instanceof MarketCustomerGui) {
-			mMarket.mCustomerGuis.add((MarketCustomerGui)g);
-		}
 	}
 	
 	public void removeGui(MarketBaseGui g) {
 		synchronized(mMarket.mGuis) {
 			mMarket.mGuis.remove(g);
-		}
-		if(g instanceof MarketWorkerGui) {
-			mMarket.mWorkerGuis.remove((MarketWorkerGui)g);
-		}
-		else if (g instanceof MarketCustomerGui) {
-			mMarket.mCustomerGuis.remove((MarketCustomerGui)g);
 		}
 	}
 	
