@@ -175,6 +175,10 @@ public class PersonAgent extends Agent implements Person {
 		
 		stateChanged();
 	}
+	
+	public void msgStateChanged() {
+		stateChanged();
+	}
 
 	public void msgAddEvent(Event event) {
 		if(event.mEventType == EnumEventType.RSVP1){
