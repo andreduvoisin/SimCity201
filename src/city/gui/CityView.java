@@ -42,8 +42,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		//Card Deck
 		cards = new HashMap<String, CityCard>();
-
-		//DAVID temporarily disabling non-compliant restaurants
 		
 		//Rest 0		
 		AndreRestaurantGui duvoisin = new AndreRestaurantGui(city);
