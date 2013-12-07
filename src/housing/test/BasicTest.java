@@ -6,6 +6,7 @@ import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
 import bank.roles.BankMasterTellerRole;
 import base.PersonAgent;
+import base.reference.ContactList;
 
 /*
  * Basic test to ensure that PersonAgent and Roles are interacting correctly and
@@ -26,14 +27,6 @@ public class BasicTest extends TestCase {
 	}
 
 	// TESTS
-
-	/*
-	 * public void testImportFromConfigFile() throws FileNotFoundException {
-	 * ConfigParser config = ConfigParser.getInstanceOf();
-	 * config.readFileCreatePersons(); CityPanel citypanel =
-	 * CityPanel.getInstanceOf(); assertEquals("8 people added",
-	 * citypanel.masterPersonList.size(), 8); }
-	 */
 	
 	public void testHousingGui() {
 		mPerson = new PersonAgent();
@@ -52,14 +45,11 @@ public class BasicTest extends TestCase {
 	public void testInstantiatePeopleAndAssignRoles() {
 		mPerson = new PersonAgent();
 		mPerson2 = new PersonAgent();
-		landlord = new HousingLandlordRole();
-		master = new BankMasterTellerRole(null);
-		mPerson2.mMasterTeller = master;
+		landlord = new HousingLandlordRole(mPerson);
+		master = ContactList.masterTeller;
 		assertEquals("Landlord housing size correct",
 				landlord.mHousesList.size(), 2);
-		landlord.setPerson(mPerson);
-		renter = new HousingRenterRole();
-		renter.setPerson(mPerson2);
+		renter = new HousingRenterRole(null);
 		mPerson.addRole(landlord, true);
 		assertEquals("mPerson contains one role (the landlord role)",
 				mPerson.mRoles.size(), 1);

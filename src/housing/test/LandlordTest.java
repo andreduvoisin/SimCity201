@@ -6,15 +6,14 @@ import junit.framework.TestCase;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityHousing;
-import city.gui.SimCityGui;
+import base.reference.House;
 
 /**
  * 
  * This class is a JUnit test class to unit test the Landlord's interaction with
  * renters.
  * 
- * @author Maggi Yang
+ * @author Maggi Yang, David Carr
  */
 
 public class LandlordTest extends TestCase {
@@ -26,9 +25,8 @@ public class LandlordTest extends TestCase {
 	MockRenter mHousingRenter2;
 	MockRenter mHousingRenter3;
 	
-	SimCityGui city;
-	CityHousing mHouse1;
-	CityHousing mHouse2;
+	House mHouse1;
+	House mHouse2;
 	
 
 	/**
@@ -38,22 +36,19 @@ public class LandlordTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
-		
-		city = new SimCityGui(); 
-		
+				
 		//Landlord 
 		mPerson = new PersonAgent();
-		mHousingLandlord = new HousingLandlordRole();
+		mHousingLandlord = new HousingLandlordRole(mPerson);
 		mPerson.addRole((Role) mHousingLandlord, true); 
-		mHousingLandlord.setPerson(mPerson);
 	
 		//Mock Interfaces 
 		mHousingRenter1 = new MockRenter("Mockrenter1");
 		mHousingRenter2 = new MockRenter("Mockrenter2");
 		mHousingRenter3 = new MockRenter("Mockrenter3");
 		
-		mHouse1 = new CityHousing(city, 10, 10, 1, 300.00);
-		mHouse2 = new CityHousing(city, 20, 20, 2, 200.00);
+		mHouse1 = new House(1, 300.00);
+		mHouse2 = new House(2, 200.00);
 		mHousingLandlord.mHousesList.add(mHouse1);
 		mHousingLandlord.mHousesList.add(mHouse2);
 	}
