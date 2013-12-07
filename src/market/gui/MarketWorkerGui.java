@@ -20,7 +20,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private MarketOrder mOrder = null;
 	
 	private static final int xStart = -20, yStart = -20;
-	private static final int xHome = 200, yHome = 10;
+	private static int xHome = 200, yHome = 10;
 	private static final int xDeliveryTruck = 250, yDeliveryTruck = 500;
 	private int xCustomer = 100, yCustomer = 250;
 	
@@ -38,8 +38,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 	public MarketWorkerGui(MarketWorker agent, int i) {
 		mAgent = agent;
 		
-        xHome = xBase + 30*(i % 10);
-        yHome = yBase + 40*(int)(i/10);
+        xHome = xHome + 30*(i % 10);
+        yHome = yHome + 40*(int)(i/10);
         
     	image = null;
     	try {
