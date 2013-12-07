@@ -547,5 +547,9 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 		return ContactList.cRESTAURANT_LOCATIONS.get(2);
 	}
 
+	public JerrywebHostRole getHost() {
+		return host;
+	}
+
 
 }

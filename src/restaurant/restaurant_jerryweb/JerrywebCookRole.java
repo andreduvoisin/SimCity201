@@ -29,7 +29,7 @@ public class JerrywebCookRole extends RestaurantCookRole {
 	public List<Order>  RevolvingStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Food> foodItems= new ArrayList<Food>();
 	//public Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
-
+	private RestaurantCookRole mRole;
 	Timer cookingTimer = new Timer();
 	private Timer checkRevolvingStand = new Timer();
 	public List<JerrywebWaiterRole> Waiters = new ArrayList<JerrywebWaiterRole>();
@@ -85,8 +85,9 @@ public class JerrywebCookRole extends RestaurantCookRole {
 
 	//public HostGui hostGui = null;
 
-	public JerrywebCookRole(Person p){ 
+	public JerrywebCookRole(Person p, RestaurantCookRole r){ 
 		super(p, 2);
+		mRole = r;
 		//this.name = person.getName();
 
 		//This populates the food map using the string names of the food items as keys and holds the
