@@ -16,23 +16,24 @@ import base.reference.ContactList;
 
 public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	
-//	DATA
+	//------------------------------------------------------DATA------------------------------------------------------
 	
 	public Map <Integer, Integer> mAccountIndex = new HashMap <Integer, Integer>();
 	public List <BankAccount> mAccounts = Collections.synchronizedList(new ArrayList<BankAccount>());
 	public List<BankTransaction> mTransactions = Collections.synchronizedList(new ArrayList<BankTransaction>());
-		
+	
+	//------------------------------------------------------CONSTRUCTOR------------------------------------------------------
 	public BankMasterTellerRole(Person person) {
 		super(person);
 	}
 	
-	//	MESSAGES
+	//------------------------------------------------------MESSAGES------------------------------------------------------
 	public void msgSendPayment(int senderSSN, int receiverSSN, double amount){
 		mTransactions.add(new BankTransaction(senderSSN, receiverSSN, amount));
 		stateChanged();
 	}
 	
-//	SCHEDULER
+	//------------------------------------------------------SCHEDULER------------------------------------------------------
 	public boolean pickAndExecuteAnAction(){
 		for (BankTransaction t : mTransactions){
 			processTransaction(t);
@@ -42,7 +43,7 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 		return false;
 	}
 	
-//	ACTIONS
+	//------------------------------------------------------ACTIONS------------------------------------------------------
 	private void processTransaction(BankTransaction t){
 		BankAccount sender = mAccounts.get(mAccountIndex.get(t.sender));
 		BankAccount receiver = mAccounts.get(mAccountIndex.get(t.receiver));
@@ -59,7 +60,7 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 		receiver.person.msgHereIsPayment(t.sender, t.amount);
 	}
 
-//	UTILITIES
+	//------------------------------------------------------UTILITIES------------------------------------------------------
 	public Map<Integer, Integer> getAccountIndex() {
 		return mAccountIndex;
 	}
