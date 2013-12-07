@@ -7,9 +7,6 @@ import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.SimCityGui;
-import city.gui.trace.AlertLog;
-import city.gui.trace.AlertTag;
 
 public abstract class BaseRole implements Role {
 

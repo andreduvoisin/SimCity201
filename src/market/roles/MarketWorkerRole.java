@@ -15,7 +15,6 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
-import city.gui.SimCityGui;
 
 /**
  * MarketWorkerRole for SimCity Market agents.

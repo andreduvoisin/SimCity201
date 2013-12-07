@@ -31,8 +31,6 @@ import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import base.reference.ContactList;
-import base.reference.Market;
-import city.gui.CityPanel;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         

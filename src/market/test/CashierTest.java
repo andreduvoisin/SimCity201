@@ -5,7 +5,6 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import market.MarketOrder;
-import market.gui.MarketPanel.EnumMarketType;
 import market.roles.MarketCashierRole;
 import market.test.mock.MockCookCustomer;
 import market.test.mock.MockCustomer;

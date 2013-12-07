@@ -12,7 +12,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import restaurant.intermediate.interfaces.RestaurantInterface;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
