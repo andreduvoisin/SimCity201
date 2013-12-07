@@ -66,7 +66,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		this.setMaximumSize(new Dimension(CP_WIDTH, CP_HEIGHT));
 		this.setVisible(true);
 		
-		//setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setLayout(new FlowLayout(FlowLayout.CENTER, 0, 2));
 		
 		// Title
@@ -209,7 +208,12 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioA.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "restConfig0.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioB.addActionListener(new ActionListener() {

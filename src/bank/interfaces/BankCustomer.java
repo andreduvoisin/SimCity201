@@ -18,5 +18,7 @@ public interface BankCustomer {
 	public abstract int getSSN();
 	
 	public abstract void setGuard(BankGuard guard);
+	
+	public abstract int getBankID();
 
 }

@@ -202,12 +202,18 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     		((RexCustomerRole) role).getGui().setHungry();
     	}
     	else if (role instanceof RexWaiterRole1){
+    		((RexWaiterRole1)role).setHost(host);
+    		((RexWaiterRole1)role).setCook(cook);
+    		((RexWaiterRole1)role).setCashier(cashier);
     		RexWaiterRole1 waiter = (RexWaiterRole1) role;
-    		
+    	
     		waiters.add(waiter);
             host.addWaiter((RexWaiterRole1)waiter);
     	}
     	else if (role instanceof RexWaiterRole2){
+    		((RexWaiterRole2)role).setHost(host);
+    		((RexWaiterRole2)role).setCook(cook);
+    		((RexWaiterRole2)role).setCashier(cashier);
     		RexWaiterRole2 waiter = (RexWaiterRole2) role;
     		
     		waiters.add(waiter);

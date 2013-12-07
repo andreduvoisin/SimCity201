@@ -16,6 +16,9 @@ import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
+import restaurant.restaurant_xurex.RexWaiterRole1;
+import restaurant.restaurant_xurex.RexWaiterRole2;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
@@ -105,23 +108,15 @@ public class RestaurantWaiterRole extends BaseRole implements
 				//ANGELICA: add shared waiter
 			}
 			break;
-//		case 7: // rex
-//			// REX: what is going on with this stuff? Can it go inside your
-//			// RestaurantPanel?
-//			if (mWaiterType == 1) {
-//				RexWaiterRole1 temp = new RexWaiterRole1(
-//						((RexAnimationPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(7)));
-//				temp.setHost(RexAnimationPanel.getHost());
-//				temp.setCook(RexAnimationPanel.getCook());
-//				temp.setCashier(RexAnimationPanel.getCashier());
-//				subRole = temp;
-//				subRole.setPerson(super.mPerson);
-//				RexAnimationPanel.addPerson((RexWaiterRole1) subRole);
-//				// adds to host waiter list in addPerson
-//			} else if (mWaiterType == 0) {
-//				// REX: add shared waiter
-//			}
-//			break;
+		case 7: // rex
+			if (mWaiterType == 1) {
+				subRole = new RexWaiterRole1(mPerson);
+				RexAnimationPanel.addPerson((RexWaiterRole1) subRole);
+			} else if (mWaiterType == 0) {
+				subRole = new RexWaiterRole2(mPerson);
+				RexAnimationPanel.addPerson((RexWaiterRole2) subRole);
+			}
+			break;
 		}
 
 	}

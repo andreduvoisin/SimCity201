@@ -35,8 +35,6 @@ public class Bank {
 		mBankID = n;
 	}
 	
-	//REX ANDRE: Is there a way to create customer and guard guis without the requirement of bankpanel being passed in?
-	
 	public void addPerson(Role role) {
 		if(role instanceof BankCustomerRole) {
 			mCustomers.add((BankCustomerRole)role);
