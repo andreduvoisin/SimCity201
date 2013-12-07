@@ -16,7 +16,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 
 public class Bank {
-	
+	public int mBankID;
 	//people
 	public BankGuardRole mGuard;
 	public List<BankCustomerRole> mCustomers = Collections.synchronizedList(new ArrayList<BankCustomerRole>());
@@ -31,8 +31,8 @@ public class Bank {
 	//private BankPanel BankPanel;
 	public List<Gui> mGuis = new ArrayList<Gui>();
 	
-	public Bank(){
-		
+	public Bank(int n){
+		mBankID = n;
 	}
 	
 	//REX ANDRE: Is there a way to create customer and guard guis without the requirement of bankpanel being passed in?

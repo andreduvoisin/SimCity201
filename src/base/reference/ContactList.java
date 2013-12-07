@@ -18,19 +18,30 @@ public class ContactList {
 	public static final int cNumBanks = 2;
 	public static final int cNumMarkets = 2;
 	public static final int cNumRestaurants = 8;
-	
+	public static final int cNumHouses = 80;
+	public static DavidRestaurant DavidRestaurant;
+	public static TranacRestaurant TranacRestaurant;
+	static double rent = 10;
 	//Setup
 	public static void setup(){
 		
 		//Banks
 		for (int iBankNum = 0; iBankNum < cNumBanks; iBankNum++){
-			sBankList.add(new Bank());
+			sBankList.add(new Bank(iBankNum));
 		}
 		
 		//Markets
 		for (int iMarketNum = 0; iMarketNum < cNumMarkets; iMarketNum ++){
 			sMarketList.add(new Market(iMarketNum));
 		}
+		//Houses
+		for (int iHouseNum = 0; iHouseNum < cNumHouses; iHouseNum++){
+			sHouseList.add(new House(iHouseNum, rent));
+		}
+		
+		DavidRestaurant = new DavidRestaurant();
+		TranacRestaurant = new TranacRestaurant();
+		
 	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------
