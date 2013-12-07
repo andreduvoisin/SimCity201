@@ -148,7 +148,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
-		mTimeShift = (mSSN % 3); // assign time schedule
+		mTimeShift = (mSSN % 2); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
 		
