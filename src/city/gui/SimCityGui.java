@@ -13,9 +13,7 @@ import base.reference.ContactList;
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
-
-
-	public static int TESTNUM = 2;
+	public static int TESTNUM = 4;
 
 	public static boolean GRADINGVIEW = false;
 	

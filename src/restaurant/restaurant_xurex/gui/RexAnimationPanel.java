@@ -30,6 +30,11 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	
+	private static RexAnimationPanel instance;
+	public static RexAnimationPanel getInstance(){
+		return instance;
+	}
+	
 //	ROLES
     private static Vector<Waiter> waiters = new Vector<Waiter>();
     private static Vector<Customer> customers = new Vector<Customer>();
@@ -69,6 +74,8 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	super(city);
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
+        
+        instance = this;
         
         cookGui.setAnimationPanel(this);
         guis.add(cookGui);

@@ -7,6 +7,7 @@ import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
 import base.Location;
+import base.interfaces.Person;
 import base.reference.ContactList;
 import base.reference.House;
 import city.gui.SimCityGui;
@@ -22,8 +23,8 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 	public HousingPersonGui gui;
 	public House mHouse = null;
 	
-	public HousingBaseRole() {
-		super(null);
+	public HousingBaseRole(Person person) {
+		super(person);
 		gui = new HousingPersonGui();
 		gui.housingrole = this;
 		gui.setPresent(true);
