@@ -27,15 +27,23 @@ public class BankCustomerGui implements Gui {
 	static final int STARTPOSX = 235;
 	static final int STARTPOSY = -50;
 	
+	private BankPanel bankPanel;
 	private int positionInLine;
 	
 	//Animation Upgrades 
 	private BufferedImage image;
 	
+	//STATIC VARIABLES
 	static final int INTERACT_X1 = 250;
 	static final int INTERACT_X2 = 200;
 	static final int INTERACT_X3 = 300;
 	static final int INTERACT_Y = 420;
+	
+	static int LINE_POSITION = 0;
+	
+	static final int LINE_X = 225;
+	static final int LINE_Y = 320;
+	static final int LINE_INCREMENT = -25;	// in the y
 
 	public BankCustomerGui(BankCustomer bc) {
 		agent = bc;
@@ -52,6 +60,8 @@ public class BankCustomerGui implements Gui {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
+    	
+    	
 	}
 
 	public void updatePosition() {
@@ -95,9 +105,9 @@ public class BankCustomerGui implements Gui {
 	*/
 	public void DoGoWaitInLine() {
 		isPresent = true;
-		positionInLine = BankPanel.LINE_POSITION++;
-		xDestination = BankPanel.LINE_X;
-		yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * positionInLine);
+		positionInLine = LINE_POSITION++;
+		xDestination = LINE_X;
+		yDestination = LINE_Y + (LINE_INCREMENT * positionInLine);
 	}
 	
 	public void DoLeaveBank() {
@@ -108,6 +118,7 @@ public class BankCustomerGui implements Gui {
 	public void DoGoToTeller() {
 		xDestination = INTERACT_X1;
 		yDestination = INTERACT_Y;
+		LINE_POSITION--;
 		bankPanel.updateCustomerLine();
 		isMovingToTeller = true;
 	}
@@ -122,8 +133,8 @@ public class BankCustomerGui implements Gui {
 	public void moveForwardInLine() {
 		positionInLine--;
 		if(positionInLine >= 0) {
-			xDestination = BankPanel.LINE_X;
-			yDestination = BankPanel.LINE_Y + (BankPanel.LINE_INCREMENT * positionInLine);
+			xDestination = LINE_X;
+			yDestination = LINE_Y + (LINE_INCREMENT * positionInLine);
 		}
 	}
 }

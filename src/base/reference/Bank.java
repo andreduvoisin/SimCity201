@@ -11,6 +11,7 @@ import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
+import base.Gui;
 import base.interfaces.Person;
 import base.interfaces.Role;
 
@@ -67,6 +68,15 @@ public class Bank {
 		 }
 		 
 	
+	}
+	
+	public void updateCustomerLine() {
+		//LINE_POSITION--;
+		for(BankCustomerGui gui : mCustomerGuis) {
+            if (gui.isPresent()) {
+                gui.moveForwardInLine();
+            }
+        }
 	}
 	
 }

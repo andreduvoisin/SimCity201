@@ -133,13 +133,13 @@ public class GuardTest extends TestCase{
 		mGuard.msgRobberAlert(mCustomer1);
 				
 		//Check
-		assertTrue("Guard has one criminal.", mGuard.mCriminals.size() == 1);
+		assertTrue("Guard has one criminal.", mGuard.mCustomers.containsValue(true));
 		
 		//2 : p.a.e.a. (killRobber())
 		assertTrue("PAEA: killRobber()", mGuard.pickAndExecuteAnAction());
 		
 		//Check
-		assertTrue("Guard has no criminals.", mGuard.mCriminals.isEmpty());
+		assertTrue("Guard has no criminals.", !mGuard.mCustomers.containsValue(true));
 		assertTrue("Criminal received msgStopRobber.", mCustomer1.log.containsString("msgStopRobber"));
 	}
 }

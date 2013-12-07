@@ -203,4 +203,8 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		}
 		return null;
 	}
+	
+	public int getBankID() {
+		return mBankID;
+	}
 }

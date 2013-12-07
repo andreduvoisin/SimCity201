@@ -9,15 +9,10 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
-import bank.roles.BankCustomerRole;
-import bank.roles.BankGuardRole;
-import bank.roles.BankMasterTellerRole;
-import bank.roles.BankTellerRole;
 import base.Gui;
 import base.reference.Bank;
 import city.gui.CityCard;
@@ -36,23 +31,19 @@ public class BankPanel extends CityCard implements ActionListener{
     //public List<Person> masterPersonList = Collections.synchronizedList(new ArrayList<Person>());
 	
 	Timer timer;
-	private List<Gui> guis = new ArrayList<Gui>();
 	
+	private List<Gui> guis; // = new ArrayList<Gui>();
+	public Bank Bank;
+	/*
 	static final int COUNTER_X = 0;
 	static final int COUNTER_Y = 445;
 	static final int COUNTER_SIZE_X = 500;
 	static final int COUNTER_SIZE_Y = 15;
 	
-	static final int LINE_X = 225;
-	static final int LINE_Y = 320;
-	static final int LINE_INCREMENT = -25;	// in the y
-	static int LINE_POSITION = 0;
-	
 	public BankGuardRole guard;
 	public BankMasterTellerRole masterTeller;
 	public BankTellerRole teller;
-	public Bank Bank;
-	public Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();
+	public Vector<BankCustomerRole> customers = new Vector<BankCustomerRole>();*/
 	
 	public BankPanel(SimCityGui city) {
 		super(city);
@@ -161,7 +152,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	}
 	
 	public void updateCustomerLine() {
-		LINE_POSITION--;
+		//LINE_POSITION--;
 		for(Gui gui : guis) {
             if (gui.isPresent()) {
                 if(gui instanceof BankCustomerGui) {
@@ -182,12 +173,15 @@ public class BankPanel extends CityCard implements ActionListener{
 		}
 	}
 	
-	public void addGui(Gui gui) {
-		guis.add(gui);
-	}
-	
 	public void setBank(Bank b){
 		Bank = b;
+		//guis = b.
+		//REX: add list of guis when setting bank
+	}
+	
+	/*
+	public void addGui(Gui gui) {
+		guis.add(gui);
 	}
 	
 	public void setMasterTeller(BankMasterTellerRole mt){
@@ -197,7 +191,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	public void setGuard(BankGuardRole g){
 		guard = g;
 	}	
-	/*
+	
 	public void addPerson(Role role) {
 		if(role instanceof BankCustomerRole) {
 			customers.add((BankCustomerRole)role);
