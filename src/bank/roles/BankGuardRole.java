@@ -60,6 +60,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		synchronized(mCustomers) {
 			mCustomers.put(c, true);
 		}
+		print("MESSAGED ABOUT THE ROBBER");
 		stateChanged();
 	}
 	

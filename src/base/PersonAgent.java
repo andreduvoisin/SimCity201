@@ -458,6 +458,11 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
+		if(mName.equals("robber")){
+			//REX: hard coded to try to steal 100
+			print("Robbery action added to bank options");
+			bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
+		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
 		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
