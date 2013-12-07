@@ -48,7 +48,11 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		switch(mRestaurantID){
 			case 0: //andre
 				subRole = new AndreCashierRole(super.mPerson, this);
-				AndreRestaurant.cashier = (AndreCashierRole) subRole;
+				if(AndreRestaurant.cashier == null) {
+					AndreRestaurant.cashier = (AndreCashierRole) subRole;
+				} else {
+					subRole = AndreRestaurant.cashier;
+				}
 				break;
 //			case 1: //chase
 //				subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).cashier;

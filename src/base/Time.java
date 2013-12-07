@@ -65,35 +65,13 @@ public class Time {
 					sGlobalShift = (sGlobalShift + 1) % 3;
 					synchronized (mPersons) {
 						for (Person iPerson : mPersons) {
-							iPerson.msgTimeShift(); //ALL ADD BACK IN LATER (V2)
+							iPerson.msgTimeShift(); 
 						}
 					}
 				}
 			}
 		}, new Date( System.currentTimeMillis()), 10000); //SHANE: 2
 		
-		/*mTimer.schedule(new TimerTask() {
-			
-			@Override
-			//Broadcast time
-			public void run() {
-				sGlobalTimeInt++;
-				sGlobalHour = (sGlobalHour + 1) % 24;
-				if (sGlobalHour % 8 == 0) {
-					sGlobalShift = (sGlobalShift + 1) % 3;
-					synchronized (mPersons) {
-						for (Person iPerson : mPersons) {
-							iPerson.msgTimeShift();
-						}
-					}
-				}
-				if (sGlobalHour % 24 == 0) {
-					sGlobalDate = sGlobalDate + 1;
-				}
-				runTimer();
-			}
-		}, 
-		3000);*/
 	}
 
 	public static int GetMinute(){

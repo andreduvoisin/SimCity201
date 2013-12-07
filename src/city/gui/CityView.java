@@ -21,7 +21,9 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
+import bank.gui.BankPanel;
 import base.Location;
+import base.reference.Bank;
 import base.reference.ContactList;
 
 @SuppressWarnings("serial")
@@ -88,15 +90,19 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		MarketPanel market1 = new MarketPanel(city, ContactList.sMarketList.get(1));
 		cards.put("Sams Club", market1);
-		/*
-		BankPanel bank0 = new BankPanel(city);
-		ContactList.sBankList.add(bank0);
-		cards.put("Gringotts Bank", bank0);
 		
-		BankPanel bank1 = new BankPanel(city);
-		ContactList.sBankList.add(bank1);
-		cards.put("Piggy Bank", bank1);
-		*/
+		Bank b0 = new Bank(0);
+		BankPanel bp0 = new BankPanel(city);
+		bp0.setBank(b0);
+		ContactList.sBankList.add(b0);
+		cards.put("Gringotts Bank", bp0);
+		
+		Bank b1 = new Bank(1);
+		BankPanel bp1 = new BankPanel(city);
+		bp1.setBank(b1);
+		ContactList.sBankList.add(b1);
+		cards.put("Piggy Bank", bp1);
+		
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {
