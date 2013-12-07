@@ -12,6 +12,7 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 import base.BaseRole;
@@ -97,7 +98,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 6: // angelica
 			if(mWaiterType == 1) {
 				subRole = new TranacWaiterRole(mPerson);
-				TranacAnimationPanel.addPerson((TranacWaiterRole) subRole);
+				TranacRestaurant.addPerson((TranacWaiterRole) subRole);
 			}
 			else if (mWaiterType == 0) {
 				//ANGELICA: add shared waiter

@@ -35,7 +35,7 @@ public class TranacRestaurant {
     	}
     }
     
-    public void addPerson(BaseRole role){
+    public static void addPerson(BaseRole role){
     	if (role instanceof TranacCustomerRole){
     		TranacCustomerRole customer = (TranacCustomerRole) role;
     		mCustomers.add(customer);

@@ -18,6 +18,7 @@ import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_xurex.RexCashierRole;
@@ -70,7 +71,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				break;
 			case 6: //angelica
 				subRole = new TranacCashierRole(mPerson,this);
-				TranacAnimationPanel.addPerson((TranacCashierRole)subRole);
+				TranacRestaurant.addPerson((TranacCashierRole)subRole);
 				break;
 			case 7: //rex
 				subRole =  new RexCashierRole(super.mPerson, this);
