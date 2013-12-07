@@ -132,36 +132,6 @@ public class PersonAgent extends Agent implements Person {
 			getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
 			sHouseCounter++;
 		}
-		/*
-		 * Add event for renters to request a house
-		 */
-		if (getHousingRole() instanceof HousingRenterRole) {
-//			DAVID MAGGI add event for requesting a house
-		}
-		
-		
-		//Add events
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift+1));
-		
-		//These will now take place in the config file / config parser / addEvent method
-		
-		
-		mEvents.add(new Event(EnumEventType.JOB, mTimeShift));
-//		
-//		if (mJobType != EnumJobType.NONE){
-//		if ((mTimeShift == 0) && (mJobType != EnumJobType.NONE)){
-//			mEvents.add(new Event(EnumEventType.JOB, 0));
-//		}
-		mEvents.add(new Event(EnumEventType.EAT, 0));
-//		mEvents.add(new Event(EnumEventType.GET_CAR, 0));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift + 0));
-//		mEvents.add(new Event(EnumEventType.DEPOSIT_CHECK, mTimeShift + 8));
-//		mEvents.add(new Event(EnumEventType.JOB, mTimeShift*2));
-//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 8 + mSSN % 4) % 24)); // personal time
-//		mEvents.add(new Event(EnumEventType.EAT, 1)); //THIS IS A PROBLEM
-//		mEvents.add(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
-//		mEvents.add(new Event(EnumEventType.EAT, (mTimeShift + 12 + mSSN % 4) % 24)); // shift 4
-//		mEvents.add(new Event(EnumEventType.PARTY, (mTimeShift + 16)	+ (mSSN + 3) * 24)); // night time, every SSN+3 days
 	}
 	
 	private void initializePerson(){
