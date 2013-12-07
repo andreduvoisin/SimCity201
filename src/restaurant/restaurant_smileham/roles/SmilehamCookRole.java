@@ -25,6 +25,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 	RestaurantCookRole mRole;
@@ -344,4 +345,15 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 			return ContactList.cRESTAURANT_LOCATIONS.get(5);
 		}
 	
+		public void Do(String msg) {
+			super.Do(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg) {
+			super.print(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg, Throwable e) {
+			super.print(msg, AlertTag.R5, e);
+		}
 }

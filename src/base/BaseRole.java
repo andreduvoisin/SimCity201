@@ -7,6 +7,7 @@ import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.trace.AlertTag;
 
 public abstract class BaseRole implements Role {
 
@@ -73,22 +74,22 @@ public abstract class BaseRole implements Role {
 	/**
 	 * The simulated action code
 	 */
-	public void Do(String msg) {
-		mPerson.print(msg);
+	public void Do(String msg, AlertTag tag) {
+		mPerson.print(msg, tag);
 	}
 
 	/**
 	 * Print message
 	 */
-	public void print(String msg) {
-		mPerson.print(msg);
+	public void print(String msg, AlertTag tag) {
+		mPerson.print(msg, tag);
 	}
 
 	/**
 	 * Print message with exception stack trace
 	 */
-	public void print(String msg, Throwable e) {
-		mPerson.print(msg, e);
+	public void print(String msg, AlertTag tag, Throwable e) {
+		mPerson.print(msg, tag, e);
 	}
 	
 	public boolean isRestaurantPerson(){ //DAVID: Put this in base rest class

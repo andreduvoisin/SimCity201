@@ -13,6 +13,7 @@ import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
 //import interfaces
+import city.gui.trace.AlertTag;
 
 
 public class BankGuardRole extends BaseRole implements BankGuard{
@@ -119,5 +120,17 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 			case 2: return ContactList.cBANK2_LOCATION;
 		}
 		return null;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.BANK);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.BANK, e);
 	}
 }

@@ -20,6 +20,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Waiter Agent
@@ -423,4 +424,15 @@ public class DavidWaiterRole extends BaseRole implements Waiter {
 		return ContactList.cRESTAURANT_LOCATIONS.get(4);
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
+	}
 }

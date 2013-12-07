@@ -48,24 +48,24 @@ public abstract class Agent {
     /**
      * The simulated action code
      */
-    public void Do(String msg) {
-        print(msg, null);
+    public void Do(String msg, AlertTag tag) {
+        print(msg, tag, null);
     }
 
     /**
      * Print message
      */
-    public void print(String msg) {
-		print(msg, null);
+    public void print(String msg, AlertTag tag) {
+		print(msg, tag, null);
     }
 
     /**
      * Print message with exception stack trace
      */
-    public void print(String msg, Throwable e) {
-    	AlertLog.getInstance().logMessage(AlertTag.PERSON, getName(), msg);
+    public void print(String msg, AlertTag tag, Throwable e) {
+    	AlertLog.getInstance().logMessage(tag, getName(), msg);
     	if(e != null) {
-    		AlertLog.getInstance().logError(AlertTag.PERSON, getName(), StringUtil.stackTraceString(e));
+    		AlertLog.getInstance().logError(tag, getName(), StringUtil.stackTraceString(e));
     	}
 //        StringBuffer sb = new StringBuffer();
 //        sb.append(getName());
@@ -129,7 +129,7 @@ public abstract class Agent {
                 } catch (InterruptedException e) {
                     // no action - expected when stopping or when deadline changed
                 } catch (Exception e) {
-                    print("Unexpected exception caught in Agent thread:", e);
+                    print("Unexpected exception caught in Agent thread:", AlertTag.PERSON, e);
                 }
             }
         }

@@ -4,7 +4,7 @@
 //import java.util.Map;
 //import java.util.Timer;
 //import java.util.TimerTask;
-//
+//import city.gui.trace.AlertTag;
 //import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 //import restaurant.restaurant_smileham.Menu;
 //import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -117,5 +117,17 @@
 //		
 //		public String toString() {
 //			return "[Market " + getName() + "]";
+//		}
+//
+//		public void Do(String msg) {
+//			super.Do(msg, AlertTag.R5);
+//		}
+//		
+//		public void print(String msg) {
+//			super.print(msg, AlertTag.R5);
+//		}
+//		
+//		public void print(String msg, Throwable e) {
+//			super.print(msg, AlertTag.R5, e);
 //		}
 //}

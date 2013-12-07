@@ -17,6 +17,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 	
@@ -197,5 +198,17 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 		@Override
 		public Location getLocation() {
 			return ContactList.cRESTAURANT_LOCATIONS.get(5);
+		}
+		
+		public void Do(String msg) {
+			super.Do(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg) {
+			super.print(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg, Throwable e) {
+			super.print(msg, AlertTag.R5, e);
 		}
 }

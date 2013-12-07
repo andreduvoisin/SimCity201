@@ -26,6 +26,7 @@ import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Host Agent
@@ -473,5 +474,16 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 			return ContactList.cRESTAURANT_LOCATIONS.get(5);
 		}
 
+		public void Do(String msg) {
+			super.Do(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg) {
+			super.print(msg, AlertTag.R5);
+		}
+		
+		public void print(String msg, Throwable e) {
+			super.print(msg, AlertTag.R5, e);
+		}
 }
 

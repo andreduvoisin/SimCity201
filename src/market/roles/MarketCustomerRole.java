@@ -19,6 +19,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	int mMarketID;
@@ -198,5 +199,17 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 			return ContactList.cMARKET2_LOCATION;
 		}
 		return null;
+	}
+	
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.MARKET);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.MARKET);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.MARKET, e);
 	}
 }

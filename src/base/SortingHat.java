@@ -222,8 +222,7 @@ public class SortingHat {
 		if (sLandlordCount < sMaxLandlords){
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
-			
-//			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount)); //DAVID: fix this eventually
+			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount)); 
 			sHouseCount++;
 			return newLandLordRole;
 		}
@@ -234,7 +233,7 @@ public class SortingHat {
 		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-//		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
+		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
 		sHouseCount++;
 		return newOwnerRole;
 	}

@@ -22,6 +22,7 @@ import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.reference.ContactList;
+import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
@@ -413,4 +414,15 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		return ContactList.cRESTAURANT_LOCATIONS.get(4);
 	}
 
+	public void Do(String msg) {
+		super.Do(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg) {
+		super.print(msg, AlertTag.R4);
+	}
+	
+	public void print(String msg, Throwable e) {
+		super.print(msg, AlertTag.R4, e);
+	}
 }
