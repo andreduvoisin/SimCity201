@@ -1,6 +1,6 @@
 package housing.interfaces;
 
-import city.gui.CityHousing;
+import base.reference.House;
 
 /*
  * @author David Carr, Maggi Yang
@@ -8,7 +8,7 @@ import city.gui.CityHousing;
 
 public interface HousingRenter {
 
-	public abstract void msgApplicationAccepted(CityHousing newHouse);
+	public abstract void msgApplicationAccepted(House newHouse);
 
 	public abstract void msgApplicationDenied();
 

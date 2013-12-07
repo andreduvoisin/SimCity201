@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import base.interfaces.Person;
+import base.reference.House;
 import city.gui.CityHousing;
 
 /*
@@ -21,8 +22,8 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 
 	public List<MyRenter> mRenterList = Collections
 			.synchronizedList(new ArrayList<MyRenter>());
-	public List<CityHousing> mHousesList = Collections
-			.synchronizedList(new ArrayList<CityHousing>());
+	public List<House> mHousesList = Collections
+			.synchronizedList(new ArrayList<House>());
 	int mMinCash = 50;
 	int mMinSSN = 0;
 	
@@ -34,7 +35,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 		HousingRenter mRenter;
 		EnumRenterState mState;
 		double mCash;
-		CityHousing mHouse;
+		House mHouse;
 		int SSN;
 
 		public MyRenter(HousingRenter renter, double cash, int mySSN) {
@@ -153,7 +154,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 		print("Action - GiveEvictionNotice");
 		r.mRenter.msgEviction();
 		synchronized (mHousesList) {
-			for (CityHousing h : mHousesList) {
+			for (House h : mHousesList) {
 				if (h.mOccupant == r) {
 					h.mOccupant = null;
 				}
@@ -164,7 +165,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	void ReviewApplicant(MyRenter r) {
 		print("Action - ReviewApplicant");
 		if (r.mCash >= mMinCash && r.SSN >= mMinSSN) {
-			for(CityHousing h: mHousesList){
+			for(House h: mHousesList){
 				if(h.mOccupant == null){
 					r.mHouse = h; 
 					r.mHouse.mOccupant = r.mRenter;

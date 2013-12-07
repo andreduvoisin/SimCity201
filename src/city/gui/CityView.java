@@ -7,7 +7,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -26,6 +28,7 @@ import base.reference.ContactList;
 public class CityView extends JPanel implements MouseListener, ActionListener {
 	
 	public HashMap<String, CityCard> cards;
+	public List<CityHousing> mCityHousingList; //List to reference GUIs by ID
 	SimCityGui city;
 	public static final int VIEW_WIDTH = 500, VIEW_HEIGHT = 500;
 	CardLayout layout;
@@ -103,14 +106,15 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		}
 
 		// Create Houses
+		mCityHousingList = new ArrayList<CityHousing>();
 		for (int iHouseCount = 0; iHouseCount < 80; iHouseCount++) {
 			Location houseLocation = ContactList.cHOUSE_LOCATIONS
 					.get(iHouseCount);
 			CityHousing newHouse = new CityHousing(city, houseLocation.mX,
-					houseLocation.mY, iHouseCount, 50.00);
+					houseLocation.mY, iHouseCount);
 			addView(newHouse.mPanel, "House " + iHouseCount);
 			city.citypanel.addStatic(newHouse);
-			//ContactList.sHouseList.add(newHouse);
+			mCityHousingList.add(newHouse);
 		}
 
 		layout.show(this, "null");

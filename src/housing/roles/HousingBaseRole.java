@@ -5,10 +5,11 @@ import housing.interfaces.HousingBase;
 
 import java.util.concurrent.Semaphore;
 
+import city.gui.SimCityGui;
 import base.BaseRole;
 import base.Location;
 import base.reference.ContactList;
-import city.gui.CityHousing;
+import base.reference.House;
 
 public class HousingBaseRole extends BaseRole implements HousingBase {
 	
@@ -18,7 +19,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 
 	public Semaphore isAnimating = new Semaphore(0, true);
 	public HousingPersonGui gui;
-	public CityHousing mHouse = null;
+	public House mHouse = null;
 	
 	public HousingBaseRole() {
 		super(null);
@@ -36,13 +37,13 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 	public void msgTimeToMaintain() {
 		print("msgTimeToMaintain recieved");
 		mTimeToMaintain = true;
-		mHouse.mPanel.addGui(gui);
+		SimCityGui.getInstance().cityview.mCityHousingList.get(mHouse.mHouseNum).mPanel.addGui(gui);
 		stateChanged();
 	}
 
 	public void msgEatAtHome() {
 		mHungry = true;
-		mHouse.mPanel.addGui(gui);
+		SimCityGui.getInstance().cityview.mCityHousingList.get(mHouse.mHouseNum).mPanel.addGui(gui);
 		stateChanged();
 	}
 
@@ -96,7 +97,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 		print("Action - Maintain");
 	}
 	
-	public void setHouse(CityHousing h) {
+	public void setHouse(House h) {
 		this.mHouse = h;
 	}
 
@@ -106,7 +107,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 	}
 
 	@Override
-	public CityHousing getHouse() {
+	public House getHouse() {
 		if (mHouse == null) {
 			print("house is null!");
 		}
