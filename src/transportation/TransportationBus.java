@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import restaurant.restaurant_davidmca.Order;
 import transportation.interfaces.TransportationRider;
@@ -45,6 +47,8 @@ public class TransportationBus extends Agent {
 	
 	enum enumState { traveling, ReadyToTravel, ReadyToUnload, ReadyToBoard }
 	enumState state;
+	
+	private Timer timer = new Timer(); 
 
 
 	// ==================================================================================
@@ -174,10 +178,14 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance to advance
 	 */
 	private void AdvanceToNextStop() {
-		//print("AdvanceToNextStop()");
-
+		print("AdvanceToNextStop()");
 		state = enumState.traveling;
-		mGui.DoAdvanceToNextStop();
+		
+		timer.schedule(new TimerTask(){
+			public void run(){
+				mGui.DoAdvanceToNextStop();
+			}
+		}, 2000); 
 	}
 
 	public String getName() {
