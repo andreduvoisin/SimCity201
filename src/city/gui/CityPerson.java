@@ -148,9 +148,9 @@ public class CityPerson extends CityComponent {
 					//check counter-clockwise
 					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
 					//check BD diagonal
-					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 2;
+					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 2;
 					//check AC diagonal
-					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 3;
+					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 3;
 					else{
 						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
 					}
