@@ -243,8 +243,14 @@ public class ContactList {
 //			iList.add(cCARBLOCKD);
 //		}
 		list0 = new ArrayList<Block>(); //clear null list for walking
-		list1.add(cCARBLOCK0);
-		list1.add(cCARBLOCK1);
+//		list1.add(cCARBLOCK0);
+//		list1.add(cCARBLOCK1);
+		list1.add(cCARBLOCKA);
+		list1.add(cCARBLOCKB);
+		list1.add(cCARBLOCKC);
+		list1.add(cCARBLOCKD);
+		
+		
 		list2.add(cCARBLOCK2);
 		list2.add(cCARBLOCK3);
 		list2.add(cCARBLOCK4);
