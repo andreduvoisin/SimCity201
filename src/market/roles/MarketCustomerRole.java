@@ -16,6 +16,8 @@ import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
 import base.ContactList;
+import base.Event;
+import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
@@ -191,6 +193,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		mPerson.msgAddEvent(new Event(EnumEventType.EAT, 0));
+		//mPerson.setJobFalse();
+		mPerson.msgRoleFinished();
 	}
 	
 /* Utilities */

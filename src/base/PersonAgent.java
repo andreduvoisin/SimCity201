@@ -410,10 +410,11 @@ public class PersonAgent extends Agent implements Person {
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
 		}
-		if(!SimCityGui.TESTING){
-			mPersonGui.DoGoToDestination(location);
-			acquireSemaphore(semAnimationDone);
-		}
+		//if(!SimCityGui.TESTING){
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(location);
+		acquireSemaphore(semAnimationDone);
+		//}
 		mPersonGui.setPresent(false); //set city person invisible
 		
 		//activate marketcustomer role

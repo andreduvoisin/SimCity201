@@ -47,59 +47,61 @@ public class CityPerson extends CityComponent {
 
 	@Override
 	public void updatePosition() {
-		int previousX = x;
-		int previousY = y;
-		
-		if (x < xDestination)		x++;
-        else if (x > xDestination)	x--;
-
-        if (y < yDestination)		y++;
-        else if (y > yDestination)	y--;
-        
-        //if at destination
-        if (x == xDestination && y == yDestination) {
-        	if(mNextDestination != null){
-        		DoGoToNextDestination();
-        	}else{
-        		this.disable(); 
-        		mPerson.msgAnimationDone();
-        	}
-    	}
-        
-        //Check intersections (if going into busy intersection - stay)
-        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
-        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
-        	if (xNewInBlock && yNewInBlock){
-        		x = previousX;
-        		y = previousY;
-        		return;
-        	}
-        }
-
-
-        //B* Algorithm
-        List<Block> blocks = null;
-        switch(mDestinationPath){
-	        case 0: 
-	        case 1: 
-	        case 2:
-//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
-	        case 3:
-	        	blocks = ContactList.cPERSONBLOCKS; break;
-        }
-        
-//        for (Block iBlock : blocks){ //ANGELICA
-//        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-//        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
-//        	if (xNewInBlock && yNewInBlock){
-//        		if (xNewInBlock){
-//        			x = previousX;
-//        		}else{
-//        			y = previousY;
-//        		}
-//        	}
-//        }
+		if(visible) {
+			int previousX = x;
+			int previousY = y;
+			
+			if (x < xDestination)		x++;
+	        else if (x > xDestination)	x--;
+	
+	        if (y < yDestination)		y++;
+	        else if (y > yDestination)	y--;
+	        
+	        //if at destination
+	        if (x == xDestination && y == yDestination) {
+	        	if(mNextDestination != null){
+	        		DoGoToNextDestination();
+	        	}else{
+	        		this.disable(); 
+	        		mPerson.msgAnimationDone();
+	        	}
+	    	}
+	        
+	        //Check intersections (if going into busy intersection - stay)
+	        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
+	        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+	        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+	        	if (xNewInBlock && yNewInBlock){
+	        		x = previousX;
+	        		y = previousY;
+	        		return;
+	        	}
+	        }
+	
+	
+	        //B* Algorithm
+	        List<Block> blocks = null;
+	        switch(mDestinationPath){
+		        case 0: 
+		        case 1: 
+		        case 2:
+	//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
+		        case 3:
+		        	blocks = ContactList.cPERSONBLOCKS; break;
+	        }
+	        
+	        for (Block iBlock : blocks){
+	        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+	        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+	        	if (xNewInBlock && yNewInBlock){
+	        		if (xNewInBlock){
+	        			x = previousX;
+	        		}else{
+	        			y = previousY;
+	        		}
+	        	}
+	        }
+		}
 	}
 	
 	public void paint(Graphics g) {

@@ -64,7 +64,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
-		repaint();  // Will have paintComponent called
+		repaint();  // Will have paint() called
 		
 		synchronized(guis) {
 			for (CwagonerGui gui : guis) {
@@ -73,21 +73,30 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		}
 	}
 
-    public void paintComponent(Graphics g) {
+    public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
 
         // Clear the screen by painting a rectangle the size of the panel
         g2.setColor(getBackground());
         g2.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
 
-        // Here are the tables
+        // Tables
         g2.setColor(Color.ORANGE);
         
         for (Location iL : tableLocations) {
         	g2.fillRect(iL.mX, iL.mY, tableSize, tableSize);
-        	
         }
-        synchronized(guis) {
+
+        // Cook areas
+
+    	// Stove
+		g.drawImage(CwagonerCookGui.stoveImg, CwagonerCookGui.cookingPos.mX, CwagonerCookGui.cookingPos.mY, null);
+		// Plating area
+		g.drawImage(CwagonerCookGui.tableImg, CwagonerCookGui.platingPos.mX, CwagonerCookGui.platingPos.mY, null);
+    	// Fridge
+		g.drawImage(CwagonerCookGui.fridgeImg, CwagonerCookGui.fridgePos.mX, CwagonerCookGui.fridgePos.mY, null);
+
+		synchronized(guis) {
 	        for (CwagonerGui gui : guis) {
 	            gui.draw(g2);
 	        }
