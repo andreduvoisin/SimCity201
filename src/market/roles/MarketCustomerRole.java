@@ -16,6 +16,8 @@ import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
 import base.ContactList;
+import base.Event;
+import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
@@ -31,7 +33,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 
 	public Map<EnumItemType, Integer> mItemInventory;// = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
-	public Map<EnumItemType, Integer> mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
+	public Map<EnumItemType, Integer> mItemsDesired;// = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
 	
 	Map<EnumItemType, Integer> mCannotFulfill;// = new HashMap<EnumItemType, Integer>();
 
@@ -49,9 +51,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 			
 		//ANGELICA: where is mItemsDesired populated? hack for now
 		mItemInventory = person.getItemInventory();
-		//mItemsDesired = person.getItemsDesired();
-		mItemsDesired.put(EnumItemType.CHICKEN,2);
-		mItemsDesired.put(EnumItemType.STEAK,1);
+		mItemsDesired = person.getItemsDesired();
+		//mItemsDesired.put(EnumItemType.CHICKEN,2);
+		//mItemsDesired.put(EnumItemType.STEAK,1);
 	}
 	
 	//MESSAGES
@@ -139,7 +141,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
-		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment); //ANGELICA: 
+	//	ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment); //ANGELICA: 
 		
 		synchronized(mItemsDesired) {
 			for(EnumItemType item : mCannotFulfill.keySet()) {
@@ -191,6 +193,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		mPerson.msgAddEvent(new Event(EnumEventType.EAT, 0));
+		//mPerson.setJobFalse();
+		mPerson.msgRoleFinished();
 	}
 	
 /* Utilities */

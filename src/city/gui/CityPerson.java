@@ -50,6 +50,7 @@ public class CityPerson extends CityComponent {
 
 	@Override
 	public void updatePosition() {
+<<<<<<< HEAD
 		int previousX = x;
 		int previousY = y;
 		
@@ -106,6 +107,63 @@ public class CityPerson extends CityComponent {
         		}
         	}
         }
+=======
+		if(visible) {
+			int previousX = x;
+			int previousY = y;
+			
+			if (x < xDestination)		x++;
+	        else if (x > xDestination)	x--;
+	
+	        if (y < yDestination)		y++;
+	        else if (y > yDestination)	y--;
+	        
+	        //if at destination
+	        if (x == xDestination && y == yDestination) {
+	        	if(mNextDestination != null){
+	        		DoGoToNextDestination();
+	        	}else{
+	        		this.disable(); 
+	        		mPerson.msgAnimationDone();
+	        	}
+	    	}
+	        
+	        //Check intersections (if going into busy intersection - stay)
+	        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
+	        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+	        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+	        	if (xNewInBlock && yNewInBlock){
+	        		x = previousX;
+	        		y = previousY;
+	        		return;
+	        	}
+	        }
+	
+	
+	        //B* Algorithm
+	        List<Block> blocks = null;
+	        switch(mDestinationPath){
+		        case 0: 
+		        case 1: 
+		        case 2:
+	//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
+		        case 3:
+		        	blocks = ContactList.cPERSONBLOCKS; break;
+	        }
+	        
+	        for (Block iBlock : blocks){
+	        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+	        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+	        	if (xNewInBlock && yNewInBlock){
+	        		if (xNewInBlock){
+	        			x = previousX;
+	        		}else{
+	        			y = previousY;
+	        		}
+	        	}
+	        }
+		}
+>>>>>>> 14642dc30de34cf1cc042c51295a668cb713e533
 	}
 	
 	
@@ -197,6 +255,60 @@ public class CityPerson extends CityComponent {
 	}
 	
 	
+<<<<<<< HEAD
+=======
+	//MAGGI: reorganize once done with transportation 
+	//Drives to parking lot closest to destination 
+	public void DoDriveToDestination(Location location){
+		this.enable(); 
+		mNextDestination = location;
+		Location parkingLot = findNearestParkingLot(location); 
+		xDestination = parkingLot.mX;
+		yDestination = parkingLot.mY; 
+	}
+	
+	public void DoGoToDestination(Location location){
+		this.enable(); 
+		mNextDestination = location; 
+		Location myLocation = new Location(x, y);
+		
+		//Walk to nearest corner 
+		Location cornerLocation = findNearestCorner(myLocation);
+		xDestination = cornerLocation.mX;
+		yDestination = cornerLocation.mY; 
+
+	}
+
+	//Already at corner closest to destination
+	public void DoGoToNextDestination(){
+		if(mPerson.hasCar()){
+			
+		}
+		
+		Location cornerLocation = findNearestCorner(mNextDestination); 
+		// If already at corner location nearest mNextDestination, don't need to take
+		// the bus (since it would take you to a corner farther from mNextDestination;
+		// walk to mNextDestination.
+		if (x == cornerLocation.mX && y == cornerLocation.mY) {
+			//Walk to destination from corner location/bus stop
+			xDestination = mNextDestination.mX;
+			yDestination = mNextDestination.mY;
+			mNextDestination = null; 
+		}
+		
+		// Otherwise, can get to a closer corner by taking the bus
+		else {
+			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
+		}	
+	}
+	
+//	public void DoWalkToDestination(){
+//		xDestination = mNextDestination.mX;
+//		yDestination = mNextDestination.mY;
+//		mNextDestination = null; 
+//	}
+	
+>>>>>>> 14642dc30de34cf1cc042c51295a668cb713e533
 	public void DoTakeBus(int currentStop, int destinationStop){
 		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
 		cRole.msgAtBusStop(currentStop, destinationStop); 

@@ -7,6 +7,8 @@ import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.SimCityGui;
+import bank.BankAccount;
+import bank.roles.BankMasterTellerRole;
 
 /*
  * Reads in a config file filled with new people to instantiate
@@ -54,29 +56,29 @@ public class ConfigParser {
 			//Instantiate Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
+			//Account Creation
+			((BankMasterTellerRole) ContactList.masterTeller).mAccounts.add(new BankAccount(0, cash, person));
+			((BankMasterTellerRole) ContactList.masterTeller).mAccountIndex.put(person.getSSN(), ((BankMasterTellerRole) ContactList.masterTeller).mAccounts.size()-1);
+			
 			//Events			
 			if(jobType != EnumJobType.NONE)
 				person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
-//			person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-//			person.msgAddEvent(new Event(EnumEventType.EAT, 0));		//ANGELICA:
-//			person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 1));
-
-			
-			if(name.contains("party"))
-				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
-			
-			if(name.contains("car"))
-				person.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
-
-			if(name.contains("house"))
-				person.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
-			
-			if(name.contains("robber"))
-				person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 1));
-			
-			if(name.contains("inspection"))
-				person.msgAddEvent(new Event(EnumEventType.INSPECTION, -1));
-			//person.msgAddEvent(new Event(EnumEventType.INSPECTION, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
+			else {
+				if(name.contains("bankcust"))
+					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
+				else if(name.contains("restcust"))
+					person.msgAddEvent(new Event(EnumEventType.EAT, 0));
+				else if(name.contains("party"))
+					person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
+				else if(name.contains("car"))
+					person.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
+				else if(name.contains("house"))
+					person.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
+				else if(name.contains("robber"))
+					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 1));
+				else if(name.contains("inspection"))
+					person.msgAddEvent(new Event(EnumEventType.INSPECTION, -1));
+			}
 
 			//DAVID SHANE: add more events
 			

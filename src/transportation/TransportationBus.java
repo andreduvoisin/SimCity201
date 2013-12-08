@@ -1,6 +1,7 @@
 package transportation;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import transportation.interfaces.TransportationRider;
@@ -56,7 +57,7 @@ public class TransportationBus extends Agent {
 		state = enumState.ReadyToUnload;
 		stateChanged();
 
-		print("msgGuiArrivedAtStop(" + mCurrentStop + ")");
+		//print("msgGuiArrivedAtStop(" + mCurrentStop + ")");
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance of which to check rider list
 	 */
 	private void TellRidersToGetOff() {
-		print("TellRidersToGetOff()");
+		//print("TellRidersToGetOff()");
 
 		for (TransportationRider iRider : mRiders) {
 			iRider.msgAtStop(mCurrentStop);
@@ -143,7 +144,7 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance of which to check current stop's waiting list
 	 */
 	private void TellRidersToBoard() {
-		print("TellRidersToBoard()");
+		//print("TellRidersToBoard()");
 
 		for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
 			r.msgBoardBus();
@@ -158,7 +159,7 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance to advance
 	 */
 	private void AdvanceToNextStop() {
-		print("AdvanceToNextStop()");
+		//print("AdvanceToNextStop()");
 
 		state = enumState.traveling;
 		mGui.DoAdvanceToNextStop();

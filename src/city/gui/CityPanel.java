@@ -52,16 +52,16 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//Add Intersections
 		
-		//North-Center
-		this.addStatic(new CityIntersection(ContactList.cINTERSECTIONBLOCK0));
-		//Center
-		this.addStatic(new CityIntersection(ContactList.cINTERSECTIONBLOCK1));
-		//East-Center
-		this.addStatic(new CityIntersection(ContactList.cINTERSECTIONBLOCK2));
-		//West-Center
-		this.addStatic(new CityIntersection(ContactList.cINTERSECTIONBLOCK3));
-		//South-Central #InDaHood
-		this.addStatic(new CityIntersection(ContactList.cINTERSECTIONBLOCK4));
+//		//North-Center
+//		this.addStatic(new CityIntersection(280, 35, 40, 50));
+//		//Center
+//		this.addStatic(new CityIntersection(280, 280, 40, 40));
+//		//East-Center
+//		this.addStatic(new CityIntersection(35, 280, 50, 40));
+//		//West-Center
+//		this.addStatic(new CityIntersection(515, 280, 50, 40));
+//		//South-Central #InDaHood
+//		this.addStatic(new CityIntersection(280, 515, 40, 50));
 		
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "r_duvoisin"));

@@ -3,6 +3,7 @@ package transportation.roles;
 
 import transportation.TransportationBus;
 import transportation.interfaces.TransportationRider;
+
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -217,7 +218,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 
 	@Override
 	public Location getLocation() {
-		// ANGELICA Auto-generated method stub
-		return null;
+		return mCurrentLocation; 
 	}
 }
