@@ -86,7 +86,6 @@ public class CityPerson extends CityComponent {
 
         //B* Algorithm
         List<Block> blocks = null;
-        System.out.println("path type: "+mDestinationPathType);
         blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
 //        switch(mDestinationPathType){
 //	        case 0: 
