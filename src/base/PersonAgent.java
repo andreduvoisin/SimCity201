@@ -493,9 +493,9 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.setLocation(getJobLocation());
 		mCommutingTo = EnumCommuteTo.JOB;
 		
-//		mPersonGui.DoGoToDestination(getJobLocation()); 
-//		acquireSemaphore(semAnimationDone);
-//		mPersonGui.setPresent(false);
+		mPersonGui.DoGoToDestination(getJobLocation()); 
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
 		
 //		print("my job is " +jobRole.toString());
 	}

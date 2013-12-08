@@ -1,7 +1,6 @@
 package city.gui;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
@@ -32,37 +31,21 @@ public class CityIntersection extends CityComponent {
 	@Override
 	public void setPresent(boolean state) {
 		// TODO Auto-generated method stub
-
 	}
 
-	public void paint(Graphics g) {
+	@Override
+	public void updatePosition() {
+		
+	}
+
+	public void setOccupied(boolean b) {
+		mOccupied = b;
 		if (mOccupied) {
 			super.color = Color.red;
 		}
 		else {
 			super.color = Color.green;
 		}
-		super.paint(g);
-	}
-
-	@Override
-	public void updatePosition() {
-		synchronized (SimCityPanel.getInstance().movings) {
-			//System.out.println(SimCityPanel.getInstance().movings.size());
-			for (CityComponent c : SimCityPanel.getInstance().movings) {
-				if (this.collidesWith(c)) {
-					mOccupied = true;
-					this.mColor = Color.red;
-				} else {
-					mOccupied = false;
-					this.mColor = Color.green;
-				}
-			}
-		}
-	}
-
-	public void setOccupied(boolean b) {
-		mOccupied = b;
 	}
 
 }

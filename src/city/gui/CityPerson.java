@@ -174,6 +174,8 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void paint(Graphics g) {
+		rectangle.x = x;
+		rectangle.y = y;
 		if(visible) {
 			if (! onBus) {
 				if(SimCityGui.GRADINGVIEW) {
