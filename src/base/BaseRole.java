@@ -21,10 +21,7 @@ public abstract class BaseRole implements Role {
 
 	// NEEDED METHODS
 	public void stateChanged() {
-		if(mPerson != null)
-			((PersonAgent) mPerson).stateChanged();
-		else
-			System.out.println("ERROR: PERSON IS NULL. BASEROLE STATECHANGED NOT CALLED.");
+		((PersonAgent) mPerson).stateChanged();
 	}
 
 	public boolean pickAndExecuteAnAction() {
@@ -33,12 +30,7 @@ public abstract class BaseRole implements Role {
 	
 	//TRANSPORTATION
 	public void GoToDestination(Location location){
-		if(mPerson.hasCar()){
-			mPerson.getGui().DoDriveToDestination(location); 
-		}
-		else{
-			mPerson.getGui().DoGoToDestination(location);
-		}
+		mPerson.getGui().DoGoToDestination(location);
 	
 	}
 	
@@ -78,30 +70,21 @@ public abstract class BaseRole implements Role {
 	 * The simulated action code
 	 */
 	public void Do(String msg, AlertTag tag) {
-		if(mPerson != null)
-			mPerson.print(msg, tag);
-		else
-			System.out.println("ERROR: PERSON IS NULL. BASEROLE DO NOT CALLED.");
+		mPerson.print(msg, tag);
 	}
 
 	/**
 	 * Print message
 	 */
 	public void print(String msg, AlertTag tag) {
-		if(mPerson != null)
-			mPerson.print(msg, tag);
-		else
-			System.out.println("ERROR: PERSON IS NULL. BASEROLE PRINT NOT CALLED.");
+		mPerson.print(msg, tag);
 	}
 
 	/**
 	 * Print message with exception stack trace
 	 */
 	public void print(String msg, AlertTag tag, Throwable e) {
-		if(mPerson != null)
-			mPerson.print(msg, tag, e);
-		else
-			System.out.println("ERROR: PERSON IS NULL. BASEROLE PRINT NOT CALLED.");
+		mPerson.print(msg, tag, e);
 	}
 	
 	public boolean isRestaurantPerson(){ //DAVID: Put this in base rest class

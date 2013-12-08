@@ -73,11 +73,11 @@ public class Bank {
 	}
 	
 	public void updateCustomerLine() {
-		//LINE_POSITION--;
+		BankCustomerGui.LINE_POSITION--;
 		for(Gui gui : mGuis) {
             if (gui.isPresent()) {
             	if(gui instanceof BankCustomerGui)
-                ((BankCustomerGui)gui).moveForwardInLine();
+            		((BankCustomerGui)gui).moveForwardInLine();
             }
         }
 	}

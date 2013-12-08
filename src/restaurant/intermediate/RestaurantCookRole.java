@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -41,17 +42,27 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 100;
+        public int DEFAULT_FOOD_QTY = 50;
         
         public RestaurantCookRole(Person person, int restaurantID){
                 super(person); 
                 this.mRestaurantID = restaurantID;
                 
-                //populate inventory
+                //populate maps
         		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         		mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         		mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         		mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+        		
+        		mHasCreatedOrder.put(EnumItemType.STEAK,false);
+        		mHasCreatedOrder.put(EnumItemType.CHICKEN,false);
+        		mHasCreatedOrder.put(EnumItemType.SALAD,false);
+        		mHasCreatedOrder.put(EnumItemType.PIZZA,false);
+        		
+        		mItemsDesired.put(EnumItemType.STEAK,0);
+        		mItemsDesired.put(EnumItemType.CHICKEN,1);
+        		mItemsDesired.put(EnumItemType.SALAD,2);
+        		mItemsDesired.put(EnumItemType.PIZZA, 0);
         }
         
         public void setPerson(Person person){
@@ -105,12 +116,12 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
        }
         
         public boolean pickAndExecuteAnAction() {
+    		if(marketPickAndExecuteAnAction())		//ANGELICA: change priority back
+    			return true;
         		if(subRole != null) {
         			if(subRole.pickAndExecuteAnAction())
         				return true;
         		}
-        		if(marketPickAndExecuteAnAction())
-        			return true;
         		return false;
         }
 
@@ -182,12 +193,13 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 
 /* Actions */
         private void createOrder() {
+        		print("Creating an order.",AlertTag.R6);	//ANGELICA: hack
         		Map<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
                 
                 for(EnumItemType item : mItemsDesired.keySet()) {
                 		items.put(item, mItemsDesired.get(item));
                         mItemsDesired.put(item,0);
-                        mHasCreatedOrder.put(item,false);
+                        mHasCreatedOrder.put(item,true);
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
@@ -196,6 +208,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void placeOrder(MarketOrder o) {
+        		print("Placing an order "+o,AlertTag.R6);	//ANGELICA: hack
         		int m;
         		if(mMarketCashier == null) {
         			m = (int) (Math.random() % 2);
@@ -236,12 +249,14 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void processOrder(MarketInvoice i) {   
+        		print("Processing order "+ i.mOrder,AlertTag.R6);	//ANGELICA: hack
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
                 }
         }
         
         private void completeOrder(MarketOrder o) {
+        		print("Complete order.",AlertTag.R6);	//ANGELICA: hacks
                 for(EnumItemType item : o.mItems.keySet()) {
                         mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
                 }
