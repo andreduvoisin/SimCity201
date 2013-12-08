@@ -42,6 +42,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	public MarketWorkerGui(MarketWorkerRole agent, int i) {
 		mAgent = agent;
 		mNum = i;
+		mItems = mAgent.mMarket.mItemsGui;
         xHome = xBase + 30*(i % 5);
         yHome = yBase - 30*(int)(i/5);
 

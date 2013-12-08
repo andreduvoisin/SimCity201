@@ -40,7 +40,6 @@ public class ContactList {
 	
 	//Setup
 	public static void setup(){
-		
 		//Banks
 		for (int iBankNum = 0; iBankNum < cNumBanks; iBankNum++){
 			sBankList.add(new Bank(iBankNum));

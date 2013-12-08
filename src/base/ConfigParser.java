@@ -22,8 +22,6 @@ public class ConfigParser {
 		//Instantiate the base roles before creating the people
 //		boolean mInstantiateRoles = true;
 		
-		SortingHat.InstantiateBaseRoles();
-		
 		while (scanFile.hasNext()) {
 			//Order of Inputs: Job Type (BANK, MARKET, RESTAURANT, NONE), Cash, Name
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
