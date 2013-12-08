@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
+import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
@@ -114,13 +116,18 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Messages */
 	public void msgPlacedMarketOrder(MarketOrder o, MarketCashier c) {
-		mMarketBills.add(new MarketBill(o, c));
+		print("got msg placed order " + o,AlertTag.R6);	//ANGELICA:
+		synchronized(mMarketBills) {
+			mMarketBills.add(new MarketBill(o, c));
+		}
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumItemType, Integer> cannotFulfill, MarketInvoice invoice) {
 		synchronized(mMarketBills) {
 		for(MarketBill b : mMarketBills) {
 			if(b.mOrder == invoice.mOrder) {
+				print("Got invoice!",AlertTag.R6);	//ANGELICA:
+				b.mStatus = EnumBillStatus.PAYING;
 				b.mInvoice = invoice;
 				b.mCannotFulfill = cannotFulfill;
 				stateChanged();
@@ -134,6 +141,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		synchronized(mMarketBills) {
 		for(MarketBill b : mMarketBills) {
 			if(b.mStatus == EnumBillStatus.PAYING) {
+				b.mOrder.mStatus = EnumOrderStatus.PAID;
 				verifyAndPayMarketInvoice(b);
 				return true;
 			}
@@ -144,6 +152,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Actions */
 	public void verifyAndPayMarketInvoice(MarketBill b) {
+		print("verifying and paying bill "+ b,AlertTag.R6);	//ANGELICA hack
 		MarketOrder o = b.mOrder;
 		MarketInvoice i = b.mInvoice;
 		Map<EnumItemType, Integer> cf = b.mCannotFulfill;
@@ -157,7 +166,6 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				return;
 			}
 		}
-		
 		i.mPayment = i.mTotal;
 		ContactList.SendPayment(getSSN(), i.mMarketBankNumber, i.mTotal);
 		b.mMarketCashier.msgPayingForOrder(i);
@@ -177,6 +185,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		
 		MarketBill(MarketOrder o, MarketCashier c) {
 			mOrder = o;
+			print("bill " + o,AlertTag.R6);	//ANGELICA:
 			mMarketCashier = c;
 			mInvoice = null;
 			mStatus = EnumBillStatus.PLACED;

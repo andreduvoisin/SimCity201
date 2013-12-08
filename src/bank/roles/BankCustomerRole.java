@@ -2,8 +2,11 @@ package bank.roles;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_duvoisin.roles.AndreCookRole.OrderState;
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
 import bank.interfaces.BankCustomer;
@@ -40,11 +43,13 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	int mTellerLocation = 0;
 	Semaphore atLocation = new Semaphore(0, true);
 	
+	Timer stay = new Timer();
+	Boolean canLeave;
 	
 	public BankCustomerRole(Person person, int bankID){
 		super(person);
 		mBankID = bankID;
-		
+		canLeave = true;
 		//Add Gui to list
 //		mGUI = new BankCustomerGui(this);
 //		mGUI.setPresent(true);
@@ -100,6 +105,11 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 			return true;
 		}
 		if (mState == EnumState.Teller && mEvent == EnumEvent.Arrived){
+			if (mActions.isEmpty()){
+				if(canLeave)
+					leave();
+				return false;
+			}
 			pickAction();
 			mEvent = EnumEvent.None;
 			return true;
@@ -128,27 +138,22 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		}
 	}
 	private void pickAction(){
-		if (mActions.isEmpty()){
-			leave();
+		EnumAction action = mActions.get(0).action;
+		double amount = mActions.get(0).amount;
+		if (action == EnumAction.Deposit){
+			mTeller.msgDeposit(this, mPerson.getSSN(), amount);
 		}
-		else{
-			EnumAction action = mActions.get(0).action;
-			double amount = mActions.get(0).amount;
-			if (action == EnumAction.Deposit){
-				mTeller.msgDeposit(this, mPerson.getSSN(), amount);
-			}
-			else if (action == EnumAction.Loan){
-				mTeller.msgLoan(this, mPerson.getSSN(), amount); 
-			}
-			else if (action == EnumAction.Payment){
-				mTeller.msgPayment(this, mPerson.getSSN(), amount);
-			}
-			else if (action == EnumAction.Open){
-				mTeller.msgOpen(this, mPerson.getSSN(), amount, (PersonAgent)mPerson);
-			}
-			else if (action == EnumAction.Robbery){
-				mTeller.msgRobbery(this, mPerson.getSSN(), amount);
-			}
+		else if (action == EnumAction.Loan){
+			mTeller.msgLoan(this, mPerson.getSSN(), amount); 
+		}
+		else if (action == EnumAction.Payment){
+			mTeller.msgPayment(this, mPerson.getSSN(), amount);
+		}
+		else if (action == EnumAction.Open){
+			mTeller.msgOpen(this, mPerson.getSSN(), amount, (PersonAgent)mPerson);
+		}
+		else if (action == EnumAction.Robbery){
+			mTeller.msgRobbery(this, mPerson.getSSN(), amount);
 		}
 	}
 	private void leave(){
@@ -156,6 +161,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mGUI.DoLeaveBank();
 		mTeller.msgLeaving();
 		mTransactionAmount = -1;
+		canLeave = false;
 	}
 	private void processTransaction(){
 		EnumAction action = mActions.get(0).action;

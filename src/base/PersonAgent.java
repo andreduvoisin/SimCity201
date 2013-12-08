@@ -419,6 +419,7 @@ public class PersonAgent extends Agent implements Person {
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
 		}
+		print("" + location.mX + " " + location.mY);
 		//if(!SimCityGui.TESTING){
 		mPersonGui.setPresent(true);
 		mPersonGui.DoGoToDestination(location);
@@ -725,7 +726,7 @@ public class PersonAgent extends Agent implements Person {
 
 	private void exitBus() {
 		mRoleFinished = true;
-		mPersonGui.NewDestination(new Location(mPersonGui.mNextDestination.mX, mPersonGui.mNextDestination.mY));
+		mPersonGui.NewDestination(new Location(mPersonGui.mFinalDestination.mX, mPersonGui.mFinalDestination.mY));
 	}
 
 	private void acquireSemaphore(Semaphore semaphore){

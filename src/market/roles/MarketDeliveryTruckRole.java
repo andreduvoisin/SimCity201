@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import market.MarketOrder;
+import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
 import restaurant.intermediate.RestaurantCookRole;
@@ -57,13 +58,17 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
+		synchronized(mDeliveries) {
 		if(mDeliveries.size() != 0) {
 			deliverOrders();
 			return true;
 		}
+		}
+		synchronized(mPendingDeliveries) {
 		if(mPendingDeliveries.size() != 0) {
 			pickUpOrdersFromMarket();
 			return true;
+		}
 		}
 		return false;
 	}
@@ -72,14 +77,18 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	public void deliverOrders() {
 		//check all the restaurants
 		for(int i=0;i<8;i++) {
+			synchronized(mDeliveries) {
 			for(MarketOrder o : mDeliveries) {
 				Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
-				if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) { //ANGELICA: check if restaurant is open
+				if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) {
 	//ANGELICA:				DoGoToRestaurant(i);
 					print("Delivering order.");
+					o.mStatus = EnumOrderStatus.FULFILLING;
 					((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
 					mDeliveries.remove(o);
+					break;
 				}
+			}
 			}
 		}
 	}
