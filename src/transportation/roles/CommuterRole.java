@@ -72,29 +72,29 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	}
 	
 	private void DriveToDestination(){
-		mPerson.getGui().DoDriveToDestination(); 
+		mPerson.getGui().DoDriveToDestination(mDestination); 
 	}
 	
 	private void TryDrivingToDestination(){
 		if(mCurrentLocation == mHousingLocation){
-			mPerson.getGui().DoDriveToDestination(); 
+			mPerson.getGui().DoDriveToDestination(mDestination); 
 		}
-		else{
-			if(mDestination == mHousingLocation){
-				mPerson.getGui().DoDriveToDestination(); 
-				mPerson.getGui().testDoGoToDestination(mDestination);
-				mCurrentLocation = mDestination; 
-			}
-			else{
-				
-			}
-		}
+//		else{
+//			if(mDestination == mHousingLocation){
+//				mPerson.getGui().DoDriveToDestination(); 
+//				mPerson.getGui().testDoGoToDestination(mDestination);
+//				mCurrentLocation = mDestination; 
+//			}
+//			else{
+//				
+//			}
+//		}
 	
 	}
 	
 	private void GoToDestination(){
 		if(mDestination != null)
-			mPerson.getGui().testDoGoToDestination(mDestination);
+			mPerson.getGui().DoGoToDestination(mDestination);
 			mCurrentLocation = mDestination; 
 	}
 	

@@ -24,6 +24,7 @@ public class CityPerson extends CityComponent {
 	
 	//Car Data
 	List<Block> blocks = new ArrayList<Block>(); 
+	List<Location> parkingLots = new ArrayList<Location>(); 
 	
 	public int xDestination = 120, yDestination = 35;
 	public Location mNextDestination = null;
@@ -42,19 +43,27 @@ public class CityPerson extends CityComponent {
 		mPerson = person;
 		this.gui = gui;
 		
-		corners.add(new Location(500, 95)); 
-		corners.add(new Location(95, 95));
-		corners.add(new Location(95, 500)); 
-		corners.add(new Location(500, 500));
+		/*Parking lot locations
+		 * D A
+		 * C B
+		 */
+		parkingLots.add(new Location(500, 90)); 
+		parkingLots.add(new Location(500, 500));
+		parkingLots.add(new Location(90, 500)); 
+		parkingLots.add(new Location(90, 90));
 		
-		/*Gui Grid Blocks
-		 * Used to to maintain car gui movement 
-		 * 
-		 * B A
-		 * C D
-		 * 
-		 * NOTE: No blocks are needed for traveling paths AD, DC, CB, BA
-		 * 
+		/*Pedestrian and bus corner locations
+		 * 4 1
+		 * 3 2
+		 */
+		corners.add(new Location(500, 95)); 
+		corners.add(new Location(500, 500));
+		corners.add(new Location(95, 500)); 
+		corners.add(new Location(95, 95));
+		
+		/*Gui Grid Blocks 
+		 * Used to to maintain car gui movement
+		 * NOTE: No blocks are needed for traveling paths AD, DC, CB, BA 
 		 */
 		//Paths: AB, BC, CD, DA
 		blocks.add(new Block (100, 80, 500, 520)); 
@@ -148,36 +157,42 @@ public class CityPerson extends CityComponent {
 		}
 	}
 	
-	public void DoDriveToDestination(Location location){
-		//atDestination = false;
-		this.enable();
-		mNextDestination = location;
-		
-		if (mNextDestination == null){
+	public void DoDriveToDestination2(Location location){
+		mNextDestination = location; 
+		//PATHS: AB, BC, CD, DA
+		if(y == mNextDestination.mY ){
 			
-		//set final location and go to corner of block first
-		mNextDestination = location;
-		if (location.mX < 180){
-			xDestination = 95;
-		}else{
-			xDestination = 500;
-		}
-		if (location.mY < 180){
-			yDestination = 95;
-		}else{
-			yDestination = 500;
 		}
 		
-		//SHANE: Change up to add queue of destinations
-		
-		xDestination = mNextDestination.mX;
-		yDestination = mNextDestination.mY;
-		mNextDestination = null;
-		}
+//		//atDestination = false;
+//		this.enable();
+//		mNextDestination = location;
+//		
+//		if (mNextDestination == null){
+//			
+//		//set final location and go to corner of block first
+//		mNextDestination = location;
+//		if (location.mX < 180){
+//			xDestination = 95;
+//		}else{
+//			xDestination = 500;
+//		}
+//		if (location.mY < 180){
+//			yDestination = 95;
+//		}else{
+//			yDestination = 500;
+//		}
+//		
+//		//SHANE: Change up to add queue of destinations
+//		
+//		xDestination = mNextDestination.mX;
+//		yDestination = mNextDestination.mY;
+//		mNextDestination = null;
+//		}
 		
 	}
 	
-	public void DoGoToDestination(Location destination){
+	public void DoGoToDestinationOld(Location destination){
 		this.enable(); 
 		mNextDestination = destination;//correct?
 
@@ -219,13 +234,16 @@ public class CityPerson extends CityComponent {
 		}
 	}
 	//MAGGI: reorganize once done with transportation 
-	public void DoDriveToDestination(){
-		mNextDestination  = ContactList.cPARKING_LOCATION; 
-		//gui work to make driving happen
-		
+	//Drives to parking lot closest to destination 
+	public void DoDriveToDestination(Location location){
+		this.enable(); 
+		mNextDestination = location;
+		Location parkingLot = findNearestParkingLot(location); 
+		xDestination = parkingLot.mX;
+		yDestination = parkingLot.mY; 
 	}
 	
-	public void testDoGoToDestination(Location location){
+	public void DoGoToDestination(Location location){
 		this.enable(); 
 		mNextDestination = location; 
 		Location myLocation = new Location(x, y);
@@ -239,6 +257,10 @@ public class CityPerson extends CityComponent {
 
 	//Already at corner closest to destination
 	public void DoGoToNextDestination(){
+		if(mPerson.hasCar()){
+			
+		}
+		
 		Location cornerLocation = findNearestCorner(mNextDestination); 
 		// If already at corner location nearest mNextDestination, don't need to take
 		// the bus (since it would take you to a corner farther from mNextDestination;
@@ -285,34 +307,61 @@ public class CityPerson extends CityComponent {
 	/**
 	 * Finds closest corner location to desired destination
 	 * <pre>
-	 * 1  0 //CHASE: do these correlate with busStop numbers?
-	 * 2  3
+	 * 3  0 //CHASE: do these correlate with busStop numbers?
+	 * 2  1
 	 * </pre>
 	 * @param destination Target position in form of a Location object
 	 * @return (Location object) corners.get(determined nearest corner)
 	 */
 	public Location findNearestCorner(Location destination){
-		// Top
-			// Right
-			if (destination.mX >= 300 && destination.mY <= 300) {
-				return corners.get(0); 
-			}
-			// Left
-			else if (destination.mX < 300 && destination.mY <= 300) {
-				return corners.get(1); 
-			}
-		// Bottom
-			// Left
-			else if (destination.mX < 300 && destination.mY > 300) {
-				return corners.get(2); 
-			}
-			// Right
-			else if (destination.mX >= 300 && destination.mY > 300) {
-				return corners.get(3); 
-			}
-			else {
-				return null;
-			}
+		//TOP RIGHT
+		if (destination.mX > 300 && destination.mY < 300) {
+			return corners.get(0); 
+		}
+		//BOTTOM RIGHT
+		else if (destination.mX >= 300 && destination.mY > 300) {
+			return corners.get(1); 
+		}
+		//BOTTOM LEFT
+		else if (destination.mX < 300 && destination.mY > 300) {
+			return corners.get(2); 
+		}
+		//TOP LEFT
+		else if (destination.mX < 300 && destination.mY < 300) {
+			return corners.get(3); 
+		}
+		else {
+			return null;
+		}
+	}
+	
+	/*
+	 * Finds closest parking lot to destination
+	 * 
+	 * 3 0 
+	 * 2 1 
+	 * 
+	 */
+	public Location findNearestParkingLot(Location location){
+		//TOP RIGHT
+		if (location.mX > 300 && location.mY < 300) {
+			return parkingLots.get(0); 
+		}
+		//BOTTOM RIGHT
+		else if (location.mX > 300 && location.mY > 300) {
+			return parkingLots.get(1); 
+		}
+		//BOTTOM LEFT
+		else if (location.mX < 300 && location.mY > 300) {
+			return parkingLots.get(2); 
+		}
+		//TOP LEFT
+		else if (location.mX < 300 && location.mY < 300) {
+			return parkingLots.get(3); 
+		}
+		else {
+			return null;
+		}
 	}
 	
 
