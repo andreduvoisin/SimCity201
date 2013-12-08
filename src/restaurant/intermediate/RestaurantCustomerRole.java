@@ -62,12 +62,12 @@ public class RestaurantCustomerRole extends BaseRole implements
 			break;
 		case 4: // david
 			subRole = new DavidCustomerRole(super.mPerson);
-			if (DavidRestaurant.customerCount % 2 == 0) {
-				DavidRestaurant.addCustomer((DavidCustomerRole) subRole);
-			} else {
-				subRole = DavidRestaurant.lastCustomer;
-				DavidRestaurant.customerCount++;
-			}
+//			if (DavidRestaurant.customerCount % 2 == 0) {
+			DavidRestaurant.addCustomer((DavidCustomerRole) subRole);
+//			} else {
+//				subRole = DavidRestaurant.lastCustomer;
+//				DavidRestaurant.customerCount++;
+//			}
 			break;
 		case 5: // shane
 			subRole = new SmilehamCustomerRole(super.mPerson);
