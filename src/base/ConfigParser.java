@@ -7,6 +7,8 @@ import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.SimCityGui;
+import bank.BankAccount;
+import bank.roles.BankMasterTellerRole;
 
 /*
  * Reads in a config file filled with new people to instantiate
@@ -53,6 +55,10 @@ public class ConfigParser {
 			
 			//Instantiate Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
+			
+			//Account Creation
+			((BankMasterTellerRole) ContactList.masterTeller).mAccounts.add(new BankAccount(0, cash, person));
+			((BankMasterTellerRole) ContactList.masterTeller).mAccountIndex.put(person.getSSN(), ((BankMasterTellerRole) ContactList.masterTeller).mAccounts.size()-1);
 			
 			//Events			
 			if(jobType != EnumJobType.NONE)
