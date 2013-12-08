@@ -81,6 +81,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 
 	public void msgPayingForOrder(MarketInvoice invoice){
+		print("got payment "+ invoice,AlertTag.R6);	//ANGELICA:
 		if (invoice.mTotal == invoice.mPayment)
 			invoice.mOrder.mEvent = EnumOrderEvent.ORDER_PAID;
 		stateChanged();
