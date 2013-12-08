@@ -199,5 +199,15 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	public int getRenterListSize(){
 		return mRenterList.size(); 
 	}
+	
+	public int getNumAvailableHouses() {
+		int numAvailableHouses = 0;
+		for(House h: mHousesList){
+			if(h.mOccupant == null){
+				numAvailableHouses++;
+			}
+		}
+		return numAvailableHouses;
+	}
 
 }
