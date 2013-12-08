@@ -535,7 +535,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(true);
 		
 		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
-		acquireSemaphore(semAnimationDone);
+		//acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		
 		int deposit = 50; //REX: add mDeposit, and do after leaving job
@@ -580,7 +580,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goParty(EventParty event) {
 		print("Going to party");
 		mPersonGui.DoGoToDestination(event.mLocation);
-		acquireSemaphore(semAnimationDone);
+		//acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
 		SimCityGui.getInstance().cityview.mCityHousingList.get(event.mHost
