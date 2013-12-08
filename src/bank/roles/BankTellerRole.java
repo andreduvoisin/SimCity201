@@ -180,6 +180,8 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public void setMaster(BankMasterTeller masterTeller) {
 		mMasterTeller = masterTeller;
+		mAccounts = mMasterTeller.getAccounts();
+		mAccountIndex = mMasterTeller.getAccountIndex();
 	}
 	public void setAccountIndex(){
 		mAccountIndex = mMasterTeller.getAccountIndex();
