@@ -99,7 +99,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		/*
 		 * if cashier has just started, go to position
 		 */
-		print("schedule!");
 		if (mOrders.size() > 0){
 			for (MarketOrder iOrder : mOrders){
 				//notify customer if an order has been placed

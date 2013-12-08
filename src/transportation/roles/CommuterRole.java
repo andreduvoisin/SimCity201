@@ -3,7 +3,6 @@ package transportation.roles;
 
 import transportation.TransportationBus;
 import transportation.interfaces.TransportationRider;
-import transportation.roles.TransportationBusRiderRole.enumState;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -214,5 +213,11 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 
 	public String getName() {
 		return mPerson.getName();
+	}
+
+	@Override
+	public Location getLocation() {
+		// ANGELICA Auto-generated method stub
+		return null;
 	}
 }
