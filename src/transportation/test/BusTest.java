@@ -45,11 +45,19 @@ public class BusTest extends TestCase {
 					bus.mBusStops.get(i).mWaitingPeople.size() == 0);
 		}
 
-		// Add person to some waiting list
-		bus.msgNeedARide(rider, 0);
+		// Add a rider
+		int testStopNum = 0;
+		bus.msgNeedARide(rider, testStopNum);
 
 		assertTrue("Bus's log should contain \"Received msgNeedARide\"; instead, last logged event is "
-				+ bus.log.getLastLoggedEvent(),
-			bus.log.containsString("Received msgNeedARide"));
+		         + bus.log.getLastLoggedEvent(),
+		         bus.log.containsString("Received msgNeedARide"));
+
+		assertTrue("Bus's mBusStops[" + testStopNum + "].mWaitingPeople should have size 1; instead, has size "
+				+ bus.mBusStops.get(testStopNum).mWaitingPeople.size(),
+				bus.mBusStops.get(testStopNum).mWaitingPeople.size() == 1);
+
+		assertTrue("First waiting person should equal the rider who just messaged the bus; it does not",
+				bus.mBusStops.get(testStopNum).mWaitingPeople.get(0).equals(rider));
 	}
 }
