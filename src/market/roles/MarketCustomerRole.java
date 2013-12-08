@@ -31,7 +31,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 
 	public Map<EnumItemType, Integer> mItemInventory;// = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
-	public Map<EnumItemType, Integer> mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
+	public Map<EnumItemType, Integer> mItemsDesired;// = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
 	
 	Map<EnumItemType, Integer> mCannotFulfill;// = new HashMap<EnumItemType, Integer>();
 
@@ -49,9 +49,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 			
 		//ANGELICA: where is mItemsDesired populated? hack for now
 		mItemInventory = person.getItemInventory();
-		//mItemsDesired = person.getItemsDesired();
-		mItemsDesired.put(EnumItemType.CHICKEN,2);
-		mItemsDesired.put(EnumItemType.STEAK,1);
+		mItemsDesired = person.getItemsDesired();
+		//mItemsDesired.put(EnumItemType.CHICKEN,2);
+		//mItemsDesired.put(EnumItemType.STEAK,1);
 	}
 	
 	//MESSAGES

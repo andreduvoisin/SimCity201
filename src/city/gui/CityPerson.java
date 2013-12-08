@@ -89,17 +89,17 @@ public class CityPerson extends CityComponent {
 	        	blocks = ContactList.cPERSONBLOCKS; break;
         }
         
-        for (Block iBlock : blocks){
-        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
-        	if (xNewInBlock && yNewInBlock){
-        		if (xNewInBlock){
-        			x = previousX;
-        		}else{
-        			y = previousY;
-        		}
-        	}
-        }
+//        for (Block iBlock : blocks){ //ANGELICA
+//        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+//        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+//        	if (xNewInBlock && yNewInBlock){
+//        		if (xNewInBlock){
+//        			x = previousX;
+//        		}else{
+//        			y = previousY;
+//        		}
+//        	}
+//        }
 	}
 	
 	public void paint(Graphics g) {
