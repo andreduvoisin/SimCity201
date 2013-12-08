@@ -85,10 +85,10 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		 */
 		
 		MarketPanel market0 = new MarketPanel(city, ContactList.sMarketList.get(0));
-		cards.put("Costco", market0);
+		cards.put("Honeydukes", market0);
 		
 		MarketPanel market1 = new MarketPanel(city, ContactList.sMarketList.get(1));
-		cards.put("Sams Club", market1);
+		cards.put("Ollivanders", market1);
 		
 		BankPanel bp0 = new BankPanel(city);
 		bp0.setBank(ContactList.sBankList.get(0));
