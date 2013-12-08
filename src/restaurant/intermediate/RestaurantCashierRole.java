@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.interfaces.MarketCashier;
@@ -114,13 +115,18 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Messages */
 	public void msgPlacedMarketOrder(MarketOrder o, MarketCashier c) {
-		mMarketBills.add(new MarketBill(o, c));
+		print("got msg placed order " + o,AlertTag.R6);	//ANGELICA:
+		synchronized(mMarketBills) {
+			mMarketBills.add(new MarketBill(o, c));
+		}
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumItemType, Integer> cannotFulfill, MarketInvoice invoice) {
 		synchronized(mMarketBills) {
 		for(MarketBill b : mMarketBills) {
 			if(b.mOrder == invoice.mOrder) {
+				print("Got invoice!",AlertTag.R6);	//ANGELICA:
+				b.mStatus = EnumBillStatus.PAYING;
 				b.mInvoice = invoice;
 				b.mCannotFulfill = cannotFulfill;
 				stateChanged();
@@ -152,12 +158,13 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 			int orderNum = o.mItems.get(type);
 			int billNum = i.mOrder.mItems.get(type) + cf.get(type);
 			if(orderNum != billNum) {
+				print("not good "+ b,AlertTag.R6);	//ANGELICA hack
 				//message market that invoice is invalid
 				mMarketBills.remove(b);
 				return;
 			}
 		}
-		
+		print("verifying and paying bill "+ b,AlertTag.R6);	//ANGELICA hack
 		i.mPayment = i.mTotal;
 		ContactList.SendPayment(getSSN(), i.mMarketBankNumber, i.mTotal);
 		b.mMarketCashier.msgPayingForOrder(i);
@@ -177,6 +184,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		
 		MarketBill(MarketOrder o, MarketCashier c) {
 			mOrder = o;
+			print("bill " + o,AlertTag.R6);	//ANGELICA:
 			mMarketCashier = c;
 			mInvoice = null;
 			mStatus = EnumBillStatus.PLACED;
