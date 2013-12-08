@@ -6,10 +6,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
@@ -50,6 +52,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
     	timer.start();
 
     	initializeTables();
+    	initializeCookingArea();
     }
     
     private void initializeTables() {
@@ -57,6 +60,21 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
         tableLocations.add(new Location(300, 100));
         tableLocations.add(new Location(100, 200));
         tableLocations.add(new Location(300, 200));
+    }
+
+    private void initializeCookingArea() {
+		try {
+			java.net.URL cookURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cook.png");
+			CwagonerCookGui.cookImg = ImageIO.read(cookURL);
+			java.net.URL fridgeURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/fridge.png");
+			CwagonerCookGui.fridgeImg = ImageIO.read(fridgeURL);
+			java.net.URL stoveURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/stove.png");
+			CwagonerCookGui.stoveImg = ImageIO.read(stoveURL);
+			java.net.URL tableURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/table.png");
+			CwagonerCookGui.tableImg = ImageIO.read(tableURL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     public Location getTableLocation(int tableNum) {
