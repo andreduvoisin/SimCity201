@@ -1,13 +1,15 @@
 package transportation;
 
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import test.mock.*;
 import transportation.interfaces.TransportationRider;
 import transportation.roles.CommuterRole;
 import base.Agent;
-import base.PersonAgent;
 import city.gui.CityBus;
 import city.gui.trace.AlertTag;
 
@@ -18,11 +20,14 @@ import city.gui.trace.AlertTag;
 public class TransportationBus extends Agent {
 
 	public static TransportationBus instance = null;
+	public boolean testing;
+	public EventLog log = new EventLog();
 
-	public TransportationBus() {
+	public TransportationBus(boolean testBus) {
 		instance = this;
+		testing = testBus;
 
-		mGui = new CityBus(this);
+		if (!testing) mGui = new CityBus(this);
 
 		for (int i = 0; i < base.ContactList.cBUS_STOPS.size(); i++) {
 			mBusStops.add(new TransportationBusStop());
@@ -37,12 +42,14 @@ public class TransportationBus extends Agent {
 	// ==================================================================================
 
 	public List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
-	public List<TransportationRider> mRiders = new ArrayList<TransportationRider>();
+	public List<TransportationRider> mRiders = Collections.synchronizedList(new ArrayList<TransportationRider>());
 	CityBus mGui;
 	int mCurrentStop;
 	
-	enum enumState { traveling, ReadyToTravel, ReadyToUnload, ReadyToBoard }
-	enumState state;
+	public enum enumState { traveling, ReadyToTravel, ReadyToUnload, ReadyToBoard }
+	public enumState state;
+	
+	private Timer timer = new Timer(); 
 
 
 	// ==================================================================================
@@ -57,7 +64,7 @@ public class TransportationBus extends Agent {
 		state = enumState.ReadyToUnload;
 		stateChanged();
 
-		//print("msgGuiArrivedAtStop(" + mCurrentStop + ")");
+		log.add(new LoggedEvent("Received msgGuiArrivedAtStop(" + mCurrentStop + ")"));
 	}
 
 	/**
@@ -66,8 +73,10 @@ public class TransportationBus extends Agent {
 	 * @param riderCurrentStop The stop number the Person is at
 	 */
 	public void msgNeedARide(TransportationRider r, int riderCurrentStop) {
-		print("Received msgNeedARide(" + ((CommuterRole)r).getName() + ", " + riderCurrentStop + ")");
-		mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
+		log.add(new LoggedEvent("Received msgNeedARide(" + ((CommuterRole)r).getName() + ", " + riderCurrentStop + ")"));
+		synchronized(mBusStops.get(riderCurrentStop).mWaitingPeople) {
+			mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
+		}
 	}
 
 	/**
@@ -77,10 +86,14 @@ public class TransportationBus extends Agent {
 	 * @param riderDestination The stop number the Person is going to
 	 */
 	public void msgImOn(TransportationRider r) {
-		print("Received msgImOn(" + ((CommuterRole)r).getName() + ")");
+		log.add(new LoggedEvent("Received msgImOn(" + ((CommuterRole)r).getName() + ")"));
 
-		mBusStops.get(mCurrentStop).mWaitingPeople.remove(r);
-		mRiders.add(r);
+		synchronized(mBusStops.get(mCurrentStop).mWaitingPeople) {
+			mBusStops.get(mCurrentStop).mWaitingPeople.remove(r);
+		}
+		synchronized(mRiders) {
+			mRiders.add(r);
+		}
 	}
 
 	/**
@@ -88,10 +101,12 @@ public class TransportationBus extends Agent {
 	 * @param p The Person who got off
 	 */
 	public void msgImOff(TransportationRider r) {
-		print("msgImOff()");
+		log.add(new LoggedEvent("Received msgImOff()"));
 
 		// Remove rider from rider list
-		mRiders.remove(r);
+		synchronized(mRiders) {
+			mRiders.remove(r);
+		}
 	}
 
 
@@ -129,10 +144,12 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance of which to check rider list
 	 */
 	private void TellRidersToGetOff() {
-		//print("TellRidersToGetOff()");
+		log.add(new LoggedEvent(("TellRidersToGetOff()")));
 
-		for (TransportationRider iRider : mRiders) {
-			iRider.msgAtStop(mCurrentStop);
+		synchronized(mRiders) {
+			for (TransportationRider iRider : mRiders) {
+				iRider.msgAtStop(mCurrentStop);
+			}
 		}
 
 		state = enumState.ReadyToBoard;
@@ -144,11 +161,14 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance of which to check current stop's waiting list
 	 */
 	private void TellRidersToBoard() {
-		//print("TellRidersToBoard()");
-
-		for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
-			r.msgBoardBus();
+		log.add(new LoggedEvent(("TellRidersToBoard()")));
+		
+		synchronized(mBusStops.get(mCurrentStop).mWaitingPeople) {
+			for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
+				r.msgBoardBus();
+			}
 		}
+		mBusStops.get(mCurrentStop).mWaitingPeople.clear();
 
 		state = enumState.ReadyToTravel;
 		stateChanged();
@@ -159,10 +179,15 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance to advance
 	 */
 	private void AdvanceToNextStop() {
-		//print("AdvanceToNextStop()");
+		log.add(new LoggedEvent(("AdvanceToNextStop()")));
 
 		state = enumState.traveling;
-		mGui.DoAdvanceToNextStop();
+
+		timer.schedule(new TimerTask(){
+			public void run(){
+				mGui.DoAdvanceToNextStop();
+			}
+		}, 2000); 
 	}
 
 	public String getName() {
@@ -177,7 +202,6 @@ public class TransportationBus extends Agent {
 	}
 
 	public static TransportationBus getInstance() {
-		if (instance == null) return new TransportationBus();
 		return instance;
 	}
 	

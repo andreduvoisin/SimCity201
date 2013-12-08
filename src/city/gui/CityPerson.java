@@ -20,7 +20,8 @@ public class CityPerson extends CityComponent {
 	
 	public Location mDestination = new Location(0, 0); //just to avoid null pointers
 	public Location mFinalDestination = null;
-	public boolean mUsingCar = true;
+	public boolean mUsingCar = false;
+	public boolean mUsingBus = true;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -62,8 +63,10 @@ public class CityPerson extends CityComponent {
         	if(mFinalDestination != null){
         		DoGoToDestination(mFinalDestination);
         	}else{
-        		this.disable(); 
+        		this.disable();
+        		visible = false;
         		mPerson.msgAnimationDone();
+        		mPerson.postCommute();
         	}
     	}
         
@@ -83,7 +86,6 @@ public class CityPerson extends CityComponent {
 
         //B* Algorithm
         List<Block> blocks = null;
-        System.out.println("path type: "+mDestinationPathType);
         blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
 //        switch(mDestinationPathType){
 //	        case 0: 
@@ -162,7 +164,9 @@ public class CityPerson extends CityComponent {
 				//else bus to same corner
 				else{
 					//do bus stuff??? CHASE MAGGI: 1 Do this
-//					DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
+					if(mUsingBus) {
+						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+					}
 				}
 			}
 			//if not at a corner, walk to person corner
@@ -202,8 +206,9 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
-		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
-		cRole.msgAtBusStop(currentStop, destinationStop); 
+		mPerson.print("cs: " + currentStop + " ds: " + destinationStop);
+		mPerson.mCommuterRole.msgAtBusStop(currentStop, destinationStop);
+		mUsingBus = false;
 	}
 
 	public void DoBoardBus() {

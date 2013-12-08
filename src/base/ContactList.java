@@ -317,7 +317,7 @@ public class ContactList {
 		bslist.add(cBusStop3);
 		cBUS_STOPS = Collections.unmodifiableList(bslist);
 
-		cBus = new TransportationBus();
+		cBus = new TransportationBus(false);
 	}
 	
 	//HOUSES
