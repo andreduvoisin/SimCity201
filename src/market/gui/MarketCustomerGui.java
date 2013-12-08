@@ -38,7 +38,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 		mAgent = agent;
 		
 		synchronized(sWaitingSpaces) {
-		if(sWaitingSpaces.size() != 0) {
+		if(sWaitingSpaces.size() == 0) {
 			for(int i=0;i<sNumWaitingSpaces;i++) {
 				sWaitingSpaces.add(new Semaphore(1,true));
 			}

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import market.gui.MarketBaseGui;
+import market.gui.MarketItemsGui;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
@@ -21,6 +22,7 @@ public class Market {
 
 	//guis
 	public List<MarketBaseGui> mGuis = Collections.synchronizedList(new ArrayList<MarketBaseGui>());
+	public MarketItemsGui mItemsGui;
 	//delivery truck gui in cityView
 	
 	public Market(int n) {

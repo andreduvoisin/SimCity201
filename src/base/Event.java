@@ -7,9 +7,10 @@ public class Event implements Comparable<Event> {
 						DEPOSIT_CHECK, 									//Intermittent Events
 						REQUEST_HOUSE, ASK_FOR_RENT, MAINTAIN_HOUSE,	//Housing Events
 						INVITE1, INVITE2, RSVP1, RSVP2, 				//Party Events
-						PLANPARTY, PARTY,								
-						BOARD_BUS, EXIT_BUS, };							//Transportation Events
-
+						PLANPARTY, PARTY,								//Party Planning Events
+						BOARD_BUS, EXIT_BUS, 							//Transportation Events
+						INSPECTION										//Inspection Events
+						};							
 	EnumEventType mEventType;
 	public int mTime;
 	Location mLocation;
