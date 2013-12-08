@@ -72,7 +72,7 @@ public class CityPerson extends CityComponent {
         	boolean xNewInBlock = (x > ContactList.cINTERSECTIONBLOCKS.get(iB).mX1 && x < ContactList.cINTERSECTIONBLOCKS.get(iB).mX2);
         	boolean yNewInBlock = (y > ContactList.cINTERSECTIONBLOCKS.get(iB).mY1 && y < ContactList.cINTERSECTIONBLOCKS.get(iB).mY2);
         	if (xNewInBlock && yNewInBlock){
-        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupied) {
+        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupant != this) {
 	        		x = previousX;
 	        		y = previousY;
         		}
@@ -83,16 +83,18 @@ public class CityPerson extends CityComponent {
 
         //B* Algorithm
         List<Block> blocks = null;
-        switch(mDestinationPathType){
-	        case 0: 
-	        case 1: 
-	        case 2:
-	        case 3:
-	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
-	        case 4:
-	        	blocks = ContactList.cPERSONBLOCKS; break;
-	        	//SHANE: 3 combine carblocks and personblocks into blocks
-        }
+        System.out.println("path type: "+mDestinationPathType);
+        blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
+//        switch(mDestinationPathType){
+//	        case 0: 
+//	        case 1: 
+//	        case 2:
+//	        case 3:
+//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
+//	        case 4:
+//	        	blocks = ContactList.cPERSONBLOCKS; break;
+//	        	//SHANE: 3 combine carblocks and personblocks into blocks
+//        }
         
         for (Block iBlock : blocks){
         	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);

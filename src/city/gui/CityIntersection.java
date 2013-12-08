@@ -8,7 +8,7 @@ import base.Block;
 
 public class CityIntersection extends CityComponent {
 
-	boolean mOccupied = false;
+	CityComponent mOccupant = null;
 	Color mColor = null;
 
 	public CityIntersection(Block b) {
@@ -38,9 +38,9 @@ public class CityIntersection extends CityComponent {
 		
 	}
 
-	public void setOccupied(boolean b) {
-		mOccupied = b;
-		if (mOccupied) {
+	public void setOccupant(CityComponent occupant) {
+		this.mOccupant = occupant;
+		if (mOccupant != null) {
 			super.color = Color.red;
 		}
 		else {
