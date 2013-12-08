@@ -20,10 +20,10 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//Bus Data 
 	private enum PersonBusState {noBus, atBusStop, waitingForBus, boardingBus, 
-		ridingBus, exitingBus}; 
+		ridingBus, exitingBus, noNewDestination}; 
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
-	private PersonBusState mState;
+	private PersonBusState mState = PersonBusState.noBus;
 	private TransportationBus mBus; 
 	
 	//CONSTRUCTOR
@@ -65,11 +65,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
-		if(!mPerson.hasCar()){
-			GoToDestination(); 
-			return true; 
-		}
-		
 		if(mPerson.hasCar()){
 			DriveToDestination(); 
 			return true;
@@ -92,6 +87,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 			//MAGGI: Check if you really need this later 
 			else if(mState == PersonBusState.noBus){
 				GoToDestination(); 
+				mState = PersonBusState.noNewDestination; 
 				return true; 
 			}
 		}
