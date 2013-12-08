@@ -341,7 +341,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		mAtJob = true; // set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		print("my job is " + jobRole.toString());
+//		print("my job is " + jobRole.toString());
 		if (jobRole != null) {
 			jobRole.setPerson(this); // take over job role
 			mRoles.put(getCommuterRole(), true);
@@ -392,7 +392,7 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		print("my job is " +jobRole.toString());
+//		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
 			//jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
 			mRoles.put(jobRole, true); //set role to active
@@ -596,7 +596,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return true;
+		return false;
 	}
 
 

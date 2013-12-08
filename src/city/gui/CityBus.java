@@ -100,7 +100,7 @@ public class CityBus extends CityComponent {
 
 
 	public void DoAdvanceToNextStop() {
-		mStopNumber++;
+		mStopNumber = (mStopNumber + 1) % mStopCoords.size();
         mTraveling = true;
         destination.setTo(mStopCoords.get(mStopNumber));
 
