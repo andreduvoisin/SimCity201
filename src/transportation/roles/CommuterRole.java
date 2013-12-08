@@ -56,7 +56,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 		}
 		if(mPerson.hasCar()){
 			DriveToDestination(); 
-			//TryDrivingToDestination(); 
 		}
 		else{
 			GoToDestination(); 
@@ -76,15 +75,13 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 			mPerson.getGui().DoDriveToDestination(mDestination); 
 		}
 		else{
-			if(destinationInSameBlock(mDestination)){
+			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
 				mPerson.getGui().DoGoToDestination(mDestination);
 			}
 			else{
 				mPerson.getGui().DoDriveToDestination(mDestination); 
 			}
 		}
-		
-		
 	}
 	
 	private void GoToDestination(){
@@ -129,7 +126,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	}
 	
 	//UTILITES
-	//Checks if destination is in same block as current location
+	//True if destination is in same block as current location
 	public boolean destinationInSameBlock(Location destination){
 		//LEFT BLOCKS
 		if(mCurrentLocation.mX < 300 && destination.mX < 300){
@@ -156,6 +153,18 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 		return false; 
 	}
 	
+	//True if person is going to house across city from their house location
+	public boolean goingToFarHouse(Location destination){
+		if(Math.abs(mHousingLocation.mX - destination.mX) == 580){
+			return true; 
+		}
+		else if(Math.abs(mHousingLocation.mY - destination.mY) == 580){
+			return true; 
+		}
+		return false; 
+	}
+	
+	//True if person is currently at any House, not necessarily their own
 	public boolean inAHouse(){
 		if(mCurrentLocation == mHousingLocation){
 			return true; 
