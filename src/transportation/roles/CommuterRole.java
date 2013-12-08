@@ -58,7 +58,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	public void msgAtStop(int busStop){
 		if(busStop == mDestinationBusStop){
-			mState = PersonBusState.noBus; 
+			mState = PersonBusState.exitingBus; 
 		}
 		stateChanged(); 
 	}
@@ -110,7 +110,9 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	private void ExitBus(){
 		mPerson.getGui().DoExitBus(mDestinationBusStop); 
+		mBus.msgImOff(this);
 		mState = PersonBusState.noBus; 
+		stateChanged(); 
 	}
 	
 	private void DriveToDestination(){
