@@ -434,7 +434,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	private void DoNothing() {
 		state = AgentState.DoingNothing;
 		print("Doing DoNothing");
-		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
+		mPerson.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
 		//mPerson.setJobFalse();
 		mPerson.msgRoleFinished();
 		// ANDRE: Should probably do something like this...

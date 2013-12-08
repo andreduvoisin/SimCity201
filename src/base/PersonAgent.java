@@ -47,6 +47,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sRestaurantCounter = 0;
 	public static int sHouseCounter = 0;
 	public static int sBaseInventory = 0;
+	public static int sBaseWanted = 1;
 	//Roles and Job
 	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
 										MARKET, 	//cashier, worker...
@@ -148,8 +149,13 @@ public class PersonAgent extends Agent implements Person {
 			mItemInventory.put(EnumItemType.PIZZA,sBaseInventory);
 			mItemInventory.put(EnumItemType.STEAK,sBaseInventory);
 			mItemInventory.put(EnumItemType.SALAD,sBaseInventory);
-		
 		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+			mItemInventory.put(EnumItemType.CAR,0);
+			mItemInventory.put(EnumItemType.CHICKEN,0);
+			mItemInventory.put(EnumItemType.PIZZA,0);
+			mItemInventory.put(EnumItemType.STEAK,0);
+			mItemInventory.put(EnumItemType.SALAD,0);
+		
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
 		
 		//Personal Variables
@@ -343,10 +349,15 @@ public class PersonAgent extends Agent implements Person {
 			//REX: created looping inspection, easy to fix
 		}
 		
+		//Market
+		else if (event.mEventType == EnumEventType.GO_TO_MARKET) {
+			goToMarket();
+		}
+		
 		mEvents.remove(event);
 	}
 	
-/**ANGELICA: MAGGI: Testing transportation */
+/**MAGGI: Testing transportation */
 	//COMMUTERROLE INTEGRATION EXAMPLE
 	//DAVID: Please don't delete this -XOXO Maggi 
 	private void testGoToJob() {
@@ -399,10 +410,11 @@ public class PersonAgent extends Agent implements Person {
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
 		}
-		if(!SimCityGui.TESTING){
-			mPersonGui.DoGoToDestination(location);
-			acquireSemaphore(semAnimationDone);
-		}
+		//if(!SimCityGui.TESTING){
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(location);
+		acquireSemaphore(semAnimationDone);
+		//}
 		mPersonGui.setPresent(false); //set city person invisible
 		
 		//activate marketcustomer role
@@ -492,6 +504,32 @@ public class PersonAgent extends Agent implements Person {
 			
 		}
 		
+	}
+	
+	private void goToMarket() {
+		//ANGELICA: hack
+		mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
+		mItemsDesired.put(EnumItemType.CHICKEN, sBaseWanted);
+		
+		Location location;
+		if(mSSN%ContactList.cNumTimeShifts == 0) {
+			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+		} else {
+			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
+		}
+		if(!SimCityGui.TESTING){
+			mPersonGui.DoGoToDestination(location);
+			acquireSemaphore(semAnimationDone);
+		}
+		mPersonGui.setPresent(false); //set city person invisible
+		
+		//activate marketcustomer role
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof MarketCustomer){
+				mRoles.put(iRole, true); //set active
+				iRole.setPerson(this);
+			}
+		}
 	}
 	
 	private void depositCheck() {		
