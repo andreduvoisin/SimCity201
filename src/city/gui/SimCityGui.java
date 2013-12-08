@@ -16,7 +16,7 @@ public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
 	public static int TESTNUM = 0;
 	
-	public static boolean GRADINGVIEW = false;
+	public static boolean GRADINGVIEW = true;
 	
 	static SimCityGui instance = null;
 	public CityPanel citypanel;
