@@ -4,19 +4,27 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
 import base.ContactList;
+import base.Location;
 
 @SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	static CityPanel instance;
-
+	
+	//Distance from block to center for X
+	//private static final int centerDist = 28;
+	
 	public static final int CITY_WIDTH = 600, CITY_HEIGHT = 600;
 	boolean addingObject = false;
 	CityComponent temp;
 	SimCityGui simcitygui;
+	
+	public static Map<Location, CityComponent> sClosedImages = new HashMap<Location, CityComponent>();
 
 	TransportationBus busDispatch;
 	
@@ -76,6 +84,20 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityBank(ContactList.cBANK2_LOCATION, "Piggy Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Sams Club"));
+		
+		//Add Closed Signs
+		for (Location iLocation: ContactList.cRESTAURANT_LOCATIONS){ //Restaurant
+			sClosedImages.put(iLocation, new CityClosed(iLocation.createNew()));
+		}
+		sClosedImages.put(ContactList.cBANK1_LOCATION, new CityClosed(ContactList.cBANK1_LOCATION.createNew()));
+		sClosedImages.put(ContactList.cBANK2_LOCATION, new CityClosed(ContactList.cBANK2_LOCATION.createNew()));
+		sClosedImages.put(ContactList.cMARKET1_LOCATION, new CityClosed(ContactList.cMARKET1_LOCATION.createNew()));
+		sClosedImages.put(ContactList.cMARKET2_LOCATION, new CityClosed(ContactList.cMARKET2_LOCATION.createNew()));
+		
+		for(CityComponent iCC : sClosedImages.values()){
+			this.addStatic(iCC);
+		}
+		//this.addStatic(sClosedImages.get(ContactList.cBANK1_LOCATION));
 			
 		//Create Timer Display
 		this.addStatic(new TimeGui(520, 575));
