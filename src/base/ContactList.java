@@ -58,6 +58,7 @@ public class ContactList {
 		TranacRestaurant = new TranacRestaurant();
 		JerrywebRestaurant = new JerrywebRestaurant();
 		AndreRestaurant = new AndreRestaurant();
+		SmilehamRestaurant = new SmilehamRestaurant();
 	}
 	
 	//----------------------------------------------------------LISTS----------------------------------------------------------

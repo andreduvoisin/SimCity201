@@ -12,7 +12,7 @@ import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
@@ -103,7 +103,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 5: // shane
 			if (mWaiterType == 1) {
 				subRole = new SmilehamWaiterRole(mPerson);
-				SmilehamAnimationPanel.addPerson((SmilehamWaiterRole) subRole);
+				SmilehamRestaurant.addPerson((SmilehamWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
 				// SHANE: add shared waiter
 			}

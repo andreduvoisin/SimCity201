@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
-import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
@@ -17,7 +15,6 @@ import base.BaseRole;
 import base.Gui;
 
 public class SmilehamRestaurant {
-	public int mRestaurantID;
 
 	// people
 	public static SmilehamCashierRole mCashier;
@@ -32,8 +29,7 @@ public class SmilehamRestaurant {
 	public static List<Gui> mGuis = Collections
 			.synchronizedList(new ArrayList<Gui>());
 
-	public SmilehamRestaurant(int n) {
-		mRestaurantID = n;
+	public SmilehamRestaurant() {
 	}
 
 	public static void addPerson(BaseRole role) {
@@ -54,18 +50,6 @@ public class SmilehamRestaurant {
 		} else if (role instanceof SmilehamCashierRole) {
 			mCashier = (SmilehamCashierRole) role;
 		}
-	}
-
-	public static SmilehamHost getHost() {
-		return mHost;
-	}
-
-	public static SmilehamCashier getCashier() {
-		return mCashier;
-	}
-
-	public static SmilehamCook getCook() {
-		return mCook;
 	}
 
 }

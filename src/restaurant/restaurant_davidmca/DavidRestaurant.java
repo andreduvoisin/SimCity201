@@ -15,9 +15,6 @@ import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
-import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
-import restaurant.restaurant_smileham.interfaces.SmilehamCook;
-import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import base.Gui;
 
 public class DavidRestaurant {
