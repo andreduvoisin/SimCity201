@@ -56,8 +56,9 @@ public class ConfigParser {
 			//Instantiate Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
-			//Events
-			person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
+			//Events			
+			if(jobType != EnumJobType.NONE)
+				person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
 //			person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 			person.msgAddEvent(new Event(EnumEventType.EAT, 0));
 //			person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 1));
@@ -66,10 +67,8 @@ public class ConfigParser {
 			if(name.contains("party"))
 				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
 			
-			if(name.contains("car")) {
+			if(name.contains("car"))
 				person.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
-				System.out.println("Get car!");
-			}
 
 			if(name.contains("house"))
 				person.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 8));

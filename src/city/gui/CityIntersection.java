@@ -1,12 +1,12 @@
-package base;
+package city.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import city.gui.CityComponent;
-
 public class CityIntersection extends CityComponent {
+	
+	boolean mOccupied = false;
 	
 	public CityIntersection(int xpos, int ypos, int width, int height) {
 		super(xpos, ypos, Color.green);
@@ -33,8 +33,14 @@ public class CityIntersection extends CityComponent {
 
 	@Override
 	public void updatePosition() {
-		// TODO Auto-generated method stub
-		
-	}
+		for (CityComponent c: SimCityPanel.getInstance().movings) {
+        	if (this.collidesWith(c)) {
+        		mOccupied = true;
+        	}
+        	else { 
+        		mOccupied = false;
+        	}
+        }
+	 }
 
 }
