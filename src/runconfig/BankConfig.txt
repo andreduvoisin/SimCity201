@@ -6,4 +6,6 @@ BANK 200 guard21
 BANK 200 guard22
 BANK 200 teller11
 BANK 200 teller12
+BANK 200 teller21
+BANK 200 teller22
 NONE 200 robber
