@@ -90,6 +90,13 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		synchronized(movings) {
 			for (CityComponent c:movings) {
 				c.updatePosition();
+				synchronized(intersections) {
+					for (CityIntersection ci:intersections) {
+						if (c.collidesWith(ci)) {
+							ci.setOccupied(true);
+						}
+					}
+				}
 			}
 		}
 	}

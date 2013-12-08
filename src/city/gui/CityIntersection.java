@@ -36,13 +36,19 @@ public class CityIntersection extends CityComponent {
 	}
 
 	public void paint(Graphics g) {
-		super.color = mColor;
+		if (mOccupied) {
+			super.color = Color.red;
+		}
+		else {
+			super.color = Color.green;
+		}
 		super.paint(g);
 	}
 
 	@Override
 	public void updatePosition() {
 		synchronized (SimCityPanel.getInstance().movings) {
+			System.out.println(SimCityPanel.getInstance().movings.size());
 			for (CityComponent c : SimCityPanel.getInstance().movings) {
 				if (this.collidesWith(c)) {
 					mOccupied = true;
@@ -53,6 +59,10 @@ public class CityIntersection extends CityComponent {
 				}
 			}
 		}
+	}
+
+	public void setOccupied(boolean b) {
+		mOccupied = b;
 	}
 
 }
