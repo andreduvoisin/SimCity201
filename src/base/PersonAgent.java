@@ -3,7 +3,7 @@ package base;
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingLandlordRole;
-import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -124,13 +124,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
-		/*
-		 * Give houses to landlords and owners
-		 */
-		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			//getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
-			sHouseCounter++;
-		}
 	}
 	
 	private void initializePerson(){
@@ -263,7 +256,11 @@ public class PersonAgent extends Agent implements Person {
 			getCar();
 //			testGetCar();
 		}
-		
+		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
+			if (getHousingRole().getHouse() == null) {
+				getHouse();
+			}
+		}
 		//Daily Recurring Events (Job, Eat)
 		else if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
@@ -329,45 +326,19 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.remove(event);
 	}
 	
-/**ANGELICA: MAGGI: Testing transportationnnnnnnnnnnnnnnnnnnnnnnnnnnnnn */
-	
-	private void testGetCar() {
-		//activate marketcustomer role
-		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof MarketCustomer){
-				if(!SimCityGui.TESTING) {
-					Location location;
-					if(mSSN%ContactList.cNumTimeShifts == 0) {
-						location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
-					} else {
-						location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
-					}
-					iRole.GoToDestination(location);
-					acquireSemaphore(semAnimationDone);
-				}
-				mPersonGui.setPresent(false);
-				mRoles.put(iRole, true); //set active
-				iRole.setPerson(this);
-				break;
-			}
-		}
-		
-		//add desired item
-		mItemsDesired.put(EnumItemType.CAR, 1); // want 1 car
-		// PAEA for role will message market cashier to start transaction
-		mHasCar = true;
-	}
-
+/**ANGELICA: MAGGI: Testing transportation */
+	//COMMUTERROLE INTEGRATION EXAMPLE
+	//DAVID: Please don't delete this -XOXO Maggi 
 	private void testGoToJob() {
-		print("goToJob");
+		print("Going to Job");
 		Role jobRole = getJobRole();
 		if (jobRole == null) {
-			print("didn't go to job");
+			print("Didn't go to job");
 			return;
 		}
 		mAtJob = true; // set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		print("my job is " + jobRole.toString());
+//		print("my job is " + jobRole.toString());
 		if (jobRole != null) {
 			jobRole.setPerson(this); // take over job role
 			mRoles.put(getCommuterRole(), true);
@@ -378,86 +349,29 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-	private void testEatFood() {
-		if (isCheap() && getHousingRole().getHouse() != null) {
-			print("Going to eat at home");
-			getHousingRole().msgEatAtHome();
-			BaseRole r = (BaseRole) getHousingRole();
-			r.GoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole()
-					.getHouse().mHouseNum));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-		} else {
-			print("Going to restaurant");
-			// set random restaurant
-			Role restCustRole = null;
-			for (Role iRole : mRoles.keySet()) {
-				if (iRole instanceof RestaurantCustomerRole) {
-					restCustRole = iRole;
+/*************************************************************************/
+	public void getHouse() {
+		HousingLandlordRole assignedLandlord = null;
+		if (getHousingRole() instanceof HousingRenterRole) {
+			for (Person p : ContactList.sPersonList) {
+				for (Role r : p.getRoles().keySet()) {
+					if (r instanceof HousingLandlordRole) {
+						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
+							assignedLandlord = (HousingLandlordRole) r;
+						}
+					}
 				}
 			}
-			mRoles.put(restCustRole, true);
-
-			// SHANE DAVID ALL: 3 make this random
-			int restaurantChoice = 0;
-
-			if (SimCityGui.TESTING) {
-				restaurantChoice = SimCityGui.TESTNUM; // override if testing
-			}
-
-			restCustRole.GoToDestination(ContactList.cRESTAURANT_LOCATIONS
-					.get(restaurantChoice));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-
-			((RestaurantCustomerRole) restCustRole).setPerson(this);
-			((RestaurantCustomerRole) restCustRole)
-					.setRestaurant(restaurantChoice);
 		}
-	}
-
-	private void testDepositCheck() {
-		mPersonGui.setPresent(true);
-
-		// mPersonGui.DoGoToDestination(mSSN%ContactList.cNumTimeShifts==0?
-		// ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
-
-		acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-
-		int deposit = 50; // REX: add mDeposit, and do after leaving job
-
-		BankCustomerRole bankCustomerRole = null;
-		for (Role iRole : mRoles.keySet()) {
-			if (iRole instanceof BankCustomerRole) {
-				bankCustomerRole
-						.GoToDestination(mSSN % ContactList.cNumTimeShifts == 0 ? ContactList.cBANK1_LOCATION
-								: ContactList.cBANK2_LOCATION);
-				acquireSemaphore(semAnimationDone);
-				mPersonGui.setPresent(false);
-				bankCustomerRole = (BankCustomerRole) iRole;
-				mRoles.put(iRole, true);
-				break;
-			}
+		if (assignedLandlord != null) {
+			((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
+			((HousingRenterRole) getHousingRole()).msgRequestHousing();
 		}
-
-		// deposit check
-		bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit,
-				deposit));
-
-		// pay back loan if needed
-		if (mLoan > 0) {
-			double payment = Math.max(mCash, mLoan);
-			mCash -= payment;
-			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment,
-					payment));
+		else {
+			print("No available landlords");
 		}
-		bankCustomerRole.setPerson(this);
-		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN % ContactList.cNumTimeShifts).addPerson(bankCustomerRole);
 	}
 	
-/*************************************************************************/
 	public void getCar(){
 		Location location;
 		if(mSSN%ContactList.cNumTimeShifts == 0) {
@@ -484,6 +398,7 @@ public class PersonAgent extends Agent implements Person {
 		//PAEA for role will message market cashier to start transaction
 		mHasCar = true;
 	}
+
 	
 	public void goToJob() {
 		//print("goToJob");
@@ -496,7 +411,7 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		print("my job is " +jobRole.toString());
+//		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
 			//jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
 			mRoles.put(jobRole, true); //set role to active
@@ -577,7 +492,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN%ContactList.cNumTimeShifts).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(0).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -700,7 +615,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return true;
+		return false;
 	}
 
 

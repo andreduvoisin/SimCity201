@@ -10,7 +10,7 @@ import base.Location;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
-public class CommuterRole extends BaseRole implements TransportationRider{
+public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//DATA
 	private Location mDestination;
@@ -18,7 +18,7 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	private Location mCurrentLocation; 
 	
 	//Bus Data 
-	private enum PersonBusState {WaitingForBus}; 
+	private enum PersonBusState {WaitingForBus, BoardBus, RidingBus}; 
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
 	private PersonBusState mState;
@@ -56,7 +56,6 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 		}
 		if(mPerson.hasCar()){
 			DriveToDestination(); 
-			//TryDrivingToDestination(); 
 		}
 		else{
 			GoToDestination(); 
@@ -72,24 +71,17 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	}
 	
 	private void DriveToDestination(){
-		mPerson.getGui().DoDriveToDestination(mDestination); 
-	}
-	
-	private void TryDrivingToDestination(){
-		if(mCurrentLocation == mHousingLocation){
+		if(inAHouse()){
 			mPerson.getGui().DoDriveToDestination(mDestination); 
 		}
-//		else{
-//			if(mDestination == mHousingLocation){
-//				mPerson.getGui().DoDriveToDestination(); 
-//				mPerson.getGui().testDoGoToDestination(mDestination);
-//				mCurrentLocation = mDestination; 
-//			}
-//			else{
-//				
-//			}
-//		}
-	
+		else{
+			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
+				mPerson.getGui().DoGoToDestination(mDestination);
+			}
+			else{
+				mPerson.getGui().DoDriveToDestination(mDestination); 
+			}
+		}
 	}
 	
 	private void GoToDestination(){
@@ -120,36 +112,72 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	}
 
 	@Override
-	public int getStop() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getDestination() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void msgBoardBus() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void msgAtYourStop() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void msgAtStop(int stopBusIsAt) {
-		// TODO Auto-generated method stub
-		
+		if (stopBusIsAt == mDestinationBusStop) {
+			mState = PersonBusState.BoardBus;
+		}
+		stateChanged();
 	}
 	
 	//UTILITES
+	//True if destination is in same block as current location
+	public boolean destinationInSameBlock(Location destination){
+		//LEFT BLOCKS
+		if(mCurrentLocation.mX < 300 && destination.mX < 300){
+			//TOP LEFT
+			if(mCurrentLocation.mY < 300 && destination.mX < 300){
+				return true; 
+			}
+			//BOTTOM LEFT
+			else if(mCurrentLocation.mY > 300 && destination.mX < 300){
+				return true;
+			}
+		}
+		//RIGHT BLOCKS
+		else if(mCurrentLocation.mX > 300 && destination.mX > 300){
+			//TOP RIGHT
+			if(mCurrentLocation.mY < 300 && destination.mX < 300){
+				return true; 
+			}
+			//TOP LEFT
+			else if(mCurrentLocation.mY > 300 && destination.mX < 300){
+				return true;
+			}
+		}
+		return false; 
+	}
+	
+	//True if person is going to house across city from their house location
+	public boolean goingToFarHouse(Location destination){
+		if(Math.abs(mHousingLocation.mX - destination.mX) == 580){
+			return true; 
+		}
+		else if(Math.abs(mHousingLocation.mY - destination.mY) == 580){
+			return true; 
+		}
+		return false; 
+	}
+	
+	//True if person is currently at any House, not necessarily their own
+	public boolean inAHouse(){
+		if(mCurrentLocation == mHousingLocation){
+			return true; 
+		}
+		else if(mCurrentLocation.mX < 100 
+				|| mCurrentLocation.mX > 500 
+				|| mCurrentLocation.mY < 100 
+				|| mCurrentLocation.mY > 500){
+			
+			return true; 
+		}
+		return false;
+	}
 	
 	public void setCurrentLocation(Location location){
 		mCurrentLocation = location; 

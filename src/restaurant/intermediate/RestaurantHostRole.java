@@ -59,7 +59,11 @@ public class RestaurantHostRole extends BaseRole implements
 			break;
 		case 4: // david
 			subRole = new DavidHostRole(super.mPerson);
-			DavidRestaurant.host = (DavidHostRole) subRole;
+			if (DavidRestaurant.host == null) {
+				DavidRestaurant.host = (DavidHostRole) subRole;
+			} else {
+				subRole = DavidRestaurant.host;
+			}
 			break;
 		case 5: // shane
 			subRole = new SmilehamHostRole(super.mPerson);

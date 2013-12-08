@@ -34,9 +34,9 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		mBankID = bankID;
 		
 		//Add Gui to list
-		mGUI = new BankGuardGui(this);
-		ContactList.sBankList.get(bankID).addPerson(this);
-		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
+//		mGUI = new BankGuardGui(this);
+//		ContactList.sBankList.get(bankID).addPerson(this);
+//		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
 	}
 	
 	

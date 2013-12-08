@@ -223,6 +223,16 @@ public class SortingHat {
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
 			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount)); 
 			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
 			return newLandLordRole;
 		}
 		
