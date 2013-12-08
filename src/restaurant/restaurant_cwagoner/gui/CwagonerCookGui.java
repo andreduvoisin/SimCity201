@@ -5,9 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import base.Location;
@@ -23,13 +20,14 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
     private int size = 20, plateSize = 20;
     private Location position = new Location(0, 0),
     				destination = new Location(0, 0),
-    				homePos = new Location(200, 350),
-    				fridgePos = new Location(200, 300),
-    				cookingPos = new Location(300, 350),
-    				platingPos = new Location(180, 350);
+    				homePos = new Location(200, 350);
     private Dimension fridgeDim = new Dimension(100, 50);
 
-    BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
+
+	static Location fridgePos = new Location(200, 300),
+					cookingPos = new Location(300, 350),
+					platingPos = new Location(180, 350);
+    static BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
 
     public CwagonerCookGui(CwagonerCookRole c, CwagonerAnimationPanel panel) {
     	super(c, panel);
@@ -38,19 +36,6 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
         destination.setTo(homePos);
 
         animationPanel.addGui(this);
-
-		try {
-			java.net.URL cookURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cook.png");
-			cookImg = ImageIO.read(cookURL);
-			java.net.URL fridgeURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/fridge.png");
-			fridgeImg = ImageIO.read(fridgeURL);
-			java.net.URL stoveURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/stove.png");
-			stoveImg = ImageIO.read(stoveURL);
-			java.net.URL tableURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/table.png");
-			tableImg = ImageIO.read(tableURL);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
     }
 
     public void updatePosition() {
@@ -73,14 +58,6 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
     }
 
     public void draw(Graphics2D g) {
-    	// Stove
-		g.drawImage(stoveImg, cookingPos.mX, cookingPos.mY, null);
-		
-		// Plating area
-		g.drawImage(tableImg, platingPos.mX, platingPos.mY, null);
-
-    	// Fridge
-		g.drawImage(fridgeImg, fridgePos.mX, fridgePos.mY, null);
 
     	// Cook himself
     	g.drawImage(cookImg, position.mX, position.mY, null);

@@ -66,22 +66,16 @@ public class ConfigParser {
 			else {
 				if(name.contains("bankcust"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-				
 				else if(name.contains("restcust"))
 					person.msgAddEvent(new Event(EnumEventType.EAT, 0));
-				
 				else if(name.contains("party"))
 					person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
-				
 				else if(name.contains("car"))
 					person.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
-	
 				else if(name.contains("house"))
 					person.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
-				
 				else if(name.contains("robber"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 1));
-				
 				else if(name.contains("inspection"))
 					person.msgAddEvent(new Event(EnumEventType.INSPECTION, -1));
 			}
