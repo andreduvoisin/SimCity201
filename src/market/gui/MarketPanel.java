@@ -58,7 +58,6 @@ public class MarketPanel extends CityCard implements ActionListener {
 				gui.updatePosition();
 			}
 		}
-		//ANGELICA:
 		}
 		repaint();
 	}

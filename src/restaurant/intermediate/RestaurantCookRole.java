@@ -42,7 +42,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 10;	//ANGELICA:
+        public int DEFAULT_FOOD_QTY = 50;
         
         public RestaurantCookRole(Person person, int restaurantID){
                 super(person); 

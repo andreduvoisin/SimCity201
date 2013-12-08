@@ -59,12 +59,6 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 TranacRestaurant.addPerson(this);
                 mRole = r;
                 
-                /*ANGELICA: z
-                mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
-                mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
-                mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
-                mRole.mItemInventory.put(EnumItemType.PIZZA,mRole.DEFAULT_FOOD_QTY);
-				*/
                 //create cook times
                 mCookTimes.put(EnumItemType.STEAK,(int)(baseTime*2));
                 mCookTimes.put(EnumItemType.CHICKEN,(int)(baseTime*1.75));

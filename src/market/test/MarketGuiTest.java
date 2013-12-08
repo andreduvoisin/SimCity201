@@ -128,7 +128,7 @@ public class MarketGuiTest extends TestCase {
 	
 	public void testWorkerGui() {
 		MockWorker mWorker = new MockWorker();
-		MarketWorkerGui mWorkerGui = new MarketWorkerGui(mWorker, mMarketItems);
+		MarketWorkerGui mWorkerGui = new MarketWorkerGui(mWorker);
 		mWorker.setGui(mWorkerGui);
 		mMarketPanel.addGui(mWorkerGui);
 		
@@ -202,7 +202,6 @@ public class MarketGuiTest extends TestCase {
 				mWorker.log.containsString("Received msgAnimationLeftMarket."));
 	}
 	
-	// ANGELICA: Finish deliveryTruckGui
 	public void testDeliveryTruckGui() {
 		MockDeliveryTruck mDeliveryTruck = new MockDeliveryTruck();
 		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck,mMarketNum);
