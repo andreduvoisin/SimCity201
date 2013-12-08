@@ -43,6 +43,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 
         int mRestaurantID;
         public int DEFAULT_FOOD_QTY = 50;
+        private AlertTag mAlertTag;
         
         public RestaurantCookRole(Person person, int restaurantID){
                 super(person); 
@@ -69,6 +70,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
             super.mPerson = person;
         	switch(mRestaurantID){
 				case 0: //andre
+					mAlertTag = AlertTag.R0;
 					subRole = new AndreCookRole(super.mPerson, this);
 					if(AndreRestaurant.cook == null) {
 						AndreRestaurant.addCook((AndreCookRole) subRole);
@@ -77,18 +79,22 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					}
 					break;
 //				case 1: //chase
+//					mAlertTag = AlertTag.R1;
 //					subRole = new CwagonerCookRole(super.mPerson);
 //					CwagonerRestaurantPanel.cook = (CwagonerCookRole) subRole;
 //					break;
 				case 2: //jerry
+					mAlertTag = AlertTag.R2;
 					subRole = new JerrywebCookRole(super.mPerson, this);
 					JerrywebRestaurant.cook = ((JerrywebCookRole) subRole);
 					break;
 				case 3: //maggi
+					mAlertTag = AlertTag.R3;
 					subRole = new MaggiyanCookRole(super.mPerson, this);
 					MaggiyanAnimationPanel.addPerson((MaggiyanCookRole) subRole);
 					break;
 				case 4: //david
+					mAlertTag = AlertTag.R4;
 					subRole = new DavidCookRole(super.mPerson, this);
 					if (DavidRestaurant.cook == null) {
 						DavidRestaurant.addCook((DavidCookRole) subRole);
@@ -97,6 +103,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					}
 					break;
 				case 5: //shane
+					mAlertTag = AlertTag.R5;
 					subRole = new SmilehamCookRole(super.mPerson, this);
 					if (SmilehamRestaurant.mCook == null) {
 						SmilehamRestaurant.addPerson((SmilehamCookRole) subRole);
@@ -105,10 +112,12 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					}
 					break;
 				case 6: //angelica
+					mAlertTag = AlertTag.R6;
 					subRole = new TranacCookRole(mPerson, this);
 					TranacRestaurant.addPerson((TranacCookRole)subRole);
 					break;
 				case 7: //rex
+					mAlertTag = AlertTag.R7;
 					subRole = new RexCookRole(super.mPerson, this);
 					RexAnimationPanel.addPerson((RexCookRole) subRole);
 					break;
@@ -193,7 +202,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 
 /* Actions */
         private void createOrder() {
-        		print("Creating an order.",AlertTag.R6);	//ANGELICA: hack
+        		print("Creating a market order.",mAlertTag);
         		Map<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
                 
                 for(EnumItemType item : mItemsDesired.keySet()) {
@@ -208,7 +217,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void placeOrder(MarketOrder o) {
-        		print("Placing an order "+o,AlertTag.R6);	//ANGELICA: hack
+        		print("Placing a market order.", mAlertTag);
         		int m;
         		if(mMarketCashier == null) {
         			m = (int) (Math.random() % 2);
@@ -249,14 +258,14 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void processOrder(MarketInvoice i) {   
-        		print("Processing order "+ i.mOrder,AlertTag.R6);	//ANGELICA: hack
+        		print("Processing market order.", mAlertTag);
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
                 }
         }
         
         private void completeOrder(MarketOrder o) {
-        		print("Complete order.",AlertTag.R6);	//ANGELICA: hacks
+        		print("Complete market order.", mAlertTag);
                 for(EnumItemType item : o.mItems.keySet()) {
                         mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
                 }

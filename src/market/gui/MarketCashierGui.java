@@ -15,8 +15,6 @@ import city.gui.SimCityGui;
 
 public class MarketCashierGui implements MarketBaseGui {
 	private MarketCashier mAgent;
-
-	private boolean isPresent;
 	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xHome = 100, yHome = 50;
@@ -24,7 +22,6 @@ public class MarketCashierGui implements MarketBaseGui {
 	private int xPos = xStart, yPos = yStart;
 	private int xDestination = xHome, yDestination = yHome;
 //	private int xDestination = xStart, yDestination = yStart;
-	private static final int SIZE = 20;
 	
 	public enum EnumCommand {noCommand, goToPosition, leaveMarket};
 	public EnumCommand mCommand = EnumCommand.noCommand;
@@ -33,8 +30,6 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	public MarketCashierGui(MarketCashierRole agent) {
 		mAgent = agent;
-		
-		isPresent = true;
 		
     	image = null;
     	try {
@@ -83,7 +78,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	public void draw(Graphics2D g) {
 		if(SimCityGui.GRADINGVIEW) {
 			g.setColor(Color.BLACK);
-			g.drawString("MCashier",xPos,yPos);
+			g.drawString("CASH",xPos,yPos);
 		}
 		else
 			g.drawImage(image,xPos,yPos,null);
@@ -110,10 +105,6 @@ public class MarketCashierGui implements MarketBaseGui {
 		}
 		else
 			return false;
-	}
-	
-	public void setPresent() {
-		isPresent= true;
 	}
 	
 	public int getXPos() {

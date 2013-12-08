@@ -70,7 +70,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("r_smileham", smileham);
 		
 //		//Rest 6
-		TranacAnimationPanel tranac = new TranacAnimationPanel(city, ContactList.TranacRestaurant);
+		TranacAnimationPanel tranac = new TranacAnimationPanel(city);
 		cards.put("r_tranac", tranac);
 //		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
 //		city.citypanel.masterRestaurantList.add(tranac);
