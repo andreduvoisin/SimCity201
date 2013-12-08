@@ -3,6 +3,7 @@ package city.gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
@@ -32,11 +33,10 @@ public class CityBus extends CityComponent {
 	public CityBus(TransportationBus b) {
 		mBus = b;
 		mTraveling = false;
-
 		// x, y inherited from CityComponent
 		x = mStopCoords.get(mStopNumber).mX;
 		y = mStopCoords.get(mStopNumber).mY;
-
+		rectangle = new Rectangle(x, y, mBusSize, mBusSize);
 		// Set initial destination
 		destination.mX = mStopCoords.get(mStopNumber + 1).mX;
 		destination.mY = mStopCoords.get(mStopNumber + 1).mY;

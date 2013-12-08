@@ -25,7 +25,6 @@ import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import transportation.roles.CommuterRole;
-import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
@@ -128,7 +127,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 	}
@@ -255,13 +253,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
-//ANGELICA MAGGI: change all test functions back later
 	private synchronized void processEvent(Event event) {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
-//			testGetCar();
 		}
 		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
 			if (getHousingRole().getHouse() == null) {
@@ -649,11 +645,12 @@ public class PersonAgent extends Agent implements Person {
 
 
 	private void boardBus() {
-		int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
+		// CHASE: FIX THIS NAO
+		//int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		//int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
 		Role jobRole = getJobRole();
 
-		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
+		//mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
 		acquireSemaphore(semAnimationDone);
 
 		((TransportationBusRiderRole) jobRole).msgReset();
