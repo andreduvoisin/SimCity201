@@ -42,7 +42,7 @@ public class Time {
 						System.out.println("Time Shift! (but not)");
 						synchronized (mPersons) {
 							for (Person iPerson : mPersons) {
-								iPerson.msgTimeShift(); 
+								//iPerson.msgTimeShift(); 
 							}
 						}
 					}

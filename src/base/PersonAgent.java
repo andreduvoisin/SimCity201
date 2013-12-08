@@ -477,7 +477,6 @@ public class PersonAgent extends Agent implements Person {
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
-			print("SEMAPHORE DONE");
 			mPersonGui.setPresent(false);
 			
 			((RestaurantCustomerRole) restCustRole).setPerson(this);
