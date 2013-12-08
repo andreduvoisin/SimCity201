@@ -51,7 +51,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	}
 	public void msgReadyToWork(BankTeller t){
 		mTellers.put(t, true);
-		print("RECEIVED READY TO WORK");
+		//print("RECEIVED READY TO WORK");
 		stateChanged();
 	}
 	public void msgRobberAlert(BankCustomer c){
