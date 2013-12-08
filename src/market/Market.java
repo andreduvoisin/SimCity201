@@ -17,7 +17,7 @@ public class Market {
 	//people
 	public MarketCashier mCashier;
 	public List<MarketWorker> mWorkers = Collections.synchronizedList(new ArrayList<MarketWorker>());
-	public List<MarketCustomer> mCustomers = Collections.synchronizedList(new ArrayList<MarketCustomer>());
+	//public List<MarketCustomer> mCustomers = Collections.synchronizedList(new ArrayList<MarketCustomer>());
 	public MarketDeliveryTruck mDeliveryTruck;
 
 	//guis
