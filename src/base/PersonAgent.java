@@ -761,11 +761,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public Role getCommuterRole(){
-		for(Role iRole : mRoles.keySet()){
-			if(iRole instanceof CommuterRole)
-				return iRole; 
-		}
-		return null; 
+		return mCommuterRole; 
 	}
 	
 	private Role getJobRole(){

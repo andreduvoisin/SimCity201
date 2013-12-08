@@ -18,12 +18,12 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	private Location mCurrentLocation; 
 
 	
-	//Bus Data 
+	//Bus Data
 	public enum PersonBusState {noBus, atBusStop, waitingForBus, boardingBus, 
-		ridingBus, exitingBus}; 
+		ridingBus, exitingBus, noNewDestination};
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
-	private PersonBusState mState;
+	private PersonBusState mState = PersonBusState.noBus;
 	private TransportationBus mBus; 
 	
 	//CONSTRUCTOR
@@ -58,18 +58,13 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	public void msgAtStop(int busStop){
 		if(busStop == mDestinationBusStop){
-			mState = PersonBusState.noBus; 
+			mState = PersonBusState.exitingBus; 
 		}
 		stateChanged(); 
 	}
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
-		if(!mPerson.hasCar()){
-			GoToDestination(); 
-			return true; 
-		}
-		
 		if(mPerson.hasCar()){
 			DriveToDestination(); 
 			return true;
@@ -92,6 +87,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 			//MAGGI: Check if you really need this later 
 			else if(mState == PersonBusState.noBus){
 				GoToDestination(); 
+				mState = PersonBusState.noNewDestination; 
 				return true; 
 			}
 		}
@@ -109,31 +105,35 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 
 	private void BoardBus(){
 		mPerson.getGui().DoBoardBus();
+		mBus.msgImOn(this);
 		mState = PersonBusState.ridingBus;
 	}
 	
 	private void ExitBus(){
 		mPerson.getGui().DoExitBus(mDestinationBusStop); 
+		mBus.msgImOff(this);
 		mState = PersonBusState.noBus; 
+		stateChanged(); 
 	}
 	
 	private void DriveToDestination(){
-		if(inAHouse()){
-			if(!goingToFarHouse(mDestination)){
-				mPerson.getGui().DoGoToDestination(mDestination);
-			}
-			else{
-				mPerson.getGui().DoDriveToDestination(mDestination); 
-			}
-		}
-		else{
-			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
-				mPerson.getGui().DoGoToDestination(mDestination);
-			}
-			else{
-				mPerson.getGui().DoDriveToDestination(mDestination); 
-			}
-		}
+		mPerson.getGui().DoGoToDestination(mDestination);
+//		if(inAHouse()){
+//			if(!goingToFarHouse(mDestination)){
+//				mPerson.getGui().DoGoToDestination(mDestination);
+//			}
+//			else{
+//				mPerson.getGui().DoGoToDestination(mDestination); 
+//			}
+//		}
+//		else{
+//			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
+//				mPerson.getGui().DoGoToDestination(mDestination);
+//			}
+//			else{
+//				mPerson.getGui().DoGoToDestination(mDestination); 
+//			}
+//		}
 	}
 	
 	private void GoToDestination(){
