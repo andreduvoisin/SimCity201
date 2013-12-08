@@ -21,7 +21,7 @@ import city.gui.trace.AlertTag;
 public class BankTellerRole extends BaseRole implements BankTeller{
 
 	//------------------------------------------------------DATA------------------------------------------------------
-	int mBankID;
+	public int mBankID;
 	
 	public class MyCustomer{
 		public BankCustomer customer;
@@ -58,7 +58,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
-		
+		ContactList.sBankList.get(bankID).addPerson(this);
 		//Add Gui to list
 //		mGUI = new BankTellerGui(this);
 //		ContactList.sBankList.get(bankID).addPerson(this);
@@ -164,9 +164,9 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mCustomer.customer.msgHereIsBalance(mCustomer.amount);
 	}
 	private void robbery(){
-		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).balance += mCustomer.amount;
-		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
+//		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
+//		mAccounts.get(accountIndex).balance += mCustomer.amount; //REX: account information must fix in teller
+		mCustomer.customer.msgHereIsBalance(200); //(mMasterTeller.getAccounts().get(accountIndex).balance);
 		mGuard.msgRobberAlert(mCustomer.customer);
 		print("MESSAGED GUARD ABOUT ROBBERY");
 	}
@@ -200,6 +200,10 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 				return ContactList.cBANK1_LOCATION;
 		}
 		return null;
+	}
+	
+	public void setActive(){
+		mGuard.msgReadyToWork(this);
 	}
 
 	@Override
