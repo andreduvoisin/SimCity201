@@ -65,9 +65,6 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 //	SCHEDULER
 	
 	public boolean pickAndExecuteAnAction(){
-		print("IN GUARD SCHEDULER");
-		print("I have customers: "+!mCustomers.isEmpty());
-		print("I have tellers: "+mTellers.values().contains(true));
 		synchronized(mCustomers) {
 			for (BankCustomer c : mCustomers.keySet()){
 				if(mCustomers.get(c)){
@@ -85,7 +82,6 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 						provideService(c, t);
 						mCustomers.remove(c);
 						mTellers.put(t, false);
-						print("IN SERVICE LOOP");
 						return true;
 					}
 				}
