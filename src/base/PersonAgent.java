@@ -68,7 +68,7 @@ public class PersonAgent extends Agent implements Person {
 	private int mTimeShift;
 	private double mCash;
 	private double mLoan;
-	private boolean mHasCar;	//ALL ANGELICA MAGGI: 3 car will be implemented later
+	private boolean mHasCar;	//ALL MAGGI: 3 car will be implemented later
 	private boolean mAtJob;		//used in PAEA
 	public CityPerson mPersonGui;
 
