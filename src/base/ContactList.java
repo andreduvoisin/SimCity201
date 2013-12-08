@@ -152,14 +152,28 @@ public class ContactList {
 	
 	//PERSON B* BLOCKS
 	public static List<Block> cPERSONBLOCKS;
-	public static final Block cPERSONBLOCK0 = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
-	public static final Block cPERSONBLOCK0 = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
-	public static final Block cPERSONBLOCK0 = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
-	public static final Block cPERSONBLOCK0 = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
-	public static final Block cPERSONBLOCK0 = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
+	public static final Block cPERSONBLOCK0  = new Block(cGRID_POINT1, cGRID_POINT2, cGRID_POINT1, cGRID_POINT2);
+	public static final Block cPERSONBLOCK1  = new Block(cGRID_POINT3, cGRID_POINT4, cGRID_POINT1, cGRID_POINT2);
+	public static final Block cPERSONBLOCK2  = new Block(cGRID_POINT5, cGRID_POINT6, cGRID_POINT1, cGRID_POINT2);
+	public static final Block cPERSONBLOCK3  = new Block(cGRID_POINT7, cGRID_POINT8, cGRID_POINT1, cGRID_POINT2);
+	public static final Block cPERSONBLOCK4  = new Block(cGRID_POINT1, cGRID_POINT2, cGRID_POINT3, cGRID_POINT4);
+	public static final Block cPERSONBLOCK5  = new Block(cGRID_POINT3, cGRID_POINT4, cGRID_POINT3, cGRID_POINT4);
+	public static final Block cPERSONBLOCK6  = new Block(cGRID_POINT5, cGRID_POINT6, cGRID_POINT3, cGRID_POINT4);
+	public static final Block cPERSONBLOCK7  = new Block(cGRID_POINT7, cGRID_POINT8, cGRID_POINT3, cGRID_POINT4);
+	public static final Block cPERSONBLOCK8  = new Block(cGRID_POINT1, cGRID_POINT2, cGRID_POINT5, cGRID_POINT6);
+	public static final Block cPERSONBLOCK9  = new Block(cGRID_POINT3, cGRID_POINT4, cGRID_POINT5, cGRID_POINT6);
+	public static final Block cPERSONBLOCK10 = new Block(cGRID_POINT5, cGRID_POINT6, cGRID_POINT5, cGRID_POINT6);
+	public static final Block cPERSONBLOCK11 = new Block(cGRID_POINT7, cGRID_POINT8, cGRID_POINT5, cGRID_POINT6);
+	public static final Block cPERSONBLOCK12 = new Block(cGRID_POINT1, cGRID_POINT2, cGRID_POINT7, cGRID_POINT8);
+	public static final Block cPERSONBLOCK13 = new Block(cGRID_POINT3, cGRID_POINT4, cGRID_POINT7, cGRID_POINT8);
+	public static final Block cPERSONBLOCK14 = new Block(cGRID_POINT5, cGRID_POINT6, cGRID_POINT7, cGRID_POINT8);
+	public static final Block cPERSONBLOCK15 = new Block(cGRID_POINT7, cGRID_POINT8, cGRID_POINT7, cGRID_POINT8);
+	
+	
 	
 	//CAR B* BLOCKS
 	public static List<List<Block>> cCARBLOCKS;
+	//Not needed =    Paths: AD, DC, CB, BA 
 	//cCARBLOCKS[0] = Paths: AB, BC, CD, DA
 	public static final Block cCARBLOCK0 = new Block(100, 80, 500, 520);
 	public static final Block cCARBLOCK1 = new Block(80, 100, 520, 500);
