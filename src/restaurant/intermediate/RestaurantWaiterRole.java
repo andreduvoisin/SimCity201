@@ -7,6 +7,7 @@ import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreSharedWaiterRole;
 import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
@@ -72,15 +73,13 @@ public class RestaurantWaiterRole extends BaseRole implements
 //			}
 //			break;
 		case 2:
-		//	if (mWaiterType == 1) {//JERRY: shouldn't you use citypanel.masterRestaurantList.get(2)?
-									// This statically adds a waiter to your rest.panel class
-									// but not to the masterRestaurantList (is taken care of elsewhere?)
+			if (mWaiterType == 1) {
 				subRole = new JerrywebWaiterRole(super.mPerson);
 				JerrywebRestaurant.addPerson((JerrywebWaiterRole) subRole);
-			/*} else if (mWaiterType == 0) {
+			} else if (mWaiterType == 0) {
 				subRole = new JerrywebRSWaiterRole(super.mPerson);
 				JerrywebRestaurant.addPerson((JerrywebRSWaiterRole) subRole);
-			}*/
+			}
 			break;
 		case 3: // maggi
 			if (mWaiterType == 1) {

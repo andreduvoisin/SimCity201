@@ -43,10 +43,12 @@ public class BusRiderRoleTest extends TestCase {
 	public void testCommuterScenario()
 	{
 				
-		mockCommuter.msgBoardBus();
+		commuterRole.msgBoardBus();
 		
-		assertEquals("The commuterRole's log should have one event, it doesn't: "+ mockCommuter.log.toString(), 1, mockCommuter.log.size());
+		//assertEquals("The MockCommuterRole's log should have one event, it doesn't: ", 1, commuterRole.log.size());
 		
+		commuterRole.msgAtStop(0);
+		//assertEquals("The MockCommuterRole's log should have two event, it doesn't: ", 2, commuterRole.log.size());
 	}
 
 }

@@ -59,7 +59,7 @@ public class JerrywebRestaurant {
     	}
     	else if (role instanceof JerrywebRSWaiterRole){
     		WaiterGui gui = new WaiterGui((Waiter) role, host);
-    		((JerrywebWaiterRole) role).setGui(gui);
+    		((JerrywebRSWaiterRole) role).setGui(gui);
     		guis.add(gui);
     		JerrywebRSWaiterRole rswaiter = (JerrywebRSWaiterRole) role;
     		rswaiter.setHost(host);

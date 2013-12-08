@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import restaurant.restaurant_jerryweb.test.mock.LoggedEvent;
+import test.mock.Mock;
 import transportation.interfaces.TransportationRider;
 import transportation.roles.CommuterRole;
 
