@@ -92,7 +92,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
         add(tabbedPane);
         
         // Pretty/Ugly View
-        toggleGUI = new JButton("Show Grading View");
+        toggleGUI = new JButton("Show Beautiful View");
         Dimension tgDim = toggleGUI.getPreferredSize();
         tgDim.width += 10;
         toggleGUI.setPreferredSize(tgDim);
