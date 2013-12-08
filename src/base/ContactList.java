@@ -4,7 +4,9 @@ import housing.House;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import market.Market;
 import restaurant.restaurant_davidmca.DavidRestaurant;
@@ -73,6 +75,9 @@ public class ContactList {
 	//Other people/things
 	public static TransportationBus cBus;
 	public static BankMasterTeller masterTeller;
+	
+	//Map of open places
+	public static Map<Location, Boolean> sOpenPlaces = Collections.synchronizedMap(new HashMap<Location, Boolean>());
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
@@ -305,6 +310,20 @@ public class ContactList {
 		}
 		cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
 	}
+	
+	//Workplace Availability
+	static{
+		sOpenPlaces.put(cBANK1_LOCATION, true);
+		sOpenPlaces.put(cBANK2_LOCATION, true);
+		sOpenPlaces.put(cMARKET1_LOCATION, true);
+		sOpenPlaces.put(cMARKET2_LOCATION, true);
+		synchronized(cRESTAURANT_LOCATIONS){
+			for(Location iLocation : cRESTAURANT_LOCATIONS){
+				sOpenPlaces.put(iLocation, true);
+			}
+		}
+	}
+	
 		
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
