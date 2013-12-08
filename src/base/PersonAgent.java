@@ -519,7 +519,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void goToMarket() {
-		mCommuterRole.mActive = true;
+		//mCommuterRole.mActive = true;
 		
 		//ANGELICA: hack
 		mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
@@ -531,12 +531,12 @@ public class PersonAgent extends Agent implements Person {
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
 		}
-//		if(!SimCityGui.TESTING){
-//			mPersonGui.DoGoToDestination(location);
-//			acquireSemaphore(semAnimationDone);
-//		}
-//		mPersonGui.setPresent(false); //set city person invisible
-//		
+		if(!SimCityGui.TESTING){
+			mPersonGui.DoGoToDestination(location);
+			acquireSemaphore(semAnimationDone);
+		}
+		mPersonGui.setPresent(false); //set city person invisible
+		
 		//activate marketcustomer role
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof MarketCustomer){
