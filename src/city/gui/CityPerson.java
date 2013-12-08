@@ -63,8 +63,10 @@ public class CityPerson extends CityComponent {
         	if(mFinalDestination != null){
         		DoGoToDestination(mFinalDestination);
         	}else{
-        		this.disable(); 
+        		this.disable();
+        		visible = false;
         		mPerson.msgAnimationDone();
+        		mPerson.postCommute();
         	}
     	}
         
