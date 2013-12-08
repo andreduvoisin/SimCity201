@@ -160,7 +160,7 @@ public class CityPerson extends CityComponent {
 				//else bus to same corner
 				else{
 					//do bus stuff??? CHASE MAGGI: 1 Do this
-//					DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
+					DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
 				}
 			}
 			//if not at a corner, walk to person corner
@@ -198,6 +198,7 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
+		mPerson.print("GUI TAKE BUS");
 		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
 		cRole.msgAtBusStop(currentStop, destinationStop); 
 	}
