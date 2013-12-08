@@ -22,6 +22,7 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	public HousingLandlord myLandLord;
 	public List<Bill> mBills = Collections
 			.synchronizedList(new ArrayList<Bill>());
+	public boolean requestHousing = false;
 
 	enum EnumBillState {
 		Pending, Paid
@@ -44,6 +45,12 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	}
 
 	/* Messages */
+	
+	public void msgRequestHousing() {
+		print("msgRequestHousing");
+		requestHousing = true;
+		stateChanged();		
+	}
 
 	public void msgApplicationAccepted(House newHouse) {
 		print("Message - msgApplicationAccepted");
@@ -78,7 +85,12 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	/* Scheduler */
 
 	public boolean pickAndExecuteAnAction() {
-		// DAVID MAGGI: establish what triggers the RequestHousing() action
+		
+		if (requestHousing) {
+			requestHousing = false;
+			RequestHousing();
+			return true;
+		}
 
 		if (mHouse != null) {
 			if(!mBills.isEmpty()){

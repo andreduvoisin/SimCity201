@@ -13,4 +13,11 @@ public class Block {
 		mY1 = y1; 
 		mY2 = y2; 
 	}
+	
+	public Block(Location first, Location second){
+		mX1 = first.mX;
+		mX2 = second.mX;
+		mY1 = first.mY;
+		mY2 = second.mY;
+	}
 }

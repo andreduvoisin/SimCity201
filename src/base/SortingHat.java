@@ -223,14 +223,23 @@ public class SortingHat {
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
 			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount)); 
 			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
 			return newLandLordRole;
 		}
 		
-		//DAVID: add back in once rent requesting works
-//		if (sRenterCount < sMaxRenters){
-//			sRenterCount++;
-//			return new HousingRenterRole(person);
-//		}
+		if (sRenterCount < sMaxRenters){
+			sRenterCount++;
+			return new HousingRenterRole(person);
+		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
 		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));

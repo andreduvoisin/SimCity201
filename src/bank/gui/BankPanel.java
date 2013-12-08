@@ -30,7 +30,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	Timer timer;
 	
-	private List<Gui> guis; // = new ArrayList<Gui>();
+	public List<Gui> guis; // = new ArrayList<Gui>();
 	public Bank Bank;
 	/*
 	static final int COUNTER_X = 0;
@@ -69,58 +69,6 @@ public class BankPanel extends CityCard implements ActionListener{
     		System.out.println(e.getMessage());
     	}
 	}
-	
-	/*public void testBankGui() {
-		PersonAgent cust1 = new PersonAgent();
-		BankCustomerRole bcr1 = new BankCustomerRole(cust1, 1);
-		BankCustomerGui bcg1 = new BankCustomerGui(bcr1, this);
-		bcr1.setGui(bcg1);
-		addGui(bcg1);
-		
-		PersonAgent cust2 = new PersonAgent();
-		BankCustomerRole bcr2 = new BankCustomerRole(cust2, 1);
-		BankCustomerGui bcg2 = new BankCustomerGui(bcr2, this);
-		bcr2.setGui(bcg2);
-		addGui(bcg2);
-		
-		PersonAgent cust3 = new PersonAgent();
-		BankCustomerRole bcr3 = new BankCustomerRole(cust3, 1);
-		BankCustomerGui bcg3 = new BankCustomerGui(bcr3, this);
-		bcr3.setGui(bcg3);
-		addGui(bcg3);
-		
-		PersonAgent teller1 = new PersonAgent();
-		BankTellerRole btr1 = new BankTellerRole(teller1, 1);
-		BankTellerGui btg1 = new BankTellerGui(btr1, this, 1);
-		btr1.setGui(btg1);
-		addGui(btg1);
-		
-		PersonAgent teller2 = new PersonAgent();
-		BankTellerRole btr2 = new BankTellerRole(teller2, 1);
-		BankTellerGui btg2 = new BankTellerGui(btr2, this, 2);
-		btr2.setGui(btg2);
-		addGui(btg2);
-
-		PersonAgent teller3 = new PersonAgent();
-		BankTellerRole btr3 = new BankTellerRole(teller3, 1);
-		BankTellerGui btg3 = new BankTellerGui(btr3, this, 3);
-		btr3.setGui(btg3);
-		addGui(btg3);
-		
-		PersonAgent guard = new PersonAgent();
-		BankGuardRole bgr = new BankGuardRole(guard, 1);
-		BankGuardGui bgg = new BankGuardGui(bgr, this);
-		bgr.setGui(bgg);
-		addGui(bgg);
-		
-		//Actions
-		bcg1.DoGoWaitInLine();
-		bcg2.DoGoWaitInLine();
-		bcg3.DoGoWaitInLine();
-		bcg1.DoGoToTeller(1);
-		bcg2.DoGoToTeller(2);
-		bcg3.DoGoToTeller(3);
-	}*/
 	
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
@@ -178,11 +126,63 @@ public class BankPanel extends CityCard implements ActionListener{
 		guis = b.mGuis;
 	}
 	
-	/*
+	/*public void testBankGui() {
+		PersonAgent cust1 = new PersonAgent();
+		BankCustomerRole bcr1 = new BankCustomerRole(cust1, 1);
+		BankCustomerGui bcg1 = new BankCustomerGui(bcr1, this);
+		bcr1.setGui(bcg1);
+		addGui(bcg1);
+		
+		PersonAgent cust2 = new PersonAgent();
+		BankCustomerRole bcr2 = new BankCustomerRole(cust2, 1);
+		BankCustomerGui bcg2 = new BankCustomerGui(bcr2, this);
+		bcr2.setGui(bcg2);
+		addGui(bcg2);
+		
+		PersonAgent cust3 = new PersonAgent();
+		BankCustomerRole bcr3 = new BankCustomerRole(cust3, 1);
+		BankCustomerGui bcg3 = new BankCustomerGui(bcr3, this);
+		bcr3.setGui(bcg3);
+		addGui(bcg3);
+		
+		PersonAgent teller1 = new PersonAgent();
+		BankTellerRole btr1 = new BankTellerRole(teller1, 1);
+		BankTellerGui btg1 = new BankTellerGui(btr1, this, 1);
+		btr1.setGui(btg1);
+		addGui(btg1);
+		
+		PersonAgent teller2 = new PersonAgent();
+		BankTellerRole btr2 = new BankTellerRole(teller2, 1);
+		BankTellerGui btg2 = new BankTellerGui(btr2, this, 2);
+		btr2.setGui(btg2);
+		addGui(btg2);
+
+		PersonAgent teller3 = new PersonAgent();
+		BankTellerRole btr3 = new BankTellerRole(teller3, 1);
+		BankTellerGui btg3 = new BankTellerGui(btr3, this, 3);
+		btr3.setGui(btg3);
+		addGui(btg3);
+		
+		PersonAgent guard = new PersonAgent();
+		BankGuardRole bgr = new BankGuardRole(guard, 1);
+		BankGuardGui bgg = new BankGuardGui(bgr, this);
+		bgr.setGui(bgg);
+		addGui(bgg);
+		
+		//Actions
+		bcg1.DoGoWaitInLine();
+		bcg2.DoGoWaitInLine();
+		bcg3.DoGoWaitInLine();
+		bcg1.DoGoToTeller(1);
+		bcg2.DoGoToTeller(2);
+		bcg3.DoGoToTeller(3);
+	}*/
+	
+	
 	public void addGui(Gui gui) {
 		guis.add(gui);
 	}
-	
+	/*
 	public void setMasterTeller(BankMasterTellerRole mt){
 		masterTeller = mt;
 	}

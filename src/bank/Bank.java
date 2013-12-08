@@ -41,7 +41,7 @@ public class Bank {
 			((BankCustomerRole)role).setGuard(mGuard);
 			((BankCustomerRole)role).setTeller(teller);
 			((BankCustomerRole)role).mGUI = new BankCustomerGui((BankCustomerRole)role);
-			//mCustomerGuis.add(((BankCustomerRole)role).mGUI);
+			((BankCustomerRole)role).mGUI.setPresent(true);
 			mGuis.add(((BankCustomerRole)role).mGUI);
 		}
 		
@@ -51,23 +51,20 @@ public class Bank {
 				((BankTellerRole)role).addGuard(mGuard);
 				((BankTellerRole)role).setMaster(mMasterTeller);
 				((BankTellerRole)role).mGUI = new BankTellerGui((BankTellerRole)role);//, BankPanel);
-				//mTellerGuis.add(((BankTellerRole)role).mGUI);
+				((BankTellerRole)role).mGUI.setPresent(true);
 				mGuis.add(((BankTellerRole)role).mGUI);
 			}
 		}
-		
-		
 		 if(role instanceof BankGuardRole){
 			 mGuard = ((BankGuardRole)role);
 			((BankGuardRole)role).mGUI = new BankGuardGui((BankGuardRole)role);
+			((BankGuardRole)role).mGUI.setPresent(true);
+			mGuis.add(((BankGuardRole)role).mGUI);
 		}
 		 
 		 if(role instanceof BankMasterTellerRole){
 			 mMasterTeller = ((BankMasterTellerRole)role);
-			 //((BankMasterTellerRole)role).mGUI = new BankMasterTellerGui((BankMasterTellerRole)role, BankPanel);
 		 }
-		 
-	
 	}
 	
 	public void updateCustomerLine() {
@@ -79,5 +76,4 @@ public class Bank {
             }
         }
 	}
-	
 }
