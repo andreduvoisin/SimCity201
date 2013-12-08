@@ -62,7 +62,7 @@ public class PlacesButtonListener implements ActionListener {
 				button.setText("Disable");
 			}
 			break;
-		case "Ollivaders":
+		case "Ollivanders":
 			if (ContactList.sOpenPlaces.get(ContactList.cMARKET2_LOCATION)){
 				ContactList.sOpenPlaces.put(ContactList.cMARKET2_LOCATION, false);
 				CityPanel.sClosedImages.get(ContactList.cMARKET2_LOCATION).enable();
