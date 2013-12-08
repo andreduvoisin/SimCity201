@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
+import base.CityIntersection;
 import base.ContactList;
 
 @SuppressWarnings("serial")
@@ -49,6 +50,19 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL, 50, 600));
 		this.addStatic(new CityRoad(280, RoadDirection.VERTICAL, 40, 480));
 		this.addStatic(new CityRoad(280, RoadDirection.HORIZONTAL, 40, 480));
+		
+		//Add Intersections
+		
+		//North-Center
+		this.addStatic(new CityIntersection(280, 35, 40, 50));
+		//Center
+		this.addStatic(new CityIntersection(280, 280, 40, 40));
+		//East-Center
+		this.addStatic(new CityIntersection(35, 280, 50, 40));
+		//West-Center
+		this.addStatic(new CityIntersection(515, 280, 50, 40));
+		//South-Central #InDaHood
+		this.addStatic(new CityIntersection(280, 515, 40, 50));
 		
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "r_duvoisin"));

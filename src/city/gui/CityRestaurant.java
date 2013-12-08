@@ -10,20 +10,10 @@ import base.Location;
 public class CityRestaurant extends CityComponent {
 	private String restaurantName = "";
 	private int RESTAURANTSIZE = 80; 
-	
-	public CityRestaurant(int x, int y) {
-		super(x, y, Color.red, "Unnamed Restaurant");
-		rectangle = new Rectangle(x, y, RESTAURANTSIZE, RESTAURANTSIZE);
-	}
-	
-	public CityRestaurant(int x, int y, String ID) {
-		super(x, y, Color.red, ID);
-		rectangle = new Rectangle(x, y, RESTAURANTSIZE, RESTAURANTSIZE);
-		restaurantName = ID;
-	}
 
 	public CityRestaurant(Location location, String ID) {
 		super(location.mX, location.mY, Color.red, ID);
+		rectangle = new Rectangle(x, y, RESTAURANTSIZE, RESTAURANTSIZE);
 		restaurantName = ID;
 	}
 	
