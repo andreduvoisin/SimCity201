@@ -27,7 +27,6 @@ public class MarketCustomerGui implements MarketBaseGui {
 	
 	private int xPos = xStart, yPos = yStart;
 	private int xDestination = xStart, yDestination = yStart;
-	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, goToWaitingArea, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
