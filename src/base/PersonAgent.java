@@ -411,6 +411,7 @@ public class PersonAgent extends Agent implements Person {
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
 		}
+		print("" + location.mX + " " + location.mY);
 		//if(!SimCityGui.TESTING){
 		mPersonGui.setPresent(true);
 		mPersonGui.DoGoToDestination(location);

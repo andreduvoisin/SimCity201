@@ -41,7 +41,7 @@ public class BankCustomerGui implements Gui {
 	static final int INTERACT_X3 = 300;
 	static final int INTERACT_Y = 420;
 	
-	static int LINE_POSITION = 0;
+	public static int LINE_POSITION = 0;
 	
 	static final int LINE_X = 225;
 	static final int LINE_Y = 320;
@@ -77,13 +77,13 @@ public class BankCustomerGui implements Gui {
 		else if (yPos > yDestination)
 			yPos--;
 		
-		if(xPos == xDestination && yPos == yDestination == isMovingToTeller) {
+		if(xPos == xDestination && yPos == yDestination && isMovingToTeller) {
 			isMovingToTeller = false;
 			timer.schedule(new TimerTask(){
 				public void run(){
 					agent.msgAtLocation();
 				}
-			}, 1000); 
+			}, 2000); 
 		}
 	}
 
@@ -113,14 +113,13 @@ public class BankCustomerGui implements Gui {
 	}
 	
 	public void DoLeaveBank() {
-		xDestination = 225;
+		xDestination = INTERACT_X1;
 		yDestination = -50;
 	}
 	//ANDRE: how do we fix this... Possible to call mBank.mCustomerGuis() in bankPanel?
 	public void DoGoToTeller() {
 		xDestination = INTERACT_X1;
 		yDestination = INTERACT_Y;
-		LINE_POSITION--;
 		mBank.updateCustomerLine();
 		isMovingToTeller = true;
 	}
