@@ -5,31 +5,33 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
+import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_xurex.RexCashierRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantCashierRole extends BaseRole implements RestaurantCashierInterface, RestaurantBaseInterface {
 	
@@ -48,7 +50,11 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		switch(mRestaurantID){
 			case 0: //andre
 				subRole = new AndreCashierRole(super.mPerson, this);
-				AndreRestaurantPanel.instance.cashier = (AndreCashierRole) subRole;
+				if(AndreRestaurant.cashier == null) {
+					AndreRestaurant.cashier = (AndreCashierRole) subRole;
+				} else {
+					subRole = AndreRestaurant.cashier;
+				}
 				break;
 //			case 1: //chase
 //				subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).cashier;
@@ -64,11 +70,19 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				break;
 			case 4: //david
 				subRole = new DavidCashierRole(super.mPerson, this);
-				DavidRestaurant.cashier = (DavidCashierRole) subRole;
+				if (DavidRestaurant.cashier == null) {
+					DavidRestaurant.cashier = (DavidCashierRole) subRole;
+				} else {
+					subRole = AndreRestaurant.cashier;
+				}
 				break;
 			case 5: //shane
 				subRole = new SmilehamCashierRole(super.mPerson, this);
-				SmilehamAnimationPanel.addPerson((SmilehamCashierRole) subRole);
+				if (SmilehamRestaurant.mCashier == null) {
+					SmilehamRestaurant.addPerson((SmilehamCashierRole) subRole);
+				} else {
+					subRole = SmilehamRestaurant.mCashier;
+				}
 				break;
 			case 6: //angelica
 				subRole = new TranacCashierRole(mPerson,this);
@@ -84,7 +98,9 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	public boolean pickAndExecuteAnAction() {
 		if(marketPickAndExecuteAnAction())
 			return true;
-		return subRole.pickAndExecuteAnAction();
+		if(subRole != null)
+			return subRole.pickAndExecuteAnAction();
+		return false;
 	}
 	
 	@Override
@@ -100,13 +116,16 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Messages */
 	public void msgPlacedMarketOrder(MarketOrder o, MarketCashier c) {
-		mMarketBills.add(new MarketBill(o, c));
+		synchronized(mMarketBills) {
+			mMarketBills.add(new MarketBill(o, c));
+		}
 	}
 	
 	public void msgInvoiceToPerson(Map<EnumItemType, Integer> cannotFulfill, MarketInvoice invoice) {
 		synchronized(mMarketBills) {
 		for(MarketBill b : mMarketBills) {
 			if(b.mOrder == invoice.mOrder) {
+				b.mStatus = EnumBillStatus.PAYING;
 				b.mInvoice = invoice;
 				b.mCannotFulfill = cannotFulfill;
 				stateChanged();
@@ -120,6 +139,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		synchronized(mMarketBills) {
 		for(MarketBill b : mMarketBills) {
 			if(b.mStatus == EnumBillStatus.PAYING) {
+				b.mOrder.mStatus = EnumOrderStatus.PAID;
 				verifyAndPayMarketInvoice(b);
 				return true;
 			}
@@ -130,6 +150,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Actions */
 	public void verifyAndPayMarketInvoice(MarketBill b) {
+		print("Verifying and paying bill "+ b,AlertTag.R6);	//ANGELICA hack
 		MarketOrder o = b.mOrder;
 		MarketInvoice i = b.mInvoice;
 		Map<EnumItemType, Integer> cf = b.mCannotFulfill;
@@ -138,12 +159,11 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 			int orderNum = o.mItems.get(type);
 			int billNum = i.mOrder.mItems.get(type) + cf.get(type);
 			if(orderNum != billNum) {
-				//ANGELICA: message market that invoice is invalid
+				//message market that invoice is invalid
 				mMarketBills.remove(b);
 				return;
 			}
 		}
-		
 		i.mPayment = i.mTotal;
 		ContactList.SendPayment(getSSN(), i.mMarketBankNumber, i.mTotal);
 		b.mMarketCashier.msgPayingForOrder(i);

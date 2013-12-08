@@ -10,15 +10,16 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import restaurant.intermediate.RestaurantCookRole;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -47,21 +48,17 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         private final int baseTime = 5000;
         private final int baseNeed = 3;
         
-        private int mItemThreshold = 1;
+        private int mItemThreshold = 2;
         
         private Semaphore inTransit = new Semaphore(0, true);
 
         public TranacCookRole(Person p, RestaurantCookRole r) {
                 super(p);
                 cookGui = new TranacCookGui(this);
+                TranacRestaurant.addGui(cookGui);
+                TranacRestaurant.addPerson(this);
                 mRole = r;
                 
-                /*ANGELICA: inventory created in restaurantCookRole
-                mRole.mItemInventory.put(EnumItemType.STEAK,mRole.DEFAULT_FOOD_QTY);
-                mRole.mItemInventory.put(EnumItemType.CHICKEN,mRole.DEFAULT_FOOD_QTY);
-                mRole.mItemInventory.put(EnumItemType.SALAD,mRole.DEFAULT_FOOD_QTY);
-                mRole.mItemInventory.put(EnumItemType.PIZZA,mRole.DEFAULT_FOOD_QTY);
-				*/
                 //create cook times
                 mCookTimes.put(EnumItemType.STEAK,(int)(baseTime*2));
                 mCookTimes.put(EnumItemType.CHICKEN,(int)(baseTime*1.75));
@@ -196,30 +193,20 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                                 if(i.name == o.choice)
                                         food = i;
                         }
-                }
-                ANGELICA: add in functionality to order if low stock
+                }*/
                 if(mRole.mItemInventory.get(food) < mItemThreshold) {
-                       
+                    if(!mRole.mHasCreatedOrder.get(food)) {
+                    	mRole.mItemsDesired.put(food,baseNeed);
+                    }
                 }
-                /*
-                if(food.stock == 0) {                                //handles if out of food item
-                        print("Out of " + food.name);
-                        o.waiter.msgOutOfFood(o.choice, o.table);
-                        orders.remove(o);
-                        if(food.s != FoodState.NoStock && food.s != FoodState.Ordered) {
-                                food.s = FoodState.LowStock;
-                                food.numNeeded = baseNeed;
-                        }
-                        return;
-                }
-                */
                 
                 if(mRole.mItemInventory.get(food) == 0) {
                         print("Out of choice " + food);
                         o.waiter.msgOutOfFood(o.choice.toString(), o.table);
                         orders.remove(o);
-                        mRole.mItemsDesired.put(food,baseNeed);
-                        //ANGELICA: set flag
+                        if(!mRole.mHasCreatedOrder.get(food)) {
+                        	mRole.mItemsDesired.put(food,baseNeed);
+                        }
                         return;
                 }
                 

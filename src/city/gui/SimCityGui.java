@@ -7,15 +7,19 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
+import base.ContactList;
+import base.SortingHat;
 import base.Time;
-import base.reference.ContactList;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
-	public static int TESTNUM = 2;
 
-	public static boolean GRADINGVIEW = false;
+
+	public static int TESTNUM = 3;
+	
+	public static boolean GRADINGVIEW = true;
+
 	
 	static SimCityGui instance = null;
 	public CityPanel citypanel;
@@ -67,6 +71,8 @@ public class SimCityGui extends JFrame {
 	 */
 	public static void main(String[] args) throws HeadlessException, IOException {
 		ContactList.setup();
+		SortingHat.InstantiateBaseRoles();
+	
 		SimCityGui test = new SimCityGui("SimCity201 - Team 28");
 		test.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		test.setResizable(false);

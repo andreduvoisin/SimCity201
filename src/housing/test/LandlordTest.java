@@ -1,12 +1,12 @@
 package housing.test;
 
+import housing.House;
 import housing.roles.HousingLandlordRole;
 import housing.test.mock.MockRenter;
 import junit.framework.TestCase;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.House;
 
 /**
  * 

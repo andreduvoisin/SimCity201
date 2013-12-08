@@ -1,5 +1,6 @@
 package housing.roles;
 
+import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -9,7 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import base.interfaces.Person;
-import base.reference.House;
 
 /*
  * @author David Carr, Maggi Yang
@@ -198,6 +198,16 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	
 	public int getRenterListSize(){
 		return mRenterList.size(); 
+	}
+	
+	public int getNumAvailableHouses() {
+		int numAvailableHouses = 0;
+		for(House h: mHousesList){
+			if(h.mOccupant == null){
+				numAvailableHouses++;
+			}
+		}
+		return numAvailableHouses;
 	}
 
 }

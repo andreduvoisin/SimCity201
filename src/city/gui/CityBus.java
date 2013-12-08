@@ -3,48 +3,48 @@ package city.gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import transportation.TransportationBusDispatch;
+import transportation.TransportationBus;
 import base.Location;
 
 public class CityBus extends CityComponent {
 
-	private TransportationBusDispatch mBusDispatch;
+	int mBusSize = 25;
 
-	List<Location> mStopCoords;
+	private TransportationBus mBus;
+	List<Location> mStopCoords = base.ContactList.cBUS_STOPS;
 
-	private int mStopNumber,
-				mSize = 25;
+	private int mStopNumber = 0;
 	private Location destination = new Location(0, 0);
-	private boolean mTraveling, firstRun = true;
-	BufferedImage front, right, left, back;
+	private boolean mTraveling;
+	BufferedImage front, right, left, back, current;
 
 	/**
 	 * Creates new CityBus
 	 * @param b Bus "driver"
 	 * @param busNum Index of this instance of bus
 	 */
-	public CityBus(TransportationBusDispatch b, List<Location> stopCoords) {
-		mBusDispatch = b;
-		mTraveling = true;
-		mStopNumber = 0;
-		mStopCoords = stopCoords;
-
-		// Inherited from CityComponent
+	public CityBus(TransportationBus b) {
+		mBus = b;
+		mTraveling = false;
+		// x, y inherited from CityComponent
 		x = mStopCoords.get(mStopNumber).mX;
 		y = mStopCoords.get(mStopNumber).mY;
+		rectangle = new Rectangle(x, y, mBusSize, mBusSize);
+		// Set initial destination
+		destination.mX = mStopCoords.get(mStopNumber + 1).mX;
+		destination.mY = mStopCoords.get(mStopNumber + 1).mY;
 
+		initializeImages();
+	}
 
-		front = null;
-		right = null;
-		left = null;
-		back = null;
-		
+	private void initializeImages() {
 		try {
 			java.net.URL frontURL = this.getClass().getClassLoader().getResource("city/gui/images/bus/front_sm.png");
 			front = ImageIO.read(frontURL);
@@ -58,14 +58,7 @@ public class CityBus extends CityComponent {
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-
-		isActive = true;
-
-		// Set initial destination
-		destination.mX = mStopCoords.get(mStopNumber + 1).mX;
-		destination.mY = mStopCoords.get(mStopNumber + 1).mY;
 	}
-
 
 	public void paint(Graphics g) {
 		draw((Graphics2D)g);
@@ -78,11 +71,9 @@ public class CityBus extends CityComponent {
         if (y < destination.mY)			y++;
         else if (y > destination.mY)	y--;
 
-        if (x == destination.mX && y == destination.mY && mTraveling) {
-        	mStopNumber = (mStopNumber + 1) % 4;
-        	mBusDispatch.msgGuiArrivedAtStop();
+        if (mTraveling && x == destination.mX && y == destination.mY) {
 			mTraveling = false;
-			firstRun = false;
+        	mBus.msgGuiArrivedAtStop();
         }
         
         setX(x); setY(y);
@@ -92,17 +83,11 @@ public class CityBus extends CityComponent {
 	public void draw(Graphics2D g) {
 		if(SimCityGui.GRADINGVIEW) {
 			g.setColor(Color.YELLOW);
-			g.fill3DRect(x, y, 25, 25, true);
+			g.fill3DRect(x, y, mBusSize, mBusSize, true);
 			g.setColor(Color.BLACK);
 			g.drawString("Bus", x + 2 , y + 15);
 		} else {
-			if (mStopNumber == 0) g.drawImage(left, x, y, null);
-			// hack firstRun
-			if (mStopNumber == 1) g.drawImage(front, x, y, null);
-			if (mStopNumber == 2) g.drawImage(right, x, y, null);
-			if (mStopNumber == 3) g.drawImage(back, x, y, null);
-	
-			if (firstRun) g.drawImage(front, x, y, null);
+			g.drawImage(current, x, y, null);
 		}
 	}
 
@@ -114,7 +99,13 @@ public class CityBus extends CityComponent {
 
 
 	public void DoAdvanceToNextStop() {
-        mTraveling = true;
+		mStopNumber = (mStopNumber + 1) % mStopCoords.size();
         destination.setTo(mStopCoords.get(mStopNumber));
+		mTraveling = true;
+
+        if (mStopNumber == 0)		current = back;
+        else if (mStopNumber == 1)	current = right;
+        else if (mStopNumber == 2)	current = front;
+        else if (mStopNumber == 3)	current = left;
 	}
 }

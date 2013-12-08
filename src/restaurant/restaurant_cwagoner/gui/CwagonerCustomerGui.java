@@ -8,17 +8,14 @@ import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import base.Location;
 
-public class CwagonerCustomerGui implements CwagonerGui {
+public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui {
 
 	private final int PLATE = 20;
 	private static int customerNum = 0;
 	
-	private CwagonerCustomerRole agent = null;
-	private boolean isPresent = false;
 	private boolean isHungry = false;
 
-	CwagonerWaiterRole waiter; 
-	CwagonerRestaurantGui RestaurantGui;
+	CwagonerWaiterRole waiter;
 
 	private int size = 20;
 	private Location gonePos = new Location(-2 * size, -2 * size),
@@ -33,17 +30,18 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	
 	private String food = "";
 
-	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerRestaurantGui g) {
-		agent = c;
-		RestaurantGui = g;
+	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerAnimationPanel panel) {
+		super(c, panel);
 		customerNum++;
+
+		animationPanel.addGui(this);
 
         position = new Location(waitingPos.mX, waitingPos.mY);
         destination = new Location(waitingPos.mX, waitingPos.mY);
 	}
 	
 	public void setTableLocation(int tableNum) {
-		Location tableLoc = RestaurantGui.getTableLocation(tableNum);
+		Location tableLoc = animationPanel.getTableLocation(tableNum);
 		tablePos.setTo(tableLoc);
 	}
 
@@ -58,17 +56,17 @@ public class CwagonerCustomerGui implements CwagonerGui {
 			
 			if (command.equals(Command.GoToSeat)
 					&& destination.mX == tablePos.mX && destination.mY == tablePos.mY) {
-				agent.msgGuiAtSeat();
+				((CwagonerCustomerRole)role).msgGuiAtSeat();
 			}
 			
 			else if (command.equals(Command.PayCashier)
 						&& destination.mX == cashierPos.mX && destination.mY == cashierPos.mY) {
-				agent.msgGuiAtCashier();
+				((CwagonerCustomerRole)role).msgGuiAtCashier();
 			}
 			
 			else if (command.equals(Command.LeaveRestaurant)
 					&& destination.mX == gonePos.mX && destination.mY == gonePos.mY) {
-				agent.msgGuiLeftRestaurant();
+				((CwagonerCustomerRole)role).msgGuiLeftRestaurant();
 				isHungry = false;
 			}
 			command = Command.noCommand;
@@ -100,16 +98,8 @@ public class CwagonerCustomerGui implements CwagonerGui {
 	
 	// Accessors
 	
-	public boolean isPresent() {
-		return isPresent;
-	}
-	
 	public boolean isHungry() {
 		return isHungry;
-	}
-
-	public void setPresent(boolean p) {
-		isPresent = p;
 	}
 	
 	public Dimension getPosition() {

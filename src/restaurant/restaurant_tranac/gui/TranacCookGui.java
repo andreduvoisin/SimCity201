@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import restaurant.restaurant_tranac.roles.TranacCookRole;
+import city.gui.SimCityGui;
 
 public class TranacCookGui implements Gui {
 
@@ -105,8 +106,14 @@ public class TranacCookGui implements Gui {
 	}
 	
     public void draw(Graphics2D g) {
-		g.setColor(Color.BLACK);
-    	g.drawImage(image, xPos, yPos, null);
+    	if(SimCityGui.GRADINGVIEW) {
+    		g.setColor(Color.WHITE);
+    		g.drawString("Cook",xPos,yPos);
+    	}
+    	else {
+    		g.setColor(Color.BLACK);
+    		g.drawImage(image, xPos, yPos, null);
+    	}
     	
     	synchronized(foodItems) {
     	for(Food f : foodItems) {

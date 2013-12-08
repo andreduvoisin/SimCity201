@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -15,24 +16,24 @@ import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
@@ -41,17 +42,27 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 100;
+        public int DEFAULT_FOOD_QTY = 50;
         
         public RestaurantCookRole(Person person, int restaurantID){
                 super(person); 
                 this.mRestaurantID = restaurantID;
                 
-                //populate inventory
+                //populate maps
         		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
         		mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
         		mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
         		mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
+        		
+        		mHasCreatedOrder.put(EnumItemType.STEAK,false);
+        		mHasCreatedOrder.put(EnumItemType.CHICKEN,false);
+        		mHasCreatedOrder.put(EnumItemType.SALAD,false);
+        		mHasCreatedOrder.put(EnumItemType.PIZZA,false);
+        		
+        		mItemsDesired.put(EnumItemType.STEAK,0);
+        		mItemsDesired.put(EnumItemType.CHICKEN,1);
+        		mItemsDesired.put(EnumItemType.SALAD,2);
+        		mItemsDesired.put(EnumItemType.PIZZA, 0);
         }
         
         public void setPerson(Person person){
@@ -59,7 +70,11 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         	switch(mRestaurantID){
 				case 0: //andre
 					subRole = new AndreCookRole(super.mPerson, this);
-					AndreRestaurantPanel.instance.addCook((AndreCookRole) subRole);
+					if(AndreRestaurant.cook == null) {
+						AndreRestaurant.addCook((AndreCookRole) subRole);
+					} else {
+						subRole = AndreRestaurant.cook;
+					}
 					break;
 //				case 1: //chase
 //					subRole = new CwagonerCookRole(super.mPerson);
@@ -75,11 +90,19 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					break;
 				case 4: //david
 					subRole = new DavidCookRole(super.mPerson, this);
-					DavidRestaurant.addCook((DavidCookRole) subRole);
+					if (DavidRestaurant.cook == null) {
+						DavidRestaurant.addCook((DavidCookRole) subRole);
+					} else {
+						subRole = DavidRestaurant.cook;
+					}
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson, this);
-					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
+					if (SmilehamRestaurant.mCook == null) {
+						SmilehamRestaurant.addPerson((SmilehamCookRole) subRole);
+					} else {
+						subRole = SmilehamRestaurant.mCook;
+					}
 					break;
 				case 6: //angelica
 					subRole = new TranacCookRole(mPerson, this);
@@ -93,12 +116,12 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
        }
         
         public boolean pickAndExecuteAnAction() {
+    		if(marketPickAndExecuteAnAction())		//ANGELICA: change priority back
+    			return true;
         		if(subRole != null) {
         			if(subRole.pickAndExecuteAnAction())
         				return true;
         		}
-        		if(marketPickAndExecuteAnAction())
-        			return true;
         		return false;
         }
 
@@ -108,6 +131,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
     	public Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
         
         public Map<EnumItemType, Integer> mCannotFulfill = new HashMap<EnumItemType, Integer>();
+        
+        public Map<EnumItemType, Boolean> mHasCreatedOrder = new HashMap<EnumItemType, Boolean>();
         
         public List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
         public List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
@@ -168,11 +193,13 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 
 /* Actions */
         private void createOrder() {
+        		print("Creating an order.",AlertTag.R6);	//ANGELICA: hack
         		Map<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
                 
                 for(EnumItemType item : mItemsDesired.keySet()) {
                 		items.put(item, mItemsDesired.get(item));
                         mItemsDesired.put(item,0);
+                        mHasCreatedOrder.put(item,true);
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
@@ -181,44 +208,55 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         }
         
         private void placeOrder(MarketOrder o) {
+        		print("Placing an order "+o,AlertTag.R6);	//ANGELICA: hack
         		int m;
         		if(mMarketCashier == null) {
         			m = (int) (Math.random() % 2);
         			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
         		}
                 mMarketCashier.msgOrderPlacement(o);
-                //ANGELICA: fill in each restaurant
+                //ANGELICA: 0 fill in each restaurant
                 RestaurantCashierRole restaurantCashier = null;
-                /*
-                switch(mRestaurantID) {
-                case 0:
-                	restaurantCashier = 
-                case 1:
-                	
-                case 2:
-                	
-                case 3:
-                	
-                case 4:
                 
-                case 5:
+                switch(mRestaurantID) {
+                case 0:	//andre
+                	restaurantCashier = AndreRestaurant.cashier.mRole;
+                	break;
+                case 1: //chase
                 	
-                case 6:
+                	break;
+                case 2: //jerry
+                	restaurantCashier = JerrywebRestaurant.cashier.mRole;
+                	break;
+                case 3: //maggi
                 	
-                case 7:
+                	break;
+                case 4: //david
+                	restaurantCashier = DavidRestaurant.cashier.mRole;
+                	break;
+                case 5: //shane
+                	
+                	break;
+                case 6: //angel
+                	restaurantCashier = TranacRestaurant.mCashier.mRole;
+                	break;
+                case 7: //rex
                 	 
+                	break;
                 }
-                */
+                
                 restaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
         }
         
         private void processOrder(MarketInvoice i) {   
+        		print("Processing order "+ i.mOrder,AlertTag.R6);	//ANGELICA: hack
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
                 }
         }
         
         private void completeOrder(MarketOrder o) {
+        		print("Complete order.",AlertTag.R6);	//ANGELICA: hacks
                 for(EnumItemType item : o.mItems.keySet()) {
                         mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
                 }
@@ -234,6 +272,10 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         	mItemInventory.put(i,mItemInventory.get(i)-1);
         }
 
+        public void setInventory(EnumItemType i, int n) {
+        	mItemInventory.put(i,n);
+        }
+        
         @Override
     	public Location getLocation() {
     		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);

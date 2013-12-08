@@ -36,7 +36,7 @@ public interface Customer {
 	public abstract void msgWhatWouldYouLike();
 	public abstract void msgOutOfChoice(Menu m);
 	public abstract void msgHereIsYourFood(String myChoice);
-	public abstract void msgHereIsCheck(double amount, Cashier ca);
+	public abstract void msgHereIsCheck(double amount);
 	public abstract void msgHereIsChange(double change);
 	public abstract void msgDoneLeaving();
 	public abstract void msgRestaurantFull();

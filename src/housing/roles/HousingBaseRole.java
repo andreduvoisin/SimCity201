@@ -1,5 +1,6 @@
 package housing.roles;
 
+import housing.House;
 import housing.gui.HousingPersonGui;
 import housing.interfaces.HousingBase;
 
@@ -8,8 +9,6 @@ import java.util.concurrent.Semaphore;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
-import base.reference.House;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
 
@@ -55,6 +54,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 	}
 	
 	void EatAtHome() {
+		print("EatAtHome");
 		gui.DoCookAndEatFood();
 		try {
 			isAnimating.acquire();
@@ -67,7 +67,6 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		print("Action - Eat at Home");
 	}
 
 	void Maintain() {
@@ -96,7 +95,6 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		print("Action - Maintain");
 	}
 	
 	public void setHouse(House h) {
@@ -105,7 +103,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 
 	@Override
 	public Location getLocation() {
-		return ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
+		return null;//ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
 	}
 
 	@Override

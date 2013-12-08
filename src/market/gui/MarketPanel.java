@@ -9,8 +9,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
+import market.Market;
 import base.Item.EnumItemType;
-import base.reference.Market;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -19,8 +19,6 @@ public class MarketPanel extends CityCard implements ActionListener {
 	private static final int WINDOWX = 500, WINDOWY = 500;
 		
 	private Market mMarket;
-	
-	private MarketItemsGui mItemGui;
 	
 //	public MarketCashierRole mCashier;
 //	public MarketDeliveryTruckRole mDeliveryTruck;
@@ -36,8 +34,8 @@ public class MarketPanel extends CityCard implements ActionListener {
 		setSize(WINDOWX, WINDOWY);
 		mMarket = market;
 		
-		mItemGui = new MarketItemsGui();
-		
+		mMarket.mItemsGui = new MarketItemsGui();
+		mMarket.mGuis.add(mMarket.mItemsGui);
     /*	image = null;
     	try {
 //    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/background.png");
@@ -48,7 +46,6 @@ public class MarketPanel extends CityCard implements ActionListener {
     		System.out.println(e.getMessage());
     	}
    */ 	
-		mMarket.mGuis.add(mItemGui);
 		
 		timer = new Timer(TIMERDELAY, this);
 		timer.start();
@@ -86,29 +83,16 @@ public class MarketPanel extends CityCard implements ActionListener {
 		synchronized(mMarket.mGuis) {
 			mMarket.mGuis.add(g);
 		}
-		if(g instanceof MarketWorkerGui) {
-			mMarket.mWorkerGuis.add((MarketWorkerGui)g);
-			((MarketWorkerGui) g).setItemsGui(mItemGui);
-		}
-		else if (g instanceof MarketCustomerGui) {
-			mMarket.mCustomerGuis.add((MarketCustomerGui)g);
-		}
 	}
 	
 	public void removeGui(MarketBaseGui g) {
 		synchronized(mMarket.mGuis) {
 			mMarket.mGuis.remove(g);
 		}
-		if(g instanceof MarketWorkerGui) {
-			mMarket.mWorkerGuis.remove((MarketWorkerGui)g);
-		}
-		else if (g instanceof MarketCustomerGui) {
-			mMarket.mCustomerGuis.remove((MarketCustomerGui)g);
-		}
 	}
 	
 	public void setInventory(EnumItemType i, int n) {
 		mMarket.mCashier.setInventory(i,n);
-		mItemGui.setInventory(i,n);
+		mMarket.mItemsGui.setInventory(i,n);
 	}
 }

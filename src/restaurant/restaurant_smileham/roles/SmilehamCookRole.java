@@ -14,17 +14,18 @@ import restaurant.restaurant_smileham.Food;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class SmilehamCookRole extends BaseRole implements SmilehamCook {
@@ -63,25 +64,18 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 		super(person);
 		mRole = r;
 		mName = person.getName();
-		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Cook Constructor");
 		
 		//Set up Cook
 		mCookGui = new CookGui(this);
-    	mAnimationPanel.addGui(mCookGui);
+    	SmilehamRestaurant.addGui(mCookGui);
     	
-    	/*ANGELICA: Set up inventory map
-    	mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-        */
     	mFoodsOut = new ArrayList<EnumFoodOptions>();
     	
     	mWaiters = new HashSet<SmilehamWaiter>();
     	
-    	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y, mAnimationPanel);
-    	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y, mAnimationPanel);
+    	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y);
+    	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y);
     	
 		mTimer = new Timer();
 		mOrders = new HashSet<Order>();

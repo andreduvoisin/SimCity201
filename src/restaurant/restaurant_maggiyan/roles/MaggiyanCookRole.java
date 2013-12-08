@@ -18,10 +18,10 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
@@ -65,12 +65,7 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		else{
 			this.n = p.getName();
 		}
-		/*ANGELICA:
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-        */
+
         CookingTimes.put("Steak", foodCookingTime* 50);
         CookingTimes.put("Salad", foodCookingTime* 50);
         CookingTimes.put("Pizza", foodCookingTime* 50);

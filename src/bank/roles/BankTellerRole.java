@@ -12,16 +12,16 @@ import bank.interfaces.BankGuard;
 import bank.interfaces.BankMasterTeller;
 import bank.interfaces.BankTeller;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class BankTellerRole extends BaseRole implements BankTeller{
 
 	//------------------------------------------------------DATA------------------------------------------------------
-	int mBankID;
+	public int mBankID;
 	
 	public class MyCustomer{
 		public BankCustomer customer;
@@ -58,11 +58,11 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	public BankTellerRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
-		
-		//Add Gui to list
-		mGUI = new BankTellerGui(this);
 		ContactList.sBankList.get(bankID).addPerson(this);
-		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
+		//Add Gui to list
+//		mGUI = new BankTellerGui(this);
+//		ContactList.sBankList.get(bankID).addPerson(this);
+//		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
 	}
 	
 	//------------------------------------------------------MESSAGES------------------------------------------------------
@@ -90,7 +90,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public void msgLeaving(){
 		mGuard.msgReadyToWork(this);
-		stateChanged();
 	}
 
 	//------------------------------------------------------SCHEDULER------------------------------------------------------
@@ -164,9 +163,9 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mCustomer.customer.msgHereIsBalance(mCustomer.amount);
 	}
 	private void robbery(){
-		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-		mAccounts.get(accountIndex).balance += mCustomer.amount;
-		mCustomer.customer.msgHereIsBalance(mMasterTeller.getAccounts().get(accountIndex).balance);
+//		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
+//		mAccounts.get(accountIndex).balance += mCustomer.amount; //REX: account information must fix in teller
+		mCustomer.customer.msgHereIsBalance(200); //(mMasterTeller.getAccounts().get(accountIndex).balance);
 		mGuard.msgRobberAlert(mCustomer.customer);
 		print("MESSAGED GUARD ABOUT ROBBERY");
 	}
@@ -180,6 +179,8 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public void setMaster(BankMasterTeller masterTeller) {
 		mMasterTeller = masterTeller;
+		mAccounts = mMasterTeller.getAccounts();
+		mAccountIndex = mMasterTeller.getAccountIndex();
 	}
 	public void setAccountIndex(){
 		mAccountIndex = mMasterTeller.getAccountIndex();
@@ -200,6 +201,10 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 				return ContactList.cBANK1_LOCATION;
 		}
 		return null;
+	}
+	
+	public void setActive(){
+		mGuard.msgReadyToWork(this);
 	}
 
 	@Override

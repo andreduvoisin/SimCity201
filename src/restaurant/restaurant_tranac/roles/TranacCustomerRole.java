@@ -15,9 +15,9 @@ import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -68,14 +68,10 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	public TranacCustomerRole() {
 		super(null);
 		customerGui = new TranacCustomerGui(this);
-		TranacRestaurant.getInstance().addPerson(this);
-		
-		money = baseMoney; // ANGELICA: no longer necessary; will get from
-							// person
+		TranacRestaurant.addPerson(this);
+		TranacRestaurant.addGui(customerGui);
 		num = 0;
 
-		customerGui = new TranacCustomerGui(this);
-		TranacRestaurant.getInstance().addGui(customerGui);
 		// randomly chooses waiting unless set later
 		if (rGenerator.nextInt() % 2 == 0)
 			willWait = false;

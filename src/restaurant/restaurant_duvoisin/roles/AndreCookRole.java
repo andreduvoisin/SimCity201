@@ -16,10 +16,10 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import restaurant.restaurant_duvoisin.test.mock.EventLog;
 import restaurant.restaurant_duvoisin.test.mock.LoggedEvent;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -77,14 +77,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 		for(int i = 0; i < plateHere.length; i++)
 			plateHere[i] = false;
 		
-		checkRevolvingStand = false;
-		
-		/*ANGELICA: 
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-        */
+		checkRevolvingStand = true;
 		
         cookingTimes.put("steak", 10000);
         cookingTimes.put("chicken", 7500);

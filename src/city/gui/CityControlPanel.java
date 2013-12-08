@@ -92,7 +92,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
         add(tabbedPane);
         
         // Pretty/Ugly View
-        toggleGUI = new JButton("Show Grading View");
+        toggleGUI = new JButton("Show Beautiful View");
         Dimension tgDim = toggleGUI.getPreferredSize();
         tgDim.width += 10;
         toggleGUI.setPreferredSize(tgDim);
@@ -224,7 +224,12 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioC.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "MarketRestaurantConfig_C.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioD.addActionListener(new ActionListener() {
@@ -247,13 +252,23 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioF.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config  = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "Inspection_F.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioG.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config  = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "MarketConfig_G.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioH.addActionListener(new ActionListener() {

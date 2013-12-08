@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import market.Market;
 import market.MarketOrder;
 import market.gui.MarketCashierGui;
 import market.gui.MarketCustomerGui;
@@ -16,7 +17,6 @@ import market.test.mock.MockCustomer;
 import market.test.mock.MockDeliveryTruck;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
-import base.reference.Market;
 
 /** 
  * This tests the gui functionality for each of the agents.
@@ -30,10 +30,11 @@ public class MarketGuiTest extends TestCase {
 	Market mMarket;
 	MarketPanel mMarketPanel;
 	MarketItemsGui mMarketItems;
+	int mMarketNum = 0;
 
 	public void setUp() throws Exception {
 		super.setUp();
-		mMarket = new Market(0);
+		mMarket = new Market(mMarketNum);
 		mMarketPanel = new MarketPanel(null,mMarket);
 		mMarketItems = new MarketItemsGui();
 		mMarketPanel.addGui(mMarketItems);
@@ -48,7 +49,8 @@ public class MarketGuiTest extends TestCase {
 		mCashier.setGui(mCashierGui);
 		mMarketPanel.addGui(mCashierGui);
 		
-		/**ANGELICA : assert preconditions */
+	  //assert preconditions
+		
 		
 		mCashier.DoGoToPosition();
 	  //wait for animation to finish
@@ -83,7 +85,7 @@ public class MarketGuiTest extends TestCase {
 		mCustomer.setGui(mCustomerGui);
 		mMarketPanel.addGui(mCustomerGui);
 		
-		/**ANGELICA : assert preconditions */
+	  //assert preconditions
 		
 		mCustomer.DoGoToMarket();
 		try {
@@ -126,7 +128,7 @@ public class MarketGuiTest extends TestCase {
 	
 	public void testWorkerGui() {
 		MockWorker mWorker = new MockWorker();
-		MarketWorkerGui mWorkerGui = new MarketWorkerGui(mWorker, mMarketItems);
+		MarketWorkerGui mWorkerGui = new MarketWorkerGui(mWorker);
 		mWorker.setGui(mWorkerGui);
 		mMarketPanel.addGui(mWorkerGui);
 		
@@ -135,7 +137,8 @@ public class MarketGuiTest extends TestCase {
 		items.put(EnumItemType.STEAK,1);
 		MarketOrder order = new MarketOrder(items, null);
 		
-		/**ANGELICA : assert preconditions */
+		
+	  //assert preconditions
 		
 		
 		mWorker.DoGoToMarket();	//also tests for DoGoToHomePosition
@@ -161,7 +164,7 @@ public class MarketGuiTest extends TestCase {
 		assertTrue("Worker should have received msgOrderFulfilled. Instead "
 				+ mWorker.log.getLastLoggedEvent().toString(),
 				mWorker.log.containsString("Received msgOrderFulfilled."));
-	  //ANGELICA: assert item inventory	
+		
 		
 		mWorker.DoGoToCustomer();
 		try {
@@ -194,17 +197,16 @@ public class MarketGuiTest extends TestCase {
 		catch(InterruptedException e) {
 			e.printStackTrace();
 		}
-	  ///assert
+	  //assert
 		assertTrue("Worker should have received msgAnimationLeftMarket. Instead " + mWorker.log.getLastLoggedEvent().toString(),
 				mWorker.log.containsString("Received msgAnimationLeftMarket."));
 	}
 	
-	// ANGELICA: Finish deliveryTruckGui
 	public void testDeliveryTruckGui() {
 		MockDeliveryTruck mDeliveryTruck = new MockDeliveryTruck();
-		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck);
+		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck,mMarketNum);
 		mDeliveryTruck.setGui(mDeliveryTruckGui);
 		
-		/**ANGELICA : assert preconditions */
+	  //assert preconditions
 	}
 }

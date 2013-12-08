@@ -8,12 +8,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
+import city.gui.SimCityGui;
 
 public class TranacCustomerGui implements Gui{
 
 	private TranacCustomerRole agent = null;
 	private boolean isPresent = true;
 	private String food;
+	private int mNum;
 
 	TranacAnimationPanel gui;
 
@@ -170,7 +172,12 @@ public class TranacCustomerGui implements Gui{
 
 	public void draw(Graphics2D g) {
 		g.setColor(Color.WHITE);
-		g.drawImage(image,xPos,yPos,null);
+		if(SimCityGui.GRADINGVIEW) {
+			g.drawString("C"+mNum,xPos+10,yPos);
+		}
+		else {
+			g.drawImage(image,xPos,yPos,null);
+		}
 		
     	switch(state) {
 		case ordering: {
@@ -182,15 +189,21 @@ public class TranacCustomerGui implements Gui{
         	break;
 		}
 		case paying: {
-			g.drawImage(check, xPos-14, yPos+10, null);
+			if(!SimCityGui.TESTING) {
+				g.drawImage(check, xPos-14, yPos+10, null);
+			}
 			break;
 		}
 		case asking: {
-			g.drawImage(askingBubble, xPos-14, yPos+10, null);
+			if(!SimCityGui.TESTING) {
+				g.drawImage(askingBubble, xPos-14, yPos+10, null);
+			}
 			break;
 		}
 		case alerting: {
-			g.drawImage(alertBubble, xPos-14, yPos+10, null);
+			if(!SimCityGui.TESTING) {
+				g.drawImage(alertBubble, xPos-14, yPos+10, null);
+			}
 			break;
 		}
 		default:
@@ -258,6 +271,8 @@ public class TranacCustomerGui implements Gui{
 	}
 	
 	public void DoGoToWaitingArea(int n) {
+		mNum = n;
+		
 		xDestination = xWaitingArea + 30*(int)(n/10);
 		yDestination = yWaitingArea + 35*(n % 10);
 		

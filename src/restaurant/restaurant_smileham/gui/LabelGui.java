@@ -3,20 +3,21 @@ package restaurant.restaurant_smileham.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import restaurant.restaurant_smileham.SmilehamRestaurant;
+import base.Gui;
+
 public class LabelGui implements Gui{
 	
 	private String mLabel;
 	private int mPosX;
 	private int mPosY;
-	private SmilehamAnimationPanel mAnimationPanel;
 
-	public LabelGui(String label, int x, int y, SmilehamAnimationPanel animationPanel){
+	public LabelGui(String label, int x, int y){
 		mLabel = label;
 		mPosX = x;
 		mPosY = y;
-		mAnimationPanel = animationPanel;
 		
-		mAnimationPanel.addGui(this);
+		SmilehamRestaurant.addGui(this);
 	}
 	
 	@Override
@@ -36,11 +37,17 @@ public class LabelGui implements Gui{
 	}
 	
 	public void remove(){
-		mAnimationPanel.removeGui(this);
+		SmilehamRestaurant.removeGui(this);
 	}
 	
 	public void setLabel(String label){
 		mLabel = label;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

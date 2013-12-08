@@ -15,7 +15,7 @@ import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial","static-access"})
 public class DavidAnimationPanel extends CityCard implements ActionListener {
 	
 	public static DavidRestaurant restaurant;
@@ -33,8 +33,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		this.restaurant = rest;
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
-		
-		Timer timer = new Timer(Time.cSYSCLK / 40, this);
+		Timer timer = new Timer(Time.cSYSCLK / 20, this);
 		timer.start();
 	}
 

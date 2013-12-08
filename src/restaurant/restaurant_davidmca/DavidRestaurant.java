@@ -28,8 +28,8 @@ public class DavidRestaurant {
 	public static DavidCashierRole cashier;
 	public static Vector<DavidCustomerRole> customers;
 	public static List<Gui> guis;
-	static int customerCount = 0;
-	static int waiterCount = 0;
+	public static int customerCount = 0;
+	public static int waiterCount = 0;
 	private final int NUMTABLES = 4;
 	public static Collection<Table> tables;
 	private int[] xpositions = { 0, 125, 225, 325, 225 };
@@ -80,6 +80,5 @@ public class DavidRestaurant {
 		waiter.setGui(g);
 		host.addWaiter(waiter);
 		waiter.setCashier(cashier);
-	}
-	
+	}	
 }

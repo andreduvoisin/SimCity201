@@ -8,6 +8,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import market.interfaces.MarketCashier;
+import market.roles.MarketCashierRole;
+import market.roles.MarketCustomerRole;
+import market.test.mock.MockCashier;
 import city.gui.SimCityGui;
 
 public class MarketCashierGui implements MarketBaseGui {
@@ -28,7 +31,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketCashierGui(MarketCashier agent) {
+	public MarketCashierGui(MarketCashierRole agent) {
 		mAgent = agent;
 		
 		isPresent = true;
@@ -43,6 +46,11 @@ public class MarketCashierGui implements MarketBaseGui {
     	}
 	}
 	
+	/* For animation unit testing. */
+	public MarketCashierGui(MockCashier mCashier) {
+		mAgent = mCashier;
+	}
+
 	public void updatePosition() {
         if (xPos < xDestination)
             xPos++;
@@ -96,15 +104,15 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-	//	MarketCashierRole c = (MarketCashierRole) mAgent;
-	//	return c.getActive();
-		return isPresent;
+		if(mAgent instanceof MarketCustomerRole) {
+			MarketCustomerRole role = (MarketCustomerRole) mAgent;
+			return role.getPerson() != null ? true : false;
+		}
+		else
+			return false;
 	}
 	
 	public void setPresent() {
-	//	MarketCashierRole c = (MarketCashierRole) mAgent;
-	//	c.setActive();
-	//	isPresent = !isPresent;
 		isPresent= true;
 	}
 	

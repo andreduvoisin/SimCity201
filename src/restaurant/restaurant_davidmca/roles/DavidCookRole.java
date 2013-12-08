@@ -20,10 +20,10 @@ import restaurant.restaurant_davidmca.interfaces.Cook;
 import restaurant.restaurant_davidmca.interfaces.Market;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -94,12 +94,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 //		foodList.put("Salad", new Stock("Salad", qty));
 //		foodList.put("Chicken", new Stock("Chicken", qty));
 //		foodList.put("Pizza", new Stock("Pizza", qty));
-		/*ANGELICA:
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-        */
 		standTimer.scheduleAtFixedRate(standTimerTask, new Date( System.currentTimeMillis() + 10000), 10000);
 	}
 

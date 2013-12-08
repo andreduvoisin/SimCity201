@@ -7,21 +7,22 @@ import java.util.List;
 import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_tranac.TranacCheck;
 import restaurant.restaurant_tranac.TranacMenu;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacCashierGui;
 import restaurant.restaurant_tranac.interfaces.TranacCashier;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cashier Agent
  */
 public class TranacCashierRole extends BaseRole implements TranacCashier {
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	private TranacCashierGui cashierGui;
 	
 	private TranacMenu menu = new TranacMenu();
@@ -32,6 +33,8 @@ public class TranacCashierRole extends BaseRole implements TranacCashier {
 	public TranacCashierRole(Person person, RestaurantCashierRole r) {
 		super(person);
 		cashierGui = new TranacCashierGui(this);
+		TranacRestaurant.addPerson(this);
+		TranacRestaurant.addGui(cashierGui);
 		mRole = r;
 	}
 

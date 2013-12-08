@@ -23,6 +23,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	protected SimCityGui city;
 	protected List<CityComponent> statics;
 	public List<CityComponent> movings;
+	public List<CityIntersection> intersections = new ArrayList<CityIntersection>();
+	
 	protected Color background;
 	protected Timer timer;
 	private BufferedImage backgroundImage;
@@ -76,6 +78,9 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 			for (CityComponent c:movings) {
 				c.updatePosition();
 			}
+			for (CityComponent c:intersections) {
+				c.updatePosition();
+			}
 		}
 	}
 	/*
@@ -86,6 +91,9 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	public void addStatic(CityComponent c) {
 		synchronized(statics) {
 			statics.add(c);
+		}
+		if (c instanceof CityIntersection) {
+			intersections.add((CityIntersection) c);
 		}
 	}
 	

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import market.Market;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
@@ -12,9 +13,9 @@ import market.gui.MarketWorkerGui;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketWorker;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -26,17 +27,19 @@ import city.gui.trace.AlertTag;
 public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	MarketWorkerGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
+	public Market mMarket;
 	int mMarketID;
 	
 	private List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	public MarketWorkerRole(Person person, int marketID){
 		super(person);
+		mMarket = ContactList.sMarketList.get(marketID);
 		mMarketID = marketID;
 		
-		mGui = new MarketWorkerGui(this);
-		ContactList.sMarketList.get(mMarketID).mWorkers.add(this);
-		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
+		mGui = new MarketWorkerGui(this,mMarket.mWorkers.size());
+		mMarket.mWorkers.add(this);
+		mMarket.mGuis.add(mGui);
 	}
 	
 /* Messages */
@@ -104,18 +107,21 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 
 /* Actions */
 	private void processOrder(MarketOrder o) {
+		print("Processing order.");
 		DoFulfillOrder(o);
 	}
 	
 	private void fulfillOrder(MarketOrder o) {
+		print("Fulfilling order.");
 		DoGoToCustomer();
 		((MarketCustomer)(o.mPersonRole)).msgHereIsCustomerOrder(o);
 		mOrders.remove(o);
 	}
 	
 	private void sendOrder(MarketOrder o) {
+		print("Sending order.");
 		DoGoToDeliveryTruck();
-		o.mDeliveryTruck.msgDeliverOrderToCook(o);
+		mMarket.mDeliveryTruck.msgDeliverOrderToCook(o);
 		mOrders.remove(o);
 	}
 

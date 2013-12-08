@@ -16,14 +16,19 @@ import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
+import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_davidmca.DavidRestaurant;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
+import restaurant.restaurant_jerryweb.JerrywebRestaurant;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class MarketCashierRole extends BaseRole implements MarketCashier{
@@ -32,10 +37,10 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	Semaphore inTransit = new Semaphore(0,true);
 	int mMarketID;
 	
-	Map<EnumItemType, Integer> mInventory = new HashMap<EnumItemType, Integer>();
-	int mBaseInventory = 100;
+	public Map<EnumItemType, Integer> mInventory = new HashMap<EnumItemType, Integer>();
+	public int mBaseInventory = 32;
 	
-	List<MarketWorker> mWorkers;
+	public List<MarketWorker> mWorkers;
 	static int mWorkerIndex;
 	
 	MarketDeliveryTruck mDeliveryTruck;
@@ -53,8 +58,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		mGui = new MarketCashierGui(this);
 		ContactList.sMarketList.get(mMarketID).mCashier = this;
 		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
-		
-//		ContactList.sMarketList.get(mMarketID).mCashierGuis.add(mGui);
 		
 		mWorkers = ContactList.sMarketList.get(mMarketID).mWorkers;
 		
@@ -122,6 +125,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Actions
 	private void processOrderAndNotifyPerson(MarketOrder order){
+		print("Processing order "+ order);
 		Map<EnumItemType, Integer> cannotFulfill = new HashMap<EnumItemType, Integer>();
 		int cost = 0;
 
@@ -132,6 +136,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 				cost += getPrice(item) * mInventory.get(item);
 			}
 			else {
+				cannotFulfill.put(item,0);
 				mInventory.put(item, mInventory.get(item)-order.mItems.get(item));
 				cost += getPrice(item) * order.mItems.get(item);
 			}
@@ -139,39 +144,43 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		
 		Role personRole = order.mPersonRole;
 		MarketInvoice invoice = new MarketInvoice(order, cost, mBankAccount);
-
+		mInvoices.add(invoice);
 		//if a cook
         if (personRole instanceof RestaurantCookInterface){
         	order.mDeliveryTruck = mDeliveryTruck;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
             cook.msgCannotFulfillItems(order, cannotFulfill);
-            /* ANGELICA: implement this once restaurants are settled
-             * choose correct restaurant cashier
-             * send invoice to restaurant cashier
-             * send cannot full items to restaurant cook
+            // ANGELICA: 0 fill in each restaurant
+            RestaurantCashierInterface restaurantCashier = null;
             
-            RestaurantCashierInterface restaurantCashier;
             switch(order.mRestaurantNumber) {
-            case 0: //andre
-            	restaurantCashier = (RestaurantCashierInterface) AndreAnimationPanel.cashier.msgInvoiceToPerson(invoice);
-            case 1: //chase  
-                restaurantCashier = (RestaurantCashierInterface)       	
+            case 0:	//andre
+            	restaurantCashier = AndreRestaurant.cashier.mRole;
+            	break;
+            case 1: //chase
+            	
+            	break;
             case 2: //jerry
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	restaurantCashier = JerrywebRestaurant.cashier.mRole;
+            	break;
             case 3: //maggi
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	
+            	break;
             case 4: //david
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	restaurantCashier = DavidRestaurant.cashier.mRole;
+            	break;
             case 5: //shane
-            	restaurantCashier = (RestaurantCashierInterface) 
-            case 6: //angelica
-            	TranacAnimationPanel.mCashier.msgInvoiceToPerson(invoice);
+            	
+            	break;
+            case 6: //angel
+            	restaurantCashier = TranacRestaurant.mCashier.mRole;
+            	break;
             case 7: //rex
-            	restaurantCashier = (RestaurantCashierInterface) 
+            	 
+            	break;
             }
-            restaurantCashier.msgInvoiceToPerson(invoice);
+            restaurantCashier.msgInvoiceToPerson(cannotFulfill, invoice);
             cook.msgCannotFulfillItems(order, cannotFulfill);
-            */
         }
         
 		//if a customer
@@ -182,9 +191,11 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 
 	void fulfillOrder(MarketOrder order){
+		print("Fulfilling order.");
 		int n = (int) (Math.random() % mWorkers.size());
 		order.mWorker = mWorkers.get(n);
 		order.mWorker.msgFulfillOrder(order);
+		mOrders.remove(order);
 	}
 	
 /* Animation Actions */

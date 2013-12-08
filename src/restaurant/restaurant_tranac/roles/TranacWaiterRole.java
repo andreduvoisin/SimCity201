@@ -16,9 +16,9 @@ import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -50,7 +50,8 @@ public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 	public TranacWaiterRole(Person p) {
 		super(p);
 		waiterGui = new TranacWaiterGui(this, TranacRestaurant.getNumWaiters());
-		TranacRestaurant.getInstance().addPerson(this);
+		TranacRestaurant.addPerson(this);
+		TranacRestaurant.addGui(waiterGui);
 		
 		mHost = TranacRestaurant.getHost();
 		mCook = TranacRestaurant.getCook();

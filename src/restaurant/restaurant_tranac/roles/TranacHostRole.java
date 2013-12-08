@@ -7,14 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacHostGui;
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
 import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 
@@ -43,6 +44,8 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 	public TranacHostRole(Person mPerson) {
 		super(mPerson);
 		hostGui = new TranacHostGui(this);
+		TranacRestaurant.addPerson(this);
+		TranacRestaurant.addGui(hostGui);
 
 		//create the list of tables
 		tables = new ArrayList<Table>(NTABLES);

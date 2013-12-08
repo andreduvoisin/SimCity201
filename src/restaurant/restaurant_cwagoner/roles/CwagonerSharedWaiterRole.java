@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
-import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
+import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
@@ -16,25 +16,16 @@ import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter {
 
-	public CwagonerSharedWaiterRole(Person person) {
-		super(person);
-		// Initialize menu
-		menu.put("Steak", 8);
-		menu.put("Chicken", 6);
-		menu.put("Salad", 2);
-		menu.put("Pizza", 4);
-	}
+	CwagonerAnimationPanel animationPanel;
 
-	public CwagonerSharedWaiterRole(Person person, CwagonerHostRole host,
-			CwagonerCookRole cook, CwagonerCashierRole cashier,
-			CwagonerRestaurantGui mainGui) {
+	public CwagonerSharedWaiterRole(Person person, CwagonerAnimationPanel panel) {
 		super(person);
 		// Initialize menu
 		menu.put("Steak", 8);
@@ -42,15 +33,10 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 		menu.put("Salad", 2);
 		menu.put("Pizza", 4);
 
-		this.host = host;
-		this.cook = cook;
-		this.cashier = cashier;
+		animationPanel = panel;
+		this.setGui(new CwagonerWaiterGui((CwagonerWaiter) this, panel));//TODO add gui
 
-		this.setGui(new CwagonerWaiterGui((CwagonerWaiter) this, mainGui));
-
-		mainGui.animationPanel.addGui(gui);
-
-		host.addWaiter(this);
+		panel.host.addWaiter(this);
 	}
 
 	public String getName() {

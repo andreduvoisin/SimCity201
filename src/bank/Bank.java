@@ -1,4 +1,4 @@
-package base.reference;
+package bank;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,6 +11,7 @@ import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
+import base.ContactList;
 import base.Gui;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -36,48 +37,48 @@ public class Bank {
 	}
 	
 	public void addPerson(Role role) {
+		 if(role instanceof BankGuardRole){
+			//System.out.println("Bank guard added");
+			mGuard = ((BankGuardRole)role);
+			((BankGuardRole)role).mGUI = new BankGuardGui((BankGuardRole)role);
+			//((BankGuardRole)role).mGUI.setPresent(true);
+			mGuis.add(((BankGuardRole)role).mGUI);
+		}
+		 
 		if(role instanceof BankCustomerRole) {
+			//System.out.println("Bank customer added");
 			mCustomers.add((BankCustomerRole)role);
 			((BankCustomerRole)role).setGuard(mGuard);
 			((BankCustomerRole)role).setTeller(teller);
 			((BankCustomerRole)role).mGUI = new BankCustomerGui((BankCustomerRole)role);
-			//mCustomerGuis.add(((BankCustomerRole)role).mGUI);
+			//((BankCustomerRole)role).mGUI.setPresent(true);
 			mGuis.add(((BankCustomerRole)role).mGUI);
 		}
 		
 		if(role instanceof BankTellerRole) {
 			if(mTellers.size() < 3){
+				//System.out.println("Bank teller added");
 				mTellers.add((BankTellerRole)role);
 				((BankTellerRole)role).addGuard(mGuard);
-				((BankTellerRole)role).setMaster(mMasterTeller);
+				((BankTellerRole)role).setMaster(ContactList.masterTeller);
 				((BankTellerRole)role).mGUI = new BankTellerGui((BankTellerRole)role);//, BankPanel);
-				//mTellerGuis.add(((BankTellerRole)role).mGUI);
+				//((BankTellerRole)role).mGUI.setPresent(true);
 				mGuis.add(((BankTellerRole)role).mGUI);
 			}
 		}
-		
-		
-		 if(role instanceof BankGuardRole){
-			 mGuard = ((BankGuardRole)role);
-			((BankGuardRole)role).mGUI = new BankGuardGui((BankGuardRole)role);
-		}
-		 
+		 //REX ANDRE: add master teller to both banks in sorting hat
 		 if(role instanceof BankMasterTellerRole){
 			 mMasterTeller = ((BankMasterTellerRole)role);
-			 //((BankMasterTellerRole)role).mGUI = new BankMasterTellerGui((BankMasterTellerRole)role, BankPanel);
 		 }
-		 
-	
 	}
 	
 	public void updateCustomerLine() {
-		//LINE_POSITION--;
+		BankCustomerGui.LINE_POSITION--;
 		for(Gui gui : mGuis) {
             if (gui.isPresent()) {
             	if(gui instanceof BankCustomerGui)
-                ((BankCustomerGui)gui).moveForwardInLine();
+            		((BankCustomerGui)gui).moveForwardInLine();
             }
         }
 	}
-	
 }

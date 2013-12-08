@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.gui.HostGui;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
 import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -35,19 +35,17 @@ public class SmilehamHostRole extends BaseRole implements SmilehamHost{
 
 	//GUI
 	private HostGui mHostGui;
-	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	public SmilehamHostRole(Person person) {
 		super(person);
 		mName = person.getName();
-		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Host Created");
 		
 		//Set up Host
 		mHostGui = new HostGui(this);
-		mAnimationPanel.addGui(mHostGui);
+		SmilehamRestaurant.addGui(mHostGui);
 		
 		//Add Waiters
 		mWaiters = new ArrayList<SmilehamWaiter>();

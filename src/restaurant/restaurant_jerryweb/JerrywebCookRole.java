@@ -14,23 +14,24 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_jerryweb.gui.Menu;
 import restaurant.restaurant_jerryweb.interfaces.Market;
 import restaurant.restaurant_jerryweb.interfaces.Waiter;
+import base.BaseRole;
+import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
  * Restaurant Cook Agent
  */
-public class JerrywebCookRole extends RestaurantCookRole {
+public class JerrywebCookRole extends BaseRole {
+	public RestaurantCookRole mRole;
 	static final int semaphoreCerts = 0;
 	public List<Order> Orders= Collections.synchronizedList(new ArrayList<Order>());
 	public List<Order>  RevolvingStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Food> foodItems= new ArrayList<Food>();
 	//public Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
-	private RestaurantCookRole mRole;
 	Timer cookingTimer = new Timer();
 	private Timer checkRevolvingStand = new Timer();
 	public List<JerrywebWaiterRole> Waiters = new ArrayList<JerrywebWaiterRole>();
@@ -87,7 +88,7 @@ public class JerrywebCookRole extends RestaurantCookRole {
 	//public HostGui hostGui = null;
 
 	public JerrywebCookRole(Person p, RestaurantCookRole r){ 
-		super(p, 2);
+		super(p);
 		mRole = r;
 		//this.name = person.getName();
 
@@ -96,12 +97,6 @@ public class JerrywebCookRole extends RestaurantCookRole {
 		foodMap.put("chicken",new Food("chicken", FoodState.delivered, 12000, 7, 7, 3));
 		foodMap.put("salad",new Food("salad", FoodState.delivered, 2000, 10, 10, 4));
 		foodMap.put("pizza",new Food("pizza", FoodState.delivered, 14000, 8, 8, 3));*/
-		
-		mItemInventory.put(EnumItemType.STEAK,10);
-        mItemInventory.put(EnumItemType.CHICKEN,14);
-        mItemInventory.put(EnumItemType.SALAD,20);
-        mItemInventory.put(EnumItemType.PIZZA,16);
-
         mCookTimes.put(EnumItemType.STEAK,17000);
         mCookTimes.put(EnumItemType.CHICKEN,12000);
         mCookTimes.put(EnumItemType.SALAD,2000);
@@ -305,7 +300,7 @@ public class JerrywebCookRole extends RestaurantCookRole {
 			int cookTime = 0;
 			final int  orderLocationFinal = orderLocation;
 			cookTime = mCookTimes.get(food);
-			mRole.mItemInventory.put(food,mRole.mItemInventory.get(food) -1);
+			mRole.decreaseInventory(food);
 
 			cookingTimer.schedule(new TimerTask() {
 				public void run() {

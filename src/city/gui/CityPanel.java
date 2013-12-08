@@ -6,8 +6,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 import market.gui.MarketDeliveryTruckGui;
-import transportation.TransportationBusDispatch;
-import base.reference.ContactList;
+import transportation.TransportationBus;
+import base.ContactList;
 
 @SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
@@ -18,7 +18,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	CityComponent temp;
 	SimCityGui simcitygui;
 
-	TransportationBusDispatch busDispatch;
+	TransportationBus busDispatch;
 	
 	public CityPanel(SimCityGui city) {
 		//Setup
@@ -32,18 +32,36 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//Add Background and city block
 		background = new Color(100,100,100);
-		this.addStatic(new CityBlock(100,100,400,400, new Color(30,30,30)));
+		this.addStatic(new CityBlock(100,100,180,180, new Color(30,30,30)));
+		this.addStatic(new CityBlock(320,100,180,180, new Color(30,30,30)));
+		this.addStatic(new CityBlock(100,320,180,180, new Color(30,30,30)));
+		this.addStatic(new CityBlock(320,320,180,180, new Color(30,30,30)));
 
 		//Add Bus
-		busDispatch = new TransportationBusDispatch();
+		busDispatch = new TransportationBus();
 		this.addMoving(busDispatch.getBusGui());
 		busDispatch.startThread();
 		
 		//Add Roads
-		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL));
-		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL));
-		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL));
-		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL));
+		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL, 50, 600));
+		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL, 50, 600));
+		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL, 50, 600));
+		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL, 50, 600));
+		this.addStatic(new CityRoad(280, RoadDirection.VERTICAL, 40, 480));
+		this.addStatic(new CityRoad(280, RoadDirection.HORIZONTAL, 40, 480));
+		
+		//Add Intersections
+		
+//		//North-Center
+//		this.addStatic(new CityIntersection(280, 35, 40, 50));
+//		//Center
+//		this.addStatic(new CityIntersection(280, 280, 40, 40));
+//		//East-Center
+//		this.addStatic(new CityIntersection(35, 280, 50, 40));
+//		//West-Center
+//		this.addStatic(new CityIntersection(515, 280, 50, 40));
+//		//South-Central #InDaHood
+//		this.addStatic(new CityIntersection(280, 515, 40, 50));
 		
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "r_duvoisin"));
@@ -54,7 +72,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "r_smileham"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "r_tranac"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(7), "r_xurex"));
-		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts Bank"));
+		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts"));
 		this.addStatic(new CityBank(ContactList.cBANK2_LOCATION, "Piggy Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Costco"));
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Sams Club"));

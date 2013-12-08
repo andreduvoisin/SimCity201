@@ -5,14 +5,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import restaurant.restaurant_duvoisin.gui.TableGui;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
 import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -23,11 +23,10 @@ import city.gui.trace.AlertTag;
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
 public class AndreHostRole extends BaseRole implements Host {
-	TableGui tgui = new TableGui();
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
 	public List<MyCustomer> waitingCustomers = Collections.synchronizedList(new ArrayList<MyCustomer>());
-	List<MyWaiter> waiters = Collections.synchronizedList(new ArrayList<MyWaiter>());
+	public List<MyWaiter> waiters = Collections.synchronizedList(new ArrayList<MyWaiter>());
 	public List<Table> tables;
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
@@ -43,11 +42,12 @@ public class AndreHostRole extends BaseRole implements Host {
 		super(person);
 
 		this.name = "AndreHost";
+		
 		// make some tables
-		tables = Collections.synchronizedList(new ArrayList<Table>(tgui.getNumTables()));
+		tables = Collections.synchronizedList(new ArrayList<Table>(AndreRestaurant.tgui.getNumTables()));
 		synchronized(tables) {
-			for (int ix = 1; ix <= tgui.getNumTables(); ix++) {
-				tables.add(new Table(ix));//how you add to a collections
+			for (int i = 1; i <= AndreRestaurant.tgui.getNumTables(); i++) {
+				tables.add(new Table(i));
 			}
 		}
 	}
@@ -69,7 +69,9 @@ public class AndreHostRole extends BaseRole implements Host {
 	}
 	
 	public void addWaiter(Waiter wa) {
-		waiters.add(new MyWaiter(wa, WaiterState.Working));
+		synchronized(waiters) {
+			waiters.add(new MyWaiter(wa, WaiterState.Working));
+		}
 	}
 	// Messages
 
@@ -157,12 +159,14 @@ public class AndreHostRole extends BaseRole implements Host {
 			if(!waiters.isEmpty()) {
 				synchronized(waitingCustomers) {
 					synchronized(tables) {
-						for(MyCustomer c : waitingCustomers)
-							for(Table t : tables)
+						for(MyCustomer c : waitingCustomers) {
+							for(Table t : tables) {
 								if(t.isOccupied == false) {
 									SeatCustomer(c, t);
 									return true;
 								}
+							}
+						}
 					}
 				}
 			} else {

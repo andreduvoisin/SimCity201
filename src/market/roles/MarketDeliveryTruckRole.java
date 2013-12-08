@@ -6,26 +6,20 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import market.MarketOrder;
+import market.MarketOrder.EnumOrderStatus;
 import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
 import restaurant.intermediate.RestaurantCookRole;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
  * MarketDeliveryTruck for SimCity Market agents.
  * 
  * @author Angelica Huyen Tran
- */
-
-/* ANGELICA: fix this shit up
- * -change to allow multiple orders
- * -pick up orders at one time from market
- * -delivery all orders at one time
- * -check if restaurants are open
  */
 
 public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
@@ -41,7 +35,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		mMarketID = marketID;
 		
 		
-		mGui = new MarketDeliveryTruckGui(this);
+		mGui = new MarketDeliveryTruckGui(this, marketID);
 		ContactList.sMarketList.get(mMarketID).mDeliveryTruck = this;
 //		//ANGELICA: add delivery truck to city view gui
 	}
@@ -64,13 +58,17 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
+		synchronized(mDeliveries) {
 		if(mDeliveries.size() != 0) {
 			deliverOrders();
 			return true;
 		}
+		}
+		synchronized(mPendingDeliveries) {
 		if(mPendingDeliveries.size() != 0) {
 			pickUpOrdersFromMarket();
 			return true;
+		}
 		}
 		return false;
 	}
@@ -79,18 +77,25 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	public void deliverOrders() {
 		//check all the restaurants
 		for(int i=0;i<8;i++) {
+			synchronized(mDeliveries) {
 			for(MarketOrder o : mDeliveries) {
-				if(o.mRestaurantNumber == i) { //ANGELICA: check if restaurant is open
-					DoGoToRestaurant(i);
+				Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
+				if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) {
+	//ANGELICA:				DoGoToRestaurant(i);
+					print("Delivering order.");
+					o.mStatus = EnumOrderStatus.FULFILLING;
 					((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
 					mDeliveries.remove(o);
+					break;
 				}
+			}
 			}
 		}
 	}
 	
 	public void pickUpOrdersFromMarket() {
-		DoGoToMarket();
+//ANGELICA:		DoGoToMarket();
+		print("Picking up orders from market!");
 		synchronized(mPendingDeliveries) {
 		for(MarketOrder o : mPendingDeliveries) {
 			mDeliveries.add(o);
@@ -100,7 +105,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	public void waitAtMarket() {
-		DoGoToMarket();
+//ANGELICA:		DoGoToMarket();
 	}
 
 /* Animation Actions */

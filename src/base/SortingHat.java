@@ -21,7 +21,6 @@ import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 import city.gui.SimCityGui;
 
 public class SortingHat {
@@ -77,7 +76,7 @@ public class SortingHat {
 		}
 		
 		//Create roles filled matrix
-		for (int i = 0; i < 3; i++){
+		for (int i = 0; i < ContactList.cNumTimeShifts; i++){
 			Map<Role, Boolean> shiftRoles = new HashMap<Role, Boolean>();
 			for (Role iRole : sRoles){
 				shiftRoles.put(iRole, false);
@@ -223,6 +222,16 @@ public class SortingHat {
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
 			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount)); 
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
+			sHouseCount++;
+			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
 			sHouseCount++;
 			return newLandLordRole;
 		}

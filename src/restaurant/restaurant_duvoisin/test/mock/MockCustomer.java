@@ -52,11 +52,6 @@ public class MockCustomer extends Mock implements Customer {
 	}
 
 	@Override
-	public void msgHereIsCheck(double amount, Cashier ca) {
-		log.add(new LoggedEvent("msgHereIsCheck received. Total = " + amount));
-	}
-
-	@Override
 	public void msgHereIsChange(double change) {
 		log.add(new LoggedEvent("msgHereIsChange received. Change = " + change));
 	}
@@ -68,6 +63,12 @@ public class MockCustomer extends Mock implements Customer {
 
 	@Override
 	public void msgRestaurantFull() {
+		
+	}
+
+	@Override
+	public void msgHereIsCheck(double amount) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -3,21 +3,21 @@ package restaurant.intermediate;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantCustomerRole extends BaseRole implements
 		RestaurantBaseInterface {
@@ -40,7 +40,12 @@ public class RestaurantCustomerRole extends BaseRole implements
 		switch (mRestaurantID) {
 		case 0: // andre
 			subRole = new AndreCustomerRole(super.mPerson);
-			AndreRestaurantPanel.instance.addPerson((AndreCustomerRole) subRole); //ANDRE: 1 Make addPerson a static method
+//			if(AndreRestaurant.customers % 2 == 0) {
+				AndreRestaurant.addCustomer((AndreCustomerRole) subRole);
+//			} else {
+//				subRole = AndreRestaurant.lastCustomer;
+//				AndreRestaurant.customers++;
+//			}
 			break;
 //		case 1: // chase
 //			subRole = new CwagonerCustomerRole(super.mPerson);
@@ -60,7 +65,7 @@ public class RestaurantCustomerRole extends BaseRole implements
 			break;
 		case 5: // shane
 			subRole = new SmilehamCustomerRole(super.mPerson);
-			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
+			SmilehamRestaurant.addPerson((SmilehamCustomerRole) subRole);
 			break;
 		case 6: // angelica
 			subRole = new TranacCustomerRole(mPerson);

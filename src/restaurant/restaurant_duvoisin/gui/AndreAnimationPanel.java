@@ -1,24 +1,25 @@
 package restaurant.restaurant_duvoisin.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import restaurant.restaurant_duvoisin.AndreRestaurant;
+import base.Gui;
 import base.Time;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 @SuppressWarnings("serial")
-public class AndreAnimationPanel extends JPanel implements ActionListener {
-
-    private final int WINDOWX = 500; //450
-    private final int WINDOWY = 500; //370
+public class AndreAnimationPanel extends CityCard implements ActionListener {
+    private final int WINDOWX = 500;
+    private final int WINDOWY = 500;
+    
     static final int IDLE_X = 10;
     static final int IDLE_Y = 52;
     static final int IDLE_SIZE_X = 30;
@@ -41,20 +42,17 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
     static final int STAND_Y = 401;
     static final int STAND_SIZE = 24;
     
-    /*
-    private Image bufferImage;
-    private Dimension bufferSize;
-	*/
-    private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
-    private TableGui myTables = new TableGui();
-    
     Timer timer;
 
-    public AndreAnimationPanel() {
-    	setSize(WINDOWX, WINDOWY);
-        setVisible(true);
+    public AndreAnimationPanel(SimCityGui gui) {
+    	super(gui);
+    	
+    	Dimension animDim = new Dimension(WINDOWX, WINDOWY);
+        setPreferredSize(animDim);
+        setMinimumSize(animDim);
+        setMaximumSize(animDim);
         
-        //bufferSize = this.getSize();
+        setVisible(true);
  
     	timer = new Timer(Time.cSYSCLK/25, this);
     	timer.start();
@@ -62,8 +60,8 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  //Will have paintComponent called
-		synchronized(guis) {
-			for(Gui gui : guis) {
+		synchronized(AndreRestaurant.guis) {
+			for(Gui gui : AndreRestaurant.guis) {
 	            if (gui.isPresent()) {
 	                gui.updatePosition();
 	            }
@@ -81,9 +79,9 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
 
         //Here is the table
         g2.setColor(Color.ORANGE);
-        g2.fillRect(myTables.getTableX(0), myTables.getTableY(0), myTables.getTableSize(0), myTables.getTableSize(0));
-        g2.fillRect(myTables.getTableX(1), myTables.getTableY(1), myTables.getTableSize(1), myTables.getTableSize(1));
-        g2.fillRect(myTables.getTableX(2), myTables.getTableY(2), myTables.getTableSize(2), myTables.getTableSize(2));
+        g2.fillRect(AndreRestaurant.tgui.getTableX(0), AndreRestaurant.tgui.getTableY(0), AndreRestaurant.tgui.getTableSize(0), AndreRestaurant.tgui.getTableSize(0));
+        g2.fillRect(AndreRestaurant.tgui.getTableX(1), AndreRestaurant.tgui.getTableY(1), AndreRestaurant.tgui.getTableSize(1), AndreRestaurant.tgui.getTableSize(1));
+        g2.fillRect(AndreRestaurant.tgui.getTableX(2), AndreRestaurant.tgui.getTableY(2), AndreRestaurant.tgui.getTableSize(2), AndreRestaurant.tgui.getTableSize(2));
         
         //Idle Area for Waiters
         g2.setColor(Color.LIGHT_GRAY);
@@ -113,33 +111,13 @@ public class AndreAnimationPanel extends JPanel implements ActionListener {
         g2.setColor(Color.PINK);
         g2.fillRect(STAND_X, STAND_Y, STAND_SIZE, STAND_SIZE);
 
-        synchronized(guis) {
-	        for(Gui gui : guis) {
+        synchronized(AndreRestaurant.guis) {
+	        for(Gui gui : AndreRestaurant.guis) {
 	            if (gui.isPresent()) {
 	                gui.draw(g2);
 	            }
 	        }
         }
-    }
-
-    public void addGui(CustomerGui gui) {
-    	synchronized(guis) {
-    		guis.add(gui);
-    		gui.setTables(myTables);
-    	}
-    }
-
-    public void addGui(WaiterGui gui) {
-    	synchronized(guis) {
-    		guis.add(gui);
-    		gui.setTables(myTables);
-    	}
-    }
-    
-    public void addGui(CookGui gui) {
-    	synchronized(guis) {
-    		guis.add(gui);
-    	}
     }
     
     public void pauseAnimations() {

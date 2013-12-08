@@ -8,16 +8,14 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
-import restaurant.restaurant_cwagoner.gui.CwagonerRestaurantGui;
-import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
-import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -26,9 +24,6 @@ import city.gui.trace.AlertTag;
 public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	// DATA
-	private CwagonerHost host;
-	private CwagonerWaiter waiter;
-	private CwagonerCashier cashier;
 	
 	private int hungerLevel = 5;        // determines length of meal
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
@@ -39,6 +34,9 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	Timer customerTimer = new Timer();
 	private CwagonerCustomerGui gui;
+	
+	CwagonerWaiter waiter;
+	CwagonerAnimationPanel animationPanel;
 
 	public enum State { doingNothing, inRestaurant, waitingToBeSeated,
 						goingToSeat, lookingAtMenu, readyToOrder, ordering, ordered,
@@ -51,26 +49,13 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 						cashierAccepted, doneLeaving };
 	Event event = Event.none;
 
-	/**
-	 * Constructor for CustomerRole for SimCity201 v1
-	 */
-	public CwagonerCustomerRole(Person person) {
-		super(person);
-		// CHASE: handle payment: moneyOwed, myMoney?
-		state = State.inRestaurant;
-	}
-
-	public CwagonerCustomerRole(Person person, CwagonerHostRole host,
-			CwagonerCashierRole cashier,
-			CwagonerRestaurantGui mainGui) {
+	public CwagonerCustomerRole(Person person, CwagonerAnimationPanel panel) {
 		super(person);
 		// CHASE: handle payment: moneyOwed, myMoney?
 		state = State.inRestaurant;
 
-		this.setHost(host);
-		this.setCashier(cashier);
-
-		this.setGui(new CwagonerCustomerGui(this, mainGui));
+		animationPanel = panel;
+		this.setGui(new CwagonerCustomerGui(this, panel));
 	}
 	
 	// MESSAGES
@@ -309,7 +294,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	private void AlertHost() {
 		print("AlertHost() - sending msgIWantFood");
 		state = State.waitingToBeSeated;
-		host.msgIWantFood(this);
+		animationPanel.host.msgIWantFood(this);
 	}
 
 	private void SitDown() {
@@ -421,7 +406,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		print("TellCashierReady()");
 
 		state = State.waitingAtCashier;
-		cashier.msgReadyToPay(this);
+		animationPanel.cashier.msgReadyToPay(this);
 	}
 	
 	private void PayCashier() {
@@ -439,7 +424,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		}
 		
 		state = State.paid;
-		cashier.msgPayment(this, amountPaid);
+		animationPanel.cashier.msgPayment(this, amountPaid);
 		stateChanged();
 	}
 	
@@ -476,15 +461,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	public CwagonerCustomerGui getGui() {
 		return gui;
 	}
-	
-	public void setCashier(CwagonerCashier c) {
-		cashier = c;
-	}
-	
-	public void setHost(CwagonerHost h) {
-		host = h;
-	}
-	
+
 	public Dimension getPosition() {
 		return gui.getPosition();
 	}

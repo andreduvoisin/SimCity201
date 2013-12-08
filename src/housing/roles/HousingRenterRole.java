@@ -1,5 +1,6 @@
 package housing.roles;
 
+import housing.House;
 import housing.interfaces.HousingLandlord;
 import housing.interfaces.HousingRenter;
 
@@ -7,9 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import base.ContactList;
 import base.interfaces.Person;
-import base.reference.ContactList;
-import base.reference.House;
 
 /*
  * @author David Carr, Maggi Yang
@@ -22,6 +22,7 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	public HousingLandlord myLandLord;
 	public List<Bill> mBills = Collections
 			.synchronizedList(new ArrayList<Bill>());
+	public boolean requestHousing = false;
 
 	enum EnumBillState {
 		Pending, Paid
@@ -44,6 +45,12 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	}
 
 	/* Messages */
+	
+	public void msgRequestHousing() {
+		print("msgRequestHousing");
+		requestHousing = true;
+		stateChanged();		
+	}
 
 	public void msgApplicationAccepted(House newHouse) {
 		print("Message - msgApplicationAccepted");
@@ -78,7 +85,12 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	/* Scheduler */
 
 	public boolean pickAndExecuteAnAction() {
-		// DAVID MAGGI: establish what triggers the RequestHousing() action
+		
+		if (requestHousing) {
+			requestHousing = false;
+			RequestHousing();
+			return true;
+		}
 
 		if (mHouse != null) {
 			if(!mBills.isEmpty()){

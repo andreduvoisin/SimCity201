@@ -11,8 +11,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
+import bank.Bank;
 import base.Gui;
-import base.reference.Bank;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
@@ -30,7 +30,7 @@ public class BankPanel extends CityCard implements ActionListener{
 	
 	Timer timer;
 	
-	private List<Gui> guis; // = new ArrayList<Gui>();
+	public List<Gui> guis; // = new ArrayList<Gui>();
 	public Bank Bank;
 	/*
 	static final int COUNTER_X = 0;
@@ -68,6 +68,62 @@ public class BankPanel extends CityCard implements ActionListener{
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
+	}
+	
+	public void paint(Graphics g) {
+		Graphics2D g2 = (Graphics2D)g;
+		
+        //Clear the screen by painting a rectangle the size of the frame
+        g2.setColor(getBackground());
+        g2.fillRect(0, 0, WINDOWX, WINDOWY );
+        g2.drawImage(image, 0, 0, null); 
+        
+//        //Counter
+//        g2.setColor(Color.GRAY);
+//        g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
+        
+        // temp square, showing beginning of line
+       // g2.fillRect(LINE_X, LINE_Y, 20, 20);
+        
+        for(Gui gui : guis) {
+            if (gui.isPresent()) {
+                gui.updatePosition();
+            }
+        }
+        for(Gui gui : guis) {
+            if (gui.isPresent()) {
+                gui.draw(g2);
+            }
+        }
+	}
+	/*
+	public void updateCustomerLine() {
+		//LINE_POSITION--;
+		for(Gui gui : guis) {
+            if (gui.isPresent()) {
+                if(gui instanceof BankCustomerGui) {
+                	((BankCustomerGui) gui).moveForwardInLine();
+                }
+            }
+        }
+	}*/
+	
+	public void actionPerformed(ActionEvent e) {
+		repaint();  //Will have paintComponent called
+		if(!(guis==null)){
+		synchronized (guis) {
+			for (Gui gui : guis) {
+				if (gui.isPresent()) {
+					gui.updatePosition();
+				}
+			}
+		}
+		}
+	}
+	
+	public void setBank(Bank b){
+		Bank = b;
+		guis = b.mGuis;
 	}
 	
 	/*public void testBankGui() {
@@ -122,65 +178,11 @@ public class BankPanel extends CityCard implements ActionListener{
 		bcg3.DoGoToTeller(3);
 	}*/
 	
-	public void paint(Graphics g) {
-		Graphics2D g2 = (Graphics2D)g;
-		
-        //Clear the screen by painting a rectangle the size of the frame
-        g2.setColor(getBackground());
-        g2.fillRect(0, 0, WINDOWX, WINDOWY );
-        g2.drawImage(image, 0, 0, null); 
-        
-//        //Counter
-//        g2.setColor(Color.GRAY);
-//        g2.fillRect(COUNTER_X, COUNTER_Y, COUNTER_SIZE_X, COUNTER_SIZE_Y);
-        
-        // temp square, showing beginning of line
-       // g2.fillRect(LINE_X, LINE_Y, 20, 20);
-        
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-                gui.updatePosition();
-            }
-        }
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-                gui.draw(g2);
-            }
-        }
-	}
-	/*
-	public void updateCustomerLine() {
-		//LINE_POSITION--;
-		for(Gui gui : guis) {
-            if (gui.isPresent()) {
-                if(gui instanceof BankCustomerGui) {
-                	((BankCustomerGui) gui).moveForwardInLine();
-                }
-            }
-        }
-	}*/
 	
-	public void actionPerformed(ActionEvent e) {
-		repaint();  //Will have paintComponent called
-		synchronized (guis) {
-			for (Gui gui : guis) {
-				if (gui.isPresent()) {
-					gui.updatePosition();
-				}
-			}
-		}
-	}
-	
-	public void setBank(Bank b){
-		Bank = b;
-		guis = b.mGuis;
-	}
-	
-	/*
 	public void addGui(Gui gui) {
 		guis.add(gui);
 	}
-	
+	/*
 	public void setMasterTeller(BankMasterTellerRole mt){
 		masterTeller = mt;
 	}

@@ -9,20 +9,21 @@ import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Menu;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.CustomerGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
 import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
 import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
+import base.ContactList;
+import base.Gui;
 import base.Location;
 import base.PersonAgent;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -67,7 +68,6 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	private CustomerGui mCustomerGui;
 	private LabelGui mFoodLabelGui;
 //	private SmilehamRestaurantGui mGUI;
-	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
@@ -75,13 +75,13 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		super(person);
 		mName = person.getName();
 
-		mAnimationPanel = SmilehamAnimationPanel.mInstance;
-		mHost = SmilehamAnimationPanel.getHost();
-		mCashier = SmilehamAnimationPanel.getCashier();
+		mHost = SmilehamRestaurant.mHost;
+		mCashier = SmilehamRestaurant.mCashier;
 		
 		//set up customer
 		mCustomerGui = new CustomerGui(this);
-		mAnimationPanel.addGui(mCustomerGui); //SHANE: 1 Decouple your restaurant!!!
+		SmilehamRestaurant.addGui((Gui) mCustomerGui);
+//		mAnimationPanel.addGui(mCustomerGui); //SHANE: 1 Decouple your restaurant!!!
 		
 		//set data
 		mHunger = cHUNGER_LEVEL;
@@ -337,7 +337,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		mChoice = mMenu.getMenuOptions().get(choiceNum);
 		
 		if (mFoodLabelGui != null) mFoodLabelGui.remove();
-		mFoodLabelGui = new LabelGui(mChoice.toString() + "?", mCustomerGui.getX(), mCustomerGui.getY(), mAnimationPanel);
+		mFoodLabelGui = new LabelGui(mChoice.toString() + "?", mCustomerGui.getX(), mCustomerGui.getY());
 		mWaiter.msgHereIsMyChoice((SmilehamCustomer)this, mChoice);
 	}
 

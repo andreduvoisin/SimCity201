@@ -14,15 +14,17 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import market.gui.MarketPanel;
+import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.gui.DavidAnimationPanel;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantGui;
+import restaurant.restaurant_duvoisin.gui.AndreAnimationPanel;
 import restaurant.restaurant_jerryweb.gui.JerrywebAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
+import bank.gui.BankPanel;
+import base.ContactList;
 import base.Location;
-import base.reference.ContactList;
 
 @SuppressWarnings("serial")
 public class CityView extends JPanel implements MouseListener, ActionListener {
@@ -44,13 +46,12 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards = new HashMap<String, CityCard>();
 		
 		//Rest 0		
-		AndreRestaurantGui duvoisin = new AndreRestaurantGui(city);
+		AndreAnimationPanel duvoisin = new AndreAnimationPanel(city);
 		cards.put("r_duvoisin", duvoisin);
 		
 //		//Rest 1
-//		CwagonerRestaurantGui cwagoner = new CwagonerRestaurantGui(city);
-//		city.citypanel.masterRestaurantList.add(cwagoner.restPanel);
-//		cards.put("r_cwagoner", cwagoner);
+		CwagonerAnimationPanel cwagoner = new CwagonerAnimationPanel(city);
+		cards.put("r_cwagoner", cwagoner);
 		
 //		//Rest 2
 		JerrywebAnimationPanel jerryweb = new JerrywebAnimationPanel(city, ContactList.JerrywebRestaurant);
@@ -65,7 +66,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("r_davidmca", davidmca);
 		
 		//Rest 5
-		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city);
+		SmilehamAnimationPanel smileham = new SmilehamAnimationPanel(city, ContactList.SmilehamRestaurant);
 		cards.put("r_smileham", smileham);
 		
 //		//Rest 6
@@ -88,15 +89,15 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		MarketPanel market1 = new MarketPanel(city, ContactList.sMarketList.get(1));
 		cards.put("Sams Club", market1);
-		/*
-		BankPanel bank0 = new BankPanel(city);
-		ContactList.sBankList.add(bank0);
-		cards.put("Gringotts Bank", bank0);
 		
-		BankPanel bank1 = new BankPanel(city);
-		ContactList.sBankList.add(bank1);
-		cards.put("Piggy Bank", bank1);
-		*/
+		BankPanel bp0 = new BankPanel(city);
+		bp0.setBank(ContactList.sBankList.get(0));
+		cards.put("Gringotts", bp0);
+		
+		BankPanel bp1 = new BankPanel(city);
+		bp1.setBank(ContactList.sBankList.get(1));
+		cards.put("Piggy Bank", bp1);
+		
 		layout = new CardLayout();
 		this.setLayout(layout);
 		for (String key:cards.keySet()) {

@@ -15,10 +15,12 @@ import market.gui.MarketCustomerGui;
 import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
+import base.ContactList;
+import base.Event;
+import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class MarketCustomerRole extends BaseRole implements MarketCustomer {
@@ -30,8 +32,8 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketInvoice> mInvoices	= Collections.synchronizedList(new ArrayList<MarketInvoice>());
 
-	Map<EnumItemType, Integer> mItemInventory;// = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
-	Map<EnumItemType, Integer> mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
+	public Map<EnumItemType, Integer> mItemInventory;// = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+	public Map<EnumItemType, Integer> mItemsDesired;// = Collections.synchronizedMap(new HashMap<EnumItemType,Integer>());
 	
 	Map<EnumItemType, Integer> mCannotFulfill;// = new HashMap<EnumItemType, Integer>();
 
@@ -44,14 +46,11 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		//Add guis
 		mGui = new MarketCustomerGui(this);
 		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
-		ContactList.sMarketList.get(mMarketID).mCustomerGuis.add(mGui);
 		
-		
-		//ANGELICA: where is mItemsDesired populated? hack for now
+		mCashier = ContactList.sMarketList.get(mMarketID).mCashier;
+			
 		mItemInventory = person.getItemInventory();
-		//mItemsDesired = person.getItemsDesired();
-		mItemsDesired.put(EnumItemType.CHICKEN,2);
-		mItemsDesired.put(EnumItemType.STEAK,1);
+		mItemsDesired = person.getItemsDesired();
 	}
 	
 	//MESSAGES
@@ -121,6 +120,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	//ACTIONS
 	private void createOrder(){
+		print("Creating an order.");
 		HashMap<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
 		for(EnumItemType iItemType : mItemsDesired.keySet()) {
 			items.put(iItemType,mItemsDesired.get(iItemType));
@@ -131,6 +131,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	}
 
 	private void placeOrder(MarketOrder order){
+		print("Placing order.");
 		DoGoToMarket();
 		mCashier.msgOrderPlacement(order);
 	}
@@ -151,6 +152,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	}
 
 	private void completeOrder(MarketOrder order) {
+		print("Completing order!");
 		for(EnumItemType item : order.mItems.keySet()) {
 			int n = mItemInventory.get(item);
 			n += order.mItems.get(item);
@@ -188,6 +190,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		mPerson.msgAddEvent(new Event(EnumEventType.EAT, 0));
+		//mPerson.setJobFalse();
+		mPerson.msgRoleFinished();
 	}
 	
 /* Utilities */

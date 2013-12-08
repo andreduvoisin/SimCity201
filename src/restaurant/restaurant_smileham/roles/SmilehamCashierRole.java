@@ -14,9 +14,9 @@ import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
 import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
@@ -31,18 +31,13 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 	
 	private List<Order> mOrders;
 	private List<Check> mChecksPaid;
-	private Map<SmilehamMarket, Integer> mMarketBills;
-
-	//GUI
-	private SmilehamAnimationPanel mAnimationPanel;
-	
+	private Map<SmilehamMarket, Integer> mMarketBills;	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	public SmilehamCashierRole(Person person, RestaurantCashierRole r){
 		super(person);
 		mRole = r;
 		mName = person.getName();
-		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Cashier Created");
 		
 		mCash = cRESTAURANT_CASH;

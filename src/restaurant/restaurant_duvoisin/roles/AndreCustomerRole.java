@@ -6,18 +6,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.Menu;
 import restaurant.restaurant_duvoisin.gui.CustomerGui;
-import restaurant.restaurant_duvoisin.interfaces.Cashier;
 import restaurant.restaurant_duvoisin.interfaces.Customer;
-import restaurant.restaurant_duvoisin.interfaces.Host;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import base.BaseRole;
+import base.ContactList;
 import base.Event;
 import base.Event.EnumEventType;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
@@ -37,9 +36,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	private CustomerGui customerGui;
 
 	// agent correspondents
-	private Host host;
 	private Waiter waiter;
-	private Cashier cashier;
 
 	//    private boolean isHungry = false; //hack for gui
 	public enum AgentState
@@ -83,13 +80,6 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 			customerNumber++;
 		amountOwed = 0.00;
 		money = 0.00;
-	}
-
-	/**
-	 * hack to establish connection to Host agent.
-	 */
-	public void setHost(Host host) {
-		this.host = host;
 	}
 
 	public void setWaiter(Waiter waiter) {
@@ -145,10 +135,9 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 		stateChanged();
 	}
 	
-	public void msgHereIsCheck(double amount, Cashier ca) {
+	public void msgHereIsCheck(double amount) {
 		print("msgHereIsCheck received");
 		amountOwed = amount;
-		cashier = ca;
 		event = AgentEvent.checkHere;
 		stateChanged();
 	}
@@ -286,19 +275,19 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		host.msgIWantToEat(this, customerGui.WAIT_POS);	//send our instance, so he can respond to us
+		AndreRestaurant.host.msgIWantToEat(this, customerGui.WAIT_POS);	//send our instance, so he can respond to us
 	}
 	
 	private void DecideStayOrLeave() {
 		print("Doing DecideStayOrLeave");
 		Random rng = new Random();
-		switch(rng.nextInt(2)) {
+		switch(rng.nextInt(4)) {
 			case 0:
-				host.msgLeavingBecauseRestaurantFull(this);
+				AndreRestaurant.host.msgLeavingBecauseRestaurantFull(this);
 				customerGui.DoExitFullRestaurant();
 				DoNothing();
 				break;
-			case 1:
+			default:
 				event = AgentEvent.gotHungry;
 				break;
 		}
@@ -334,7 +323,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 						break;
 					default:
 						if(money < myMenuPrices[0]) {
-							switch(rng.nextInt(2)) {
+							switch(rng.nextInt(5)) {
 								case 0:
 									LeaveTable();
 									return;
@@ -427,9 +416,9 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 		state = AgentState.Paying;
 		print("Doing PayCheck");
 		if(!owesMoney)
-			cashier.msgPayment(this, amountOwed);
+			AndreRestaurant.cashier.msgPayment(this, amountOwed);
 		else
-			cashier.msgPayment(this, money);
+			AndreRestaurant.cashier.msgPayment(this, money);
 		
 		if(amountOwed > money)
 			owesMoney = true;
@@ -445,8 +434,8 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	private void DoNothing() {
 		state = AgentState.DoingNothing;
 		print("Doing DoNothing");
-		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-		mPerson.setJobFalse();
+		mPerson.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
+		//mPerson.setJobFalse();
 		mPerson.msgRoleFinished();
 		// ANDRE: Should probably do something like this...
 //		customerGui.animationPanel.removeCustomer(this);

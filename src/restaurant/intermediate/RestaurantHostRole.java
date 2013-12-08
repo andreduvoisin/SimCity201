@@ -3,12 +3,13 @@ package restaurant.intermediate;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
-import restaurant.restaurant_duvoisin.gui.AndreRestaurantPanel;
+import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreHostRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
@@ -16,10 +17,10 @@ import restaurant.restaurant_tranac.roles.TranacHostRole;
 import restaurant.restaurant_xurex.RexHostRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 
 public class RestaurantHostRole extends BaseRole implements
 		RestaurantBaseInterface {
@@ -39,7 +40,11 @@ public class RestaurantHostRole extends BaseRole implements
 		switch (mRestaurantID) {
 		case 0: // andre
 			subRole = new AndreHostRole(super.mPerson);
-			AndreRestaurantPanel.instance.host = (AndreHostRole) subRole;
+			if(AndreRestaurant.host == null) {
+				AndreRestaurant.host = (AndreHostRole) subRole;
+			} else {
+				subRole = AndreRestaurant.host;
+			}
 			break;
 //		case 1: // chase
 //			subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).host;
@@ -55,11 +60,19 @@ public class RestaurantHostRole extends BaseRole implements
 			break;
 		case 4: // david
 			subRole = new DavidHostRole(super.mPerson);
-			DavidRestaurant.host = (DavidHostRole) subRole;
+			if (DavidRestaurant.host == null) {
+				DavidRestaurant.host = (DavidHostRole) subRole;
+			} else {
+				subRole = DavidRestaurant.host;
+			}
 			break;
 		case 5: // shane
 			subRole = new SmilehamHostRole(super.mPerson);
-			SmilehamAnimationPanel.addPerson((SmilehamHostRole) subRole);
+			if (SmilehamRestaurant.mHost == null) {
+				SmilehamRestaurant.addPerson((SmilehamHostRole) subRole);
+			} else {
+				subRole = SmilehamRestaurant.mHost;
+			}
 			break;
 		case 6: // angelica
 			subRole = new TranacHostRole(mPerson);

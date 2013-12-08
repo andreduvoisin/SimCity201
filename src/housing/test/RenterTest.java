@@ -1,14 +1,15 @@
 package housing.test;
 
+import housing.House;
 import housing.roles.HousingRenterRole;
 import housing.test.mock.MockLandlord;
 import junit.framework.TestCase;
 import test.mock.MockPerson;
 import bank.test.mock.MockMasterTellerRole;
+import base.ContactList;
 import base.PersonAgent;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityHousing;
 import city.gui.SimCityGui;
 
 /**
@@ -16,7 +17,7 @@ import city.gui.SimCityGui;
  * This class is a JUnit test class to unit test the Landlord's interaction with
  * renters.
  * 
- * @author Maggi Yang
+ * @author Maggi Yang, David Carr
  */
 
 public class RenterTest extends TestCase {
@@ -25,8 +26,8 @@ public class RenterTest extends TestCase {
 	Person mPerson;
 	HousingRenterRole mHousingRenter;
 	MockLandlord mHousingLandlord;
-	CityHousing mHouse1;
-	CityHousing mHouse2; 
+	House mHouse1;
+	House mHouse2; 
 	MockPerson mMockPerson; 
 	MockMasterTellerRole mMockMasterTeller; 
 	SimCityGui city; 
@@ -42,22 +43,21 @@ public class RenterTest extends TestCase {
 		
 		//Renter 
 		mPerson = new PersonAgent();
-		mHousingRenter = new HousingRenterRole(); 
-		mHousingRenter.setPerson(mPerson); 
+		mHousingRenter = new HousingRenterRole(mPerson); 
 		mPerson.addRole((Role) mHousingRenter, true); 
 		mHousingRenter.setLandlord(mHousingLandlord);
 	
 		//Mock Interfaces 
 		mHousingLandlord = new MockLandlord("Mocklandlord"); 
 		mMockPerson = new MockPerson("MockPerson"); 
-		mMockMasterTeller = new MockMasterTellerRole("MockMasterTeller"); 
+		ContactList.masterTeller = new MockMasterTellerRole("MockMasterTeller"); 
 		mMockPerson.addRole((Role) mMockMasterTeller, true); 
 		
 //		ContactList.sRoleLocations.put(mMockMasterTeller, new Location(10,10)); 
 		
 		//Houses
-		mHouse1 = new CityHousing(city, 10, 10, 1, 300.00);
-		mHouse2 = new CityHousing(city, 20, 20, 2, 200.00);
+		mHouse1 = new House(1, 300.00);
+		mHouse2 = new House(2, 200.00);
 		mHousingLandlord.mHousesList.add(mHouse1);
 		mHousingLandlord.mHousesList.add(mHouse2);
 	}

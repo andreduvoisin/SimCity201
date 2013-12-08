@@ -13,16 +13,16 @@ import restaurant.restaurant_davidmca.interfaces.Waiter;
 import restaurant.restaurant_davidmca.test.mock.EventLog;
 import restaurant.restaurant_davidmca.test.mock.LoggedEvent;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
-import base.reference.ContactList;
 import city.gui.trace.AlertTag;
 
 /**
  * Restaurant customer restaurant_davidmca.agent.
  */
 public class DavidCashierRole extends BaseRole implements Cashier {
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	
 	private String name;
 	public double totalCash;

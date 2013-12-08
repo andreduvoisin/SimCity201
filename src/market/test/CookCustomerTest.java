@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import market.Market;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -14,7 +15,6 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import base.Item.EnumItemType;
 import base.PersonAgent;
-import base.reference.Market;
 
 public class CookCustomerTest extends TestCase {
 	PersonAgent mPerson;
@@ -60,7 +60,7 @@ public class CookCustomerTest extends TestCase {
  		mCookCustomer.mItemsDesired.put(EnumItemType.CHICKEN,3);
  		mCookCustomer.mItemsDesired.put(EnumItemType.SALAD, 1);
 
- 	//ANGELICA: assert preconditions
+ 	//assert preconditions
  		
  		
  		mCookCustomer.pickAndExecuteAnAction();
@@ -145,7 +145,7 @@ public class CookCustomerTest extends TestCase {
 // 		SmilehamAnimationPanel mPanel = new SmilehamAnimationPanel(null);
 // 		mCookCustomer.setRestaurant(5);
 //	
-// 	  //ANGELICA: assert preconditions
+// 	  //assert preconditions
 // 		
 // 		
 // 		

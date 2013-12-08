@@ -3,7 +3,7 @@ package base;
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingLandlordRole;
-import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,6 @@ import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import transportation.roles.CommuterRole;
-import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
@@ -36,7 +35,6 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import base.reference.ContactList;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
@@ -48,7 +46,8 @@ public class PersonAgent extends Agent implements Person {
 	public static int sSSN = 0;
 	public static int sRestaurantCounter = 0;
 	public static int sHouseCounter = 0;
-	
+	public static int sBaseInventory = 0;
+	public static int sBaseWanted = 1;
 	//Roles and Job
 	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
 										MARKET, 	//cashier, worker...
@@ -70,9 +69,10 @@ public class PersonAgent extends Agent implements Person {
 	private int mTimeShift;
 	private double mCash;
 	private double mLoan;
-	private boolean mHasCar;	//ALL ANGELICA MAGGI: 3 car will be implemented later
+	private boolean mHasCar;	//ALL MAGGI: 3 car will be implemented later
 	private boolean mAtJob;		//used in PAEA
 	public CityPerson mPersonGui;
+	public CommuterRole mCommuterRole;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -95,12 +95,21 @@ public class PersonAgent extends Agent implements Person {
 		switch (jobType){
 			case BANK:
 				jobRole = SortingHat.getBankRole(mTimeShift);
+				if(mTimeShift==Time.GetShift()){
+					jobRole.setPerson(this);
+					print("Bank role person auto set: "+jobRole.toString());
+					if (jobRole instanceof BankTellerRole){
+						ContactList.sBankList.get(((BankTellerRole)jobRole).mBankID).mGuard.msgReadyToWork((BankTellerRole)jobRole);
+					}
+				}
 				break;
 			case MARKET:
 				jobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
 				jobRole = SortingHat.getRestaurantRole(mTimeShift);
+				if(jobRole != null)
+					print(jobRole.toString());
 				break;
 			case NONE:
 				break;
@@ -118,20 +127,15 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		//Add customer/rider role possibilities
+		mCommuterRole = new CommuterRole(this); 
+		mCommuterRole.mActive = false;
+		
 		mRoles.put(SortingHat.getHousingRole(this), true);
-		mRoles.put(new CommuterRole(this), false); 
-		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
-		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
+		//mRoles.put(new CommuterRole(this), false); 
+		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
+		mRoles.put(new MarketCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
-		/*
-		 * Give houses to landlords and owners
-		 */
-		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			//getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
-			sHouseCounter++;
-		}
 	}
 	
 	private void initializePerson(){
@@ -143,12 +147,24 @@ public class PersonAgent extends Agent implements Person {
 		mFriends = new ArrayList<Person>();
 		mEvents = new ArrayList<Event>();
 		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+			//populate inventory
+			mItemInventory.put(EnumItemType.CAR,0);
+			mItemInventory.put(EnumItemType.CHICKEN,sBaseInventory);
+			mItemInventory.put(EnumItemType.PIZZA,sBaseInventory);
+			mItemInventory.put(EnumItemType.STEAK,sBaseInventory);
+			mItemInventory.put(EnumItemType.SALAD,sBaseInventory);
 		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+			mItemInventory.put(EnumItemType.CAR,0);
+			mItemInventory.put(EnumItemType.CHICKEN,0);
+			mItemInventory.put(EnumItemType.PIZZA,0);
+			mItemInventory.put(EnumItemType.STEAK,0);
+			mItemInventory.put(EnumItemType.SALAD,0);
+		
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
-		mTimeShift = (mSSN % 3); // assign time schedule
+		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
 		
@@ -167,13 +183,13 @@ public class PersonAgent extends Agent implements Person {
 			mRoles.put(getJobRole(), true);
 		}
 		//Leave job
-		if ((mTimeShift + 1) % 3 == Time.GetShift()){ //if job shift is over
+		if ((mTimeShift + 1) % ContactList.cNumTimeShifts == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(getJobRole(), false); //set job role to false;
 			mPersonGui.setPresent(true);
 		}
-		
-		stateChanged();
+		if(getJobRole()!=null)
+			stateChanged();
 	}
 	
 	public void msgStateChanged() {
@@ -182,7 +198,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void msgAddEvent(Event event) {
 		if(event.mEventType == EnumEventType.RSVP1){
-			if(((EventParty)event).mHost.getName().equals("partyPersonFlake") && mSSN%2==0){
+			if(((EventParty)event).mHost.getName().equals("partyPersonFlake") && mSSN%ContactList.cNumTimeShifts==0){
 				print("I am a deadbeat");
 				return;
 			}
@@ -194,6 +210,7 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
+	//From CityPerson GUI
 	public void msgCommuteAnimationDone(){
 		mRoles.put(getCommuterRole(), false); 
 	}
@@ -226,6 +243,7 @@ public class PersonAgent extends Agent implements Person {
 			if(mEvents.isEmpty())
 				return false;
 			Event event = mEvents.get(0); //next event
+			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
 				mRoleFinished = false; //doing a role
 				processEvent(event);
@@ -240,10 +258,11 @@ public class PersonAgent extends Agent implements Person {
 					print(iRole.toString());
 					print("getPerson in iRole was null");
 				}
-				else if (iRole instanceof CommuterRole){
-					if(mRoles.get(iRole))
-						if(iRole.pickAndExecuteAnAction())
-							return true; 
+				else if (mCommuterRole.mActive){
+					if(iRole.pickAndExecuteAnAction()){
+						print("Executes CommuterRole"); 
+						return true;
+					}
 				}
 				else if (iRole.pickAndExecuteAnAction()){
 					return true;
@@ -256,21 +275,24 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
-//ANGELICA MAGGI: change all test functions back later
 	private synchronized void processEvent(Event event) {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
-//			testGetCar();
 		}
-		
+		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
+			if (getHousingRole().getHouse() == null) {
+				getHouse();
+			}
+		}
 		//Daily Recurring Events (Job, Eat)
 		else if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
 				goToJob();
+				//testGoToJob(); 
 			}
 			mEvents.add(new Event(event, 24));
 		}
@@ -327,140 +349,82 @@ public class PersonAgent extends Agent implements Person {
 			exitBus();
 		}
 		
+		//Inspection
+		else if (event.mEventType == EnumEventType.INSPECTION) {
+			inspect();
+			mEvents.add(new Event(event, -1));
+			//REX: created looping inspection, easy to fix
+		}
+		
+		//Market
+		else if (event.mEventType == EnumEventType.GO_TO_MARKET) {
+			goToMarket();
+		}
+		
 		mEvents.remove(event);
 	}
 	
-/**ANGELICA: MAGGI: Testing transportationnnnnnnnnnnnnnnnnnnnnnnnnnnnnn */
-	
-	private void testGetCar() {
-		//activate marketcustomer role
-		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof MarketCustomer){
-				if(!SimCityGui.TESTING) {
-					//ANGELICA: change to choosing which market to get a car
-					Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
-					iRole.GoToDestination(location);
-					acquireSemaphore(semAnimationDone);
-				}
-				mPersonGui.setPresent(false);
-				mRoles.put(iRole, true); //set active
-				iRole.setPerson(this);
-				break;
-			}
-		}
-		
-		//add desired item
-		mItemsDesired.put(EnumItemType.CAR, 1); // want 1 car
-		// PAEA for role will message market cashier to start transaction
-		mHasCar = true;
-	}
-
+/**MAGGI: Testing transportation */
+	//COMMUTERROLE INTEGRATION EXAMPLE
+	//DAVID: Please don't delete this -XOXO Maggi 
 	private void testGoToJob() {
-		print("goToJob");
+		print("Going to Job");
 		Role jobRole = getJobRole();
 		if (jobRole == null) {
-			print("didn't go to job");
+			print("Didn't go to job");
 			return;
 		}
 		mAtJob = true; // set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		print("my job is " + jobRole.toString());
+//		print("my job is " + jobRole.toString());
 		if (jobRole != null) {
 			jobRole.setPerson(this); // take over job role
-			mRoles.put(getCommuterRole(), true);
+			//mRoles.put(getCommuterRole(), true);
 			CommuterRole cRole = (CommuterRole) getCommuterRole();
+			cRole.setPerson(this);
 			cRole.setLocation(getJobLocation());
+			mRoles.put(getCommuterRole(), true);
 			mRoles.put(jobRole, true); // set role to active
 			jobRole.setActive();
 		}
 	}
 
-	private void testEatFood() {
-		if (isCheap() && getHousingRole().getHouse() != null) {
-			print("Going to eat at home");
-			getHousingRole().msgEatAtHome();
-			BaseRole r = (BaseRole) getHousingRole();
-			r.GoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole()
-					.getHouse().mHouseNum));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-		} else {
-			print("Going to restaurant");
-			// set random restaurant
-			Role restCustRole = null;
-			for (Role iRole : mRoles.keySet()) {
-				if (iRole instanceof RestaurantCustomerRole) {
-					restCustRole = iRole;
+/*************************************************************************/
+	public void getHouse() {
+		HousingLandlordRole assignedLandlord = null;
+		if (getHousingRole() instanceof HousingRenterRole) {
+			for (Person p : ContactList.sPersonList) {
+				for (Role r : p.getRoles().keySet()) {
+					if (r instanceof HousingLandlordRole) {
+						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
+							assignedLandlord = (HousingLandlordRole) r;
+						}
+					}
 				}
 			}
-			mRoles.put(restCustRole, true);
-
-			// SHANE DAVID ALL: 3 make this random
-			int restaurantChoice = 0;
-
-			if (SimCityGui.TESTING) {
-				restaurantChoice = SimCityGui.TESTNUM; // override if testing
-			}
-
-			restCustRole.GoToDestination(ContactList.cRESTAURANT_LOCATIONS
-					.get(restaurantChoice));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-
-			((RestaurantCustomerRole) restCustRole).setPerson(this);
-			((RestaurantCustomerRole) restCustRole)
-					.setRestaurant(restaurantChoice);
 		}
-	}
-
-	private void testDepositCheck() {
-		mPersonGui.setPresent(true);
-
-		// mPersonGui.DoGoToDestination(mSSN%2==0?
-		// ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
-
-		acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-
-		int deposit = 50; // REX: add mDeposit, and do after leaving job
-
-		BankCustomerRole bankCustomerRole = null;
-		for (Role iRole : mRoles.keySet()) {
-			if (iRole instanceof BankCustomerRole) {
-				bankCustomerRole
-						.GoToDestination(mSSN % 2 == 0 ? ContactList.cBANK1_LOCATION
-								: ContactList.cBANK2_LOCATION);
-				acquireSemaphore(semAnimationDone);
-				mPersonGui.setPresent(false);
-				bankCustomerRole = (BankCustomerRole) iRole;
-				mRoles.put(iRole, true);
-				break;
-			}
+		if (assignedLandlord != null) {
+			((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
+			((HousingRenterRole) getHousingRole()).msgRequestHousing();
 		}
-
-		// deposit check
-		bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit,
-				deposit));
-
-		// pay back loan if needed
-		if (mLoan > 0) {
-			double payment = Math.max(mCash, mLoan);
-			mCash -= payment;
-			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment,
-					payment));
+		else {
+			print("No available landlords");
 		}
-		bankCustomerRole.setPerson(this);
-		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN % 2).addPerson(bankCustomerRole);
 	}
 	
-/*************************************************************************/
 	public void getCar(){
-		Location location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
-		if(!SimCityGui.TESTING){
-			mPersonGui.DoGoToDestination(location);
-			acquireSemaphore(semAnimationDone);
+		Location location;
+		if(mSSN%ContactList.cNumTimeShifts == 0) {
+			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+		} else {
+			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
 		}
+		print("" + location.mX + " " + location.mY);
+		//if(!SimCityGui.TESTING){
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(location);
+		acquireSemaphore(semAnimationDone);
+		//}
 		mPersonGui.setPresent(false); //set city person invisible
 		
 		//activate marketcustomer role
@@ -477,6 +441,25 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = true;
 	}
 	
+	public void inspect() {
+		mPersonGui.setPresent(true);
+		synchronized(ContactList.sOpenPlaces){
+			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+				if(ContactList.sOpenPlaces.get(iLocation)){
+					mPersonGui.DoGoToDestination(iLocation);
+					acquireSemaphore(semAnimationDone);
+					print("Visited "+iLocation.toString());
+					mPersonGui.setPresent(false);
+					break;
+				}
+			}
+		}
+		getHousingRole().msgTimeToMaintain();
+		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+	}
+	
 	public void goToJob() {
 		//print("goToJob");
 		Role jobRole = getJobRole();
@@ -488,9 +471,11 @@ public class PersonAgent extends Agent implements Person {
 		acquireSemaphore(semAnimationDone);
 		mAtJob = true; //set to false in msgTimeShift
 		mPersonGui.setPresent(false);
-		print("my job is " +jobRole.toString());
+//		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
-			jobRole.setPerson(this); //take over job role
+			if(!jobRole.hasPerson()) {
+				jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+			}
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
 		}
@@ -502,6 +487,7 @@ public class PersonAgent extends Agent implements Person {
 			getHousingRole().msgEatAtHome();
 			mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
 			acquireSemaphore(semAnimationDone);
+			mPersonGui.setPresent(false);
 		}else{
 			print("Going to restaurant");
 			//set random restaurant
@@ -519,7 +505,8 @@ public class PersonAgent extends Agent implements Person {
 			if (SimCityGui.TESTING){
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
 			}
-
+			
+			mPersonGui.setPresent(true);
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
@@ -531,21 +518,63 @@ public class PersonAgent extends Agent implements Person {
 		
 	}
 	
-	private void depositCheck() {
-		mPersonGui.setPresent(true);
-		
+	private void goToMarket() {
+		//mCommuterRole.mActive = true;
 		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		//acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
+
+		//ANGELICA: hack
+		mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
+		mItemsDesired.put(EnumItemType.CHICKEN, sBaseWanted);
+
 		
+		Location location;
+		if(mSSN%ContactList.cNumTimeShifts == 0) {
+			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
+		} else {
+			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
+		}
+		if(!SimCityGui.TESTING){
+			mPersonGui.DoGoToDestination(location);
+			acquireSemaphore(semAnimationDone);
+		}
+		mPersonGui.setPresent(false); //set city person invisible
+		
+		//activate marketcustomer role
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof MarketCustomer){
+				mRoles.put(iRole, true); //set active
+				iRole.setPerson(this);
+			}
+		}
+	}
+	
+	private void depositCheck() {		
 		int deposit = 50; //REX: add mDeposit, and do after leaving job
 		
 		BankCustomerRole bankCustomerRole = null;
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof BankCustomerRole){
-				bankCustomerRole = (BankCustomerRole) iRole;
-				mRoles.put(iRole, true);
+				bankCustomerRole = (BankCustomerRole)iRole;
 			}
+		}
+		
+		bankCustomerRole.setPerson(this);
+		mRoles.put(bankCustomerRole, true);
+		
+		//GO TO BANK AND DO STUFF
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION);
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
+		
+		//plan robbery
+		if(mName.equals("robber")){
+			//REX: hard coded to try to steal 100
+			print("Robbery action added to bank options");
+			bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
 		}
 		
 		//deposit check
@@ -557,14 +586,6 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
-		if(mName.equals("robber")){
-			//REX: hard coded to try to steal 100
-			print("Robbery action added to bank options");
-			bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
-		}
-		bankCustomerRole.setPerson(this);
-		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -592,7 +613,7 @@ public class PersonAgent extends Agent implements Person {
 	private void inviteToParty() {
 		if(mFriends.isEmpty()){
 			int numPeople = ContactList.sPersonList.size();
-			print("Num People in city: " + numPeople); //SHANE: Print remove
+//			print("Num People in city: " + numPeople);
 			for (int i = 0; i < numPeople; i = i + 2){
 				mFriends.add(ContactList.sPersonList.get(i));
 			}
@@ -601,7 +622,6 @@ public class PersonAgent extends Agent implements Person {
 		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
-//		Location test = ContactList.sRoleLocations.get(); //SHANE REX: 2 This is null...
 		Location partyLocation = new Location(100, 0);
 		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		
@@ -687,25 +707,26 @@ public class PersonAgent extends Agent implements Person {
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return true;
+		return false;
 	}
 
 
 	private void boardBus() {
-		int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
-		Role jobRole = getJobRole();
-
-		mPersonGui.DoGoToDestination(base.reference.ContactList.cBUS_STOPS.get(boardAtStop));
-		acquireSemaphore(semAnimationDone);
-
-		((TransportationBusRiderRole) jobRole).msgReset();
-		
-	}
+		//CHASE: Add all of that back in
+//		int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+//		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
+//		Role jobRole = getJobRole();
+//
+//		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
+//		acquireSemaphore(semAnimationDone);
+//
+//		((TransportationBusRiderRole) jobRole).msgReset();
+//		
+		}
 
 	private void exitBus() {
 		mRoleFinished = true;
-		mPersonGui.NewDestination(new Location(mPersonGui.mNextDestination.mX, mPersonGui.mNextDestination.mY));
+		mPersonGui.NewDestination(new Location(mPersonGui.mFinalDestination.mX, mPersonGui.mFinalDestination.mY));
 	}
 
 	private void acquireSemaphore(Semaphore semaphore){
@@ -811,7 +832,7 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-
+	
 	public void setName(String name) {
 		mName = name;
 	}

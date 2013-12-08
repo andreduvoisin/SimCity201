@@ -8,24 +8,26 @@ import java.util.concurrent.Semaphore;
 
 import javax.imageio.ImageIO;
 
+import market.Market;
 import market.MarketOrder;
-import market.interfaces.MarketWorker;
+import market.roles.MarketWorkerRole;
 import base.Item.EnumItemType;
 import city.gui.SimCityGui;
 
 public class MarketWorkerGui implements MarketBaseGui {
-	private MarketWorker mAgent;
-	public MarketItemsGui mItems;
-	
+	private MarketWorkerRole mAgent;
+	private int mNum;
+
 	private MarketOrder mOrder = null;
 	
 	private static final int xStart = -20, yStart = -20;
-	private static final int xHome = 200, yHome = 10;
+	private static final int xBase = 60, yBase = 450;
 	private static final int xDeliveryTruck = 250, yDeliveryTruck = 500;
 	private int xCustomer = 100, yCustomer = 250;
 	
-	private int xPos = xStart, yPos = yStart;
-//	private int xDestination = xStart, yDestination = yStart;
+//	private int xPos = xStart, yPos = yStart;
+	private int xPos, yPos;
+	private int xHome, yHome;
 	private int xDestination = xHome, yDestination = yHome;
 	private static final int SIZE = 20;
 	
@@ -36,9 +38,17 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketWorkerGui(MarketWorker agent) {
+	public MarketWorkerGui(MarketWorkerRole agent, int i) {
 		mAgent = agent;
-		
+		mNum = i;
+        xHome = xBase + 30*(i % 5);
+        yHome = yBase - 30*(int)(i/5);
+
+        xPos = xHome;
+        yPos = yHome;
+        xDestination = xHome;
+        yDestination = yHome;
+	
     	image = null;
     	try {
     	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/worker.png");
@@ -47,11 +57,6 @@ public class MarketWorkerGui implements MarketBaseGui {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
-	}
-	
-	public MarketWorkerGui(MarketWorker agent, MarketItemsGui g) {
-		mAgent = agent;
-		mItems = g;
 	}
 	
 	public void updatePosition() {
@@ -104,7 +109,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	public void draw(Graphics2D g) {
 		if(SimCityGui.GRADINGVIEW) {
 			g.setColor(Color.BLACK);
-			g.drawString("MWorker",xPos,yPos);
+			g.drawString("W"+mNum,xPos,yPos);
 		}
 		else
 			g.drawImage(image,xPos,yPos,null);
@@ -119,8 +124,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
-	for(EnumItemType item : mOrder.mItems.keySet()) {
-			MarketCoordinates c = mItems.getItemCoordinates(item);
+		for(EnumItemType item : mOrder.mItems.keySet()) {
+			MarketCoordinates c = mAgent.mMarket.mItemsGui.getItemCoordinates(item);
 			xDestination = c.getX()-30;
 			yDestination = c.getY();
 			mCommand = EnumCommand.goToItem;
@@ -131,8 +136,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 				e.printStackTrace();
 			}
 			mCommand = EnumCommand.noCommand;
-			mItems.decreaseItemCount(item, mOrder.mItems.get(item));		
-	}
+			mAgent.mMarket.mItemsGui.decreaseItemCount(item, mOrder.mItems.get(item));		
+		}
 		mAgent.msgOrderFulfilled(mOrder);
 		mOrder = null;
 	}
@@ -163,7 +168,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	 
 /* Utilities */
 	public boolean isPresent() {
-		return true;
+		return mAgent.getPerson() != null ? true : false;
 	}
 	
 	public int getXPos() {
@@ -172,9 +177,5 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public int getYPos() {
 		return yPos;
-	}
-	
-	public void setItemsGui(MarketItemsGui g) {
-		mItems = g;
 	}
 }
