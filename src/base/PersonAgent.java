@@ -414,9 +414,11 @@ public class PersonAgent extends Agent implements Person {
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
 				if(ContactList.sOpenPlaces.get(iLocation)){
+					String name = mName;
 					mPersonGui.DoGoToDestination(iLocation);
+					setName("Visiting");
 					acquireSemaphore(semAnimationDone);
-					print("Visiting "+iLocation.toString());
+					setName(name);
 				}
 			}
 		}
