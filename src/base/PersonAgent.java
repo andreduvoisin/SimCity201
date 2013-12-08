@@ -330,6 +330,13 @@ public class PersonAgent extends Agent implements Person {
 			exitBus();
 		}
 		
+		//Inspection
+		else if (event.mEventType == EnumEventType.INSPECTION) {
+			inspect();
+			mEvents.add(new Event(event, -1));
+			//REX: created looping inspection, easy to fix
+		}
+		
 		mEvents.remove(event);
 	}
 	
@@ -405,7 +412,23 @@ public class PersonAgent extends Agent implements Person {
 		//PAEA for role will message market cashier to start transaction
 		mHasCar = true;
 	}
-
+	
+	public void inspect() {
+		mPersonGui.setPresent(true);
+		synchronized(ContactList.sOpenPlaces){
+			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+				if(ContactList.sOpenPlaces.get(iLocation)){
+					mPersonGui.DoGoToDestination(iLocation);
+					acquireSemaphore(semAnimationDone);
+					print("Visiting "+iLocation.toString());
+				}
+			}
+		}
+		getHousingRole().msgTimeToMaintain();
+		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+	}
 	
 	public void goToJob() {
 		//print("goToJob");
