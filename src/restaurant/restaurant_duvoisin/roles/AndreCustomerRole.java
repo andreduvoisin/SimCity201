@@ -435,7 +435,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 		state = AgentState.DoingNothing;
 		print("Doing DoNothing");
 		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-		mPerson.setJobFalse();
+		//mPerson.setJobFalse();
 		mPerson.msgRoleFinished();
 		// ANDRE: Should probably do something like this...
 //		customerGui.animationPanel.removeCustomer(this);

@@ -474,7 +474,8 @@ public class PersonAgent extends Agent implements Person {
 			if (SimCityGui.TESTING){
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
 			}
-
+			
+			mPersonGui.setPresent(true);
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
@@ -486,18 +487,24 @@ public class PersonAgent extends Agent implements Person {
 		
 	}
 	
-	private void depositCheck() {
-		print("I am a robber: "+mName.equals("robber"));
-		
+	private void depositCheck() {		
 		int deposit = 50; //REX: add mDeposit, and do after leaving job
 		
 		BankCustomerRole bankCustomerRole = null;
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof BankCustomerRole){
-				bankCustomerRole = (BankCustomerRole) iRole;
-				mRoles.put(iRole, true);
+				bankCustomerRole = (BankCustomerRole)iRole;
 			}
 		}
+		mRoles.put(bankCustomerRole, true);
+		
+		//GO TO BANK AND DO STUFF
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION);
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+		bankCustomerRole.setPerson(this);
+		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 		
 		//plan robbery
 		if(mName.equals("robber")){
@@ -515,15 +522,6 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
-		
-		//GO TO BANK AND DO STUFF
-		//mPersonGui.setPresent(true);
-		//mPersonGui.DoGoToDestination(mSSN%ContactList.cNumTimeShifts==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
-		//acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-		bankCustomerRole.setPerson(this);
-		bankCustomerRole.setActive();
-		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
