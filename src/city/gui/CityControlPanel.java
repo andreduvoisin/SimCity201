@@ -253,7 +253,12 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		scenarioG.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				ConfigParser config  = ConfigParser.getInstanceOf();
+				try {
+					config.readFileCreatePersons(city, "MarketConfig_G.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		scenarioH.addActionListener(new ActionListener() {

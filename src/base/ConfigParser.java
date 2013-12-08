@@ -67,8 +67,10 @@ public class ConfigParser {
 			if(name.contains("party"))
 				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
 			
-			if(name.contains("car")) 
+			if(name.contains("car")) {
 				person.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
+				System.out.println("Get car!");
+			}
 
 			if(name.contains("house"))
 				person.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
