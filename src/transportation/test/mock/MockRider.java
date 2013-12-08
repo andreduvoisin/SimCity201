@@ -9,7 +9,11 @@ public class MockRider implements TransportationRider {
 	public EventLog log = new EventLog(); 
 	public int mCurrentBusStop, mDestinationBusStop; 
 	public PersonBusState mState;
+	private static int sRiderNum = 0;
 
+	public MockRider() {
+		sRiderNum++;
+	}
 
 	public void msgAtBusStop(int currentStop, int destinationStop){
 		log.add(new LoggedEvent("Received msgAtBusStop(current stop = " + currentStop + ", destination stop = " + destinationStop + ")"));
@@ -30,4 +34,7 @@ public class MockRider implements TransportationRider {
 		}
 	}
 
+	public String getName() {
+		return "MockRider" + sRiderNum;
+	}
 }
