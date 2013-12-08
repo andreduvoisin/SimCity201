@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
@@ -38,11 +37,7 @@ public class SmilehamRestaurant {
 			mCustomers.add(customer);
 			customer.msgGotHungry();
 		} else if (role instanceof SmilehamWaiterRole) {
-			SmilehamWaiterRole waiter = (SmilehamWaiterRole) role;
-
-			SmilehamHost host = waiter.getHost();
-			host.msgAddWaiter((SmilehamWaiter) waiter);
-
+			mHost.msgAddWaiter((SmilehamWaiter) role);
 		} else if (role instanceof SmilehamHostRole) {
 			mHost = (SmilehamHostRole) role;
 		} else if (role instanceof SmilehamCookRole) {
