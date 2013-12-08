@@ -28,8 +28,9 @@ public class DavidRestaurant {
 	public static DavidCashierRole cashier;
 	public static Vector<DavidCustomerRole> customers;
 	public static List<Gui> guis;
-	static int customerCount = 0;
-	static int waiterCount = 0;
+	public static int customerCount = 0;
+	public static int waiterCount = 0;
+	public static DavidCustomerRole lastCustomer = null;
 	private final int NUMTABLES = 4;
 	public static Collection<Table> tables;
 	private int[] xpositions = { 0, 125, 225, 325, 225 };
@@ -58,6 +59,7 @@ public class DavidRestaurant {
 		cust.setCashier(cashier);
 		cust.setGui(g);
 		g.setHungry();
+		lastCustomer = cust;
 		customers.add(cust);
 	}
 
