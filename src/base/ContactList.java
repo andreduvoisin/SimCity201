@@ -10,6 +10,7 @@ import market.Market;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import transportation.TransportationBus;
 import bank.Bank;
@@ -26,11 +27,15 @@ public class ContactList {
 	public static final int cNumMarkets = 2;
 	public static final int cNumRestaurants = 8;
 	public static final int cNumHouses = 80;
+	public static final double rent = 10;
+	
+	//Restaurants (Decoupled data)
 	public static DavidRestaurant DavidRestaurant;
 	public static TranacRestaurant TranacRestaurant;
 	public static JerrywebRestaurant JerrywebRestaurant;
 	public static AndreRestaurant AndreRestaurant;
-	static double rent = 10;
+	public static SmilehamRestaurant SmilehamRestaurant;
+	
 	//Setup
 	public static void setup(){
 		

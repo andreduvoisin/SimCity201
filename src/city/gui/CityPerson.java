@@ -19,12 +19,7 @@ public class CityPerson extends CityComponent {
 	private String name = "";
 	PersonAgent mPerson = null;
 	SimCityGui gui;
-	
-	List<Location> corners = new ArrayList<Location>();
-	
-	//Car Data
-	List<Block> blocks = new ArrayList<Block>(); 
-	List<Location> parkingLots = new ArrayList<Location>(); 
+		
 	
 	public int xDestination = 120, yDestination = 35;
 	public Location mNextDestination = null;
@@ -43,41 +38,7 @@ public class CityPerson extends CityComponent {
 		mPerson = person;
 		this.gui = gui;
 		
-		/*Parking lot locations
-		 * D A
-		 * C B
-		 */
-		parkingLots.add(new Location(500, 90)); //SHANE 0 MAKE STATIC
-		parkingLots.add(new Location(500, 500));
-		parkingLots.add(new Location(90, 500)); 
-		parkingLots.add(new Location(90, 90));
 		
-		/*Pedestrian and bus corner locations
-		 * 4 1
-		 * 3 2
-		 */
-		corners.add(new Location(500, 95)); 
-		corners.add(new Location(500, 500));
-		corners.add(new Location(95, 500)); 
-		corners.add(new Location(95, 95));
-		
-		/*Gui Grid Blocks 
-		 * Used to to maintain car gui movement
-		 * NOTE: No blocks are needed for traveling paths AD, DC, CB, BA 
-		 */
-		//Paths: AB, BC, CD, DA
-		blocks.add(new Block (100, 80, 500, 520)); 
-		blocks.add(new Block (80, 100, 520, 500)); 
-		//Paths: AC, CA
-		blocks.add(new Block (90, 90, 280, 300)); 
-		blocks.add(new Block (90, 90, 300, 280)); 
-		blocks.add(new Block (300, 320, 500, 500)); 
-		blocks.add(new Block (320, 300, 500, 500)); 
-		//Paths: BD, DB
-		blocks.add(new Block (100, 300, 280, 500)); 
-		blocks.add(new Block (100, 320, 300, 500)); 
-		blocks.add(new Block (300, 100, 500, 280)); 
-		blocks.add(new Block (320, 100, 500, 300)); 
 	}
 
 	@Override
@@ -105,18 +66,14 @@ public class CityPerson extends CityComponent {
     	}
 
 
-        //B* Algorithm :)
+        //B* Algorithm
+        boolean xNewInBlock = false;
+        boolean yNewInBlock = false;
+        
+        
+        
+        
         /*
-        boolean xOldInBlock = 	(((previousX > ContactList.cGRID_POINT1-5) && (previousX < ContactList.cGRID_POINT2)) || 
-								((previousX > ContactList.cGRID_POINT3-5) && (previousX < ContactList.cGRID_POINT4)) ||
-								((previousX > ContactList.cGRID_POINT5-5) && (previousX < ContactList.cGRID_POINT6)) ||
-        						((previousX > ContactList.cGRID_POINT7-5) && (previousX < ContactList.cGRID_POINT8))
-        						);
-        boolean yOldInBlock = 	(((previousY > ContactList.cGRID_POINT1-5) && (previousY < ContactList.cGRID_POINT2)) || 
-								((previousY > ContactList.cGRID_POINT3-5) && (previousY < ContactList.cGRID_POINT4)) ||
-								((previousY > ContactList.cGRID_POINT5-5) && (previousY < ContactList.cGRID_POINT6)) ||
-								((previousY > ContactList.cGRID_POINT7-5) && (previousY < ContactList.cGRID_POINT8))
-								);
         boolean xNewInBlock = 	(((x > ContactList.cGRID_POINT1-5) && (x < ContactList.cGRID_POINT2)) || 
 								((x > ContactList.cGRID_POINT3-5) && (x < ContactList.cGRID_POINT4)) ||
 								((x > ContactList.cGRID_POINT5-5) && (x < ContactList.cGRID_POINT6)) ||
@@ -296,8 +253,8 @@ public class CityPerson extends CityComponent {
 	}
 	
 	public int getBusStop(int x, int y){
-		for(int i = 0; i < corners.size(); i++){
-			if(x == corners.get(i).mX && y == corners.get(i).mY){
+		for(int i = 0; i < ContactList.cBUS_STOPS.size(); i++){
+			if(x == ContactList.cPERSONCORNERS.get(i).mX && y == ContactList.cPERSONCORNERS.get(i).mY){
 				return i;
 			}
 		}	
@@ -314,54 +271,44 @@ public class CityPerson extends CityComponent {
 	 * @return (Location object) corners.get(determined nearest corner)
 	 */
 	public Location findNearestCorner(Location destination){
+		//TOP LEFT
+		if (destination.mX < 300 && destination.mY < 300) {
+			return ContactList.cPERSONCORNERS.get(0); 
+		}
 		//TOP RIGHT
 		if (destination.mX > 300 && destination.mY < 300) {
-			return corners.get(0); 
+			return ContactList.cPERSONCORNERS.get(0); 
 		}
 		//BOTTOM RIGHT
-		else if (destination.mX >= 300 && destination.mY > 300) {
-			return corners.get(1); 
+		if (destination.mX >= 300 && destination.mY > 300) {
+			return ContactList.cPERSONCORNERS.get(1); 
 		}
 		//BOTTOM LEFT
-		else if (destination.mX < 300 && destination.mY > 300) {
-			return corners.get(2); 
+		if (destination.mX < 300 && destination.mY > 300) {
+			return ContactList.cPERSONCORNERS.get(2); 
 		}
-		//TOP LEFT
-		else if (destination.mX < 300 && destination.mY < 300) {
-			return corners.get(3); 
-		}
-		else {
-			return null;
-		}
+		return null;
 	}
-	
-	/*
-	 * Finds closest parking lot to destination
-	 * 
-	 * 3 0 
-	 * 2 1 
-	 * 
-	 */
+
 	public Location findNearestParkingLot(Location location){
+		//TOP LEFT
+		if (location.mX < 300 && location.mY < 300) {
+			return ContactList.cPARKINGLOT0;
+		}
 		//TOP RIGHT
 		if (location.mX > 300 && location.mY < 300) {
-			return parkingLots.get(0); 
+			return ContactList.cPARKINGLOT1;
 		}
 		//BOTTOM RIGHT
-		else if (location.mX > 300 && location.mY > 300) {
-			return parkingLots.get(1); 
+		if (location.mX > 300 && location.mY > 300) {
+			return ContactList.cPARKINGLOT2; 
 		}
 		//BOTTOM LEFT
-		else if (location.mX < 300 && location.mY > 300) {
-			return parkingLots.get(2); 
+		if (location.mX < 300 && location.mY > 300) {
+			return ContactList.cPARKINGLOT3;
 		}
-		//TOP LEFT
-		else if (location.mX < 300 && location.mY < 300) {
-			return parkingLots.get(3); 
-		}
-		else {
-			return null;
-		}
+		//Else
+		return null;
 	}
 	
 
