@@ -28,14 +28,7 @@ public class CityPerson extends CityComponent {
 	public boolean visible;
 	public boolean onBus;
 	
-	/* 0 - No Blocks
-	 * 1 - Car Paths: AB, BC, CD, DA
-	 * 2 - Car Paths: BD, DB
-	 * 3 - Car Paths: AC, CA
-	 * 4 - Walking
-	 */
-	public int mDestinationPathType = 4;
-//	Queue<Location> goToPosition = new LinkedList<Position>();
+	public int mDestinationPathType = 0; //Walking as default
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
 		super(x, y, Color.ORANGE, person.getName());
@@ -117,7 +110,7 @@ public class CityPerson extends CityComponent {
 		if (mLocation.equals(destCorner)){
 			mUsingCar = false;
 			//walk to destination
-			mDestinationPathType = 4;
+			mDestinationPathType = 0; //Walking
 			mDestination = mFinalDestination;
 			mFinalDestination = null;
 		}else{
@@ -136,19 +129,7 @@ public class CityPerson extends CityComponent {
 							destCornerNum = iCorner;
 						}
 					}
-					
-					//clockwise not needed
-					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 1;
-					//check counter-clockwise
-					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
-					//check BD diagonal
-					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 1;
-					//check AC diagonal
-					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 1;
-					else{
-						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
-					}
-					
+					mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
 					mDestination = destParking;
 				}
 				//else bus to same corner
@@ -161,7 +142,7 @@ public class CityPerson extends CityComponent {
 			}
 			//if not at a corner, walk to person corner
 			else{
-				mDestinationPathType = 3;
+				mDestinationPathType = 0; //Walking
 				mDestination = closeCorner;
 			}
 		}
@@ -174,7 +155,7 @@ public class CityPerson extends CityComponent {
 		rectangle.y = y;
 		if(visible) {
 			if (! onBus) {
-				if(SimCityGui.GRADINGVIEW) {
+				//if(SimCityGui.GRADINGVIEW) {
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
@@ -193,7 +174,7 @@ public class CityPerson extends CityComponent {
 					g.setColor(Color.WHITE);
 					g.drawString(name, x - 10, y);
 				}
-			}
+			//}
 		}
 	}
 	
@@ -227,6 +208,46 @@ public class CityPerson extends CityComponent {
 	 * @param destination Target position in form of a Location object
 	 * @return (Location object) corners.get(determined nearest corner)
 	 */
+	
+	public int findPathType(int current, int dest) {
+		int type = -1;
+		// 0 1
+		// 3 2
+
+		// 1 - Clockwise
+		// 2 - Counterclockwise 
+		// 3 - Diagonal NE/SW
+		// 4 - Diagonal NW/SE
+		switch (current) {
+		case 0:
+			switch (dest) {
+			case 1: type = 1; break;
+			case 2: type = 4; break;
+			case 3: type = 2; break;
+			} break;
+		case 1:
+			switch (dest) {
+			case 0: type = 2; break;
+			case 2: type = 1; break;
+			case 3: type = 3; break;
+			} break;
+		case 2:
+			switch (dest) {
+			case 0: type = 4; break;
+			case 1: type = 2; break;
+			case 3: type = 1; break;
+			}
+			break;
+		case 3:
+			switch (dest) {
+			case 0: type = 1; break;
+			case 1: type = 3; break;
+			case 2: type = 2; break;
+			} break;
+		}
+		return type;
+	}
+	
 	public Location findNearestCorner(Location destination){
 		//TOP LEFT
 		if (destination.mX < 300 && destination.mY < 300) {
