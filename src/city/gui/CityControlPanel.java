@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -94,7 +96,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
         tabbedPane.addTab("Properties", PropertiesTab);
         tabbedPane.addTab("Scenarios", ScenariosTab);
         tabbedPane.addTab("Trace", TraceTab);
-        tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
+ //       tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
+        tabbedPane.setSelectedIndex(1);
         add(tabbedPane);
         
         // Pretty/Ugly View
@@ -515,18 +518,26 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		// North: COMBOBOX
 		JPanel holdPlaces = new JPanel();
 		holdPlaces.setLayout(new BorderLayout());
+		holdPlaces.setPreferredSize(new Dimension(180,50));
 		
 		JLabel placesTitle = new JLabel("Select Property:");
-		
+	    placesTitle.setPreferredSize(new Dimension(180,20));
 
     	JButton enable = new JButton("None");
+	    enable.setPreferredSize(new Dimension(180,20));
+	    enable.setMaximumSize(new Dimension(180,20));
+	    enable.setMinimumSize(new Dimension(180,20));
     	
-	    places = new JComboBox(placeList);
-	    places.setSelectedIndex(0);
-	    places.addActionListener(new PlacesListener(enable, places));
+	    //ANGELICA: additions
+	    PlacesPropertiesLabel placeProperties = new PlacesPropertiesLabel();
 	    
-	    holdPlaces.add(placesTitle, BorderLayout.NORTH);
-	    holdPlaces.add(places, BorderLayout.CENTER);
+	    places = new JComboBox(placeList);
+	    places.setPreferredSize(new Dimension(180,20));
+	    places.setSelectedIndex(0);
+	    places.addActionListener(new PlacesListener(enable, places, placeProperties));
+	    
+	//    holdPlaces.add(placesTitle, BorderLayout.NORTH);
+	//    holdPlaces.add(places, BorderLayout.CENTER);
     	
 		/*Dimension buttonDim = enable.getPreferredSize();
 		buttonDim.height -= 4;
@@ -534,8 +545,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		enable.setPreferredSize(buttonDim);*/
 	    
 	    // Add to TraceTab
-	    PropertiesTab.setLayout(new GridLayout(3, 1));
+	    PropertiesTab.setLayout(new BoxLayout(PropertiesTab,BoxLayout.Y_AXIS));
+	    PropertiesTab.add(new JLabel());
 	    PropertiesTab.add(placesTitle);
+	    PropertiesTab.add(places);
+	    PropertiesTab.add(placeProperties);
 	    PropertiesTab.add(holdPlaces);
 	    PropertiesTab.add(enable);
 	    
