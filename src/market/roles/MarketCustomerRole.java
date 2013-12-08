@@ -49,11 +49,8 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		
 		mCashier = ContactList.sMarketList.get(mMarketID).mCashier;
 			
-		//ANGELICA: where is mItemsDesired populated? hack for now
 		mItemInventory = person.getItemInventory();
 		mItemsDesired = person.getItemsDesired();
-		//mItemsDesired.put(EnumItemType.CHICKEN,2);
-		//mItemsDesired.put(EnumItemType.STEAK,1);
 	}
 	
 	//MESSAGES
@@ -141,7 +138,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
-	//	ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment); //ANGELICA: 
+		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment);
 		
 		synchronized(mItemsDesired) {
 			for(EnumItemType item : mCannotFulfill.keySet()) {

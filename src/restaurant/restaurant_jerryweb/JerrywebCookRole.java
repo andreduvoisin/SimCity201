@@ -97,12 +97,6 @@ public class JerrywebCookRole extends BaseRole {
 		foodMap.put("chicken",new Food("chicken", FoodState.delivered, 12000, 7, 7, 3));
 		foodMap.put("salad",new Food("salad", FoodState.delivered, 2000, 10, 10, 4));
 		foodMap.put("pizza",new Food("pizza", FoodState.delivered, 14000, 8, 8, 3));*/
-		/*ANGELICA: z
-		mItemInventory.put(EnumItemType.STEAK,10);
-        mItemInventory.put(EnumItemType.CHICKEN,14);
-        mItemInventory.put(EnumItemType.SALAD,20);
-        mItemInventory.put(EnumItemType.PIZZA,16);
-		*/
         mCookTimes.put(EnumItemType.STEAK,17000);
         mCookTimes.put(EnumItemType.CHICKEN,12000);
         mCookTimes.put(EnumItemType.SALAD,2000);

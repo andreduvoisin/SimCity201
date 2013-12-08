@@ -159,7 +159,7 @@ public class CityPerson extends CityComponent {
 				}
 				//else bus to same corner
 				else{
-					//do bus stuff??? CHASE MAGGI ANGELICA: 1 Do this
+					//do bus stuff??? CHASE MAGGI: 1 Do this
 //					DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
 				}
 			}

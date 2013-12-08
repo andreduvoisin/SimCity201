@@ -31,7 +31,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 		super(person);
 		mPerson = person;
 		mBus = ContactList.cBus; 
-		mHousingLocation = mPerson.getHousingRole().getLocation(); 
+		//mHousingLocation = mPerson.getHousingRole().getLocation(); 
 	}	
 	
 	//MESSAGES
