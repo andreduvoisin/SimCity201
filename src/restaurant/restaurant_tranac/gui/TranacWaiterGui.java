@@ -17,10 +17,7 @@ import city.gui.SimCityGui;
 public class TranacWaiterGui implements Gui {
 
     private TranacWaiterRole agent = null;
-    private TranacAnimationPanel gui = null;
     private int mNum;
-    
-    private TranacCookRole cook = null;
     
     private int xPos = -20, yPos = -20;						//default waiter position
     private int xDestination = -20, yDestination = -20;		//default start position

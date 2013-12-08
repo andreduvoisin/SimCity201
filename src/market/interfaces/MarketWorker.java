@@ -1,6 +1,5 @@
 package market.interfaces;
 
-import market.Market;
 import market.MarketOrder;
 
 /**

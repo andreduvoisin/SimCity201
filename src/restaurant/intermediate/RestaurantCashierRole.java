@@ -39,6 +39,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 	Role subRole = null;
 	int mRestaurantID;
+	private AlertTag mAlertTag;
 
 	public RestaurantCashierRole(Person person, int restaurantID){
 		super(person); 
@@ -49,6 +50,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		super.mPerson = person;
 		switch(mRestaurantID){
 			case 0: //andre
+				mAlertTag = AlertTag.R0;
 				subRole = new AndreCashierRole(super.mPerson, this);
 				if(AndreRestaurant.cashier == null) {
 					AndreRestaurant.cashier = (AndreCashierRole) subRole;
@@ -57,18 +59,22 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				}
 				break;
 //			case 1: //chase
+//				mAlertTag = AlertTag.R1;
 //				subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).cashier;
 //				subRole.setPerson(super.mPerson);
 //				break;
 			case 2: //jerry
+				mAlertTag = AlertTag.R2;
 				subRole = new JerrywebCashierRole(super.mPerson, this);
 				JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
 				break;
 			case 3: //maggi
+				mAlertTag = AlertTag.R3;
 				subRole = new MaggiyanCashierRole(super.mPerson, this);
 				MaggiyanAnimationPanel.addPerson((MaggiyanCashierRole) subRole);
 				break;
 			case 4: //david
+				mAlertTag = AlertTag.R4;
 				subRole = new DavidCashierRole(super.mPerson, this);
 				if (DavidRestaurant.cashier == null) {
 					DavidRestaurant.cashier = (DavidCashierRole) subRole;
@@ -77,6 +83,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				}
 				break;
 			case 5: //shane
+				mAlertTag = AlertTag.R5;
 				subRole = new SmilehamCashierRole(super.mPerson, this);
 				if (SmilehamRestaurant.mCashier == null) {
 					SmilehamRestaurant.addPerson((SmilehamCashierRole) subRole);
@@ -85,10 +92,12 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				}
 				break;
 			case 6: //angelica
+				mAlertTag = AlertTag.R6;
 				subRole = new TranacCashierRole(mPerson,this);
 				TranacRestaurant.addPerson((TranacCashierRole)subRole);
 				break;
 			case 7: //rex
+				mAlertTag = AlertTag.R7;
 				subRole =  new RexCashierRole(super.mPerson, this);
 				RexAnimationPanel.addPerson((RexCashierRole) subRole);
 				break;
@@ -150,7 +159,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Actions */
 	public void verifyAndPayMarketInvoice(MarketBill b) {
-		print("Verifying and paying bill "+ b,AlertTag.R6);	//ANGELICA hack
+		print("Verifying and paying market bill.", mAlertTag);
 		MarketOrder o = b.mOrder;
 		MarketInvoice i = b.mInvoice;
 		Map<EnumItemType, Integer> cf = b.mCannotFulfill;

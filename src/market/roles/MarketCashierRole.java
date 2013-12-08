@@ -18,10 +18,14 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
+import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Item;
@@ -150,7 +154,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
         	order.mDeliveryTruck = mDeliveryTruck;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
             cook.msgCannotFulfillItems(order, cannotFulfill);
-            // ANGELICA: 0 fill in each restaurant
             RestaurantCashierInterface restaurantCashier = null;
             
             switch(order.mRestaurantNumber) {
@@ -158,25 +161,25 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	restaurantCashier = AndreRestaurant.cashier.mRole;
             	break;
             case 1: //chase
-            	
+            	restaurantCashier = CwagonerAnimationPanel.cashier.mRole;
             	break;
             case 2: //jerry
             	restaurantCashier = JerrywebRestaurant.cashier.mRole;
             	break;
             case 3: //maggi
-            	
+            	restaurantCashier = MaggiyanAnimationPanel.mCashier.mRole;
             	break;
             case 4: //david
             	restaurantCashier = DavidRestaurant.cashier.mRole;
             	break;
             case 5: //shane
-            	
+            	restaurantCashier = SmilehamRestaurant.mCashier.mRole;
             	break;
             case 6: //angel
             	restaurantCashier = TranacRestaurant.mCashier.mRole;
             	break;
             case 7: //rex
-            	 
+            	 restaurantCashier = RexAnimationPanel.cashier.mRole;
             	break;
             }
             restaurantCashier.msgInvoiceToPerson(cannotFulfill, invoice);

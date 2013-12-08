@@ -8,7 +8,6 @@ import java.util.concurrent.Semaphore;
 
 import javax.imageio.ImageIO;
 
-import market.Market;
 import market.MarketOrder;
 import market.roles.MarketWorkerRole;
 import base.Item.EnumItemType;
@@ -25,11 +24,9 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private static final int xDeliveryTruck = 250, yDeliveryTruck = 500;
 	private int xCustomer = 100, yCustomer = 250;
 	
-//	private int xPos = xStart, yPos = yStart;
 	private int xPos, yPos;
 	private int xHome, yHome;
 	private int xDestination = xHome, yDestination = yHome;
-	private static final int SIZE = 20;
 	
 	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToItem, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
