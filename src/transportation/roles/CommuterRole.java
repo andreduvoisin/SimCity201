@@ -51,7 +51,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	 * Sent when a BusInstance is at this Rider's current stop
 	 */
 	public void msgBoardBus() {
-		print("Received msgBoardBus");
+		//print("Received msgBoardBus");
 		mState = PersonBusState.boardingBus;
 		stateChanged();
 	}

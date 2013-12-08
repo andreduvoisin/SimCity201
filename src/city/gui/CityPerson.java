@@ -206,7 +206,6 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
-		mPerson.print("cs: " + currentStop + " ds: " + destinationStop);
 		mPerson.mCommuterRole.msgAtBusStop(currentStop, destinationStop);
 		mUsingBus = false;
 	}

@@ -73,7 +73,7 @@ public class TransportationBus extends Agent {
 	 * @param riderCurrentStop The stop number the Person is at
 	 */
 	public void msgNeedARide(TransportationRider r, int riderCurrentStop) {
-		log.add(new LoggedEvent("Received msgNeedARide(" + ((CommuterRole)r).getName() + ", " + riderCurrentStop + ")"));
+		log.add(new LoggedEvent("Received msgNeedARide(" + r.getName() + ", " + riderCurrentStop + ")"));
 		synchronized(mBusStops.get(riderCurrentStop).mWaitingPeople) {
 			mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 		}

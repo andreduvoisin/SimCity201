@@ -266,7 +266,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 				else if (mCommuterRole.mActive){
 					if(mCommuterRole.pickAndExecuteAnAction()){
-						print("Executes CommuterRole"); 
+						//print("Executes CommuterRole"); 
 						return true;
 					}
 				}
