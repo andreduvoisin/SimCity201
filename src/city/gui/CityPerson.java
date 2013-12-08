@@ -34,80 +34,81 @@ public class CityPerson extends CityComponent {
 		mPerson = person;
 		this.gui = gui;
 		
-		
+		visible = true;
 	}
 
 	@Override
 	public void updatePosition() {
 		//numTicks++;
-		
-		int previousX = x;
-		int previousY = y;
-		
-		if (x < xDestination)		x++;
-        else if (x > xDestination)	x--;
-
-        if (y < yDestination)		y++;
-        else if (y > yDestination)	y--;
-        
-        if (x == xDestination && y == yDestination) {
-        	if(mNextDestination != null){
-        		DoGoToNextDestination();
-        	}else{
-        		this.disable(); 
-        		mPerson.msgAnimationDone();
-        	}
-       
-        	
-    	}
-
-
-        //B* Algorithm
-        boolean xNewInBlock = false;
-        boolean yNewInBlock = false;
-        
-        
-        
-        
-        /*
-        boolean xNewInBlock = 	(((x > ContactList.cGRID_POINT1-5) && (x < ContactList.cGRID_POINT2)) || 
-								((x > ContactList.cGRID_POINT3-5) && (x < ContactList.cGRID_POINT4)) ||
-								((x > ContactList.cGRID_POINT5-5) && (x < ContactList.cGRID_POINT6)) ||
-								((x > ContactList.cGRID_POINT7-5) && (x < ContactList.cGRID_POINT8))
-								);
-		boolean yNewInBlock = 	(((y > ContactList.cGRID_POINT1-5) && (y < ContactList.cGRID_POINT2)) || 
-								((y > ContactList.cGRID_POINT3-5) && (y < ContactList.cGRID_POINT4)) ||
-								((y > ContactList.cGRID_POINT5-5) && (y < ContactList.cGRID_POINT6)) ||
-								((y > ContactList.cGRID_POINT7-5) && (y < ContactList.cGRID_POINT8))
-								);
-        
-        if (xNewInBlock && yNewInBlock){
-        	if (xOldInBlock && yNewInBlock){
-        		y = previousY;
-        	}else{
-        		x = previousX;
-        	}
-        }
-        */
+		if(visible) {
+			int previousX = x;
+			int previousY = y;
+			
+			if (x < xDestination)		x++;
+	        else if (x > xDestination)	x--;
+	
+	        if (y < yDestination)		y++;
+	        else if (y > yDestination)	y--;
+	        
+	        if (x == xDestination && y == yDestination) {
+	        	if(mNextDestination != null){
+	        		DoGoToNextDestination();
+	        	}else{
+	        		this.disable(); 
+	        		mPerson.msgAnimationDone();
+	        	}
+	    	}
+	
+	
+	        //B* Algorithm
+	        boolean xNewInBlock = false;
+	        boolean yNewInBlock = false;
+	        
+	        
+	        
+	        
+	        /*
+	        boolean xNewInBlock = 	(((x > ContactList.cGRID_POINT1-5) && (x < ContactList.cGRID_POINT2)) || 
+									((x > ContactList.cGRID_POINT3-5) && (x < ContactList.cGRID_POINT4)) ||
+									((x > ContactList.cGRID_POINT5-5) && (x < ContactList.cGRID_POINT6)) ||
+									((x > ContactList.cGRID_POINT7-5) && (x < ContactList.cGRID_POINT8))
+									);
+			boolean yNewInBlock = 	(((y > ContactList.cGRID_POINT1-5) && (y < ContactList.cGRID_POINT2)) || 
+									((y > ContactList.cGRID_POINT3-5) && (y < ContactList.cGRID_POINT4)) ||
+									((y > ContactList.cGRID_POINT5-5) && (y < ContactList.cGRID_POINT6)) ||
+									((y > ContactList.cGRID_POINT7-5) && (y < ContactList.cGRID_POINT8))
+									);
+	        
+	        if (xNewInBlock && yNewInBlock){
+	        	if (xOldInBlock && yNewInBlock){
+	        		y = previousY;
+	        	}else{
+	        		x = previousX;
+	        	}
+	        }
+	        */
+		}
 	}
 	
 	public void paint(Graphics g) {
-		if (! onBus) {
-			if(SimCityGui.GRADINGVIEW) {
-				g.drawString(mPerson.getName(),x,y);
-				g.setColor(color);
-				g.fillRect(x, y, 5, 5);
-				g.setColor(Color.WHITE);
-				g.drawString(name, x - 10, y);
-			}
-			else if(mPerson.hasCar()) {
-				//paint car gui
-			}
-			else {
-				g.setColor(color);
-				g.fillRect(x, y, 5, 5);
-				g.setColor(Color.WHITE);
-				g.drawString(name, x - 10, y);
+		if(visible) {
+			if (! onBus) {
+				if(SimCityGui.GRADINGVIEW) {
+					g.drawString(mPerson.getName(),x,y);
+					g.setColor(color);
+					g.fillRect(x, y, 5, 5);
+					g.setColor(Color.WHITE);
+					g.drawString(name, x - 10, y);
+				}
+				else if(mPerson.hasCar()) {
+					//paint car gui
+				}
+				else {
+					g.setColor(color);
+					g.fillRect(x, y, 5, 5);
+					g.setColor(Color.WHITE);
+					g.drawString(name, x - 10, y);
+				}
 			}
 		}
 	}

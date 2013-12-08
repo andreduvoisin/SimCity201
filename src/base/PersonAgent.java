@@ -46,7 +46,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sSSN = 0;
 	public static int sRestaurantCounter = 0;
 	public static int sHouseCounter = 0;
-	
+	public static int sBaseInventory = 0;
 	//Roles and Job
 	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
 										MARKET, 	//cashier, worker...
@@ -68,7 +68,7 @@ public class PersonAgent extends Agent implements Person {
 	private int mTimeShift;
 	private double mCash;
 	private double mLoan;
-	private boolean mHasCar;	//ALL ANGELICA MAGGI: 3 car will be implemented later
+	private boolean mHasCar;	//ALL MAGGI: 3 car will be implemented later
 	private boolean mAtJob;		//used in PAEA
 	public CityPerson mPersonGui;
 
@@ -142,6 +142,13 @@ public class PersonAgent extends Agent implements Person {
 		mFriends = new ArrayList<Person>();
 		mEvents = new ArrayList<Event>();
 		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+			//populate inventory
+			mItemInventory.put(EnumItemType.CAR,0);
+			mItemInventory.put(EnumItemType.CHICKEN,sBaseInventory);
+			mItemInventory.put(EnumItemType.PIZZA,sBaseInventory);
+			mItemInventory.put(EnumItemType.STEAK,sBaseInventory);
+			mItemInventory.put(EnumItemType.SALAD,sBaseInventory);
+		
 		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
 		
@@ -474,7 +481,8 @@ public class PersonAgent extends Agent implements Person {
 			if (SimCityGui.TESTING){
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
 			}
-
+			
+			mPersonGui.setPresent(true);
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
 			mPersonGui.setPresent(false);
@@ -486,18 +494,24 @@ public class PersonAgent extends Agent implements Person {
 		
 	}
 	
-	private void depositCheck() {
-		print("I am a robber: "+mName.equals("robber"));
-		
+	private void depositCheck() {		
 		int deposit = 50; //REX: add mDeposit, and do after leaving job
 		
 		BankCustomerRole bankCustomerRole = null;
 		for (Role iRole : mRoles.keySet()){
 			if (iRole instanceof BankCustomerRole){
-				bankCustomerRole = (BankCustomerRole) iRole;
-				mRoles.put(iRole, true);
+				bankCustomerRole = (BankCustomerRole)iRole;
 			}
 		}
+		mRoles.put(bankCustomerRole, true);
+		
+		//GO TO BANK AND DO STUFF
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION);
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+		bankCustomerRole.setPerson(this);
+		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 		
 		//plan robbery
 		if(mName.equals("robber")){
@@ -515,15 +529,6 @@ public class PersonAgent extends Agent implements Person {
 			mCash -= payment;
 			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
 		}
-		
-		//GO TO BANK AND DO STUFF
-		//mPersonGui.setPresent(true);
-		//mPersonGui.DoGoToDestination(mSSN%ContactList.cNumTimeShifts==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
-		//acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-		bankCustomerRole.setPerson(this);
-		bankCustomerRole.setActive();
-		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
