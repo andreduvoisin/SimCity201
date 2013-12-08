@@ -42,7 +42,7 @@ public class PlacesListener implements ActionListener {
 			else
 				button.setText("Enable");
 			break;
-		case "Ollivaders":
+		case "Ollivanders":
 			if (ContactList.sOpenPlaces.get(ContactList.cMARKET2_LOCATION))
 				button.setText("Disable");
 			else

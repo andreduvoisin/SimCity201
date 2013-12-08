@@ -61,15 +61,15 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		//Add Intersections
 		
 //		//North-Center
-//		this.addStatic(new CityIntersection(280, 35, 40, 50));
-//		//Center
-//		this.addStatic(new CityIntersection(280, 280, 40, 40));
-//		//East-Center
-//		this.addStatic(new CityIntersection(35, 280, 50, 40));
-//		//West-Center
-//		this.addStatic(new CityIntersection(515, 280, 50, 40));
-//		//South-Central #InDaHood
-//		this.addStatic(new CityIntersection(280, 515, 40, 50));
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK0));
+		//Center
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK1));
+		//East-Center
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK2));
+		//West-Center
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK3));
+		//South-Central #InDaHood
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK4));
 		
 		//Add static buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "r_duvoisin"));
@@ -82,9 +82,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(7), "r_xurex"));
 		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts"));
 		this.addStatic(new CityBank(ContactList.cBANK2_LOCATION, "Piggy Bank"));
-		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Costco"));
-		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Sams Club"));
-		
+		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Honeydukes"));
+		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Ollivanders"));
+
 		//Add Closed Signs
 		for (Location iLocation: ContactList.cRESTAURANT_LOCATIONS){ //Restaurant
 			sClosedImages.put(iLocation, new CityClosed(iLocation.createNew()));

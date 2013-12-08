@@ -162,11 +162,11 @@ public class ContactList {
 	
 	//INTERSECTION BLOCKS
 	public static List<Block> cINTERSECTIONBLOCKS;
-	public static final Block cINTERSECTIONBLOCK0 = new Block(280, 35, 320, 85);
-	public static final Block cINTERSECTIONBLOCK1 = new Block(280, 280, 320, 320);
-	public static final Block cINTERSECTIONBLOCK2 = new Block(35, 280, 85, 320);
-	public static final Block cINTERSECTIONBLOCK3 = new Block(515, 280, 565, 320);
-	public static final Block cINTERSECTIONBLOCK4 = new Block(280, 515, 320, 565);
+	public static final Block cINTERSECTIONBLOCK0 = new Block(280 - 15,	35 - 15, 320 + 15, 85 + 15);
+	public static final Block cINTERSECTIONBLOCK1 = new Block(280 - 15,	280 - 15, 320 + 15, 320 + 15);
+	public static final Block cINTERSECTIONBLOCK2 = new Block(35 - 15,	280 - 15, 85 + 15, 320 + 15);
+	public static final Block cINTERSECTIONBLOCK3 = new Block(515 - 15,	280 - 15, 565 + 15, 320 + 15);
+	public static final Block cINTERSECTIONBLOCK4 = new Block(280 - 15,	515 - 15, 320 + 15, 565 + 15);
 	static{
 		List<Block> list = new ArrayList<>();
 		list.add(cINTERSECTIONBLOCK0);
