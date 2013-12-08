@@ -13,4 +13,10 @@ public class Location {
 		this.mX = newLocation.mX;
 		this.mY = newLocation.mY;
 	}
+	
+	public boolean equals(Location location){
+		if (this.mX != location.mX) return false;
+		if (this.mY != location.mY) return false;
+		return true;
+	}
 }

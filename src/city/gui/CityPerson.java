@@ -17,10 +17,10 @@ public class CityPerson extends CityComponent {
 	private String name = "";
 	PersonAgent mPerson = null;
 	SimCityGui gui;
-		
 	
-	public int xDestination = 120, yDestination = 35;
-	public Location mNextDestination = null;
+	public Location mDestination = new Location(0, 0); //just to avoid null pointers
+	public Location mFinalDestination = null;
+	public boolean mUsingCar = false;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -33,7 +33,7 @@ public class CityPerson extends CityComponent {
 	 * 2 - Car Paths: AC, CA
 	 * 3 - Walking
 	 */
-	public int mDestinationPath = -1;
+	public int mDestinationPathType = 3;
 //	Queue<Location> goToPosition = new LinkedList<Position>();
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
@@ -50,16 +50,16 @@ public class CityPerson extends CityComponent {
 		int previousX = x;
 		int previousY = y;
 		
-		if (x < xDestination)		x++;
-        else if (x > xDestination)	x--;
+		if (x < mDestination.mX)		x++;
+        else if (x > mDestination.mX)	x--;
 
-        if (y < yDestination)		y++;
-        else if (y > yDestination)	y--;
+        if (y < mDestination.mY)		y++;
+        else if (y > mDestination.mY)	y--;
         
         //if at destination
-        if (x == xDestination && y == yDestination) {
-        	if(mNextDestination != null){
-        		DoGoToNextDestination();
+        if (x == mDestination.mX && y == mDestination.mY) {
+        	if(mFinalDestination != null){
+        		DoGoToDestination(mFinalDestination);
         	}else{
         		this.disable(); 
         		mPerson.msgAnimationDone();
@@ -80,11 +80,11 @@ public class CityPerson extends CityComponent {
 
         //B* Algorithm
         List<Block> blocks = null;
-        switch(mDestinationPath){
+        switch(mDestinationPathType){
 	        case 0: 
 	        case 1: 
 	        case 2:
-	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
+	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
 	        case 3:
 	        	blocks = ContactList.cPERSONBLOCKS; break;
         }
@@ -101,6 +101,92 @@ public class CityPerson extends CityComponent {
         	}
         }
 	}
+	
+	
+	public void DoGoToDestination(Location location){
+		this.enable(); 
+		
+		mFinalDestination = location;
+		
+		
+		//calculate intermediate destination
+		Location mLocation = new Location(x, y);
+		Location closeCorner = findNearestCorner(mLocation);
+		Location closeParking = findNearestParkingLot(mLocation);
+		Location destCorner = findNearestCorner(mFinalDestination);
+		
+		//if at corner closest to destination, walk to destination
+		if (mLocation.equals(destCorner)){
+			//walk to destination
+			mDestinationPathType = 3;
+			mDestination = mFinalDestination;
+			mFinalDestination = null;
+		}else{
+			//if at a corner
+			if (mLocation.equals(closeCorner)){
+				//if using car, drive to corner closest to destination
+				if (mUsingCar){
+					//calculate 0-3 destpath
+					
+				}
+				//else bus to same corner
+				else{
+					//do bus stuff??? CHASE: 2 Do this
+				}
+			}
+			//if not at a corner, walk to corner
+			else{
+				mDestinationPathType = 3;
+				
+			}
+		}
+		
+		
+			
+		
+		
+
+	}
+	
+	
+	
+	
+	
+	//MAGGI: reorganize once done with transportation 
+	//Drives to parking lot closest to destination 
+	public void DoDriveToDestination(Location location){
+		this.enable(); 
+		mFinalDestination = location;
+		
+		mDestination.mX = parkingLot.mX;
+		mDestination.mY = parkingLot.mY; 
+	}
+	
+	
+
+	//Already at corner closest to destination
+	public void DoGoToNextDestination(){
+		if(mPerson.hasCar()){
+			
+		}
+		
+		Location cornerLocation = findNearestCorner(mFinalDestination); 
+		// If already at corner location nearest mNextDestination, don't need to take
+		// the bus (since it would take you to a corner farther from mNextDestination;
+		// walk to mNextDestination.
+		if (x == cornerLocation.mX && y == cornerLocation.mY) {
+			//Walk to destination from corner location/bus stop
+			mDestination.mX = mFinalDestination.mX;
+			mDestination.mY = mFinalDestination.mY;
+			mFinalDestination = null; 
+		}
+		
+		// Otherwise, can get to a closer corner by taking the bus
+		else {
+			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
+		}	
+	}
+	
 	
 	public void paint(Graphics g) {
 		if(visible) {
@@ -125,57 +211,6 @@ public class CityPerson extends CityComponent {
 		}
 	}
 	
-	
-	//MAGGI: reorganize once done with transportation 
-	//Drives to parking lot closest to destination 
-	public void DoDriveToDestination(Location location){
-		this.enable(); 
-		mNextDestination = location;
-		Location parkingLot = findNearestParkingLot(location); 
-		xDestination = parkingLot.mX;
-		yDestination = parkingLot.mY; 
-	}
-	
-	public void DoGoToDestination(Location location){
-		this.enable(); 
-		mNextDestination = location; 
-		Location myLocation = new Location(x, y);
-		
-		//Walk to nearest corner 
-		Location cornerLocation = findNearestCorner(myLocation);
-		xDestination = cornerLocation.mX;
-		yDestination = cornerLocation.mY; 
-
-	}
-
-	//Already at corner closest to destination
-	public void DoGoToNextDestination(){
-		if(mPerson.hasCar()){
-			
-		}
-		
-		Location cornerLocation = findNearestCorner(mNextDestination); 
-		// If already at corner location nearest mNextDestination, don't need to take
-		// the bus (since it would take you to a corner farther from mNextDestination;
-		// walk to mNextDestination.
-		if (x == cornerLocation.mX && y == cornerLocation.mY) {
-			//Walk to destination from corner location/bus stop
-			xDestination = mNextDestination.mX;
-			yDestination = mNextDestination.mY;
-			mNextDestination = null; 
-		}
-		
-		// Otherwise, can get to a closer corner by taking the bus
-		else {
-			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
-		}	
-	}
-	
-	public void DoWalkToDestination(){
-		xDestination = mNextDestination.mX;
-		yDestination = mNextDestination.mY;
-		mNextDestination = null; 
-	}
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
 		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
@@ -269,8 +304,8 @@ public class CityPerson extends CityComponent {
 		visible = true;
 		x = location.mX;
 		y = location.mY;
-		xDestination = mNextDestination.mX;
-		yDestination = mNextDestination.mY;
-		mNextDestination = null;
+		mDestination.mX = mFinalDestination.mX;
+		mDestination.mY = mFinalDestination.mY;
+		mFinalDestination = null;
 	}
 }

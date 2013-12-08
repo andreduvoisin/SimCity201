@@ -669,7 +669,7 @@ public class PersonAgent extends Agent implements Person {
 
 	private void exitBus() {
 		mRoleFinished = true;
-		mPersonGui.NewDestination(new Location(mPersonGui.mNextDestination.mX, mPersonGui.mNextDestination.mY));
+		mPersonGui.NewDestination(new Location(mPersonGui.mFinalDestination.mX, mPersonGui.mFinalDestination.mY));
 	}
 
 	private void acquireSemaphore(Semaphore semaphore){
