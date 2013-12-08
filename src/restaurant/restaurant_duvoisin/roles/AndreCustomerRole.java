@@ -281,13 +281,13 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 	private void DecideStayOrLeave() {
 		print("Doing DecideStayOrLeave");
 		Random rng = new Random();
-		switch(rng.nextInt(2)) {
+		switch(rng.nextInt(4)) {
 			case 0:
 				AndreRestaurant.host.msgLeavingBecauseRestaurantFull(this);
 				customerGui.DoExitFullRestaurant();
 				DoNothing();
 				break;
-			case 1:
+			default:
 				event = AgentEvent.gotHungry;
 				break;
 		}
@@ -323,7 +323,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 						break;
 					default:
 						if(money < myMenuPrices[0]) {
-							switch(rng.nextInt(2)) {
+							switch(rng.nextInt(5)) {
 								case 0:
 									LeaveTable();
 									return;
@@ -435,7 +435,7 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 		state = AgentState.DoingNothing;
 		print("Doing DoNothing");
 		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-		mPerson.setJobFalse();
+		//mPerson.setJobFalse();
 		mPerson.msgRoleFinished();
 		// ANDRE: Should probably do something like this...
 //		customerGui.animationPanel.removeCustomer(this);

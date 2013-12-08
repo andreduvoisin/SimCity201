@@ -10,7 +10,7 @@ import base.interfaces.Person;
 public class Time {
 	
 	public static int sGlobalTimeInt = 0; //minutes
-	public final static int cSYSCLK = 100;
+	public final static int cSYSCLK = 50;
 //	static boolean sFastForward = false;
 	List<Person> mPersons = ContactList.sPersonList; //same pointer
 	Timer mTimer;
@@ -39,10 +39,10 @@ public class Time {
 					}
 					
 					if (sGlobalTimeInt % ((24 / ContactList.cNumTimeShifts)*60) == 0){
-						System.out.println("Time Shift!");
+						System.out.println("Time Shift! (but not)");
 						synchronized (mPersons) {
 							for (Person iPerson : mPersons) {
-								iPerson.msgTimeShift(); 
+								//iPerson.msgTimeShift(); 
 							}
 						}
 					}
@@ -61,7 +61,7 @@ public class Time {
 	}
 	
 	public static int GetShift(){ //0 to 1
-		return (sGlobalTimeInt/((24 / ContactList.cNumTimeShifts)*60)) % 2;
+		return (sGlobalTimeInt/((24 / ContactList.cNumTimeShifts)*60)) % ContactList.cNumTimeShifts;
 	}
 	
 	public static int GetDate(){

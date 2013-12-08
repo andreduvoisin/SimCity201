@@ -20,8 +20,6 @@ public class MarketPanel extends CityCard implements ActionListener {
 		
 	private Market mMarket;
 	
-	private MarketItemsGui mItemGui;
-	
 //	public MarketCashierRole mCashier;
 //	public MarketDeliveryTruckRole mDeliveryTruck;
 //	public MarketCashierGui mCashierGui;
@@ -36,8 +34,8 @@ public class MarketPanel extends CityCard implements ActionListener {
 		setSize(WINDOWX, WINDOWY);
 		mMarket = market;
 		
-		mItemGui = new MarketItemsGui();
-		
+		mMarket.mItemsGui = new MarketItemsGui();
+		mMarket.mGuis.add(mMarket.mItemsGui);
     /*	image = null;
     	try {
 //    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/background.png");
@@ -48,7 +46,6 @@ public class MarketPanel extends CityCard implements ActionListener {
     		System.out.println(e.getMessage());
     	}
    */ 	
-		mMarket.mGuis.add(mItemGui);
 		
 		timer = new Timer(TIMERDELAY, this);
 		timer.start();
@@ -61,6 +58,7 @@ public class MarketPanel extends CityCard implements ActionListener {
 				gui.updatePosition();
 			}
 		}
+		//ANGELICA:
 		}
 		repaint();
 	}
@@ -96,6 +94,6 @@ public class MarketPanel extends CityCard implements ActionListener {
 	
 	public void setInventory(EnumItemType i, int n) {
 		mMarket.mCashier.setInventory(i,n);
-		mItemGui.setInventory(i,n);
+		mMarket.mItemsGui.setInventory(i,n);
 	}
 }
