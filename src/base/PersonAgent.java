@@ -255,13 +255,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
-//ANGELICA MAGGI: change all test functions back later
 	private synchronized void processEvent(Event event) {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
-//			testGetCar();
 		}
 		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
 			if (getHousingRole().getHouse() == null) {

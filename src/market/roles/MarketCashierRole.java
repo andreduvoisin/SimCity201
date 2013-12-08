@@ -99,6 +99,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		/*
 		 * if cashier has just started, go to position
 		 */
+		print("schedule!");
 		if (mOrders.size() > 0){
 			for (MarketOrder iOrder : mOrders){
 				//notify customer if an order has been placed
@@ -125,6 +126,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Actions
 	private void processOrderAndNotifyPerson(MarketOrder order){
+		print("Processing order.");
 		Map<EnumItemType, Integer> cannotFulfill = new HashMap<EnumItemType, Integer>();
 		int cost = 0;
 
@@ -189,6 +191,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 
 	void fulfillOrder(MarketOrder order){
+		print("Fulfilling order.");
 		int n = (int) (Math.random() % mWorkers.size());
 		order.mWorker = mWorkers.get(n);
 		order.mWorker.msgFulfillOrder(order);
