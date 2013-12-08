@@ -47,7 +47,7 @@ public class CityPerson extends CityComponent {
 		 * D A
 		 * C B
 		 */
-		parkingLots.add(new Location(500, 90)); 
+		parkingLots.add(new Location(500, 90)); //SHANE 0 MAKE STATIC
 		parkingLots.add(new Location(500, 500));
 		parkingLots.add(new Location(90, 500)); 
 		parkingLots.add(new Location(90, 90));
