@@ -171,8 +171,8 @@ public class PersonAgent extends Agent implements Person {
 			mRoles.put(getJobRole(), false); //set job role to false;
 			mPersonGui.setPresent(true);
 		}
-		
-		stateChanged();
+		if(getJobRole()!=null)
+			stateChanged();
 	}
 	
 	public void msgStateChanged() {
@@ -417,11 +417,9 @@ public class PersonAgent extends Agent implements Person {
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
 				if(ContactList.sOpenPlaces.get(iLocation)){
-					String name = mName;
 					mPersonGui.DoGoToDestination(iLocation);
-					setName("Visiting");
 					acquireSemaphore(semAnimationDone);
-					setName(name);
+					print("Visited "+iLocation.toString());
 				}
 			}
 		}
