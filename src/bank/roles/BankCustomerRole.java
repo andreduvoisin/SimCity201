@@ -46,12 +46,12 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mBankID = bankID;
 		
 		//Add Gui to list
-		mGUI = new BankCustomerGui(this);
-		mGUI.setPresent(true);
-		ContactList.sBankList.get(bankID).addPerson(this);
-		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
-		mGUI.DoGoWaitInLine();
-		print("Created bank customer for "+person.getName());
+//		mGUI = new BankCustomerGui(this);
+//		mGUI.setPresent(true);
+//		ContactList.sBankList.get(bankID).addPerson(this);
+//		ContactList.sBankList.get(bankID).mGuis.add(mGUI);
+//		mGUI.DoGoWaitInLine();
+//		print("Created bank customer for "+person.getName());
 	}
 	
 //	MESSAGES
