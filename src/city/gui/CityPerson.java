@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 
-import com.sun.activation.registries.MailcapParseException;
-
 import transportation.roles.CommuterRole;
 import base.Block;
 import base.ContactList;
@@ -70,15 +68,17 @@ public class CityPerson extends CityComponent {
     	}
         
         //Check intersections (if going into busy intersection - stay)
-//        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
-//        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-//        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
-//        	if (xNewInBlock && yNewInBlock){
-//        		x = previousX;
-//        		y = previousY;
-//        		return;
-//        	}
-//        }
+        for (int iB = 0; iB<ContactList.cINTERSECTIONBLOCKS.size(); iB++) {
+        	boolean xNewInBlock = (x > ContactList.cINTERSECTIONBLOCKS.get(iB).mX1 && x < ContactList.cINTERSECTIONBLOCKS.get(iB).mX2);
+        	boolean yNewInBlock = (y > ContactList.cINTERSECTIONBLOCKS.get(iB).mY1 && y < ContactList.cINTERSECTIONBLOCKS.get(iB).mY2);
+        	if (xNewInBlock && yNewInBlock){
+        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupied) {
+	        		x = previousX;
+	        		y = previousY;
+        		}
+        		return;
+        	}
+        }
 
 
         //B* Algorithm

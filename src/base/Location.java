@@ -19,4 +19,9 @@ public class Location {
 		if (this.mY != location.mY) return false;
 		return true;
 	}
+	
+	public void add(int z){
+		mX += z;
+		mY += z;
+	}
 }
