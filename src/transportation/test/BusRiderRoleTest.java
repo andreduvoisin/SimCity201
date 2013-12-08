@@ -37,9 +37,16 @@ public class BusRiderRoleTest extends TestCase {
 		 * Tests that renter can receive housing from landlord (accepted)
 		 */
 		
-
+		
 	}
 
-	
+	public void testCommuterScenario()
+	{
+				
+		mockCommuter.msgBoardBus();
+		
+		assertEquals("The commuterRole's log should have one event, it doesn't: "+ mockCommuter.log.toString(), 1, mockCommuter.log.size());
+		
+	}
 
 }

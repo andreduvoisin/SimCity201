@@ -27,4 +27,18 @@ public class MockCommuter extends Mock implements TransportationRider {
 		
 	}
 
+	/*@Override
+	public void NotifyBus() {
+		log.add(new LoggedEvent("The notifyBus function has been called"));
+		
+	}*/
+
+	@Override
+	public void msgAtBusStop(int currentStop, int destinationStop) {
+		log.add(new LoggedEvent("The msgAtBusStop has been called for the currentStop: " + currentStop + " and destinationStop: " 
+				+ destinationStop));
+	}
+	
+	
+
 }
