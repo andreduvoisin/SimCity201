@@ -444,7 +444,6 @@ public class PersonAgent extends Agent implements Person {
 		if(jobRole != null) {
 			if(!jobRole.hasPerson()) {
 				jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
-				print(toString());
 			}
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
@@ -478,6 +477,7 @@ public class PersonAgent extends Agent implements Person {
 
 			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			acquireSemaphore(semAnimationDone);
+			print("SEMAPHORE DONE");
 			mPersonGui.setPresent(false);
 			
 			((RestaurantCustomerRole) restCustRole).setPerson(this);
@@ -654,12 +654,12 @@ public class PersonAgent extends Agent implements Person {
 		// CHASE: FIX THIS NAO
 		//int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
 		//int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
-		Role jobRole = getJobRole();
+		//Role jobRole = getJobRole();
 
 		//mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
-		acquireSemaphore(semAnimationDone);
+		//acquireSemaphore(semAnimationDone);
 
-		((TransportationBusRiderRole) jobRole).msgReset();
+		//((TransportationBusRiderRole) jobRole).msgReset();
 		
 	}
 

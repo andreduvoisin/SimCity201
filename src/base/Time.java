@@ -10,7 +10,7 @@ import base.interfaces.Person;
 public class Time {
 	
 	public static int sGlobalTimeInt = 0; //minutes
-	public final static int cSYSCLK = 200;
+	public final static int cSYSCLK = 100;
 //	static boolean sFastForward = false;
 	List<Person> mPersons = ContactList.sPersonList; //same pointer
 	Timer mTimer;
