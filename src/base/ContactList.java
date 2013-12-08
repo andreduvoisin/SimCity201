@@ -24,7 +24,7 @@ public class ContactList {
 	//------------------------------------------------------PROJECT SETTINGS----------------------------------------------------------
 	
 	//Variables
-	public static final int cNumTimeShifts = 2;
+	public static final int cNumTimeShifts = 1;
 	public static final int cNumBanks = 2;
 	public static final int cNumMarkets = 2;
 	public static final int cNumRestaurants = 8;
@@ -40,7 +40,6 @@ public class ContactList {
 	
 	//Setup
 	public static void setup(){
-		
 		//Banks
 		for (int iBankNum = 0; iBankNum < cNumBanks; iBankNum++){
 			sBankList.add(new Bank(iBankNum));

@@ -44,6 +44,8 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		//Add guis
 		mGui = new MarketCustomerGui(this);
 		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
+		
+		mCashier = ContactList.sMarketList.get(mMarketID).mCashier;
 			
 		//ANGELICA: where is mItemsDesired populated? hack for now
 		mItemInventory = person.getItemInventory();
@@ -119,6 +121,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	//ACTIONS
 	private void createOrder(){
+		print("Creating an order.");
 		HashMap<EnumItemType,Integer> items = new HashMap<EnumItemType,Integer>();
 		for(EnumItemType iItemType : mItemsDesired.keySet()) {
 			items.put(iItemType,mItemsDesired.get(iItemType));
@@ -129,13 +132,14 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	}
 
 	private void placeOrder(MarketOrder order){
+		print("Placing order.");
 		DoGoToMarket();
 		mCashier.msgOrderPlacement(order);
 	}
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
-		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment);
+//		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment); ANGELICA: 
 		
 		synchronized(mItemsDesired) {
 			for(EnumItemType item : mCannotFulfill.keySet()) {
@@ -149,6 +153,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	}
 
 	private void completeOrder(MarketOrder order) {
+		print("Completing order!");
 		for(EnumItemType item : order.mItems.keySet()) {
 			int n = mItemInventory.get(item);
 			n += order.mItems.get(item);

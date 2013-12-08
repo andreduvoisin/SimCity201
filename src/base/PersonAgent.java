@@ -25,7 +25,6 @@ import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import transportation.roles.CommuterRole;
-import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
@@ -107,6 +106,8 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case RESTAURANT:
 				jobRole = SortingHat.getRestaurantRole(mTimeShift);
+				if(jobRole != null)
+					print(jobRole.toString());
 				break;
 			case NONE:
 				break;
@@ -128,7 +129,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 	}
@@ -225,6 +225,7 @@ public class PersonAgent extends Agent implements Person {
 			if(mEvents.isEmpty())
 				return false;
 			Event event = mEvents.get(0); //next event
+			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
 				mRoleFinished = false; //doing a role
 				processEvent(event);
@@ -255,13 +256,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
-//ANGELICA MAGGI: change all test functions back later
 	private synchronized void processEvent(Event event) {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
-//			testGetCar();
 		}
 		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
 			if (getHousingRole().getHouse() == null) {
@@ -328,6 +327,13 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else if (event.mEventType == EnumEventType.EXIT_BUS) {
 			exitBus();
+		}
+		
+		//Inspection
+		else if (event.mEventType == EnumEventType.INSPECTION) {
+			inspect();
+			mEvents.add(new Event(event, -1));
+			//REX: created looping inspection, easy to fix
 		}
 		
 		mEvents.remove(event);
@@ -405,7 +411,23 @@ public class PersonAgent extends Agent implements Person {
 		//PAEA for role will message market cashier to start transaction
 		mHasCar = true;
 	}
-
+	
+	public void inspect() {
+		mPersonGui.setPresent(true);
+		synchronized(ContactList.sOpenPlaces){
+			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+				if(ContactList.sOpenPlaces.get(iLocation)){
+					mPersonGui.DoGoToDestination(iLocation);
+					acquireSemaphore(semAnimationDone);
+					print("Visiting "+iLocation.toString());
+				}
+			}
+		}
+		getHousingRole().msgTimeToMaintain();
+		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+	}
 	
 	public void goToJob() {
 		//print("goToJob");
@@ -420,7 +442,10 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 //		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
-			jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+			if(!jobRole.hasPerson()) {
+				jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+				print(toString());
+			}
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
 		}
@@ -746,7 +771,7 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-
+	
 	public void setName(String name) {
 		mName = name;
 	}

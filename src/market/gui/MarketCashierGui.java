@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import market.interfaces.MarketCashier;
+import market.roles.MarketCashierRole;
 import city.gui.SimCityGui;
 
 public class MarketCashierGui implements MarketBaseGui {
-	private MarketCashier mAgent;
+	private MarketCashierRole mAgent;
 
 	private boolean isPresent;
 	
@@ -28,7 +28,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketCashierGui(MarketCashier agent) {
+	public MarketCashierGui(MarketCashierRole agent) {
 		mAgent = agent;
 		
 		isPresent = true;
@@ -96,15 +96,10 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-	//	MarketCashierRole c = (MarketCashierRole) mAgent;
-	//	return c.getActive();
-		return isPresent;
+		return mAgent.getPerson() != null ? true : false;
 	}
 	
 	public void setPresent() {
-	//	MarketCashierRole c = (MarketCashierRole) mAgent;
-	//	c.setActive();
-	//	isPresent = !isPresent;
 		isPresent= true;
 	}
 	
