@@ -34,8 +34,8 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
     List<CwagonerGui> guis = Collections.synchronizedList(new ArrayList<CwagonerGui>());
     ArrayList<Location> tableLocations = new ArrayList<Location>();
 
-    public CwagonerHostRole host;
-    public CwagonerCashierRole cashier;
+    public static CwagonerHostRole host;
+    public static CwagonerCashierRole cashier;
     public static CwagonerCookRole cook;
     private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
     private List<CwagonerWaiter> Waiters = new ArrayList<CwagonerWaiter>();

@@ -25,7 +25,7 @@ import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
 public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
-	RestaurantCookRole mRole;
+	public RestaurantCookRole mRole;
 	private String n; 
 	
 	//Cooking Food

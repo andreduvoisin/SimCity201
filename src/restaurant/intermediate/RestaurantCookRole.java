@@ -14,6 +14,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -127,11 +128,11 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public boolean pickAndExecuteAnAction() {
     		if(marketPickAndExecuteAnAction())		//ANGELICA: change priority back
     			return true;
-        		if(subRole != null) {
-        			if(subRole.pickAndExecuteAnAction())
-        				return true;
-        		}
-        		return false;
+        	if(subRole != null) {
+        		if(subRole.pickAndExecuteAnAction())
+        			return true;
+        	}
+        	return false;
         }
 
 /** MarketCookCustomerRole Data, Actions, Scheduler, etc **/
@@ -224,7 +225,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
         		}
                 mMarketCashier.msgOrderPlacement(o);
-                //ANGELICA: 0 fill in each restaurant
                 RestaurantCashierRole restaurantCashier = null;
                 
                 switch(mRestaurantID) {
@@ -232,25 +232,25 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	restaurantCashier = AndreRestaurant.cashier.mRole;
                 	break;
                 case 1: //chase
-                	
+                	restaurantCashier = CwagonerAnimationPanel.cashier.mRole;
                 	break;
                 case 2: //jerry
                 	restaurantCashier = JerrywebRestaurant.cashier.mRole;
                 	break;
                 case 3: //maggi
-                	
+                	restaurantCashier = MaggiyanAnimationPanel.mCashier.mRole;
                 	break;
                 case 4: //david
                 	restaurantCashier = DavidRestaurant.cashier.mRole;
                 	break;
                 case 5: //shane
-                	
+                	restaurantCashier = SmilehamRestaurant.mCashier.mRole;
                 	break;
                 case 6: //angel
                 	restaurantCashier = TranacRestaurant.mCashier.mRole;
                 	break;
                 case 7: //rex
-                	 
+                	 restaurantCashier = RexAnimationPanel.cashier.mRole;
                 	break;
                 }
                 
