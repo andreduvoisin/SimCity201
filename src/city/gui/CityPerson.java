@@ -66,15 +66,19 @@ public class CityPerson extends CityComponent {
         	}
     	}
         
-        //
+        //Check intersections (if going into busy intersection - stay)
+        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
+        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+        	if (xNewInBlock && yNewInBlock){
+        		x = previousX;
+        		y = previousY;
+        		return;
+        	}
+        }
 
 
         //B* Algorithm
-        boolean xNewInBlock = false;
-        boolean yNewInBlock = false;
-        
-        //SHANE: 0 New B* Algorithm
-        
         List<Block> blocks = null;
         switch(mDestinationPath){
 	        case 0: 
@@ -82,19 +86,18 @@ public class CityPerson extends CityComponent {
 	        case 2:
 	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
 	        case 3:
-	        	blocks = ContactList.cPERSONBLOCKS;
+	        	blocks = ContactList.cPERSONBLOCKS; break;
         }
         
         for (Block iBlock : blocks){
-//        	if ()
-        }
-        
-        
-        if (xNewInBlock && yNewInBlock){
-        	if (yNewInBlock){
-        		y = previousY;
-        	}else{
-        		x = previousX;
+        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+        	if (xNewInBlock && yNewInBlock){
+        		if (xNewInBlock){
+        			x = previousX;
+        		}else{
+        			y = previousY;
+        		}
         	}
         }
 	}
