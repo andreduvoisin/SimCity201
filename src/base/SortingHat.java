@@ -226,10 +226,11 @@ public class SortingHat {
 			return newLandLordRole;
 		}
 		
-		if (sRenterCount < sMaxRenters){
-			sRenterCount++;
-			return new HousingRenterRole(person);
-		}
+		//DAVID: add back in once rent requesting works
+//		if (sRenterCount < sMaxRenters){
+//			sRenterCount++;
+//			return new HousingRenterRole(person);
+//		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
 		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));

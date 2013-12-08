@@ -68,7 +68,11 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				break;
 			case 4: //david
 				subRole = new DavidCashierRole(super.mPerson, this);
-				DavidRestaurant.cashier = (DavidCashierRole) subRole;
+				if (DavidRestaurant.cashier == null) {
+					DavidRestaurant.cashier = (DavidCashierRole) subRole;
+				} else {
+					subRole = AndreRestaurant.cashier;
+				}
 				break;
 			case 5: //shane
 				subRole = new SmilehamCashierRole(super.mPerson, this);

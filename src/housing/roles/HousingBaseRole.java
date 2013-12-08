@@ -55,6 +55,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 	}
 	
 	void EatAtHome() {
+		print("EatAtHome");
 		gui.DoCookAndEatFood();
 		try {
 			isAnimating.acquire();
@@ -67,7 +68,6 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		print("Action - Eat at Home");
 	}
 
 	void Maintain() {
@@ -96,7 +96,6 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		print("Action - Maintain");
 	}
 	
 	public void setHouse(House h) {
