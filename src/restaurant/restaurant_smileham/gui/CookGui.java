@@ -6,6 +6,7 @@ import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import base.Gui;
 
 
 public class CookGui implements Gui {
@@ -145,4 +146,9 @@ public void updatePosition() {
     public static int getWaiterPlatingY(){
     	return cPLATINGAREA_Y - WaiterGui.cWAITER_LENGTH;
     }
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

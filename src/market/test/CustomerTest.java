@@ -9,8 +9,8 @@ import market.MarketOrder;
 import market.roles.MarketCustomerRole;
 import market.test.mock.MockCashier;
 import market.test.mock.MockWorker;
-import base.Item.EnumItemType;
 import base.ContactList;
+import base.Item.EnumItemType;
 import base.PersonAgent;
 
 public class CustomerTest extends TestCase {

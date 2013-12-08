@@ -3,7 +3,7 @@ package base;
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingLandlordRole;
-import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -131,13 +131,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
-		/*
-		 * Give houses to landlords and owners
-		 */
-		if (getHousingRole() instanceof HousingLandlordRole || getHousingRole() instanceof HousingOwnerRole) {
-			//getHousingRole().setHouse(ContactList.sHouseList.get(sHouseCounter % ContactList.sHouseList.size()));
-			sHouseCounter++;
-		}
 	}
 	
 	private void initializePerson(){
@@ -270,7 +263,11 @@ public class PersonAgent extends Agent implements Person {
 			getCar();
 //			testGetCar();
 		}
-		
+		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
+			if (getHousingRole().getHouse() == null) {
+				getHouse();
+			}
+		}
 		//Daily Recurring Events (Job, Eat)
 		else if (event.mEventType == EnumEventType.JOB) {
 			//bank is closed on weekends
@@ -360,6 +357,28 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 /*************************************************************************/
+	public void getHouse() {
+		HousingLandlordRole assignedLandlord = null;
+		if (getHousingRole() instanceof HousingRenterRole) {
+			for (Person p : ContactList.sPersonList) {
+				for (Role r : p.getRoles().keySet()) {
+					if (r instanceof HousingLandlordRole) {
+						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
+							assignedLandlord = (HousingLandlordRole) r;
+						}
+					}
+				}
+			}
+		}
+		if (assignedLandlord != null) {
+			((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
+			((HousingRenterRole) getHousingRole()).msgRequestHousing();
+		}
+		else {
+			print("No available landlords");
+		}
+	}
+	
 	public void getCar(){
 		Location location;
 		if(mSSN%ContactList.cNumTimeShifts == 0) {

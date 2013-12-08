@@ -9,14 +9,21 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.Timer;
 
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
-import restaurant.restaurant_cwagoner.roles.*;
-import city.gui.*;
+import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerHostRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerSharedWaiterRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import base.Location;
 import base.Time;
 import base.interfaces.Role;
+import city.gui.CityCard;
+import city.gui.SimCityGui;
 
 @SuppressWarnings("serial")
 public class CwagonerAnimationPanel extends CityCard implements ActionListener {

@@ -19,7 +19,7 @@ public class CityBus extends CityComponent {
 	private TransportationBus mBus;
 	List<Location> mStopCoords = base.ContactList.cBUS_STOPS;
 
-	private int mStopNumber;
+	private int mStopNumber = 0;
 	private Location destination = new Location(0, 0);
 	private boolean mTraveling;
 	BufferedImage front, right, left, back, current;
@@ -29,9 +29,8 @@ public class CityBus extends CityComponent {
 	 * @param b Bus "driver"
 	 * @param busNum Index of this instance of bus
 	 */
-	public CityBus(TransportationBus b, int stopNumber) {
+	public CityBus(TransportationBus b) {
 		mBus = b;
-		mStopNumber = stopNumber;
 		mTraveling = false;
 
 		// x, y inherited from CityComponent
@@ -39,8 +38,8 @@ public class CityBus extends CityComponent {
 		y = mStopCoords.get(mStopNumber).mY;
 
 		// Set initial destination
-		destination.mX = mStopCoords.get(stopNumber + 1).mX;
-		destination.mY = mStopCoords.get(stopNumber + 1).mY;
+		destination.mX = mStopCoords.get(mStopNumber + 1).mX;
+		destination.mY = mStopCoords.get(mStopNumber + 1).mY;
 
 		initializeImages();
 	}
@@ -72,9 +71,9 @@ public class CityBus extends CityComponent {
         if (y < destination.mY)			y++;
         else if (y > destination.mY)	y--;
 
-        if (x == destination.mX && y == destination.mY && mTraveling) {
-        	mBus.msgGuiArrivedAtStop();
+        if (mTraveling && x == destination.mX && y == destination.mY) {
 			mTraveling = false;
+        	mBus.msgGuiArrivedAtStop();
         }
         
         setX(x); setY(y);
@@ -101,18 +100,12 @@ public class CityBus extends CityComponent {
 
 	public void DoAdvanceToNextStop() {
 		mStopNumber = (mStopNumber + 1) % mStopCoords.size();
-        mTraveling = true;
         destination.setTo(mStopCoords.get(mStopNumber));
+		mTraveling = true;
 
-        switch (mStopNumber) {
-        	case 0:
-        		current = left;
-        	case 1:
-        		current = front;
-        	case 2:
-        		current = right;
-        	case 3:
-        		current = back;
-        }
+        if (mStopNumber == 0)		current = back;
+        else if (mStopNumber == 1)	current = right;
+        else if (mStopNumber == 2)	current = front;
+        else if (mStopNumber == 3)	current = left;
 	}
 }

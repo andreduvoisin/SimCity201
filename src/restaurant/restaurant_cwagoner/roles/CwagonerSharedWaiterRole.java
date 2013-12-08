@@ -1,11 +1,19 @@
 package restaurant.restaurant_cwagoner.roles;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
-import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 import base.BaseRole;
 import base.ContactList;

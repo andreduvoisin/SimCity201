@@ -4,6 +4,7 @@ package restaurant.restaurant_smileham.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import base.Gui;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
@@ -113,4 +114,10 @@ public class WaiterGui implements Gui {
     public int getYPos() {
         return mPosY;
     }
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

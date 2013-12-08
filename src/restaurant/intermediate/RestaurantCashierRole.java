@@ -18,7 +18,7 @@ import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCashierRole;
@@ -76,7 +76,11 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				break;
 			case 5: //shane
 				subRole = new SmilehamCashierRole(super.mPerson, this);
-				SmilehamAnimationPanel.addPerson((SmilehamCashierRole) subRole);
+				if (SmilehamRestaurant.mCashier == null) {
+					SmilehamRestaurant.addPerson((SmilehamCashierRole) subRole);
+				} else {
+					subRole = SmilehamRestaurant.mCashier;
+				}
 				break;
 			case 6: //angelica
 				subRole = new TranacCashierRole(mPerson,this);
