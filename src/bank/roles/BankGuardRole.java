@@ -1,7 +1,9 @@
 package bank.roles;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import bank.gui.BankGuardGui;
@@ -22,8 +24,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	private int mBankID;
 	
 	public Map <BankTeller, Boolean> mTellers = new HashMap<BankTeller, Boolean>();
-	public Map <BankCustomer, Boolean> mCustomers = Collections.synchronizedMap(new HashMap<BankCustomer, Boolean>());
-	//public List<BankCustomer> mCustomers = Collections.synchronizedList(new ArrayList<BankCustomer>());
+	public List<MyCustomer> mCustomers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	//public List<BankCustomer> mCriminals = Collections.synchronizedList(new ArrayList<BankCustomer>());
 
 	//GUI
@@ -44,7 +45,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 	public void msgNeedService(BankCustomer c){
 		synchronized(mCustomers) {
-			mCustomers.put(c, false);
+			mCustomers.add(new MyCustomer(c, false));
 		}
 		print("RECEIVED MESSAGE");
 		stateChanged(); 
@@ -56,7 +57,10 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	}
 	public void msgRobberAlert(BankCustomer c){
 		synchronized(mCustomers) {
-			mCustomers.put(c, true);
+			for(MyCustomer iCust : mCustomers) {
+				if(iCust.customer == c)
+					iCust.isRobber = true;
+			}
 		}
 		print("MESSAGED ABOUT THE ROBBER");
 		stateChanged();
@@ -66,8 +70,8 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 	public boolean pickAndExecuteAnAction(){
 		synchronized(mCustomers) {
-			for (BankCustomer c : mCustomers.keySet()){
-				if(mCustomers.get(c)){
+			for (MyCustomer c : mCustomers){
+				if(c.isRobber){
 					killRobber(c);
 					mCustomers.remove(c);
 					return true;
@@ -75,11 +79,11 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 			}
 		}
 		synchronized(mCustomers) {
-			for (BankCustomer c : mCustomers.keySet()){
+			for (MyCustomer c : mCustomers){
 				for (BankTeller t : mTellers.keySet()){
 					//if Teller t is available
 					if (mTellers.get(t)){
-						provideService(c, t);
+						provideService(c.customer, t);
 						mCustomers.remove(c);
 						mTellers.put(t, false);
 						return true;
@@ -92,8 +96,8 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 //	ACTIONS
 	
-	private void killRobber(BankCustomer c){
-		c.msgStopRobber();
+	private void killRobber(MyCustomer c){
+		c.customer.msgStopRobber();
 	}
 	private void provideService(BankCustomer c, BankTeller t){
 		c.msgGoToTeller(t);
@@ -101,6 +105,15 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	}
 	
 //	UTILITIES
+	private class MyCustomer {
+		BankCustomer customer;
+		Boolean isRobber;
+		
+		MyCustomer(BankCustomer bc, Boolean ir) {
+			customer = bc;
+			isRobber = ir;
+		}
+	}
 	
 	public void msgOffWork(BankTeller t){
 		mTellers.put(t, false);

@@ -90,7 +90,6 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	public void msgLeaving(){
 		mGuard.msgReadyToWork(this);
-		stateChanged();
 	}
 
 	//------------------------------------------------------SCHEDULER------------------------------------------------------
