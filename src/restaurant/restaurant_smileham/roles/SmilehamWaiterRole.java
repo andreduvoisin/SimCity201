@@ -13,6 +13,7 @@ import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -58,26 +59,24 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 	//GUI
 	private WaiterGui mWaiterGui;
 //	private SmilehamRestaurantGui mGUI;
-	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	public SmilehamWaiterRole(Person person) {
 		super(person);
 		mName = person.getName();
-		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Waiter Created");
 		
 		//Set up Waiter
 		mWaiterGui = new WaiterGui(this);
-		mAnimationPanel.addGui(mWaiterGui);
+		SmilehamRestaurant.addGui(mWaiterGui);
 		
 		mOnBreak = false;
 		mOrders = Collections.synchronizedList(new ArrayList<Order>());
 		mFoodsOut = new ArrayList<EnumFoodOptions>();
-		mHost = SmilehamAnimationPanel.getHost();
-		mCook = SmilehamAnimationPanel.getCook();
-		mCashier = SmilehamAnimationPanel.getCashier();
+		mHost = SmilehamRestaurant.mHost;
+		mCook = SmilehamRestaurant.mCook;
+		mCashier = SmilehamRestaurant.mCashier;
 		
 		mTimer = new Timer();
 	}

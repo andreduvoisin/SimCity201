@@ -31,18 +31,13 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 	
 	private List<Order> mOrders;
 	private List<Check> mChecksPaid;
-	private Map<SmilehamMarket, Integer> mMarketBills;
-
-	//GUI
-	private SmilehamAnimationPanel mAnimationPanel;
-	
+	private Map<SmilehamMarket, Integer> mMarketBills;	
 	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	public SmilehamCashierRole(Person person, RestaurantCashierRole r){
 		super(person);
 		mRole = r;
 		mName = person.getName();
-		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Cashier Created");
 		
 		mCash = cRESTAURANT_CASH;

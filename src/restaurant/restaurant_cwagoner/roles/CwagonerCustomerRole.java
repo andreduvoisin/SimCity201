@@ -10,7 +10,8 @@ import java.util.TimerTask;
 
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
-import restaurant.restaurant_cwagoner.interfaces.*;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
+import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;

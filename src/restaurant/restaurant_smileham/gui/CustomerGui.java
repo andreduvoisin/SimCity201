@@ -7,6 +7,7 @@ import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
+import base.Gui;
 
 public class CustomerGui implements Gui{
 
@@ -104,5 +105,11 @@ public class CustomerGui implements Gui{
 
 	public int getY() {
 		return mPosY;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
 	}
 }

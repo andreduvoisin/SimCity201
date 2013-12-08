@@ -25,7 +25,6 @@ import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
 import transportation.roles.CommuterRole;
-import transportation.roles.TransportationBusRiderRole;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
@@ -94,12 +93,21 @@ public class PersonAgent extends Agent implements Person {
 		switch (jobType){
 			case BANK:
 				jobRole = SortingHat.getBankRole(mTimeShift);
+				if(mTimeShift==Time.GetShift()){
+					jobRole.setPerson(this);
+					print("Bank role person auto set: "+jobRole.toString());
+					if (jobRole instanceof BankTellerRole){
+						ContactList.sBankList.get(((BankTellerRole)jobRole).mBankID).mGuard.msgReadyToWork((BankTellerRole)jobRole);
+					}
+				}
 				break;
 			case MARKET:
 				jobRole = SortingHat.getMarketRole(mTimeShift);
 				break;
 			case RESTAURANT:
 				jobRole = SortingHat.getRestaurantRole(mTimeShift);
+				if(jobRole != null)
+					print(jobRole.toString());
 				break;
 			case NONE:
 				break;
@@ -121,7 +129,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
-		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 	}
@@ -218,6 +225,7 @@ public class PersonAgent extends Agent implements Person {
 			if(mEvents.isEmpty())
 				return false;
 			Event event = mEvents.get(0); //next event
+			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
 				mRoleFinished = false; //doing a role
 				processEvent(event);
@@ -248,13 +256,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	// ----------------------------------------------------------ACTIONS----------------------------------------------------------
-//ANGELICA MAGGI: change all test functions back later
 	private synchronized void processEvent(Event event) {
 		mAtJob = false;
 		//One time events (Car)
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
-//			testGetCar();
 		}
 		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
 			if (getHousingRole().getHouse() == null) {
@@ -321,6 +327,13 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else if (event.mEventType == EnumEventType.EXIT_BUS) {
 			exitBus();
+		}
+		
+		//Inspection
+		else if (event.mEventType == EnumEventType.INSPECTION) {
+			inspect();
+			mEvents.add(new Event(event, -1));
+			//REX: created looping inspection, easy to fix
 		}
 		
 		mEvents.remove(event);
@@ -398,7 +411,23 @@ public class PersonAgent extends Agent implements Person {
 		//PAEA for role will message market cashier to start transaction
 		mHasCar = true;
 	}
-
+	
+	public void inspect() {
+		mPersonGui.setPresent(true);
+		synchronized(ContactList.sOpenPlaces){
+			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+				if(ContactList.sOpenPlaces.get(iLocation)){
+					mPersonGui.DoGoToDestination(iLocation);
+					acquireSemaphore(semAnimationDone);
+					print("Visiting "+iLocation.toString());
+				}
+			}
+		}
+		getHousingRole().msgTimeToMaintain();
+		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+	}
 	
 	public void goToJob() {
 		//print("goToJob");
@@ -413,7 +442,10 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 //		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
-			//jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+			if(!jobRole.hasPerson()) {
+				jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+				print(toString());
+			}
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
 		}
@@ -492,7 +524,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(0).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -529,7 +561,6 @@ public class PersonAgent extends Agent implements Person {
 		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
-//		Location test = ContactList.sRoleLocations.get(); //SHANE REX: 2 This is null...
 		Location partyLocation = new Location(100, 0);
 		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		
@@ -620,6 +651,7 @@ public class PersonAgent extends Agent implements Person {
 
 
 	private void boardBus() {
+<<<<<<< HEAD
 		//CHASE: Add all of that back in
 //		int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
 //		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
@@ -630,6 +662,18 @@ public class PersonAgent extends Agent implements Person {
 //
 //		((TransportationBusRiderRole) jobRole).msgReset();
 //		
+=======
+		// CHASE: FIX THIS NAO
+		//int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+		//int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
+		Role jobRole = getJobRole();
+
+		//mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
+		acquireSemaphore(semAnimationDone);
+
+		((TransportationBusRiderRole) jobRole).msgReset();
+		
+>>>>>>> 1199c8cf19164dd2667c06004ea726adeb03fb21
 	}
 
 	private void exitBus() {
@@ -740,7 +784,7 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-
+	
 	public void setName(String name) {
 		mName = name;
 	}

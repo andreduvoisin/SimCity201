@@ -4,15 +4,13 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.ArrayList;
 import java.util.List;
 
 import transportation.roles.CommuterRole;
-
-import base.Location;
-import base.PersonAgent;
 import base.Block;
 import base.ContactList;
+import base.Location;
+import base.PersonAgent;
 
 public class CityPerson extends CityComponent {
 	
@@ -28,6 +26,7 @@ public class CityPerson extends CityComponent {
 	static final int yIndex = 10;
 	
 	public boolean visible;
+	public boolean onBus;
 	
 	/* 0 - Car Paths: AB, BC, CD, DA
 	 * 1 - Car Paths: BD, DB
@@ -35,7 +34,6 @@ public class CityPerson extends CityComponent {
 	 * 3 - Walking
 	 */
 	public int mDestinationPath = -1;
-	
 //	Queue<Location> goToPosition = new LinkedList<Position>();
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
@@ -103,21 +101,23 @@ public class CityPerson extends CityComponent {
 	}
 	
 	public void paint(Graphics g) {
-		if(SimCityGui.GRADINGVIEW) {
-			g.drawString(mPerson.getName(),x,y);
-			g.setColor(color);
-			g.fillRect(x, y, 5, 5);
-			g.setColor(Color.WHITE);
-			g.drawString(name, x - 10, y);
-		}
-		else if(mPerson.hasCar()) {
-			//paint car gui
-		}
-		else {
-			g.setColor(color);
-			g.fillRect(x, y, 5, 5);
-			g.setColor(Color.WHITE);
-			g.drawString(name, x - 10, y);
+		if (! onBus) {
+			if(SimCityGui.GRADINGVIEW) {
+				g.drawString(mPerson.getName(),x,y);
+				g.setColor(color);
+				g.fillRect(x, y, 5, 5);
+				g.setColor(Color.WHITE);
+				g.drawString(name, x - 10, y);
+			}
+			else if(mPerson.hasCar()) {
+				//paint car gui
+			}
+			else {
+				g.setColor(color);
+				g.fillRect(x, y, 5, 5);
+				g.setColor(Color.WHITE);
+				g.drawString(name, x - 10, y);
+			}
 		}
 	}
 	
@@ -176,6 +176,16 @@ public class CityPerson extends CityComponent {
 	public void DoTakeBus(int currentStop, int destinationStop){
 		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
 		cRole.msgAtBusStop(currentStop, destinationStop); 
+	}
+
+	public void DoBoardBus() {
+		onBus = true;
+	}
+
+	public void DoExitBus(int destStop) {
+		onBus = false;
+		x = base.ContactList.cBUS_STOPS.get(destStop).mX;
+		y = base.ContactList.cBUS_STOPS.get(destStop).mY;
 	}
 	
 	public int getBusStop(int x, int y){

@@ -21,7 +21,7 @@ import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
@@ -87,7 +87,11 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 					break;
 				case 5: //shane
 					subRole = new SmilehamCookRole(super.mPerson, this);
-					SmilehamAnimationPanel.addPerson((SmilehamCookRole) subRole);
+					if (SmilehamRestaurant.mCook == null) {
+						SmilehamRestaurant.addPerson((SmilehamCookRole) subRole);
+					} else {
+						subRole = SmilehamRestaurant.mCook;
+					}
 					break;
 				case 6: //angelica
 					subRole = new TranacCookRole(mPerson, this);

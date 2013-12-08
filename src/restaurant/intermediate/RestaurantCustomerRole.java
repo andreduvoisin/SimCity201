@@ -5,12 +5,11 @@ import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
-import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
@@ -66,7 +65,7 @@ public class RestaurantCustomerRole extends BaseRole implements
 			break;
 		case 5: // shane
 			subRole = new SmilehamCustomerRole(super.mPerson);
-			SmilehamAnimationPanel.addPerson((SmilehamCustomerRole) subRole);
+			SmilehamRestaurant.addPerson((SmilehamCustomerRole) subRole);
 			break;
 		case 6: // angelica
 			subRole = new TranacCustomerRole(mPerson);

@@ -9,12 +9,12 @@ import java.util.concurrent.Semaphore;
 import javax.imageio.ImageIO;
 
 import market.MarketOrder;
-import market.interfaces.MarketWorker;
+import market.roles.MarketWorkerRole;
 import base.Item.EnumItemType;
 import city.gui.SimCityGui;
 
 public class MarketWorkerGui implements MarketBaseGui {
-	private MarketWorker mAgent;
+	private MarketWorkerRole mAgent;
 	private int mNum;
 	
 	public MarketItemsGui mItems;
@@ -39,9 +39,10 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketWorkerGui(MarketWorker agent, int i) {
+	public MarketWorkerGui(MarketWorkerRole agent, int i) {
 		mAgent = agent;
 		mNum = i;
+		mItems = mAgent.mMarket.mItemsGui;
         xHome = xBase + 30*(i % 5);
         yHome = yBase - 30*(int)(i/5);
 
@@ -169,7 +170,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	 
 /* Utilities */
 	public boolean isPresent() {
-		return true;
+		return mAgent.getPerson() != null ? true : false;
 	}
 	
 	public int getXPos() {

@@ -14,6 +14,7 @@ import restaurant.restaurant_smileham.Food;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
@@ -63,12 +64,11 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 		super(person);
 		mRole = r;
 		mName = person.getName();
-		mAnimationPanel = SmilehamAnimationPanel.mInstance;
 		print("Smileham Cook Constructor");
 		
 		//Set up Cook
 		mCookGui = new CookGui(this);
-    	mAnimationPanel.addGui(mCookGui);
+    	SmilehamRestaurant.addGui(mCookGui);
     	
     	/*ANGELICA: z
     	Set up inventory map
@@ -81,8 +81,8 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
     	
     	mWaiters = new HashSet<SmilehamWaiter>();
     	
-    	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y, mAnimationPanel);
-    	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y, mAnimationPanel);
+    	mFoodsCooking = new LabelGui("Cooking", CookGui.cLABEL_COOKING_X, CookGui.cLABEL_COOKING_Y);
+    	mFoodsPlated = new LabelGui("Plated", CookGui.cLABEL_PLATING_X, CookGui.cLABEL_PLATING_Y);
     	
 		mTimer = new Timer();
 		mOrders = new HashSet<Order>();

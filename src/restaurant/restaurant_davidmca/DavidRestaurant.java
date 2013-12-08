@@ -30,7 +30,6 @@ public class DavidRestaurant {
 	public static List<Gui> guis;
 	public static int customerCount = 0;
 	public static int waiterCount = 0;
-//	public static DavidCustomerRole lastCustomer = null;
 	private final int NUMTABLES = 4;
 	public static Collection<Table> tables;
 	private int[] xpositions = { 0, 125, 225, 325, 225 };
@@ -59,7 +58,6 @@ public class DavidRestaurant {
 		cust.setCashier(cashier);
 		cust.setGui(g);
 		g.setHungry();
-//		lastCustomer = cust;
 		customers.add(cust);
 	}
 
@@ -82,6 +80,5 @@ public class DavidRestaurant {
 		waiter.setGui(g);
 		host.addWaiter(waiter);
 		waiter.setCashier(cashier);
-	}
-	
+	}	
 }

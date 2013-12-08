@@ -1,11 +1,10 @@
 package transportation.roles;
 
 
-import transportation.interfaces.TransportationRider;
-
 import transportation.TransportationBus;
-
+import transportation.interfaces.TransportationRider;
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
@@ -16,63 +15,109 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	private Location mDestination;
 	private Location mHousingLocation; 
 	private Location mCurrentLocation; 
+
 	
 	//Bus Data 
-	private enum PersonBusState {WaitingForBus, BoardBus, RidingBus}; 
+	private enum PersonBusState {noBus, atBusStop, waitingForBus, boardingBus, 
+		ridingBus, exitingBus}; 
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
 	private PersonBusState mState;
-	//MAGGI: put where MasterTeller is being created 
-	private TransportationBus mBus = new TransportationBus(); 
+	private TransportationBus mBus; 
 	
 	//CONSTRUCTOR
 	public CommuterRole(Person person) {
 		super(person);
 		mPerson = person;
-		
+		mBus = ContactList.cBus; 
 		mHousingLocation = mPerson.getHousingRole().getLocation(); 
 	}	
 	
 	//MESSAGES
-	/** From GUI
+	/** From CityPerson (GUI)
 	 * When arrived at a corner
 	 */
 	public void msgAtBusStop(int currentStop, int destinationStop){
 		mCurrentBusStop = currentStop;
 		mDestinationBusStop = destinationStop; 
-		mState = PersonBusState.WaitingForBus; 
+		mState = PersonBusState.atBusStop; 
 		stateChanged(); 
 	}
 	
-	//From Animation
-	public void msgAnimationDone(){
-		
+	//FROM BUS
+	/**
+	 * From BusDispatch
+	 * Sent when a BusInstance is at this Rider's current stop
+	 */
+	public void msgBoardBus() {
+		print("Received msgBoardBus");
+		mState = PersonBusState.boardingBus;
+		stateChanged();
+	}
+	
+	public void msgAtStop(int busStop){
+		if(busStop == mDestinationBusStop){
+			mState = PersonBusState.noBus; 
+		}
+		stateChanged(); 
 	}
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
-		if(mState == PersonBusState.WaitingForBus){
-			NotifyBusDispatch(); 
-		}
 		if(mPerson.hasCar()){
 			DriveToDestination(); 
+			return true;
 		}
-		else{
+		
+		if(mState == PersonBusState.atBusStop){
+			NotifyBus(); 
+			return true;
+		}
+		
+		if(mState == PersonBusState.boardingBus){
+			BoardBus(); 
+			return true; 
+		}
+		
+		if(mState == PersonBusState.exitingBus){
+			ExitBus();
+			return true; 
+		}
+		
+		if(mState == PersonBusState.noBus){
 			GoToDestination(); 
 			return true; 
 		}
+
+	
 		return false; 
 	}
 
 	//ACTIONS
 	//Manages Bus Transportation
-	private void NotifyBusDispatch(){
-		//mBusDispatch.msgNeedARide(this, mCurrentBusStop);
+	private void NotifyBus(){
+		mBus.msgNeedARide(this, mCurrentBusStop);
+		mState = PersonBusState.waitingForBus; 
+	}
+
+	private void BoardBus(){
+		mPerson.getGui().DoBoardBus();
+		mState = PersonBusState.ridingBus;
+	}
+	
+	private void ExitBus(){
+		mPerson.getGui().DoExitBus(mDestinationBusStop); 
+		mState = PersonBusState.noBus; 
 	}
 	
 	private void DriveToDestination(){
 		if(inAHouse()){
-			mPerson.getGui().DoDriveToDestination(mDestination); 
+			if(!goingToFarHouse(mDestination)){
+				mPerson.getGui().DoGoToDestination(mDestination);
+			}
+			else{
+				mPerson.getGui().DoDriveToDestination(mDestination); 
+			}
 		}
 		else{
 			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
@@ -93,11 +138,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	public void setLocation(Location location){
 		mDestination = location; 
 	}
-	
-	@Override
-	public Location getLocation() {
-		return null;
-	}
+
 	
 	public void Do(String msg) {
 		super.Do(msg, AlertTag.TRANSPORTATION);
@@ -111,19 +152,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 		super.print(msg, AlertTag.TRANSPORTATION, e);
 	}
 
-	@Override
-	public void msgBoardBus() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void msgAtStop(int stopBusIsAt) {
-		if (stopBusIsAt == mDestinationBusStop) {
-			mState = PersonBusState.BoardBus;
-		}
-		stateChanged();
-	}
 	
 	//UTILITES
 	//True if destination is in same block as current location
@@ -181,5 +209,15 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	public void setCurrentLocation(Location location){
 		mCurrentLocation = location; 
+	}
+
+	public String getName() {
+		return mPerson.getName();
+	}
+
+	@Override
+	public Location getLocation() {
+		// ANGELICA Auto-generated method stub
+		return null;
 	}
 }
