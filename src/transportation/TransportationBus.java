@@ -2,14 +2,11 @@ package transportation;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
-import restaurant.restaurant_davidmca.Order;
 import transportation.interfaces.TransportationRider;
 import transportation.roles.CommuterRole;
 import base.Agent;
-import base.PersonAgent;
 import city.gui.CityBus;
 import city.gui.trace.AlertTag;
 
