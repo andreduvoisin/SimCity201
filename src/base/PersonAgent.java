@@ -119,8 +119,8 @@ public class PersonAgent extends Agent implements Person {
 		//Add customer/rider role possibilities
 		mRoles.put(SortingHat.getHousingRole(this), true);
 		mRoles.put(new CommuterRole(this), false); 
-		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
-		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
+		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
+		mRoles.put(new MarketCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
 		mRoles.put(new TransportationBusRiderRole(this), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
@@ -147,7 +147,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
-		mTimeShift = (mSSN % 2); // assign time schedule
+		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
 		mHasCar = false;
 		
@@ -166,7 +166,7 @@ public class PersonAgent extends Agent implements Person {
 			mRoles.put(getJobRole(), true);
 		}
 		//Leave job
-		if ((mTimeShift + 1) % 2 == Time.GetShift()){ //if job shift is over
+		if ((mTimeShift + 1) % ContactList.cNumTimeShifts == Time.GetShift()){ //if job shift is over
 			mAtJob = false;
 			mRoles.put(getJobRole(), false); //set job role to false;
 			mPersonGui.setPresent(true);
@@ -181,7 +181,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void msgAddEvent(Event event) {
 		if(event.mEventType == EnumEventType.RSVP1){
-			if(((EventParty)event).mHost.getName().equals("partyPersonFlake") && mSSN%2==0){
+			if(((EventParty)event).mHost.getName().equals("partyPersonFlake") && mSSN%ContactList.cNumTimeShifts==0){
 				print("I am a deadbeat");
 				return;
 			}
@@ -337,7 +337,7 @@ public class PersonAgent extends Agent implements Person {
 			if (iRole instanceof MarketCustomer){
 				if(!SimCityGui.TESTING) {
 					Location location;
-					if(mSSN%2 == 0) {
+					if(mSSN%ContactList.cNumTimeShifts == 0) {
 						location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 					} else {
 						location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
@@ -419,7 +419,7 @@ public class PersonAgent extends Agent implements Person {
 	private void testDepositCheck() {
 		mPersonGui.setPresent(true);
 
-		// mPersonGui.DoGoToDestination(mSSN%2==0?
+		// mPersonGui.DoGoToDestination(mSSN%ContactList.cNumTimeShifts==0?
 		// ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 
 		acquireSemaphore(semAnimationDone);
@@ -431,7 +431,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Role iRole : mRoles.keySet()) {
 			if (iRole instanceof BankCustomerRole) {
 				bankCustomerRole
-						.GoToDestination(mSSN % 2 == 0 ? ContactList.cBANK1_LOCATION
+						.GoToDestination(mSSN % ContactList.cNumTimeShifts == 0 ? ContactList.cBANK1_LOCATION
 								: ContactList.cBANK2_LOCATION);
 				acquireSemaphore(semAnimationDone);
 				mPersonGui.setPresent(false);
@@ -454,13 +454,13 @@ public class PersonAgent extends Agent implements Person {
 		}
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN % 2).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(mSSN % ContactList.cNumTimeShifts).addPerson(bankCustomerRole);
 	}
 	
 /*************************************************************************/
 	public void getCar(){
 		Location location;
-		if(mSSN%2 == 0) {
+		if(mSSN%ContactList.cNumTimeShifts == 0) {
 			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
@@ -498,7 +498,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
-			jobRole.setPerson(this); //take over job role
+			//jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
 		}
@@ -572,12 +572,12 @@ public class PersonAgent extends Agent implements Person {
 		
 		//GO TO BANK AND DO STUFF
 		//mPersonGui.setPresent(true);
-		//mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
+		//mPersonGui.DoGoToDestination(mSSN%ContactList.cNumTimeShifts==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		//acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN%2).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(mSSN%ContactList.cNumTimeShifts).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){

@@ -38,8 +38,8 @@ public class Time {
 						}
 					}
 					
-					if (sGlobalTimeInt % (12*60) == 0){
-						System.out.println("Time Shift");
+					if (sGlobalTimeInt % ((24 / ContactList.cNumTimeShifts)*60) == 0){
+						System.out.println("Time Shift!");
 						synchronized (mPersons) {
 							for (Person iPerson : mPersons) {
 								iPerson.msgTimeShift(); 
@@ -61,11 +61,11 @@ public class Time {
 	}
 	
 	public static int GetShift(){ //0 to 1
-		return (sGlobalTimeInt/(12*60)) % 2;
+		return (sGlobalTimeInt/((24 / ContactList.cNumTimeShifts)*60)) % 2;
 	}
 	
 	public static int GetDate(){
-		return (sGlobalTimeInt/(24*60)) % 7;
+		return (sGlobalTimeInt/((24 / ContactList.cNumTimeShifts)*60)) % 7;
 	}
 	
 	public static int GetTime(){
