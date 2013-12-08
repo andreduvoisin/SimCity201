@@ -33,7 +33,7 @@ public class CityPerson extends CityComponent {
 	 * 2 - Car Paths: AC, CA
 	 * 3 - Walking
 	 */
-	public int mDestinationPath = -1;
+	public int mDestinationPath = 0;
 //	Queue<Location> goToPosition = new LinkedList<Position>();
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
@@ -85,22 +85,22 @@ public class CityPerson extends CityComponent {
 		        case 0: 
 		        case 1: 
 		        case 2:
-		        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
+	//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
 		        case 3:
 		        	blocks = ContactList.cPERSONBLOCKS; break;
 	        }
 	        
-//	        for (Block iBlock : blocks){
-//	        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-//	        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
-//	        	if (xNewInBlock && yNewInBlock){
-//	        		if (xNewInBlock){
-//	        			x = previousX;
-//	        		}else{
-//	        			y = previousY;
-//	        		}
-//	        	}
-//	        }
+	        for (Block iBlock : blocks){
+	        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+	        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+	        	if (xNewInBlock && yNewInBlock){
+	        		if (xNewInBlock){
+	        			x = previousX;
+	        		}else{
+	        			y = previousY;
+	        		}
+	        	}
+	        }
 		}
 	}
 	
@@ -173,11 +173,11 @@ public class CityPerson extends CityComponent {
 		}	
 	}
 	
-	public void DoWalkToDestination(){
-		xDestination = mNextDestination.mX;
-		yDestination = mNextDestination.mY;
-		mNextDestination = null; 
-	}
+//	public void DoWalkToDestination(){
+//		xDestination = mNextDestination.mX;
+//		yDestination = mNextDestination.mY;
+//		mNextDestination = null; 
+//	}
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
 		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
