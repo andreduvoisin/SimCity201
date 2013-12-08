@@ -48,7 +48,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         private final int baseTime = 5000;
         private final int baseNeed = 3;
         
-        private int mItemThreshold = 1;
+        private int mItemThreshold = 2;
         
         private Semaphore inTransit = new Semaphore(0, true);
 

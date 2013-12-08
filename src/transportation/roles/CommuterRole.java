@@ -218,6 +218,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 
 	@Override
 	public Location getLocation() {
-		return mCurrentLocation;
+		return mCurrentLocation; 
 	}
 }

@@ -5,9 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import base.Location;
@@ -39,19 +36,6 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
         destination.setTo(homePos);
 
         animationPanel.addGui(this);
-
-		try {
-			java.net.URL cookURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cook.png");
-			cookImg = ImageIO.read(cookURL);
-			java.net.URL fridgeURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/fridge.png");
-			fridgeImg = ImageIO.read(fridgeURL);
-			java.net.URL stoveURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/stove.png");
-			stoveImg = ImageIO.read(stoveURL);
-			java.net.URL tableURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/table.png");
-			tableImg = ImageIO.read(tableURL);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
     }
 
     public void updatePosition() {

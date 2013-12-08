@@ -74,6 +74,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Messages
 	public void msgOrderPlacement(MarketOrder order){
+		print("got order "+ order,AlertTag.R6);	//ANGELICA:
 		mOrders.add(order);
 		order.mEvent = EnumOrderEvent.ORDER_PLACED;
 		stateChanged();
@@ -125,7 +126,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Actions
 	private void processOrderAndNotifyPerson(MarketOrder order){
-		print("Processing order.");
+		print("Processing order "+ order);
 		Map<EnumItemType, Integer> cannotFulfill = new HashMap<EnumItemType, Integer>();
 		int cost = 0;
 
@@ -136,6 +137,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 				cost += getPrice(item) * mInventory.get(item);
 			}
 			else {
+				cannotFulfill.put(item,0);
 				mInventory.put(item, mInventory.get(item)-order.mItems.get(item));
 				cost += getPrice(item) * order.mItems.get(item);
 			}
