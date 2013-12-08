@@ -3,6 +3,8 @@ package transportation;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import test.mock.*;
 import transportation.interfaces.TransportationRider;
@@ -46,6 +48,8 @@ public class TransportationBus extends Agent {
 	
 	public enum enumState { traveling, ReadyToTravel, ReadyToUnload, ReadyToBoard }
 	public enumState state;
+	
+	private Timer timer = new Timer(); 
 
 
 	// ==================================================================================
@@ -178,7 +182,12 @@ public class TransportationBus extends Agent {
 		log.add(new LoggedEvent(("AdvanceToNextStop()")));
 
 		state = enumState.traveling;
-		if (! testing) mGui.DoAdvanceToNextStop();
+
+		timer.schedule(new TimerTask(){
+			public void run(){
+				mGui.DoAdvanceToNextStop();
+			}
+		}, 2000); 
 	}
 
 	public String getName() {

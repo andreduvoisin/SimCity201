@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -72,7 +74,7 @@ public class CityBus extends CityComponent {
         else if (y > destination.mY)	y--;
 
         if (mTraveling && x == destination.mX && y == destination.mY) {
-			mTraveling = false;
+        	mTraveling = false;
         	mBus.msgGuiArrivedAtStop();
         }
         

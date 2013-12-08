@@ -50,6 +50,6 @@ public class BusTest extends TestCase {
 
 		assertTrue("Bus's log should contain \"Received msgNeedARide\"; instead, last logged event is "
 				+ bus.log.getLastLoggedEvent(),
-				bus.log.containsString("Received msgNeedARide"));
+			bus.log.containsString("Received msgNeedARide"));
 	}
 }
