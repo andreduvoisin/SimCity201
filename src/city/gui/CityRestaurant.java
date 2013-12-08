@@ -12,7 +12,7 @@ public class CityRestaurant extends CityComponent {
 	private int RESTAURANTSIZE = 80; 
 
 	public CityRestaurant(Location location, String ID) {
-		super(location.mX, location.mY, Color.red, ID);
+		super(location.mX, location.mY, Color.magenta, ID);
 		rectangle = new Rectangle(x, y, RESTAURANTSIZE, RESTAURANTSIZE);
 		restaurantName = ID;
 	}
