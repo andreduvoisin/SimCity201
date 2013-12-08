@@ -139,7 +139,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
-		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment); //ANGELICA: 
+	//	ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment); //ANGELICA: 
 		
 		synchronized(mItemsDesired) {
 			for(EnumItemType item : mCannotFulfill.keySet()) {

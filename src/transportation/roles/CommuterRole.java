@@ -3,6 +3,7 @@ package transportation.roles;
 
 import transportation.TransportationBus;
 import transportation.interfaces.TransportationRider;
+
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -217,7 +218,11 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 
 	@Override
 	public Location getLocation() {
+<<<<<<< HEAD
+		// TODO Auto-generated method stub
+=======
 		// ANGELICA Auto-generated method stub
+>>>>>>> 9c38f54f352a32c2b0f90367c8b2eba8b451c8b2
 		return null;
 	}
 }

@@ -11,6 +11,7 @@ import bank.roles.BankCustomerRole;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
+import base.ContactList;
 import base.Gui;
 import base.interfaces.Person;
 import base.interfaces.Role;
@@ -59,13 +60,13 @@ public class Bank {
 				//System.out.println("Bank teller added");
 				mTellers.add((BankTellerRole)role);
 				((BankTellerRole)role).addGuard(mGuard);
-				((BankTellerRole)role).setMaster(mMasterTeller);
+				((BankTellerRole)role).setMaster(ContactList.masterTeller);
 				((BankTellerRole)role).mGUI = new BankTellerGui((BankTellerRole)role);//, BankPanel);
 				//((BankTellerRole)role).mGUI.setPresent(true);
 				mGuis.add(((BankTellerRole)role).mGUI);
 			}
 		}
-		 
+		 //REX ANDRE: add master teller to both banks in sorting hat
 		 if(role instanceof BankMasterTellerRole){
 			 mMasterTeller = ((BankMasterTellerRole)role);
 		 }

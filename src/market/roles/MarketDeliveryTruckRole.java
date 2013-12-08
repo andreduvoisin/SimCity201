@@ -73,8 +73,10 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		//check all the restaurants
 		for(int i=0;i<8;i++) {
 			for(MarketOrder o : mDeliveries) {
-				if(o.mRestaurantNumber == i) { //ANGELICA: check if restaurant is open
-					DoGoToRestaurant(i);
+				Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
+				if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) { //ANGELICA: check if restaurant is open
+	//ANGELICA:				DoGoToRestaurant(i);
+					print("Delivering order.");
 					((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
 					mDeliveries.remove(o);
 				}
@@ -83,7 +85,8 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	public void pickUpOrdersFromMarket() {
-		DoGoToMarket();
+//ANGELICA:		DoGoToMarket();
+		print("Picking up orders from market!");
 		synchronized(mPendingDeliveries) {
 		for(MarketOrder o : mPendingDeliveries) {
 			mDeliveries.add(o);
@@ -93,7 +96,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	public void waitAtMarket() {
-		DoGoToMarket();
+//ANGELICA:		DoGoToMarket();
 	}
 
 /* Animation Actions */
