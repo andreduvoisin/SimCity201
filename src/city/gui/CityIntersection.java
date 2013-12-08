@@ -11,8 +11,13 @@ public class CityIntersection extends CityComponent {
 	boolean mOccupied = false;
 	
 	public CityIntersection(Block b) {
-		super(b.mX1, b.mX2, Color.green);
-		rectangle = new Rectangle(b.mX1, b.mY1, b.mX2 -b.mX1, b.mY2 -b.mY1);
+		super(b.mX1, b.mY1, Color.green);
+		rectangle = new Rectangle(b.mX1, b.mY1, b.mX2 - b.mX1, b.mY2 - b.mY1);
+	}
+	
+	public CityIntersection(int x, int y, int xx ,int yy){
+		super(x,y,Color.green);
+		rectangle = new Rectangle(x, y, xx, yy);
 	}
 
 	@Override

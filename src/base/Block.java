@@ -7,7 +7,7 @@ public class Block {
 	public int mY1; 
 	public int mY2; 
 	
-	public Block(int x1, int x2, int y1, int y2){
+	public Block(int x1, int y1, int x2, int y2){
 		mX1 = x1;
 		mX2 = x2;
 		mY1 = y1; 

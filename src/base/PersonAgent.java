@@ -556,7 +556,7 @@ public class PersonAgent extends Agent implements Person {
 	private void inviteToParty() {
 		if(mFriends.isEmpty()){
 			int numPeople = ContactList.sPersonList.size();
-			print("Num People in city: " + numPeople); //SHANE: Print remove
+//			print("Num People in city: " + numPeople);
 			for (int i = 0; i < numPeople; i = i + 2){
 				mFriends.add(ContactList.sPersonList.get(i));
 			}
@@ -655,17 +655,17 @@ public class PersonAgent extends Agent implements Person {
 
 
 	private void boardBus() {
-		// CHASE: FIX THIS NAO
-		//int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
-		//int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
-		//Role jobRole = getJobRole();
-
-		//mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
-		//acquireSemaphore(semAnimationDone);
-
-		//((TransportationBusRiderRole) jobRole).msgReset();
-		
-	}
+		//CHASE: Add all of that back in
+//		int boardAtStop = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(new Location(mPersonGui.xDestination, mPersonGui.yDestination));
+//		int exitAtStop  = ((TransportationBusRiderRole) getJobRole()).mBusDispatch.getBusStopClosestTo(mPersonGui.mNextDestination);
+//		Role jobRole = getJobRole();
+//
+//		mPersonGui.DoGoToDestination(base.ContactList.cBUS_STOPS.get(boardAtStop));
+//		acquireSemaphore(semAnimationDone);
+//
+//		((TransportationBusRiderRole) jobRole).msgReset();
+//		
+		}
 
 	private void exitBus() {
 		mRoleFinished = true;
