@@ -52,8 +52,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	public void paint(Graphics g) {
 		g.setColor(background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		moveComponents();
 		drawComponents(g);
+		moveComponents();
 	}
 	
 	
@@ -78,27 +78,28 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 				c.paint(g);
 			}
 		}
-		
 	}
 	
 	public void moveComponents() {
-		synchronized(intersections) {
-			for (CityIntersection c:intersections) {
-				c.updatePosition();
-			}
-		}
+		
 		synchronized(movings) {
 			for (CityComponent c:movings) {
 				c.updatePosition();
-				synchronized(intersections) {
-					for (CityIntersection ci:intersections) {
-						if (c.collidesWith(ci)) {
-							ci.setOccupied(true);
+			}
+		}
+		synchronized(intersections) {
+			for (CityIntersection ci:intersections) {
+				ci.setOccupant(null);
+				synchronized(movings) {
+					for (CityComponent cc: movings) {
+						if (ci.collidesWith(cc)) {
+							ci.setOccupant(cc);
 						}
 					}
 				}
 			}
 		}
+		
 	}
 	/*
 	public void addGui(WPersonGui gui) {

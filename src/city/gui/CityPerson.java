@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 
-import transportation.roles.CommuterRole;
 import base.Block;
 import base.ContactList;
 import base.Location;
@@ -21,6 +20,7 @@ public class CityPerson extends CityComponent {
 	public Location mDestination = new Location(0, 0); //just to avoid null pointers
 	public Location mFinalDestination = null;
 	public boolean mUsingCar = true;
+	public boolean mUsingBus = false;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -62,8 +62,10 @@ public class CityPerson extends CityComponent {
         	if(mFinalDestination != null){
         		DoGoToDestination(mFinalDestination);
         	}else{
-        		this.disable(); 
+        		this.disable();
+        		visible = false;
         		mPerson.msgAnimationDone();
+        		mPerson.postCommute();
         	}
     	}
         
@@ -72,7 +74,7 @@ public class CityPerson extends CityComponent {
         	boolean xNewInBlock = (x > ContactList.cINTERSECTIONBLOCKS.get(iB).mX1 && x < ContactList.cINTERSECTIONBLOCKS.get(iB).mX2);
         	boolean yNewInBlock = (y > ContactList.cINTERSECTIONBLOCKS.get(iB).mY1 && y < ContactList.cINTERSECTIONBLOCKS.get(iB).mY2);
         	if (xNewInBlock && yNewInBlock){
-        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupied) {
+        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupant != this) {
 	        		x = previousX;
 	        		y = previousY;
         		}
@@ -83,16 +85,7 @@ public class CityPerson extends CityComponent {
 
         //B* Algorithm
         List<Block> blocks = null;
-        switch(mDestinationPathType){
-	        case 0: 
-	        case 1: 
-	        case 2:
-	        case 3:
-	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
-	        case 4:
-	        	blocks = ContactList.cPERSONBLOCKS; break;
-	        	//SHANE: 3 combine carblocks and personblocks into blocks
-        }
+        blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
         
         for (Block iBlock : blocks){
         	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
@@ -122,8 +115,9 @@ public class CityPerson extends CityComponent {
 		
 		//if at corner closest to destination, walk to destination
 		if (mLocation.equals(destCorner)){
+			mUsingCar = false;
 			//walk to destination
-			mDestinationPathType = 3;
+			mDestinationPathType = 4;
 			mDestination = mFinalDestination;
 			mFinalDestination = null;
 		}else{
@@ -144,13 +138,13 @@ public class CityPerson extends CityComponent {
 					}
 					
 					//clockwise not needed
-					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 0;
+					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 1;
 					//check counter-clockwise
 					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
 					//check BD diagonal
-					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 2;
+					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 1;
 					//check AC diagonal
-					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 3;
+					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 1;
 					else{
 						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
 					}
@@ -160,7 +154,9 @@ public class CityPerson extends CityComponent {
 				//else bus to same corner
 				else{
 					//do bus stuff??? CHASE MAGGI: 1 Do this
-//					DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
+					if(mUsingBus) {
+						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+					}
 				}
 			}
 			//if not at a corner, walk to person corner
@@ -174,17 +170,22 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void paint(Graphics g) {
+		rectangle.x = x;
+		rectangle.y = y;
 		if(visible) {
 			if (! onBus) {
 				if(SimCityGui.GRADINGVIEW) {
 					g.drawString(mPerson.getName(),x,y);
-					g.setColor(color);
-					g.fillRect(x, y, 5, 5);
+					if (mUsingCar) {
+						g.setColor(Color.cyan);
+						g.fillRect(x, y, 15, 15);
+					}
+					else {
+						g.setColor(Color.yellow);
+						g.fillRect(x, y, 5, 5);
+					}
 					g.setColor(Color.WHITE);
 					g.drawString(name, x - 10, y);
-				}
-				else if(mPerson.hasCar()) {
-					//paint car gui
 				}
 				else {
 					g.setColor(color);
@@ -198,8 +199,8 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
-		CommuterRole cRole = (CommuterRole) mPerson.getCommuterRole();
-		cRole.msgAtBusStop(currentStop, destinationStop); 
+		mPerson.mCommuterRole.msgAtBusStop(currentStop, destinationStop);
+		mUsingBus = false;
 	}
 
 	public void DoBoardBus() {
