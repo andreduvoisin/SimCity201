@@ -159,7 +159,7 @@ public class TransportationBus extends Agent {
 	private void AdvanceToNextStop() {
 		//print("AdvanceToNextStop()");
 
-		mCurrentStop++;
+		mCurrentStop = (mCurrentStop + 1) % mBusStops.size();
 		state = enumState.ReadyToTravel;
 		mGui.DoAdvanceToNextStop();
 	}
