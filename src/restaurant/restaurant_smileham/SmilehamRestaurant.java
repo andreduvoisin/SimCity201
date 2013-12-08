@@ -51,5 +51,17 @@ public class SmilehamRestaurant {
 			mCashier = (SmilehamCashierRole) role;
 		}
 	}
+	
+	public static void addGui(Gui g) {
+		mGuis.add(g);
+	}
+	
+	public static void removeGui(Gui g) {
+		for (Gui gui: mGuis) {
+			if (gui == g) {
+				mGuis.remove(gui);
+			}
+		}
+	}
 
 }
