@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
@@ -22,10 +23,11 @@ import city.gui.trace.AlertTag;
  * Restaurant cashier agent.
  */
 public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
+	public RestaurantCashierRole mRole;
 	
-	public CwagonerCashierRole(Person person) {
+	public CwagonerCashierRole(Person person, RestaurantCashierRole r) {
 		super(person);
-
+		mRole = r;
 		PriceList.put("Steak",		8.0);
 		PriceList.put("Chicken",	6.0);
 		PriceList.put("Salad",		2.0);

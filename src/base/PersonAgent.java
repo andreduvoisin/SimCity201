@@ -521,10 +521,17 @@ public class PersonAgent extends Agent implements Person {
 	private void goToMarket() {
 		//mCommuterRole.mActive = true;
 		
-		//ANGELICA: hack
-		mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
-		mItemsDesired.put(EnumItemType.CHICKEN, sBaseWanted);
-		
+		switch(mSSN % 4) {
+		case 0:
+			mItemsDesired.put(EnumItemType.PIZZA, sBaseWanted);
+		case 1:
+			mItemsDesired.put(EnumItemType.STEAK, sBaseWanted);
+		case 2:
+			mItemsDesired.put(EnumItemType.CHICKEN, sBaseWanted);
+		case 3:
+			mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
+		}
+
 		Location location;
 		if(mSSN%ContactList.cNumTimeShifts == 0) {
 			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);

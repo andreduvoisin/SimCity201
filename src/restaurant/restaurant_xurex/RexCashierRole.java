@@ -26,7 +26,7 @@ public class RexCashierRole extends BaseRole implements Cashier {
 	{pendingWaiter, ignore, pendingCustomer}; 
 	//ignore while bill is unpaid and after is paid
 	
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	private String name;
 	private float assets = 100;
 	public class Bill{

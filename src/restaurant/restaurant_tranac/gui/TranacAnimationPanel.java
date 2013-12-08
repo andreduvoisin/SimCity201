@@ -19,15 +19,13 @@ import city.gui.SimCityGui;
 @SuppressWarnings("serial")
 public class TranacAnimationPanel extends CityCard implements ActionListener {
 	public static TranacAnimationPanel instance;
-	private TranacRestaurant mRestaurant;
 
 	private final int WINDOWX = 626;
 	private final int WINDOWY = 507;
     private BufferedImage background;
 
-    public TranacAnimationPanel(SimCityGui city, TranacRestaurant restaurant) {
+    public TranacAnimationPanel(SimCityGui city) {
     	super(city);
-    	mRestaurant = restaurant;
     	setBounds(0,0,WINDOWX, WINDOWY);
     	setBackground(Color.white);
     	
@@ -47,8 +45,8 @@ public class TranacAnimationPanel extends CityCard implements ActionListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
-		synchronized(mRestaurant.guis) {
-        for(Gui gui : mRestaurant.guis) {
+		synchronized(TranacRestaurant.guis) {
+        for(Gui gui : TranacRestaurant.guis) {
             if (gui.isPresent()) {
                 gui.updatePosition();
             }
@@ -64,8 +62,8 @@ public class TranacAnimationPanel extends CityCard implements ActionListener {
         if(background != null)
         	g2.drawImage(background,0,0,null);
 
-        synchronized(mRestaurant.guis) {
-        for(Gui gui : mRestaurant.guis) {
+        synchronized(TranacRestaurant.guis) {
+        for(Gui gui : TranacRestaurant.guis) {
             if (gui.isPresent()) {
                 gui.draw(g2);
             }
