@@ -105,11 +105,11 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 
 	private void BoardBus(){
 		mPerson.getGui().DoBoardBus();
+		mBus.msgImOn(this);
 		mState = PersonBusState.ridingBus;
 	}
 	
 	private void ExitBus(){
-		print("exiting...");
 		mPerson.getGui().DoExitBus(mDestinationBusStop); 
 		mBus.msgImOff(this);
 		mState = PersonBusState.noBus; 

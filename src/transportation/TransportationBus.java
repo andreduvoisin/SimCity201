@@ -158,14 +158,12 @@ public class TransportationBus extends Agent {
 	private void TellRidersToBoard() {
 		print("TellRidersToBoard()");
 		
-		synchronized(mBusStops.get(mCurrentStop).mWaitingPeople) {			
-			Iterator<TransportationRider> itr = mBusStops.get(mCurrentStop).mWaitingPeople.iterator();
-			while (itr.hasNext()) {
-				TransportationRider r = itr.next();
+		synchronized(mBusStops.get(mCurrentStop).mWaitingPeople) {
+			for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
 				r.msgBoardBus();
-				itr.remove();
 			}
 		}
+		mBusStops.get(mCurrentStop).mWaitingPeople.clear();
 
 		state = enumState.ReadyToTravel;
 		stateChanged();

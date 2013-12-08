@@ -162,7 +162,7 @@ public class CityPerson extends CityComponent {
 				else{
 					//do bus stuff??? CHASE MAGGI: 1 Do this
 					if(mUsingBus) {
-						DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
+						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
 					}
 				}
 			}
@@ -201,7 +201,7 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
-		mPerson.print("GUI TAKE BUS");
+		mPerson.print("cs: " + currentStop + " ds: " + destinationStop);
 		mPerson.mCommuterRole.msgAtBusStop(currentStop, destinationStop);
 		mUsingBus = false;
 	}
