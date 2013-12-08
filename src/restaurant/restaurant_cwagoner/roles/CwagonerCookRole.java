@@ -12,6 +12,7 @@ import restaurant.restaurant_cwagoner.gui.CwagonerCookGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
+import base.BaseRole;
 import base.ContactList;
 import base.Item;
 import base.Item.EnumItemType;
@@ -20,16 +21,12 @@ import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
 
-public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook {
+public class CwagonerCookRole extends BaseRole implements CwagonerCook {
+	public RestaurantCookRole mRole;
 	
-	public CwagonerCookRole(Person person) {
-		super(person, 1);
-
-		mItemInventory.put(EnumItemType.STEAK,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.CHICKEN,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.SALAD,DEFAULT_FOOD_QTY);
-        mItemInventory.put(EnumItemType.PIZZA,DEFAULT_FOOD_QTY);
-
+	public CwagonerCookRole(Person person, RestaurantCookRole r) {
+		super(person);
+		mRole = r;
     	revolvingStandTimer.scheduleAtFixedRate(checkStand, 10000, 10000);
 	}
 
@@ -139,14 +136,14 @@ public class CwagonerCookRole extends RestaurantCookRole implements CwagonerCook
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 
 		
-		if (mItemInventory.get(Item.stringToEnum(o.food)) == 0) {
+		if (mRole.mItemInventory.get(Item.stringToEnum(o.food)) == 0) {
 			o.waiter.msgOutOfFood(o.tableNum);
 			gui.DoClearFood();
 			gui.DoGoToHomePosition();
 			Orders.remove(o);
 			return;
 		}
-		decreaseInventory(Item.stringToEnum(o.food));
+		mRole.decreaseInventory(Item.stringToEnum(o.food));
 		
 		
 		// Take food to cooking area

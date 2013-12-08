@@ -25,7 +25,7 @@ public class SmilehamCashierRole extends BaseRole implements SmilehamCashier{
 	public static final int cRESTAURANT_CASH = 100;
 	
 	//Member Variables
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	private String mName;
 	private int mCash;
 	

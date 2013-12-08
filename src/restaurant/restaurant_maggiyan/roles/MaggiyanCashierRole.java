@@ -22,7 +22,7 @@ import city.gui.trace.AlertTag;
  */
 
 public class MaggiyanCashierRole extends BaseRole implements MaggiyanCashier{
-	private RestaurantCashierRole mRole;
+	public RestaurantCashierRole mRole;
 	private String n; 
 	private Double TOTALMONEY = 500.00; 
 	private Menu menu = new Menu(); 

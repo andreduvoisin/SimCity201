@@ -9,7 +9,7 @@ import market.MarketOrder;
  */
 
 public interface MarketWorker {
-	
+
 	public abstract void msgFulfillOrder(MarketOrder o);
 	
 	public abstract void msgOrderFulfilled(MarketOrder o);

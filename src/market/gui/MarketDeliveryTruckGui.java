@@ -11,8 +11,6 @@ import city.gui.SimCityGui;
 
 public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseGui {
 	private MarketDeliveryTruck mAgent;
-	
-	private int mDestinationRestaurant;
 	private boolean isPresent;
 	int mMarketID;
 	
@@ -83,17 +81,17 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
         if(xPos == xDestination && yPos == yDestination) {
         	switch(mCommand) {
         	case goToMarket: {
-   //     		mAgent.msgAnimationAtMarket();
+        		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case goToRestaurant: {
-  //      		mAgent.msgAnimationAtRestaurant(mDestinationRestaurant);
+        		mAgent.msgAnimationAtRestaurant();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
         	case leaveMarket: {
-    //    		mAgent.msgAnimationLeftMarket();
+        		mAgent.msgAnimationAtMarket();
         		mCommand = EnumCommand.noCommand;
         		break;
         	}
@@ -122,7 +120,6 @@ public class MarketDeliveryTruckGui extends CityComponent implements MarketBaseG
 	}
 
 	public void DoGoToRestaurant(int n) {
-		mDestinationRestaurant = n;
 		xDestination = ContactList.cRESTAURANT_LOCATIONS.get(n).mX;
 		yDestination = ContactList.cRESTAURANT_LOCATIONS.get(n).mY;
 		mCommand = EnumCommand.goToRestaurant;

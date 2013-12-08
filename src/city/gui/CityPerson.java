@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 
-import com.sun.activation.registries.MailcapParseException;
-
 import transportation.roles.CommuterRole;
 import base.Block;
 import base.ContactList;
@@ -70,12 +68,14 @@ public class CityPerson extends CityComponent {
     	}
         
         //Check intersections (if going into busy intersection - stay)
-        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
-        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+        for (int iB = 0; iB<ContactList.cINTERSECTIONBLOCKS.size(); iB++) {
+        	boolean xNewInBlock = (x > ContactList.cINTERSECTIONBLOCKS.get(iB).mX1 && x < ContactList.cINTERSECTIONBLOCKS.get(iB).mX2);
+        	boolean yNewInBlock = (y > ContactList.cINTERSECTIONBLOCKS.get(iB).mY1 && y < ContactList.cINTERSECTIONBLOCKS.get(iB).mY2);
         	if (xNewInBlock && yNewInBlock){
-        		x = previousX;
-        		y = previousY;
+        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupied) {
+	        		x = previousX;
+	        		y = previousY;
+        		}
         		return;
         	}
         }
@@ -134,12 +134,12 @@ public class CityPerson extends CityComponent {
 					//calculate corners
 					int currentCornerNum = -1;
 					int destCornerNum = -1;
-					for (int iParkingLot = 0; iParkingLot < ContactList.cPARKINGLOTS.size(); iParkingLot++){
-						if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParkingLot))){
-							currentCornerNum = iParkingLot;
+					for (int iCorner = 0; iCorner < ContactList.cPERSONCORNERS.size(); iCorner++){
+						if (mLocation.equals(ContactList.cPERSONCORNERS.get(iCorner))){
+							currentCornerNum = iCorner;
 						}
-						if (mFinalDestination.equals(ContactList.cPARKINGLOTS.get(iParkingLot))){
-							destCornerNum = iParkingLot;
+						if (destCorner.equals(ContactList.cPERSONCORNERS.get(iCorner))){
+							destCornerNum = iCorner;
 						}
 					}
 					
@@ -148,9 +148,9 @@ public class CityPerson extends CityComponent {
 					//check counter-clockwise
 					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
 					//check BD diagonal
-					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 2;
+					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 2;
 					//check AC diagonal
-					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 3;
+					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 3;
 					else{
 						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
 					}
@@ -159,7 +159,7 @@ public class CityPerson extends CityComponent {
 				}
 				//else bus to same corner
 				else{
-					//do bus stuff??? CHASE MAGGI ANGELICA: 1 Do this
+					//do bus stuff??? CHASE MAGGI: 1 Do this
 //					DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
 				}
 			}
@@ -233,15 +233,15 @@ public class CityPerson extends CityComponent {
 		}
 		//TOP RIGHT
 		if (destination.mX > 300 && destination.mY < 300) {
-			return ContactList.cPERSONCORNERS.get(0); 
+			return ContactList.cPERSONCORNERS.get(1); 
 		}
 		//BOTTOM RIGHT
 		if (destination.mX >= 300 && destination.mY > 300) {
-			return ContactList.cPERSONCORNERS.get(1); 
+			return ContactList.cPERSONCORNERS.get(2); 
 		}
 		//BOTTOM LEFT
 		if (destination.mX < 300 && destination.mY > 300) {
-			return ContactList.cPERSONCORNERS.get(2); 
+			return ContactList.cPERSONCORNERS.get(3); 
 		}
 		return null;
 	}

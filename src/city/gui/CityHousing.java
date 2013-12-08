@@ -28,7 +28,7 @@ public class CityHousing extends CityComponent {
 		
 		image = null;
 		try {
-			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/house.png");
+			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/in-progress-images/house-housing.png");
 			image = ImageIO.read(imageURL);
 		}
 		catch(IOException e) {

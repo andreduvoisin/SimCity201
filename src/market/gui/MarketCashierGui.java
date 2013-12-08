@@ -7,13 +7,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import market.interfaces.MarketCashier;
 import market.roles.MarketCashierRole;
+import market.roles.MarketCustomerRole;
+import market.test.mock.MockCashier;
 import city.gui.SimCityGui;
 
 public class MarketCashierGui implements MarketBaseGui {
-	private MarketCashierRole mAgent;
-
-	private boolean isPresent;
+	private MarketCashier mAgent;
 	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xHome = 100, yHome = 50;
@@ -21,7 +22,6 @@ public class MarketCashierGui implements MarketBaseGui {
 	private int xPos = xStart, yPos = yStart;
 	private int xDestination = xHome, yDestination = yHome;
 //	private int xDestination = xStart, yDestination = yStart;
-	private static final int SIZE = 20;
 	
 	public enum EnumCommand {noCommand, goToPosition, leaveMarket};
 	public EnumCommand mCommand = EnumCommand.noCommand;
@@ -30,8 +30,6 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	public MarketCashierGui(MarketCashierRole agent) {
 		mAgent = agent;
-		
-		isPresent = true;
 		
     	image = null;
     	try {
@@ -43,6 +41,11 @@ public class MarketCashierGui implements MarketBaseGui {
     	}
 	}
 	
+	/* For animation unit testing. */
+	public MarketCashierGui(MockCashier mCashier) {
+		mAgent = mCashier;
+	}
+
 	public void updatePosition() {
         if (xPos < xDestination)
             xPos++;
@@ -75,7 +78,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	public void draw(Graphics2D g) {
 		if(SimCityGui.GRADINGVIEW) {
 			g.setColor(Color.BLACK);
-			g.drawString("MCashier",xPos,yPos);
+			g.drawString("CASH",xPos,yPos);
 		}
 		else
 			g.drawImage(image,xPos,yPos,null);
@@ -96,11 +99,12 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		return mAgent.getPerson() != null ? true : false;
-	}
-	
-	public void setPresent() {
-		isPresent= true;
+		if(mAgent instanceof MarketCustomerRole) {
+			MarketCustomerRole role = (MarketCustomerRole) mAgent;
+			return role.getPerson() != null ? true : false;
+		}
+		else
+			return false;
 	}
 	
 	public int getXPos() {

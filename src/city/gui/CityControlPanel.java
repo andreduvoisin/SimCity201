@@ -24,6 +24,7 @@ import city.gui.trace.AlertLevel;
 import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 import city.gui.trace.TracePanel;
+import city.gui.properties.*;
 
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{
@@ -57,6 +58,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	JComboBox tags;
     String[] tagList = {"All", "Person", "r_duvoisin", "r_cwagoner", "r_jerryweb", "r_maggiyan", "r_davidmca", "r_smileham", "r_tranac", "r_xurex", "Bank", "Market", "Housing", "Transportation", "None"};
 	
+    //Properties Panel
+    @SuppressWarnings("rawtypes")
+	JComboBox places;
+    String[] placeList = {"None", "Gringotts", "Piggy Bank", "Ollivanders", "Honeydukes", "cwagoner", "davidmca", "duvoisin", "jerryweb", "maggiyan", "smileham", "tranac", "xurex"};
+    
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
 		this.city = city;
@@ -504,9 +510,40 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void initProperties() {
+		// North: COMBOBOX
+		JPanel holdPlaces = new JPanel();
+		holdPlaces.setLayout(new BorderLayout());
 		
+		JLabel placesTitle = new JLabel("Select Property:");
+		
+
+    	JButton enable = new JButton("None");
+    	
+	    places = new JComboBox(placeList);
+	    places.setSelectedIndex(0);
+	    places.addActionListener(new PlacesListener(enable, places));
+	    
+	    holdPlaces.add(placesTitle, BorderLayout.NORTH);
+	    holdPlaces.add(places, BorderLayout.CENTER);
+    	
+		/*Dimension buttonDim = enable.getPreferredSize();
+		buttonDim.height -= 4;
+		buttonDim.width = 180;
+		enable.setPreferredSize(buttonDim);*/
+	    
+	    // Add to TraceTab
+	    PropertiesTab.setLayout(new GridLayout(3, 1));
+	    PropertiesTab.add(placesTitle);
+	    PropertiesTab.add(holdPlaces);
+	    PropertiesTab.add(enable);
+	    
+	    //Add ActionListener for Enable
+	    enable.addActionListener(new PlacesButtonListener(enable, places));	
 	}
+	
+	
 	
 	public void actionPerformed(ActionEvent e) {		
 		// JButton
