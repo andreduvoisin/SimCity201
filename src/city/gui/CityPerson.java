@@ -86,17 +86,7 @@ public class CityPerson extends CityComponent {
 
         //B* Algorithm
         List<Block> blocks = null;
-        blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
-//        switch(mDestinationPathType){
-//	        case 0: 
-//	        case 1: 
-//	        case 2:
-//	        case 3:
-//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
-//	        case 4:
-//	        	blocks = ContactList.cPERSONBLOCKS; break;
-//	        	//SHANE: 3 combine carblocks and personblocks into blocks
-//        }
+        blocks = ContactList.cNAVBLOCKS.get(4);
         
         for (Block iBlock : blocks){
         	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);

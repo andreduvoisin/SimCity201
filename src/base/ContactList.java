@@ -236,12 +236,12 @@ public class ContactList {
 		list.add(list3);
 		list.add(list4);
 		//add general blocks
-		for (List<Block> iList : list){
-			iList.add(cCARBLOCKA);
-			iList.add(cCARBLOCKB);
-			iList.add(cCARBLOCKC);
-			iList.add(cCARBLOCKD);
-		}
+//		for (List<Block> iList : list){
+//			iList.add(cCARBLOCKA);
+//			iList.add(cCARBLOCKB);
+//			iList.add(cCARBLOCKC);
+//			iList.add(cCARBLOCKD);
+//		}
 		list0 = new ArrayList<Block>(); //clear null list for walking
 		list1.add(cCARBLOCK0);
 		list1.add(cCARBLOCK1);
