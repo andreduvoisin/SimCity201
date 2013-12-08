@@ -28,9 +28,15 @@ public class CityPerson extends CityComponent {
 	static final int yIndex = 10;
 	
 	public boolean visible;
-
+	
+	/* 0 - Car Paths: AB, BC, CD, DA
+	 * 1 - Car Paths: BD, DB
+	 * 2 - Car Paths: AC, CA
+	 * 3 - Walking
+	 */
+	public int mDestinationPath = -1;
+	
 //	Queue<Location> goToPosition = new LinkedList<Position>();
-	//static int numTicks = 0;
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
 		super(x, y, Color.ORANGE, person.getName());
@@ -43,8 +49,6 @@ public class CityPerson extends CityComponent {
 
 	@Override
 	public void updatePosition() {
-		//numTicks++;
-		
 		int previousX = x;
 		int previousY = y;
 		
@@ -54,6 +58,7 @@ public class CityPerson extends CityComponent {
         if (y < yDestination)		y++;
         else if (y > yDestination)	y--;
         
+        //if at destination
         if (x == xDestination && y == yDestination) {
         	if(mNextDestination != null){
         		DoGoToNextDestination();
@@ -61,38 +66,40 @@ public class CityPerson extends CityComponent {
         		this.disable(); 
         		mPerson.msgAnimationDone();
         	}
-       
-        	
     	}
+        
+        //
 
 
         //B* Algorithm
         boolean xNewInBlock = false;
         boolean yNewInBlock = false;
         
+        //SHANE: 0 New B* Algorithm
         
+        List<Block> blocks = null;
+        switch(mDestinationPath){
+	        case 0: 
+	        case 1: 
+	        case 2:
+	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPath); break;
+	        case 3:
+	        	blocks = ContactList.cPERSONBLOCKS;
+        }
         
+        for (Block iBlock : blocks){
+//        	if ()
+        }
         
-        /*
-        boolean xNewInBlock = 	(((x > ContactList.cGRID_POINT1-5) && (x < ContactList.cGRID_POINT2)) || 
-								((x > ContactList.cGRID_POINT3-5) && (x < ContactList.cGRID_POINT4)) ||
-								((x > ContactList.cGRID_POINT5-5) && (x < ContactList.cGRID_POINT6)) ||
-								((x > ContactList.cGRID_POINT7-5) && (x < ContactList.cGRID_POINT8))
-								);
-		boolean yNewInBlock = 	(((y > ContactList.cGRID_POINT1-5) && (y < ContactList.cGRID_POINT2)) || 
-								((y > ContactList.cGRID_POINT3-5) && (y < ContactList.cGRID_POINT4)) ||
-								((y > ContactList.cGRID_POINT5-5) && (y < ContactList.cGRID_POINT6)) ||
-								((y > ContactList.cGRID_POINT7-5) && (y < ContactList.cGRID_POINT8))
-								);
         
         if (xNewInBlock && yNewInBlock){
-        	if (xOldInBlock && yNewInBlock){
+        	if (yNewInBlock){
         		y = previousY;
         	}else{
         		x = previousX;
         	}
         }
-        */
+        
 	}
 	
 	public void paint(Graphics g) {
@@ -114,32 +121,6 @@ public class CityPerson extends CityComponent {
 		}
 	}
 	
-		
-//		//atDestination = false;
-//		this.enable();
-//		mNextDestination = location;
-//		
-//		if (mNextDestination == null){
-//			
-//		//set final location and go to corner of block first
-//		mNextDestination = location;
-//		if (location.mX < 180){
-//			xDestination = 95;
-//		}else{
-//			xDestination = 500;
-//		}
-//		if (location.mY < 180){
-//			yDestination = 95;
-//		}else{
-//			yDestination = 500;
-//		}
-//		
-//		//SHANE: Change up to add queue of destinations
-//		
-//		xDestination = mNextDestination.mX;
-//		yDestination = mNextDestination.mY;
-//		mNextDestination = null;
-//		}
 	
 	//MAGGI: reorganize once done with transportation 
 	//Drives to parking lot closest to destination 
@@ -179,6 +160,7 @@ public class CityPerson extends CityComponent {
 			yDestination = mNextDestination.mY;
 			mNextDestination = null; 
 		}
+		
 		// Otherwise, can get to a closer corner by taking the bus
 		else {
 			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
@@ -207,10 +189,6 @@ public class CityPerson extends CityComponent {
 	
 	/**
 	 * Finds closest corner location to desired destination
-	 * <pre>
-	 * 3  0 //CHASE: do these correlate with busStop numbers?
-	 * 2  1
-	 * </pre>
 	 * @param destination Target position in form of a Location object
 	 * @return (Location object) corners.get(determined nearest corner)
 	 */
@@ -258,7 +236,7 @@ public class CityPerson extends CityComponent {
 
 	@Override
 	public void draw(Graphics2D g) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 		
 	}
 

@@ -155,6 +155,11 @@ public class ContactList {
 	}
 	
 	
+	//INTERSECTION BLOCKS
+	public static List<Block> cINTERSECTIONBLOCKS;
+	
+	
+	
 	//PERSON B* BLOCKS
 	public static List<Block> cPERSONBLOCKS;
 	public static final Block cPERSONBLOCK0  = new Block(cGRID_POINT1, cGRID_POINT2, cGRID_POINT1, cGRID_POINT2);
@@ -201,12 +206,12 @@ public class ContactList {
 	//cCARBLOCKS[0] = Paths: AB, BC, CD, DA
 	public static final Block cCARBLOCK0 = new Block(100, 80, 500, 520);
 	public static final Block cCARBLOCK1 = new Block(80, 100, 520, 500);
-	//cCARBLOCKS[1] = Paths: AC, CA
+	//cCARBLOCKS[1] = Paths: BD, DB
 	public static final Block cCARBLOCK2 = new Block(90, 90, 280, 300);
 	public static final Block cCARBLOCK3 = new Block(90, 90, 300, 280);
 	public static final Block cCARBLOCK4 = new Block (300, 320, 500, 500); 
 	public static final Block cCARBLOCK5 = new Block (320, 300, 500, 500); 
-	//cCARBLOCKS[2] = Paths: BD, DB
+	//cCARBLOCKS[2] = Paths: AC, CA
 	public static final Block cCARBLOCK6 = new Block (100, 300, 280, 500); 
 	public static final Block cCARBLOCK7 = new Block (100, 320, 300, 500); 
 	public static final Block cCARBLOCK8 = new Block (300, 100, 500, 280); 
