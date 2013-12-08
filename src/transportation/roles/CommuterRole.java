@@ -1,10 +1,8 @@
 package transportation.roles;
 
 
-import transportation.interfaces.TransportationRider;
-
 import transportation.TransportationBus;
-
+import transportation.interfaces.TransportationRider;
 import base.BaseRole;
 import base.Location;
 import base.interfaces.Person;

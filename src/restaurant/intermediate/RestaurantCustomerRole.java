@@ -5,7 +5,6 @@ import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
-import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;

@@ -16,7 +16,6 @@ import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
-import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_davidmca.DavidRestaurant;
