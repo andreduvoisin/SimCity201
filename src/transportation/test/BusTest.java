@@ -45,6 +45,11 @@ public class BusTest extends TestCase {
 					bus.mBusStops.get(i).mWaitingPeople.size() == 0);
 		}
 
-		
+		// Add person to some waiting list
+		bus.msgNeedARide(rider, 0);
+
+		assertTrue("Bus's log should contain \"Received msgNeedARide\"; instead, last logged event is "
+				+ bus.log.getLastLoggedEvent(),
+			bus.log.containsString("Received msgNeedARide"));
 	}
 }
