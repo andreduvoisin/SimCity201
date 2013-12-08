@@ -157,12 +157,6 @@ public class CityPerson extends CityComponent {
 		}
 	}
 	
-	public void DoDriveToDestination2(Location location){
-		mNextDestination = location; 
-		//PATHS: AB, BC, CD, DA
-		if(y == mNextDestination.mY ){
-			
-		}
 		
 //		//atDestination = false;
 //		this.enable();
@@ -189,50 +183,7 @@ public class CityPerson extends CityComponent {
 //		yDestination = mNextDestination.mY;
 //		mNextDestination = null;
 //		}
-		
-	}
 	
-	public void DoGoToDestinationOld(Location destination){
-		this.enable(); 
-		mNextDestination = destination;//correct?
-
-		if(mPerson.hasCar()){
-			//MAGGI ANGELICA: write car gui code
-			//Suggestion: Just drive to the building..?
-		}
-
-		/* Given no car, what if it's closer to walk straight there than to take a bus?
-		 * NOTE: this could cause people to seldom take the bus, which would be bad. We'll see.
-		 *
-		 * totalBusDistance = distance to nearest corner
-		 * 						+ distance from bus-exit corner to destination
-		 * totalWalkDist ance = distance from current location to destination
-		 *
-		 * if totalWalkDistance < totalBusDistance, then walk
-		 */
-
-		Location myLocation = new Location(x, y);
-		Location cornerNearCurrent = findNearestCorner(myLocation);
-		Location cornerNearDest = findNearestCorner(destination);
-		
-		//CHASE: Is it better to just calculate the closest corner vs distance b/c 
-		// 		 we don't know if it's safe to assume b* will take the path specified in totalBusDistance
-		int totalBusDistance = Math.abs(cornerNearCurrent.mX - x)
-								+ Math.abs(cornerNearCurrent.mY - y)
-								+ Math.abs(cornerNearDest.mX - destination.mX)
-								+ Math.abs(cornerNearDest.mY - destination.mY);
-
-		int totalWalkDistance = Math.abs(destination.mX - x)
-								+ Math.abs(destination.mY - y);
-
-		if (totalWalkDistance < totalBusDistance) {
-			DoWalkToDestination();
-		}
-		else{
-			DoWalkToNearestCorner(myLocation); // created earlier
-			//Checks if the closest corner to person is also closest corner to destination
-		}
-	}
 	//MAGGI: reorganize once done with transportation 
 	//Drives to parking lot closest to destination 
 	public void DoDriveToDestination(Location location){
@@ -275,13 +226,6 @@ public class CityPerson extends CityComponent {
 		else {
 			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
 		}	
-	}
-	
-	public void DoWalkToNearestCorner(Location location){
-		Location cornerLocation = findNearestCorner(location);
-		xDestination = cornerLocation.mX;
-		yDestination = cornerLocation.mY; 
-		
 	}
 	
 	public void DoWalkToDestination(){
