@@ -8,6 +8,7 @@ import java.util.concurrent.Semaphore;
 
 import javax.imageio.ImageIO;
 
+import market.Market;
 import market.MarketOrder;
 import market.roles.MarketWorkerRole;
 import base.Item.EnumItemType;
@@ -16,9 +17,7 @@ import city.gui.SimCityGui;
 public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorkerRole mAgent;
 	private int mNum;
-	
-	public MarketItemsGui mItems;
-	
+
 	private MarketOrder mOrder = null;
 	
 	private static final int xStart = -20, yStart = -20;
@@ -42,7 +41,6 @@ public class MarketWorkerGui implements MarketBaseGui {
 	public MarketWorkerGui(MarketWorkerRole agent, int i) {
 		mAgent = agent;
 		mNum = i;
-		mItems = mAgent.mMarket.mItemsGui;
         xHome = xBase + 30*(i % 5);
         yHome = yBase - 30*(int)(i/5);
 
@@ -126,8 +124,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
-	for(EnumItemType item : mOrder.mItems.keySet()) {
-			MarketCoordinates c = mItems.getItemCoordinates(item);
+		for(EnumItemType item : mOrder.mItems.keySet()) {
+			MarketCoordinates c = mAgent.mMarket.mItemsGui.getItemCoordinates(item);
 			xDestination = c.getX()-30;
 			yDestination = c.getY();
 			mCommand = EnumCommand.goToItem;
@@ -138,8 +136,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 				e.printStackTrace();
 			}
 			mCommand = EnumCommand.noCommand;
-			mItems.decreaseItemCount(item, mOrder.mItems.get(item));		
-	}
+			mAgent.mMarket.mItemsGui.decreaseItemCount(item, mOrder.mItems.get(item));		
+		}
 		mAgent.msgOrderFulfilled(mOrder);
 		mOrder = null;
 	}
@@ -179,9 +177,5 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public int getYPos() {
 		return yPos;
-	}
-	
-	public void setItemsGui(MarketItemsGui g) {
-		mItems = g;
 	}
 }

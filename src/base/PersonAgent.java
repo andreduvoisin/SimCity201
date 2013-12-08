@@ -46,7 +46,7 @@ public class PersonAgent extends Agent implements Person {
 	public static int sSSN = 0;
 	public static int sRestaurantCounter = 0;
 	public static int sHouseCounter = 0;
-	
+	public static int sBaseInventory = 0;
 	//Roles and Job
 	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
 										MARKET, 	//cashier, worker...
@@ -68,7 +68,7 @@ public class PersonAgent extends Agent implements Person {
 	private int mTimeShift;
 	private double mCash;
 	private double mLoan;
-	private boolean mHasCar;	//ALL ANGELICA MAGGI: 3 car will be implemented later
+	private boolean mHasCar;	//ALL MAGGI: 3 car will be implemented later
 	private boolean mAtJob;		//used in PAEA
 	public CityPerson mPersonGui;
 
@@ -142,6 +142,13 @@ public class PersonAgent extends Agent implements Person {
 		mFriends = new ArrayList<Person>();
 		mEvents = new ArrayList<Event>();
 		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
+			//populate inventory
+			mItemInventory.put(EnumItemType.CAR,0);
+			mItemInventory.put(EnumItemType.CHICKEN,sBaseInventory);
+			mItemInventory.put(EnumItemType.PIZZA,sBaseInventory);
+			mItemInventory.put(EnumItemType.STEAK,sBaseInventory);
+			mItemInventory.put(EnumItemType.SALAD,sBaseInventory);
+		
 		mItemsDesired = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 		mHomeLocations = Collections.synchronizedSet(new HashSet<Location>());
 		
@@ -417,9 +424,11 @@ public class PersonAgent extends Agent implements Person {
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
 				if(ContactList.sOpenPlaces.get(iLocation)){
+					String name = mName;
 					mPersonGui.DoGoToDestination(iLocation);
+					setName("Visiting");
 					acquireSemaphore(semAnimationDone);
-					print("Visiting "+iLocation.toString());
+					setName(name);
 				}
 			}
 		}
