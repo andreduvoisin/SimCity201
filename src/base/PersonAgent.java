@@ -552,7 +552,25 @@ public class PersonAgent extends Agent implements Person {
 		}		
 	}
 	
-	private void goToMarket() {		
+
+	private void goToMarket() {
+
+		//mCommuterRole.mActive = true;
+		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
+		//acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+
+		//ANGELICA: hack
+		mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
+		mItemsDesired.put(EnumItemType.CHICKEN, sBaseWanted);
+
+
+		mCommuterRole.mActive = true;
+		mCommuterRole.setLocation(ContactList.cMARKET1_LOCATION);
+
+	//}	
+		//SHANE: is this supposed to be one function?
+	//private void goToMarket() {		
 		switch(mSSN % 4) {
 			case 0:
 				mItemsDesired.put(EnumItemType.PIZZA, sBaseWanted);
@@ -617,9 +635,20 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goParty(EventParty event) {
 		print("Going to party");
+
+		mPersonGui.DoGoToDestination(event.mLocation);
+		//acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
+		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
+		SimCityGui.getInstance().cityview.mCityHousingList.get(event.mHost
+				.getHousingRole().getHouse().mHouseNum).mPanel
+				.addGui((Gui) ((HousingBaseRole) getHousingRole()).gui);
+		((HousingBaseRole) getHousingRole()).gui.DoParty();
+
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(event.mLocation);
 		mCommutingTo = EnumCommuteTo.PARTY;
+
 	}
 
 	private void inviteToParty() {
