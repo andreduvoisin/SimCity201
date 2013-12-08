@@ -72,7 +72,12 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	private void DriveToDestination(){
 		if(inAHouse()){
-			mPerson.getGui().DoDriveToDestination(mDestination); 
+			if(!goingToFarHouse(mDestination)){
+				mPerson.getGui().DoGoToDestination(mDestination);
+			}
+			else{
+				mPerson.getGui().DoDriveToDestination(mDestination); 
+			}
 		}
 		else{
 			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
