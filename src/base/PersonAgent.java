@@ -279,7 +279,8 @@ public class PersonAgent extends Agent implements Person {
 			//bank is closed on weekends
 			if (!(Time.IsWeekend()) || (mJobType != EnumJobType.BANK)){
 				mAtJob = true;
-				goToJob();
+				//goToJob();
+				testGoToJob(); 
 			}
 			mEvents.add(new Event(event, 24));
 		}
