@@ -27,7 +27,7 @@ import city.gui.trace.AlertTag;
 public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	MarketWorkerGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
-	Market mMarket;
+	public Market mMarket;
 	int mMarketID;
 	
 	private List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());

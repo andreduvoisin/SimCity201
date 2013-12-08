@@ -22,8 +22,6 @@ public class ConfigParser {
 		//Instantiate the base roles before creating the people
 //		boolean mInstantiateRoles = true;
 		
-		SortingHat.InstantiateBaseRoles();
-		
 		while (scanFile.hasNext()) {
 			//Order of Inputs: Job Type (BANK, MARKET, RESTAURANT, NONE), Cash, Name
 			Scanner scanPerson = new Scanner(scanFile.nextLine()); //separate by person
@@ -56,12 +54,11 @@ public class ConfigParser {
 			//Instantiate Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
-			//Events
-			
+			//Events			
 			if(jobType != EnumJobType.NONE)
 				person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
 //			person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-//			person.msgAddEvent(new Event(EnumEventType.EAT, -1));
+			person.msgAddEvent(new Event(EnumEventType.EAT, 0));
 //			person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 1));
 
 			

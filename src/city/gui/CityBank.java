@@ -19,7 +19,7 @@ public class CityBank extends CityComponent {
 	BufferedImage image;
 
 	public CityBank(int x, int y) {
-		super(x, y, Color.green, "Unnamed Bank");
+		super(x, y, Color.blue, "Unnamed Bank");
 		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
 		
 		image = null;
@@ -33,7 +33,7 @@ public class CityBank extends CityComponent {
 	}
 
 	public CityBank(int x, int y, String ID) {
-		super(x, y, Color.green, ID);
+		super(x, y, Color.blue, ID);
 		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
 		bankName = ID;
 		
@@ -48,7 +48,7 @@ public class CityBank extends CityComponent {
 	}
 	
 	public CityBank(Location location, String ID) {
-		super(location.mX, location.mY, Color.green, ID);
+		super(location.mX, location.mY, Color.blue, ID);
 		rectangle = new Rectangle(x, y, BANKWIDTH, BANKHEIGHT);
 		bankName = ID;
 		

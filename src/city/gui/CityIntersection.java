@@ -36,9 +36,11 @@ public class CityIntersection extends CityComponent {
 		for (CityComponent c: SimCityPanel.getInstance().movings) {
         	if (this.collidesWith(c)) {
         		mOccupied = true;
+        		super.color = Color.red;        		
         	}
         	else { 
         		mOccupied = false;
+        		super.color = Color.green;
         	}
         }
 	 }
