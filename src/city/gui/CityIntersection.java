@@ -48,7 +48,7 @@ public class CityIntersection extends CityComponent {
 	@Override
 	public void updatePosition() {
 		synchronized (SimCityPanel.getInstance().movings) {
-			System.out.println(SimCityPanel.getInstance().movings.size());
+			//System.out.println(SimCityPanel.getInstance().movings.size());
 			for (CityComponent c : SimCityPanel.getInstance().movings) {
 				if (this.collidesWith(c)) {
 					mOccupied = true;

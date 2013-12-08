@@ -95,8 +95,7 @@ public class PersonAgent extends Agent implements Person {
 		switch (jobType){
 			case BANK:
 				jobRole = SortingHat.getBankRole(mTimeShift);
-				if(mTimeShift==Time.GetShift()){
-					jobRole.setPerson(this);
+				if(mTimeShift==Time.GetShift() && jobRole != null){
 					print("Bank role person auto set: "+jobRole.toString());
 					if (jobRole instanceof BankTellerRole){
 						ContactList.sBankList.get(((BankTellerRole)jobRole).mBankID).mGuard.msgReadyToWork((BankTellerRole)jobRole);
