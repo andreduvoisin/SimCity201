@@ -168,7 +168,26 @@ public class ContactList {
 	public static final Block cPERSONBLOCK13 = new Block(cGRID_POINT3, cGRID_POINT4, cGRID_POINT7, cGRID_POINT8);
 	public static final Block cPERSONBLOCK14 = new Block(cGRID_POINT5, cGRID_POINT6, cGRID_POINT7, cGRID_POINT8);
 	public static final Block cPERSONBLOCK15 = new Block(cGRID_POINT7, cGRID_POINT8, cGRID_POINT7, cGRID_POINT8);
-	
+	static{
+		List<Block> list = new ArrayList<Block>();
+		list.add(cPERSONBLOCK0);
+		list.add(cPERSONBLOCK1);
+		list.add(cPERSONBLOCK2);
+		list.add(cPERSONBLOCK3);
+		list.add(cPERSONBLOCK4);
+		list.add(cPERSONBLOCK5);
+		list.add(cPERSONBLOCK6);
+		list.add(cPERSONBLOCK7);
+		list.add(cPERSONBLOCK8);
+		list.add(cPERSONBLOCK9);
+		list.add(cPERSONBLOCK10);
+		list.add(cPERSONBLOCK11);
+		list.add(cPERSONBLOCK12);
+		list.add(cPERSONBLOCK13);
+		list.add(cPERSONBLOCK14);
+		list.add(cPERSONBLOCK15);
+		cPERSONBLOCKS = Collections.unmodifiableList(list);
+	}
 	
 	
 	//CAR B* BLOCKS
