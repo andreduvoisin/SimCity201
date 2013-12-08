@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import transportation.interfaces.TransportationRider;
+import transportation.roles.CommuterRole;
 import base.Agent;
-import base.Location;
+import base.PersonAgent;
 import city.gui.CityBus;
 import city.gui.trace.AlertTag;
 
@@ -20,10 +21,10 @@ public class TransportationBus extends Agent {
 	public TransportationBus() {
 		instance = this;
 
-		mGui = new CityBus(this, mCurrentStop);
+		mGui = new CityBus(this);
 
-		for (Location iLoc: base.ContactList.cBUS_STOPS) {
-			mBusStops.add(new TransportationBusStop(iLoc));
+		for (int i = 0; i < base.ContactList.cBUS_STOPS.size(); i++) {
+			mBusStops.add(new TransportationBusStop());
 		}
 
 		mCurrentStop = 0;
@@ -39,7 +40,7 @@ public class TransportationBus extends Agent {
 	CityBus mGui;
 	int mCurrentStop;
 	
-	enum enumState { ReadyToTravel, ReadyToUnload, ReadyToBoard }
+	enum enumState { traveling, ReadyToTravel, ReadyToUnload, ReadyToBoard }
 	enumState state;
 
 
@@ -51,10 +52,11 @@ public class TransportationBus extends Agent {
 	 * From GUI - bus arrived at stop
 	 */
 	public void msgGuiArrivedAtStop() {
-		print("msgGuiArrivedAtStop(" + mCurrentStop + ")");
-
+		mCurrentStop = (mCurrentStop + 1) % mBusStops.size();
 		state = enumState.ReadyToUnload;
 		stateChanged();
+
+		print("msgGuiArrivedAtStop(" + mCurrentStop + ")");
 	}
 
 	/**
@@ -63,7 +65,7 @@ public class TransportationBus extends Agent {
 	 * @param riderCurrentStop The stop number the Person is at
 	 */
 	public void msgNeedARide(TransportationRider r, int riderCurrentStop) {
-		print("msgNeedARide(current stop: " + riderCurrentStop + ")");
+		print("Received msgNeedARide(" + ((CommuterRole)r).getName() + ", " + riderCurrentStop + ")");
 		mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 	}
 
@@ -74,7 +76,7 @@ public class TransportationBus extends Agent {
 	 * @param riderDestination The stop number the Person is going to
 	 */
 	public void msgImOn(TransportationRider r) {
-		print("msgImOn()");
+		print("Received msgImOn(" + ((CommuterRole)r).getName() + ")");
 
 		mBusStops.get(mCurrentStop).mWaitingPeople.remove(r);
 		mRiders.add(r);
@@ -109,7 +111,7 @@ public class TransportationBus extends Agent {
 		
 		if (state == enumState.ReadyToTravel) {
 			AdvanceToNextStop();
-			return true;
+			return false;
 		}
 
 		return false;
@@ -126,7 +128,7 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance of which to check rider list
 	 */
 	private void TellRidersToGetOff() {
-		//print("TellRidersToGetOff()");
+		print("TellRidersToGetOff()");
 
 		for (TransportationRider iRider : mRiders) {
 			iRider.msgAtStop(mCurrentStop);
@@ -134,7 +136,6 @@ public class TransportationBus extends Agent {
 
 		state = enumState.ReadyToBoard;
 		stateChanged();
-
 	}
 
 	/**
@@ -157,10 +158,9 @@ public class TransportationBus extends Agent {
 	 * @param bus BusInstance to advance
 	 */
 	private void AdvanceToNextStop() {
-		//print("AdvanceToNextStop()");
+		print("AdvanceToNextStop()");
 
-		mCurrentStop = (mCurrentStop + 1) % mBusStops.size();
-		state = enumState.ReadyToTravel;
+		state = enumState.traveling;
 		mGui.DoAdvanceToNextStop();
 	}
 
