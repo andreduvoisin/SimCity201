@@ -72,24 +72,19 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	}
 	
 	private void DriveToDestination(){
-		mPerson.getGui().DoDriveToDestination(mDestination); 
-	}
-	
-	private void TryDrivingToDestination(){
-		if(mCurrentLocation == mHousingLocation){
+		if(inAHouse()){
 			mPerson.getGui().DoDriveToDestination(mDestination); 
 		}
-//		else{
-//			if(mDestination == mHousingLocation){
-//				mPerson.getGui().DoDriveToDestination(); 
-//				mPerson.getGui().testDoGoToDestination(mDestination);
-//				mCurrentLocation = mDestination; 
-//			}
-//			else{
-//				
-//			}
-//		}
-	
+		else{
+			if(destinationInSameBlock(mDestination)){
+				mPerson.getGui().DoGoToDestination(mDestination);
+			}
+			else{
+				mPerson.getGui().DoDriveToDestination(mDestination); 
+			}
+		}
+		
+		
 	}
 	
 	private void GoToDestination(){
@@ -135,30 +130,44 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//UTILITES
 	//Checks if destination is in same block as current location
-	public boolean inSameBlock(Location location){
+	public boolean destinationInSameBlock(Location destination){
 		//LEFT BLOCKS
-		if(mCurrentLocation.mX < 300 && location.mX < 300){
+		if(mCurrentLocation.mX < 300 && destination.mX < 300){
 			//TOP LEFT
-			if(mCurrentLocation.mY < 300 && location.mX < 300){
+			if(mCurrentLocation.mY < 300 && destination.mX < 300){
 				return true; 
 			}
 			//BOTTOM LEFT
-			else if(mCurrentLocation.mY > 300 && location.mX < 300){
+			else if(mCurrentLocation.mY > 300 && destination.mX < 300){
 				return true;
 			}
 		}
 		//RIGHT BLOCKS
-		else if(mCurrentLocation.mX > 300 && location.mX > 300){
+		else if(mCurrentLocation.mX > 300 && destination.mX > 300){
 			//TOP RIGHT
-			if(mCurrentLocation.mY < 300 && location.mX < 300){
+			if(mCurrentLocation.mY < 300 && destination.mX < 300){
 				return true; 
 			}
 			//TOP LEFT
-			else if(mCurrentLocation.mY > 300 && location.mX < 300){
+			else if(mCurrentLocation.mY > 300 && destination.mX < 300){
 				return true;
 			}
 		}
 		return false; 
+	}
+	
+	public boolean inAHouse(){
+		if(mCurrentLocation == mHousingLocation){
+			return true; 
+		}
+		else if(mCurrentLocation.mX < 100 
+				|| mCurrentLocation.mX > 500 
+				|| mCurrentLocation.mY < 100 
+				|| mCurrentLocation.mY > 500){
+			
+			return true; 
+		}
+		return false;
 	}
 	
 	public void setCurrentLocation(Location location){
