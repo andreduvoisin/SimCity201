@@ -15,7 +15,7 @@ import base.BaseRole;
 
 public class TranacRestaurant {
 	public static TranacRestaurant instance;
-	public List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
+	public static List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
 	
     public static TranacCashierRole mCashier;
     public static TranacCookRole mCook;
@@ -28,7 +28,7 @@ public class TranacRestaurant {
     	instance = this;
     }
     
-    public void addGui(Gui gui) {
+    public static void addGui(Gui gui) {
     	synchronized(guis) {
     		guis.add(gui);
     	}

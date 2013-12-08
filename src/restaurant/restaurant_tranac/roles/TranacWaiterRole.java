@@ -50,7 +50,8 @@ public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 	public TranacWaiterRole(Person p) {
 		super(p);
 		waiterGui = new TranacWaiterGui(this, TranacRestaurant.getNumWaiters());
-		TranacRestaurant.getInstance().addPerson(this);
+		TranacRestaurant.addPerson(this);
+		TranacRestaurant.addGui(waiterGui);
 		
 		mHost = TranacRestaurant.getHost();
 		mCook = TranacRestaurant.getCook();

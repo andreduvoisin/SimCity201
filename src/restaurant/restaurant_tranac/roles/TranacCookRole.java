@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import restaurant.intermediate.RestaurantCookRole;
+import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.gui.TranacCookGui;
 import restaurant.restaurant_tranac.interfaces.TranacCook;
 import restaurant.restaurant_tranac.interfaces.TranacWaiter;
@@ -54,6 +55,8 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         public TranacCookRole(Person p, RestaurantCookRole r) {
                 super(p);
                 cookGui = new TranacCookGui(this);
+                TranacRestaurant.addGui(cookGui);
+                TranacRestaurant.addPerson(this);
                 mRole = r;
                 
                 /*ANGELICA: z

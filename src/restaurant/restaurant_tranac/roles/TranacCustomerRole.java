@@ -68,12 +68,10 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	public TranacCustomerRole() {
 		super(null);
 		customerGui = new TranacCustomerGui(this);
-		TranacRestaurant.getInstance().addPerson(this);
-		
+		TranacRestaurant.addPerson(this);
+		TranacRestaurant.addGui(customerGui);
 		num = 0;
 
-		customerGui = new TranacCustomerGui(this);
-		TranacRestaurant.getInstance().addGui(customerGui);
 		// randomly chooses waiting unless set later
 		if (rGenerator.nextInt() % 2 == 0)
 			willWait = false;
