@@ -24,7 +24,6 @@ public class CityRestaurant extends CityComponent {
 
 	public CityRestaurant(Location location, String ID) {
 		super(location.mX, location.mY, Color.red, ID);
-		rectangle = new Rectangle(x, y, 100, 60);
 		restaurantName = ID;
 	}
 	

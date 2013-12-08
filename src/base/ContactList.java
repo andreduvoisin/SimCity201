@@ -79,10 +79,10 @@ public class ContactList {
 	//GRID LOCATIONS AND INTERFACE (Used here and in B*)
 	public static int cGRID_POINT1 = 100;
 	public static int cGRID_POINT2 = 180;
-	public static int cGRID_POINT3 = 205;
-	public static int cGRID_POINT4 = 285;
-	public static int cGRID_POINT5 = 315;
-	public static int cGRID_POINT6 = 395;
+	public static int cGRID_POINT3 = 200;
+	public static int cGRID_POINT4 = 280;
+	public static int cGRID_POINT5 = 320;
+	public static int cGRID_POINT6 = 400;
 	public static int cGRID_POINT7 = 420;
 	public static int cGRID_POINT8 = 500;
 	
@@ -235,10 +235,10 @@ public class ContactList {
 	
 	
 	//BANKS, MARKETS
-	public static final Location cBANK1_LOCATION = gridLocation(0, 0);
-	public static final Location cBANK2_LOCATION = gridLocation(3, 0);
-	public static final Location cMARKET1_LOCATION = gridLocation(0, 3);
-	public static final Location cMARKET2_LOCATION = gridLocation(3, 3);
+	public static final Location cBANK1_LOCATION = gridLocation(1, 1);
+	public static final Location cBANK2_LOCATION = gridLocation(2, 1);
+	public static final Location cMARKET1_LOCATION = gridLocation(1, 2);
+	public static final Location cMARKET2_LOCATION = gridLocation(2, 2);
 	
 	
 	//RESTAURANTS
