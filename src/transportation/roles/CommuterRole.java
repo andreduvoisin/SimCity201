@@ -131,9 +131,10 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	}
 	
 	private void GoToDestination(){
-		if(mDestination != null)
+		if(mDestination != null){
 			mPerson.getGui().DoGoToDestination(mDestination);
 			mCurrentLocation = mDestination; 
+		}
 	}
 	
 	public void setLocation(Location location){
