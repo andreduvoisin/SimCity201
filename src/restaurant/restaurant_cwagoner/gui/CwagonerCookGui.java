@@ -23,13 +23,14 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
     private int size = 20, plateSize = 20;
     private Location position = new Location(0, 0),
     				destination = new Location(0, 0),
-    				homePos = new Location(200, 350),
-    				fridgePos = new Location(200, 300),
-    				cookingPos = new Location(300, 350),
-    				platingPos = new Location(180, 350);
+    				homePos = new Location(200, 350);
     private Dimension fridgeDim = new Dimension(100, 50);
 
-    BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
+
+	static Location fridgePos = new Location(200, 300),
+					cookingPos = new Location(300, 350),
+					platingPos = new Location(180, 350);
+    static BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
 
     public CwagonerCookGui(CwagonerCookRole c, CwagonerAnimationPanel panel) {
     	super(c, panel);
@@ -73,14 +74,6 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
     }
 
     public void draw(Graphics2D g) {
-    	// Stove
-		g.drawImage(stoveImg, cookingPos.mX, cookingPos.mY, null);
-		
-		// Plating area
-		g.drawImage(tableImg, platingPos.mX, platingPos.mY, null);
-
-    	// Fridge
-		g.drawImage(fridgeImg, fridgePos.mX, fridgePos.mY, null);
 
     	// Cook himself
     	g.drawImage(cookImg, position.mX, position.mY, null);
