@@ -23,7 +23,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	protected SimCityGui city;
 	protected List<CityComponent> statics;
 	public List<CityComponent> movings;
-	public List<CityIntersection> intersections = new ArrayList<CityIntersection>();
+	public List<CityIntersection> intersections;
 	
 	protected Color background;
 	protected Timer timer;
@@ -35,6 +35,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		instance = this;
 		statics = Collections.synchronizedList(new ArrayList<CityComponent>());
 		movings = Collections.synchronizedList(new ArrayList<CityComponent>());
+		intersections = Collections.synchronizedList(new ArrayList<CityIntersection>());
 		timer = new Timer(10, this);
 		timer.start();
 		
@@ -51,8 +52,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	public void paint(Graphics g) {
 		g.setColor(background);
 		g.fillRect(0, 0, getWidth(), getHeight());
-		moveComponents();
 		drawComponents(g);
+		moveComponents();
 	}
 	
 	
@@ -66,6 +67,12 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 			}
 		}
 		
+		synchronized(intersections) {
+			for (CityIntersection c:intersections) {
+				c.paint(g);
+			}
+		}
+		
 		synchronized(movings) {
 			for (CityComponent c:movings) {
 				c.paint(g);
@@ -74,14 +81,25 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	}
 	
 	public void moveComponents() {
+		
 		synchronized(movings) {
 			for (CityComponent c:movings) {
 				c.updatePosition();
 			}
-			for (CityComponent c:intersections) {
-				c.updatePosition();
+		}
+		synchronized(intersections) {
+			for (CityIntersection ci:intersections) {
+				ci.setOccupant(null);
+				synchronized(movings) {
+					for (CityComponent cc: movings) {
+						if (ci.collidesWith(cc)) {
+							ci.setOccupant(cc);
+						}
+					}
+				}
 			}
 		}
+		
 	}
 	/*
 	public void addGui(WPersonGui gui) {
@@ -92,14 +110,17 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		synchronized(statics) {
 			statics.add(c);
 		}
-		if (c instanceof CityIntersection) {
-			intersections.add((CityIntersection) c);
-		}
 	}
 	
 	public void addMoving(CityComponent c) {
 		synchronized(movings) {
 			movings.add(c);
+		}
+	}
+	
+	public void addIntersection(CityIntersection c) {
+		synchronized(intersections) {
+			intersections.add(c);
 		}
 	}
 	

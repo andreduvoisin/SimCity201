@@ -62,9 +62,11 @@ public class SortingHat {
 		//Restaurants
 		int numRestaurants = 8; //SHANE: 4 use ContactList.cNumRestaurants
 		int numStart = 0;
-		if (SimCityGui.TESTNUM >= 0) {
-			numStart = SimCityGui.TESTNUM;
-			numRestaurants = numStart + 1;
+		if(SimCityGui.TESTING) {
+			if (SimCityGui.TESTNUM >= 0) {
+				numStart = SimCityGui.TESTNUM;
+				numRestaurants = numStart + 1;
+			}
 		}
 		for (int iRestaurantNum = numStart; iRestaurantNum < numRestaurants; iRestaurantNum++){
 			sRoles.add(new RestaurantHostRole(null, iRestaurantNum));

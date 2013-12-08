@@ -61,7 +61,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
     //Properties Panel
     @SuppressWarnings("rawtypes")
 	JComboBox places;
-    String[] placeList = {"None", "Gringotts", "Piggy Bank", "Ollivanders", "Zonkos", "cwagoner", "davidmca", "duvoisin", "jerryweb", "maggiyan", "smileham", "tranac", "xurex"};
+    String[] placeList = {"None", "Gringotts", "Piggy Bank", "Ollivanders", "Honeydukes", "cwagoner", "davidmca", "duvoisin", "jerryweb", "maggiyan", "smileham", "tranac", "xurex"};
     
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {

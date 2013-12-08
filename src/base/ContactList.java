@@ -129,7 +129,7 @@ public class ContactList {
 	// 0 1 
 	// 3 2
 	public static List<Location> cPERSONCORNERS;
-	public static final Location cPERSONCORNER0 = new Location(cGRID_POINT1-5, cGRID_POINT1-5); //95, 95
+	public static final Location cPERSONCORNER0 = new Location(cGRID_POINT1-5, cGRID_POINT1-5); //95, 95 DAVID these may be wrong
 	public static final Location cPERSONCORNER1 = new Location(cGRID_POINT8, cGRID_POINT1-5);	//500, 95
 	public static final Location cPERSONCORNER2 = new Location(cGRID_POINT8, cGRID_POINT8);		//500, 500
 	public static final Location cPERSONCORNER3 = new Location(cGRID_POINT1-5, cGRID_POINT8);	//95, 500
@@ -145,10 +145,10 @@ public class ContactList {
 	//PARKING LOTS
 	// 0 1 
 	// 3 2
-	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-10, cGRID_POINT1-10); //90, 90
-	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8, cGRID_POINT1-10);	//500, 90
+	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-20, cGRID_POINT1-20); //90, 90 DAVID these may be wrong
+	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8, cGRID_POINT1-20);	//500, 90
 	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8, cGRID_POINT8);		//500, 500
-	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-10, cGRID_POINT8);	//90, 500
+	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-20, cGRID_POINT8);	//90, 500
 	public static List<Location> cPARKINGLOTS;
 	static {
 		List<Location> list = new ArrayList<Location>();
@@ -162,11 +162,11 @@ public class ContactList {
 	
 	//INTERSECTION BLOCKS
 	public static List<Block> cINTERSECTIONBLOCKS;
-	public static final Block cINTERSECTIONBLOCK0 = new Block(280, 35, 320, 85);
-	public static final Block cINTERSECTIONBLOCK1 = new Block(280, 280, 320, 320);
-	public static final Block cINTERSECTIONBLOCK2 = new Block(35, 280, 85, 320);
-	public static final Block cINTERSECTIONBLOCK3 = new Block(515, 280, 565, 320);
-	public static final Block cINTERSECTIONBLOCK4 = new Block(280, 515, 320, 565);
+	public static final Block cINTERSECTIONBLOCK0 = new Block(280 - 15,	35 - 15, 320 + 15, 85 + 15);
+	public static final Block cINTERSECTIONBLOCK1 = new Block(280 - 15,	280 - 15, 320 + 15, 320 + 15);
+	public static final Block cINTERSECTIONBLOCK2 = new Block(35 - 15,	280 - 15, 85 + 15, 320 + 15);
+	public static final Block cINTERSECTIONBLOCK3 = new Block(515 - 15,	280 - 15, 565 + 15, 320 + 15);
+	public static final Block cINTERSECTIONBLOCK4 = new Block(280 - 15,	515 - 15, 320 + 15, 565 + 15);
 	static{
 		List<Block> list = new ArrayList<>();
 		list.add(cINTERSECTIONBLOCK0);
@@ -178,7 +178,33 @@ public class ContactList {
 	}
 	
 	
-	//PERSON B* BLOCKS
+	//NAVIGATION B* BLOCKS
+	// A B
+	// D C
+	public static List<List<Block>> cNAVBLOCKS;
+	
+	public static final Block cCARBLOCKA = new Block (100, 100, 280, 280); 
+	public static final Block cCARBLOCKB = new Block (320, 100, 500, 280); 
+	public static final Block cCARBLOCKC = new Block (100, 320, 280, 500); 
+	public static final Block cCARBLOCKD = new Block (320, 320, 500, 500); 
+	
+	//cNAVBLOCKS[0] = Paths: AB, BC, CD, DA
+	//cNAVBLOCKS[1] = Paths: AD, DC, CB, BA
+	public static final Block cCARBLOCK0 = new Block(100, 500, 80, 520);
+	public static final Block cCARBLOCK1 = new Block(80, 520, 100, 500);
+	//cNAVBLOCKS[2] = Paths: AC, CA
+	public static final Block cCARBLOCK2 = new Block(100, 100, 280, 300);
+	public static final Block cCARBLOCK3 = new Block(100, 100, 300, 280);
+	public static final Block cCARBLOCK4 = new Block(300, 320, 500, 500);
+	public static final Block cCARBLOCK5 = new Block(320, 300, 500, 500);
+	
+	//cNAVBLOCKS[3] = Paths: BD, DB
+	public static final Block cCARBLOCK6 = new Block (300, 100, 500, 280); 
+	public static final Block cCARBLOCK7 = new Block (320, 100, 500, 300); 
+	public static final Block cCARBLOCK8 = new Block (100, 300, 280, 500); 
+	public static final Block cCARBLOCK9 = new Block (100, 320, 300, 500); 
+	
+	//cNAVBLOCKS[4]
 	public static List<Block> cPERSONBLOCKS;
 	public static final Block cPERSONBLOCK0  = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
 	public static final Block cPERSONBLOCK1  = new Block(cGRID_POINT3, cGRID_POINT1, cGRID_POINT4, cGRID_POINT2);
@@ -196,52 +222,6 @@ public class ContactList {
 	public static final Block cPERSONBLOCK13 = new Block(cGRID_POINT3, cGRID_POINT7, cGRID_POINT4, cGRID_POINT8);
 	public static final Block cPERSONBLOCK14 = new Block(cGRID_POINT5, cGRID_POINT7, cGRID_POINT6, cGRID_POINT8);
 	public static final Block cPERSONBLOCK15 = new Block(cGRID_POINT7, cGRID_POINT7, cGRID_POINT8, cGRID_POINT8);
-	static{
-		List<Block> list = new ArrayList<Block>();
-		list.add(cPERSONBLOCK0);
-		list.add(cPERSONBLOCK1);
-		list.add(cPERSONBLOCK2);
-		list.add(cPERSONBLOCK3);
-		list.add(cPERSONBLOCK4);
-		list.add(cPERSONBLOCK5);
-		list.add(cPERSONBLOCK6);
-		list.add(cPERSONBLOCK7);
-		list.add(cPERSONBLOCK8);
-		list.add(cPERSONBLOCK9);
-		list.add(cPERSONBLOCK10);
-		list.add(cPERSONBLOCK11);
-		list.add(cPERSONBLOCK12);
-		list.add(cPERSONBLOCK13);
-		list.add(cPERSONBLOCK14);
-		list.add(cPERSONBLOCK15);
-		cPERSONBLOCKS = Collections.unmodifiableList(list);
-	}
-	
-	
-	//CAR B* BLOCKS
-	// A B
-	// D C
-	public static List<List<Block>> cCARBLOCKS;
-	public static final Block cCARBLOCKA = new Block (100, 100, 280, 280); 
-	public static final Block cCARBLOCKB = new Block (320, 100, 500, 280); 
-	public static final Block cCARBLOCKC = new Block (100, 320, 280, 500); 
-	public static final Block cCARBLOCKD = new Block (320, 320, 500, 500); 
-	
-	//cCARBLOCKS[0] = Paths: AB, BC, CD, DA
-	//cCARBLOCKS[1] = Paths: AD, DC, CB, BA
-	public static final Block cCARBLOCK0 = new Block(100, 500, 80, 520);
-	public static final Block cCARBLOCK1 = new Block(80, 520, 100, 500);
-	//cCARBLOCKS[2] = Paths: AC, CA
-	public static final Block cCARBLOCK2 = new Block(100, 100, 280, 300);
-	public static final Block cCARBLOCK3 = new Block(100, 100, 300, 280);
-	public static final Block cCARBLOCK4 = new Block(300, 320, 500, 500);
-	public static final Block cCARBLOCK5 = new Block(320, 300, 500, 500);
-	
-	//cCARBLOCKS[3] = Paths: BD, DB
-	public static final Block cCARBLOCK6 = new Block (300, 100, 500, 280); 
-	public static final Block cCARBLOCK7 = new Block (320, 100, 500, 300); 
-	public static final Block cCARBLOCK8 = new Block (100, 300, 280, 500); 
-	public static final Block cCARBLOCK9 = new Block (100, 320, 300, 500); 
 	
 	static{
 		List<List<Block>> list = new ArrayList<List<Block>>();
@@ -249,10 +229,12 @@ public class ContactList {
 		List<Block> list1 = new ArrayList<Block>();
 		List<Block> list2 = new ArrayList<Block>();
 		List<Block> list3 = new ArrayList<Block>();
+		List<Block> list4 = new ArrayList<Block>();
 		list.add(list0);
 		list.add(list1);
 		list.add(list2);
 		list.add(list3);
+		list.add(list4);
 		//add general blocks
 		for (List<Block> iList : list){
 			iList.add(cCARBLOCKA);
@@ -271,7 +253,23 @@ public class ContactList {
 		list3.add(cCARBLOCK7);
 		list3.add(cCARBLOCK8);
 		list3.add(cCARBLOCK9);
-		cCARBLOCKS = Collections.unmodifiableList(list);
+		list4.add(cPERSONBLOCK0);
+		list4.add(cPERSONBLOCK1);
+		list4.add(cPERSONBLOCK2);
+		list4.add(cPERSONBLOCK3);
+		list4.add(cPERSONBLOCK4);
+		list4.add(cPERSONBLOCK5);
+		list4.add(cPERSONBLOCK6);
+		list4.add(cPERSONBLOCK7);
+		list4.add(cPERSONBLOCK8);
+		list4.add(cPERSONBLOCK9);
+		list4.add(cPERSONBLOCK10);
+		list4.add(cPERSONBLOCK11);
+		list4.add(cPERSONBLOCK12);
+		list4.add(cPERSONBLOCK13);
+		list4.add(cPERSONBLOCK14);
+		list4.add(cPERSONBLOCK15);
+		cNAVBLOCKS = Collections.unmodifiableList(list);
 	}
 	
 	

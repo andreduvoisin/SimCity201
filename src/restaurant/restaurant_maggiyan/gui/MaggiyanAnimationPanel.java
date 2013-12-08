@@ -36,9 +36,9 @@ public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
     private List<MaggiyanGui> guis = Collections.synchronizedList(new ArrayList<MaggiyanGui>());
     
     //DATA
-    private static MaggiyanHostRole mHost;
-    private static MaggiyanCookRole mCook;
-    private static MaggiyanCashierRole mCashier;
+    public static MaggiyanHostRole mHost;
+    public static MaggiyanCookRole mCook;
+    public static MaggiyanCashierRole mCashier;
     private static Vector<MaggiyanCustomerRole> mCustomers; 
     
 	private static int XPOS = 50; 

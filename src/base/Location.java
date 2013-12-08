@@ -19,4 +19,20 @@ public class Location {
 		if (this.mY != location.mY) return false;
 		return true;
 	}
+	
+	public void add(int z){
+		mX += z;
+		mY += z;
+	}
+	
+	public Location createNew (int z){
+		Location newl = new Location(mX, mY);
+		newl.add(z);
+		return newl;
+	}
+	
+	public Location createNew () {
+		Location newl = new Location(mX, mY);
+		return newl;
+	}
 }
