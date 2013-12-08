@@ -557,17 +557,13 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		bankCustomerRole.setPerson(this);
-		CommuterRole cRole = (CommuterRole) getCommuterRole();
-		cRole.setPerson(this);
-		cRole.setLocation(ContactList.cBANK1_LOCATION); 
-		mRoles.put(getCommuterRole(), true);
 		mRoles.put(bankCustomerRole, true);
 		
 		//GO TO BANK AND DO STUFF
-//		mPersonGui.setPresent(true);
-//		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION);
-//		acquireSemaphore(semAnimationDone);
-//		mPersonGui.setPresent(false);
+		mPersonGui.setPresent(true);
+		mPersonGui.DoGoToDestination(ContactList.cBANK1_LOCATION);
+		acquireSemaphore(semAnimationDone);
+		mPersonGui.setPresent(false);
 		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 		
 		//plan robbery
