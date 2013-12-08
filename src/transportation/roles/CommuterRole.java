@@ -69,25 +69,30 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 			DriveToDestination(); 
 			return true;
 		}
-		
-		if(mState == PersonBusState.atBusStop){
-			NotifyBus(); 
-			return true;
-		}
-		
-		if(mState == PersonBusState.boardingBus){
-			BoardBus(); 
-			return true; 
-		}
-		
-		if(mState == PersonBusState.exitingBus){
-			ExitBus();
-			return true; 
-		}
-		
-		if(mState == PersonBusState.noBus){
-			GoToDestination(); 
-			return true; 
+		else{
+			if(mState == PersonBusState.atBusStop){
+				NotifyBus(); 
+				return true;
+			}
+			
+			else if(mState == PersonBusState.boardingBus){
+				BoardBus(); 
+				return true; 
+			}
+			
+			else if(mState == PersonBusState.exitingBus){
+				ExitBus();
+				return true; 
+			}
+			//MAGGI: Check if you really need this later 
+			else if(mState == PersonBusState.noBus){
+				GoToDestination(); 
+				return true; 
+			}
+			else{
+				GoToDestination();
+				return true; 
+			}
 		}
 
 	
