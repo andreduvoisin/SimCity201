@@ -41,7 +41,7 @@ public class CashierTest extends TestCase
 	 */
 	public void setUp() throws Exception{
 		super.setUp();		
-		cashier = new JerrywebCashierRole("cashier");		
+		cashier = new JerrywebCashierRole(null, null);		
 		customer = new MockCustomer("mock customer");
 		customer1 = new MockCustomer("mock customer1");
 		customer2 = new MockCustomer("mock customer2");
@@ -50,7 +50,7 @@ public class CashierTest extends TestCase
 		market = new MockMarket("K-Mart");
 		market2 = new MockMarket("Sams Club");
 		market3 = new MockMarket("Albertson's");
-		cook = new JerrywebCookRole(null);
+		cook = new JerrywebCookRole(null, null);
 	}	
 
 	/**

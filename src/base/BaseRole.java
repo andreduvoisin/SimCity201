@@ -33,6 +33,10 @@ public abstract class BaseRole implements Role {
 		mPerson.getGui().DoGoToDestination(location);
 	
 	}
+	//SHANE: The commuterRole uses this call to mPerson.getGui() but I can't seem to find that function so I added an empty shell... -Jerry
+	public void DriveToDestination(Location location){
+		
+	}
 	
 	// ACCESSORS
 	public void setPerson(Person person) {

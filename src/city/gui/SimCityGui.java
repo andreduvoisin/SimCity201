@@ -14,9 +14,12 @@ import base.Time;
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
+
+
 	public static int TESTNUM = 3;
 	
 	public static boolean GRADINGVIEW = true;
+
 	
 	static SimCityGui instance = null;
 	public CityPanel citypanel;
