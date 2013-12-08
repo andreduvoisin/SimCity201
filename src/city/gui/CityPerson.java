@@ -70,15 +70,15 @@ public class CityPerson extends CityComponent {
     	}
         
         //Check intersections (if going into busy intersection - stay)
-        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
-        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
-        	if (xNewInBlock && yNewInBlock){
-        		x = previousX;
-        		y = previousY;
-        		return;
-        	}
-        }
+//        for (Block iBlock : ContactList.cINTERSECTIONBLOCKS){
+//        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
+//        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+//        	if (xNewInBlock && yNewInBlock){
+//        		x = previousX;
+//        		y = previousY;
+//        		return;
+//        	}
+//        }
 
 
         //B* Algorithm
@@ -134,12 +134,12 @@ public class CityPerson extends CityComponent {
 					//calculate corners
 					int currentCornerNum = -1;
 					int destCornerNum = -1;
-					for (int iParkingLot = 0; iParkingLot < ContactList.cPARKINGLOTS.size(); iParkingLot++){
-						if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParkingLot))){
-							currentCornerNum = iParkingLot;
+					for (int iCorner = 0; iCorner < ContactList.cPERSONCORNERS.size(); iCorner++){
+						if (mLocation.equals(ContactList.cPERSONCORNERS.get(iCorner))){
+							currentCornerNum = iCorner;
 						}
-						if (mFinalDestination.equals(ContactList.cPARKINGLOTS.get(iParkingLot))){
-							destCornerNum = iParkingLot;
+						if (destCorner.equals(ContactList.cPERSONCORNERS.get(iCorner))){
+							destCornerNum = iCorner;
 						}
 					}
 					
@@ -233,15 +233,15 @@ public class CityPerson extends CityComponent {
 		}
 		//TOP RIGHT
 		if (destination.mX > 300 && destination.mY < 300) {
-			return ContactList.cPERSONCORNERS.get(0); 
+			return ContactList.cPERSONCORNERS.get(1); 
 		}
 		//BOTTOM RIGHT
 		if (destination.mX >= 300 && destination.mY > 300) {
-			return ContactList.cPERSONCORNERS.get(1); 
+			return ContactList.cPERSONCORNERS.get(2); 
 		}
 		//BOTTOM LEFT
 		if (destination.mX < 300 && destination.mY > 300) {
-			return ContactList.cPERSONCORNERS.get(2); 
+			return ContactList.cPERSONCORNERS.get(3); 
 		}
 		return null;
 	}
