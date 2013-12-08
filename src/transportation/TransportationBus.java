@@ -20,7 +20,7 @@ public class TransportationBus extends Agent {
 	public TransportationBus() {
 		instance = this;
 
-		mGui = new CityBus(this);
+		mGui = new CityBus(this, mCurrentStop);
 
 		for (Location iLoc: base.ContactList.cBUS_STOPS) {
 			mBusStops.add(new TransportationBusStop(iLoc));
