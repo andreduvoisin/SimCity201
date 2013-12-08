@@ -22,7 +22,7 @@ public class CityPerson extends CityComponent {
 	
 	public Location mDestination = new Location(0, 0); //just to avoid null pointers
 	public Location mFinalDestination = null;
-	public boolean mUsingCar = false;
+	public boolean mUsingCar = true;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -87,16 +87,19 @@ public class CityPerson extends CityComponent {
 	        case 0: 
 	        case 1: 
 	        case 2:
-	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
 	        case 3:
+	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
+	        case 4:
 	        	blocks = ContactList.cPERSONBLOCKS; break;
+	        	//SHANE: 3 combine carblocks and personblocks into blocks
         }
         
         for (Block iBlock : blocks){
         	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
         	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
+        	boolean yOldInBlock = (previousY > iBlock.mY1 && previousY < iBlock.mY2);
         	if (xNewInBlock && yNewInBlock){
-        		if (xNewInBlock){
+        		if (yOldInBlock){
         			x = previousX;
         		}else{
         			y = previousY;
@@ -124,7 +127,7 @@ public class CityPerson extends CityComponent {
 			mDestination = mFinalDestination;
 			mFinalDestination = null;
 		}else{
-			//if at a corner
+			//if at a corner (not closest to dest)
 			if (mLocation.equals(closeCorner)){
 				//if using car, drive to parking lot closest to destination
 				if (mUsingCar){
@@ -168,8 +171,6 @@ public class CityPerson extends CityComponent {
 		}
 
 	}
-	
-	
 	
 	
 	public void paint(Graphics g) {
