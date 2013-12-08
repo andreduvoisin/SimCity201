@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import city.gui.CityClosed;
 import city.gui.CityPanel;
 import base.ContactList;
 
@@ -27,7 +28,8 @@ public class PlacesButtonListener implements ActionListener {
 		case "Gringotts":
 			if (ContactList.sOpenPlaces.get(ContactList.cBANK1_LOCATION)){
 				ContactList.sOpenPlaces.put(ContactList.cBANK1_LOCATION, false);
-				CityPanel.sClosedImages.get(ContactList.cBANK1_LOCATION).enable();
+				CityClosed c = (CityClosed) CityPanel.sClosedImages.get(ContactList.cBANK1_LOCATION);
+				c.enable();
 				button.setText("Enable");
 			}
 			else{
