@@ -42,7 +42,7 @@ public class CityPerson extends CityComponent {
 		mPerson = person;
 		this.gui = gui;
 		
-		
+		visible = true;
 	}
 
 	@Override
@@ -97,26 +97,27 @@ public class CityPerson extends CityComponent {
         		x = previousX;
         	}
         }
-        
 	}
 	
 	public void paint(Graphics g) {
-		if (! onBus) {
-			if(SimCityGui.GRADINGVIEW) {
-				g.drawString(mPerson.getName(),x,y);
-				g.setColor(color);
-				g.fillRect(x, y, 5, 5);
-				g.setColor(Color.WHITE);
-				g.drawString(name, x - 10, y);
-			}
-			else if(mPerson.hasCar()) {
-				//paint car gui
-			}
-			else {
-				g.setColor(color);
-				g.fillRect(x, y, 5, 5);
-				g.setColor(Color.WHITE);
-				g.drawString(name, x - 10, y);
+		if(visible) {
+			if (! onBus) {
+				if(SimCityGui.GRADINGVIEW) {
+					g.drawString(mPerson.getName(),x,y);
+					g.setColor(color);
+					g.fillRect(x, y, 5, 5);
+					g.setColor(Color.WHITE);
+					g.drawString(name, x - 10, y);
+				}
+				else if(mPerson.hasCar()) {
+					//paint car gui
+				}
+				else {
+					g.setColor(color);
+					g.fillRect(x, y, 5, 5);
+					g.setColor(Color.WHITE);
+					g.drawString(name, x - 10, y);
+				}
 			}
 		}
 	}
