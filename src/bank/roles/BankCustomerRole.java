@@ -78,7 +78,6 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		stateChanged();
 	}
 	public void msgStopRobber() {
-		// REX ANDRE: robber gui interactions, non-norm
 		print("I'M BEING APPREHENDED");
 		mGUI.die();
 	}
@@ -117,6 +116,7 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 	
 	private void waitInLine(){
 		mGUI.DoGoWaitInLine();
+		print("MESSAGED GUARD ABOUT WAITING");
 		mGuard.msgNeedService(this);
 	}
 	private void goToTeller(){
