@@ -187,4 +187,8 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	public void setCurrentLocation(Location location){
 		mCurrentLocation = location; 
 	}
+
+	public String getName() {
+		return mPerson.getName();
+	}
 }
