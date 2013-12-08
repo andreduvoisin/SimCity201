@@ -119,7 +119,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 				mPerson.getGui().DoGoToDestination(mDestination);
 			}
 			else{
-				mPerson.getGui().DoDriveToDestination(mDestination); 
+				mPerson.getGui().DoGoToDestination(mDestination); 
 			}
 		}
 		else{
@@ -127,7 +127,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 				mPerson.getGui().DoGoToDestination(mDestination);
 			}
 			else{
-				mPerson.getGui().DoDriveToDestination(mDestination); 
+				mPerson.getGui().DoGoToDestination(mDestination); 
 			}
 		}
 	}
