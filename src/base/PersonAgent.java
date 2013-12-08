@@ -577,7 +577,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN%ContactList.cNumTimeShifts).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(0).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
