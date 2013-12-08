@@ -94,6 +94,13 @@ public class PersonAgent extends Agent implements Person {
 		switch (jobType){
 			case BANK:
 				jobRole = SortingHat.getBankRole(mTimeShift);
+				if(mTimeShift==Time.GetShift()){
+					jobRole.setPerson(this);
+					print("Bank role person auto set: "+jobRole.toString());
+					if (jobRole instanceof BankTellerRole){
+						ContactList.sBankList.get(((BankTellerRole)jobRole).mBankID).mGuard.msgReadyToWork((BankTellerRole)jobRole);
+					}
+				}
 				break;
 			case MARKET:
 				jobRole = SortingHat.getMarketRole(mTimeShift);
@@ -413,7 +420,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 //		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
-			//jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+			jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
 		}
@@ -492,7 +499,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 		bankCustomerRole.setPerson(this);
 		bankCustomerRole.setActive();
-		ContactList.sBankList.get(0).addPerson(bankCustomerRole);
+		ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 	}
 	
 	private void planParty(int time){
@@ -529,7 +536,6 @@ public class PersonAgent extends Agent implements Person {
 		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
-//		Location test = ContactList.sRoleLocations.get(); //SHANE REX: 2 This is null...
 		Location partyLocation = new Location(100, 0);
 		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		

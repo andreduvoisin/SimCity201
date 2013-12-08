@@ -32,7 +32,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	public BankGuardRole(Person person, int bankID) {
 		super(person);
 		mBankID = bankID;
-		
+		ContactList.sBankList.get(bankID).addPerson(this);
 		//Add Gui to list
 //		mGUI = new BankGuardGui(this);
 //		ContactList.sBankList.get(bankID).addPerson(this);
@@ -46,16 +46,14 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		synchronized(mCustomers) {
 			mCustomers.put(c, false);
 		}
-		//stateChanged(); REX: CAUSING NULL POINTERS
+		print("RECEIVED MESSAGE");
+		stateChanged(); 
 	}
 	public void msgReadyToWork(BankTeller t){
 		mTellers.put(t, true);
+		print("RECEIVED READY TO WORK");
 		stateChanged();
 	}
-	/*public void msgReadyForNext(Teller t){
-		mTellers.put(t, true);
-		stateChanged();
-	}*/
 	public void msgRobberAlert(BankCustomer c){
 		synchronized(mCustomers) {
 			mCustomers.put(c, true);
@@ -67,13 +65,16 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 //	SCHEDULER
 	
 	public boolean pickAndExecuteAnAction(){
+		print("IN GUARD SCHEDULER");
+		print("I have customers: "+!mCustomers.isEmpty());
+		print("I have tellers: "+mTellers.values().contains(true));
 		synchronized(mCustomers) {
 			for (BankCustomer c : mCustomers.keySet()){
 				if(mCustomers.get(c)){
 					killRobber(c);
 					mCustomers.remove(c);
+					return true;
 				}
-				return true;
 			}
 		}
 		synchronized(mCustomers) {
@@ -84,6 +85,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 						provideService(c, t);
 						mCustomers.remove(c);
 						mTellers.put(t, false);
+						print("IN SERVICE LOOP");
 						return true;
 					}
 				}
@@ -95,14 +97,11 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 //	ACTIONS
 	
 	private void killRobber(BankCustomer c){
-		//GUI Interactions
-		// REX ANDRE: robber gui interactions, non-norm
-		//DoKillRobber(m.Person) //JERRY: One way I see this actually following the robber is if you pass in the 
-		//the robber's current position every time update position is called
 		c.msgStopRobber();
 	}
 	private void provideService(BankCustomer c, BankTeller t){
 		c.msgGoToTeller(t);
+		print("SENT CUSTOMER TO TELLER");
 	}
 	
 //	UTILITIES

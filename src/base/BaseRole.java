@@ -34,7 +34,7 @@ public abstract class BaseRole implements Role {
 			mPerson.getGui().DoDriveToDestination(location); 
 		}
 		else{
-			mPerson.getGui().testDoGoToDestination(location);
+			mPerson.getGui().DoGoToDestination(location);
 		}
 	
 	}

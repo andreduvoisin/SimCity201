@@ -96,7 +96,9 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	public boolean pickAndExecuteAnAction() {
 		if(marketPickAndExecuteAnAction())
 			return true;
-		return subRole.pickAndExecuteAnAction();
+		if(subRole != null)
+			return subRole.pickAndExecuteAnAction();
+		return false;
 	}
 	
 	@Override
