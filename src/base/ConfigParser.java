@@ -57,10 +57,9 @@ public class ConfigParser {
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
 			//Events
-			
 			person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
 //			person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-//			person.msgAddEvent(new Event(EnumEventType.EAT, -1));
+			person.msgAddEvent(new Event(EnumEventType.EAT, 0));
 //			person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 1));
 
 			

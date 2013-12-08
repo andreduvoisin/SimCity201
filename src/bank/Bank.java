@@ -37,7 +37,7 @@ public class Bank {
 	
 	public void addPerson(Role role) {
 		 if(role instanceof BankGuardRole){
-			 System.out.println("Bank guard added");
+			 //System.out.println("Bank guard added");
 			 mGuard = ((BankGuardRole)role);
 			((BankGuardRole)role).mGUI = new BankGuardGui((BankGuardRole)role);
 			((BankGuardRole)role).mGUI.setPresent(true);
@@ -45,7 +45,7 @@ public class Bank {
 		}
 		 
 		if(role instanceof BankCustomerRole) {
-			System.out.println("Bank customer added");
+			//System.out.println("Bank customer added");
 			mCustomers.add((BankCustomerRole)role);
 			((BankCustomerRole)role).setGuard(mGuard);
 			((BankCustomerRole)role).setTeller(teller);
@@ -56,7 +56,7 @@ public class Bank {
 		
 		if(role instanceof BankTellerRole) {
 			if(mTellers.size() < 3){
-				System.out.println("Bank teller added");
+				//System.out.println("Bank teller added");
 				mTellers.add((BankTellerRole)role);
 				((BankTellerRole)role).addGuard(mGuard);
 				((BankTellerRole)role).setMaster(mMasterTeller);

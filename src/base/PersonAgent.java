@@ -107,6 +107,8 @@ public class PersonAgent extends Agent implements Person {
 				break;
 			case RESTAURANT:
 				jobRole = SortingHat.getRestaurantRole(mTimeShift);
+				if(jobRole != null)
+					print(jobRole.toString());
 				break;
 			case NONE:
 				break;
@@ -225,6 +227,7 @@ public class PersonAgent extends Agent implements Person {
 			if(mEvents.isEmpty())
 				return false;
 			Event event = mEvents.get(0); //next event
+			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
 				mRoleFinished = false; //doing a role
 				processEvent(event);
@@ -420,7 +423,7 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(false);
 //		print("my job is " +jobRole.toString());
 		if(jobRole != null) {
-			jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+			//jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
 			mRoles.put(jobRole, true); //set role to active
 			jobRole.setActive();
 		}
@@ -746,7 +749,7 @@ public class PersonAgent extends Agent implements Person {
 	public int getTimeShift(){
 		return mTimeShift;
 	}
-
+	
 	public void setName(String name) {
 		mName = name;
 	}
