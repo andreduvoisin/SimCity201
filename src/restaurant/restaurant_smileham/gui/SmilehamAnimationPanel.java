@@ -4,85 +4,39 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
 
 import javax.swing.Timer;
 
+import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
-import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
-import restaurant.restaurant_smileham.interfaces.SmilehamCook;
-import restaurant.restaurant_smileham.interfaces.SmilehamHost;
-import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
-import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
-import restaurant.restaurant_smileham.roles.SmilehamCookRole;
-import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
-import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
-import base.BaseRole;
+import base.Gui;
 import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial","static-access"})
 public class SmilehamAnimationPanel extends CityCard implements ActionListener {
-    public static SmilehamAnimationPanel mInstance;
 
+	public static SmilehamRestaurant restaurant;
+	
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-    private List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
-    
-    //Data
-    private static SmilehamHostRole mHost;
-    private static SmilehamCookRole mCook;
-    private static SmilehamCashierRole mCashier;
-    private static Vector<SmilehamCustomerRole> mCustomers;
-    
     
     //CONSTRUCTOR
-    public SmilehamAnimationPanel(SimCityGui city) {
+	public SmilehamAnimationPanel(SimCityGui city, SmilehamRestaurant rest) {
     	super(city);
-    	mInstance = this;
+    	this.restaurant = rest;
     	setSize(WINDOWX, WINDOWY);
-        setVisible(true);
-
-        mCustomers = new Vector<SmilehamCustomerRole>();
- 
+        setVisible(true); 
     	Timer timer = new Timer(Time.cSYSCLK/10, this );
     	timer.start();
     }
     
-    public static void addPerson(BaseRole role) {
-    	if (role instanceof SmilehamCustomerRole){
-    		SmilehamCustomerRole customer = (SmilehamCustomerRole) role;
-    		mCustomers.add(customer);
-    		customer.msgGotHungry();
-    	}
-    	else if (role instanceof SmilehamWaiterRole){
-    		SmilehamWaiterRole waiter = (SmilehamWaiterRole) role;
-    		
-    		SmilehamHost host = waiter.getHost();
-            host.msgAddWaiter((SmilehamWaiter)waiter);
-            
-    	}
-    	else if (role instanceof SmilehamHostRole){
-    		mHost = (SmilehamHostRole) role;
-    	}
-    	else if (role instanceof SmilehamCookRole){
-    		mCook = (SmilehamCookRole) role;
-    	}
-    	else if (role instanceof SmilehamCashierRole){
-    		mCashier = (SmilehamCashierRole) role;
-    	}
-    }
-    
-
 	public void actionPerformed(ActionEvent e) {
-		synchronized (guis) {
-        	for(Gui gui : guis) {
+		synchronized (restaurant.mGuis) {
+        	for(Gui gui : restaurant.mGuis) {
         		synchronized(gui){
 	                if (gui.isPresent()) {
 	                    gui.updatePosition();
@@ -123,8 +77,8 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
         g2.fillRect(CookGui.cFRIDGE_X, CookGui.cFRIDGE_Y, CookGui.cFRIDGE_WIDTH, CookGui.cFRIDGE_HEIGHT);
         
         //animation
-        synchronized (guis) {
-            for(Gui gui : guis) {
+        synchronized (restaurant.mGuis) {
+            for(Gui gui : restaurant.mGuis) {
                 if (gui.isPresent()) {
                     gui.draw(g2);
                 }
@@ -132,24 +86,5 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
 		}
         
     }
-    
-	public void addGui(Gui gui) {
-		guis.add(gui);
-	}
 	
-	public void removeGui(Gui gui){
-		guis.remove(gui);
-	}
-	
-	public static SmilehamHost getHost(){
-		return mHost;
-	}
-	
-	public static SmilehamCashier getCashier(){
-		return mCashier;
-	}
-
-	public static SmilehamCook getCook() {
-		return mCook;
-	}
 }

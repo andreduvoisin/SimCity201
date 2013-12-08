@@ -15,6 +15,9 @@ import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
+import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
+import restaurant.restaurant_smileham.interfaces.SmilehamCook;
+import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import base.Gui;
 
 public class DavidRestaurant {
@@ -30,7 +33,6 @@ public class DavidRestaurant {
 	public static List<Gui> guis;
 	public static int customerCount = 0;
 	public static int waiterCount = 0;
-//	public static DavidCustomerRole lastCustomer = null;
 	private final int NUMTABLES = 4;
 	public static Collection<Table> tables;
 	private int[] xpositions = { 0, 125, 225, 325, 225 };
@@ -59,7 +61,6 @@ public class DavidRestaurant {
 		cust.setCashier(cashier);
 		cust.setGui(g);
 		g.setHungry();
-//		lastCustomer = cust;
 		customers.add(cust);
 	}
 
@@ -82,6 +83,5 @@ public class DavidRestaurant {
 		waiter.setGui(g);
 		host.addWaiter(waiter);
 		waiter.setCashier(cashier);
-	}
-	
+	}	
 }
