@@ -65,6 +65,11 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
+		if(!mPerson.hasCar()){
+			GoToDestination(); 
+			return true; 
+		}
+		
 		if(mPerson.hasCar()){
 			DriveToDestination(); 
 			return true;
@@ -87,10 +92,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 			//MAGGI: Check if you really need this later 
 			else if(mState == PersonBusState.noBus){
 				GoToDestination(); 
-				return true; 
-			}
-			else{
-				GoToDestination();
 				return true; 
 			}
 		}
