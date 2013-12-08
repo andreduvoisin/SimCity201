@@ -219,17 +219,19 @@ public class ContactList {
 	
 	
 	//CAR B* BLOCKS
+	// A B
+	// D C
 	public static List<List<Block>> cCARBLOCKS;
-	//Not needed =    Paths: AD, DC, CB, BA 
 	//cCARBLOCKS[0] = Paths: AB, BC, CD, DA
+	//cCARBLOCKS[1] = Paths: AD, DC, CB, BA
 	public static final Block cCARBLOCK0 = new Block(100, 500, 80, 520);
 	public static final Block cCARBLOCK1 = new Block(80, 520, 100, 500);
-	//cCARBLOCKS[1] = Paths: BD, DB
+	//cCARBLOCKS[2] = Paths: BD, DB
 	public static final Block cCARBLOCK2 = new Block(90, 280, 90, 300);
 	public static final Block cCARBLOCK3 = new Block(90, 300, 90, 280);
 	public static final Block cCARBLOCK4 = new Block (300, 500, 320, 500); 
 	public static final Block cCARBLOCK5 = new Block (320, 500, 300, 500); 
-	//cCARBLOCKS[2] = Paths: AC, CA
+	//cCARBLOCKS[3] = Paths: AC, CA
 	public static final Block cCARBLOCK6 = new Block (100, 280, 300, 500); 
 	public static final Block cCARBLOCK7 = new Block (100, 300, 320, 500); 
 	public static final Block cCARBLOCK8 = new Block (300, 500, 100, 280); 
@@ -239,19 +241,21 @@ public class ContactList {
 		List<Block> list0 = new ArrayList<Block>();
 		List<Block> list1 = new ArrayList<Block>();
 		List<Block> list2 = new ArrayList<Block>();
-		list0.add(cCARBLOCK0);
-		list0.add(cCARBLOCK1);
-		list1.add(cCARBLOCK2);
-		list1.add(cCARBLOCK3);
-		list1.add(cCARBLOCK4);
-		list1.add(cCARBLOCK5);
-		list2.add(cCARBLOCK6);
-		list2.add(cCARBLOCK7);
-		list2.add(cCARBLOCK8);
-		list2.add(cCARBLOCK9);
+		List<Block> list3 = new ArrayList<Block>();
+		list1.add(cCARBLOCK0);
+		list1.add(cCARBLOCK1);
+		list2.add(cCARBLOCK2);
+		list2.add(cCARBLOCK3);
+		list2.add(cCARBLOCK4);
+		list2.add(cCARBLOCK5);
+		list3.add(cCARBLOCK6);
+		list3.add(cCARBLOCK7);
+		list3.add(cCARBLOCK8);
+		list3.add(cCARBLOCK9);
 		list.add(list0);
 		list.add(list1);
 		list.add(list2);
+		list.add(list3);
 		cCARBLOCKS = Collections.unmodifiableList(list);
 	}
 	

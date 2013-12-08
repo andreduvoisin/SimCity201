@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 
+import com.sun.activation.registries.MailcapParseException;
+
 import transportation.roles.CommuterRole;
 import base.Block;
 import base.ContactList;
@@ -28,12 +30,13 @@ public class CityPerson extends CityComponent {
 	public boolean visible;
 	public boolean onBus;
 	
-	/* 0 - Car Paths: AB, BC, CD, DA
-	 * 1 - Car Paths: BD, DB
-	 * 2 - Car Paths: AC, CA
-	 * 3 - Walking
+	/* 0 - No Blocks
+	 * 1 - Car Paths: AB, BC, CD, DA
+	 * 2 - Car Paths: BD, DB
+	 * 3 - Car Paths: AC, CA
+	 * 4 - Walking
 	 */
-	public int mDestinationPathType = 3;
+	public int mDestinationPathType = 4;
 //	Queue<Location> goToPosition = new LinkedList<Position>();
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
@@ -108,11 +111,10 @@ public class CityPerson extends CityComponent {
 		
 		mFinalDestination = location;
 		
-		
 		//calculate intermediate destination
 		Location mLocation = new Location(x, y);
 		Location closeCorner = findNearestCorner(mLocation);
-		Location closeParking = findNearestParkingLot(mLocation);
+		Location destParking = findNearestParkingLot(mFinalDestination);
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
 		//if at corner closest to destination, walk to destination
@@ -124,68 +126,50 @@ public class CityPerson extends CityComponent {
 		}else{
 			//if at a corner
 			if (mLocation.equals(closeCorner)){
-				//if using car, drive to corner closest to destination
+				//if using car, drive to parking lot closest to destination
 				if (mUsingCar){
-					//calculate 0-3 destpath
+					//calculate corners
+					int currentCornerNum = -1;
+					int destCornerNum = -1;
+					for (int iParkingLot = 0; iParkingLot < ContactList.cPARKINGLOTS.size(); iParkingLot++){
+						if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParkingLot))){
+							currentCornerNum = iParkingLot;
+						}
+						if (mFinalDestination.equals(ContactList.cPARKINGLOTS.get(iParkingLot))){
+							destCornerNum = iParkingLot;
+						}
+					}
 					
+					//clockwise not needed
+					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 0;
+					//check counter-clockwise
+					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
+					//check BD diagonal
+					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 2;
+					//check AC diagonal
+					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 3;
+					else{
+						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
+					}
+					
+					mDestination = destParking;
 				}
 				//else bus to same corner
 				else{
-					//do bus stuff??? CHASE: 2 Do this
+					//do bus stuff??? CHASE MAGGI ANGELICA: 1 Do this
+//					DoTakeBus(getBusStop(x, y), getBusStop(closeCorner.mX, closeCorner.mY));
 				}
 			}
-			//if not at a corner, walk to corner
+			//if not at a corner, walk to person corner
 			else{
 				mDestinationPathType = 3;
-				
+				mDestination = closeCorner;
 			}
 		}
-		
-		
-			
-		
-		
 
 	}
 	
 	
-	
-	
-	
-	//MAGGI: reorganize once done with transportation 
-	//Drives to parking lot closest to destination 
-	public void DoDriveToDestination(Location location){
-		this.enable(); 
-		mFinalDestination = location;
-		
-		mDestination.mX = parkingLot.mX;
-		mDestination.mY = parkingLot.mY; 
-	}
-	
-	
-
-	//Already at corner closest to destination
-	public void DoGoToNextDestination(){
-		if(mPerson.hasCar()){
-			
-		}
-		
-		Location cornerLocation = findNearestCorner(mFinalDestination); 
-		// If already at corner location nearest mNextDestination, don't need to take
-		// the bus (since it would take you to a corner farther from mNextDestination;
-		// walk to mNextDestination.
-		if (x == cornerLocation.mX && y == cornerLocation.mY) {
-			//Walk to destination from corner location/bus stop
-			mDestination.mX = mFinalDestination.mX;
-			mDestination.mY = mFinalDestination.mY;
-			mFinalDestination = null; 
-		}
-		
-		// Otherwise, can get to a closer corner by taking the bus
-		else {
-			DoTakeBus(getBusStop(x, y), getBusStop(cornerLocation.mX, cornerLocation.mY)); 
-		}	
-	}
 	
 	
 	public void paint(Graphics g) {
