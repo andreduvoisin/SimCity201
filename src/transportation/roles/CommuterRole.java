@@ -150,6 +150,32 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	}
 	
 	//UTILITES
+	//Checks if destination is in same block as current location
+	public boolean inSameBlock(Location location){
+		//LEFT BLOCKS
+		if(mCurrentLocation.mX < 300 && location.mX < 300){
+			//TOP LEFT
+			if(mCurrentLocation.mY < 300 && location.mX < 300){
+				return true; 
+			}
+			//BOTTOM LEFT
+			else if(mCurrentLocation.mY > 300 && location.mX < 300){
+				return true;
+			}
+		}
+		//RIGHT BLOCKS
+		else if(mCurrentLocation.mX > 300 && location.mX > 300){
+			//TOP RIGHT
+			if(mCurrentLocation.mY < 300 && location.mX < 300){
+				return true; 
+			}
+			//TOP LEFT
+			else if(mCurrentLocation.mY > 300 && location.mX < 300){
+				return true;
+			}
+		}
+		return false; 
+	}
 	
 	public void setCurrentLocation(Location location){
 		mCurrentLocation = location; 

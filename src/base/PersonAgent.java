@@ -329,40 +329,14 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.remove(event);
 	}
 	
-/**ANGELICA: MAGGI: Testing transportationnnnnnnnnnnnnnnnnnnnnnnnnnnnnn */
-	
-	private void testGetCar() {
-		//activate marketcustomer role
-		for (Role iRole : mRoles.keySet()){
-			if (iRole instanceof MarketCustomer){
-				if(!SimCityGui.TESTING) {
-					Location location;
-					if(mSSN%ContactList.cNumTimeShifts == 0) {
-						location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
-					} else {
-						location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
-					}
-					iRole.GoToDestination(location);
-					acquireSemaphore(semAnimationDone);
-				}
-				mPersonGui.setPresent(false);
-				mRoles.put(iRole, true); //set active
-				iRole.setPerson(this);
-				break;
-			}
-		}
-		
-		//add desired item
-		mItemsDesired.put(EnumItemType.CAR, 1); // want 1 car
-		// PAEA for role will message market cashier to start transaction
-		mHasCar = true;
-	}
-
+/**ANGELICA: MAGGI: Testing transportation */
+	//COMMUTERROLE INTEGRATION EXAMPLE
+	//DAVID: Please don't delete this -XOXO Maggi 
 	private void testGoToJob() {
-		print("goToJob");
+		print("Going to Job");
 		Role jobRole = getJobRole();
 		if (jobRole == null) {
-			print("didn't go to job");
+			print("Didn't go to job");
 			return;
 		}
 		mAtJob = true; // set to false in msgTimeShift
@@ -378,85 +352,6 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-	private void testEatFood() {
-		if (isCheap() && getHousingRole().getHouse() != null) {
-			print("Going to eat at home");
-			getHousingRole().msgEatAtHome();
-			BaseRole r = (BaseRole) getHousingRole();
-			r.GoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole()
-					.getHouse().mHouseNum));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-		} else {
-			print("Going to restaurant");
-			// set random restaurant
-			Role restCustRole = null;
-			for (Role iRole : mRoles.keySet()) {
-				if (iRole instanceof RestaurantCustomerRole) {
-					restCustRole = iRole;
-				}
-			}
-			mRoles.put(restCustRole, true);
-
-			// SHANE DAVID ALL: 3 make this random
-			int restaurantChoice = 0;
-
-			if (SimCityGui.TESTING) {
-				restaurantChoice = SimCityGui.TESTNUM; // override if testing
-			}
-
-			restCustRole.GoToDestination(ContactList.cRESTAURANT_LOCATIONS
-					.get(restaurantChoice));
-			acquireSemaphore(semAnimationDone);
-			mPersonGui.setPresent(false);
-
-			((RestaurantCustomerRole) restCustRole).setPerson(this);
-			((RestaurantCustomerRole) restCustRole)
-					.setRestaurant(restaurantChoice);
-		}
-	}
-
-	private void testDepositCheck() {
-		mPersonGui.setPresent(true);
-
-		// mPersonGui.DoGoToDestination(mSSN%ContactList.cNumTimeShifts==0?
-		// ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
-
-		acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-
-		int deposit = 50; // REX: add mDeposit, and do after leaving job
-
-		BankCustomerRole bankCustomerRole = null;
-		for (Role iRole : mRoles.keySet()) {
-			if (iRole instanceof BankCustomerRole) {
-				bankCustomerRole
-						.GoToDestination(mSSN % ContactList.cNumTimeShifts == 0 ? ContactList.cBANK1_LOCATION
-								: ContactList.cBANK2_LOCATION);
-				acquireSemaphore(semAnimationDone);
-				mPersonGui.setPresent(false);
-				bankCustomerRole = (BankCustomerRole) iRole;
-				mRoles.put(iRole, true);
-				break;
-			}
-		}
-
-		// deposit check
-		bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit,
-				deposit));
-
-		// pay back loan if needed
-		if (mLoan > 0) {
-			double payment = Math.max(mCash, mLoan);
-			mCash -= payment;
-			bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment,
-					payment));
-		}
-		bankCustomerRole.setPerson(this);
-		bankCustomerRole.setActive();
-		ContactList.sBankList.get(mSSN % ContactList.cNumTimeShifts).addPerson(bankCustomerRole);
-	}
-	
 /*************************************************************************/
 	public void getCar(){
 		Location location;
@@ -484,6 +379,7 @@ public class PersonAgent extends Agent implements Person {
 		//PAEA for role will message market cashier to start transaction
 		mHasCar = true;
 	}
+
 	
 	public void goToJob() {
 		//print("goToJob");
