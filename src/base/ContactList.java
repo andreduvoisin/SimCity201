@@ -4,7 +4,9 @@ import housing.House;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import market.Market;
 import restaurant.restaurant_davidmca.DavidRestaurant;
@@ -74,15 +76,18 @@ public class ContactList {
 	public static TransportationBus cBus;
 	public static BankMasterTeller masterTeller;
 	
+	//Map of open places
+	public static Map<Location, Boolean> sOpenPlaces = Collections.synchronizedMap(new HashMap<Location, Boolean>());
+	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
 	//GRID LOCATIONS AND INTERFACE (Used here and in B*)
 	public static int cGRID_POINT1 = 100;
 	public static int cGRID_POINT2 = 180;
-	public static int cGRID_POINT3 = 205;
-	public static int cGRID_POINT4 = 285;
-	public static int cGRID_POINT5 = 315;
-	public static int cGRID_POINT6 = 395;
+	public static int cGRID_POINT3 = 200;
+	public static int cGRID_POINT4 = 280;
+	public static int cGRID_POINT5 = 320;
+	public static int cGRID_POINT6 = 400;
 	public static int cGRID_POINT7 = 420;
 	public static int cGRID_POINT8 = 500;
 	
@@ -235,10 +240,10 @@ public class ContactList {
 	
 	
 	//BANKS, MARKETS
-	public static final Location cBANK1_LOCATION = gridLocation(0, 0);
-	public static final Location cBANK2_LOCATION = gridLocation(3, 0);
-	public static final Location cMARKET1_LOCATION = gridLocation(0, 3);
-	public static final Location cMARKET2_LOCATION = gridLocation(3, 3);
+	public static final Location cBANK1_LOCATION = gridLocation(1, 1);
+	public static final Location cBANK2_LOCATION = gridLocation(2, 1);
+	public static final Location cMARKET1_LOCATION = gridLocation(1, 2);
+	public static final Location cMARKET2_LOCATION = gridLocation(2, 2);
 	
 	
 	//RESTAURANTS
@@ -305,6 +310,20 @@ public class ContactList {
 		}
 		cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
 	}
+	
+	//Workplace Availability
+	static{
+		sOpenPlaces.put(cBANK1_LOCATION, true);
+		sOpenPlaces.put(cBANK2_LOCATION, true);
+		sOpenPlaces.put(cMARKET1_LOCATION, true);
+		sOpenPlaces.put(cMARKET2_LOCATION, true);
+		synchronized(cRESTAURANT_LOCATIONS){
+			for(Location iLocation : cRESTAURANT_LOCATIONS){
+				sOpenPlaces.put(iLocation, true);
+			}
+		}
+	}
+	
 		
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------

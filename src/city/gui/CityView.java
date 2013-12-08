@@ -92,7 +92,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		
 		BankPanel bp0 = new BankPanel(city);
 		bp0.setBank(ContactList.sBankList.get(0));
-		cards.put("Gringotts Bank", bp0);
+		cards.put("Gringotts", bp0);
 		
 		BankPanel bp1 = new BankPanel(city);
 		bp1.setBank(ContactList.sBankList.get(1));

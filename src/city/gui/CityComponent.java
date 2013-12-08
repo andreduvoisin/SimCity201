@@ -11,7 +11,7 @@ public abstract class CityComponent implements Gui{
 	//Consider creating a rectangle for every Component for better universal collision detection
 	public enum EnumCityComponents {RESTAURANT, ROAD, BANK, HOUSE, MARKET, CAR, BUS, PEOPLE}
 	
-	Rectangle rectangle;
+	protected Rectangle rectangle;
 	public int x;
 	public int y;
 	Color color;
@@ -99,5 +99,9 @@ public abstract class CityComponent implements Gui{
 		this.x = p.x;
 		this.y = p.y;
 		rectangle.setLocation(p);
+	}
+	
+	public boolean collidesWith(CityComponent cc) {
+		return cc.rectangle.intersects(this.rectangle);
 	}
 }
