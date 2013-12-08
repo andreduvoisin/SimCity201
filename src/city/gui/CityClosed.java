@@ -47,15 +47,17 @@ public class CityClosed extends CityComponent {
 	
 	@Override
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLACK);
+		/*g.setColor(Color.BLACK);
 		if (isActive)
 			g.fillRect(x, y, span, span);
-			//g.drawImage(image, x, y, null);
+			//g.drawImage(image, x, y, null);*/
 	}
 	
 	public void paint(Graphics2D g){
 		if (isActive) {
-			draw(g);
+			g.setColor(Color.BLACK);
+			System.out.println("x: "+x+" y: "+y);
+			g.fillRect(x, y, span, span);
 		}
 	}
 
