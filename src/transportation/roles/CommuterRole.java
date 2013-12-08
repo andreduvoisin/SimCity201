@@ -10,7 +10,7 @@ import base.Location;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
-public class CommuterRole extends BaseRole implements TransportationRider{
+public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//DATA
 	private Location mDestination;
@@ -18,7 +18,7 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	private Location mCurrentLocation; 
 	
 	//Bus Data 
-	private enum PersonBusState {WaitingForBus}; 
+	private enum PersonBusState {WaitingForBus, BoardBus, RidingBus}; 
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
 	private PersonBusState mState;
@@ -120,33 +120,17 @@ public class CommuterRole extends BaseRole implements TransportationRider{
 	}
 
 	@Override
-	public int getStop() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getDestination() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public void msgBoardBus() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void msgAtYourStop() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void msgAtStop(int stopBusIsAt) {
-		// TODO Auto-generated method stub
-		
+		if (stopBusIsAt == mDestinationBusStop) {
+			mState = PersonBusState.BoardBus;
+		}
+		stateChanged();
 	}
 	
 	//UTILITES
