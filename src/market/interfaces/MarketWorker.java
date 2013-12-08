@@ -1,5 +1,6 @@
 package market.interfaces;
 
+import market.Market;
 import market.MarketOrder;
 
 /**
@@ -9,7 +10,7 @@ import market.MarketOrder;
  */
 
 public interface MarketWorker {
-	
+
 	public abstract void msgFulfillOrder(MarketOrder o);
 	
 	public abstract void msgOrderFulfilled(MarketOrder o);

@@ -7,11 +7,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import market.interfaces.MarketCashier;
 import market.roles.MarketCashierRole;
+import market.roles.MarketCustomerRole;
+import market.test.mock.MockCashier;
 import city.gui.SimCityGui;
 
 public class MarketCashierGui implements MarketBaseGui {
-	private MarketCashierRole mAgent;
+	private MarketCashier mAgent;
 
 	private boolean isPresent;
 	
@@ -43,6 +46,11 @@ public class MarketCashierGui implements MarketBaseGui {
     	}
 	}
 	
+	/* For animation unit testing. */
+	public MarketCashierGui(MockCashier mCashier) {
+		mAgent = mCashier;
+	}
+
 	public void updatePosition() {
         if (xPos < xDestination)
             xPos++;
@@ -96,7 +104,12 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		return mAgent.getPerson() != null ? true : false;
+		if(mAgent instanceof MarketCustomerRole) {
+			MarketCustomerRole role = (MarketCustomerRole) mAgent;
+			return role.getPerson() != null ? true : false;
+		}
+		else
+			return false;
 	}
 	
 	public void setPresent() {

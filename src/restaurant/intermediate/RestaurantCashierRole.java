@@ -116,7 +116,6 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Messages */
 	public void msgPlacedMarketOrder(MarketOrder o, MarketCashier c) {
-		print("got msg placed order " + o,AlertTag.R6);	//ANGELICA:
 		synchronized(mMarketBills) {
 			mMarketBills.add(new MarketBill(o, c));
 		}
@@ -126,7 +125,6 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		synchronized(mMarketBills) {
 		for(MarketBill b : mMarketBills) {
 			if(b.mOrder == invoice.mOrder) {
-				print("Got invoice!",AlertTag.R6);	//ANGELICA:
 				b.mStatus = EnumBillStatus.PAYING;
 				b.mInvoice = invoice;
 				b.mCannotFulfill = cannotFulfill;
@@ -152,7 +150,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 	
 /* Actions */
 	public void verifyAndPayMarketInvoice(MarketBill b) {
-		print("verifying and paying bill "+ b,AlertTag.R6);	//ANGELICA hack
+		print("Verifying and paying bill "+ b,AlertTag.R6);	//ANGELICA hack
 		MarketOrder o = b.mOrder;
 		MarketInvoice i = b.mInvoice;
 		Map<EnumItemType, Integer> cf = b.mCannotFulfill;
@@ -185,7 +183,6 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 		
 		MarketBill(MarketOrder o, MarketCashier c) {
 			mOrder = o;
-			print("bill " + o,AlertTag.R6);	//ANGELICA:
 			mMarketCashier = c;
 			mInvoice = null;
 			mStatus = EnumBillStatus.PLACED;
