@@ -58,9 +58,9 @@ public class ConfigParser {
 			
 			//Events
 			
-			person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * 8));
-//			person.msgAddEvent(new Event(EnumEventType.EAT, (person.getTimeShift() + 8 + person.getSSN() % 4) % 24)); 
-			person.msgAddEvent(new Event(EnumEventType.EAT, 0));
+			person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
+			person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
+			//person.msgAddEvent(new Event(EnumEventType.EAT, 0));
 			
 			if(name.contains("party"))
 				person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));

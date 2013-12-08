@@ -105,7 +105,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 
 	@Override
 	public Location getLocation() {
-		return ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
+		return null;//ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
 	}
 
 	@Override
