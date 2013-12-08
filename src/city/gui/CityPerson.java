@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.List;
 
-import transportation.roles.CommuterRole;
 import base.Block;
 import base.ContactList;
 import base.Location;
@@ -20,8 +19,8 @@ public class CityPerson extends CityComponent {
 	
 	public Location mDestination = new Location(0, 0); //just to avoid null pointers
 	public Location mFinalDestination = null;
-	public boolean mUsingCar = false;
-	public boolean mUsingBus = true;
+	public boolean mUsingCar = true;
+	public boolean mUsingBus = false;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -87,16 +86,6 @@ public class CityPerson extends CityComponent {
         //B* Algorithm
         List<Block> blocks = null;
         blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
-//        switch(mDestinationPathType){
-//	        case 0: 
-//	        case 1: 
-//	        case 2:
-//	        case 3:
-//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
-//	        case 4:
-//	        	blocks = ContactList.cPERSONBLOCKS; break;
-//	        	//SHANE: 3 combine carblocks and personblocks into blocks
-//        }
         
         for (Block iBlock : blocks){
         	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
@@ -126,8 +115,9 @@ public class CityPerson extends CityComponent {
 		
 		//if at corner closest to destination, walk to destination
 		if (mLocation.equals(destCorner)){
+			mUsingCar = false;
 			//walk to destination
-			mDestinationPathType = 3;
+			mDestinationPathType = 4;
 			mDestination = mFinalDestination;
 			mFinalDestination = null;
 		}else{
@@ -148,13 +138,13 @@ public class CityPerson extends CityComponent {
 					}
 					
 					//clockwise not needed
-					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 0;
+					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 1;
 					//check counter-clockwise
 					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
 					//check BD diagonal
-					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 2;
+					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 1;
 					//check AC diagonal
-					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 3;
+					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 1;
 					else{
 						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
 					}
@@ -186,13 +176,16 @@ public class CityPerson extends CityComponent {
 			if (! onBus) {
 				if(SimCityGui.GRADINGVIEW) {
 					g.drawString(mPerson.getName(),x,y);
-					g.setColor(color);
-					g.fillRect(x, y, 5, 5);
+					if (mUsingCar) {
+						g.setColor(Color.cyan);
+						g.fillRect(x, y, 15, 15);
+					}
+					else {
+						g.setColor(Color.yellow);
+						g.fillRect(x, y, 5, 5);
+					}
 					g.setColor(Color.WHITE);
 					g.drawString(name, x - 10, y);
-				}
-				else if(mPerson.hasCar()) {
-					//paint car gui
 				}
 				else {
 					g.setColor(color);

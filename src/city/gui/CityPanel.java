@@ -9,6 +9,7 @@ import java.util.Map;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
+import base.Block;
 import base.ContactList;
 import base.Location;
 
@@ -98,6 +99,11 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 			this.addStatic(iCC);
 		}
 		//this.addStatic(sClosedImages.get(ContactList.cBANK1_LOCATION));
+		
+		//DAVID testing add personblocks
+				for (Block b: ContactList.cNAVBLOCKS.get(1)) {
+					this.addStatic(b);
+				}
 			
 		//Create Timer Display
 		this.addStatic(new TimeGui(520, 575));
