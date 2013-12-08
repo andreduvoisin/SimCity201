@@ -27,7 +27,7 @@ public class TransportationBus extends Agent {
 		}
 
 		mCurrentStop = 0;
-		state = enumState.readyToBoard;
+		state = enumState.ReadyToBoard;
 	}
 
 	// ==================================================================================
@@ -39,7 +39,7 @@ public class TransportationBus extends Agent {
 	CityBus mGui;
 	int mCurrentStop;
 	
-	enum enumState { readyToTravel, traveling, readyToUnload, unloading, readyToBoard, boarding }
+	enum enumState { ReadyToTravel, ReadyToUnload, ReadyToBoard }
 	enumState state;
 
 
@@ -53,7 +53,7 @@ public class TransportationBus extends Agent {
 	public void msgGuiArrivedAtStop() {
 		print("msgGuiArrivedAtStop(" + mCurrentStop + ")");
 
-		state = enumState.readyToUnload;
+		state = enumState.ReadyToUnload;
 		stateChanged();
 	}
 
@@ -65,7 +65,6 @@ public class TransportationBus extends Agent {
 	public void msgNeedARide(TransportationRider r, int riderCurrentStop) {
 		print("msgNeedARide(current stop: " + riderCurrentStop + ")");
 		mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
-		stateChanged();
 	}
 
 	/**
@@ -79,13 +78,6 @@ public class TransportationBus extends Agent {
 
 		mBusStops.get(mCurrentStop).mWaitingPeople.remove(r);
 		mRiders.add(r);
-
-		if (mBusStops.get(mCurrentStop).mWaitingPeople.isEmpty()) {
-			state = enumState.readyToTravel;
-		}
-
-		// If all riders everywhere are boarded, run scheduler
-		stateChanged();
 	}
 
 	/**
@@ -97,17 +89,6 @@ public class TransportationBus extends Agent {
 
 		// Remove rider from rider list
 		mRiders.remove(r);
-
-		// If more riders need to get off here, do nothing (wait for them)
-		for (TransportationRider iRider : mRiders) {
-			if (iRider.getDestination() == mCurrentStop) {
-				return;
-			}
-		}
-
-		// Otherwise change state and run scheduler to board waiting people
-		state = enumState.readyToBoard;
-		stateChanged();
 	}
 
 
@@ -116,28 +97,17 @@ public class TransportationBus extends Agent {
 	// ==================================================================================
 
 	public boolean pickAndExecuteAnAction() {
-		if (state == enumState.readyToUnload) {
-			if (! mRiders.isEmpty()) {
-				TellRidersToGetOff();
-			}
-			else {
-				state = enumState.readyToBoard;
-				return true;
-			}
+		if (state == enumState.ReadyToUnload) {
+			TellRidersToGetOff();
+			return true;
 		}
 
-		if (state == enumState.readyToBoard) {
-			if (! mBusStops.get(mCurrentStop).mWaitingPeople.isEmpty()) {
-				TellRidersToBoard();
-				return true;
-			}
-			else {
-				state = enumState.readyToTravel;
-				return true;
-			}
+		if (state == enumState.ReadyToBoard) {
+			TellRidersToBoard();
+			return true;
 		}
 		
-		if (state == enumState.readyToTravel) {
+		if (state == enumState.ReadyToTravel) {
 			AdvanceToNextStop();
 			return true;
 		}
@@ -158,13 +128,11 @@ public class TransportationBus extends Agent {
 	private void TellRidersToGetOff() {
 		//print("TellRidersToGetOff()");
 
-		state = enumState.unloading;
-
 		for (TransportationRider iRider : mRiders) {
 			iRider.msgAtStop(mCurrentStop);
 		}
 
-		state = enumState.readyToBoard;
+		state = enumState.ReadyToBoard;
 		stateChanged();
 
 	}
@@ -176,17 +144,11 @@ public class TransportationBus extends Agent {
 	private void TellRidersToBoard() {
 		print("TellRidersToBoard()");
 
-		if (mBusStops.get(mCurrentStop).mWaitingPeople.isEmpty()) {
-			state = enumState.readyToTravel;
-		}
-		else {
-			state = enumState.boarding;
-
-			for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
-				r.msgBoardBus();
-			}
+		for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
+			r.msgBoardBus();
 		}
 
+		state = enumState.ReadyToTravel;
 		stateChanged();
 	}
 
@@ -197,9 +159,8 @@ public class TransportationBus extends Agent {
 	private void AdvanceToNextStop() {
 		//print("AdvanceToNextStop()");
 
-		state = enumState.traveling;
-
-		// Gui has a list of bus stop coordinates
+		mCurrentStop++;
+		state = enumState.ReadyToTravel;
 		mGui.DoAdvanceToNextStop();
 	}
 
@@ -212,20 +173,6 @@ public class TransportationBus extends Agent {
 	 */
 	public CityBus getBusGui() {
 		return mGui;
-	}
-
-	public int getBusStopClosestTo(Location loc) {
-		double distance = 360000;
-		int shortest = 0;
-		for (int i = 0; i < mBusStops.size(); i++) {
-			double d = Math.sqrt(Math.pow((mBusStops.get(i).location.mX - loc.mX), 2)
-						+ Math.pow((mBusStops.get(i).location.mY - loc.mY), 2));
-			if (d < distance) {
-				distance = d;
-				shortest = i;
-			}
-		}
-		return shortest;
 	}
 
 	public static TransportationBus getInstance() {
