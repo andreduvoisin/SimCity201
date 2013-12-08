@@ -7,7 +7,7 @@ import java.util.List;
 import transportation.interfaces.TransportationRider;
 
 public class TransportationBusStop {
-	List<TransportationRider> mWaitingPeople = Collections.synchronizedList(new ArrayList<TransportationRider>());
+	public List<TransportationRider> mWaitingPeople = Collections.synchronizedList(new ArrayList<TransportationRider>());
 
 	public TransportationBusStop() {
 		

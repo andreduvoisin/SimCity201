@@ -2,16 +2,13 @@ package transportation;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import restaurant.restaurant_davidmca.Order;
 import transportation.interfaces.TransportationRider;
 import transportation.roles.CommuterRole;
 import base.Agent;
-import base.PersonAgent;
 import city.gui.CityBus;
 import city.gui.trace.AlertTag;
 
@@ -22,11 +19,13 @@ import city.gui.trace.AlertTag;
 public class TransportationBus extends Agent {
 
 	public static TransportationBus instance = null;
+	public boolean testing;
 
-	public TransportationBus() {
+	public TransportationBus(boolean testBus) {
 		instance = this;
+		testing = testBus;
 
-		mGui = new CityBus(this);
+		if (!testing) mGui = new CityBus(this);
 
 		for (int i = 0; i < base.ContactList.cBUS_STOPS.size(); i++) {
 			mBusStops.add(new TransportationBusStop());
@@ -180,7 +179,7 @@ public class TransportationBus extends Agent {
 	private void AdvanceToNextStop() {
 		print("AdvanceToNextStop()");
 		state = enumState.traveling;
-		
+
 		timer.schedule(new TimerTask(){
 			public void run(){
 				mGui.DoAdvanceToNextStop();
@@ -200,7 +199,6 @@ public class TransportationBus extends Agent {
 	}
 
 	public static TransportationBus getInstance() {
-		if (instance == null) return new TransportationBus();
 		return instance;
 	}
 	
