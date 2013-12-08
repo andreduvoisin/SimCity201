@@ -109,6 +109,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	}
 	
 	private void ExitBus(){
+		print("exiting...");
 		mPerson.getGui().DoExitBus(mDestinationBusStop); 
 		mBus.msgImOff(this);
 		mState = PersonBusState.noBus; 
@@ -116,22 +117,23 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	}
 	
 	private void DriveToDestination(){
-		if(inAHouse()){
-			if(!goingToFarHouse(mDestination)){
-				mPerson.getGui().DoGoToDestination(mDestination);
-			}
-			else{
-				mPerson.getGui().DoGoToDestination(mDestination); 
-			}
-		}
-		else{
-			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
-				mPerson.getGui().DoGoToDestination(mDestination);
-			}
-			else{
-				mPerson.getGui().DoGoToDestination(mDestination); 
-			}
-		}
+		mPerson.getGui().DoGoToDestination(mDestination);
+//		if(inAHouse()){
+//			if(!goingToFarHouse(mDestination)){
+//				mPerson.getGui().DoGoToDestination(mDestination);
+//			}
+//			else{
+//				mPerson.getGui().DoGoToDestination(mDestination); 
+//			}
+//		}
+//		else{
+//			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
+//				mPerson.getGui().DoGoToDestination(mDestination);
+//			}
+//			else{
+//				mPerson.getGui().DoGoToDestination(mDestination); 
+//			}
+//		}
 	}
 	
 	private void GoToDestination(){

@@ -168,7 +168,6 @@ public class CityPerson extends CityComponent {
 			}
 			//if not at a corner, walk to person corner
 			else{
-				System.out.println("balls");
 				mDestinationPathType = 3;
 				mDestination = closeCorner;
 			}
