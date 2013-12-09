@@ -53,7 +53,6 @@ public class CityPerson extends CityComponent {
         	if(mFinalDestination != null){
         		DoGoToDestination(mFinalDestination);
         	}else{
-        		
         		this.disable();
         		mPerson.msgAnimationDone();
         		mPerson.postCommute();
@@ -101,51 +100,49 @@ public class CityPerson extends CityComponent {
 		//calculate intermediate destination
 		Location mLocation = new Location(x, y);
 		Location closeCorner = findNearestCorner(mLocation);
+		Location closeParking = findNearestParkingLot(mLocation);
 		Location destParking = findNearestParkingLot(mFinalDestination);
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
-		//if at corner closest to destination, walk to destination
-		if (mLocation.equals(destCorner)){
-			mUsingCar = false;
-			//walk to destination
-			mDestinationPathType = 0; //Walking
-			mDestination = mFinalDestination;
-			mFinalDestination = null;
-		}else{
-			//if at a corner (not closest to dest)
-			if (mLocation.equals(closeCorner)){
-				//if using car, drive to parking lot closest to destination
-				if (mUsingCar){
-					//calculate corners
-					int currentCornerNum = -1;
-					int destCornerNum = -1;
-					for (int iCorner = 0; iCorner < ContactList.cPERSONCORNERS.size(); iCorner++){
-						if (mLocation.equals(ContactList.cPERSONCORNERS.get(iCorner))){
-							currentCornerNum = iCorner;
-						}
-						if (destCorner.equals(ContactList.cPERSONCORNERS.get(iCorner))){
-							destCornerNum = iCorner;
-						}
-					}
-					mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
-					mDestination = destParking;
-				}
-				//else bus to same corner
-				else{
-					//do bus stuff??? CHASE MAGGI: 1 Do this
-					if(mUsingBus) {
-						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
-					}
-				}
-			}
-			//if not at a corner, walk to person corner
-			else{
+		if (mPerson.hasCar() && mUsingCar) {
+			//if at corner closest to destination, walk to destination
+			if (mLocation.equals(destParking)){
+				x = findNearestCorner(mLocation).mX;
+				y = findNearestCorner(mLocation).mY;
+				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+				mFinalDestination = null;
+//				System.out.println("Reached destParking");
+				//walk to destination
 				mUsingCar = false;
 				mDestinationPathType = 0; //Walking
-				mDestination = closeCorner;
+			}
+			else if (mLocation.equals(closeParking)) {
+				mUsingCar = true;
+				//calculate corners
+				int currentCornerNum = -1;
+				int destCornerNum = -1;
+				for (int iParking = 0; iParking < ContactList.cPARKINGLOTS.size(); iParking++){
+					if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParking))){
+						currentCornerNum = iParking;
+					}
+					if (destParking.equals(ContactList.cPARKINGLOTS.get(iParking))){
+						destCornerNum = iParking;
+					}
+				}
+				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
+				System.out.println(mDestinationPathType);
+				mDestination = destParking;
+			}
+			else {
+				mUsingCar = true;
+				mDestinationPathType = 1;
+				mDestination = closeParking;
 			}
 		}
-
+		if (mUsingBus) {
+			//do bus stuff??? CHASE MAGGI: 1 Do this
+				DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+		}
 	}
 	
 	
@@ -158,7 +155,7 @@ public class CityPerson extends CityComponent {
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
-						g.fillRect(x, y, 15, 15);
+						g.fillRect(x, y, 20, 20);
 					}
 					else {
 						g.setColor(Color.yellow);

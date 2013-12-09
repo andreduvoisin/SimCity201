@@ -145,10 +145,10 @@ public class ContactList {
 	//PARKING LOTS
 	// 0 1 
 	// 3 2
-	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-20, cGRID_POINT1-20); //90, 90 DAVID these may be wrong
-	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8, cGRID_POINT1-20);	//500, 90
-	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8, cGRID_POINT8);		//500, 500
-	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-20, cGRID_POINT8);	//90, 500
+	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-35, cGRID_POINT1-35); //65, 65 DAVID these may be wrong
+	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8+35, cGRID_POINT1-35);	//535, 65
+	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+35, cGRID_POINT8+35);	//535, 535
+	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8+35);	//65, 535
 	public static List<Location> cPARKINGLOTS;
 	static {
 		List<Location> list = new ArrayList<Location>();
@@ -156,17 +156,17 @@ public class ContactList {
 		list.add(cPARKINGLOT1);
 		list.add(cPARKINGLOT2);
 		list.add(cPARKINGLOT3);
-		cRESTAURANT_LOCATIONS = Collections.unmodifiableList(list);
+		cPARKINGLOTS = Collections.unmodifiableList(list);
 	}
 	
 	
 	//INTERSECTION BLOCKS
 	public static List<Block> cINTERSECTIONBLOCKS;
-	public static final Block cINTERSECTIONBLOCK0 = new Block(280 - 15,	35 - 15, 320 + 15, 85 + 15);
-	public static final Block cINTERSECTIONBLOCK1 = new Block(280 - 15,	280 - 15, 320 + 15, 320 + 15);
-	public static final Block cINTERSECTIONBLOCK2 = new Block(35 - 15,	280 - 15, 85 + 15, 320 + 15);
-	public static final Block cINTERSECTIONBLOCK3 = new Block(515 - 15,	280 - 15, 565 + 15, 320 + 15);
-	public static final Block cINTERSECTIONBLOCK4 = new Block(280 - 15,	515 - 15, 320 + 15, 565 + 15);
+	public static final Block cINTERSECTIONBLOCK0 = new Block(280,	35, 320, 85);
+	public static final Block cINTERSECTIONBLOCK1 = new Block(280,	280, 320, 320);
+	public static final Block cINTERSECTIONBLOCK2 = new Block(35,	280, 85, 320);
+	public static final Block cINTERSECTIONBLOCK3 = new Block(515,	280, 565, 320);
+	public static final Block cINTERSECTIONBLOCK4 = new Block(280,	515, 320, 565);
 	static{
 		List<Block> list = new ArrayList<>();
 		list.add(cINTERSECTIONBLOCK0);
