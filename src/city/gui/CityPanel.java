@@ -10,6 +10,7 @@ import java.util.Map;
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
 import base.ContactList;
+import base.Inspection;
 import base.Location;
 
 @SuppressWarnings("serial")
@@ -24,8 +25,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 	CityComponent temp;
 	SimCityGui simcitygui;
 	
-	public static Map<Location, CityComponent> sClosedImages = new HashMap<Location, CityComponent>();
-
 	TransportationBus busDispatch;
 	
 	public CityPanel(SimCityGui city) {
@@ -59,27 +58,17 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRoad(280, RoadDirection.HORIZONTAL, 40, 480));
 		
 		//Add Intersections
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK0)); //North-Center
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK1)); //Center
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK2)); //East-Center
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK3)); //West-Center
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK4)); //South-Central #InDaHood
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK5)); //Upper Left
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK6)); //Upper Right
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK7)); //Bottom Right
+		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK8)); //Bottom Left
 		
-		//North-Center
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK0));
-		//Center
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK1));
-		//East-Center
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK2));
-		//West-Center
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK3));
-		//South-Central #InDaHood
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK4));
-		//Upper Left
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK5));
-		//Upper Right
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK6));
-		//Bottom Right
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK7));
-		//Bottom Left
-		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK8));
-		
-		//Add static buildings
+		//Add Buildings
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(0), "r_duvoisin"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(1), "r_cwagoner"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(2), "r_jerryweb"));
@@ -94,18 +83,11 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Ollivanders"));
 
 		//Add Closed Signs
-		for (Location iLocation: ContactList.cRESTAURANT_LOCATIONS){ //Restaurant
-			sClosedImages.put(iLocation, new CityClosed(iLocation.createNew()));
-		}
-		sClosedImages.put(ContactList.cBANK1_LOCATION, new CityClosed(ContactList.cBANK1_LOCATION.createNew()));
-		sClosedImages.put(ContactList.cBANK2_LOCATION, new CityClosed(ContactList.cBANK2_LOCATION.createNew()));
-		sClosedImages.put(ContactList.cMARKET1_LOCATION, new CityClosed(ContactList.cMARKET1_LOCATION.createNew()));
-		sClosedImages.put(ContactList.cMARKET2_LOCATION, new CityClosed(ContactList.cMARKET2_LOCATION.createNew()));
-		
-		for(CityComponent iCC : sClosedImages.values()){
+		for(CityComponent iCC : Inspection.sClosedImages.values()){
 			this.addStatic(iCC);
 		}
 		//this.addStatic(sClosedImages.get(ContactList.cBANK1_LOCATION));
+		
 		
 		//DAVID testing add personblocks
 //		for (List<Block> list : ContactList.cNAVBLOCKS) {
