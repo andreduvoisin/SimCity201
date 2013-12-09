@@ -459,6 +459,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    enable.setPreferredSize(new Dimension(180,20));
 	    enable.setMaximumSize(new Dimension(180,20));
 	    enable.setMinimumSize(new Dimension(180,20));
+	    enable.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
 	    JButton disable = new JButton("DISABLE ALL");
 	    disable.setPreferredSize(new Dimension(180,20));
@@ -494,10 +495,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    PropertiesTab.add(new JLabel());
 	    PropertiesTab.add(placesTitle);
 	    PropertiesTab.add(places);
-	    PropertiesTab.add(placeProperties);
-	    PropertiesTab.add(holdPlaces);
 	    PropertiesTab.add(enable);
 	    PropertiesTab.add(disable);
+	    PropertiesTab.add(placeProperties);
+	    PropertiesTab.add(holdPlaces);
 	    
 	    //Add ActionListener for Enable
 	    enable.addActionListener(new PlacesButtonListener(enable, places));	

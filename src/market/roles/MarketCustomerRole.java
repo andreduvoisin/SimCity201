@@ -37,7 +37,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	Map<EnumItemType, Integer> mCannotFulfill;// = new HashMap<EnumItemType, Integer>();
 
-	MarketCashier mCashier;
+	public MarketCashier mCashier;
 	
 	public MarketCustomerRole(Person person, int marketID) {
 		super(person);
@@ -83,7 +83,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction(){
 		for(MarketInvoice invoice : mInvoices) {
-			MarketOrder order = invoice.mOrder;
+			MarketOrder order = invoice.mOrder;//ANGLE: The the status is never set to paying? -Jerry
 			if(order.mStatus == EnumOrderStatus.PAYING && order.mEvent == EnumOrderEvent.RECEIVED_INVOICE) {
 				order.mStatus = EnumOrderStatus.PAID;
 				payAndProcessOrder(invoice);
@@ -138,6 +138,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
+		
 		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment);
 		
 		synchronized(mItemsDesired) {
@@ -216,5 +217,17 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.MARKET, e);
+	}
+	
+	public List<MarketOrder> getOrderList(){
+		return mOrders;
+	}
+	
+	public List<MarketInvoice> getInvoiceList(){
+		return mInvoices;
+	}
+	
+	public Map getCannotFulFillMap(){
+		return mCannotFulfill;
 	}
 }

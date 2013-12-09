@@ -22,7 +22,7 @@ import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
@@ -167,7 +167,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	restaurantCashier = JerrywebRestaurant.cashier.mRole;
             	break;
             case 3: //maggi
-            	restaurantCashier = MaggiyanAnimationPanel.mCashier.mRole;
+            	restaurantCashier = MaggiyanRestaurant.mCashier.mRole;
             	break;
             case 4: //david
             	restaurantCashier = DavidRestaurant.cashier.mRole;
@@ -183,7 +183,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	break;
             }
             restaurantCashier.msgInvoiceToPerson(cannotFulfill, invoice);
-            cook.msgCannotFulfillItems(order, cannotFulfill);
+            cook.msgCannotFulfillItems(order, cannotFulfill);//ANGLE, SHANE... why is this called twice?
         }
         
 		//if a customer

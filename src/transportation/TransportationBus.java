@@ -45,7 +45,7 @@ public class TransportationBus extends Agent {
 	public List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
 	public List<TransportationRider> mRiders = Collections.synchronizedList(new ArrayList<TransportationRider>());
 	CityBus mGui;
-	int mCurrentStop;
+	public int mCurrentStop;
 	
 	public enum enumState { traveling, ReadyToTravel, ReadyToUnload, ReadyToBoard }
 	public enumState state;
@@ -78,6 +78,7 @@ public class TransportationBus extends Agent {
 		synchronized(mBusStops.get(riderCurrentStop).mWaitingPeople) {
 			mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 		}
+		stateChanged();
 	}
 
 	/**

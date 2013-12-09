@@ -296,7 +296,31 @@ public class CustomerTest extends TestCase{
 		//setUp()
 		
 		//Preconditions
+		assertTrue("Customer state is none", mCustomer.mState == EnumState.None);
+		assertTrue("Customer event is none", mCustomer.mEvent == EnumEvent.None);
+		assertTrue("Customer guard is null", mCustomer.mGuard == null);
+		assertTrue("Customer teller is null", mCustomer.mTeller == null);
+		assertTrue("Customer action list is empty", mCustomer.mActions.isEmpty());
 		
+		//1 : set guard, Teller and action
+		mCustomer.setGuard(mGuard);
+		mCustomer.setTeller(mTeller);
+		mCustomer.mActions.add(new BankAction(EnumAction.Robbery, 300));
+		
+		//Check
+		assertTrue("Customer guard should be set, but it's null.", mCustomer.mGuard != null);
+		assertTrue("Customer teller should be set, but it's null. ", mCustomer.mTeller != null);
+		assertTrue("Customer should have one action, but it doesn't.", mCustomer.mActions.size() == 1);
+		
+		mCustomer.mTeller.msgRobbery(mCustomer, mCustomer.getSSN(), 400);
+		assertTrue("Teller Sched should have run, but it didn't.", mTeller.pickAndExecuteAnAction());
+		
+		mCustomer.msgHereIsBalance(200);
+		assertEquals("The customer's event should be RECIEVED, but it's not.", mCustomer.mEvent.Received, mCustomer.mEvent );
+		
+		mGuard.msgRobberAlert(mCustomer);
+		//assertEquals("The guard should have one customer ", mGuard.mCustomers.size(),);
+		//assertTrue("Guard's sched should have run, but it didn't.", mGuard.pickAndExecuteAnAction());
 	}
 }
 

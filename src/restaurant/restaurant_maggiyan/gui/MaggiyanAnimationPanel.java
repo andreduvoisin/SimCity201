@@ -5,25 +5,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Vector;
 
 import javax.swing.Timer;
 
 import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
-import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
-import base.BaseRole;
 import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;

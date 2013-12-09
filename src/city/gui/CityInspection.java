@@ -46,7 +46,7 @@ public class CityInspection extends CityComponent {
 		
 		image = null;
     	try {
-    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/closed.png");
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/circle_i.png");
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {

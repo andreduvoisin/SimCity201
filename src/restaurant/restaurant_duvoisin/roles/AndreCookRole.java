@@ -30,7 +30,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 	public List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
 	public enum OrderState { Pending, Cooking, Done };
 //	Map<String, Food> foods = new HashMap<String, Food>();
-	RestaurantCookRole mRole;
+	public RestaurantCookRole mRole;
 	private String name;
 	Boolean paused = false;
 //	Boolean orderFood;
