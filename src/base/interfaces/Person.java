@@ -6,6 +6,7 @@ import java.util.Map;
 
 import base.Event;
 import base.Item.EnumItemType;
+import base.PersonAgent.EnumJobType;
 import city.gui.CityPerson;
 import city.gui.trace.AlertTag;
 
@@ -55,4 +56,6 @@ public interface Person {
 	abstract void print(String msg, AlertTag tag, Throwable e);
 
 	void msgStateChanged();
+	
+	public abstract EnumJobType getJobType();
 }

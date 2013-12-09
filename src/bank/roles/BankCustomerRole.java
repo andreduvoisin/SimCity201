@@ -3,10 +3,8 @@ package bank.roles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
-import restaurant.restaurant_duvoisin.roles.AndreCookRole.OrderState;
 import bank.BankAction;
 import bank.gui.BankCustomerGui;
 import bank.interfaces.BankCustomer;

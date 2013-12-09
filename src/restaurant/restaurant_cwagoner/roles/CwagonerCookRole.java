@@ -15,7 +15,6 @@ import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Item;
-import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;

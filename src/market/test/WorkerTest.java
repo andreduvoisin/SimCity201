@@ -31,7 +31,7 @@ public class WorkerTest extends TestCase {
 		super.setUp();
 		
 		mPerson = new PersonAgent();
-		mWorker = new MarketWorkerRole(mPerson);
+		mWorker = new MarketWorkerRole(mPerson, 0);
 		
 		mMockCashier = new MockCashier();
 		mMockCustomer = new MockCustomer();		

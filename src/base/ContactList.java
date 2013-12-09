@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.CityIntersection;
 import market.Market;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;

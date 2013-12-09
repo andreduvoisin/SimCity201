@@ -5,11 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
+import base.ContactList;
 import city.gui.CityClosed;
 import city.gui.CityPanel;
-import base.ContactList;
 
 //Listener for JComboBox (Drop Down Menu)
 public class PlacesButtonListener implements ActionListener { 

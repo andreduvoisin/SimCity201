@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
@@ -37,9 +36,7 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityComponent;
 import city.gui.CityInspection;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
@@ -209,19 +206,20 @@ public class PersonAgent extends Agent implements Person {
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
 	public void msgTimeShift() {
-		//finished role if job
-		mRoleFinished = true;
-		if (Time.GetShift() == mTimeShift) {
-			mRoles.put(getJobRole(), true);
-		}
-		//Leave job
-		if ((mTimeShift + 1) % ContactList.cNumTimeShifts == Time.GetShift()){ //if job shift is over
-			mAtJob = false;
-			mRoles.put(getJobRole(), false); //set job role to false;
-			mPersonGui.setPresent(true);
-		}
-		if(getJobRole()!=null)
-			stateChanged();
+		//if(mJobType == EnumJobType.BANK)
+			//finished role if job
+			mRoleFinished = true;
+			if (Time.GetShift() == mTimeShift) {
+				mRoles.put(getJobRole(), true);
+			}
+			//Leave job
+			if ((mTimeShift + 1) % ContactList.cNumTimeShifts == Time.GetShift()){ //if job shift is over
+				mAtJob = false;
+				mRoles.put(getJobRole(), false); //set job role to false;
+				mPersonGui.setPresent(true);
+			}
+			if(getJobRole()!=null)
+				stateChanged();
 	}
 	
 	public void msgStateChanged() {
@@ -762,13 +760,13 @@ public class PersonAgent extends Agent implements Person {
 //		((HousingBaseRole) jobRole).msgTimeToMaintain();
 	}
 	
-	private List<Person> getBestFriends(){
+	/*private List<Person> getBestFriends(){
 		List<Person> bestFriends = new ArrayList<Person>();
 		for (Person iPerson : mFriends){
 			if (iPerson.getTimeShift() == mTimeShift) bestFriends.add(iPerson);
 		}
 		return bestFriends;
-	}
+	}*/
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
@@ -934,6 +932,11 @@ public class PersonAgent extends Agent implements Person {
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.PERSON, e);
 	}
+
+	public EnumJobType getJobType() {
+		return mJobType;
+	}
+
 	
 	public List<Event> getEvents() {
 		return mEvents;
@@ -946,6 +949,4 @@ public class PersonAgent extends Agent implements Person {
 	public List<Person> getFriendList(){
 		return mFriends;
 	}
-	
-	
 }
