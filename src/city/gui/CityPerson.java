@@ -100,9 +100,9 @@ public class CityPerson extends CityComponent {
 		Location closeParking = findNearestParkingLot(mLocation);
 		Location destParking = findNearestParkingLot(mFinalDestination);
 		Location destCorner = findNearestCorner(mFinalDestination);
-		
+		//if at corner closest to destination, walk to destination
+	
 		if (mPerson.hasCar()) {
-			//if at corner closest to destination, walk to destination
 			if (mLocation.equals(destParking)){
 				x = closeCorner.mX;
 				y = closeCorner.mY;
@@ -113,7 +113,7 @@ public class CityPerson extends CityComponent {
 				mDestinationPathType = 0; //Walking
 			}
 			//if at closest parking lot, drive to parking lot nearest destination
-			else if (mLocation.equals(closeParking)) {
+			if (mLocation.equals(closeParking)) {
 				mUsingCar = true;
 				//calculate corners
 				int currentCornerNum = -1;
@@ -136,9 +136,18 @@ public class CityPerson extends CityComponent {
 				mDestination = closeParking;
 			}
 		}
-		if (mUsingBus) {
-			DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+		else{
+			if (mLocation.equals(destCorner)){
+				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+				mFinalDestination = null;
+
+			}
+			else if(mUsingBus){
+				DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+			}
 		}
+		
+		
 	}
 	
 	
