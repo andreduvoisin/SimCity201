@@ -69,7 +69,6 @@ public class SortingHat {
 			}
 		}
 		for (int iRestaurantNum = numStart; iRestaurantNum < numRestaurants; iRestaurantNum++){
-			System.out.println(numStart + "k");	//ANGELICA
 			sRoles.add(new RestaurantHostRole(null, iRestaurantNum));
 			sRoles.add(new RestaurantCashierRole(null, iRestaurantNum));
 			sRoles.add(new RestaurantCookRole(null, iRestaurantNum));

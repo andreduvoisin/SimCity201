@@ -243,6 +243,7 @@ public class PlacesPropertiesLabel extends JPanel{
 		String [] inventoryTypes = {"","Steak","Chicken","Salad","Pizza"};
 		
 		int restaurantNum;
+		RestaurantCookRole cook;
 		
 		JPanel changeInventory;
 		JLabel inventoryLabel;
@@ -372,7 +373,6 @@ public class PlacesPropertiesLabel extends JPanel{
 		}
 		
 		public void updateInventory() {
-			RestaurantCookRole cook = null;
 			switch(restaurantNum) {
 			case 0:
 				if(ContactList.AndreRestaurant.cook != null) {
@@ -439,8 +439,10 @@ public class PlacesPropertiesLabel extends JPanel{
 	        }
 	        if (e.getSource() == changeInventoryField || e.getSource() == changeInventoryButton) {
 	        	if(!changeInventoryType.getSelectedItem().toString().equals("")) {
-	        		//setInventory(Item.stringToEnum(changeInventoryType.getSelectedItem().toString()),
-	        		//		Integer.parseInt(changeInventoryField.getText()));
+	        		if(cook != null) {
+	        			cook.setInventory(Item.stringToEnum(changeInventoryType.getSelectedItem().toString()),
+	        					Integer.parseInt(changeInventoryField.getText()));
+	        		}
 	        	}
 	        }
     		updateStaff();
