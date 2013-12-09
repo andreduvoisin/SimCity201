@@ -132,6 +132,11 @@ public class PersonAgentTest extends TestCase {
 		mPerson.msgAddEvent(new Event(EnumEventType.JOB, 0));
 		assertEquals("mPerson should have 1 Event in his list of events. He does not.", 1, mPerson.getEvents().size());
 		
+		//Perform the actual time shift
+		mPerson.msgTimeShift();
+		mPerson.msgAnimationDone();
+		mPerson.pickAndExecuteAnAction();
+		assertTrue("mPerson should be at his job. He is.", mPerson.getAtJob());
 		
 	}
 	
@@ -139,14 +144,14 @@ public class PersonAgentTest extends TestCase {
 		setUp();
 		ContactList.setup();
 		SortingHat.InstantiateBaseRoles();
-		time = new Time();
+		
 		mPerson = new PersonAgent(EnumJobType.NONE, 100, "partyPerson");
 		
 		mPerson2 = new PersonAgent(EnumJobType.NONE, 100, "Harry");
 		//mPerson3 = new PersonAgent(EnumJobType.BANK, 100, "RON");
 		mPerson.getFriendList().add(mPerson2);
 		//mPerson.getFriendList().add(mPerson3);
-		
+		time = new Time();
 		//Preconditions
 		assertEquals("partyPerson should have 0 Events in his list of events. It does not.", 0, mPerson.getEvents().size());
 		assertEquals("Time should be 0. It is not. ",0, time.GetTime());
@@ -156,11 +161,11 @@ public class PersonAgentTest extends TestCase {
 		//Start of Party test
 		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, 0));
 		assertEquals("partyPerson should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
-		
+		assertEquals("Time should be 0. It is not. ",1, time.GetTime());
 		assertTrue("partyPerson scheduler should have been called. It was not. ", mPerson.pickAndExecuteAnAction());
 
 		assertFalse("mPerson2 scheduler should not have been called. It was. ", mPerson2.pickAndExecuteAnAction());
-		
+		time.notifyPeople();
 		//distribution of invites
 		
 		//mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,0));
@@ -186,18 +191,19 @@ public class PersonAgentTest extends TestCase {
 		assertEquals("partyPerson should have 0 Event in his list of events. It does not.", 0, mPerson.getEvents().size());
 		assertEquals("mPerson2 should have 0 Event in his list of events. It does not.", 0, mPerson2.getEvents().size());
 		assertEquals("partyPerson should have 2 friends on it's mFriends list. It does not.", 2, mPerson.getFriendList().size());
-
+		time.notifyPeople();
 		//Start of Party test
 		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, time.GetTime()));
 		assertEquals("Global time should be at 1. It is not.", 1, time.GetTime());
 		assertEquals("Harry should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
 		assertTrue("Harry scheduler should have been called. It was not. ", mPerson.pickAndExecuteAnAction());
 		assertFalse("mPerson2 scheduler should not have been called. It was. ", mPerson2.pickAndExecuteAnAction());
-		
-		time.equals(1);
+		time.notifyPeople();
+		//time.equals(1);
 		
 		//distribution of invites
 		//mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,1));
+		assertEquals("Global time should be at 2. It is not.", 2, time.GetTime());
 		assertFalse("Harry scheduler should not have been called. It was not. ", mPerson.pickAndExecuteAnAction());
 		assertEquals("Harry should have four Events in his list of events. It does not.", 4, mPerson.getEvents().size());
 		

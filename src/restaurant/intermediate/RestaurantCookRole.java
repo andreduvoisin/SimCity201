@@ -87,7 +87,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 2: //jerry
 					mAlertTag = AlertTag.R2;
 					subRole = new JerrywebCookRole(super.mPerson, this);
-					JerrywebRestaurant.cook = ((JerrywebCookRole) subRole);
 					if (JerrywebRestaurant.cook == null) {
 						JerrywebRestaurant.addPerson((JerrywebCookRole) subRole);
 					} else {

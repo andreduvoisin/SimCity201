@@ -12,7 +12,7 @@ public class Time {
 	public static int sGlobalTimeInt = 0; //minutes
 	public final static int cSYSCLK = 50;
 //	static boolean sFastForward = false;
-	List<Person> mPersons = ContactList.sPersonList; //same pointer
+	static List<Person> mPersons = ContactList.sPersonList; //same pointer
 	Timer mTimer;
 	
 	public Time(){
@@ -32,12 +32,7 @@ public class Time {
 				
 				//state changed
 				if (sGlobalTimeInt % 60 == 0){
-					synchronized (mPersons) {
-						for (Person iPerson : mPersons) {
-							iPerson.msgStateChanged();
-						}
-					}
-					
+					notifyPeople();					
 					if (sGlobalTimeInt % ((24 / ContactList.cNumTimeShifts)*60) == 0){
 						System.out.println("Time Shift! (but not)");
 						synchronized (mPersons) {
@@ -50,6 +45,14 @@ public class Time {
 			}
 		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 2
 		
+	}
+	
+	public static void notifyPeople(){
+		synchronized (mPersons) {
+			for (Person iPerson : mPersons) {
+				iPerson.msgStateChanged();
+			}
+		}
 	}
 
 	public static int GetMinute(){
