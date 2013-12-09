@@ -106,7 +106,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		guis.add(gui);
 	}
 	*/
-	public static void addStatic(CityComponent c) {
+	public void addStatic(CityComponent c) {
 		synchronized(statics) {
 			statics.add(c);
 		}

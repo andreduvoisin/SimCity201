@@ -13,6 +13,7 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
 import transportation.TransportationBus;
+import base.ContactList;
 import base.Location;
 
 public class CityBus extends CityComponent {
@@ -67,6 +68,9 @@ public class CityBus extends CityComponent {
 	}
 
 	public void updatePosition() {
+		int previousX = x;
+		int previousY = y;
+		
 		if (x < destination.mX)			x++;
         else if (x > destination.mX)	x--;
 
@@ -79,6 +83,17 @@ public class CityBus extends CityComponent {
         }
         
         setX(x); setY(y);
+        
+      //Check intersections (if going into busy intersection - stay)
+        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
+        	if(this.rectangle.intersects(iIntersect.rectangle)) {
+        		if (iIntersect.mOccupant != this) {
+	        		x = previousX;
+	        		y = previousY;
+        		}
+        		return;
+        	}
+        }
 	}
 
 	@Override
