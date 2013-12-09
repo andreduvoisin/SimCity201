@@ -7,8 +7,6 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -67,6 +65,9 @@ public class CityBus extends CityComponent {
 	}
 
 	public void updatePosition() {
+		int previousX = x;
+		int previousY = y;
+		
 		if (x < destination.mX)			x++;
         else if (x > destination.mX)	x--;
 
@@ -79,6 +80,17 @@ public class CityBus extends CityComponent {
         }
         
         setX(x); setY(y);
+        
+      //Check intersections (if going into busy intersection - stay)
+        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
+        	if(this.rectangle.intersects(iIntersect.rectangle)) {
+        		if (iIntersect.mOccupant != this) {
+	        		x = previousX;
+	        		y = previousY;
+        		}
+        		return;
+        	}
+        }
 	}
 
 	@Override

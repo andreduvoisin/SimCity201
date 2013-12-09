@@ -1,11 +1,10 @@
 package transportation.test;
 
-import base.PersonAgent;
-import base.PersonAgent.EnumJobType;
-import base.interfaces.Person;
+import junit.framework.TestCase;
 import transportation.roles.CommuterRole;
 import transportation.test.mock.MockCommuter;
-import junit.framework.TestCase;
+import base.PersonAgent;
+import base.PersonAgent.EnumJobType;
 
 /**
  * 
@@ -28,7 +27,7 @@ public class BusRiderRoleTest extends TestCase {
 		super.setUp();
 		p = new PersonAgent(EnumJobType.NONE, 200,"bob");
 		mockCommuter = new MockCommuter();
-		commuterRole = new CommuterRole(p);
+		commuterRole = new CommuterRole(null);
 	}
 	
 	public void testRenterObtainsHousing()

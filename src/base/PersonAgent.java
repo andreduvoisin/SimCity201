@@ -31,13 +31,12 @@ import bank.roles.BankCustomerRole.EnumAction;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
+import bank.test.mock.MockTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityComponent;
 import city.gui.CityInspection;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
@@ -91,6 +90,7 @@ public class PersonAgent extends Agent implements Person {
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
 	public boolean mRoleFinished = true;
+	public MockTellerRole mJobRole;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -183,14 +183,25 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		//Role References
-		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
-		
+		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
+		//Role References
+        Location startLocation = null;
+        if (mSSN % 8 == 0) startLocation = new Location(60, 0);
+        if (mSSN % 8 == 1) startLocation = new Location(0, 60);
+        if (mSSN % 8 == 2) startLocation = new Location(540, 0);
+        if (mSSN % 8 == 3) startLocation = new Location(0, 540);
+        if (mSSN % 8 == 4) startLocation = new Location(60, 600);
+        if (mSSN % 8 == 5) startLocation = new Location(600, 60);
+        if (mSSN % 8 == 6) startLocation = new Location(540, 600);
+        if (mSSN % 8 == 7) startLocation = new Location(600, 540);
+        mPersonGui = new CityPerson(this, SimCityGui.getInstance(), startLocation);
+        
 		// Event Setup
 		mEvents = new ArrayList<Event>();
 		
 		//Inspection Image
 		mInspection = new CityInspection (0,0);
-		CityPanel.addStatic((CityComponent)mInspection);
+		//CityPanel.addStatic((CityComponent)mInspection);
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -330,6 +341,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Party Events
 		else if (event.mEventType == EnumEventType.INVITE1) {
+			
 			inviteToParty();
 		}
 		else if (event.mEventType == EnumEventType.INVITE2) {
@@ -748,13 +760,13 @@ public class PersonAgent extends Agent implements Person {
 //		((HousingBaseRole) jobRole).msgTimeToMaintain();
 	}
 	
-	private List<Person> getBestFriends(){
+	/*private List<Person> getBestFriends(){
 		List<Person> bestFriends = new ArrayList<Person>();
 		for (Person iPerson : mFriends){
 			if (iPerson.getTimeShift() == mTimeShift) bestFriends.add(iPerson);
 		}
 		return bestFriends;
-	}
+	}*/
 	
 	private boolean isCheap(){
 //		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
@@ -921,8 +933,20 @@ public class PersonAgent extends Agent implements Person {
 		super.print(msg, AlertTag.PERSON, e);
 	}
 
-	@Override
 	public EnumJobType getJobType() {
 		return mJobType;
+	}
+
+	
+	public List<Event> getEvents() {
+		return mEvents;
+	}
+	
+	public boolean getAtJob(){
+		return mAtJob;
+	}
+	
+	public List<Person> getFriendList(){
+		return mFriends;
 	}
 }

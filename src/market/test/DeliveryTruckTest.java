@@ -27,7 +27,7 @@ public class DeliveryTruckTest extends TestCase {
  		super.setUp();
  		
  		mPerson = new PersonAgent();
- 		mDeliveryTruck = new MarketDeliveryTruckRole(mPerson);
+ 		mDeliveryTruck = new MarketDeliveryTruckRole(mPerson, 0);
  		
  		mMockCashier = new MockCashier();
  		mMockCookCustomer = new MockCookCustomer();

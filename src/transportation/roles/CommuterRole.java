@@ -3,7 +3,6 @@ package transportation.roles;
 
 import transportation.TransportationBus;
 import transportation.interfaces.TransportationRider;
-
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -65,11 +64,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
-		if(mPerson.hasCar()){
-			DriveToDestination(); 
-			return true;
-		}
-		else{
 			if(mState == PersonBusState.atBusStop){
 				NotifyBus(); 
 				return true;
@@ -90,9 +84,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 				mState = PersonBusState.noNewDestination; 
 				return true; 
 			}
-		}
-
-	
 		return false; 
 	}
 
@@ -116,26 +107,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 		stateChanged(); 
 	}
 	
-	private void DriveToDestination(){
-		mPerson.getGui().DoGoToDestination(mDestination);
-//		if(inAHouse()){
-//			if(!goingToFarHouse(mDestination)){
-//				mPerson.getGui().DoGoToDestination(mDestination);
-//			}
-//			else{
-//				mPerson.getGui().DoGoToDestination(mDestination); 
-//			}
-//		}
-//		else{
-//			if(destinationInSameBlock(mDestination) || !goingToFarHouse(mDestination)){
-//				mPerson.getGui().DoGoToDestination(mDestination);
-//			}
-//			else{
-//				mPerson.getGui().DoGoToDestination(mDestination); 
-//			}
-//		}
-	}
-	
 	private void GoToDestination(){
 		if(mDestination != null){
 			mPerson.getGui().DoGoToDestination(mDestination);
@@ -146,7 +117,6 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	public void setLocation(Location location){
 		mDestination = location; 
 	}
-
 	
 	public void Do(String msg) {
 		super.Do(msg, AlertTag.TRANSPORTATION);

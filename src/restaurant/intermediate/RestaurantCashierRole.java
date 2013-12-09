@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderStatus;
@@ -32,6 +31,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.trace.AlertTag;
 
 public class RestaurantCashierRole extends BaseRole implements RestaurantCashierInterface, RestaurantBaseInterface {
 	
@@ -67,6 +67,12 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				mAlertTag = AlertTag.R2;
 				subRole = new JerrywebCashierRole(super.mPerson, this);
 				JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
+				if(JerrywebRestaurant.cashier == null) {
+					JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
+				}
+				else {
+					//subRole = MaggiyanRestaurant.cahsier;
+				}
 				break;
 			case 3: //maggi
 				mAlertTag = AlertTag.R3;
