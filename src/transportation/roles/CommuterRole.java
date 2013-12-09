@@ -3,7 +3,6 @@ package transportation.roles;
 
 import transportation.TransportationBus;
 import transportation.interfaces.TransportationRider;
-
 import base.BaseRole;
 import base.ContactList;
 import base.Location;

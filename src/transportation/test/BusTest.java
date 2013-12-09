@@ -1,7 +1,7 @@
 package transportation.test;
 
 import junit.framework.TestCase;
-import transportation.*;
+import transportation.TransportationBus;
 import transportation.test.mock.MockRider;
 
 /**

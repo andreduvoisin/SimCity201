@@ -1,6 +1,7 @@
 package transportation.test.mock;
 
-import test.mock.*;
+import test.mock.EventLog;
+import test.mock.LoggedEvent;
 import transportation.interfaces.TransportationRider;
 import transportation.roles.CommuterRole.PersonBusState;
 

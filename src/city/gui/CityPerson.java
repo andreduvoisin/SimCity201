@@ -77,8 +77,9 @@ public class CityPerson extends CityComponent {
         blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
         
         for (Block iBlock : blocks){
-        	boolean yOldInBlock = (previousY > iBlock.mY1 && previousY < iBlock.mY2);
-        	if (this.rectangle.intersects(iBlock.rectangle)) {
+			boolean yOldInBlock = (previousY > iBlock.mY1 && previousY < iBlock.mY2)
+					|| (previousY + 15 > iBlock.mY1 && previousY + 15 < iBlock.mY2);
+			if (this.rectangle.intersects(iBlock.rectangle)) {
         		if (yOldInBlock){
         			x = previousX;
         		}else{
@@ -87,7 +88,6 @@ public class CityPerson extends CityComponent {
         	}
         }
 	}
-	
 	
 	public void DoGoToDestination(Location location){
 		this.enable(); 
@@ -104,9 +104,8 @@ public class CityPerson extends CityComponent {
 		if (mPerson.hasCar() && mUsingCar) {
 			//if at corner closest to destination, walk to destination
 			if (mLocation.equals(destParking)){
-				System.out.println("Reached destParking");
-				x = findNearestCorner(mLocation).mX;
-				y = findNearestCorner(mLocation).mY;
+				x = closeCorner.mX;
+				y = closeCorner.mY;
 				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
 				mFinalDestination = null;
 				//walk to destination
@@ -140,6 +139,7 @@ public class CityPerson extends CityComponent {
 			//do bus stuff??? CHASE MAGGI: 1 Do this
 				DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
 		}
+		mPerson.print("Path Type: "+mDestinationPathType);
 	}
 	
 	

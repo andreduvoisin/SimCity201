@@ -3,12 +3,12 @@ package base;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import bank.BankAccount;
+import bank.roles.BankMasterTellerRole;
 import base.Event.EnumEventType;
 import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.SimCityGui;
-import bank.BankAccount;
-import bank.roles.BankMasterTellerRole;
 
 /*
  * Reads in a config file filled with new people to instantiate

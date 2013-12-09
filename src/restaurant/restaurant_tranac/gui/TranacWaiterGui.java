@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
-import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 import city.gui.SimCityGui;
 

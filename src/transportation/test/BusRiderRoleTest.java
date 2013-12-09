@@ -1,11 +1,10 @@
 package transportation.test;
 
-import base.PersonAgent;
-import base.PersonAgent.EnumJobType;
-import base.interfaces.Person;
+import junit.framework.TestCase;
 import transportation.roles.CommuterRole;
 import transportation.test.mock.MockCommuter;
-import junit.framework.TestCase;
+import base.PersonAgent;
+import base.PersonAgent.EnumJobType;
 
 /**
  * 
