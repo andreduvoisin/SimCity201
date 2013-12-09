@@ -38,6 +38,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	 * When arrived at a corner
 	 */
 	public void msgAtBusStop(int currentStop, int destinationStop){
+		print("msgatbuststop");
 		mCurrentBusStop = currentStop;
 		mDestinationBusStop = destinationStop; 
 		mState = PersonState.atBusStop; 
@@ -64,10 +65,10 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
-		if(mPerson.hasCar()){
-			GoToDestination(); 
-		}
-		else{
+//		if(mPerson.hasCar()){
+//			GoToDestination(); 
+//		}
+//		else{
 			if(mState == PersonState.atBusStop){
 				NotifyBus(); 
 				return true;
@@ -85,24 +86,27 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 				mState = PersonState.noNewDestination; 
 				return true; 
 			}
-		}
+//		}
 		return false; 
 	}
 
 	//ACTIONS
 	//Manages Bus Transportation
 	private void NotifyBus(){
+		print("notifybus");
 		mBus.msgNeedARide(this, mCurrentBusStop);
 		mState = PersonState.waitingForBus; 
 	}
 
 	private void BoardBus(){
+		print("boardbus");
 		mPerson.getGui().DoBoardBus();
 		mBus.msgImOn(this);
 		mState = PersonState.ridingBus;
 	}
 	
 	private void ExitBus(){
+		print("exitbus");
 		mPerson.getGui().DoExitBus(mDestinationBusStop); 
 		mBus.msgImOff(this);
 		mState = PersonState.walking; 
@@ -110,6 +114,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	}
 	
 	private void GoToDestination(){
+		print("gotodest");
 		if(mDestination != null){
 			mPerson.getGui().DoGoToDestination(mDestination);
 			mCurrentLocation = mDestination; 

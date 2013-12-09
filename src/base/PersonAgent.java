@@ -180,7 +180,7 @@ public class PersonAgent extends Agent implements Person {
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
-		mHasCar = false; 
+		mHasCar = true; 
 		
 		//Role References
 		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
@@ -479,7 +479,7 @@ public class PersonAgent extends Agent implements Person {
 		//add desired item
 		mItemsDesired.put(EnumItemType.CAR, 1); //want 1 car
 		//PAEA for role will message market cashier to start transaction
-		mHasCar = true;
+		mHasCar = false;
 		
 		Location location;
 		if(mSSN%ContactList.cNumTimeShifts == 0) {

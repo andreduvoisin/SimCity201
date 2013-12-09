@@ -75,15 +75,15 @@ public class CityPerson extends CityComponent {
 
         //B* Algorithm
        
-        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
-			if (r.intersects(iBlock.rectangle)) {
-				r.x = previousX;
-				if (r.intersects(iBlock.rectangle)) {
-					r.x = x;
-					r.y = previousY;
-				}
-			}
-        }
+//        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
+//			if (r.intersects(iBlock.rectangle)) {
+//				r.x = previousX;
+//				if (r.intersects(iBlock.rectangle)) {
+//					r.x = x;
+//					r.y = previousY;
+//				}
+//			}
+//        }
         
        x = r.x;
        y = r.y;
@@ -102,60 +102,74 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		//if at corner closest to destination, walk to destination
 	
-		if (mPerson.hasCar()) {
-			if (mLocation.equals(destParking)){
-				x = closeCorner.mX;
-				y = closeCorner.mY;
-				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
-				mFinalDestination = null;
-				//walk to destination
-				mUsingCar = false;
-				mDestinationPathType = 0; //Walking
-			}
-			//if at closest parking lot, drive to parking lot nearest destination
-			if (mLocation.equals(closeParking)) {
-				mUsingCar = true;
-				//calculate corners
-				int currentCornerNum = -1;
-				int destCornerNum = -1;
-				for (int iParking = 0; iParking < ContactList.cPARKINGLOTS.size(); iParking++){
-					if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParking))){
-						currentCornerNum = iParking;
-					}
-					if (destParking.equals(ContactList.cPARKINGLOTS.get(iParking))){
-						destCornerNum = iParking;
-					}
-				}
-				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
-				mPerson.print("route :"+mDestinationPathType);
-				mDestination = destParking;
-			}
-			else {
-				mUsingCar = true;
-//				mDestinationPathType = 1;
-				mDestination = closeParking;
-			}
+		if (mLocation.equals(destCorner)) {
+			mDestinationPathType = 0;
+			mDestination = mFinalDestination;
+			mFinalDestination = null;
 		}
-		else{
-			mDestination = closeCorner;
-			if (mLocation.equals(destCorner)){
-				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
-				mFinalDestination = null;
-				//walk to destination
-				mUsingCar = false;
-				mDestinationPathType = 0; //Walking
-			}
-			if (mLocation.equals(closeCorner)){
-//				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
-//				mFinalDestination = null;
-				if(mUsingBus){
+		else {
+			if (mLocation.equals(closeCorner)) {
+//				mPerson.print("got to closecorner");
+				if (mUsingBus) {
+					mPerson.print("IN HEREUSING BUS");
 					DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
 				}
+			} else {
+				mDestinationPathType = 0;
+				mDestination = closeCorner;
 			}
-			
 		}
-		
-		
+//		if (mPerson.hasCar()) {
+//			if (mLocation.equals(destParking)){
+//				x = closeCorner.mX;
+//				y = closeCorner.mY;
+//				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+//				mFinalDestination = null;
+//				//walk to destination
+//				mUsingCar = false;
+//				mDestinationPathType = 0; //Walking
+//			}
+//			//if at closest parking lot, drive to parking lot nearest destination
+//			if (mLocation.equals(closeParking)) {
+//				mUsingCar = true;
+//				//calculate corners
+//				int currentCornerNum = -1;
+//				int destCornerNum = -1;
+//				for (int iParking = 0; iParking < ContactList.cPARKINGLOTS.size(); iParking++){
+//					if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParking))){
+//						currentCornerNum = iParking;
+//					}
+//					if (destParking.equals(ContactList.cPARKINGLOTS.get(iParking))){
+//						destCornerNum = iParking;
+//					}
+//				}
+//				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
+//				mPerson.print("route :"+mDestinationPathType);
+//				mDestination = destParking;
+//			}
+//			else {
+//				mUsingCar = true;
+//				mDestinationPathType = 1;
+//				mDestination = closeParking;
+//			}
+//		}
+////		else{
+//			mDestination = closeCorner;
+//			mDestinationPathType = 0;
+//			if (mLocation.equals(destCorner)){
+////				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+////				mFinalDestination = null;
+//				//walk to destination
+//				mUsingCar = false;
+//				mDestinationPathType = 0; //Walking
+//			}
+//			if (mLocation.equals(closeCorner)){
+//				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+////				mFinalDestination = null;
+//				
+//			}
+//			
+////		}
 	}
 	
 	
@@ -164,7 +178,8 @@ public class CityPerson extends CityComponent {
 		rectangle.y = y;
 		if(isActive) {
 			if (! onBus) {
-				//if(SimCityGui.GRADINGVIEW) {
+//				if(SimCityGui.GRADINGVIEW) {
+					g.setColor(color.white);
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
@@ -174,16 +189,16 @@ public class CityPerson extends CityComponent {
 						g.setColor(Color.yellow);
 						g.fillRect(x, y, 5, 5);
 					}
-					g.setColor(Color.WHITE);
-					g.drawString(name, x - 10, y);
-				}
-				else {
-					g.setColor(color);
-					g.fillRect(x, y, 5, 5);
-					g.setColor(Color.WHITE);
-					g.drawString(name, x - 10, y);
-				}
-			//}
+//					g.setColor(Color.WHITE);
+//					g.drawString(name, x - 10, y);
+//				}
+//				else {
+//					g.setColor(color);
+//					g.fillRect(x, y, 5, 5);
+//					g.setColor(Color.WHITE);
+//					g.drawString(name, x - 10, y);
+//				}
+			}
 		}
 	}
 	
