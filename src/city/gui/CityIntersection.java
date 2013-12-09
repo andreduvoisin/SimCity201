@@ -22,7 +22,7 @@ public class CityIntersection extends CityComponent {
 		realY = b.mY1;
 		realWidth = b.mX2 - b.mX1;
 		realHeight = b.mY2 - b.mY1;
-		rectangle = new Rectangle(b.mX1-10, b.mY1-10, b.mX2 - b.mX1 +20, b.mY2 - b.mY1 +20);
+		rectangle = new Rectangle(b.mX1, b.mY1, b.mX2 - b.mX1, b.mY2 - b.mY1);
 	}
 
 	@Override

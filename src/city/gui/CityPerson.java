@@ -29,9 +29,9 @@ public class CityPerson extends CityComponent {
 	
 	public int mDestinationPathType = 0; //Walking as default
 	
-	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
-		super(x, y, Color.ORANGE, person.getName());
-		rectangle = new Rectangle(x, y, 5, 5);
+	public CityPerson(PersonAgent person, SimCityGui gui, Location start) {
+		super(start.mX, start.mY, Color.ORANGE, person.getName());
+		rectangle = new Rectangle(start.mX, start.mX, 5, 5);
 		mPerson = person;
 		this.gui = gui;
 		this.enable();
@@ -60,18 +60,15 @@ public class CityPerson extends CityComponent {
     	}
         
         //Check intersections (if going into busy intersection - stay)
-        for (int iB = 0; iB<ContactList.cINTERSECTIONBLOCKS.size(); iB++) {
-        	boolean xNewInBlock = (x > ContactList.cINTERSECTIONBLOCKS.get(iB).mX1 && x < ContactList.cINTERSECTIONBLOCKS.get(iB).mX2);
-        	boolean yNewInBlock = (y > ContactList.cINTERSECTIONBLOCKS.get(iB).mY1 && y < ContactList.cINTERSECTIONBLOCKS.get(iB).mY2);
-        	if (xNewInBlock && yNewInBlock){
-        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupant != this) {
+        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
+        	if(this.rectangle.intersects(iIntersect.rectangle)) {
+        		if (iIntersect.mOccupant != this) {
 	        		x = previousX;
 	        		y = previousY;
         		}
         		return;
         	}
         }
-
 
         //B* Algorithm
         List<Block> blocks = null;
@@ -116,7 +113,6 @@ public class CityPerson extends CityComponent {
 			}
 			//if at closest parking lot, drive to parking lot nearest destination
 			else if (mLocation.equals(closeParking)) {
-				System.out.println("Reached closeParking");
 				mUsingCar = true;
 				//calculate corners
 				int currentCornerNum = -1;
