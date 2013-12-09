@@ -20,6 +20,7 @@ import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
@@ -96,7 +97,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 3: //maggi
 					mAlertTag = AlertTag.R3;
 					subRole = new MaggiyanCookRole(super.mPerson, this);
-					MaggiyanAnimationPanel.addPerson((MaggiyanCookRole) subRole);
+					MaggiyanRestaurant.addCook((MaggiyanCookRole) subRole);
 					break;
 				case 4: //david
 					mAlertTag = AlertTag.R4;
@@ -242,7 +243,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	restaurantCashier = JerrywebRestaurant.cashier.mRole;
                 	break;
                 case 3: //maggi
-                	restaurantCashier = MaggiyanAnimationPanel.mCashier.mRole;
+                	restaurantCashier = MaggiyanRestaurant.mCashier.mRole;
                 	break;
                 case 4: //david
                 	restaurantCashier = DavidRestaurant.cashier.mRole;
