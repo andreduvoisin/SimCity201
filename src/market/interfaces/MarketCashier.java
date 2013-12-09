@@ -17,4 +17,6 @@ public interface MarketCashier {
 	public abstract void msgAnimationLeftMarket();
 
 	public abstract void setInventory(EnumItemType i, int n);
+
+	public abstract int getInventory(EnumItemType e);
 }

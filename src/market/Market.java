@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import base.Item.EnumItemType;
 import market.gui.MarketBaseGui;
 import market.gui.MarketItemsGui;
 import market.interfaces.MarketCashier;
@@ -27,5 +28,14 @@ public class Market {
 	
 	public Market(int n) {
 		mMarketID = n;
+	}
+	
+	public void setInventory(EnumItemType e, int n) {
+		mCashier.setInventory(e,n);
+		mItemsGui.setInventory(e, n);
+	}
+	
+	public int getInventory(EnumItemType e) {
+		return mCashier.getInventory(e);
 	}
 }

@@ -147,4 +147,12 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.MARKET, e);
 	}
+	
+	public String toString() {
+		if(mPerson != null) {
+			return mPerson.getName();
+		}
+		else
+			return "";
+	}
 }

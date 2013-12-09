@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 import base.ContactList;
 
@@ -14,12 +15,15 @@ public class PlacesListener implements ActionListener {
 	@SuppressWarnings("rawtypes")
 	JComboBox places;
 	@SuppressWarnings("rawtypes")
+	PlacesPropertiesLabel label;
 	public
-	PlacesListener(JButton b, JComboBox p){
+	PlacesListener(JButton b, JComboBox p, PlacesPropertiesLabel l){
 		button = b;
 		places = p;
+		label = l;
 	}
-	public void actionPerformed(ActionEvent e) { 
+	public void actionPerformed(ActionEvent e) {
+		label.changeBuilding(places.getSelectedItem().toString());
 		switch((String)places.getSelectedItem()) {
 		case "None":
 			button.setText("None");
@@ -37,7 +41,7 @@ public class PlacesListener implements ActionListener {
 				button.setText("Enable");
 			break;
 		case "Honeydukes":
-			if (ContactList.sOpenPlaces.get(ContactList.cMARKET1_LOCATION)) //ANGELICA: change market names
+			if (ContactList.sOpenPlaces.get(ContactList.cMARKET1_LOCATION))
 				button.setText("Disable");
 			else
 				button.setText("Enable");
