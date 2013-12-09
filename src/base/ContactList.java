@@ -210,32 +210,43 @@ public class ContactList {
 	public static final Block cPERSONBLOCK15 = new Block(cGRID_POINT7, cGRID_POINT7, cGRID_POINT8, cGRID_POINT8);
 
 	//cNAVBLOCKS[1] = Clockwise
-	public static final Block cCARBLOCK_Clockwise1 = new Block (100, 100, 280, 280); 
-	public static final Block cCARBLOCK_Clockwise2 = new Block (320, 100, 500, 280); 
-	public static final Block cCARBLOCK_Clockwise3 = new Block (100, 320, 280, 500); 
-	public static final Block cCARBLOCK_Clockwise4 = new Block (320, 320, 500, 500); 
+	public static final Block cCARBLOCK_Clockwise1 = new Block (85, 85, 280, 280); //Upper Left
+	public static final Block cCARBLOCK_Clockwise2 = new Block (305, 85, 515, 280); //Upper Right
+	public static final Block cCARBLOCK_Clockwise3 = new Block (85, 320, 280, 515); //Lower Left
+	public static final Block cCARBLOCK_Clockwise4 = new Block (320, 320, 515, 515); //Lower Right
 	
 	//cNAVBLOCKS[2] = Counterclockwise 
-	public static final Block cCARBLOCK_CounterClockwise1 = new Block(100, 500, 80, 520);
-	public static final Block cCARBLOCK_CounterClockwise2 = new Block(80, 520, 100, 500);
+	public static final Block cCARBLOCK_CounterClockwise1 = new Block(85, 65, 515, 535);
+	public static final Block cCARBLOCK_CounterClockwise2 = new Block(65, 100, 535, 515);
 	
 	//cNAVBLOCKS[3] = Diagonal NE/SW
-	public static final Block cCARBLOCK_NESW1 = new Block (300, 100, 500, 280); 
-	public static final Block cCARBLOCK_NESW2 = new Block (320, 100, 500, 300); 
-	public static final Block cCARBLOCK_NESW3 = new Block (100, 300, 280, 500); 
-	public static final Block cCARBLOCK_NESW4 = new Block (100, 320, 300, 500); 
+	public static final Block cCARBLOCK_NESW1 = new Block (85, 85, 300, 280); 
+	public static final Block cCARBLOCK_NESW2 = new Block (320, 85, 515, 280); 
+	public static final Block cCARBLOCK_NESW3 = new Block (85, 320, 280, 515); 
+	public static final Block cCARBLOCK_NESW4 = new Block (300, 320, 515, 515);
+	public static final Block cCARBLOCK_NESW5 = new Block (85, 85, 280, 300);
+	public static final Block cCARBLOCK_NESW6 = new Block (320, 300, 515, 515);
 	
-	//cNAVBLOCKS[3] = Diagonal NW/SE
-	public static final Block cCARBLOCK_NWSE1 = new Block(100, 100, 280, 300);
-	public static final Block cCARBLOCK_NWSE2 = new Block(100, 100, 300, 280);
-	public static final Block cCARBLOCK_NWSE3 = new Block(300, 320, 500, 500);
-	public static final Block cCARBLOCK_NWSE4 = new Block(320, 300, 500, 500);
+	//cNAVBLOCKS[4] = Diagonal SE
+	public static final Block cCARBLOCK_SE1 = new Block(65, 85, 280, 280);
+	public static final Block cCARBLOCK_SE2 = new Block(300, 85, 515, 280);
+	public static final Block cCARBLOCK_SE3 = new Block(320, 85, 515, 300);
+	public static final Block cCARBLOCK_SE4 = new Block(85, 320, 280, 515);
+	public static final Block cCARBLOCK_SE5 = new Block(320, 320, 515, 515);
+	
+	//cNAVBLOCKS[5] = Diagonal NW
+	public static final Block cCARBLOCK_NW1 = new Block(85, 85, 280, 280);
+	public static final Block cCARBLOCK_NW2 = new Block(305, 85, 515, 280);
+	public static final Block cCARBLOCK_NW3 = new Block(85, 300, 280, 515);
+	public static final Block cCARBLOCK_NW4 = new Block(85, 320, 300, 515);
+	public static final Block cCARBLOCK_NW5 = new Block(320, 320, 535, 515);
 	
 	// 0 - Walking
 	// 1 - Clockwise
 	// 2 - Counterclockwise 
 	// 3 - Diagonal NE/SW
-	// 4 - Diagonal NW/SE
+	// 4 - Diagonal SE
+	// 5 - Diagonal NW
 	
 	static{
 		List<List<Block>> blockLists = new ArrayList<List<Block>>();
@@ -272,13 +283,23 @@ public class ContactList {
 			list3.add(cCARBLOCK_NESW2);
 			list3.add(cCARBLOCK_NESW3);
 			list3.add(cCARBLOCK_NESW4);
+			list3.add(cCARBLOCK_NESW5);
+			list3.add(cCARBLOCK_NESW6);
 			blockLists.add(list3); 
-		List<Block> list4 = new ArrayList<Block>(); //Diagonal NW/SE
-			list3.add(cCARBLOCK_NWSE1);
-			list3.add(cCARBLOCK_NWSE2);
-			list3.add(cCARBLOCK_NWSE3);
-			list3.add(cCARBLOCK_NWSE4);
+		List<Block> list4 = new ArrayList<Block>(); //Diagonal SE
+			list4.add(cCARBLOCK_SE1);
+			list4.add(cCARBLOCK_SE2);
+			list4.add(cCARBLOCK_SE3);
+			list4.add(cCARBLOCK_SE4);
+			list4.add(cCARBLOCK_SE5);
 			blockLists.add(list4); 
+		List<Block> list5 = new ArrayList<Block>(); //Diagonal NW
+			list5.add(cCARBLOCK_NW1);
+			list5.add(cCARBLOCK_NW2);
+			list5.add(cCARBLOCK_NW3);
+			list5.add(cCARBLOCK_NW4);
+			list5.add(cCARBLOCK_NW5);
+			blockLists.add(list5);
 		cNAVBLOCKS = Collections.unmodifiableList(blockLists);
 	}
 	

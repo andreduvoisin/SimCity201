@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import market.gui.MarketDeliveryTruckGui;
@@ -61,7 +62,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//Add Intersections
 		
-//		//North-Center
+		//North-Center
 		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK0));
 		//Center
 		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK1));
@@ -101,9 +102,11 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		//this.addStatic(sClosedImages.get(ContactList.cBANK1_LOCATION));
 		
 		//DAVID testing add personblocks
-				for (Block b: ContactList.cNAVBLOCKS.get(1)) {
-					this.addStatic(b);
-				}
+//		for (List<Block> list : ContactList.cNAVBLOCKS) {
+//			for (Block b : ContactList.cNAVBLOCKS.get(3)) {
+//				this.addStatic(b);
+//			}
+//		}
 			
 		//Create Timer Display
 		this.addStatic(new TimeGui(520, 575));

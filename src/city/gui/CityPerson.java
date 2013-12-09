@@ -217,13 +217,14 @@ public class CityPerson extends CityComponent {
 		// 1 - Clockwise
 		// 2 - Counterclockwise 
 		// 3 - Diagonal NE/SW
-		// 4 - Diagonal NW/SE
+		// 4 - Diagonal SE
+		// 5 - Diagonal NW
 		switch (current) {
 		case 0:
 			switch (dest) {
 			case 1: type = 1; break;
-			case 2: type = 4; break;
-			case 3: type = 2; break;
+			case 2: type = 4; break; //SE
+			case 3: type = 2; break; 
 			} break;
 		case 1:
 			switch (dest) {
@@ -233,7 +234,7 @@ public class CityPerson extends CityComponent {
 			} break;
 		case 2:
 			switch (dest) {
-			case 0: type = 4; break;
+			case 0: type = 5; break; //NW
 			case 1: type = 2; break;
 			case 3: type = 1; break;
 			}
