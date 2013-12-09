@@ -21,13 +21,6 @@ public class Block extends CityComponent {
 		mY2 = y2; 
 		rectangle = new Rectangle(mX1, mY1, mX2-mX1, mY2-mY1);
 	}
-	
-//	public Block(Location first, Location second){
-//		mX1 = first.mX;
-//		mX2 = second.mX;
-//		mY1 = first.mY;
-//		mY2 = second.mY;
-//	}
 
 	@Override
 	public void draw(Graphics2D g) {

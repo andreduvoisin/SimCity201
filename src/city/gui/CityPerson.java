@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.List;
 
 import base.Block;
 import base.ContactList;
@@ -60,33 +59,34 @@ public class CityPerson extends CityComponent {
 	        	}
 	    	}
 		}
+		
+		Rectangle r = new Rectangle(x, y, 10, 10);
         
-        //Check intersections (if going into busy intersection - stay)
-        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
-        	if(this.rectangle.intersects(iIntersect.rectangle)) {
-        		if (iIntersect.mOccupant != this) {
-	        		x = previousX;
-	        		y = previousY;
-        		}
-        		return;
-        	}
-        }
+//        Check intersections (if going into busy intersection - stay)
+//        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
+//        	if(r.intersects(iIntersect.rectangle)) {
+//        		if (iIntersect.mOccupant != this) {
+//	        		r.x = previousX;
+//	        		r.y = previousY;
+//        		}
+//        		return;
+//        	}
+//        }
 
         //B* Algorithm
-        List<Block> blocks = null;
-        blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
-        
-        for (Block iBlock : blocks){
-			boolean yOldInBlock = (previousY > iBlock.mY1 && previousY < iBlock.mY2)
-					|| (previousY + 15 > iBlock.mY1 && previousY + 15 < iBlock.mY2);
-			if (this.rectangle.intersects(iBlock.rectangle)) {
-        		if (yOldInBlock){
-        			x = previousX;
-        		}else{
-        			y = previousY;
-        		}
-        	}
+       
+        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
+			if (r.intersects(iBlock.rectangle)) {
+				r.x = previousX;
+				if (r.intersects(iBlock.rectangle)) {
+					r.x = x;
+					r.y = previousY;
+				}
+			}
         }
+        
+       x = r.x;
+       y = r.y;
 	}
 	
 	public void DoGoToDestination(Location location){
@@ -127,18 +127,18 @@ public class CityPerson extends CityComponent {
 					}
 				}
 				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
+				mPerson.print("route :"+mDestinationPathType);
 				mDestination = destParking;
 			}
 			else {
 				mUsingCar = true;
-				mDestinationPathType = 1;
+//				mDestinationPathType = 1;
 				mDestination = closeParking;
 			}
 		}
 		if (mUsingBus) {
 			DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
 		}
-		mPerson.print("Path Type: "+mDestinationPathType);
 	}
 	
 	
@@ -151,14 +151,10 @@ public class CityPerson extends CityComponent {
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
-						rectangle.height = 10;
-						rectangle.width = 10;
 						g.fillRect(x, y, 10, 10);
 					}
 					else {
 						g.setColor(Color.yellow);
-						rectangle.height = 5;
-						rectangle.width = 5;
 						g.fillRect(x, y, 5, 5);
 					}
 					g.setColor(Color.WHITE);
