@@ -6,7 +6,7 @@ TEAM 28: DOBBY
 The CSCI 201 Project teaches students about the myriad facets of team work: pair programming, team ethics, etc. Team 28 has embraced this team 
 mentality and has approached the project accordingly. Although the following section lists _individual_ contributions, the project is the result of team contributions. Every section is the product of a team effort.
 
-####Andre Duvoisin	(GUI Specialist)
+####Andre Duvoisin	(Fix-It Felix)
 * Bank GUI
 * BaseAgent Design
 * Base GUI Integration
@@ -25,7 +25,7 @@ mentality and has approached the project accordingly. Although the following sec
 * Transportation Design, Roles, GUI
 * Restaurant Integration
 
-####David Carr		(The Integrator)
+####David Carr		(The Internet)
 * Housing Roles, Design
 * ConfigParser/SortingHat
 * Control Panel/Configuration Reading
