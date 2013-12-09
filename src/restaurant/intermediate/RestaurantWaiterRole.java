@@ -11,7 +11,6 @@ import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
 import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
