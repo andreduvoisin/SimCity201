@@ -36,7 +36,6 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
-import city.gui.CityInspection;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
@@ -85,7 +84,6 @@ public class PersonAgent extends Agent implements Person {
 										BANK,
 										PARTY};
 	public EventParty mCurrentParty = null;
-	private CityInspection mInspection;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -180,7 +178,7 @@ public class PersonAgent extends Agent implements Person {
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
-		mHasCar = false; 
+		mHasCar = true; 
 		
 		//Role References
 		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
@@ -198,10 +196,6 @@ public class PersonAgent extends Agent implements Person {
         
 		// Event Setup
 		mEvents = new ArrayList<Event>();
-		
-		//Inspection Image
-		mInspection = new CityInspection (0,0);
-		//CityPanel.addStatic((CityComponent)mInspection);
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -479,7 +473,7 @@ public class PersonAgent extends Agent implements Person {
 		//add desired item
 		mItemsDesired.put(EnumItemType.CAR, 1); //want 1 car
 		//PAEA for role will message market cashier to start transaction
-		mHasCar = true;
+		mHasCar = false;
 		
 		Location location;
 		if(mSSN%ContactList.cNumTimeShifts == 0) {
@@ -507,11 +501,10 @@ public class PersonAgent extends Agent implements Person {
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
 				if(ContactList.sOpenPlaces.get(iLocation)){
-					mInspection.setPosition(iLocation);
-					mInspection.enable();
+					Inspection.sInspectionImages.get(iLocation).enable();
 					mPersonGui.DoGoToDestination(iLocation);
 					acquireSemaphore(semAnimationDone);
-					mInspection.disable();
+					Inspection.sInspectionImages.get(iLocation).disable();
 					print("Visited "+iLocation.toString());
 					mPersonGui.setPresent(true);
 				}
@@ -578,7 +571,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goToMarket() {
 
 		//mCommuterRole.mActive = true;
-		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
+		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cMARKET1_LOCATION:ContactList.cMARKET2_LOCATION);
 		//acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 

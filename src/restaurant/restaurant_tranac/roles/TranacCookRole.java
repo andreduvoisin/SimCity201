@@ -26,7 +26,7 @@ import city.gui.trace.AlertTag;
  * Restaurant Cook Agent
  */
 public class TranacCookRole extends BaseRole implements TranacCook {
-		private RestaurantCookRole mRole;
+		public RestaurantCookRole mRole;
         private TranacCookGui cookGui;
         
         public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};

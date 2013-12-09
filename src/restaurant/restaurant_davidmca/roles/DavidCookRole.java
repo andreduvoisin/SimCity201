@@ -30,7 +30,7 @@ import city.gui.trace.AlertTag;
  * Restaurant customer restaurant_davidmca.agent.
  */
 public class DavidCookRole extends BaseRole implements Cook {
-	private RestaurantCookRole mRole;
+	public RestaurantCookRole mRole;
 	private CookGui cookGui;
 	private Semaphore isAnimating = new Semaphore(1, true);
 	private boolean ordering;
