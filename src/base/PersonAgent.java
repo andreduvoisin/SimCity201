@@ -182,8 +182,7 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = true; //DAVID 1 hack
 		
 		//Role References
-		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), ContactList.cINTERSECTIONBLOCK2.mX1, ContactList.cINTERSECTIONBLOCK2.mY1); 
-		//DAVID: 1 Hardcoded start place
+		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), 55, (-50*mSSN));
 		
 		// Event Setup
 		mEvents = new ArrayList<Event>();

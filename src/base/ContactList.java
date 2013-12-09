@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import city.gui.CityIntersection;
 import market.Market;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -167,6 +168,10 @@ public class ContactList {
 	public static final Block cINTERSECTIONBLOCK2 = new Block(35,	280, 85, 320);
 	public static final Block cINTERSECTIONBLOCK3 = new Block(515,	280, 565, 320);
 	public static final Block cINTERSECTIONBLOCK4 = new Block(280,	515, 320, 565);
+	public static final Block cINTERSECTIONBLOCK5 = new Block(35, 35, 85, 85); 		//Upper Left
+	public static final Block cINTERSECTIONBLOCK6 = new Block(515, 35, 565, 85); 	//Upper Right
+	public static final Block cINTERSECTIONBLOCK7 = new Block(515, 515, 565, 565); 	//Bottom Right
+	public static final Block cINTERSECTIONBLOCK8 = new Block(35, 515, 85, 565); 	//Bottom Left
 	static{
 		List<Block> list = new ArrayList<>();
 		list.add(cINTERSECTIONBLOCK0);
