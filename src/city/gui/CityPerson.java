@@ -18,8 +18,8 @@ public class CityPerson extends CityComponent {
 	
 	public Location mDestination = null; 
 	public Location mFinalDestination = null;
-	public boolean mUsingCar = false;
-	public boolean mUsingBus = true;
+	public boolean mUsingCar = true;
+	public boolean mUsingBus = false;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -102,7 +102,7 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		//if at corner closest to destination, walk to destination
 	
-		if (mPerson.hasCar()) {
+		if (mPerson.hasCar() && mUsingCar) {
 			if (mLocation.equals(destParking)){
 				x = closeCorner.mX;
 				y = closeCorner.mY;
@@ -132,13 +132,14 @@ public class CityPerson extends CityComponent {
 			}
 			else {
 				mUsingCar = true;
-//				mDestinationPathType = 1;
+				mDestinationPathType = 1;
 				mDestination = closeParking;
 			}
 		}
 		else{
 			mDestination = closeCorner;
 			if (mLocation.equals(destCorner)){
+				mPerson.print("got to dest corner");
 				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
 				mFinalDestination = null;
 				//walk to destination
@@ -165,6 +166,7 @@ public class CityPerson extends CityComponent {
 		if(isActive) {
 			if (! onBus) {
 				//if(SimCityGui.GRADINGVIEW) {
+					g.setColor(Color.WHITE);
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
@@ -174,16 +176,17 @@ public class CityPerson extends CityComponent {
 						g.setColor(Color.yellow);
 						g.fillRect(x, y, 5, 5);
 					}
-					g.setColor(Color.WHITE);
-					g.drawString(name, x - 10, y);
-				}
-				else {
-					g.setColor(color);
-					g.fillRect(x, y, 5, 5);
-					g.setColor(Color.WHITE);
-					g.drawString(name, x - 10, y);
-				}
+//					g.setColor(Color.WHITE);
+//					g.drawString(name, x - 10, y);
+//				}
+//				else {
+//					g.setColor(color);
+//					g.fillRect(x, y, 5, 5);
+//					g.setColor(Color.WHITE);
+//					g.drawString(name, x - 10, y);
+//				}
 			//}
+			}
 		}
 	}
 	
