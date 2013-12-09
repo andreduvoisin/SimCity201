@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 
 import market.MarketOrder;
 import market.interfaces.MarketWorker;
-import market.roles.MarketCustomerRole;
 import market.roles.MarketWorkerRole;
 import base.Item.EnumItemType;
 import city.gui.SimCityGui;
@@ -124,7 +123,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 	public void DoFulfillOrder(MarketOrder o) {
 		mOrder = o;
 		for(EnumItemType item : mOrder.mItems.keySet()) {
-			MarketCoordinates c = mAgent.mMarket.mItemsGui.getItemCoordinates(item);
+			MarketWorkerRole r = (MarketWorkerRole) mAgent;
+			MarketCoordinates c = r.mMarket.mItemsGui.getItemCoordinates(item);
 			xDestination = c.getX()-30;
 			yDestination = c.getY();
 			mCommand = EnumCommand.goToItem;
@@ -135,7 +135,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 				e.printStackTrace();
 			}
 			mCommand = EnumCommand.noCommand;
-			mAgent.mMarket.mItemsGui.decreaseItemCount(item, mOrder.mItems.get(item));		
+			r.mMarket.mItemsGui.decreaseItemCount(item, mOrder.mItems.get(item));		
 		}
 		mAgent.msgOrderFulfilled(mOrder);
 		mOrder = null;
@@ -167,12 +167,11 @@ public class MarketWorkerGui implements MarketBaseGui {
 	 
 /* Utilities */
 	public boolean isPresent() {
-		if(mAgent instanceof MarketCustomerRole) {
-			MarketCustomerRole role = (MarketCustomerRole) mAgent;
+		if(mAgent instanceof MarketWorkerRole) {
+			MarketWorkerRole role = (MarketWorkerRole) mAgent;
 			return role.getPerson() != null ? true : false;
 		}
-		else
-			return false;
+		else return false;
 	}
 	
 	public int getXPos() {

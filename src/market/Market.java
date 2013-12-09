@@ -8,7 +8,6 @@ import base.Item.EnumItemType;
 import market.gui.MarketBaseGui;
 import market.gui.MarketItemsGui;
 import market.interfaces.MarketCashier;
-import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 
