@@ -465,6 +465,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    disable.setPreferredSize(new Dimension(180,20));
 	    disable.setMaximumSize(new Dimension(180,20));
 	    disable.setMinimumSize(new Dimension(180,20));
+	    disable.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
     	disable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
