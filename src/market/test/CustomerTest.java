@@ -49,11 +49,30 @@ public class CustomerTest extends TestCase {
  	 */
  	public void testCompletedOrder() {
  	  //assert preconditions
+ 		assertEquals("MockWorker shouldn't have any logged events, but it does.", 0, mMockWorker.log.size());
+ 		assertEquals("MocCashier shouldn't have any logged events, but it does.", 0, mMockCashier.log.size());
+ 		assertEquals("Customer shouldn't have any orders, but he does.", 0, mCustomer.getOrderList().size());
+ 		assertEquals("Customer shouldn't have any invoices, but he does.", 0, mCustomer.getInvoiceList().size());
+ 		assertEquals("Customer mItemInventory should have 5 different types of items, but it does not.", 5, mCustomer.mItemInventory.size());
+ 		assertEquals("Customer mItemsDesired should have 2 different types of items, but it does not.", 2, mCustomer.mItemsDesired.size());
+		
+ 		mCustomer.mCashier = mMockCashier;
  		
+ 		//Create order
+ 		mCustomer.pickAndExecuteAnAction();
  		
+ 		assertEquals("Customer should have one order, but he doesn't.", 1, mCustomer.getOrderList().size());
+ 		assertEquals("Customer mItemsDesired should still only have 2 different types of items, but it does not.", 2, mCustomer.mItemsDesired.size());
+ 		assertEquals("Order state should be CARTED, but it's not.", mCustomer.getOrderList().get(0).mStatus.CARTED, mCustomer.getOrderList().get(0).mStatus);
  		
+ 		//Place order
+ 		mCustomer.pickAndExecuteAnAction();
+ 		assertEquals("Customer should still have only one order, but he doesn't.", 1, mCustomer.getOrderList().size());
+ 		assertEquals("Order state should be PLACED, but it's not.", mCustomer.getOrderList().get(0).mStatus.PLACED, mCustomer.getOrderList().get(0).mStatus);
+ 		
+ 		mCustomer.msgAnimationAtMarket();
+ 		assertTrue("The mock cashier log should ")
  	}
- 	
  	/**
  	 * Test customer for a partial order.
  	 */

@@ -37,7 +37,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	Map<EnumItemType, Integer> mCannotFulfill;// = new HashMap<EnumItemType, Integer>();
 
-	MarketCashier mCashier;
+	public MarketCashier mCashier;
 	
 	public MarketCustomerRole(Person person, int marketID) {
 		super(person);
@@ -216,5 +216,13 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.MARKET, e);
+	}
+	
+	public List<MarketOrder> getOrderList(){
+		return mOrders;
+	}
+	
+	public List<MarketInvoice> getInvoiceList(){
+		return mInvoices;
 	}
 }
