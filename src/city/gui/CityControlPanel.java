@@ -478,9 +478,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    PropertiesTab.add(new JLabel());
 	    PropertiesTab.add(placesTitle);
 	    PropertiesTab.add(places);
+	    PropertiesTab.add(enable, BorderLayout.CENTER);
 	    PropertiesTab.add(placeProperties);
 	    PropertiesTab.add(holdPlaces);
-	    PropertiesTab.add(enable);
+
 	    
 	    //Add ActionListener for Enable
 	    enable.addActionListener(new PlacesButtonListener(enable, places));	

@@ -4,15 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
-import base.Block;
 import base.ContactList;
 import base.Inspection;
-import base.Location;
 
 @SuppressWarnings("serial")
 public class CityPanel extends SimCityPanel implements MouseMotionListener {
@@ -87,7 +83,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		for(CityComponent iCC : Inspection.sClosedImages.values()){
 			this.addStatic(iCC);
 		}
-		//this.addStatic(sClosedImages.get(ContactList.cBANK1_LOCATION));
+		//Add Inspection Signs
+		for(CityComponent iCC : Inspection.sInspectionImages.values()){
+			this.addStatic(iCC);
+		}
 		
 		
 		//DAVID testing add personblocks
