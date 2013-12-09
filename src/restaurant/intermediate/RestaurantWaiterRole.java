@@ -10,6 +10,7 @@ import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
@@ -83,11 +84,11 @@ public class RestaurantWaiterRole extends BaseRole implements
 			break;
 		case 3: // maggi
 			if (mWaiterType == 1) {
-				subRole = new MaggiyanWaiterRole(mPerson);
-				MaggiyanAnimationPanel.addPerson((MaggiyanWaiterRole) subRole);
+				subRole = new MaggiyanWaiterRole(super.mPerson);
+				MaggiyanRestaurant.addWaiter((MaggiyanWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
-				subRole = new MaggiyanSharedWaiterRole(mPerson);
-				MaggiyanAnimationPanel.addPerson((MaggiyanSharedWaiterRole) subRole);
+				subRole = new MaggiyanSharedWaiterRole(super.mPerson);
+				MaggiyanRestaurant.addSharedWaiter((MaggiyanSharedWaiterRole) subRole);
 			}
 			break;
 		case 4: // david

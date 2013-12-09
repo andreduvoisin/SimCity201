@@ -37,9 +37,7 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     private boolean atStart = true; 
     private boolean offBreak = false;
     private boolean atHomeChange = true; 
-    
-    //MaggiyanRestaurantGui gui;
-    
+
     public void tablePositions(){
     	for(int i = 0; i<tableNum; i++){
     		tableXCoord[i] = xTable + (100*(i));
@@ -57,19 +55,18 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     	if (xPos < xDestination){
     		prevXPos = xPos; 
     		xPos++;
-    	}	//xPos = xPos + 2; 
+    	}	
         else if (xPos > xDestination){
         	prevXPos = xPos;
         	xPos--;
-        }	//xPos = xPos - 2;
+        }
         if (yPos < yDestination){
         	prevYPos = yPos;
         	yPos++;
-        }	//yPos = yPos + 2;
+        }	
         else if (yPos > yDestination){
         	prevYPos = yPos; 
         	yPos--; 
-        	//yPos = yPos - 2;
         }
         if (xPos == xDestination && yPos == yDestination){
         		if(xDestination == xHome && yDestination == yHome){

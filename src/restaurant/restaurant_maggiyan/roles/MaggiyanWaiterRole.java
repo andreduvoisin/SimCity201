@@ -58,7 +58,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	private MaggiyanHost host; 
 	private MaggiyanCashier cashier; 
 	private MaggiyanWaiterGui waiterGui = null;
-	private MaggiyanAnimationPanel animationPanel; 
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
@@ -80,18 +79,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		else {
 			this.name = p.getName();
 		}
-		
-		animationPanel = MaggiyanAnimationPanel.mInstance; 
-		waiterGui = new MaggiyanWaiterGui(this); 
-		waiterGui.atWork(animationPanel.positionCounter);
-		animationPanel.addGui(waiterGui);
-		
-		
-		host = MaggiyanAnimationPanel.getHost(); 
-		cook = MaggiyanAnimationPanel.getCook();
-		cashier = MaggiyanAnimationPanel.getCashier();
-		
-		animationPanel.positionCounter++; 
 	}
 
 	public String getMaitreDName() {
