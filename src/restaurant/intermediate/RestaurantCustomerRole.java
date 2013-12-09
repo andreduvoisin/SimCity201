@@ -14,6 +14,8 @@ import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
+import restaurant.restaurant_xurex.RexCustomerRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -72,18 +74,12 @@ public class RestaurantCustomerRole extends BaseRole implements
 			subRole = new TranacCustomerRole(mPerson);
 			TranacRestaurant.addPerson((TranacCustomerRole)subRole);
 			break;
-//		case 7: // rex
-//			RexCustomerRole temp = new RexCustomerRole(
-//					((RexAnimationPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(7)),
-//					RexAnimationPanel.getHost());
-//			temp.setName("Joe");
-//			temp.setCashier(RexAnimationPanel.cashier);
-//			subRole = temp;
-//			// creates CustomerGui and adds to animationPanels
-//			subRole.setPerson(super.mPerson);
-//			RexAnimationPanel.addPerson((RexCustomerRole) subRole);
-//			// calls gotHungry when addPerson for CustomerRole
-//			break;
+		case 7: // rex
+			subRole = new RexCustomerRole(mPerson);
+			// creates CustomerGui and adds to animationPanels
+			RexAnimationPanel.addPerson((RexCustomerRole) subRole);
+			// calls gotHungry when addPerson for CustomerRole
+			break;
 		}
 	}
 

@@ -204,6 +204,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     public static void addPerson(BaseRole role) {
     	if (role instanceof RexCustomerRole){
     		RexCustomerRole customer = (RexCustomerRole) role;
+    		customer.setHost(host);
     		customers.add(customer);
     		//customer.gotHungry();
     		((RexCustomerRole) role).getGui().setHungry();
