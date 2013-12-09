@@ -59,12 +59,38 @@ public class CityControlPanel extends JPanel implements ActionListener{
     // Tags
     @SuppressWarnings("rawtypes")
 	JComboBox tags;
-    String[] tagList = {"All", "Person", "r_duvoisin", "r_cwagoner", "r_jerryweb", "r_maggiyan", "r_davidmca", "r_smileham", "r_tranac", "r_xurex", "Bank", "Market", "Housing", "Transportation", "None"};
+    String[] tagList = {	"All", 
+    						"Person", 
+    						"r_duvoisin", 
+    						"r_cwagoner", 
+    						"r_jerryweb", 
+    						"r_maggiyan", 
+    						"r_davidmca", 
+    						"r_smileham", 
+    						"r_tranac", 
+    						"r_xurex", 
+    						"Bank", 
+    						"Market", 
+    						"Housing", 
+    						"Transportation", 
+    						"None"};
 	
     //Properties Panel
     @SuppressWarnings("rawtypes")
 	JComboBox places;
-    String[] placeList = {"None", "Gringotts", "Piggy Bank", "Ollivanders", "Honeydukes", "cwagoner", "davidmca", "duvoisin", "jerryweb", "maggiyan", "smileham", "tranac", "xurex"};
+    String[] placeList = {	"None", 
+    						"Gringotts", 
+    						"Piggy Bank", 
+    						"Ollivanders", 
+    						"Honeydukes", 
+    						"cwagoner", 
+    						"davidmca", 
+    						"duvoisin", 
+    						"jerryweb", 
+    						"maggiyan", 
+    						"smileham", 
+    						"tranac", 
+    						"xurex"};
     
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
@@ -216,23 +242,24 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioS.setPreferredSize(buttonDim);
 		
 		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
-		scenarioA.addActionListener(getActionListener("restConfig0.txt"));
-		scenarioB.addActionListener(getActionListener(""));
-		scenarioC.addActionListener(getActionListener("MarketRestaurantConfig_C.txt"));
-		scenarioD.addActionListener(getActionListener("PartyConfig_D.txt"));
-		scenarioE.addActionListener(getActionListener(""));
-		scenarioF.addActionListener(getActionListener("Inspection_F.txt"));
-		scenarioG.addActionListener(getActionListener("MarketConfig_G.txt"));
-		scenarioH.addActionListener(getActionListener("PartyConfig_H.txt"));
-		scenarioI.addActionListener(getActionListener("PartyConfig_I.txt"));
-		scenarioJ.addActionListener(getActionListener("config1.txt"));
-		scenarioO.addActionListener(getActionListener("BankConfig.txt"));
-		scenarioP.addActionListener(getActionListener(""));
-		scenarioQ.addActionListener(getActionListener(""));
-		scenarioR.addActionListener(getActionListener(""));
-		scenarioS.addActionListener(getActionListener(""));
+			scenarioA.addActionListener(getActionListener("restConfig0.txt"));
+			scenarioB.addActionListener(getActionListener(""));
+			scenarioC.addActionListener(getActionListener("MarketRestaurantConfig_C.txt"));
+			scenarioD.addActionListener(getActionListener("PartyConfig_D.txt"));
+			scenarioE.addActionListener(getActionListener(""));
+			scenarioF.addActionListener(getActionListener("Inspection_F.txt"));
+			scenarioG.addActionListener(getActionListener("MarketConfig_G.txt"));
+			scenarioH.addActionListener(getActionListener("PartyConfig_H.txt"));
+			scenarioI.addActionListener(getActionListener("PartyConfig_I.txt"));
+			scenarioJ.addActionListener(getActionListener("config1.txt"));
+			scenarioO.addActionListener(getActionListener("BankConfig.txt"));
+			scenarioP.addActionListener(getActionListener(""));
+			scenarioQ.addActionListener(getActionListener(""));
+			scenarioR.addActionListener(getActionListener(""));
+			scenarioS.addActionListener(getActionListener(""));
 	}
 	
+	//Used to shorten above code
 	private ActionListener getActionListener(final String filename){
 		return new ActionListener() {
 			@Override

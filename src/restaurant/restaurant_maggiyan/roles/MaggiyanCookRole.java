@@ -65,22 +65,12 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 		else{
 			this.n = p.getName();
 		}
-
+		
         CookingTimes.put("Steak", foodCookingTime* 50);
         CookingTimes.put("Salad", foodCookingTime* 50);
         CookingTimes.put("Pizza", foodCookingTime* 50);
         CookingTimes.put("Chicken", foodCookingTime* 50);
         
-//		Food steak = new Food("Steak", inventoryLOW, foodCookingTime* 50);
-//		Food chicken = new Food("Chicken", maxFoodQty, foodCookingTime*75);
-//		Food salad = new Food("Salad", inventoryLOW, foodCookingTime*20);
-//		Food pizza = new Food("Pizza", maxFoodQty, foodCookingTime*30);
-//		
-//		FoodMap.put("Steak", steak);
-//		FoodMap.put("Chicken", chicken);
-//		FoodMap.put("Salad", salad);
-//		FoodMap.put("Pizza", pizza);
-		
 		//Enables cook to periodically check for orders on revolving stand
 		RStandTimer.scheduleAtFixedRate(new TimerTask(){
 			public void run(){

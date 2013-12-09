@@ -20,5 +20,4 @@ public class Inspection {
 		sClosedImages.put(ContactList.cMARKET1_LOCATION, new CityClosed(ContactList.cMARKET1_LOCATION.createNew()));
 		sClosedImages.put(ContactList.cMARKET2_LOCATION, new CityClosed(ContactList.cMARKET2_LOCATION.createNew()));
 	}
-	
 }

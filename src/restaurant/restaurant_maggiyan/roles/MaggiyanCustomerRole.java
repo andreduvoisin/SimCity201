@@ -72,13 +72,6 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 		super(p);
 		this.name = p.getName();
 		
-		mAnimationPanel = MaggiyanAnimationPanel.mInstance; 
-		host = MaggiyanAnimationPanel.getHost(); 
-		cashier = MaggiyanAnimationPanel.getCashier();
-		
-		customerGui = new MaggiyanCustomerGui(this); 
-		mAnimationPanel.addGui(customerGui); 
-		
 		cash = normCashAmt; 
 	
 	}

@@ -18,11 +18,11 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 
 	
 	//Bus Data
-	public enum PersonBusState {noBus, atBusStop, waitingForBus, boardingBus, 
+	public enum PersonState {walking, atBusStop, waitingForBus, boardingBus, 
 		ridingBus, exitingBus, noNewDestination};
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
-	private PersonBusState mState = PersonBusState.noBus;
+	private PersonState mState = PersonState.walking;
 	private TransportationBus mBus; 
 	
 	//CONSTRUCTOR
@@ -40,7 +40,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	public void msgAtBusStop(int currentStop, int destinationStop){
 		mCurrentBusStop = currentStop;
 		mDestinationBusStop = destinationStop; 
-		mState = PersonBusState.atBusStop; 
+		mState = PersonState.atBusStop; 
 		stateChanged(); 
 	}
 	
@@ -51,39 +51,41 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	 */
 	public void msgBoardBus() {
 		//print("Received msgBoardBus");
-		mState = PersonBusState.boardingBus;
+		mState = PersonState.boardingBus;
 		stateChanged();
 	}
 	
 	public void msgAtStop(int busStop){
 		if(busStop == mDestinationBusStop){
-			mState = PersonBusState.exitingBus; 
+			mState = PersonState.exitingBus; 
 		}
 		stateChanged(); 
 	}
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
-			if(mState == PersonBusState.atBusStop){
+		if(mPerson.hasCar()){
+			GoToDestination(); 
+		}
+		else{
+			if(mState == PersonState.atBusStop){
 				NotifyBus(); 
 				return true;
 			}
-			
-			else if(mState == PersonBusState.boardingBus){
+			else if(mState == PersonState.boardingBus){
 				BoardBus(); 
 				return true; 
 			}
-			
-			else if(mState == PersonBusState.exitingBus){
+			else if(mState == PersonState.exitingBus){
 				ExitBus();
 				return true; 
 			}
-			//MAGGI: Check if you really need this later 
-			else if(mState == PersonBusState.noBus){
+			else if(mState == PersonState.walking){
 				GoToDestination(); 
-				mState = PersonBusState.noNewDestination; 
+				mState = PersonState.noNewDestination; 
 				return true; 
 			}
+		}
 		return false; 
 	}
 
@@ -91,19 +93,19 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	//Manages Bus Transportation
 	private void NotifyBus(){
 		mBus.msgNeedARide(this, mCurrentBusStop);
-		mState = PersonBusState.waitingForBus; 
+		mState = PersonState.waitingForBus; 
 	}
 
 	private void BoardBus(){
 		mPerson.getGui().DoBoardBus();
 		mBus.msgImOn(this);
-		mState = PersonBusState.ridingBus;
+		mState = PersonState.ridingBus;
 	}
 	
 	private void ExitBus(){
 		mPerson.getGui().DoExitBus(mDestinationBusStop); 
 		mBus.msgImOff(this);
-		mState = PersonBusState.noBus; 
+		mState = PersonState.walking; 
 		stateChanged(); 
 	}
 	

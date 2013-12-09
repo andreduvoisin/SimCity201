@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.List;
 
 import base.Block;
 import base.ContactList;
@@ -19,8 +18,8 @@ public class CityPerson extends CityComponent {
 	
 	public Location mDestination = null; 
 	public Location mFinalDestination = null;
-	public boolean mUsingCar = true;
-	public boolean mUsingBus = false;
+	public boolean mUsingCar = false;
+	public boolean mUsingBus = true;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -60,33 +59,34 @@ public class CityPerson extends CityComponent {
 	        	}
 	    	}
 		}
+		
+		Rectangle r = new Rectangle(x, y, 10, 10);
         
-        //Check intersections (if going into busy intersection - stay)
-        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
-        	if(this.rectangle.intersects(iIntersect.rectangle)) {
-        		if (iIntersect.mOccupant != this) {
-	        		x = previousX;
-	        		y = previousY;
-        		}
-        		return;
-        	}
-        }
+//        Check intersections (if going into busy intersection - stay)
+//        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
+//        	if(r.intersects(iIntersect.rectangle)) {
+//        		if (iIntersect.mOccupant != this) {
+//	        		r.x = previousX;
+//	        		r.y = previousY;
+//        		}
+//        		return;
+//        	}
+//        }
 
         //B* Algorithm
-        List<Block> blocks = null;
-        blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
-        
-        for (Block iBlock : blocks){
-			boolean yOldInBlock = (previousY > iBlock.mY1 && previousY < iBlock.mY2)
-					|| (previousY + 15 > iBlock.mY1 && previousY + 15 < iBlock.mY2);
-			if (this.rectangle.intersects(iBlock.rectangle)) {
-        		if (yOldInBlock){
-        			x = previousX;
-        		}else{
-        			y = previousY;
-        		}
-        	}
+       
+        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
+			if (r.intersects(iBlock.rectangle)) {
+				r.x = previousX;
+				if (r.intersects(iBlock.rectangle)) {
+					r.x = x;
+					r.y = previousY;
+				}
+			}
         }
+        
+       x = r.x;
+       y = r.y;
 	}
 	
 	public void DoGoToDestination(Location location){
@@ -100,9 +100,9 @@ public class CityPerson extends CityComponent {
 		Location closeParking = findNearestParkingLot(mLocation);
 		Location destParking = findNearestParkingLot(mFinalDestination);
 		Location destCorner = findNearestCorner(mFinalDestination);
-		
-		if (mPerson.hasCar() && mUsingCar) {
-			//if at corner closest to destination, walk to destination
+		//if at corner closest to destination, walk to destination
+	
+		if (mPerson.hasCar()) {
 			if (mLocation.equals(destParking)){
 				x = closeCorner.mX;
 				y = closeCorner.mY;
@@ -113,7 +113,7 @@ public class CityPerson extends CityComponent {
 				mDestinationPathType = 0; //Walking
 			}
 			//if at closest parking lot, drive to parking lot nearest destination
-			else if (mLocation.equals(closeParking)) {
+			if (mLocation.equals(closeParking)) {
 				mUsingCar = true;
 				//calculate corners
 				int currentCornerNum = -1;
@@ -127,19 +127,35 @@ public class CityPerson extends CityComponent {
 					}
 				}
 				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
+				mPerson.print("route :"+mDestinationPathType);
 				mDestination = destParking;
 			}
 			else {
 				mUsingCar = true;
-				mDestinationPathType = 1;
+//				mDestinationPathType = 1;
 				mDestination = closeParking;
 			}
 		}
-		if (mUsingBus) {
-			//do bus stuff??? CHASE MAGGI: 1 Do this
-				DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+		else{
+			mDestination = closeCorner;
+			if (mLocation.equals(destCorner)){
+				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+				mFinalDestination = null;
+				//walk to destination
+				mUsingCar = false;
+				mDestinationPathType = 0; //Walking
+			}
+			if (mLocation.equals(closeCorner)){
+//				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+//				mFinalDestination = null;
+				if(mUsingBus){
+					DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+				}
+			}
+			
 		}
-		mPerson.print("Path Type: "+mDestinationPathType);
+		
+		
 	}
 	
 	
@@ -152,14 +168,10 @@ public class CityPerson extends CityComponent {
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
-						rectangle.height = 10;
-						rectangle.width = 10;
 						g.fillRect(x, y, 10, 10);
 					}
 					else {
 						g.setColor(Color.yellow);
-						rectangle.height = 5;
-						rectangle.width = 5;
 						g.fillRect(x, y, 5, 5);
 					}
 					g.setColor(Color.WHITE);
@@ -177,6 +189,7 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
+		mPerson.print("dotakebus");
 		mPerson.mCommuterRole.msgAtBusStop(currentStop, destinationStop);
 		mUsingBus = false;
 	}

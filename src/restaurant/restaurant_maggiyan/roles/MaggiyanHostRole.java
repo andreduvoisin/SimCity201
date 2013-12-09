@@ -44,11 +44,11 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	private MaggiyanWaiterGui hostGui = null;
 	private MaggiyanCook cook; 
 	private int minWaiters = 1; 
-	private int minCustomer = Integer.MAX_VALUE; 
-	private MyWaiter leastBusyWaiter = null; 
+	//private int minCustomer = Integer.MAX_VALUE; 
+	//private MyWaiter leastBusyWaiter = null; 
 	private int occupiedTableCounter = 0; 
 	
-	private boolean askedToGoOnBreak = false; 
+	//private boolean askedToGoOnBreak = false; 
 	
 	public void addWaiter(MaggiyanWaiter waiter){
 		MyWaiter w = new MyWaiter(waiter); 
@@ -62,10 +62,11 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		super(p); 
 		if(p == null){
 			this.name = "Host"; 
+		}else{
+			this.name = p.getName();
 		}
-		//this.name = p.getName();
 		
-		// make some tables
+		// Make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
 			tables.add(new Table(ix)); //how you add to a collections
@@ -80,6 +81,10 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		return name;
 	}
 	
+	public void setCook(MaggiyanCookRole c){
+		cook = c; 
+	}
+	
 	public MyWaiter findMyWaiter(MaggiyanWaiter w){
 		for(MyWaiter waiter: waiters){
 			if(waiter.w.getName() == w.getName()){
@@ -88,19 +93,6 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		}
 		return null; 
 	}
-	
-//	public MyWaiter findLeastBusyWaiter(){
-//		for(MyWaiter waiter: waiters){
-////			if(waiter.onBreak = true){
-////				//Skip waiter
-////			}
-//			if(waiter.w.getCustomersSize() < minCustomer){
-//				leastBusyWaiter = waiter; 
-//				minCustomer = waiter.w.getCustomersSize();
-//			}
-//		}
-//		return leastBusyWaiter;
-//	}
 	
 	// Messages
 	
