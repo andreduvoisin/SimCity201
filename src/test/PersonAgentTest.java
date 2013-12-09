@@ -1,9 +1,10 @@
 package test;
 
+import housing.interfaces.HousingBase;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import housing.interfaces.HousingBase;
 import junit.framework.TestCase;
 import market.test.mock.MockCustomer;
 import bank.test.mock.MockTellerRole;

@@ -7,7 +7,6 @@ import java.awt.event.MouseMotionListener;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
-import base.Block;
 import base.ContactList;
 import base.Inspection;
 
