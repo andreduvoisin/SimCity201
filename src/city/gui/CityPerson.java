@@ -140,6 +140,7 @@ public class CityPerson extends CityComponent {
 			}
 			//if not at a corner, walk to person corner
 			else{
+				mUsingCar = false;
 				mDestinationPathType = 0; //Walking
 				mDestination = closeCorner;
 			}
