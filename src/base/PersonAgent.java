@@ -36,6 +36,9 @@ import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.CityComponent;
+import city.gui.CityInspection;
+import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
@@ -84,6 +87,7 @@ public class PersonAgent extends Agent implements Person {
 										BANK,
 										PARTY};
 	public EventParty mCurrentParty = null;
+	private CityInspection mInspection;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -185,6 +189,10 @@ public class PersonAgent extends Agent implements Person {
 		
 		// Event Setup
 		mEvents = new ArrayList<Event>();
+		
+		//Inspection Image
+		mInspection = new CityInspection (0,0);
+		CityPanel.addStatic((CityComponent)mInspection);
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -488,8 +496,11 @@ public class PersonAgent extends Agent implements Person {
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
 				if(ContactList.sOpenPlaces.get(iLocation)){
+					mInspection.setPosition(iLocation);
+					mInspection.enable();
 					mPersonGui.DoGoToDestination(iLocation);
 					acquireSemaphore(semAnimationDone);
+					mInspection.disable();
 					print("Visited "+iLocation.toString());
 					mPersonGui.setPresent(true);
 				}

@@ -21,7 +21,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	static SimCityPanel instance;
 	
 	protected SimCityGui city;
-	protected List<CityComponent> statics;
+	protected static List<CityComponent> statics;
 	public List<CityComponent> movings;
 	public List<CityIntersection> intersections;
 	
@@ -106,7 +106,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		guis.add(gui);
 	}
 	*/
-	public void addStatic(CityComponent c) {
+	public static void addStatic(CityComponent c) {
 		synchronized(statics) {
 			statics.add(c);
 		}
