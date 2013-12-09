@@ -24,8 +24,7 @@ public class CityPerson extends CityComponent {
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
-	
-	public boolean visible;
+
 	public boolean onBus;
 	
 	/* 0 - No Blocks
@@ -42,8 +41,7 @@ public class CityPerson extends CityComponent {
 		rectangle = new Rectangle(0, 0, 5, 5);
 		mPerson = person;
 		this.gui = gui;
-		
-		visible = true;
+		this.enable();
 	}
 
 	@Override
@@ -62,8 +60,8 @@ public class CityPerson extends CityComponent {
         	if(mFinalDestination != null){
         		DoGoToDestination(mFinalDestination);
         	}else{
+        		
         		this.disable();
-        		visible = false;
         		mPerson.msgAnimationDone();
         		mPerson.postCommute();
         	}
@@ -172,7 +170,7 @@ public class CityPerson extends CityComponent {
 	public void paint(Graphics g) {
 		rectangle.x = x;
 		rectangle.y = y;
-		if(visible) {
+		if(isActive) {
 			if (! onBus) {
 				if(SimCityGui.GRADINGVIEW) {
 					g.drawString(mPerson.getName(),x,y);
@@ -277,17 +275,17 @@ public class CityPerson extends CityComponent {
 
 	@Override
 	public boolean isPresent() {
-		return visible;
+		return isActive;
 	}
 
 	@Override
 	public void setPresent(boolean state) {
-		visible = state;
+		isActive = state;
 	}
 	
     // Just got off bus
 	public void NewDestination(Location location) {
-		visible = true;
+		enable();
 		x = location.mX;
 		y = location.mY;
 		mDestination.mX = mFinalDestination.mX;

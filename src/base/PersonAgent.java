@@ -383,7 +383,7 @@ public class PersonAgent extends Agent implements Person {
 							ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
 							
 							//plan robbery
-							if(mName.equals("robber")){
+							if(mName.contains("robber")){
 								//REX: hard coded to try to steal 100
 								print("Robbery action added to bank options");
 								bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
@@ -490,8 +490,7 @@ public class PersonAgent extends Agent implements Person {
 					mPersonGui.DoGoToDestination(iLocation);
 					acquireSemaphore(semAnimationDone);
 					print("Visited "+iLocation.toString());
-					mPersonGui.setPresent(false);
-					break;
+					mPersonGui.setPresent(true);
 				}
 			}
 		}
