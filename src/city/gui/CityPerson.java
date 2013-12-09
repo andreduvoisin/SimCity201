@@ -17,7 +17,7 @@ public class CityPerson extends CityComponent {
 	PersonAgent mPerson = null;
 	SimCityGui gui;
 	
-	public Location mDestination = new Location(0, 0); //just to avoid null pointers
+	public Location mDestination = null; 
 	public Location mFinalDestination = null;
 	public boolean mUsingCar = true;
 	public boolean mUsingBus = false;
@@ -42,22 +42,24 @@ public class CityPerson extends CityComponent {
 		int previousX = x;
 		int previousY = y;
 		
-		if (x < mDestination.mX)		x++;
-        else if (x > mDestination.mX)	x--;
-
-        if (y < mDestination.mY)		y++;
-        else if (y > mDestination.mY)	y--;
-        
-        //if at destination
-        if (x == mDestination.mX && y == mDestination.mY) {
-        	if(mFinalDestination != null){
-        		DoGoToDestination(mFinalDestination);
-        	}else{
-        		this.disable();
-        		mPerson.msgAnimationDone();
-        		mPerson.postCommute();
-        	}
-    	}
+		if (mDestination != null) {
+			if (x < mDestination.mX)		x++;
+	        else if (x > mDestination.mX)	x--;
+	
+	        if (y < mDestination.mY)		y++;
+	        else if (y > mDestination.mY)	y--;
+	        
+	        //if at destination
+	        if (x == mDestination.mX && y == mDestination.mY) {
+	        	if(mFinalDestination != null){
+	        		DoGoToDestination(mFinalDestination);
+	        	}else{
+	        		this.disable();
+	        		mPerson.msgAnimationDone();
+	        		mPerson.postCommute();
+	        	}
+	    	}
+		}
         
         //Check intersections (if going into busy intersection - stay)
         for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
