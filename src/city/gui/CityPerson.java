@@ -119,7 +119,7 @@ public class CityPerson extends CityComponent {
 			if (mLocation.equals(destParking)){
 				x = closeCorner.mX;
 				y = closeCorner.mY;
-				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+				mDestination = ContactList.getDoorLocation(mFinalDestination);
 				mFinalDestination = null;
 				//walk to destination
 				mUsingCar = false;
@@ -153,7 +153,7 @@ public class CityPerson extends CityComponent {
 		else {
 			if (mLocation.equals(destCorner)) {
 				mDestinationPathType = 0;
-				mDestination = mFinalDestination;
+				mDestination = ContactList.getDoorLocation(mFinalDestination);
 				mFinalDestination = null;
 			}
 			else {
@@ -319,7 +319,6 @@ public class CityPerson extends CityComponent {
 	@Override
 	public void draw(Graphics2D g) {
 		// Auto-generated method stub
-		
 	}
 
 	@Override
