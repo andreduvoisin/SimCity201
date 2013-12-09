@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 
 public class Time {
@@ -12,7 +13,7 @@ public class Time {
 	public static int sGlobalTimeInt = 0; //minutes
 	public final static int cSYSCLK = 50;
 //	static boolean sFastForward = false;
-	List<Person> mPersons = ContactList.sPersonList; //same pointer
+	static List<Person> mPersons = ContactList.sPersonList; //same pointer
 	Timer mTimer;
 	
 	public Time(){
@@ -24,7 +25,6 @@ public class Time {
 	public void runTimer(){
 				
 		mTimer.scheduleAtFixedRate(new TimerTask() {
-			
 			@Override
 			//Broadcast time
 			public void run() {
@@ -32,17 +32,13 @@ public class Time {
 				
 				//state changed
 				if (sGlobalTimeInt % 60 == 0){
-					synchronized (mPersons) {
-						for (Person iPerson : mPersons) {
-							iPerson.msgStateChanged();
-						}
-					}
-					
+					notifyPeople();					
 					if (sGlobalTimeInt % ((24 / ContactList.cNumTimeShifts)*60) == 0){
 						System.out.println("Time Shift! (but not)");
 						synchronized (mPersons) {
 							for (Person iPerson : mPersons) {
-								//iPerson.msgTimeShift(); 
+								if(iPerson.getJobType() == EnumJobType.BANK)
+										iPerson.msgTimeShift(); 
 							}
 						}
 					}
@@ -50,6 +46,14 @@ public class Time {
 			}
 		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 2
 		
+	}
+	
+	public static void notifyPeople(){
+		synchronized (mPersons) {
+			for (Person iPerson : mPersons) {
+				iPerson.msgStateChanged();
+			}
+		}
 	}
 
 	public static int GetMinute(){

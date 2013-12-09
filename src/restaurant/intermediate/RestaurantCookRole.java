@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -36,6 +35,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.trace.AlertTag;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
@@ -88,7 +88,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 2: //jerry
 					mAlertTag = AlertTag.R2;
 					subRole = new JerrywebCookRole(super.mPerson, this);
-					JerrywebRestaurant.cook = ((JerrywebCookRole) subRole);
 					if (JerrywebRestaurant.cook == null) {
 						JerrywebRestaurant.addPerson((JerrywebCookRole) subRole);
 					} else {

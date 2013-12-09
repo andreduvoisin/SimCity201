@@ -52,4 +52,8 @@ public class MockCashier extends Mock implements MarketCashier {
 	
 	public void setInventory(EnumItemType i, int n) {
 	}
+
+	public int getInventory(EnumItemType e) {
+		return 0;
+	}
 }

@@ -33,7 +33,7 @@ public class CookCustomerTest extends TestCase {
  		
  		mPerson = new PersonAgent();
  		
- 		mMarket = new Market();
+ 		mMarket = new Market(0);
  		mMockCashier = new MockCashier();
  		mMockWorker = new MockWorker();
  		
@@ -52,7 +52,6 @@ public class CookCustomerTest extends TestCase {
  	 */
  	public void testTranacRestaurant() {
  	  //set up the test
- 		TranacAnimationPanel mPanel = new TranacAnimationPanel(null);
  		
  		mCookCustomer = new RestaurantCookRole(mPerson, 6); 		
  		mCookCustomer.setMarketCashier(0);

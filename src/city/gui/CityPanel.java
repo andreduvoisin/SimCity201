@@ -9,7 +9,6 @@ import java.util.Map;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
-import base.Block;
 import base.ContactList;
 import base.Location;
 

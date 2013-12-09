@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,11 +21,13 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import base.ConfigParser;
+import city.gui.properties.PlacesButtonListener;
+import city.gui.properties.PlacesListener;
+import city.gui.properties.PlacesPropertiesLabel;
 import city.gui.trace.AlertLevel;
 import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 import city.gui.trace.TracePanel;
-import city.gui.properties.*;
 
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{
