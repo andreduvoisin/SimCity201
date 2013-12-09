@@ -206,7 +206,7 @@ public class ContactList {
 
 	//cNAVBLOCKS[1] = Clockwise
 	public static final Block cCARBLOCK_Clockwise1 = new Block (85, 85, 280, 280); //Upper Left
-	public static final Block cCARBLOCK_Clockwise2 = new Block (305, 85, 515, 280); //Upper Right
+	public static final Block cCARBLOCK_Clockwise2 = new Block (320, 85, 515, 280); //Upper Right
 	public static final Block cCARBLOCK_Clockwise3 = new Block (85, 320, 280, 515); //Lower Left
 	public static final Block cCARBLOCK_Clockwise4 = new Block (320, 320, 515, 515); //Lower Right
 	

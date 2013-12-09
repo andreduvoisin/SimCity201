@@ -33,7 +33,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		this.restaurant = rest;
 		setSize(WINDOWX, WINDOWY);
 		setVisible(true);
-		Timer timer = new Timer(Time.cSYSCLK / 20, this);
+		Timer timer = new Timer(Time.cSYSCLK / 10, this);
 		timer.start();
 	}
 
