@@ -21,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import base.ConfigParser;
+import base.ContactList;
+import base.Inspection;
+import base.Location;
 import city.gui.properties.PlacesButtonListener;
 import city.gui.properties.PlacesListener;
 import city.gui.properties.PlacesPropertiesLabel;
@@ -456,7 +459,21 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    enable.setPreferredSize(new Dimension(180,20));
 	    enable.setMaximumSize(new Dimension(180,20));
 	    enable.setMinimumSize(new Dimension(180,20));
-    	
+	    enable.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
+	    JButton disable = new JButton("DISABLE ALL");
+	    disable.setPreferredSize(new Dimension(180,20));
+	    disable.setMaximumSize(new Dimension(180,20));
+	    disable.setMinimumSize(new Dimension(180,20));
+    	disable.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+					ContactList.sOpenPlaces.put(iLocation, false);
+					Inspection.sClosedImages.get(iLocation).enable();
+				}
+			}
+		});
 	    //ANGELICA: additions
 	    PlacesPropertiesLabel placeProperties = new PlacesPropertiesLabel();
 	    
@@ -478,10 +495,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    PropertiesTab.add(new JLabel());
 	    PropertiesTab.add(placesTitle);
 	    PropertiesTab.add(places);
-	    PropertiesTab.add(enable, BorderLayout.CENTER);
+	    PropertiesTab.add(enable);
+	    PropertiesTab.add(disable);
 	    PropertiesTab.add(placeProperties);
 	    PropertiesTab.add(holdPlaces);
-
 	    
 	    //Add ActionListener for Enable
 	    enable.addActionListener(new PlacesButtonListener(enable, places));	

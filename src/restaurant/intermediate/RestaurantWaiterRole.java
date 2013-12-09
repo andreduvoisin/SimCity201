@@ -119,13 +119,13 @@ public class RestaurantWaiterRole extends BaseRole implements
 			}
 			break;
 		case 7: // rex
-			if (mWaiterType == 1) {
+//			if (mWaiterType == 1) {
 				subRole = new RexWaiterRole1(mPerson);
 				RexAnimationPanel.addPerson((RexWaiterRole1) subRole);
-			} else if (mWaiterType == 0) {
-				subRole = new RexWaiterRole2(mPerson);
-				RexAnimationPanel.addPerson((RexWaiterRole2) subRole);
-			}
+//			} else if (mWaiterType == 0) {
+//				subRole = new RexWaiterRole2(mPerson);
+//				RexAnimationPanel.addPerson((RexWaiterRole2) subRole);
+//			}
 			break;
 		}
 

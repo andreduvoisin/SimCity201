@@ -95,7 +95,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 	//CUSTOMER MESSAGES
 	public void ReadyToOrder(Customer c){
 		for(MyCustomer customer:customers){
-			if(customer.c.getName().equals(c.getName())){
+			if(((RexCustomerRole)customer.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				customer.s=CustomerState.readyToOrder;
 			}
 		}
@@ -104,7 +104,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 	}
 	public void HereIsChoice(Customer c, String choice){
 		for(MyCustomer customer:customers){
-			if(customer.c.getName()==c.getName()){
+			if(((RexCustomerRole)customer.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				customer.choice=choice;
 				customer.s=CustomerState.ordered;
 			}
@@ -114,7 +114,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 	}
 	public void Leaving(Customer c){
 		for(MyCustomer customer:customers){
-			if(customer.c.getName()==c.getName()){
+			if(((RexCustomerRole)customer.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				customer.s=CustomerState.done;
 			}
 		}
