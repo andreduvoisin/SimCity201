@@ -16,7 +16,7 @@ public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
 
 
-	public static int TESTNUM = 2;
+	public static int TESTNUM = 3;
 	
 	public static boolean GRADINGVIEW = true;
 

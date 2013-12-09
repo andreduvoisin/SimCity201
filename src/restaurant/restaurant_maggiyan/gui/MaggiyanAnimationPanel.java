@@ -12,6 +12,7 @@ import java.util.Vector;
 
 import javax.swing.Timer;
 
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanHost;
@@ -29,17 +30,9 @@ import city.gui.SimCityGui;
 
 public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
 	public static MaggiyanAnimationPanel mInstance; 
-	public int positionCounter = 1; 
 	
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-    private List<MaggiyanGui> guis = Collections.synchronizedList(new ArrayList<MaggiyanGui>());
-    
-    //DATA
-    public static MaggiyanHostRole mHost;
-    public static MaggiyanCookRole mCook;
-    public static MaggiyanCashierRole mCashier;
-    private static Vector<MaggiyanCustomerRole> mCustomers; 
     
 	private static int XPOS = 50; 
 	private static int YPOS = 175; 
@@ -54,17 +47,15 @@ public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
     	setSize(WINDOWX, WINDOWY);
         setVisible(true);
         setBackground(Color.white);
- 
-        mCustomers = new Vector<MaggiyanCustomerRole>(); 
         
-    	Timer timer = new Timer(Time.cSYSCLK/40, this );
-    	timer.start();
+        Timer timer = new Timer(Time.cSYSCLK/40, this );
+     	timer.start();
     }
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  
-		synchronized(guis){
-	        for(MaggiyanGui gui : guis) {
+		synchronized(MaggiyanRestaurant.guis){
+	        for(MaggiyanGui gui : MaggiyanRestaurant.guis) {
 	            if (gui.isPresent()) {
 	                gui.updatePosition();
 	            }
@@ -109,66 +100,12 @@ public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
         
      
 
-        for(MaggiyanGui gui : guis) {
+        for(MaggiyanGui gui : MaggiyanRestaurant.guis) {
             if (gui.isPresent()) {
                 gui.draw(g2);
             }
         }
     }
 
-    public static void addPerson(BaseRole role) {
-    	if (role instanceof MaggiyanCustomerRole){
-    		MaggiyanCustomerRole customer = (MaggiyanCustomerRole) role;
-    		mCustomers.add(customer);
-    		customer.gotHungry();
-    	}
-    	else if (role instanceof MaggiyanWaiterRole){
-    		MaggiyanWaiterRole waiter = (MaggiyanWaiterRole) role;
-    		
-    		MaggiyanHost host = waiter.getHost();
-            host.msgIAmHere((MaggiyanWaiter)waiter);
-            
-    	}
-    	else if (role instanceof MaggiyanSharedWaiterRole){
-    		MaggiyanSharedWaiterRole waiter = (MaggiyanSharedWaiterRole) role;
-    		
-    		MaggiyanHost host = waiter.getHost();
-            host.msgIAmHere((MaggiyanWaiter)waiter);
-            
-    	}
-    	else if (role instanceof MaggiyanHostRole){
-    		mHost = (MaggiyanHostRole) role;
-    	}
-    	else if (role instanceof MaggiyanCookRole){
-    		mCook = (MaggiyanCookRole) role;
-    	}
-    	else if (role instanceof MaggiyanCashierRole){
-    		mCashier = (MaggiyanCashierRole) role;
-    	}
-    }
 
-    public void addGui(MaggiyanCustomerGui gui) {
-        guis.add(gui);
-    }
-
-    public void addGui(MaggiyanWaiterGui gui) {
-        guis.add(gui);
-    }
-
-	public void addGui(MaggiyanCookGui gui) {
-		guis.add(gui); 
-		
-	}
-	
-	public static MaggiyanHost getHost(){
-		return mHost;
-	}
-	
-	public static MaggiyanCashier getCashier(){
-		return mCashier;
-	}
-
-	public static MaggiyanCook getCook() {
-		return mCook;
-	}
 }

@@ -18,6 +18,7 @@ import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
@@ -77,7 +78,11 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 			case 3: //maggi
 				mAlertTag = AlertTag.R3;
 				subRole = new MaggiyanCashierRole(super.mPerson, this);
-				MaggiyanAnimationPanel.addPerson((MaggiyanCashierRole) subRole);
+				if (MaggiyanRestaurant.mCashier == null) {
+					MaggiyanRestaurant.mCashier = (MaggiyanCashierRole) subRole;
+				} else {
+					subRole = MaggiyanRestaurant.mCashier;
+				}
 				break;
 			case 4: //david
 				mAlertTag = AlertTag.R4;
@@ -85,7 +90,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				if (DavidRestaurant.cashier == null) {
 					DavidRestaurant.cashier = (DavidCashierRole) subRole;
 				} else {
-					subRole = AndreRestaurant.cashier;
+					subRole = DavidRestaurant.cashier;
 				}
 				break;
 			case 5: //shane
