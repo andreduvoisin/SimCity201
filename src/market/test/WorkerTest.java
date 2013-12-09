@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
+import market.Market;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
@@ -13,11 +14,14 @@ import market.test.mock.MockCookCustomer;
 import market.test.mock.MockCustomer;
 import market.test.mock.MockDeliveryTruck;
 import base.Item.EnumItemType;
+import base.ContactList;
 import base.PersonAgent;
 
 public class WorkerTest extends TestCase {
+	Market mMarket;
 	PersonAgent mPerson;
 	MarketWorkerRole mWorker;
+	int mMarketNum = 0;
 
 	MockCashier mMockCashier;
 	MockCustomer mMockCustomer;
@@ -29,7 +33,8 @@ public class WorkerTest extends TestCase {
 	
 	public void setUp() throws Exception {
 		super.setUp();
-		
+		ContactList.setup();
+ 		mMarket = ContactList.sMarketList.get(mMarketNum);
 		mPerson = new PersonAgent();
 		mWorker = new MarketWorkerRole(mPerson, 0);
 		

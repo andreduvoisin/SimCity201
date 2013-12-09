@@ -184,7 +184,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	break;
             }
             restaurantCashier.msgInvoiceToPerson(cannotFulfill, invoice);
-            cook.msgCannotFulfillItems(order, cannotFulfill);
+            cook.msgCannotFulfillItems(order, cannotFulfill);//ANGLE, SHANE... why is this called twice?
         }
         
 		//if a customer
