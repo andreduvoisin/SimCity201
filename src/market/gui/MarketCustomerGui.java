@@ -11,11 +11,12 @@ import java.util.concurrent.Semaphore;
 
 import javax.imageio.ImageIO;
 
+import market.interfaces.MarketCustomer;
 import market.roles.MarketCustomerRole;
 import city.gui.SimCityGui;
 
 public class MarketCustomerGui implements MarketBaseGui {
-	private MarketCustomerRole mAgent;
+	private MarketCustomer mAgent;
 	private int mNum;
 	
 	private static int sNumWaitingSpaces = 5;
@@ -33,7 +34,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketCustomerGui(MarketCustomerRole agent) {
+	public MarketCustomerGui(MarketCustomer agent) {
 		mAgent = agent;
 		
 		synchronized(sWaitingSpaces) {
@@ -126,7 +127,12 @@ public class MarketCustomerGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		return mAgent.getPerson() != null ? true : false;
+		if(mAgent instanceof MarketCustomerRole) {
+			MarketCustomerRole role = (MarketCustomerRole) mAgent;
+			return role.getPerson() != null ? true : false;
+		}
+		else
+			return false;
 	}
 	
 	public int getXPos() {

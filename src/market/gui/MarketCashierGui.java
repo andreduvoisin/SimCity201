@@ -28,7 +28,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketCashierGui(MarketCashierRole agent) {
+	public MarketCashierGui(MarketCashier agent) {
 		mAgent = agent;
 		
     	image = null;

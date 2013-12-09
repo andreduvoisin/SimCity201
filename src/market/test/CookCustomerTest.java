@@ -33,7 +33,7 @@ public class CookCustomerTest extends TestCase {
  		
  		mPerson = new PersonAgent();
  		
- 		mMarket = new Market();
+ 		mMarket = new Market(0);
  		mMockCashier = new MockCashier();
  		mMockWorker = new MockWorker();
  		
