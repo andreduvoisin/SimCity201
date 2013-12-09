@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
@@ -38,6 +39,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityComponent;
 import city.gui.CityInspection;
+import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
@@ -181,30 +183,28 @@ public class PersonAgent extends Agent implements Person {
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
-		mHasCar = true; //DAVID 1 hack
+		mHasCar = false;
 		
 		//Role References
-		Location startLocation = null;
-		if (mSSN % 8 == 0) startLocation = new Location(60, 0);
-		if (mSSN % 8 == 1) startLocation = new Location(0, 60);
-		if (mSSN % 8 == 2) startLocation = new Location(540, 0);
-		if (mSSN % 8 == 3) startLocation = new Location(0, 540);
-		if (mSSN % 8 == 4) startLocation = new Location(60, 600);
-		if (mSSN % 8 == 5) startLocation = new Location(600, 60);
-		if (mSSN % 8 == 6) startLocation = new Location(540, 600);
-		if (mSSN % 8 == 7) startLocation = new Location(600, 540);
-		mPersonGui = new CityPerson(this, SimCityGui.getInstance(), startLocation);
-		
+		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
+		//Role References
+        Location startLocation = null;
+        if (mSSN % 8 == 0) startLocation = new Location(60, 0);
+        if (mSSN % 8 == 1) startLocation = new Location(0, 60);
+        if (mSSN % 8 == 2) startLocation = new Location(540, 0);
+        if (mSSN % 8 == 3) startLocation = new Location(0, 540);
+        if (mSSN % 8 == 4) startLocation = new Location(60, 600);
+        if (mSSN % 8 == 5) startLocation = new Location(600, 60);
+        if (mSSN % 8 == 6) startLocation = new Location(540, 600);
+        if (mSSN % 8 == 7) startLocation = new Location(600, 540);
+        mPersonGui = new CityPerson(this, SimCityGui.getInstance(), startLocation);
+        
 		// Event Setup
 		mEvents = new ArrayList<Event>();
 		
 		//Inspection Image
 		mInspection = new CityInspection (0,0);
-
 		//CityPanel.addStatic((CityComponent)mInspection);
-
-		SimCityGui.getInstance().citypanel.addStatic((CityComponent)mInspection);
-
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -531,10 +531,12 @@ public class PersonAgent extends Agent implements Person {
 		if(jobRole == null){
 			//print("didn't go to job"); 
 			return;
-		}		
+		}
+		
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(getJobLocation());
 		mCommutingTo = EnumCommuteTo.JOB;
+//		print("my job is " +jobRole.toString());
 	}
 
 	public void eatFood() {

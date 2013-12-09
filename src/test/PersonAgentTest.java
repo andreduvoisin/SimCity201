@@ -26,6 +26,7 @@ public class PersonAgentTest extends TestCase {
 	MockCustomer mCustomerRole;
 	CityPerson mGui;
 	List<PersonAgent> personList = new ArrayList<PersonAgent>();
+	public static Time time;
 	
 	public void setUp() throws Exception {
 		super.setUp();
@@ -34,6 +35,7 @@ public class PersonAgentTest extends TestCase {
 		mPerson3 = new PersonAgent();
 		mCustomerRole = new MockCustomer();
 		mTellerRole = new MockTellerRole();
+		//time = new Time();
 //		for(int i =0; i < 8; i++ ){
 //			PersonAgent person;
 //			personList.add(person = new PersonAgent(EnumJobType.NONE, 200, "Dobby" + i));
@@ -111,35 +113,44 @@ public class PersonAgentTest extends TestCase {
 		assertEquals("mPerson should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
 		
 		mPerson.pickAndExecuteAnAction();
-		assertTrue("mPerson should be at job. It is not.", mPerson.getAtJob());
+		assertTrue("mPerson should be at his job. He is not.", mPerson.getAtJob());
 		
 	}
-	/*
-	public void testFillBank() throws Exception{
+	
+	public void testTimeShift() throws Exception {
 		setUp();
 		ContactList.setup();
 		SortingHat.InstantiateBaseRoles();
 		
-		assertEquals("", 8, personList.size());
+		mPerson = new PersonAgent(EnumJobType.BANK, 100, "Dobby");
+		//Preconditions
+		assertEquals("mPerson should have 0 Events in his list of events. He does not.", 0, mPerson.getEvents().size());
+		assertFalse("mPerson shouldn't be at his job. He is.", mPerson.getAtJob());
+		assertTrue("mRoleFinished for mPerson should be true. It is not.", mPerson.mRoleFinished);
+		
+		//adding the job to the list of events
+		mPerson.msgAddEvent(new Event(EnumEventType.JOB, 0));
+		assertEquals("mPerson should have 1 Event in his list of events. He does not.", 1, mPerson.getEvents().size());
+		
+		
 	}
-	
-	 */
 	
 	public void testBasicParty() throws Exception {
-		
 		setUp();
 		ContactList.setup();
 		SortingHat.InstantiateBaseRoles();
-		
+		time = new Time();
 		mPerson = new PersonAgent(EnumJobType.NONE, 100, "partyPerson");
 		
 		mPerson2 = new PersonAgent(EnumJobType.NONE, 100, "Harry");
+		//mPerson3 = new PersonAgent(EnumJobType.BANK, 100, "RON");
 		mPerson.getFriendList().add(mPerson2);
+		//mPerson.getFriendList().add(mPerson3);
 		
 		//Preconditions
-		assertEquals("partyPerson should have 0 Event in his list of events. It does not.", 0, mPerson.getEvents().size());
-		
-		assertEquals("mPerson2 should have 0 Event in his list of events. It does not.", 0, mPerson2.getEvents().size());
+		assertEquals("partyPerson should have 0 Events in his list of events. It does not.", 0, mPerson.getEvents().size());
+		assertEquals("Time should be 0. It is not. ",0, time.GetTime());
+		assertEquals("mPerson2 should have 0 Events in his list of events. It does not.", 0, mPerson2.getEvents().size());
 		assertEquals("partyPerson should have 1 friend on it's mFriends list. It does not.", 1, mPerson.getFriendList().size());
 		
 		//Start of Party test
@@ -151,16 +162,46 @@ public class PersonAgentTest extends TestCase {
 		assertFalse("mPerson2 scheduler should not have been called. It was. ", mPerson2.pickAndExecuteAnAction());
 		
 		//distribution of invites
-		mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,0));
+		
+		//mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,0));
 		
 		assertFalse("partyPerson scheduler should not have been called. It was not. ", mPerson.pickAndExecuteAnAction());
-		assertEquals("partyPerson should have three Events in his list of events. It does not.", 3, mPerson.getEvents().size());
+		//assertEquals("partyPerson should have three Events in his list of events. It does not.", 3, mPerson.getEvents().size());
 
 	}
-	
+
 	public void testFlakeParty() throws Exception {
+		setUp();
+		ContactList.setup();
+		SortingHat.InstantiateBaseRoles();
 		
-	}
+		mPerson = new PersonAgent(EnumJobType.NONE, 100, "Harry");
+		mPerson2 = new PersonAgent(EnumJobType.NONE, 100, "partyPersonFlake");
+		mPerson3 = new PersonAgent(EnumJobType.NONE, 100, "Ron");
+		mPerson.getFriendList().add(mPerson2);
+		mPerson.getFriendList().add(mPerson3);
+		time = new Time();
+		//Preconditions
+		assertEquals("Global time should be at 0. It is not.", 0, time.GetTime());
+		assertEquals("partyPerson should have 0 Event in his list of events. It does not.", 0, mPerson.getEvents().size());
+		assertEquals("mPerson2 should have 0 Event in his list of events. It does not.", 0, mPerson2.getEvents().size());
+		assertEquals("partyPerson should have 2 friends on it's mFriends list. It does not.", 2, mPerson.getFriendList().size());
+
+		//Start of Party test
+		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, time.GetTime()));
+		assertEquals("Global time should be at 1. It is not.", 1, time.GetTime());
+		assertEquals("Harry should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
+		assertTrue("Harry scheduler should have been called. It was not. ", mPerson.pickAndExecuteAnAction());
+		assertFalse("mPerson2 scheduler should not have been called. It was. ", mPerson2.pickAndExecuteAnAction());
+		
+		time.equals(1);
+		
+		//distribution of invites
+		//mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,1));
+		assertFalse("Harry scheduler should not have been called. It was not. ", mPerson.pickAndExecuteAnAction());
+		assertEquals("Harry should have four Events in his list of events. It does not.", 4, mPerson.getEvents().size());
+		
+	}	
 	
 	public void testTwo_RoleSwitch() throws Exception {
 		//This test relies on the success of the first test and cannot be run alone. You must 

@@ -67,6 +67,12 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				mAlertTag = AlertTag.R2;
 				subRole = new JerrywebCashierRole(super.mPerson, this);
 				JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
+				if(JerrywebRestaurant.cashier == null) {
+					JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
+				}
+				else {
+					//subRole = MaggiyanRestaurant.cahsier;
+				}
 				break;
 			case 3: //maggi
 				mAlertTag = AlertTag.R3;
