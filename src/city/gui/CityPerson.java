@@ -31,7 +31,7 @@ public class CityPerson extends CityComponent {
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
 		super(x, y, Color.ORANGE, person.getName());
-		rectangle = new Rectangle(0, 0, 5, 5);
+		rectangle = new Rectangle(x, y, 5, 5);
 		mPerson = person;
 		this.gui = gui;
 		this.enable();
@@ -78,10 +78,8 @@ public class CityPerson extends CityComponent {
         blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
         
         for (Block iBlock : blocks){
-        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
         	boolean yOldInBlock = (previousY > iBlock.mY1 && previousY < iBlock.mY2);
-        	if (xNewInBlock && yNewInBlock){
+        	if (this.rectangle.intersects(iBlock.rectangle)) {
         		if (yOldInBlock){
         			x = previousX;
         		}else{
@@ -107,16 +105,18 @@ public class CityPerson extends CityComponent {
 		if (mPerson.hasCar() && mUsingCar) {
 			//if at corner closest to destination, walk to destination
 			if (mLocation.equals(destParking)){
+				System.out.println("Reached destParking");
 				x = findNearestCorner(mLocation).mX;
 				y = findNearestCorner(mLocation).mY;
 				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
 				mFinalDestination = null;
-//				System.out.println("Reached destParking");
 				//walk to destination
 				mUsingCar = false;
 				mDestinationPathType = 0; //Walking
 			}
+			//if at closest parking lot, drive to parking lot nearest destination
 			else if (mLocation.equals(closeParking)) {
+				System.out.println("Reached closeParking");
 				mUsingCar = true;
 				//calculate corners
 				int currentCornerNum = -1;
@@ -130,7 +130,6 @@ public class CityPerson extends CityComponent {
 					}
 				}
 				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
-				System.out.println(mDestinationPathType);
 				mDestination = destParking;
 			}
 			else {
@@ -155,10 +154,14 @@ public class CityPerson extends CityComponent {
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
-						g.fillRect(x, y, 20, 20);
+						rectangle.height = 10;
+						rectangle.width = 10;
+						g.fillRect(x, y, 10, 10);
 					}
 					else {
 						g.setColor(Color.yellow);
+						rectangle.height = 5;
+						rectangle.width = 5;
 						g.fillRect(x, y, 5, 5);
 					}
 					g.setColor(Color.WHITE);

@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
@@ -38,7 +37,6 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityComponent;
 import city.gui.CityInspection;
-import city.gui.CityPanel;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
 import city.gui.trace.AlertTag;
@@ -192,7 +190,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Inspection Image
 		mInspection = new CityInspection (0,0);
-		CityPanel.addStatic((CityComponent)mInspection);
+		SimCityGui.getInstance().citypanel.addStatic((CityComponent)mInspection);
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -518,12 +516,10 @@ public class PersonAgent extends Agent implements Person {
 		if(jobRole == null){
 			//print("didn't go to job"); 
 			return;
-		}
-		
+		}		
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(getJobLocation());
 		mCommutingTo = EnumCommuteTo.JOB;
-//		print("my job is " +jobRole.toString());
 	}
 
 	public void eatFood() {

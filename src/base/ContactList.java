@@ -181,15 +181,6 @@ public class ContactList {
 	//NAVIGATION B* BLOCKS
 	public static List<List<Block>> cNAVBLOCKS;
 	
-	// 0 1
-	// 3 2
-
-	// 0 - Walking
-	// 1 - Clockwise
-	// 2 - Counterclockwise 
-	// 3 - Diagonal NE/SW
-	// 4 - Diagonal NW/SE
-	
 	//cNAVBLOCKS[0] Walking
 	public static List<Block> cPERSONBLOCKS;
 	public static final Block cPERSONBLOCK0  = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
