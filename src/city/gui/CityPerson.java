@@ -152,6 +152,7 @@ public class CityPerson extends CityComponent {
 		//Else - if person does not have car, use bus
 		else {
 			if (mLocation.equals(destCorner)) {
+				mUsingCar = false;
 				mDestinationPathType = 0;
 				mDestination = ContactList.getDoorLocation(mFinalDestination);
 				mFinalDestination = null;
@@ -164,6 +165,7 @@ public class CityPerson extends CityComponent {
 						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
 					}
 				} else {
+					mUsingCar = false;
 					mDestinationPathType = 0;
 					mDestination = closeCorner;
 				}

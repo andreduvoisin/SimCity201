@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 
 import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
+import base.Block;
 import base.ContactList;
 import base.Inspection;
 
@@ -91,9 +92,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//DAVID testing add personblocks
 //		for (List<Block> list : ContactList.cNAVBLOCKS) {
-//			for (Block b : ContactList.cNAVBLOCKS.get(4)) {
-//				this.addStatic(b);
-//			}
+			for (Block b : ContactList.cNAVBLOCKS.get(2)) {
+				this.addStatic(b);
+			}
 //		}
 			
 		//Create Timer Display
