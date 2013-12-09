@@ -62,28 +62,28 @@ public class CityPerson extends CityComponent {
 		
 		Rectangle r = new Rectangle(x, y, 10, 10);
         
-//        Check intersections (if going into busy intersection - stay)
-//        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
-//        	if(r.intersects(iIntersect.rectangle)) {
-//        		if (iIntersect.mOccupant != this) {
-//	        		r.x = previousX;
-//	        		r.y = previousY;
-//        		}
-//        		return;
-//        	}
-//        }
+        //Check intersections (if going into busy intersection - stay)
+        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
+        	if(r.intersects(iIntersect.rectangle)) {
+        		if (iIntersect.mOccupant != this) {
+	        		r.x = previousX;
+	        		r.y = previousY;
+        		}
+        		return;
+        	}
+        }
 
         //B* Algorithm
        
-//        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
-//			if (r.intersects(iBlock.rectangle)) {
-//				r.x = previousX;
-//				if (r.intersects(iBlock.rectangle)) {
-//					r.x = x;
-//					r.y = previousY;
-//				}
-//			}
-//        }
+        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
+			if (r.intersects(iBlock.rectangle)) {
+				r.x = previousX;
+				if (r.intersects(iBlock.rectangle)) {
+					r.x = x;
+					r.y = previousY;
+				}
+			}
+        }
         
        x = r.x;
        y = r.y;
@@ -92,8 +92,8 @@ public class CityPerson extends CityComponent {
 	public void DoGoToDestination(Location location){
 		this.enable(); 
 		
-		mFinalDestination = location;
-		
+		mFinalDestination = ContactList.getDoorLocation(location);
+//		mFinalDestination = location;
 		//calculate intermediate destination
 		Location mLocation = new Location(x, y);
 		Location closeCorner = findNearestCorner(mLocation);
@@ -210,6 +210,7 @@ public class CityPerson extends CityComponent {
 	}
 
 	public void DoBoardBus() {
+//		mDestination = findNearestParkingLot(new Location(x, y));
 		onBus = true;
 	}
 

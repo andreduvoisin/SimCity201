@@ -124,10 +124,8 @@ public class ContactList {
 	}
 	
 	public static Location getDoorLocation(Location location){
-		return new Location(location.mX - 5, location.mY - 5);
+		return new Location(location.mX-5, location.mY-5);
 	}
-	
-	
 	
 	//PERSON CORNERS
 	// 0 1 
@@ -191,10 +189,10 @@ public class ContactList {
 	
 	//cNAVBLOCKS[0] Walking
 	public static List<Block> cPERSONBLOCKS;
-	public static final Block cPERSONBLOCK0  = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
+//	public static final Block cPERSONBLOCK0  = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
 	public static final Block cPERSONBLOCK1  = new Block(cGRID_POINT3, cGRID_POINT1, cGRID_POINT4, cGRID_POINT2);
 	public static final Block cPERSONBLOCK2  = new Block(cGRID_POINT5, cGRID_POINT1, cGRID_POINT6, cGRID_POINT2);
-	public static final Block cPERSONBLOCK3  = new Block(cGRID_POINT7, cGRID_POINT1, cGRID_POINT8, cGRID_POINT2);
+//	public static final Block cPERSONBLOCK3  = new Block(cGRID_POINT7, cGRID_POINT1, cGRID_POINT8, cGRID_POINT2);
 	public static final Block cPERSONBLOCK4  = new Block(cGRID_POINT1, cGRID_POINT3, cGRID_POINT2, cGRID_POINT4);
 	public static final Block cPERSONBLOCK5  = new Block(cGRID_POINT3, cGRID_POINT3, cGRID_POINT4, cGRID_POINT4);
 	public static final Block cPERSONBLOCK6  = new Block(cGRID_POINT5, cGRID_POINT3, cGRID_POINT6, cGRID_POINT4);
@@ -203,10 +201,10 @@ public class ContactList {
 	public static final Block cPERSONBLOCK9  = new Block(cGRID_POINT3, cGRID_POINT5, cGRID_POINT4, cGRID_POINT6);
 	public static final Block cPERSONBLOCK10 = new Block(cGRID_POINT5, cGRID_POINT5, cGRID_POINT6, cGRID_POINT6);
 	public static final Block cPERSONBLOCK11 = new Block(cGRID_POINT7, cGRID_POINT5, cGRID_POINT8, cGRID_POINT6);
-	public static final Block cPERSONBLOCK12 = new Block(cGRID_POINT1, cGRID_POINT7, cGRID_POINT2, cGRID_POINT8);
+//	public static final Block cPERSONBLOCK12 = new Block(cGRID_POINT1, cGRID_POINT7, cGRID_POINT2, cGRID_POINT8);
 	public static final Block cPERSONBLOCK13 = new Block(cGRID_POINT3, cGRID_POINT7, cGRID_POINT4, cGRID_POINT8);
 	public static final Block cPERSONBLOCK14 = new Block(cGRID_POINT5, cGRID_POINT7, cGRID_POINT6, cGRID_POINT8);
-	public static final Block cPERSONBLOCK15 = new Block(cGRID_POINT7, cGRID_POINT7, cGRID_POINT8, cGRID_POINT8);
+//	public static final Block cPERSONBLOCK15 = new Block(cGRID_POINT7, cGRID_POINT7, cGRID_POINT8, cGRID_POINT8);
 
 	//cNAVBLOCKS[1] = Clockwise
 	public static final Block cCARBLOCK_Clockwise1 = new Block (85, 85, 280, 280); //Upper Left
@@ -250,10 +248,10 @@ public class ContactList {
 	static{
 		List<List<Block>> blockLists = new ArrayList<List<Block>>();
 		List<Block> list0 = new ArrayList<Block>(); //Walking
-			list0.add(cPERSONBLOCK0);
+//			list0.add(cPERSONBLOCK0);
 			list0.add(cPERSONBLOCK1);
 			list0.add(cPERSONBLOCK2);
-			list0.add(cPERSONBLOCK3);
+//			list0.add(cPERSONBLOCK3);
 			list0.add(cPERSONBLOCK4);
 			list0.add(cPERSONBLOCK5);
 			list0.add(cPERSONBLOCK6);
@@ -262,10 +260,10 @@ public class ContactList {
 			list0.add(cPERSONBLOCK9);
 			list0.add(cPERSONBLOCK10);
 			list0.add(cPERSONBLOCK11);
-			list0.add(cPERSONBLOCK12);
+//			list0.add(cPERSONBLOCK12);
 			list0.add(cPERSONBLOCK13);
 			list0.add(cPERSONBLOCK14);
-			list0.add(cPERSONBLOCK15);
+//			list0.add(cPERSONBLOCK15);
 			blockLists.add(list0); 
 		List<Block> list1 = new ArrayList<Block>(); //Clockwise
 			list1.add(cCARBLOCK_Clockwise1);

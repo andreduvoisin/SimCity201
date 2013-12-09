@@ -92,9 +92,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//DAVID testing add personblocks
 //		for (List<Block> list : ContactList.cNAVBLOCKS) {
-//			for (Block b : ContactList.cNAVBLOCKS.get(1)) {
-//				this.addStatic(b);
-//			}
+			for (Block b : ContactList.cNAVBLOCKS.get(0)) {
+				this.addStatic(b);
+			}
 //		}
 			
 		//Create Timer Display

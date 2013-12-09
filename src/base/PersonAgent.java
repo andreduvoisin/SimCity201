@@ -578,7 +578,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goToMarket() {
 
 		//mCommuterRole.mActive = true;
-		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
+		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cMARKET1_LOCATION:ContactList.cMARKET2_LOCATION);
 		//acquireSemaphore(semAnimationDone);
 		mPersonGui.setPresent(false);
 
