@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import test.mock.*;
+import test.mock.EventLog;
+import test.mock.LoggedEvent;
 import transportation.interfaces.TransportationRider;
 import transportation.roles.CommuterRole;
 import base.Agent;

@@ -22,6 +22,7 @@ import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
@@ -167,7 +168,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	restaurantCashier = JerrywebRestaurant.cashier.mRole;
             	break;
             case 3: //maggi
-            	restaurantCashier = MaggiyanAnimationPanel.mCashier.mRole;
+            	restaurantCashier = MaggiyanRestaurant.mCashier.mRole;
             	break;
             case 4: //david
             	restaurantCashier = DavidRestaurant.cashier.mRole;
@@ -264,5 +265,13 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.MARKET, e);
+	}
+	
+	public String toString() {
+		if(mPerson != null) {
+			return mPerson.getName();
+		}
+		else
+			return "";
 	}
 }

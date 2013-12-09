@@ -12,6 +12,7 @@ import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -20,11 +21,13 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import base.ConfigParser;
+import city.gui.properties.PlacesButtonListener;
+import city.gui.properties.PlacesListener;
+import city.gui.properties.PlacesPropertiesLabel;
 import city.gui.trace.AlertLevel;
 import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 import city.gui.trace.TracePanel;
-import city.gui.properties.*;
 
 @SuppressWarnings("serial")
 public class CityControlPanel extends JPanel implements ActionListener{
@@ -56,12 +59,38 @@ public class CityControlPanel extends JPanel implements ActionListener{
     // Tags
     @SuppressWarnings("rawtypes")
 	JComboBox tags;
-    String[] tagList = {"All", "Person", "r_duvoisin", "r_cwagoner", "r_jerryweb", "r_maggiyan", "r_davidmca", "r_smileham", "r_tranac", "r_xurex", "Bank", "Market", "Housing", "Transportation", "None"};
+    String[] tagList = {	"All", 
+    						"Person", 
+    						"r_duvoisin", 
+    						"r_cwagoner", 
+    						"r_jerryweb", 
+    						"r_maggiyan", 
+    						"r_davidmca", 
+    						"r_smileham", 
+    						"r_tranac", 
+    						"r_xurex", 
+    						"Bank", 
+    						"Market", 
+    						"Housing", 
+    						"Transportation", 
+    						"None"};
 	
     //Properties Panel
     @SuppressWarnings("rawtypes")
 	JComboBox places;
-    String[] placeList = {"None", "Gringotts", "Piggy Bank", "Ollivanders", "Honeydukes", "cwagoner", "davidmca", "duvoisin", "jerryweb", "maggiyan", "smileham", "tranac", "xurex"};
+    String[] placeList = {	"None", 
+    						"Gringotts", 
+    						"Piggy Bank", 
+    						"Ollivanders", 
+    						"Honeydukes", 
+    						"cwagoner", 
+    						"davidmca", 
+    						"duvoisin", 
+    						"jerryweb", 
+    						"maggiyan", 
+    						"smileham", 
+    						"tranac", 
+    						"xurex"};
     
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public CityControlPanel(SimCityGui city) {
@@ -94,7 +123,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
         tabbedPane.addTab("Properties", PropertiesTab);
         tabbedPane.addTab("Scenarios", ScenariosTab);
         tabbedPane.addTab("Trace", TraceTab);
-        tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
+ //       tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
+        tabbedPane.setSelectedIndex(1);
         add(tabbedPane);
         
         // Pretty/Ugly View
@@ -134,217 +164,114 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	public void initScenarios() {
 		//ScenariosTab.setLayout(new GridLayout(18, 1));
 		
-    	JLabel label1 = new JLabel("Normative - Baseline");
-    	JButton scenarioA = new JButton("A: All Behaviors");
-    	JButton scenarioB = new JButton("B: All Behaviors");
-    	JButton scenarioC = new JButton("C: Cook/Cashier/Market");
-    	JButton scenarioD = new JButton("D: Parties");
-    	JButton scenarioE = new JButton("E: Bus Stops");
+		//Create labels and buttons
+	    	JLabel label1 = new JLabel("Normative - Baseline");
+	    	JButton scenarioA = new JButton("A: All Behaviors");
+	    	JButton scenarioB = new JButton("B: All Behaviors");
+	    	JButton scenarioC = new JButton("C: Cook/Cashier/Market");
+	    	JButton scenarioD = new JButton("D: Parties");
+	    	JButton scenarioE = new JButton("E: Bus Stops");
+	    	
+	    	JLabel label2 = new JLabel("Non-Normative - Baseline");
+	    	JButton scenarioF = new JButton("F: Can't Visit Building");
+	    	JButton scenarioG = new JButton("G: Market");
+	    	JButton scenarioH = new JButton("H: Party with Flakes");
+	    	JButton scenarioI = new JButton("I: Party Cancelled");
+	    	
+	    	JLabel label3 = new JLabel("Normative - Interleaving");
+	    	JButton scenarioJ = new JButton("J: Simulate All");
+	    	
+	    	JLabel label4 = new JLabel("Non-Normative - We Design");
+	    	JButton scenarioO = new JButton("O: Bank Robbery");
+	    	JButton scenarioP = new JButton("P: Vehicle Accident");
+	    	JButton scenarioQ = new JButton("Q: Vehicle Hits Person");
+	    	JButton scenarioR = new JButton("R: Different on Weekends");
+	    	JButton scenarioS = new JButton("S: Job Shifts");
     	
-    	JLabel label2 = new JLabel("Non-Normative - Baseline");
-    	JButton scenarioF = new JButton("F: Can't Visit Building");
-    	JButton scenarioG = new JButton("G: Market");
-    	JButton scenarioH = new JButton("H: Party with Flakes");
-    	JButton scenarioI = new JButton("I: Party Cancelled");
-    	
-    	JLabel label3 = new JLabel("Normative - Interleaving");
-    	JButton scenarioJ = new JButton("J: Simulate All");
-    	
-    	JLabel label4 = new JLabel("Non-Normative - We Design");
-    	JButton scenarioO = new JButton("O: Bank Robbery");
-    	JButton scenarioP = new JButton("P: Vehicle Accident");
-    	JButton scenarioQ = new JButton("Q: Vehicle Hits Person");
-    	JButton scenarioR = new JButton("R: Different on Weekends");
-    	JButton scenarioS = new JButton("S: Job Shifts");
-    	
-    	ScenariosTab.add(label1);
-    	ScenariosTab.add(scenarioA);
-    	ScenariosTab.add(scenarioB);
-    	ScenariosTab.add(scenarioC);
-    	ScenariosTab.add(scenarioD);
-    	ScenariosTab.add(scenarioE);
-
-    	ScenariosTab.add(label2);
-    	ScenariosTab.add(scenarioF);
-    	ScenariosTab.add(scenarioG);
-    	ScenariosTab.add(scenarioH);
-    	ScenariosTab.add(scenarioI);
-    	
-    	ScenariosTab.add(label3);
-    	ScenariosTab.add(scenarioJ);
-    	
-    	ScenariosTab.add(label4);
-    	ScenariosTab.add(scenarioO);
-    	ScenariosTab.add(scenarioP);
-    	ScenariosTab.add(scenarioQ);
-    	ScenariosTab.add(scenarioR);
-    	ScenariosTab.add(scenarioS);
+    	//Add labels and buttons to tab
+	    	ScenariosTab.add(label1);
+	    	ScenariosTab.add(scenarioA);
+	    	ScenariosTab.add(scenarioB);
+	    	ScenariosTab.add(scenarioC);
+	    	ScenariosTab.add(scenarioD);
+	    	ScenariosTab.add(scenarioE);
+	
+	    	ScenariosTab.add(label2);
+	    	ScenariosTab.add(scenarioF);
+	    	ScenariosTab.add(scenarioG);
+	    	ScenariosTab.add(scenarioH);
+	    	ScenariosTab.add(scenarioI);
+	    	
+	    	ScenariosTab.add(label3);
+	    	ScenariosTab.add(scenarioJ);
+	    	
+	    	ScenariosTab.add(label4);
+	    	ScenariosTab.add(scenarioO);
+	    	ScenariosTab.add(scenarioP);
+	    	ScenariosTab.add(scenarioQ);
+	    	ScenariosTab.add(scenarioR);
+	    	ScenariosTab.add(scenarioS);
     	
     	// Underline Labels
-    	Font font = label1.getFont();
-		Map attributes = font.getAttributes();
-		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		label1.setFont(font.deriveFont(attributes));
-		label2.setFont(font.deriveFont(attributes));
-		label3.setFont(font.deriveFont(attributes));
-		label4.setFont(font.deriveFont(attributes));
+	    	Font font = label1.getFont();
+			Map attributes = font.getAttributes();
+			attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+			label1.setFont(font.deriveFont(attributes));
+			label2.setFont(font.deriveFont(attributes));
+			label3.setFont(font.deriveFont(attributes));
+			label4.setFont(font.deriveFont(attributes));
 		
 		// Dimensions of Buttons
-		Dimension buttonDim = scenarioA.getPreferredSize();
-		buttonDim.height -= 4;
-		buttonDim.width = 180;
-		scenarioA.setPreferredSize(buttonDim);
-		scenarioB.setPreferredSize(buttonDim);
-		scenarioC.setPreferredSize(buttonDim);
-		scenarioD.setPreferredSize(buttonDim);
-		scenarioE.setPreferredSize(buttonDim);
-		scenarioF.setPreferredSize(buttonDim);
-		scenarioG.setPreferredSize(buttonDim);
-		scenarioH.setPreferredSize(buttonDim);
-		scenarioI.setPreferredSize(buttonDim);
-		scenarioJ.setPreferredSize(buttonDim);
-		scenarioO.setPreferredSize(buttonDim);
-		scenarioP.setPreferredSize(buttonDim);
-		scenarioQ.setPreferredSize(buttonDim);
-		scenarioR.setPreferredSize(buttonDim);
-		scenarioS.setPreferredSize(buttonDim);
+			Dimension buttonDim = scenarioA.getPreferredSize();
+			buttonDim.height -= 4;
+			buttonDim.width = 180;
+			scenarioA.setPreferredSize(buttonDim);
+			scenarioB.setPreferredSize(buttonDim);
+			scenarioC.setPreferredSize(buttonDim);
+			scenarioD.setPreferredSize(buttonDim);
+			scenarioE.setPreferredSize(buttonDim);
+			scenarioF.setPreferredSize(buttonDim);
+			scenarioG.setPreferredSize(buttonDim);
+			scenarioH.setPreferredSize(buttonDim);
+			scenarioI.setPreferredSize(buttonDim);
+			scenarioJ.setPreferredSize(buttonDim);
+			scenarioO.setPreferredSize(buttonDim);
+			scenarioP.setPreferredSize(buttonDim);
+			scenarioQ.setPreferredSize(buttonDim);
+			scenarioR.setPreferredSize(buttonDim);
+			scenarioS.setPreferredSize(buttonDim);
 		
 		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
-		scenarioA.addActionListener(new ActionListener() {
+			scenarioA.addActionListener(getActionListener("restConfig0.txt"));
+			scenarioB.addActionListener(getActionListener(""));
+			scenarioC.addActionListener(getActionListener("MarketRestaurantConfig_C.txt"));
+			scenarioD.addActionListener(getActionListener("PartyConfig_D.txt"));
+			scenarioE.addActionListener(getActionListener(""));
+			scenarioF.addActionListener(getActionListener("Inspection_F.txt"));
+			scenarioG.addActionListener(getActionListener("MarketConfig_G.txt"));
+			scenarioH.addActionListener(getActionListener("PartyConfig_H.txt"));
+			scenarioI.addActionListener(getActionListener("PartyConfig_I.txt"));
+			scenarioJ.addActionListener(getActionListener("config1.txt"));
+			scenarioO.addActionListener(getActionListener("BankConfig.txt"));
+			scenarioP.addActionListener(getActionListener(""));
+			scenarioQ.addActionListener(getActionListener(""));
+			scenarioR.addActionListener(getActionListener(""));
+			scenarioS.addActionListener(getActionListener(""));
+	}
+	
+	//Used to shorten above code
+	private ActionListener getActionListener(final String filename){
+		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
-					config.readFileCreatePersons(city, "restConfig0.txt");
+					config.readFileCreatePersons(city, filename);
 				} catch (FileNotFoundException e1) {
 					e1.printStackTrace();
 				}
 			}
-		});
-		scenarioB.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		scenarioC.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "MarketRestaurantConfig_C.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioD.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "PartyConfig_D.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioE.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		scenarioF.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config  = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "Inspection_F.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioG.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config  = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "MarketConfig_G.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioH.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "PartyConfig_H.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioI.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "PartyConfig_I.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioJ.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "config1.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioO.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ConfigParser config = ConfigParser.getInstanceOf();
-				try {
-					config.readFileCreatePersons(city, "BankConfig.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		scenarioP.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		scenarioQ.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		scenarioR.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		scenarioS.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		};
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -520,18 +447,26 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		// North: COMBOBOX
 		JPanel holdPlaces = new JPanel();
 		holdPlaces.setLayout(new BorderLayout());
+		holdPlaces.setPreferredSize(new Dimension(180,50));
 		
 		JLabel placesTitle = new JLabel("Select Property:");
-		
+	    placesTitle.setPreferredSize(new Dimension(180,20));
 
     	JButton enable = new JButton("None");
+	    enable.setPreferredSize(new Dimension(180,20));
+	    enable.setMaximumSize(new Dimension(180,20));
+	    enable.setMinimumSize(new Dimension(180,20));
     	
-	    places = new JComboBox(placeList);
-	    places.setSelectedIndex(0);
-	    places.addActionListener(new PlacesListener(enable, places));
+	    //ANGELICA: additions
+	    PlacesPropertiesLabel placeProperties = new PlacesPropertiesLabel();
 	    
-	    holdPlaces.add(placesTitle, BorderLayout.NORTH);
-	    holdPlaces.add(places, BorderLayout.CENTER);
+	    places = new JComboBox(placeList);
+	    places.setPreferredSize(new Dimension(180,20));
+	    places.setSelectedIndex(0);
+	    places.addActionListener(new PlacesListener(enable, places, placeProperties));
+	    
+	//    holdPlaces.add(placesTitle, BorderLayout.NORTH);
+	//    holdPlaces.add(places, BorderLayout.CENTER);
     	
 		/*Dimension buttonDim = enable.getPreferredSize();
 		buttonDim.height -= 4;
@@ -539,10 +474,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		enable.setPreferredSize(buttonDim);*/
 	    
 	    // Add to TraceTab
-	    PropertiesTab.setLayout(new GridLayout(3, 1));
+	    PropertiesTab.setLayout(new BoxLayout(PropertiesTab,BoxLayout.Y_AXIS));
+	    PropertiesTab.add(new JLabel());
 	    PropertiesTab.add(placesTitle);
+	    PropertiesTab.add(places);
+	    PropertiesTab.add(enable, BorderLayout.CENTER);
+	    PropertiesTab.add(placeProperties);
 	    PropertiesTab.add(holdPlaces);
-	    PropertiesTab.add(enable);
+
 	    
 	    //Add ActionListener for Enable
 	    enable.addActionListener(new PlacesButtonListener(enable, places));	
@@ -553,6 +492,18 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {		
 		// JButton
 		if(e.getSource() instanceof JButton) {
+			//Scenario A
+			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
+				try {
+					ConfigParser.getInstanceOf().readFileCreatePersons(city, "config1.txt");
+				} catch (FileNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+			
+			
+			
 			for (int i = 0; i < 8; i++) {
 				if (((JButton) e.getSource()).getText()
 						.equals("Restaurant " + i)) {
@@ -591,13 +542,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					e1.printStackTrace();
 				}
 			}
-			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "config1.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
+			
 		}
 	}
 }

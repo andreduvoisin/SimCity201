@@ -1,6 +1,6 @@
 package city.gui;
 
-import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -21,7 +21,12 @@ public class CityClosed extends CityComponent {
 
 	public CityClosed(int posX, int posY){
 		super(posX, posY);
-		/*image = null;
+		rectangle.x = posX;
+		rectangle.y = posY;
+		rectangle.height = span;
+		rectangle.width = span;
+		
+		image = null;
     	try {
     		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/closed.png");
     		image = ImageIO.read(imageURL);
@@ -29,19 +34,24 @@ public class CityClosed extends CityComponent {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
-    	disable();*/
+    	disable();
 	}
 	
 	public CityClosed(Location location){
 		super(location.mX, location.mY);
-		/*image = null;
+		rectangle.x = location.mX;
+		rectangle.y = location.mY;
+		rectangle.height = span;
+		rectangle.width = span;
+		
+		image = null;
     	try {
     		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/closed.png");
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
-    	}*/
+    	}
     	disable();
 	}
 	
@@ -53,11 +63,13 @@ public class CityClosed extends CityComponent {
 			//g.drawImage(image, x, y, null);*/
 	}
 	
-	public void paint(Graphics2D g){
+	public void paint(Graphics g){
 		if (isActive) {
+			/*
 			g.setColor(Color.BLACK);
 			System.out.println("x: "+x+" y: "+y);
-			g.fillRect(x, y, span, span);
+			g.fillRect(x, y, span, span);*/
+			g.drawImage(image, x, y, null);
 		}
 	}
 

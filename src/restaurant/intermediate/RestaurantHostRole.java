@@ -7,7 +7,7 @@ import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreHostRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.roles.MaggiyanHostRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
@@ -51,11 +51,19 @@ public class RestaurantHostRole extends BaseRole implements
 //			break;
 		case 2: // jerry
 			subRole = new JerrywebHostRole(super.mPerson);
-			JerrywebRestaurant.host = (JerrywebHostRole) subRole;
+			if(JerrywebRestaurant.host == null){
+				JerrywebRestaurant.host = (JerrywebHostRole) subRole;
+			} else {
+				subRole = MaggiyanRestaurant.mHost;
+			}
 			break;
 		case 3: // maggi
 			subRole = new MaggiyanHostRole(super.mPerson);
-			MaggiyanAnimationPanel.addPerson((MaggiyanHostRole) subRole);
+			if (MaggiyanRestaurant.mHost == null) {
+				MaggiyanRestaurant.mHost = (MaggiyanHostRole) subRole;
+			} else {
+				subRole = MaggiyanRestaurant.mHost;
+			}
 			break;
 		case 4: // david
 			subRole = new DavidHostRole(super.mPerson);

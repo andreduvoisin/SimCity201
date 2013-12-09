@@ -7,9 +7,9 @@ import java.util.List;
 import market.gui.MarketBaseGui;
 import market.gui.MarketItemsGui;
 import market.interfaces.MarketCashier;
-import market.interfaces.MarketCustomer;
 import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
+import base.Item.EnumItemType;
 
 public class Market {
 	public int mMarketID;
@@ -27,5 +27,14 @@ public class Market {
 	
 	public Market(int n) {
 		mMarketID = n;
+	}
+	
+	public void setInventory(EnumItemType e, int n) {
+		mCashier.setInventory(e,n);
+		mItemsGui.setInventory(e, n);
+	}
+	
+	public int getInventory(EnumItemType e) {
+		return mCashier.getInventory(e);
 	}
 }

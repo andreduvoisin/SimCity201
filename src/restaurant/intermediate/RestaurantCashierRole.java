@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderStatus;
@@ -18,7 +17,7 @@ import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCashierRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCashierRole;
@@ -32,6 +31,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.trace.AlertTag;
 
 public class RestaurantCashierRole extends BaseRole implements RestaurantCashierInterface, RestaurantBaseInterface {
 	
@@ -66,12 +66,21 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 			case 2: //jerry
 				mAlertTag = AlertTag.R2;
 				subRole = new JerrywebCashierRole(super.mPerson, this);
-				JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
+				if(JerrywebRestaurant.cashier == null) {
+					JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
+				}
+				else {
+					subRole = MaggiyanRestaurant.mCashier;
+				}
 				break;
 			case 3: //maggi
 				mAlertTag = AlertTag.R3;
 				subRole = new MaggiyanCashierRole(super.mPerson, this);
-				MaggiyanAnimationPanel.addPerson((MaggiyanCashierRole) subRole);
+				if (MaggiyanRestaurant.mCashier == null) {
+					MaggiyanRestaurant.mCashier = (MaggiyanCashierRole) subRole;
+				} else {
+					subRole = MaggiyanRestaurant.mCashier;
+				}
 				break;
 			case 4: //david
 				mAlertTag = AlertTag.R4;
@@ -79,7 +88,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 				if (DavidRestaurant.cashier == null) {
 					DavidRestaurant.cashier = (DavidCashierRole) subRole;
 				} else {
-					subRole = AndreRestaurant.cashier;
+					subRole = DavidRestaurant.cashier;
 				}
 				break;
 			case 5: //shane

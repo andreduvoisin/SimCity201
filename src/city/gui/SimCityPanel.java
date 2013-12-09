@@ -21,7 +21,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	static SimCityPanel instance;
 	
 	protected SimCityGui city;
-	protected List<CityComponent> statics;
+	protected static List<CityComponent> statics;
 	public List<CityComponent> movings;
 	public List<CityIntersection> intersections;
 	
@@ -41,7 +41,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		
 		backgroundImage = null;
 		try {
-			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/hogwartstown.png");
+			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/citypanel-bg.png");
 			backgroundImage = ImageIO.read(imageURL);
 		}
 		catch(IOException e) {
@@ -59,7 +59,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	
 	public void drawComponents(Graphics g) {
 		if(!SimCityGui.GRADINGVIEW)
-			g.drawImage(backgroundImage, -15, -15, null);
+			g.drawImage(backgroundImage, 0, 0, null);
 		
 		synchronized(statics) {
 			for (CityComponent c:statics) {

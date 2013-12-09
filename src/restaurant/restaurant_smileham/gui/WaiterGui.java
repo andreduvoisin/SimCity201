@@ -4,11 +4,11 @@ package restaurant.restaurant_smileham.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import base.Gui;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import base.Gui;
 
 public class WaiterGui implements Gui {
 

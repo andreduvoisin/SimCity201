@@ -89,8 +89,8 @@ public class JerrywebHostRole extends BaseRole {
 
 	public HostGui hostGui = null;
 
-	public JerrywebHostRole(Person mPerson) {
-		super(null);
+	public JerrywebHostRole(Person person) {
+		super(person);
 		
 		this.name = "jerryhost";
 		// make some tables

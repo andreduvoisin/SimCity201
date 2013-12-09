@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 
 import market.interfaces.MarketCashier;
 import market.roles.MarketCashierRole;
-import market.roles.MarketCustomerRole;
 import market.test.mock.MockCashier;
 import city.gui.SimCityGui;
 
@@ -28,7 +27,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 	BufferedImage image;
 	
-	public MarketCashierGui(MarketCashierRole agent) {
+	public MarketCashierGui(MarketCashier agent) {
 		mAgent = agent;
 		
     	image = null;
@@ -99,8 +98,8 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		if(mAgent instanceof MarketCustomerRole) {
-			MarketCustomerRole role = (MarketCustomerRole) mAgent;
+		if(mAgent instanceof MarketCashierRole) {
+			MarketCashierRole role = (MarketCashierRole) mAgent;
 			return role.getPerson() != null ? true : false;
 		}
 		else

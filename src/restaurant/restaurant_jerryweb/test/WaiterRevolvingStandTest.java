@@ -19,10 +19,10 @@ public class WaiterRevolvingStandTest extends TestCase {
 	
 	public void setUp() throws Exception{
 		super.setUp();		
-		cashier = new JerrywebCashierRole("cashier");
+		cashier = new JerrywebCashierRole(null, null);
 		mCustomer = new MockCustomer("mock customer");
 		rsWaiter = new JerrywebRSWaiterRole("rs waiter");
-		cook = new JerrywebCookRole(null);
+		cook = new JerrywebCookRole(null, null);
 		host = new JerrywebHostRole("host");
 		waiterGui = new WaiterGui(rsWaiter, host);
 	}

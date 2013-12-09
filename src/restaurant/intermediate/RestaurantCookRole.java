@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import city.gui.trace.AlertTag;
 import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
@@ -21,7 +20,7 @@ import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.roles.AndreCookRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
@@ -35,6 +34,7 @@ import base.Item.EnumItemType;
 import base.Location;
 import base.interfaces.Person;
 import base.interfaces.Role;
+import city.gui.trace.AlertTag;
 
 public class RestaurantCookRole extends BaseRole implements RestaurantCookInterface, RestaurantBaseInterface {
         
@@ -87,12 +87,16 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 2: //jerry
 					mAlertTag = AlertTag.R2;
 					subRole = new JerrywebCookRole(super.mPerson, this);
-					JerrywebRestaurant.cook = ((JerrywebCookRole) subRole);
+//					if (JerrywebRestaurant.cook == null) {
+						JerrywebRestaurant.addPerson((JerrywebCookRole) subRole);
+//					} else {
+//						subRole = JerrywebRestaurant.cook;
+//					}
 					break;
 				case 3: //maggi
 					mAlertTag = AlertTag.R3;
 					subRole = new MaggiyanCookRole(super.mPerson, this);
-					MaggiyanAnimationPanel.addPerson((MaggiyanCookRole) subRole);
+					MaggiyanRestaurant.addCook((MaggiyanCookRole) subRole);
 					break;
 				case 4: //david
 					mAlertTag = AlertTag.R4;
@@ -238,7 +242,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	restaurantCashier = JerrywebRestaurant.cashier.mRole;
                 	break;
                 case 3: //maggi
-                	restaurantCashier = MaggiyanAnimationPanel.mCashier.mRole;
+                	restaurantCashier = MaggiyanRestaurant.mCashier.mRole;
                 	break;
                 case 4: //david
                 	restaurantCashier = DavidRestaurant.cashier.mRole;
@@ -289,4 +293,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
     	public Location getLocation() {
     		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);
     	}
+
+		public int getInventory(EnumItemType e) {
+			return mItemInventory.get(e);
+		}
 }

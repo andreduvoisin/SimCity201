@@ -6,7 +6,6 @@ import java.util.List;
 import restaurant.restaurant_jerryweb.test.mock.LoggedEvent;
 import test.mock.Mock;
 import transportation.interfaces.TransportationRider;
-import transportation.roles.CommuterRole;
 
 public class MockCommuter extends Mock implements TransportationRider {
 	
@@ -38,6 +37,12 @@ public class MockCommuter extends Mock implements TransportationRider {
 	public void msgAtBusStop(int currentStop, int destinationStop) {
 		log.add(new LoggedEvent("The msgAtBusStop has been called for the currentStop: " + currentStop + " and destinationStop: " 
 				+ destinationStop));
+	}
+
+	@Override
+	public String getName() {
+		log.add(new LoggedEvent("Get name function called"));
+		return null;
 	}
 	
 	

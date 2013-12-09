@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.util.List;
 
-import transportation.roles.CommuterRole;
 import base.Block;
 import base.ContactList;
 import base.Location;
@@ -18,33 +16,24 @@ public class CityPerson extends CityComponent {
 	PersonAgent mPerson = null;
 	SimCityGui gui;
 	
-	public Location mDestination = new Location(0, 0); //just to avoid null pointers
+	public Location mDestination = null; 
 	public Location mFinalDestination = null;
 	public boolean mUsingCar = false;
 	public boolean mUsingBus = true;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
-	
-	public boolean visible;
+
 	public boolean onBus;
 	
-	/* 0 - No Blocks
-	 * 1 - Car Paths: AB, BC, CD, DA
-	 * 2 - Car Paths: BD, DB
-	 * 3 - Car Paths: AC, CA
-	 * 4 - Walking
-	 */
-	public int mDestinationPathType = 4;
-//	Queue<Location> goToPosition = new LinkedList<Position>();
+	public int mDestinationPathType = 0; //Walking as default
 	
-	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
-		super(x, y, Color.ORANGE, person.getName());
-		rectangle = new Rectangle(0, 0, 5, 5);
+	public CityPerson(PersonAgent person, SimCityGui gui, Location start) {
+		super(start.mX, start.mY, Color.ORANGE, person.getName());
+		rectangle = new Rectangle(start.mX, start.mX, 5, 5);
 		mPerson = person;
 		this.gui = gui;
-		
-		visible = true;
+		this.enable();
 	}
 
 	@Override
@@ -52,165 +41,175 @@ public class CityPerson extends CityComponent {
 		int previousX = x;
 		int previousY = y;
 		
-		if (x < mDestination.mX)		x++;
-        else if (x > mDestination.mX)	x--;
-
-        if (y < mDestination.mY)		y++;
-        else if (y > mDestination.mY)	y--;
-        
-        //if at destination
-        if (x == mDestination.mX && y == mDestination.mY) {
-        	if(mFinalDestination != null){
-        		DoGoToDestination(mFinalDestination);
-        	}else{
-        		this.disable();
-        		visible = false;
-        		mPerson.msgAnimationDone();
-        		mPerson.postCommute();
-        	}
-    	}
-        
+		if (mDestination != null) {
+			if (x < mDestination.mX)		x++;
+	        else if (x > mDestination.mX)	x--;
+	
+	        if (y < mDestination.mY)		y++;
+	        else if (y > mDestination.mY)	y--;
+	        
+	        //if at destination
+	        if (x == mDestination.mX && y == mDestination.mY) {
+	        	if(mFinalDestination != null){
+	        		DoGoToDestination(mFinalDestination);
+	        	}else{
+	        		this.disable();
+	        		mPerson.msgAnimationDone();
+	        		mPerson.postCommute();
+	        	}
+	    	}
+		}
+		
+		if (mUsingCar) {
+			rectangle.setBounds(x, y, 10, 10);
+		}
+		else {
+			rectangle.setBounds(x, y, 5, 5);
+		}
+		
         //Check intersections (if going into busy intersection - stay)
-        for (int iB = 0; iB<ContactList.cINTERSECTIONBLOCKS.size(); iB++) {
-        	boolean xNewInBlock = (x > ContactList.cINTERSECTIONBLOCKS.get(iB).mX1 && x < ContactList.cINTERSECTIONBLOCKS.get(iB).mX2);
-        	boolean yNewInBlock = (y > ContactList.cINTERSECTIONBLOCKS.get(iB).mY1 && y < ContactList.cINTERSECTIONBLOCKS.get(iB).mY2);
-        	if (xNewInBlock && yNewInBlock){
-        		if (SimCityGui.getInstance().citypanel.intersections.get(iB).mOccupant != this) {
+        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
+        	if(rectangle.intersects(iIntersect.rectangle)) {
+        		if (iIntersect.mOccupant != this) {
 	        		x = previousX;
 	        		y = previousY;
         		}
         		return;
         	}
         }
-
+        
+        if (mUsingCar) {
+			rectangle.setBounds(x, y, 10, 10);
+		}
+		else {
+			rectangle.setBounds(x, y, 5, 5);
+		}
 
         //B* Algorithm
-        List<Block> blocks = null;
-        blocks = ContactList.cNAVBLOCKS.get(mDestinationPathType);
-//        switch(mDestinationPathType){
-//	        case 0: 
-//	        case 1: 
-//	        case 2:
-//	        case 3:
-//	        	blocks = ContactList.cCARBLOCKS.get(mDestinationPathType); break;
-//	        case 4:
-//	        	blocks = ContactList.cPERSONBLOCKS; break;
-//	        	//SHANE: 3 combine carblocks and personblocks into blocks
-//        }
         
-        for (Block iBlock : blocks){
-        	boolean xNewInBlock = (x > iBlock.mX1 && x < iBlock.mX2);
-        	boolean yNewInBlock = (y > iBlock.mY1 && y < iBlock.mY2);
-        	boolean yOldInBlock = (previousY > iBlock.mY1 && previousY < iBlock.mY2);
-        	if (xNewInBlock && yNewInBlock){
-        		if (yOldInBlock){
-        			x = previousX;
-        		}else{
-        			y = previousY;
-        		}
-        	}
+        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
+			if (rectangle.intersects(iBlock.rectangle)) {
+				rectangle.x = previousX;
+				if (rectangle.intersects(iBlock.rectangle)) {
+					rectangle.x = x;
+					rectangle.y = previousY;
+				}
+			}
         }
+        
+       x = rectangle.x;
+       y = rectangle.y;
 	}
-	
 	
 	public void DoGoToDestination(Location location){
 		this.enable(); 
 		
+//		mFinalDestination = ContactList.getDoorLocation(location);
 		mFinalDestination = location;
-		
 		//calculate intermediate destination
 		Location mLocation = new Location(x, y);
 		Location closeCorner = findNearestCorner(mLocation);
+		Location closeParking = findNearestParkingLot(mLocation);
 		Location destParking = findNearestParkingLot(mFinalDestination);
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
-		//if at corner closest to destination, walk to destination
-		if (mLocation.equals(destCorner)){
-			//walk to destination
-			mDestinationPathType = 3;
-			mDestination = mFinalDestination;
-			mFinalDestination = null;
-		}else{
-			//if at a corner (not closest to dest)
-			if (mLocation.equals(closeCorner)){
-				//if using car, drive to parking lot closest to destination
-				if (mUsingCar){
-					//calculate corners
-					int currentCornerNum = -1;
-					int destCornerNum = -1;
-					for (int iCorner = 0; iCorner < ContactList.cPERSONCORNERS.size(); iCorner++){
-						if (mLocation.equals(ContactList.cPERSONCORNERS.get(iCorner))){
-							currentCornerNum = iCorner;
-						}
-						if (destCorner.equals(ContactList.cPERSONCORNERS.get(iCorner))){
-							destCornerNum = iCorner;
-						}
-					}
-					
-					//clockwise not needed
-					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 0;
-					//check counter-clockwise
-					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
-					//check BD diagonal
-					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 2;
-					//check AC diagonal
-					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 3;
-					else{
-						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
-					}
-					
-					mDestination = destParking;
-				}
-				//else bus to same corner
-				else{
-					//do bus stuff??? CHASE MAGGI: 1 Do this
-					if(mUsingBus) {
-						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
-					}
-				}
+		//If person has a car
+		if (mPerson.hasCar()) {
+			//if at corner closest to destination, walk to destination
+			if (mLocation.equals(destParking)){
+				x = closeCorner.mX;
+				y = closeCorner.mY;
+				mDestination = ContactList.getDoorLocation(mFinalDestination);
+				mFinalDestination = null;
+				//walk to destination
+				mUsingCar = false;
+				mDestinationPathType = 0; //Walking
 			}
-			//if not at a corner, walk to person corner
-			else{
-				mDestinationPathType = 3;
-				mDestination = closeCorner;
+			//if at closest parking lot, drive to parking lot nearest destination
+			else if (mLocation.equals(closeParking)) {
+				mUsingCar = true;
+				//calculate corners
+				int currentCornerNum = -1;
+				int destCornerNum = -1;
+				for (int iParking = 0; iParking < ContactList.cPARKINGLOTS.size(); iParking++){
+					if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParking))){
+						currentCornerNum = iParking;
+					}
+					if (destParking.equals(ContactList.cPARKINGLOTS.get(iParking))){
+						destCornerNum = iParking;
+					}
+				}
+				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
+				mPerson.print("route :"+mDestinationPathType);
+				mDestination = destParking;
+			}
+			else {
+				mUsingCar = true;
+				mDestinationPathType = 1;
+				mDestination = closeParking;
 			}
 		}
-
+		//Else - if person does not have car, use bus
+		else {
+			if (mLocation.equals(destCorner)) {
+				mDestinationPathType = 0;
+				mDestination = ContactList.getDoorLocation(mFinalDestination);
+				mFinalDestination = null;
+			}
+			else {
+				if (mLocation.equals(closeCorner)) {
+	//				mPerson.print("got to closecorner");
+					if (mUsingBus) {
+						mPerson.print("IN HEREUSING BUS");
+						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+					}
+				} else {
+					mDestinationPathType = 0;
+					mDestination = closeCorner;
+				}
+			}
+		}
 	}
 	
 	
 	public void paint(Graphics g) {
-		rectangle.x = x;
-		rectangle.y = y;
-		if(visible) {
+//		rectangle.x = x;
+//		rectangle.y = y;
+		if(isActive) {
 			if (! onBus) {
-				if(SimCityGui.GRADINGVIEW) {
+//				if(SimCityGui.GRADINGVIEW) {
+					g.setColor(color.white);
 					g.drawString(mPerson.getName(),x,y);
-					g.setColor(color);
-					g.fillRect(x, y, 5, 5);
-					g.setColor(Color.WHITE);
-					g.drawString(name, x - 10, y);
-				}
-				else if(mPerson.hasCar()) {
-					//paint car gui
-				}
-				else {
-					g.setColor(color);
-					g.fillRect(x, y, 5, 5);
-					g.setColor(Color.WHITE);
-					g.drawString(name, x - 10, y);
-				}
+					if (mUsingCar) {
+						g.setColor(Color.cyan);
+						g.fillRect(x, y, 10, 10);
+					}
+					else {
+						g.setColor(Color.yellow);
+						g.fillRect(x, y, 5, 5);
+					}
+//					g.setColor(Color.WHITE);
+//					g.drawString(name, x - 10, y);
+//				}
+//				else {
+//					g.setColor(color);
+//					g.fillRect(x, y, 5, 5);
+//					g.setColor(Color.WHITE);
+//					g.drawString(name, x - 10, y);
+//				}
 			}
 		}
 	}
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
+		mPerson.print("dotakebus");
 		mPerson.mCommuterRole.msgAtBusStop(currentStop, destinationStop);
 		mUsingBus = false;
 	}
 
 	public void DoBoardBus() {
+//		mDestination = findNearestParkingLot(new Location(x, y));
 		onBus = true;
 	}
 
@@ -234,6 +233,47 @@ public class CityPerson extends CityComponent {
 	 * @param destination Target position in form of a Location object
 	 * @return (Location object) corners.get(determined nearest corner)
 	 */
+	
+	public int findPathType(int current, int dest) {
+		int type = -1;
+		// 0 1
+		// 3 2
+
+		// 1 - Clockwise
+		// 2 - Counterclockwise 
+		// 3 - Diagonal NE/SW
+		// 4 - Diagonal SE
+		// 5 - Diagonal NW
+		switch (current) {
+		case 0:
+			switch (dest) {
+			case 1: type = 1; break;
+			case 2: type = 4; break; //SE
+			case 3: type = 2; break; 
+			} break;
+		case 1:
+			switch (dest) {
+			case 0: type = 2; break;
+			case 2: type = 1; break;
+			case 3: type = 3; break;
+			} break;
+		case 2:
+			switch (dest) {
+			case 0: type = 5; break; //NW
+			case 1: type = 2; break;
+			case 3: type = 1; break;
+			}
+			break;
+		case 3:
+			switch (dest) {
+			case 0: type = 1; break;
+			case 1: type = 3; break;
+			case 2: type = 2; break;
+			} break;
+		}
+		return type;
+	}
+	
 	public Location findNearestCorner(Location destination){
 		//TOP LEFT
 		if (destination.mX < 300 && destination.mY < 300) {
@@ -279,22 +319,21 @@ public class CityPerson extends CityComponent {
 	@Override
 	public void draw(Graphics2D g) {
 		// Auto-generated method stub
-		
 	}
 
 	@Override
 	public boolean isPresent() {
-		return visible;
+		return isActive;
 	}
 
 	@Override
 	public void setPresent(boolean state) {
-		visible = state;
+		isActive = state;
 	}
 	
     // Just got off bus
 	public void NewDestination(Location location) {
-		visible = true;
+		enable();
 		x = location.mX;
 		y = location.mY;
 		mDestination.mX = mFinalDestination.mX;

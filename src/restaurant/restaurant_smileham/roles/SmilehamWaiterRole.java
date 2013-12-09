@@ -16,7 +16,6 @@ import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.gui.WaiterGui;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;

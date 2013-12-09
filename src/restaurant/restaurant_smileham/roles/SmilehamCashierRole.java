@@ -10,7 +10,6 @@ import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_smileham.Menu;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.agent.Check;
-import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
 import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 import base.BaseRole;
