@@ -58,7 +58,6 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	private MaggiyanHost host; 
 	private MaggiyanCashier cashier; 
 	private MaggiyanWaiterGui waiterGui = null;
-	private MaggiyanAnimationPanel animationPanel; 
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 

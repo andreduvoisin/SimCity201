@@ -57,6 +57,7 @@ public class MaggiyanRestaurant {
 		w.setCook(mCook); 
 		w.setCashier(mCashier);
 		mHost.msgIAmHere(w);
+		g.atWork(waiterPosCounter);
 		waiterPosCounter++; 
     }
     
@@ -68,6 +69,7 @@ public class MaggiyanRestaurant {
 		w.setCook(mCook); 
 		w.setCashier(mCashier);
 		mHost.msgIAmHere(w);
+		g.atWork(waiterPosCounter);
 		waiterPosCounter++; 
     }
 }
