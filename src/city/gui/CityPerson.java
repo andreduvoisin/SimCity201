@@ -19,8 +19,8 @@ public class CityPerson extends CityComponent {
 	
 	public Location mDestination = null; 
 	public Location mFinalDestination = null;
-	public boolean mUsingCar = true;
-	public boolean mUsingBus = false;
+	public boolean mUsingCar = false;
+	public boolean mUsingBus = true;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -101,7 +101,7 @@ public class CityPerson extends CityComponent {
 		Location destParking = findNearestParkingLot(mFinalDestination);
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
-		if (mPerson.hasCar() && mUsingCar) {
+		if (mPerson.hasCar()) {
 			//if at corner closest to destination, walk to destination
 			if (mLocation.equals(destParking)){
 				x = closeCorner.mX;
@@ -136,8 +136,7 @@ public class CityPerson extends CityComponent {
 			}
 		}
 		if (mUsingBus) {
-			//do bus stuff??? CHASE MAGGI: 1 Do this
-				DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+			DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
 		}
 		mPerson.print("Path Type: "+mDestinationPathType);
 	}
