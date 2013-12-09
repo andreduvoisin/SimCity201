@@ -83,7 +83,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction(){
 		for(MarketInvoice invoice : mInvoices) {
-			MarketOrder order = invoice.mOrder;
+			MarketOrder order = invoice.mOrder;//ANGLE: The the status is never set to paying? -Jerry
 			if(order.mStatus == EnumOrderStatus.PAYING && order.mEvent == EnumOrderEvent.RECEIVED_INVOICE) {
 				order.mStatus = EnumOrderStatus.PAID;
 				payAndProcessOrder(invoice);
@@ -138,6 +138,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
 		invoice.mPayment += invoice.mTotal;
+		
 		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment);
 		
 		synchronized(mItemsDesired) {
@@ -224,5 +225,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	
 	public List<MarketInvoice> getInvoiceList(){
 		return mInvoices;
+	}
+	
+	public Map getCannotFulFillMap(){
+		return mCannotFulfill;
 	}
 }
