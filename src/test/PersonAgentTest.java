@@ -1,5 +1,8 @@
 package test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import housing.interfaces.HousingBase;
 import junit.framework.TestCase;
 import market.test.mock.MockCustomer;
@@ -10,23 +13,70 @@ import base.Event.EnumEventType;
 import base.PersonAgent;
 import base.PersonAgent.EnumJobType;
 import base.SortingHat;
+import base.Time;
 import city.gui.CityPerson;
 
 public class PersonAgentTest extends TestCase {
 
 	PersonAgent mPerson;
+	PersonAgent mPerson2;
+	PersonAgent mPerson3;
 	HousingBase mRenterRole;
 	MockTellerRole mTellerRole;
 	MockCustomer mCustomerRole;
 	CityPerson mGui;
+	List<PersonAgent> personList = new ArrayList<PersonAgent>();
 	
 	public void setUp() throws Exception {
 		super.setUp();
-//		mPerson = new PersonAgent();
+		mPerson = new PersonAgent();
+		mPerson2 = new PersonAgent();
+		mPerson3 = new PersonAgent();
+		mCustomerRole = new MockCustomer();
+		mTellerRole = new MockTellerRole();
+//		for(int i =0; i < 8; i++ ){
+//			PersonAgent person;
+//			personList.add(person = new PersonAgent(EnumJobType.NONE, 200, "Dobby" + i));
+//		}
+		
 //		mPerson.semAnimationDone.release(1000);
 //		SimCityGui.TESTING = true;
 		//mGui = new MockPersonGui();
 		//mPerson.setGui(mGui);
+	}
+	
+	public void testOne_BasicSetUp () throws Exception {
+		//setUp();
+		
+	//	Preconditions
+		assertTrue("Person has no events", mPerson.getEvents().isEmpty());
+		assertTrue("Person has no roles", mPerson.mRoles.isEmpty());
+		assertTrue("Person has no job", mPerson.mJobType == null);
+		assertTrue("Person has no cash", mPerson.getCash() == 0);
+		assertTrue("Person has no name", mPerson.getName() == null);
+		//assertTrue("Person SSN is 0. Instead: "+ mPerson.getSSN(), mPerson.getSSN() == 3);
+		assertTrue("Person has no loan", mPerson.getLoan() == 0);
+		assertTrue("Person timeShift is 0", mPerson.getTimeShift() == 0);
+		//assertTrue("Person has no housing role", mPerson.mHouseRole == null);
+		assertTrue("Role finished is true", mPerson.mRoleFinished == true);
+		assertTrue("Person is not at job", mPerson.getAtJob() == false);
+		assertTrue("paea: return false", !mPerson.pickAndExecuteAnAction());
+//		
+//		//Set Time
+		Time.sGlobalTimeInt = 0;
+		assertTrue("Time is currently 0", Time.GetShift() == 0);
+		//Time.sGlobalDate = 0;
+		//assertTrue("It is not weekend", !Time.IsWeekend());
+//		
+//		//Add Events
+		mPerson.getEvents().add(new Event(EnumEventType.JOB, 0));
+		assertTrue("Person has one event", mPerson.getEvents().size() == 1);
+		//mPerson.mJobRole = mTellerRole;
+		
+		//assertTrue("Person has job role", mPerson.mJobRole != null);
+		mPerson.setName("Joe");
+		assertTrue("Person is named Joe", mPerson.getName().equals("Joe"));
+		
 	}
 	
 	public void testShaneOne() throws Exception{
@@ -34,7 +84,6 @@ public class PersonAgentTest extends TestCase {
 		ContactList.setup();
 		SortingHat.InstantiateBaseRoles();
 
-		
 		int cash = 100;
 		String name = "Dobby";
 		mPerson = new PersonAgent(EnumJobType.MARKET, cash, name);
@@ -46,61 +95,83 @@ public class PersonAgentTest extends TestCase {
 		mPerson.addCash(0);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public void testOne_BasicSetUp () {
-	//	setUp()
+	public void testTellerScenario() throws Exception{
+		setUp();
+		ContactList.setup();
+		SortingHat.InstantiateBaseRoles();
 		
-	//	Preconditions
-//		assertTrue("Person has no events", mPerson.mEvents.isEmpty());
-//		assertTrue("Person has no roles", mPerson.mRoles.isEmpty());
-//		assertTrue("Person has no job", mPerson.mJobType == null);
-//		assertTrue("Person has no cash", mPerson.getCash() == 0);
-//		assertTrue("Person has no name", mPerson.getName() == null);
-//		//assertTrue("Person SSN is 0. Instead: "+ mPerson.getSSN(), mPerson.getSSN() == 0);
-//		assertTrue("Person has no loan", mPerson.getLoan() == 0);
-//		//assertTrue("Person timeShift is 0", mPerson.getTimeShift() == 0);
-//		assertTrue("Person has no housing role", mPerson.mHouseRole == null);
-//		assertTrue("Role finished is true", mPerson.mRoleFinished == true);
-//		assertTrue("Person is not at job", mPerson.mAtJob == false);
-//		assertTrue("paea: return false", !mPerson.pickAndExecuteAnAction());
-//		
-//		//Set Time
-//		Time.sGlobalShift = 0;
-//		assertTrue("Time is currently 0", Time.GetShift() == 0);
-//		Time.sGlobalDate = 0;
-//		assertTrue("It is not weekend", !Time.IsWeekend());
-//		
-//		//Add Events
-//		mPerson.mEvents.add(new Event(EnumEventType.JOB, 0));
-//		assertTrue("Person has one event", mPerson.mEvents.size() == 1);
-//		mPerson.mJobRole = mTellerRole;
-//		assertTrue("Person has job role", mPerson.mJobRole != null);
-//		mPerson.setName("Joe");
-//		assertTrue("Person is named Joe", mPerson.getName().equals("Joe"));
+		int cash = 200;
+		String name = "Dobby";
+		mPerson = new PersonAgent(EnumJobType.BANK, cash, name);
+		mPerson.msgAddEvent(new Event(EnumEventType.JOB, 0));
+		mPerson.msgTimeShift();
+		mPerson.msgAnimationDone();
+		
+		
+		assertEquals("mPerson should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
+		
+		mPerson.pickAndExecuteAnAction();
+		assertTrue("mPerson should be at job. It is not.", mPerson.getAtJob());
+		
+	}
+	/*
+	public void testFillBank() throws Exception{
+		setUp();
+		ContactList.setup();
+		SortingHat.InstantiateBaseRoles();
+		
+		assertEquals("", 8, personList.size());
+	}
+	
+	 */
+	
+	public void testBasicParty() throws Exception {
+		
+		setUp();
+		ContactList.setup();
+		SortingHat.InstantiateBaseRoles();
+		
+		mPerson = new PersonAgent(EnumJobType.NONE, 100, "partyPerson");
+		
+		mPerson2 = new PersonAgent(EnumJobType.NONE, 100, "Harry");
+		mPerson.getFriendList().add(mPerson2);
+		
+		//Preconditions
+		assertEquals("partyPerson should have 0 Event in his list of events. It does not.", 0, mPerson.getEvents().size());
+		
+		assertEquals("mPerson2 should have 0 Event in his list of events. It does not.", 0, mPerson2.getEvents().size());
+		assertEquals("partyPerson should have 1 friend on it's mFriends list. It does not.", 1, mPerson.getFriendList().size());
+		
+		//Start of Party test
+		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, 0));
+		assertEquals("partyPerson should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
+		
+		assertTrue("partyPerson scheduler should have been called. It was not. ", mPerson.pickAndExecuteAnAction());
+
+		assertFalse("mPerson2 scheduler should not have been called. It was. ", mPerson2.pickAndExecuteAnAction());
+		
+		//distribution of invites
+		mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,0));
+		
+		assertFalse("partyPerson scheduler should not have been called. It was not. ", mPerson.pickAndExecuteAnAction());
+		assertEquals("partyPerson should have three Events in his list of events. It does not.", 3, mPerson.getEvents().size());
+
+	}
+	
+	public void testFlakeParty() throws Exception {
 		
 	}
 	
-	public void testTwo_RoleSwitch(){
+	public void testTwo_RoleSwitch() throws Exception {
 		//This test relies on the success of the first test and cannot be run alone. You must 
 		//run both tests in order to successfully complete this test
-		testOne_BasicSetUp();
+		//testOne_BasicSetUp();
 
 		//Start of Test 2
-//		mPerson.mJobLocation = new Location(-1,-1);
-//		//paea: processEvent() -> goToJob()
-//		assertTrue("paea: processEvent", mPerson.pickAndExecuteAnAction());
-//		
+		//mPerson.mJobLocation = new Location(-1,-1);
+		//paea: processEvent() -> goToJob()
+		//assertTrue("paea: processEvent", mPerson.pickAndExecuteAnAction());
+		
 //		assertTrue("New event in 24", mPerson.mEvents.first().mTime == 24);
 //		assertTrue("Person is at job", mPerson.mAtJob == true);
 ////		assertTrue("Person is at location", mGui.log.containsString("DoGoToDestination"));

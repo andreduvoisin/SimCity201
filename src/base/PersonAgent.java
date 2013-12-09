@@ -32,6 +32,7 @@ import bank.roles.BankCustomerRole.EnumAction;
 import bank.roles.BankGuardRole;
 import bank.roles.BankMasterTellerRole;
 import bank.roles.BankTellerRole;
+import bank.test.mock.MockTellerRole;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.interfaces.Person;
@@ -92,6 +93,7 @@ public class PersonAgent extends Agent implements Person {
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
 	public boolean mRoleFinished = true;
+	public MockTellerRole mJobRole;
 
 	// ----------------------------------------------------------CONSTRUCTOR----------------------------------------------------------
 	
@@ -191,7 +193,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Inspection Image
 		mInspection = new CityInspection (0,0);
-		CityPanel.addStatic((CityComponent)mInspection);
+		//CityPanel.addStatic((CityComponent)mInspection);
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -330,6 +332,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Party Events
 		else if (event.mEventType == EnumEventType.INVITE1) {
+			
 			inviteToParty();
 		}
 		else if (event.mEventType == EnumEventType.INVITE2) {
@@ -920,4 +923,18 @@ public class PersonAgent extends Agent implements Person {
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.PERSON, e);
 	}
+	
+	public List<Event> getEvents() {
+		return mEvents;
+	}
+	
+	public boolean getAtJob(){
+		return mAtJob;
+	}
+	
+	public List<Person> getFriendList(){
+		return mFriends;
+	}
+	
+	
 }
