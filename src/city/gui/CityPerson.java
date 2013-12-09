@@ -137,14 +137,22 @@ public class CityPerson extends CityComponent {
 			}
 		}
 		else{
+			mDestination = closeCorner;
 			if (mLocation.equals(destCorner)){
 				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
 				mFinalDestination = null;
-
+				//walk to destination
+				mUsingCar = false;
+				mDestinationPathType = 0; //Walking
 			}
-			else if(mUsingBus){
-				DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+			if (mLocation.equals(closeCorner)){
+//				mDestination = new Location(mFinalDestination.mX, mFinalDestination.mY);
+//				mFinalDestination = null;
+				if(mUsingBus){
+					DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
+				}
 			}
+			
 		}
 		
 		
@@ -181,6 +189,7 @@ public class CityPerson extends CityComponent {
 	
 	
 	public void DoTakeBus(int currentStop, int destinationStop){
+		mPerson.print("dotakebus");
 		mPerson.mCommuterRole.msgAtBusStop(currentStop, destinationStop);
 		mUsingBus = false;
 	}
