@@ -467,12 +467,28 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    disable.setMinimumSize(new Dimension(180,20));
 	    disable.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
+	    JButton enableAll = new JButton("ENABLE ALL");
+	    enableAll.setPreferredSize(new Dimension(180,20));
+	    enableAll.setMaximumSize(new Dimension(180,20));
+	    enableAll.setMinimumSize(new Dimension(180,20));
+	    enableAll.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
     	disable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
 					ContactList.sOpenPlaces.put(iLocation, false);
 					Inspection.sClosedImages.get(iLocation).enable();
+				}
+			}
+		});
+    	
+    	enableAll.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+					ContactList.sOpenPlaces.put(iLocation, true);
+					Inspection.sClosedImages.get(iLocation).disable();
 				}
 			}
 		});
