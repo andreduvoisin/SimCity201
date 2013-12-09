@@ -27,7 +27,7 @@ public class BusRiderRoleTest extends TestCase {
 		super.setUp();
 		p = new PersonAgent(EnumJobType.NONE, 200,"bob");
 		mockCommuter = new MockCommuter();
-		commuterRole = new CommuterRole(p);
+		commuterRole = new CommuterRole(null);
 	}
 	
 	public void testRenterObtainsHousing()

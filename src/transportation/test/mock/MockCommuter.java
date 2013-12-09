@@ -38,6 +38,12 @@ public class MockCommuter extends Mock implements TransportationRider {
 		log.add(new LoggedEvent("The msgAtBusStop has been called for the currentStop: " + currentStop + " and destinationStop: " 
 				+ destinationStop));
 	}
+
+	@Override
+	public String getName() {
+		log.add(new LoggedEvent("Get name function called"));
+		return null;
+	}
 	
 	
 

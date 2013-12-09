@@ -2,10 +2,11 @@ package base.test;
 
 import junit.framework.TestCase;
 import base.PersonAgent;
+import base.PersonAgent.EnumJobType;
+import base.interfaces.Person;
 
 public class PersonTest extends TestCase{
 	
-	PersonAgent mPerson;
 	//needed interfaces
 	
 	
@@ -51,7 +52,8 @@ public class PersonTest extends TestCase{
 //		assertEquals("mMarketBills should have no markets", 0, cashier.getMarketBills().size());
 
 	}
-
+	
+	
 	private void print(String message){
 		System.out.println("[PersonTest] " + message);
 	}

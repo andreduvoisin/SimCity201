@@ -248,4 +248,9 @@ public class SortingHat {
 		sHouseCount++;
 		return newOwnerRole;
 	}
+	
+	public static List<Role> getRoleList(){
+		return sRoles;
+	}
+	
 }

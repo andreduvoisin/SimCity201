@@ -128,7 +128,7 @@ public class MarketGuiTest extends TestCase {
 	
 	public void testWorkerGui() {
 		MockWorker mWorker = new MockWorker();
-		MarketWorkerGui mWorkerGui = new MarketWorkerGui(mWorker);
+		MarketWorkerGui mWorkerGui = new MarketWorkerGui(mWorker, 0);
 		mWorker.setGui(mWorkerGui);
 		mMarketPanel.addGui(mWorkerGui);
 		
