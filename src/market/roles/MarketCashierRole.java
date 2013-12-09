@@ -265,4 +265,12 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.MARKET, e);
 	}
+	
+	public String toString() {
+		if(mPerson != null) {
+			return mPerson.getName();
+		}
+		else
+			return "";
+	}
 }

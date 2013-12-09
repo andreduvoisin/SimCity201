@@ -24,26 +24,17 @@ public class CityPerson extends CityComponent {
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
-	
-	public boolean visible;
+
 	public boolean onBus;
 	
-	/* 0 - No Blocks
-	 * 1 - Car Paths: AB, BC, CD, DA
-	 * 2 - Car Paths: BD, DB
-	 * 3 - Car Paths: AC, CA
-	 * 4 - Walking
-	 */
-	public int mDestinationPathType = 4;
-//	Queue<Location> goToPosition = new LinkedList<Position>();
+	public int mDestinationPathType = 0; //Walking as default
 	
 	public CityPerson(PersonAgent person, SimCityGui gui, int x, int y) {
 		super(x, y, Color.ORANGE, person.getName());
 		rectangle = new Rectangle(0, 0, 5, 5);
 		mPerson = person;
 		this.gui = gui;
-		
-		visible = true;
+		this.enable();
 	}
 
 	@Override
@@ -62,8 +53,8 @@ public class CityPerson extends CityComponent {
         	if(mFinalDestination != null){
         		DoGoToDestination(mFinalDestination);
         	}else{
+        		
         		this.disable();
-        		visible = false;
         		mPerson.msgAnimationDone();
         		mPerson.postCommute();
         	}
@@ -117,7 +108,7 @@ public class CityPerson extends CityComponent {
 		if (mLocation.equals(destCorner)){
 			mUsingCar = false;
 			//walk to destination
-			mDestinationPathType = 4;
+			mDestinationPathType = 0; //Walking
 			mDestination = mFinalDestination;
 			mFinalDestination = null;
 		}else{
@@ -136,19 +127,7 @@ public class CityPerson extends CityComponent {
 							destCornerNum = iCorner;
 						}
 					}
-					
-					//clockwise not needed
-					if (currentCornerNum == (destCornerNum + 1) % 4) mDestinationPathType = 1;
-					//check counter-clockwise
-					else if (currentCornerNum == (destCornerNum - 1) % 4) mDestinationPathType = 1;
-					//check BD diagonal
-					else if (currentCornerNum == 0 || currentCornerNum == 2) mDestinationPathType = 1;
-					//check AC diagonal
-					else if (currentCornerNum == 1 || currentCornerNum == 3) mDestinationPathType = 1;
-					else{
-						mPerson.print("PROBLEM WITH CITY PEROSON MOVEMENT IN DOGOTODESTINATION METHOD");
-					}
-					
+					mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
 					mDestination = destParking;
 				}
 				//else bus to same corner
@@ -161,7 +140,8 @@ public class CityPerson extends CityComponent {
 			}
 			//if not at a corner, walk to person corner
 			else{
-				mDestinationPathType = 3;
+				mUsingCar = false;
+				mDestinationPathType = 0; //Walking
 				mDestination = closeCorner;
 			}
 		}
@@ -172,9 +152,9 @@ public class CityPerson extends CityComponent {
 	public void paint(Graphics g) {
 		rectangle.x = x;
 		rectangle.y = y;
-		if(visible) {
+		if(isActive) {
 			if (! onBus) {
-				if(SimCityGui.GRADINGVIEW) {
+				//if(SimCityGui.GRADINGVIEW) {
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);
@@ -193,7 +173,7 @@ public class CityPerson extends CityComponent {
 					g.setColor(Color.WHITE);
 					g.drawString(name, x - 10, y);
 				}
-			}
+			//}
 		}
 	}
 	
@@ -227,6 +207,47 @@ public class CityPerson extends CityComponent {
 	 * @param destination Target position in form of a Location object
 	 * @return (Location object) corners.get(determined nearest corner)
 	 */
+	
+	public int findPathType(int current, int dest) {
+		int type = -1;
+		// 0 1
+		// 3 2
+
+		// 1 - Clockwise
+		// 2 - Counterclockwise 
+		// 3 - Diagonal NE/SW
+		// 4 - Diagonal SE
+		// 5 - Diagonal NW
+		switch (current) {
+		case 0:
+			switch (dest) {
+			case 1: type = 1; break;
+			case 2: type = 4; break; //SE
+			case 3: type = 2; break; 
+			} break;
+		case 1:
+			switch (dest) {
+			case 0: type = 2; break;
+			case 2: type = 1; break;
+			case 3: type = 3; break;
+			} break;
+		case 2:
+			switch (dest) {
+			case 0: type = 5; break; //NW
+			case 1: type = 2; break;
+			case 3: type = 1; break;
+			}
+			break;
+		case 3:
+			switch (dest) {
+			case 0: type = 1; break;
+			case 1: type = 3; break;
+			case 2: type = 2; break;
+			} break;
+		}
+		return type;
+	}
+	
 	public Location findNearestCorner(Location destination){
 		//TOP LEFT
 		if (destination.mX < 300 && destination.mY < 300) {
@@ -277,17 +298,17 @@ public class CityPerson extends CityComponent {
 
 	@Override
 	public boolean isPresent() {
-		return visible;
+		return isActive;
 	}
 
 	@Override
 	public void setPresent(boolean state) {
-		visible = state;
+		isActive = state;
 	}
 	
     // Just got off bus
 	public void NewDestination(Location location) {
-		visible = true;
+		enable();
 		x = location.mX;
 		y = location.mY;
 		mDestination.mX = mFinalDestination.mX;

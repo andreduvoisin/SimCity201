@@ -179,32 +179,18 @@ public class ContactList {
 	
 	
 	//NAVIGATION B* BLOCKS
-	// A B
-	// D C
 	public static List<List<Block>> cNAVBLOCKS;
 	
-	public static final Block cCARBLOCKA = new Block (100, 100, 280, 280); 
-	public static final Block cCARBLOCKB = new Block (320, 100, 500, 280); 
-	public static final Block cCARBLOCKC = new Block (100, 320, 280, 500); 
-	public static final Block cCARBLOCKD = new Block (320, 320, 500, 500); 
+	// 0 1
+	// 3 2
+
+	// 0 - Walking
+	// 1 - Clockwise
+	// 2 - Counterclockwise 
+	// 3 - Diagonal NE/SW
+	// 4 - Diagonal NW/SE
 	
-	//cNAVBLOCKS[0] = Paths: AB, BC, CD, DA
-	//cNAVBLOCKS[1] = Paths: AD, DC, CB, BA
-	public static final Block cCARBLOCK0 = new Block(100, 500, 80, 520);
-	public static final Block cCARBLOCK1 = new Block(80, 520, 100, 500);
-	//cNAVBLOCKS[2] = Paths: AC, CA
-	public static final Block cCARBLOCK2 = new Block(100, 100, 280, 300);
-	public static final Block cCARBLOCK3 = new Block(100, 100, 300, 280);
-	public static final Block cCARBLOCK4 = new Block(300, 320, 500, 500);
-	public static final Block cCARBLOCK5 = new Block(320, 300, 500, 500);
-	
-	//cNAVBLOCKS[3] = Paths: BD, DB
-	public static final Block cCARBLOCK6 = new Block (300, 100, 500, 280); 
-	public static final Block cCARBLOCK7 = new Block (320, 100, 500, 300); 
-	public static final Block cCARBLOCK8 = new Block (100, 300, 280, 500); 
-	public static final Block cCARBLOCK9 = new Block (100, 320, 300, 500); 
-	
-	//cNAVBLOCKS[4]
+	//cNAVBLOCKS[0] Walking
 	public static List<Block> cPERSONBLOCKS;
 	public static final Block cPERSONBLOCK0  = new Block(cGRID_POINT1, cGRID_POINT1, cGRID_POINT2, cGRID_POINT2);
 	public static final Block cPERSONBLOCK1  = new Block(cGRID_POINT3, cGRID_POINT1, cGRID_POINT4, cGRID_POINT2);
@@ -222,68 +208,107 @@ public class ContactList {
 	public static final Block cPERSONBLOCK13 = new Block(cGRID_POINT3, cGRID_POINT7, cGRID_POINT4, cGRID_POINT8);
 	public static final Block cPERSONBLOCK14 = new Block(cGRID_POINT5, cGRID_POINT7, cGRID_POINT6, cGRID_POINT8);
 	public static final Block cPERSONBLOCK15 = new Block(cGRID_POINT7, cGRID_POINT7, cGRID_POINT8, cGRID_POINT8);
+
+	//cNAVBLOCKS[1] = Clockwise
+	public static final Block cCARBLOCK_Clockwise1 = new Block (85, 85, 280, 280); //Upper Left
+	public static final Block cCARBLOCK_Clockwise2 = new Block (305, 85, 515, 280); //Upper Right
+	public static final Block cCARBLOCK_Clockwise3 = new Block (85, 320, 280, 515); //Lower Left
+	public static final Block cCARBLOCK_Clockwise4 = new Block (320, 320, 515, 515); //Lower Right
+	
+	//cNAVBLOCKS[2] = Counterclockwise 
+	public static final Block cCARBLOCK_CounterClockwise1 = new Block(85, 65, 515, 535);
+	public static final Block cCARBLOCK_CounterClockwise2 = new Block(65, 100, 535, 515);
+	
+	//cNAVBLOCKS[3] = Diagonal NE/SW
+	public static final Block cCARBLOCK_NESW1 = new Block (85, 85, 300, 280); 
+	public static final Block cCARBLOCK_NESW2 = new Block (320, 85, 515, 280); 
+	public static final Block cCARBLOCK_NESW3 = new Block (85, 320, 280, 515); 
+	public static final Block cCARBLOCK_NESW4 = new Block (300, 320, 515, 515);
+	public static final Block cCARBLOCK_NESW5 = new Block (85, 85, 280, 300);
+	public static final Block cCARBLOCK_NESW6 = new Block (320, 300, 515, 515);
+	
+	//cNAVBLOCKS[4] = Diagonal SE
+	public static final Block cCARBLOCK_SE1 = new Block(65, 85, 280, 280);
+	public static final Block cCARBLOCK_SE2 = new Block(300, 85, 515, 280);
+	public static final Block cCARBLOCK_SE3 = new Block(320, 85, 515, 300);
+	public static final Block cCARBLOCK_SE4 = new Block(85, 320, 280, 515);
+	public static final Block cCARBLOCK_SE5 = new Block(320, 320, 515, 515);
+	
+	//cNAVBLOCKS[5] = Diagonal NW
+	public static final Block cCARBLOCK_NW1 = new Block(85, 85, 280, 280);
+	public static final Block cCARBLOCK_NW2 = new Block(305, 85, 515, 280);
+	public static final Block cCARBLOCK_NW3 = new Block(85, 300, 280, 515);
+	public static final Block cCARBLOCK_NW4 = new Block(85, 320, 300, 515);
+	public static final Block cCARBLOCK_NW5 = new Block(320, 320, 535, 515);
+	
+	// 0 - Walking
+	// 1 - Clockwise
+	// 2 - Counterclockwise 
+	// 3 - Diagonal NE/SW
+	// 4 - Diagonal SE
+	// 5 - Diagonal NW
 	
 	static{
-		List<List<Block>> list = new ArrayList<List<Block>>();
-		List<Block> list0 = new ArrayList<Block>();
-		List<Block> list1 = new ArrayList<Block>();
-		List<Block> list2 = new ArrayList<Block>();
-		List<Block> list3 = new ArrayList<Block>();
-		List<Block> list4 = new ArrayList<Block>();
-		list.add(list0);
-		list.add(list1);
-		list.add(list2);
-		list.add(list3);
-		list.add(list4);
-		//add general blocks
-//		for (List<Block> iList : list){
-//			iList.add(cCARBLOCKA);
-//			iList.add(cCARBLOCKB);
-//			iList.add(cCARBLOCKC);
-//			iList.add(cCARBLOCKD);
-//		}
-		list0 = new ArrayList<Block>(); //clear null list for walking
-//		list1.add(cCARBLOCK0);
-//		list1.add(cCARBLOCK1);
-		list1.add(cCARBLOCKA);
-		list1.add(cCARBLOCKB);
-		list1.add(cCARBLOCKC);
-		list1.add(cCARBLOCKD);
-		
-		
-		list2.add(cCARBLOCK2);
-		list2.add(cCARBLOCK3);
-		list2.add(cCARBLOCK4);
-		list2.add(cCARBLOCK5);
-		list3.add(cCARBLOCK6);
-		list3.add(cCARBLOCK7);
-		list3.add(cCARBLOCK8);
-		list3.add(cCARBLOCK9);
-		list4.add(cPERSONBLOCK0);
-		list4.add(cPERSONBLOCK1);
-		list4.add(cPERSONBLOCK2);
-		list4.add(cPERSONBLOCK3);
-		list4.add(cPERSONBLOCK4);
-		list4.add(cPERSONBLOCK5);
-		list4.add(cPERSONBLOCK6);
-		list4.add(cPERSONBLOCK7);
-		list4.add(cPERSONBLOCK8);
-		list4.add(cPERSONBLOCK9);
-		list4.add(cPERSONBLOCK10);
-		list4.add(cPERSONBLOCK11);
-		list4.add(cPERSONBLOCK12);
-		list4.add(cPERSONBLOCK13);
-		list4.add(cPERSONBLOCK14);
-		list4.add(cPERSONBLOCK15);
-		cNAVBLOCKS = Collections.unmodifiableList(list);
+		List<List<Block>> blockLists = new ArrayList<List<Block>>();
+		List<Block> list0 = new ArrayList<Block>(); //Walking
+			list0.add(cPERSONBLOCK0);
+			list0.add(cPERSONBLOCK1);
+			list0.add(cPERSONBLOCK2);
+			list0.add(cPERSONBLOCK3);
+			list0.add(cPERSONBLOCK4);
+			list0.add(cPERSONBLOCK5);
+			list0.add(cPERSONBLOCK6);
+			list0.add(cPERSONBLOCK7);
+			list0.add(cPERSONBLOCK8);
+			list0.add(cPERSONBLOCK9);
+			list0.add(cPERSONBLOCK10);
+			list0.add(cPERSONBLOCK11);
+			list0.add(cPERSONBLOCK12);
+			list0.add(cPERSONBLOCK13);
+			list0.add(cPERSONBLOCK14);
+			list0.add(cPERSONBLOCK15);
+			blockLists.add(list0); 
+		List<Block> list1 = new ArrayList<Block>(); //Clockwise
+			list1.add(cCARBLOCK_Clockwise1);
+			list1.add(cCARBLOCK_Clockwise2);
+			list1.add(cCARBLOCK_Clockwise3);
+			list1.add(cCARBLOCK_Clockwise4);
+			blockLists.add(list1); 
+		List<Block> list2 = new ArrayList<Block>(); //Counterclockwise
+			list2.add(cCARBLOCK_CounterClockwise1);
+			list2.add(cCARBLOCK_CounterClockwise2);
+			blockLists.add(list2); 
+		List<Block> list3 = new ArrayList<Block>(); //Diagonal NE/SW
+			list3.add(cCARBLOCK_NESW1);
+			list3.add(cCARBLOCK_NESW2);
+			list3.add(cCARBLOCK_NESW3);
+			list3.add(cCARBLOCK_NESW4);
+			list3.add(cCARBLOCK_NESW5);
+			list3.add(cCARBLOCK_NESW6);
+			blockLists.add(list3); 
+		List<Block> list4 = new ArrayList<Block>(); //Diagonal SE
+			list4.add(cCARBLOCK_SE1);
+			list4.add(cCARBLOCK_SE2);
+			list4.add(cCARBLOCK_SE3);
+			list4.add(cCARBLOCK_SE4);
+			list4.add(cCARBLOCK_SE5);
+			blockLists.add(list4); 
+		List<Block> list5 = new ArrayList<Block>(); //Diagonal NW
+			list5.add(cCARBLOCK_NW1);
+			list5.add(cCARBLOCK_NW2);
+			list5.add(cCARBLOCK_NW3);
+			list5.add(cCARBLOCK_NW4);
+			list5.add(cCARBLOCK_NW5);
+			blockLists.add(list5);
+		cNAVBLOCKS = Collections.unmodifiableList(blockLists);
 	}
 	
 	
 	//BANKS, MARKETS
-	public static final Location cBANK1_LOCATION = gridLocation(1, 1);
-	public static final Location cBANK2_LOCATION = gridLocation(2, 1);
+	public static final Location cBANK1_LOCATION = gridLocation(1, 1);			//ANGELICA bank2 = piggybank, market2 = ollivanders
+	public static final Location cBANK2_LOCATION = gridLocation(2, 2);			//switch bank2 bank to 2,1, market2 to 2,2
 	public static final Location cMARKET1_LOCATION = gridLocation(1, 2);
-	public static final Location cMARKET2_LOCATION = gridLocation(2, 2);
+	public static final Location cMARKET2_LOCATION = gridLocation(2, 1);
 	
 	
 	//RESTAURANTS
@@ -329,7 +354,7 @@ public class ContactList {
 	//HOUSES
 	public static List<Location> cHOUSE_LOCATIONS;
 	static {
-		List<Location> list = new ArrayList<Location>();
+		List<Location> houseList = new ArrayList<Location>();
 		for (int iHouse = 0 ; iHouse < 80; iHouse++){ //80 Houses
 			int xCord, yCord = 0;
 			if (iHouse / 20 == 0) {					//North
@@ -346,9 +371,9 @@ public class ContactList {
 				yCord = 100 + 20 * (iHouse % 20);
 			}
 			Location houseLocation = new Location(xCord, yCord);
-			list.add(houseLocation);
+			houseList.add(houseLocation);
 		}
-		cHOUSE_LOCATIONS = Collections.unmodifiableList(list);
+		cHOUSE_LOCATIONS = Collections.unmodifiableList(houseList);
 	}
 	
 	//Workplace Availability

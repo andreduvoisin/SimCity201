@@ -218,4 +218,12 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.MARKET, e);
 	}
+	
+	public String toString() {
+		if(mPerson != null) {
+			return mPerson.getName();
+		}
+		else
+			return "";
+	}
 }

@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import city.gui.CityComponent;
-import city.gui.SimCityGui;
 
 public class Block extends CityComponent {
 	

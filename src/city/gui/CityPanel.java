@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import market.gui.MarketDeliveryTruckGui;
@@ -61,7 +62,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//Add Intersections
 		
-//		//North-Center
+		//North-Center
 		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK0));
 		//Center
 		this.addIntersection(new CityIntersection(ContactList.cINTERSECTIONBLOCK1));
@@ -81,7 +82,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(5), "r_smileham"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(6), "r_tranac"));
 		this.addStatic(new CityRestaurant(ContactList.cRESTAURANT_LOCATIONS.get(7), "r_xurex"));
-		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts"));
+		this.addStatic(new CityBank(ContactList.cBANK1_LOCATION, "Gringotts"));				
 		this.addStatic(new CityBank(ContactList.cBANK2_LOCATION, "Piggy Bank"));
 		this.addStatic(new CityMarket(ContactList.cMARKET1_LOCATION, "Honeydukes"));
 		this.addStatic(new CityMarket(ContactList.cMARKET2_LOCATION, "Ollivanders"));
@@ -101,9 +102,11 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		//this.addStatic(sClosedImages.get(ContactList.cBANK1_LOCATION));
 		
 		//DAVID testing add personblocks
-				for (Block b: ContactList.cNAVBLOCKS.get(1)) {
-					this.addStatic(b);
-				}
+//		for (List<Block> list : ContactList.cNAVBLOCKS) {
+//			for (Block b : ContactList.cNAVBLOCKS.get(3)) {
+//				this.addStatic(b);
+//			}
+//		}
 			
 		//Create Timer Display
 		this.addStatic(new TimeGui(520, 575));

@@ -57,10 +57,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	}
 	public void msgRobberAlert(BankCustomer c){
 		synchronized(mCustomers) {
-			for(MyCustomer iCust : mCustomers) {
-				if(iCust.customer == c)
-					iCust.isRobber = true;
-			}
+			mCustomers.add(new MyCustomer(c, true));
 		}
 		print("MESSAGED ABOUT THE ROBBER");
 		stateChanged();
