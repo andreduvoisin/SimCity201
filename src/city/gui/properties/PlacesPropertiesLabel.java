@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import restaurant.intermediate.RestaurantCookRole;
 import market.Market;
 import bank.Bank;
 import base.ContactList;
@@ -211,11 +212,11 @@ public class PlacesPropertiesLabel extends JPanel{
 		
 		public void updateInventory() {
 			inventoryLabel.setText("<html><center>Inventory<br><table>" +
-			"<tr><td>Chicken: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.CHICKEN) + "</td>" +
-			"<td>Steak: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.STEAK) + "</td></tr>" +
-			"<tr><td>Salad: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.SALAD) + "</td>" +
-			"<td>Pizza: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.PIZZA) + "</td></tr>" +
-			"<tr><td>Cars: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.CAR) + "</td></tr>" +
+			"<tr><td>Chicken: </td><td>" + ContactList.sMarketList.get(marketNum).getInventory(EnumItemType.CHICKEN) + "</td>" +
+			"<td>Steak: </td><td>" + ContactList.sMarketList.get(marketNum).getInventory(EnumItemType.STEAK) + "</td></tr>" +
+			"<tr><td>Salad: </td><td>" + ContactList.sMarketList.get(marketNum).getInventory(EnumItemType.SALAD) + "</td>" +
+			"<td>Pizza: </td><td>" + ContactList.sMarketList.get(marketNum).getInventory(EnumItemType.PIZZA) + "</td></tr>" +
+			"<tr><td>Cars: </td><td>" + ContactList.sMarketList.get(marketNum).getInventory(EnumItemType.CAR) + "</td></tr>" +
 			"</table></center></html>");
 		}
 		
@@ -371,17 +372,66 @@ public class PlacesPropertiesLabel extends JPanel{
 		}
 		
 		public void updateInventory() {
+			RestaurantCookRole cook = null;
+			switch(restaurantNum) {
+			case 0:
+				if(ContactList.AndreRestaurant.cook != null) {
+					System.out.println(0);
+				cook = ContactList.AndreRestaurant.cook.mRole;
+				}
+				break;
+			case 1: //chase ANGELICA
+				break;
+			case 2:
+				if(ContactList.JerrywebRestaurant.cook != null) {
+				cook = ContactList.JerrywebRestaurant.cook.mRole;
+				}
+				break;
+			case 3:
+				if(ContactList.MaggiyanRestaurant.mCook != null) {
+				cook = ContactList.MaggiyanRestaurant.mCook.mRole;
+				}
+				break;
+			case 4:
+				if(ContactList.DavidRestaurant.cook != null) {
+				cook = ContactList.DavidRestaurant.cook.mRole;
+				System.out.println("k");
+				}
+				break;
+			case 5:
+				if(ContactList.SmilehamRestaurant.mCook != null) {
+				cook = ContactList.SmilehamRestaurant.mCook.mRole;
+				}
+				break;
+			case 6:
+				if(ContactList.TranacRestaurant.mCook != null) {
+				cook = ContactList.TranacRestaurant.mCook.mRole;
+				}
+				break;
+			case 7: //rex
+				//ANGELICA;
+				break;
+			}
+			
+			if(cook != null) {
 			inventoryLabel.setText("<html><center>Inventory<br><table>" +
-			"<tr><td>Chicken: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.CHICKEN) + "</td>" +
-			"<td>Steak: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.STEAK) + "</td></tr>" +
-			"<tr><td>Salad: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.SALAD) + "</td>" +
-			"<td>Pizza: </td><td>" + ContactList.sMarketList.get(0).getInventory(EnumItemType.PIZZA) + "</td></tr>" +
+			"<tr><td>Chicken: </td><td>" + cook.getInventory(EnumItemType.CHICKEN) + "</td>" +
+			"<td>Steak: </td><td>" + cook.getInventory(EnumItemType.STEAK) + "</td></tr>" +
+			"<tr><td>Salad: </td><td>" + cook.getInventory(EnumItemType.SALAD) + "</td>" +
+			"<td>Pizza: </td><td>" + cook.getInventory(EnumItemType.PIZZA) + "</td></tr>" +
 			"</table></center></html>");
+			}
+			else {
+				inventoryLabel.setText("<html><center>Inventory<br><table>" +
+						"<tr><td>Chicken: </td><td>" + "</td>" +
+						"<td>Steak: </td><td>" + "</td></tr>" +
+						"<tr><td>Salad: </td><td>" + "</td>" +
+						"<td>Pizza: </td><td>" + "</td></tr>" +
+						"</table></center></html>");
+			}
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-    		updateStaff();
-    		updateInventory();
 	        if (e.getSource() == changeStaffField || e.getSource() == changeStaffButton) {
 	        	if(!changeStaffType.getSelectedItem().toString().equals("")) {
 	        		System.out.println("blah, test");	//ANGELICA:
@@ -393,6 +443,8 @@ public class PlacesPropertiesLabel extends JPanel{
 	        		//		Integer.parseInt(changeInventoryField.getText()));
 	        	}
 	        }
+    		updateStaff();
+    		updateInventory();
 		}
 	}
 }

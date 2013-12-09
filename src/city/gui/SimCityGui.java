@@ -13,7 +13,7 @@ import base.Time;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
-	public static boolean TESTING = true;
+	public static boolean TESTING = false;		//ANGELICA
 
 	public static int TESTNUM = 3;
 	

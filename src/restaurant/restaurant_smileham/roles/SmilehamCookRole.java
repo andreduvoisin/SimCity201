@@ -29,7 +29,7 @@ import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
 public class SmilehamCookRole extends BaseRole implements SmilehamCook {
-	RestaurantCookRole mRole;
+	public RestaurantCookRole mRole;
 	
 	//Member Variables
 	private String mName;

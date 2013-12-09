@@ -294,4 +294,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
     	public Location getLocation() {
     		return ContactList.cRESTAURANT_LOCATIONS.get(mRestaurantID);
     	}
+
+		public int getInventory(EnumItemType e) {
+			return mItemInventory.get(e);
+		}
 }

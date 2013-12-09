@@ -42,6 +42,7 @@ public class RestaurantHostRole extends BaseRole implements
 			subRole = new AndreHostRole(super.mPerson);
 			if(AndreRestaurant.host == null) {
 				AndreRestaurant.host = (AndreHostRole) subRole;
+				System.out.println("test");//ANGELICA
 			} else {
 				subRole = AndreRestaurant.host;
 			}
