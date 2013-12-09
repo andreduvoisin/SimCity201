@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 
 public class Time {
@@ -24,7 +25,6 @@ public class Time {
 	public void runTimer(){
 				
 		mTimer.scheduleAtFixedRate(new TimerTask() {
-			
 			@Override
 			//Broadcast time
 			public void run() {
@@ -42,7 +42,8 @@ public class Time {
 						System.out.println("Time Shift! (but not)");
 						synchronized (mPersons) {
 							for (Person iPerson : mPersons) {
-								//iPerson.msgTimeShift(); 
+								if(iPerson.getJobType() == EnumJobType.BANK)
+										iPerson.msgTimeShift(); 
 							}
 						}
 					}
