@@ -69,7 +69,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		
 		synchronized(intersections) {
 			for (CityIntersection c:intersections) {
-				c.paint(g);
+//				c.paint(g);
 			}
 		}
 		

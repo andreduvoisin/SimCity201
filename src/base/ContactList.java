@@ -146,10 +146,10 @@ public class ContactList {
 	//PARKING LOTS
 	// 0 1 
 	// 3 2
-	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-35, cGRID_POINT1-50); //65, 65 DAVID these may be wrong
+	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-51, cGRID_POINT1-51); //65, 65 DAVID these may be wrong
 	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8+35, cGRID_POINT1-35);	//535, 65
-	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+35, cGRID_POINT8+35);	//535, 535
-	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8);	//65, 500
+	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+51, cGRID_POINT8+51);	//535, 535
+	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8+35);	//65, 500
 	public static List<Location> cPARKINGLOTS;
 	static {
 		List<Location> list = new ArrayList<Location>();
@@ -213,7 +213,7 @@ public class ContactList {
 	
 	//cNAVBLOCKS[2] = Counterclockwise 
 	public static final Block cCARBLOCK_CounterClockwise1 = new Block(85, 65, 515, 535);
-	public static final Block cCARBLOCK_CounterClockwise2 = new Block(65, 100, 535, 515);
+	public static final Block cCARBLOCK_CounterClockwise2 = new Block(65, 85, 535, 515);
 	
 	//cNAVBLOCKS[3] = Diagonal NE/SW
 	public static final Block cCARBLOCK_NESW1 = new Block (85, 85, 300, 280); 
