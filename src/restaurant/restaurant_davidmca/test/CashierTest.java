@@ -11,6 +11,10 @@ import restaurant.restaurant_davidmca.test.mock.MockMarket;
 import restaurant.restaurant_davidmca.test.mock.MockWaiter;
 import base.PersonAgent;
 
+/*
+ * NOTE: THESE TESTS ARE DEPRECATED
+ */
+
 public class CashierTest extends TestCase {
 	DavidCashierRole cashier;
 	MockWaiter waiter;

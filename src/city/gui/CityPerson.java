@@ -105,7 +105,7 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
 		//If person has a car
-		if (mDeliverying ||(mPerson.hasCar() && !mGettingCar)) {	//ANGELICA
+		if (mDeliverying ||(mPerson.hasCar() && !mGettingCar)) {
 			if (mDeliverying || mPerson.hasCar()) {
 				//if at corner closest to destination, walk to destination
 				if (mLocation.equals(destParking)){
@@ -183,7 +183,7 @@ public class CityPerson extends CityComponent {
 //				if(SimCityGui.GRADINGVIEW) {
 					g.setColor(Color.WHITE);
 					g.drawString(mPerson.getName(),x,y);
-					if(mDeliverying) {			//ANGELICA
+					if(mDeliverying) {
 						g.setColor(Color.MAGENTA);
 						g.fillRect(x,y,10,10);
 					}

@@ -213,4 +213,10 @@ public class MockPerson extends Mock implements Person {
 		return null;
 	}
 
+	@Override
+	public void setHasCar(boolean c) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
