@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import base.PersonAgent;
 import market.interfaces.MarketCashier;
 import market.roles.MarketCashierRole;
 import market.test.mock.MockCashier;
@@ -98,9 +99,15 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		if(mAgent instanceof MarketCashierRole) {
+		if(mAgent instanceof MarketCashierRole) {	//ANGELICA z is present function
 			MarketCashierRole role = (MarketCashierRole) mAgent;
-			return role.getPerson() != null ? true : false;
+			if(role.getPerson() != null) {
+				PersonAgent p = (PersonAgent) role.getPerson();
+				return p.mRoles.get(role);
+			}
+			else {
+				return false;
+			}
 		}
 		else
 			return false;
