@@ -145,7 +145,7 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(SortingHat.getHousingRole(this), true);
 		//mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
-		mRoles.put(new MarketCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
+		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 	}
@@ -176,6 +176,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
+		//mTimeShift = 0;
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
 		mHasCar = false; 
@@ -578,22 +579,6 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goToMarket() {
 
-		//mCommuterRole.mActive = true;
-		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cMARKET1_LOCATION:ContactList.cMARKET2_LOCATION);
-		//acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-
-		//ANGELICA: hack
-		mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
-		mItemsDesired.put(EnumItemType.CHICKEN, sBaseWanted);
-
-
-		mCommuterRole.mActive = true;
-		mCommuterRole.setLocation(ContactList.cMARKET1_LOCATION);
-
-	//}	
-		//SHANE: is this supposed to be one function?
-	//private void goToMarket() {		
 		switch(mSSN % 4) {
 			case 0:
 				mItemsDesired.put(EnumItemType.PIZZA, sBaseWanted);
@@ -618,7 +603,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		Location location;
-		if(mSSN%ContactList.cNumTimeShifts == 0) {
+		if(mSSN%2 == 0) {
 			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
@@ -930,6 +915,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	public boolean hasCar() {
 		return mHasCar;
+	}
+	
+	public void setHasCar(boolean c) {
+		mHasCar = c;
 	}
 	
 	public void Do(String msg) {

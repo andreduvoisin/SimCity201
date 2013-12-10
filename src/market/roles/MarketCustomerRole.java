@@ -20,6 +20,7 @@ import base.Event;
 import base.Event.EnumEventType;
 import base.Item.EnumItemType;
 import base.Location;
+import base.PersonAgent;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -48,7 +49,6 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		ContactList.sMarketList.get(mMarketID).mGuis.add(mGui);
 		
 		mCashier = ContactList.sMarketList.get(mMarketID).mCashier;
-			
 		mItemInventory = person.getItemInventory();
 		mItemsDesired = person.getItemsDesired();
 	}
@@ -131,12 +131,13 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 	}
 
 	private void placeOrder(MarketOrder order){
-		print("Placing order.");
+		print("Placing order with " + mCashier.toString());
 		DoGoToMarket();
 		mCashier.msgOrderPlacement(order);
 	}
 
 	private void payAndProcessOrder(MarketInvoice invoice) {
+		print("Paying for order.");
 		invoice.mPayment += invoice.mTotal;
 		
 		ContactList.SendPayment(mPerson.getSSN(), invoice.mMarketBankNumber, invoice.mPayment);
@@ -158,6 +159,10 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 			int n = mItemInventory.get(item);
 			n += order.mItems.get(item);
 			mItemInventory.put(item, n);
+			if(item.equals(EnumItemType.CAR)) {
+				PersonAgent p = (PersonAgent) mPerson;
+				p.setHasCar(true);
+			}
 		}
 		DoLeaveMarket();
 	}

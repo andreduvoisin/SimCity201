@@ -30,7 +30,11 @@ public class MockRider extends Mock implements TransportationRider {
 	public void msgAtStop(int busStop){
 		log.add(new LoggedEvent("Received msgAtStop(bus's stop = " + busStop + ")"));
 		if(busStop == mDestinationBusStop){
+
+			mState = PersonState.exitingBus; 
+
 			mState = PersonState.noNewDestination; 
+
 		}
 	}
 

@@ -15,6 +15,7 @@ public class InstantiatePeopleTest extends TestCase {
 	}
 	PersonAgent mPerson;
 	CityPanel panel;
+	
 	public void testRestaurantIntegration() throws IOException {
 		ConfigParser config = ConfigParser.getInstanceOf();
 		//config.readFileCreatePersons(null, 0);

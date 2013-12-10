@@ -1,8 +1,10 @@
 package transportation.test;
 
 import junit.framework.TestCase;
+import transportation.TransportationBus;
 import transportation.roles.CommuterRole;
 import transportation.test.mock.MockCommuter;
+import base.ContactList;
 import base.PersonAgent;
 import base.PersonAgent.EnumJobType;
 
@@ -16,6 +18,7 @@ import base.PersonAgent.EnumJobType;
 public class BusRiderRoleTest extends TestCase {
 	// these are instantiated for each test separately via the setUp() method.
 	MockCommuter mockCommuter;
+	TransportationBus bus;
 	CommuterRole commuterRole;
 	PersonAgent p;
 	/**
@@ -25,9 +28,11 @@ public class BusRiderRoleTest extends TestCase {
 
 	public void setUp() throws Exception {
 		super.setUp();
+		ContactList.setup();
 		p = new PersonAgent(EnumJobType.NONE, 200,"bob");
 		mockCommuter = new MockCommuter();
 		commuterRole = new CommuterRole(null);
+		bus = new TransportationBus(false);
 	}
 	
 	public void testRenterObtainsHousing()
@@ -41,12 +46,16 @@ public class BusRiderRoleTest extends TestCase {
 
 	public void testCommuterScenario()
 	{
-				
-		commuterRole.msgBoardBus();
+		//preconditions
 		
+		
+		
+		
+		commuterRole.msgBoardBus();
+		//
 		//assertEquals("The MockCommuterRole's log should have one event, it doesn't: ", 1, commuterRole.log.size());
 		
-		commuterRole.msgAtStop(0);
+		
 		//assertEquals("The MockCommuterRole's log should have two event, it doesn't: ", 2, commuterRole.log.size());
 	}
 
