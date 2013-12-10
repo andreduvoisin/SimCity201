@@ -25,6 +25,7 @@ import city.gui.trace.AlertTag;
 public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
 	Semaphore inTransit = new Semaphore(0,true);
 	int mMarketID;
+	boolean atMarket = true;
 	
 	List<MarketOrder> mPendingDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
@@ -58,7 +59,8 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			return true;
 		}
 		}
-		waitAtMarket();
+		if(!atMarket)
+			waitAtMarket();
 		return false;
 	}
 	
@@ -99,6 +101,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Animation Actions */
 	private void DoGoToRestaurant(int n) {
+		atMarket = false;
 		if(mPerson instanceof PersonAgent) {
 			Location location = ContactList.cRESTAURANT_LOCATIONS.get(n);
 			PersonAgent p = (PersonAgent) mPerson;
@@ -110,6 +113,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	private void DoGoToMarket() {
+		atMarket = true;
 		if(mPerson instanceof PersonAgent) {
 			Location location = null;
 			if(mMarketID == 0)
