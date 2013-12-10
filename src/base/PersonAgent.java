@@ -297,7 +297,6 @@ public class PersonAgent extends Agent implements Person {
 				}
 				else if (mCommuterRole.mActive){
 					if(mCommuterRole.pickAndExecuteAnAction()){
-						AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "moving...");
 						return true;
 					}
 				}
@@ -401,50 +400,50 @@ public class PersonAgent extends Agent implements Person {
 		if(mCommutingTo != null) {
 			switch(mCommutingTo) {
 				case RESTAURANT:
-					for (Role iRole : mRoles.keySet()){
-						if (iRole instanceof RestaurantCustomerRole){
-							((RestaurantCustomerRole) iRole).setPerson(this);
-							
-							synchronized(ContactList.sOpenBuildings) {
+					synchronized(ContactList.sOpenBuildings) {
+						for (Role iRole : mRoles.keySet()){
+							if (iRole instanceof RestaurantCustomerRole){
+								((RestaurantCustomerRole) iRole).setPerson(this);
+								
 								if(((RestaurantCustomerRole)iRole).subRole instanceof AndreCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R0")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof CwagonerCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R1")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof JerrywebCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R2")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof MaggiyanCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R3")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof DavidCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R4")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof SmilehamCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R5")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof TranacCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R6")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof RexCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R7")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								}
 							}
