@@ -1,7 +1,9 @@
 package restaurant.restaurant_jerryweb.test;
 
+import base.ContactList;
 import base.PersonAgent;
 import base.interfaces.Person;
+import base.interfaces.Role;
 import junit.framework.TestCase;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
@@ -23,12 +25,19 @@ public class WaiterRevolvingStandTest extends TestCase {
 	PersonAgent mPerson3;
 	
 	public void setUp() throws Exception{
-		super.setUp();		
-		cashier = new JerrywebCashierRole(mPerson, null);
+		super.setUp();
+		ContactList.setup();
+		
+		mPerson = new PersonAgent();
+		mPerson2 = new PersonAgent();
+		mPerson3 = new PersonAgent();
 		mCustomer = new MockCustomer("mock customer");
+		cashier = new JerrywebCashierRole(mPerson, null);
 		rsWaiter = new JerrywebRSWaiterRole("rs waiter");
 		cook = new JerrywebCookRole(mPerson2, null);
+		mPerson2.addRole((Role)cook, true);
 		host = new JerrywebHostRole(mPerson3);
+		mPerson3.addRole((Role)host, true);
 		waiterGui = new WaiterGui(rsWaiter, host);
 	}
 	

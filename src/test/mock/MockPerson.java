@@ -18,7 +18,7 @@ import city.gui.trace.AlertTag;
 /**
  * MockPerson built to unit test Housing
  * 
- * @author Maggi Yang
+ * @author Maggi Yang, Jerry Webb
  * 
  */
 public class MockPerson extends Mock implements Person {
@@ -211,6 +211,12 @@ public class MockPerson extends Mock implements Person {
 	public EnumJobType getJobType() {
 		log.add(new LoggedEvent("Called getJobType for Mock Person. This should return null"));
 		return null;
+	}
+
+	@Override
+	public void setHasCar(boolean c) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
