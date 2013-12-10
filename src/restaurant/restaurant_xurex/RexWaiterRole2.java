@@ -158,9 +158,9 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 		stateChanged();
 	}
 	//CASHIER MESSAGES
-	public void HereIsBill(Customer customer, float bill){
+	public void HereIsBill(Customer c, float bill){
 		for(MyCustomer mc : customers){
-			if(mc.c.getName().equals(customer.getName())){
+			if(((RexCustomerRole)mc.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				mc.bill = bill;
 			}
 		}

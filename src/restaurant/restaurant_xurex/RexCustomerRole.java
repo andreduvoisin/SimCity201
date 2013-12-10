@@ -385,13 +385,13 @@ public class RexCustomerRole extends BaseRole implements Customer{
 			stringMenu.add(key);
 		}
 		choice = stringMenu.get(option);
-	}
+	}/*
 	private boolean IsInt(String name){
 		try
 		  { Integer.parseInt(name); return true; }
 		 catch(NumberFormatException er)
 		  { return false; }
-	}
+	}*/
 	public void SetChoice(String choice){
 		this.choice = choice;
 	}
