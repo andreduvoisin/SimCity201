@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
 import base.ContactList;
 import base.Inspection;
