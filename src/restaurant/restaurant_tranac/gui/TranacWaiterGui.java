@@ -42,7 +42,8 @@ public class TranacWaiterGui implements Gui {
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
     
-    private TranacAnimationPanel gui;
+    @SuppressWarnings("unused")
+	private TranacAnimationPanel gui;
     
     public TranacWaiterGui(TranacWaiterRole agent, TranacAnimationPanel gui, int i) {
         this.agent = agent;

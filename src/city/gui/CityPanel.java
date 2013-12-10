@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.List;
 
 import transportation.TransportationBus;
-import base.Block;
 import base.ContactList;
 import base.Inspection;
 

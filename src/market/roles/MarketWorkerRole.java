@@ -136,6 +136,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void DoGoToMarket() {
 		mGui.DoGoToMarket();
 		try {
@@ -169,6 +170,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		mGui.DoGoToHome();
 	}
 	
+	@SuppressWarnings("unused")
 	private void DoLeaveMarket() {
 		mGui.DoLeaveMarket();
 		try {

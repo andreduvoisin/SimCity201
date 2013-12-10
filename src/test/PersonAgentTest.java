@@ -141,6 +141,7 @@ public class PersonAgentTest extends TestCase {
 		
 	}
 	
+	@SuppressWarnings("static-access")
 	public void testBasicParty() throws Exception {
 		setUp();
 		ContactList.setup();
@@ -176,6 +177,7 @@ public class PersonAgentTest extends TestCase {
 
 	}
 
+	@SuppressWarnings("static-access")
 	public void testFlakeParty() throws Exception {
 		setUp();
 		ContactList.setup();

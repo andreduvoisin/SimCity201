@@ -8,7 +8,8 @@ import base.Gui;
 
 public class HostGui implements Gui {
 
-    private Host agent = null;
+    @SuppressWarnings("unused")
+	private Host agent = null;
 
     public HostGui(Host agent) {
         this.agent = agent;
