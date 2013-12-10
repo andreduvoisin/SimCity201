@@ -1,6 +1,7 @@
 package restaurant.restaurant_xurex.gui;
 
 //import java.awt.Color;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     private int mNum;
     
     private boolean msgSent = true;
-    //private static final int waiterDim = 10;
+    private static final int waiterDim = 10;
     
     public Map<Integer, Point> places = new HashMap<Integer, Point>();
     
@@ -39,13 +40,13 @@ public class WaiterGui implements Gui, WaiterGui_ {
         this.role = agent;
         this.animationPanel = animationPanel;
         image = null;
-    	try {
-    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
-    	image = ImageIO.read(imageURL);
-    	}
-    	catch (IOException e) {
-    		System.out.println(e.getMessage());
-    	}
+//    	try {
+//    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
+//    	image = ImageIO.read(imageURL);
+//    	}
+//    	catch (IOException e) {
+//    		System.out.println(e.getMessage());
+//    	}
         //TABLES
         places.put(new Integer(1), new Point(200,150));
 		places.put(new Integer(2), new Point(300,150));
@@ -85,9 +86,9 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
 
     public void draw(Graphics2D g) {
-    	g.drawImage(image, xPos, yPos, null);
-//        g.setColor(Color.MAGENTA);
-//        g.fillRect(xPos, yPos, waiterDim, waiterDim);
+//    	g.drawImage(image, xPos, yPos, null);
+        g.setColor(Color.MAGENTA);
+        g.fillRect(xPos, yPos, waiterDim, waiterDim);
     }
     
     public void DoServeFood(String choice){

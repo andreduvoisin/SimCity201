@@ -455,32 +455,31 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		JLabel placesTitle = new JLabel("Select Property:");
 	    placesTitle.setPreferredSize(new Dimension(180,20));
 
-    	JButton enable = new JButton("None");
-	    enable.setPreferredSize(new Dimension(180,20));
-	    enable.setMaximumSize(new Dimension(180,20));
-	    enable.setMinimumSize(new Dimension(180,20));
-	    enable.setAlignmentX(Component.CENTER_ALIGNMENT);
+    	JButton change = new JButton("None");
+	    change.setPreferredSize(new Dimension(180,20));
+	    change.setMaximumSize(new Dimension(180,20));
+	    change.setMinimumSize(new Dimension(180,20));
+	    change.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
 	    JButton disable = new JButton("DISABLE ALL");
 	    disable.setPreferredSize(new Dimension(180,20));
 	    disable.setMaximumSize(new Dimension(180,20));
 	    disable.setMinimumSize(new Dimension(180,20));
-    	disable.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, false);
-					Inspection.sClosedImages.get(iLocation).enable();
-				}
-			}
-		});
+	    disable.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
+	    JButton enable = new JButton("ENABLE ALL");
+	    enable.setPreferredSize(new Dimension(180,20));
+	    enable.setMaximumSize(new Dimension(180,20));
+	    enable.setMinimumSize(new Dimension(180,20));
+	    enable.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
 	    //ANGELICA: additions
 	    PlacesPropertiesLabel placeProperties = new PlacesPropertiesLabel();
 	    
 	    places = new JComboBox(placeList);
 	    places.setPreferredSize(new Dimension(180,20));
 	    places.setSelectedIndex(0);
-	    places.addActionListener(new PlacesListener(enable, places, placeProperties));
+	    places.addActionListener(new PlacesListener(change, places, placeProperties));
 	    
 	//    holdPlaces.add(placesTitle, BorderLayout.NORTH);
 	//    holdPlaces.add(places, BorderLayout.CENTER);
@@ -495,13 +494,34 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    PropertiesTab.add(new JLabel());
 	    PropertiesTab.add(placesTitle);
 	    PropertiesTab.add(places);
-	    PropertiesTab.add(enable);
+	    PropertiesTab.add(change);
 	    PropertiesTab.add(disable);
+	    PropertiesTab.add(enable);
 	    PropertiesTab.add(placeProperties);
 	    PropertiesTab.add(holdPlaces);
 	    
-	    //Add ActionListener for Enable
-	    enable.addActionListener(new PlacesButtonListener(enable, places));	
+	    //Add ActionListener for Change
+	    change.addActionListener(new PlacesButtonListener(change, places));	
+	    
+    	disable.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+					ContactList.sOpenPlaces.put(iLocation, false);
+					Inspection.sClosedImages.get(iLocation).enable();
+				}
+			}
+		});
+    	
+    	enable.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+					ContactList.sOpenPlaces.put(iLocation, true);
+					Inspection.sClosedImages.get(iLocation).disable();
+				}
+			}
+		});
 	}
 	
 	

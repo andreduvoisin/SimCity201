@@ -43,7 +43,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     public static RexCookRole cook;
     public static RexCashierRole cashier; // = new RexCashierRole();
     
-    private static CookGui cookGui = new CookGui(cook);
+    private static CookGui cookGui;
 
 //	DIMENSIONS
 	static final int TABLEDIM = 25;
@@ -77,6 +77,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         
         instance = this;
         
+        cookGui = new CookGui(cook);
         cookGui.setAnimationPanel(this);
         guis.add(cookGui);
         //bufferSize = this.getSize();
@@ -205,6 +206,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	if (role instanceof RexCustomerRole){
     		RexCustomerRole customer = (RexCustomerRole) role;
     		customer.setHost(host);
+    		customer.setCashier(cashier);
     		customers.add(customer);
     		//customer.gotHungry();
     		((RexCustomerRole) role).getGui().setHungry();
@@ -233,6 +235,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	else if (role instanceof RexCookRole){
     		cook = (RexCookRole) role;
             cook.setGui(cookGui);
+            cookGui.setAgent(cook);
     	}
     	else if (role instanceof RexCashierRole){
     		cashier = (RexCashierRole) role;

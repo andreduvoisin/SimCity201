@@ -7,6 +7,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -24,6 +26,8 @@ public class CityBus extends CityComponent {
 	private Location destination = new Location(0, 0);
 	private boolean mTraveling;
 	BufferedImage front, right, left, back, current;
+
+	private Timer timer = new Timer(); 
 
 	/**
 	 * Creates new CityBus
@@ -113,13 +117,17 @@ public class CityBus extends CityComponent {
 
 
 	public void DoAdvanceToNextStop() {
-		mStopNumber = (mStopNumber + 1) % mStopCoords.size();
-        destination.setTo(mStopCoords.get(mStopNumber));
-		mTraveling = true;
+		timer.schedule(new TimerTask(){
+			public void run(){
+				mStopNumber = (mStopNumber + 1) % mStopCoords.size();
+		        destination.setTo(mStopCoords.get(mStopNumber));
+				mTraveling = true;
 
-        if (mStopNumber == 0)		current = back;
-        else if (mStopNumber == 1)	current = right;
-        else if (mStopNumber == 2)	current = front;
-        else if (mStopNumber == 3)	current = left;
+		        if (mStopNumber == 0)		current = back;
+		        else if (mStopNumber == 1)	current = right;
+		        else if (mStopNumber == 2)	current = front;
+		        else if (mStopNumber == 3)	current = left;
+			}
+		}, 2000); 
 	}
 }

@@ -131,4 +131,8 @@ public class CookGui implements Gui, CookGui_ {
 	public void setAnimationPanel(RexAnimationPanel animationPanel) {
 		this.animationPanel = animationPanel;
 	}
+	
+	public void setAgent(Cook cook){
+		agent = cook;
+	}
 }
