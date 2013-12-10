@@ -69,17 +69,19 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		//check all the restaurants
 		for(int i=0;i<8;i++) {
 			synchronized(mDeliveries) {
-			for(MarketOrder o : mDeliveries) {
-				Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
-				if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) {
-					DoGoToRestaurant(i);
-					print("Delivering order.");
-					o.mStatus = EnumOrderStatus.FULFILLING;
-					((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
-					mDeliveries.remove(o);
-					break;
+				synchronized(ContactList.sOpenPlaces) {
+					for(MarketOrder o : mDeliveries) {
+						Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
+						if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) {
+							DoGoToRestaurant(i);
+							print("Delivering order.");
+							o.mStatus = EnumOrderStatus.FULFILLING;
+							((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
+							mDeliveries.remove(o);
+							break;
+						}
+					}
 				}
-			}
 			}
 		}
 	}

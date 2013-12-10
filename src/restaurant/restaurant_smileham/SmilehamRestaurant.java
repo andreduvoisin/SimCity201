@@ -56,7 +56,7 @@ public class SmilehamRestaurant {
 	public static void removeGui(Gui g) {
 		synchronized(mGuis) {
 			mGuis.remove(g);
-    	}
+		}
 	}
 
 }
