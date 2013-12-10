@@ -529,17 +529,13 @@ public class PersonAgent extends Agent implements Person {
 					if (r instanceof HousingLandlordRole) {
 						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
 							assignedLandlord = (HousingLandlordRole) r;
+							((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
+							((HousingRenterRole) getHousingRole()).msgRequestHousing();
+							return;
 						}
 					}
 				}
 			}
-		}
-		if (assignedLandlord != null) {
-			((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
-			((HousingRenterRole) getHousingRole()).msgRequestHousing();
-		}
-		else {
-			print("No available landlords");
 		}
 	}
 	
