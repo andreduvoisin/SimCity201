@@ -144,7 +144,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		mRoles.put(SortingHat.getHousingRole(this), true);
 		//mRoles.put(new CommuterRole(this), false); 
-		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
+		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
@@ -627,7 +627,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//GO TO BANK AND DO STUFF
 		mCommuterRole.mActive = true;
-		mCommuterRole.setLocation(ContactList.cBANK1_LOCATION);
+		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		mCommutingTo = EnumCommuteTo.BANK;
 	}
 	
