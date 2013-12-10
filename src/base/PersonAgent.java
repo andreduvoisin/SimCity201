@@ -478,6 +478,12 @@ public class PersonAgent extends Agent implements Person {
 					}
 					break;
 				case HOUSE:
+					HousingBase housingRole = getHousingRole();
+					if (!((Role) housingRole).hasPerson()) {
+						((Role) housingRole).setPerson(this);
+					}
+					mRoles.put((Role) housingRole, true);
+					((Role) housingRole).setActive();
 					break;
 				case JOB:
 					mAtJob = true; //set to false in msgTimeShift
@@ -603,11 +609,13 @@ public class PersonAgent extends Agent implements Person {
 
 	public void eatFood() {
 		if (isCheap() && getHousingRole().getHouse() != null){
+			//DAVID I'm trying this out to see what happens...
+//			print("Going to market to buy food to eat at home");
+//			goToMarket();
 			print("Going to eat at home");
 			getHousingRole().msgEatAtHome();
-			
 			mCommuterRole.mActive = true;
-			mCommuterRole.setLocation(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+			mCommuterRole.setLocation(getHousingRole().getLocation());
 			mCommutingTo = EnumCommuteTo.HOUSE;
 		}else{
 			print("Going to restaurant");
@@ -822,16 +830,12 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void invokeMaintenance() {
 		//ALL: this is a hack needs to be fixed
-//		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-//		Role jobRole = new HousingOwnerRole(this);
-//		jobRole.setPerson(this);
-//		((HousingBaseRole) jobRole).setHouse(ContactList.sHouseList.get(sHouseCounter));
-//		mPersonGui.setPresent(true);
-//		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
-//		sHouseCounter++;
-//		acquireSemaphore(semAnimationDone);
-//		mPersonGui.setPresent(false);
-//		((HousingBaseRole) jobRole).msgTimeToMaintain();
+		if (getHousingRole().getHouse() != null) {
+			mCommuterRole.mActive = true;
+			mCommuterRole.setLocation(getHousingRole().getLocation());
+			mCommutingTo = EnumCommuteTo.HOUSE;
+			((HousingBaseRole) getHousingRole()).msgTimeToMaintain();
+		}
 	}
 	
 	/*private List<Person> getBestFriends(){
