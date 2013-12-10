@@ -86,6 +86,14 @@ NONE 200 restcust14
 NONE 200 restcust15
 NONE 200 restcust16
 NONE 200 restcust17
+NONE 200 restcust18
+NONE 200 restcust19
+NONE 200 restcust20
+NONE 200 restcust21
+NONE 200 restcust22
+NONE 200 restcust23
+NONE 200 restcust24
+NONE 200 restcust17
 NONE 20 inspection1
-NONE 20 inspection2
+NONE 20 inspectionnoca
 NONE 20 inspectionhasc
