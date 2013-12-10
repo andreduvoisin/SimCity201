@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import base.Location;
 
@@ -29,13 +30,13 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
 					platingPos = new Location(180, 350);
     static BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
 
-    public CwagonerCookGui(CwagonerCookRole c, CwagonerAnimationPanel panel) {
+    public CwagonerCookGui(CwagonerCookRole c) {
     	super(c);
     	state = State.idle;
         position.setTo(homePos);
         destination.setTo(homePos);
 
-        CwagonerAnimationPanel.restaurant.addGui(this);
+        CwagonerRestaurant.addGui(this);
     }
 
     public void updatePosition() {

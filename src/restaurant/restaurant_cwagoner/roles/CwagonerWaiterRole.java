@@ -19,6 +19,7 @@ import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
 public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
+	private CwagonerHostRole host;
 
 	public CwagonerWaiterRole(Person person) {
 		super(person);
@@ -29,8 +30,6 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		menu.put("Pizza", 4);
 
 		this.setGui(new CwagonerWaiterGui(this));
-
-		CwagonerRestaurant.host.addWaiter(this);
 	}
 
 	public String getName() {
@@ -258,7 +257,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
 		c.customer.msgAcknowledgeLeaving();
-		CwagonerRestaurant.host.msgCustomerGoneTableEmpty(c.customer, c.tableNum);
+		host.msgCustomerGoneTableEmpty(c.customer, c.tableNum);
 		
 		Customers.remove(c);
 		gui.DoGoToHomePosition();
@@ -412,6 +411,10 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.R1, e);
+	}
+
+	public void setHost(CwagonerHostRole h) {
+		host = h;
 	}
 }
 	

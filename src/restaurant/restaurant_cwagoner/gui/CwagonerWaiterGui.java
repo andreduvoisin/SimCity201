@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.Location;
 import base.interfaces.Role;
@@ -36,7 +37,7 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements CwagonerGui {
     	state = State.idle;
         waiterNum++;
 
-        CwagonerAnimationPanel.restaurant.addGui(this);
+        CwagonerRestaurant.addGui(this);
 
         position = new Location(homePos.mX, homePos.mY);
         destination = new Location(homePos.mX, homePos.mY);
