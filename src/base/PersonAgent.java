@@ -610,8 +610,8 @@ public class PersonAgent extends Agent implements Person {
 	public void eatFood() {
 		if (isCheap() && getHousingRole().getHouse() != null){
 			//DAVID I'm trying this out to see what happens...
-//			print("Going to market to buy food to eat at home");
-//			goToMarket();
+			print("Going to market to buy food to eat at home");
+			goToMarket();
 			print("Going to eat at home");
 			getHousingRole().msgEatAtHome();
 			mCommuterRole.mActive = true;
