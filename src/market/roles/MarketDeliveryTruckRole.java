@@ -67,6 +67,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			return true;
 		}
 		}
+		waitAtMarket();
 		return false;
 	}
 	
@@ -114,7 +115,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			p.mPersonGui.mDeliverying = true;
 			p.mPersonGui.DoGoToDestination(location);
 			p.acquireSemaphore(p.semAnimationDone);
-			print("test");
 			p.mPersonGui.mDeliverying = false;
 		}
 	}
@@ -137,7 +137,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			p.mPersonGui.mDeliverying = true;
 			p.mPersonGui.DoGoToDestination(location);
 			p.acquireSemaphore(p.semAnimationDone);
-			print("test");
 			p.mPersonGui.mDeliverying = false;
 		}
 	}
