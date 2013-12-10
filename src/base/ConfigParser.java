@@ -17,6 +17,7 @@ import city.gui.SimCityGui;
 public class ConfigParser {
 
 	private static ConfigParser instance = null;
+	private final static int timeBlock = 16;
 
 	public void readFileCreatePersons(SimCityGui simcitygui, String fileName) throws FileNotFoundException {
 		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+fileName));
@@ -77,12 +78,28 @@ public class ConfigParser {
 				else if(name.contains("robber"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, -1));
 				else if(name.contains("inspection")){
-					if(name.contains("hascar"))
+					if(name.contains("hasc"))
 						person.setHasCar(true);
 					if(name.contains("nocar"))
 						person.setHasCar(false);
 					person.msgAddEvent(new Event(EnumEventType.EAT, -1));
 					person.msgAddEvent(new Event(EnumEventType.INSPECTION, 0));
+				}
+				//Interesting Interweaving
+				if(name.contains("inter")){
+					int ssn = person.getSSN();
+					int time = Time.GetHour();
+					int size = ContactList.sEventList.size();
+					int timeDelay = timeBlock % ssn;
+					Event e1 = ContactList.sEventList.get(ssn%size); ssn++;
+					Event e2 = ContactList.sEventList.get(ssn%size); ssn++;
+					Event e3 = ContactList.sEventList.get(ssn%size);
+					//Set Time to Current
+					e1.setTime(time); e2.setTime(time); e3.setTime(time);
+					//Add Event to Person
+					person.msgAddEvent(new Event(e1, 0*timeBlock + timeDelay));
+					person.msgAddEvent(new Event(e2, 1*timeBlock + timeDelay));
+					person.msgAddEvent(new Event(e3, 2*timeBlock + timeDelay));
 				}
 			}
 

@@ -93,4 +93,4 @@ RESTAURANT 200 restcust23
 RESTAURANT 200 restcust24
 NONE 20 inspection1
 NONE 20 inspection2
-NONE 20 inspectionhascar
+NONE 20 inspectionhasc
