@@ -6,6 +6,7 @@ import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCustomer;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
+import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
@@ -19,6 +20,7 @@ public class MockCustomer extends Mock implements MaggiyanCustomer {
 	 * Reference to the Cashier under test that can be set by the unit test.
 	 */
 	public MaggiyanCashier cashier;
+	public MaggiyanSharedWaiterRole waiter; 
 
 	public MockCustomer(String name) {
 		super(name);
