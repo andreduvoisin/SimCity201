@@ -26,7 +26,6 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	// DATA
 	
-	private int hungerLevel = 5;        // determines length of meal
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
 	private String food;
 	private double myMoney;
@@ -42,9 +41,9 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	public enum State { doingNothing, inRestaurant, waitingToBeSeated,
 						goingToSeat, lookingAtMenu, readyToOrder, ordering, ordered,
 						eating, askedForCheck, goingToCashier, waitingAtCashier, paid, leaving};
-	private State state = State.doingNothing;
+	private State state = State.inRestaurant;
 
-	public enum Event { none, gotHungry, followWaiter, seated, decidedOnFood,
+	public enum Event { none, followWaiter, seated, decidedOnFood,
 						waiterAskedForOrder, gaveOrderToWaiter, foodDelivered,
 						doneEating, checkReady, arrivedAtCashier, checkGiven,
 						cashierAccepted, doneLeaving };
@@ -52,8 +51,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 
 	public CwagonerCustomerRole(Person person, CwagonerAnimationPanel panel) {
 		super(person);
-		// CHASE: handle payment: moneyOwed, myMoney?
-		state = State.inRestaurant;
+		print("CwagonerCustomerRole created inRestaurant");
 
 		animationPanel = panel;
 		this.setGui(new CwagonerCustomerGui(this, panel));
@@ -350,7 +348,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 				
 				stateChanged();
 			}
-		}, hungerLevel * 1000);
+		}, 5000);
 	}
 	
 	public void AlertWaiter() {
@@ -383,7 +381,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 				event = Event.doneEating;
 				stateChanged();
 			}
-		}, hungerLevel * 1000);
+		}, 5000);
 	}
 
 	private void TellWaiterLeaving() {
@@ -443,16 +441,6 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	public String getName() {
 		return "CwagonerCustomer " + mPerson.getName();
-	}
-	
-	public int getHungerLevel() {
-		return hungerLevel;
-	}
-
-	public void setHungerLevel(int h) {
-		hungerLevel = h;
-		// could be a state change. Maybe you don't
-		// need to eat until hunger lever is > 5?
 	}
 
 	public void setGui(CwagonerCustomerGui g) {

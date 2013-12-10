@@ -13,7 +13,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	private final int PLATE = 20;
 	private static int customerNum = 0;
 	
-	private boolean isHungry = false;
+	private boolean isHungry = true;
 
 	CwagonerWaiterRole waiter;
 

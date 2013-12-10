@@ -21,6 +21,8 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 
 	public CwagonerHostRole(Person person) {
 		super(person);
+
+		print("CwagonerHostRole created");
 	}
 	
 	
