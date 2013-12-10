@@ -26,6 +26,7 @@ import base.ConfigParser;
 import base.ContactList;
 import base.Inspection;
 import base.Location;
+import city.gui.SimCityPanel.EnumCrashType;
 import city.gui.properties.PlacesButtonListener;
 import city.gui.properties.PlacesListener;
 import city.gui.properties.PlacesPropertiesLabel;
@@ -261,7 +262,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioJ.addActionListener(getActionListener("J_All_Interweave.txt"));
 			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
 			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
-			scenarioQ.addActionListener(getActionListener(""));
+			scenarioQ.addActionListener(getActionListener("Q_Crash_2.txt"));
 			scenarioR.addActionListener(getActionListener(""));
 			scenarioS.addActionListener(getActionListener(""));
 	}
@@ -272,11 +273,19 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource()== scenarioP) {
-					System.out.println("trigger crashes...");
 					Timer collisionTimer = new Timer();
 					TimerTask detectCrashes = new TimerTask() {
 						public void run() {
-							SimCityGui.getInstance().citypanel.mCrashScenario = true;
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
+						}
+					};
+					collisionTimer.schedule(detectCrashes, 6500);
+				}
+				if (e.getSource()== scenarioQ) {
+					Timer collisionTimer = new Timer();
+					TimerTask detectCrashes = new TimerTask() {
+						public void run() {
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
