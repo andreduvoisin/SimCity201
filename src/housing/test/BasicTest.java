@@ -44,6 +44,8 @@ public class BasicTest extends TestCase {
 		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
 		HousingPersonGui gui1 = new HousingPersonGui();
 		HousingPersonGui gui2 = new HousingPersonGui();
+		
+		
 //		renter1.setGui(gui1);
 //		renter2.setGui(gui2);
 		/*HousingHouseGuiPanel housepanel = HousingHouseGuiPanel.getInstance();

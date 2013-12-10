@@ -1,8 +1,6 @@
 BANK 200 mtelle1
 BANK 200 guard11
-BANK 200 guard12
 BANK 200 teller11
-BANK 200 teller12
 NONE 200 bankcust11
 NONE 200 bankcust12
 NONE 200 robber1
