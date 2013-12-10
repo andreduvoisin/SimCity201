@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_maggiyan.Check;
+import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCustomerGui;
@@ -243,6 +244,8 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 
 	private void goToRestaurant() {
 		print("Maggi Going to restaurant");
+		customerGui.setHungry(MaggiyanRestaurant.customerPosCounter);
+		MaggiyanRestaurant.customerPosCounter++; 
 		host.msgIWantFood(this);//send our instance, so he can respond to us
 	}
 
