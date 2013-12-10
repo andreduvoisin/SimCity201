@@ -12,7 +12,8 @@ import city.gui.SimCityGui;
 
 public class TranacCashierGui implements Gui {
 
-    private TranacCashierRole agent;
+    @SuppressWarnings("unused")
+	private TranacCashierRole agent;
 
     private int xPos = 230, yPos = 130;					//static host position
     private int xDestination = 230, yDestination = 130;	//static cashier position

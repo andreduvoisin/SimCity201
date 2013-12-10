@@ -33,13 +33,18 @@ public class DavidCookRole extends BaseRole implements Cook {
 	public RestaurantCookRole mRole;
 	private CookGui cookGui;
 	private Semaphore isAnimating = new Semaphore(1, true);
+	@SuppressWarnings("unused")
 	private boolean ordering;
+	@SuppressWarnings("unused")
 	private boolean reorder;
+	@SuppressWarnings("unused")
 	private Request currentRequest;
 	private final static int orderThreshold = 1;
 
 	private class Request {
+		@SuppressWarnings("unused")
 		Map<String, Integer> stuffToBuy;
+		@SuppressWarnings("unused")
 		List<Market> askedMarkets;
 
 		private Request() {

@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.util.List;
 
 import transportation.TransportationBus;
-import base.Block;
 import base.ContactList;
 import base.Inspection;
 
@@ -89,10 +87,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 			this.addStatic(iCC);
 		}
 		
-		
 		//DAVID testing add personblocks
 //		for (List<Block> list : ContactList.cNAVBLOCKS) {
-//			for (Block b : ContactList.cNAVBLOCKS.get(1)) {
+//			for (Block b : list) {
 //				this.addStatic(b);
 //			}
 //		}

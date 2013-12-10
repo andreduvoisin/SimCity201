@@ -12,7 +12,8 @@ import city.gui.SimCityGui;
 
 public class TranacHostGui implements Gui {
 
-    private TranacHostRole agent = null;
+    @SuppressWarnings("unused")
+	private TranacHostRole agent = null;
 
     private int xPos = 50, yPos = 20;					//static host position
     private int xDestination = 50, yDestination = 20;	//static host position

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
@@ -24,7 +25,16 @@ import restaurant.intermediate.RestaurantCookRole;
 import restaurant.intermediate.RestaurantCustomerRole;
 import restaurant.intermediate.RestaurantHostRole;
 import restaurant.intermediate.RestaurantWaiterRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
+import restaurant.restaurant_davidmca.roles.DavidCustomerRole;
+import restaurant.restaurant_duvoisin.roles.AndreCustomerRole;
+import restaurant.restaurant_jerryweb.JerrywebCustomerRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanCustomerRole;
+import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
+import restaurant.restaurant_tranac.roles.TranacCustomerRole;
+import restaurant.restaurant_xurex.RexCustomerRole;
 import transportation.roles.CommuterRole;
+import transportation.roles.CommuterRole.PersonState;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
@@ -38,6 +48,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
+import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 
 
@@ -84,6 +95,7 @@ public class PersonAgent extends Agent implements Person {
 										BANK,
 										PARTY};
 	public EventParty mCurrentParty = null;
+	public Boolean firstRun = true;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -257,24 +269,25 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		if ((mRoleFinished) && (!mAtJob) ){
+			print("IN EVENT LOOP");
 			// Process events (calendar)
 			synchronized(mEvents){
 				Collections.sort((mEvents));
 			}
 			if(mEvents.isEmpty()) {
-				System.out.println("test");
+//				System.out.println("test");
 				return false;
 			}
 			Event event = mEvents.get(0); //next event
 			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
-				if(!mName.contains("party") && !mName.contains("other")) //required because party is not a role
+				if(!mName.contains("party") && !mName.contains("other") && !mName.contains("inter")) //required because party is not a role
 					mRoleFinished = false; //doing a role
 				processEvent(event);
 				return true;
 			}
 		}
-
+		
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole) && iRole!= null) {
@@ -284,7 +297,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 				else if (mCommuterRole.mActive){
 					if(mCommuterRole.pickAndExecuteAnAction()){
-						//print("Executes CommuterRole"); 
+						AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "moving...");
 						return true;
 					}
 				}
@@ -317,11 +330,9 @@ public class PersonAgent extends Agent implements Person {
 				mAtJob = true;
 				goToJob();
 			}
-			mEvents.add(new Event(event, 24));
 		}
 		else if (event.mEventType == EnumEventType.EAT) {
 			eatFood();
-			mEvents.add(new Event(event, 24));
 		}
 
 		//Intermittent Events (Deposit Check)
@@ -374,8 +385,6 @@ public class PersonAgent extends Agent implements Person {
 		//Inspection
 		else if (event.mEventType == EnumEventType.INSPECTION) {
 			inspect();
-			mEvents.add(new Event(event, -1));
-			//REX: created looping inspection, easy to fix
 		}
 		
 		//Market
@@ -395,6 +404,50 @@ public class PersonAgent extends Agent implements Person {
 					for (Role iRole : mRoles.keySet()){
 						if (iRole instanceof RestaurantCustomerRole){
 							((RestaurantCustomerRole) iRole).setPerson(this);
+							
+							synchronized(ContactList.sOpenBuildings) {
+								if(((RestaurantCustomerRole)iRole).subRole instanceof AndreCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R0")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								} else if(((RestaurantCustomerRole)iRole).subRole instanceof CwagonerCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R1")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								} else if(((RestaurantCustomerRole)iRole).subRole instanceof JerrywebCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R2")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								} else if(((RestaurantCustomerRole)iRole).subRole instanceof MaggiyanCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R3")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								} else if(((RestaurantCustomerRole)iRole).subRole instanceof DavidCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R4")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								} else if(((RestaurantCustomerRole)iRole).subRole instanceof SmilehamCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R5")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								} else if(((RestaurantCustomerRole)iRole).subRole instanceof TranacCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R6")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								} else if(((RestaurantCustomerRole)iRole).subRole instanceof RexCustomerRole) {
+									if(!ContactList.sOpenBuildings.get("R7")) {
+										mRoles.remove(iRole);
+										//assignNextEvent();
+									}
+								}
+							}
 						}
 					}
 					break;
@@ -438,6 +491,17 @@ public class PersonAgent extends Agent implements Person {
 				case MARKET:
 					break;
 				case PARTY:
+					PartyRole partyPerson = null;
+					for (Role iRole : mRoles.keySet()){
+						if (iRole instanceof PartyRole){
+							partyPerson = (PartyRole)iRole;
+						}
+					}
+					mRoles.put(partyPerson, false);
+					
+					print("going to house #" + mCurrentParty.mHost
+							.getHousingRole().getHouse().mHouseNum);
+					
 					((HousingBaseRole) getHousingRole()).gui.setPresent(true);
 					SimCityGui.getInstance().cityview.mCityHousingList.get(mCurrentParty.mHost
 							.getHousingRole().getHouse().mHouseNum).mPanel
@@ -465,17 +529,13 @@ public class PersonAgent extends Agent implements Person {
 					if (r instanceof HousingLandlordRole) {
 						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
 							assignedLandlord = (HousingLandlordRole) r;
+							((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
+							((HousingRenterRole) getHousingRole()).msgRequestHousing();
+							return;
 						}
 					}
 				}
 			}
-		}
-		if (assignedLandlord != null) {
-			((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
-			((HousingRenterRole) getHousingRole()).msgRequestHousing();
-		}
-		else {
-			print("No available landlords");
 		}
 	}
 	
@@ -507,6 +567,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void inspect() {
 		//REX ALL: HOW IS THIS WORKING WITH COMMUTER ROLE!?
+		print("I AM INSPECTING");
 		mPersonGui.setPresent(true);
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
@@ -553,10 +614,16 @@ public class PersonAgent extends Agent implements Person {
 			
 			//set random restaurant
 			int restaurantChoice;
-			if (SimCityGui.TESTING)
+			Random rand = new Random();
+			if (SimCityGui.TESTING) {
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
-			else
+			} else if(firstRun) {
 				restaurantChoice = mSSN % 8;
+				firstRun = false;
+			} else {
+				restaurantChoice = rand.nextInt(8);
+				AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "" + restaurantChoice);
+			}
 			
 			RestaurantCustomerRole restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -570,7 +637,8 @@ public class PersonAgent extends Agent implements Person {
 			
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-			mCommutingTo = EnumCommuteTo.RESTAURANT;	
+			mCommutingTo = EnumCommuteTo.RESTAURANT;
+			stateChanged();
 		}		
 	}
 	
@@ -634,29 +702,40 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		if(!mName.equals("partyPerson"))
 			mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-//		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+//		Location partyLocation = new Location(500,500); //REX: remove hardcoded party pad after dehobo the host
 		Location partyLocation = getHousingRole().getLocation();
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
-		print("I have events: "+mEvents.size());
 	}
 
 	private void goParty(EventParty event) {
 		print("Going to party");
 
-		mPersonGui.DoGoToDestination(event.mLocation);
-		//acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
-		SimCityGui.getInstance().cityview.mCityHousingList.get(event.mHost
-				.getHousingRole().getHouse().mHouseNum).mPanel
-				.addGui((Gui) ((HousingBaseRole) getHousingRole()).gui);
-		((HousingBaseRole) getHousingRole()).gui.DoParty();
-
+//		mPersonGui.DoGoToDestination(event.mLocation);
+//		acquireSemaphore(semAnimationDone);
+//		mPersonGui.setPresent(false);
+//		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
+//		SimCityGui.getInstance().cityview.mCityHousingList.get(event.mHost
+//				.getHousingRole().getHouse().mHouseNum).mPanel
+//				.addGui((Gui) ((HousingBaseRole) getHousingRole()).gui);
+//		((HousingBaseRole) getHousingRole()).gui.DoParty();
+		
+		PartyRole partyPerson = null;
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof PartyRole){
+				partyPerson = (PartyRole)iRole;
+			}
+		}
+		if(partyPerson == null)
+			partyPerson = new PartyRole(this);
+		
+		mRoles.put(partyPerson, true);
+		
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(event.mLocation);
 		mCommutingTo = EnumCommuteTo.PARTY;
-
+		
+		mRoleFinished = false;
 	}
 
 	private void inviteToParty() {
@@ -670,7 +749,7 @@ public class PersonAgent extends Agent implements Person {
 		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
-		Location partyLocation = new Location(100, 0);
+		Location partyLocation = getHousingRole().getLocation();//new Location(100, 0);
 		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		
 		//Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends);
@@ -702,12 +781,12 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		synchronized(party.mAttendees){
-		for (Person iPerson : party.mAttendees.keySet()){
-			if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
-				Event rsvp = new EventParty(EnumEventType.RSVP2, -1, this);
-				iPerson.msgAddEvent(rsvp);
+			for (Person iPerson : party.mAttendees.keySet()){
+				if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
+					Event rsvp = new EventParty(EnumEventType.RSVP2, -1, this);
+					iPerson.msgAddEvent(rsvp);
+				}
 			}
-		}
 		}
 	}
 	
@@ -946,5 +1025,12 @@ public class PersonAgent extends Agent implements Person {
 	
 	public List<Person> getFriendList(){
 		return mFriends;
+	}
+	
+	public void assignNextEvent(){
+		Random rand = new Random();
+		mEvents.add(ContactList.sEventList.get(rand.nextInt(ContactList.sEventList.size())));
+		mCommuterRole.mState = PersonState.walking;
+		stateChanged();
 	}
 }

@@ -2,7 +2,6 @@ package base;
 
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
-import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;

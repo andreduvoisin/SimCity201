@@ -257,6 +257,7 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		} else if (!availability) {
 			Random rand = new Random();
 			int randvalue = rand.nextInt(1000);
+			@SuppressWarnings("unused")
 			int stay = randvalue % 2;
 //			switch (stay) {
 //			case 0:
@@ -366,10 +367,9 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		Do("Leaving.");
 		waiter.msgDoneEating(this);
 		customerGui.DoExitRestaurant();
-		mPerson.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
-		mPerson.setJobFalse();
+		
 		mPerson.msgRoleFinished();
-		stateChanged();
+		mPerson.assignNextEvent();
 	}
 
 	// Accessors, etc.

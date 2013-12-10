@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,6 +23,9 @@ import city.gui.SimCityGui;
 @SuppressWarnings("serial")
 public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 
+	//ANIMATIONS
+	private BufferedImage background;
+	
 	int tableSize = 50;
 	public static CwagonerRestaurant restaurant;
 
@@ -42,6 +46,15 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 
     	initializeTables();
     	initializeCookingArea();
+    	
+    	background = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mybg.png");
+    	background = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
     
     private void initializeTables() {
@@ -74,9 +87,11 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		repaint();  // Will have paint() called
 		
 		synchronized(CwagonerRestaurant.guis) {
-			for (Gui gui : CwagonerRestaurant.guis) {
-	            gui.updatePosition();
-	        }
+			try {
+				for (Gui gui : CwagonerRestaurant.guis) {
+		            gui.updatePosition();
+		        }
+			} catch(Exception ex) { }
 		}
 	}
 
@@ -86,6 +101,9 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
         // Clear the screen by painting a rectangle the size of the panel
         g2.setColor(getBackground());
         g2.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
+        
+        if(background != null)
+        	g2.drawImage(background,0,0,null);
 
         // Tables
         g2.setColor(Color.ORANGE);

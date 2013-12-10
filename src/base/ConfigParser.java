@@ -17,10 +17,17 @@ import city.gui.SimCityGui;
 public class ConfigParser {
 
 	private static ConfigParser instance = null;
-	private final static int timeBlock = 16;
+	private final static int timeBlock = 8;
 
-	public void readFileCreatePersons(SimCityGui simcitygui, String fileName) throws FileNotFoundException {
-		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+fileName));
+	public void readFileCreatePersons(SimCityGui simcitygui, String input) throws FileNotFoundException {
+		
+		Scanner scanFile;
+		if(input.contains(".txt")) {
+			scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+input));
+		}
+		else {
+			scanFile = new Scanner(input);
+		}
 		
 		//Instantiate the base roles before creating the people
 //		boolean mInstantiateRoles = true;
@@ -86,7 +93,7 @@ public class ConfigParser {
 					else if(name.contains("inspection")){
 						if(name.contains("hascar"))
 							person.setHasCar(true);
-						if(name.contains("nocar"))
+						if(name.contains("noca"))
 							person.setHasCar(false);
 						person.msgAddEvent(new Event(EnumEventType.EAT, -1));
 						person.msgAddEvent(new Event(EnumEventType.INSPECTION, 0));
@@ -95,7 +102,7 @@ public class ConfigParser {
 					//Interesting Interweaving
 					if(name.contains("inter")){
 						int ssn = person.getSSN();
-						int time = Time.GetHour();
+						int time = Time.GetTime();
 						int size = ContactList.sEventList.size();
 						int timeDelay = timeBlock % ssn;
 						Event e1 = ContactList.sEventList.get(ssn%size); ssn++;
@@ -116,6 +123,7 @@ public class ConfigParser {
 					ContactList.sPersonList.add(person);
 					simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
 					((PersonAgent) person).startThread();
+					System.out.println("num of persons: "+ContactList.sPersonList.size());
 				}
 				
 			scanPerson.close();

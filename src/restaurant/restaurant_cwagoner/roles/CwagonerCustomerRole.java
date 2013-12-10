@@ -434,6 +434,9 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		state = State.leaving;
 		gui.clearFood();
 		gui.DoExitRestaurant();
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 
 

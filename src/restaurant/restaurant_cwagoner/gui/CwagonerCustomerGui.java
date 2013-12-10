@@ -36,7 +36,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements Gui {
 		super(c);
 		customerNum++;
 
-		CwagonerAnimationPanel.restaurant.addGui(this);
+		CwagonerRestaurant.addGui(this);
 
         position = new Location(waitingPos.mX, waitingPos.mY);
         destination = new Location(waitingPos.mX, waitingPos.mY);

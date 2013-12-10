@@ -450,6 +450,9 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 		waiter.msgDoneEating(this);
 		customerGui.setClear();
 		DoExitRestaurant();
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 
 	/** Animation Actions */

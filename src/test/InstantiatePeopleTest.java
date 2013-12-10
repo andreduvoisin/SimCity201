@@ -17,6 +17,7 @@ public class InstantiatePeopleTest extends TestCase {
 	CityPanel panel;
 	
 	public void testRestaurantIntegration() throws IOException {
+		@SuppressWarnings("unused")
 		ConfigParser config = ConfigParser.getInstanceOf();
 		//config.readFileCreatePersons(null, 0);
 		panel = CityPanel.getInstance();

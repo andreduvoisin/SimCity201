@@ -197,9 +197,9 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		mPerson.msgAddEvent(new Event(EnumEventType.EAT, 0));
-		//mPerson.setJobFalse();
+		
 		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 	
 /* Utilities */

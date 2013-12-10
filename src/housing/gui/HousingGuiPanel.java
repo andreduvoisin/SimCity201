@@ -25,24 +25,25 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
-	private List<Gui> guis = new ArrayList<Gui>();
+	public List<Gui> guis = new ArrayList<Gui>();
 	
-	//Furniture Positions
-	private int CHAIRXPOS = 280; 
-	private int CHAIRYPOS = 210; 
-	private int DiningTableDim = 50; 
-
-	//Person Positions
-	private int COUCHXPOS = 75;
-	private int COUCHYPOS = 265;
+	//UNUSED VARIABLES
+//	//Furniture Positions
+//	private int CHAIRXPOS = 280; 
+//	private int CHAIRYPOS = 210; 
+//	private int DiningTableDim = 50; 
+//
+//	//Person Positions
+//	private int COUCHXPOS = 75;
+//	private int COUCHYPOS = 265;
 	
 	//Maintenance Hack Coordinates
-	private int CORNERONEX = 115; 
-	private int CORNERONEY = 120;
-	private int CORNER2X = 420; 
-	private int CORNER2Y = 110;
-	private int CORNER3X = 445; 
-	private int CORNER3Y = 275;
+//	private int CORNERONEX = 115; 
+//	private int CORNERONEY = 120;
+//	private int CORNER2X = 420; 
+//	private int CORNER2Y = 110;
+//	private int CORNER3X = 445; 
+//	private int CORNER3Y = 275;
 //	private int CORNER4X = 290; 
 //	private int CORNER4Y = 100;
 //	private int CORNER5X = 290; 
@@ -50,7 +51,7 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 	
 	//Images
 	private BufferedImage image;
-	private BufferedImage person; 
+	//private BufferedImage person; 
 	private int bgPosx = 0;
 	private int bgPosy = 0;
 	
@@ -73,14 +74,14 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
     	}
     	
     	//hack for person
-		person = null;
-    	try {
-    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
-    	person = ImageIO.read(imageURL);
-    	}
-    	catch (IOException e) {
-    		System.out.println(e.getMessage());
-    	}
+//		person = null;
+//    	try {
+//    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
+//    	person = ImageIO.read(imageURL);
+//    	}
+//    	catch (IOException e) {
+//    		System.out.println(e.getMessage());
+//    	}
 
 	}
 

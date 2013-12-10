@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import base.Block;
 import base.ContactList;
@@ -15,6 +19,10 @@ public class CityPerson extends CityComponent {
 //	private String name = "";
 	PersonAgent mPerson = null;
 	SimCityGui gui;
+	
+	BufferedImage up, right, left, down, current;
+	BufferedImage carfront, carright, carleft, carback; 
+	BufferedImage personfront, personright, personleft, personback; 
 	
 	public Location mDestination = null; 
 	public Location mFinalDestination = null;
@@ -37,6 +45,33 @@ public class CityPerson extends CityComponent {
 		mPerson = person;
 		this.gui = gui;
 		this.enable();
+		
+		initializeImages(); 
+	}
+	
+	private void initializeImages() {
+		try {
+			java.net.URL cfrontURL = this.getClass().getClassLoader().getResource("city/gui/images/cardown.png");
+			carfront = ImageIO.read(cfrontURL);
+			java.net.URL crightURL = this.getClass().getClassLoader().getResource("city/gui/images/carright.png");
+			carright = ImageIO.read(crightURL);
+			java.net.URL cbackURL = this.getClass().getClassLoader().getResource("city/gui/images/carup.png");
+			carback = ImageIO.read(cbackURL);
+			java.net.URL cleftURL = this.getClass().getClassLoader().getResource("city/gui/images/carleft.png");
+			carleft = ImageIO.read(cleftURL);
+			
+			java.net.URL pfrontURL = this.getClass().getClassLoader().getResource("city/gui/images/persondown.png");
+			personfront = ImageIO.read(pfrontURL);
+			java.net.URL prightURL = this.getClass().getClassLoader().getResource("city/gui/images/personright.png");
+			personright = ImageIO.read(prightURL);
+			java.net.URL pbackURL = this.getClass().getClassLoader().getResource("city/gui/images/personup.png");
+			personback = ImageIO.read(pbackURL);
+			java.net.URL pleftURL = this.getClass().getClassLoader().getResource("city/gui/images/personleft.png");
+			personleft = ImageIO.read(pleftURL);
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -45,11 +80,23 @@ public class CityPerson extends CityComponent {
 		previousY = y;
 			
 		if (mDestination != null) {
-			if (x < mDestination.mX)		x++;
-	        else if (x > mDestination.mX)	x--;
+			if (x < mDestination.mX){
+				x++; 
+				current = right;
+			}
+	        else if (x > mDestination.mX){
+	        	x--;
+	        	current = left;
+	        }
 	
-	        if (y < mDestination.mY)		y++;
-	        else if (y > mDestination.mY)	y--;
+	        if (y < mDestination.mY){
+	        	y++;
+	        	current = down; 
+	        }
+	        else if (y > mDestination.mY){
+	        	y--;
+	        	current = up;
+	        }
 	        
 	        //if at destination
 	        if (x == mDestination.mX && y == mDestination.mY) {
@@ -107,8 +154,19 @@ public class CityPerson extends CityComponent {
 		//If person has a car
 		if (mDeliverying ||(mPerson.hasCar() && !mGettingCar)) {
 			if (mDeliverying || mPerson.hasCar()) {
+				//Animations
+				up = carback;
+				down = carfront;
+				right = carright;
+				left = carleft;
 				//if at corner closest to destination, walk to destination
 				if (mLocation.equals(destParking)){
+					//Animations
+					up = personback;
+					down = personfront;
+					right = personright;
+					left = personleft;
+					
 					x = closeCorner.mX;
 					y = closeCorner.mY;
 					mDestination = ContactList.getDoorLocation(mFinalDestination);
@@ -151,6 +209,11 @@ public class CityPerson extends CityComponent {
 		
 		//Else - if person does not have car, use bus
 		else {
+			//Animations
+			up = personback;
+			down = personfront;
+			right = personright;
+			left = personleft;
 			if (mLocation.equals(destCorner)) {
 				mUsingCar = false;
 				mDestinationPathType = 0;
@@ -180,7 +243,7 @@ public class CityPerson extends CityComponent {
 //		rectangle.y = y;
 		if(isActive) {
 			if (! onBus) {
-//				if(SimCityGui.GRADINGVIEW) {
+				if(SimCityGui.GRADINGVIEW) {
 					g.setColor(Color.WHITE);
 					g.drawString(mPerson.getName(),x,y);
 					if(mDeliverying) {
@@ -195,15 +258,10 @@ public class CityPerson extends CityComponent {
 						g.setColor(Color.yellow);
 						g.fillRect(x, y, 5, 5);
 					}
-//					g.setColor(Color.WHITE);
-//					g.drawString(name, x - 10, y);
-//				}
-//				else {
-//					g.setColor(color);
-//					g.fillRect(x, y, 5, 5);
-//					g.setColor(Color.WHITE);
-//					g.drawString(name, x - 10, y);
-//				}
+				}
+				else{
+					g.drawImage(current, x, y, null);
+				}
 			}
 		}
 	}

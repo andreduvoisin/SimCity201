@@ -33,7 +33,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	protected Color background;
 	protected Timer timer;
 	private BufferedImage backgroundImage;
-	private BufferedImage crashImage;
+	private BufferedImage bloodImage;
+	private BufferedImage fireImage;
 	
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
@@ -50,7 +51,9 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/citypanel-bg.png");
 			backgroundImage = ImageIO.read(imageURL);
 			java.net.URL imageURL2 = this.getClass().getClassLoader().getResource("city/gui/images/Blood_Splatter.png");
-			crashImage = ImageIO.read(imageURL2);			
+			bloodImage = ImageIO.read(imageURL2);		
+			java.net.URL imageURL3 = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+			fireImage = ImageIO.read(imageURL3);		
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -89,7 +92,10 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		
 		if (mCrashScenario != EnumCrashType.NONE) {
 			for (Location crash : crashes) {
-				g.drawImage(crashImage, crash.mX, crash.mY, null);
+				if (mCrashScenario == EnumCrashType.PERSON_VEHICLE)
+					g.drawImage(bloodImage, crash.mX, crash.mY, null);
+				if (mCrashScenario == EnumCrashType.VEHICLE_VEHICLE)
+					g.drawImage(fireImage, crash.mX, crash.mY, null);
 			}
 			synchronized (movings) {
 				for (CityComponent c : movings) {

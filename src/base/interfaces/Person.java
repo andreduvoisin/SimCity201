@@ -58,5 +58,7 @@ public interface Person {
 
 	void msgStateChanged();
 	
+	public void assignNextEvent();
+	
 	public abstract EnumJobType getJobType();
 }

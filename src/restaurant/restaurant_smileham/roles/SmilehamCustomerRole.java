@@ -393,7 +393,9 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	private void leaveRestaurant(){
 		print("Action: leaveRestaurant()");
 		mHost.msgLeavingRestaurant((SmilehamCustomer)this);
-		((PersonAgent) mPerson).msgRoleFinished();
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 
 	//-----------------------------------------------ACCESSORS-----------------------------------------------

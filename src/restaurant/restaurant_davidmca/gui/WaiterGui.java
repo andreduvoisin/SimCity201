@@ -23,7 +23,7 @@ public class WaiterGui implements Gui {
 		currentlyAnimating = false;
 		this.role = agent;
 		xHome = 10;
-		yHome = 30*(3+home);
+		yHome = 150+(100*home);
 		xPos = xHome;
 		yPos = yHome;
 	}
