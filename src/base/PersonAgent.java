@@ -485,7 +485,7 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = false;
 		
 		Location location;
-		if(mSSN%ContactList.cNumTimeShifts == 0) {
+		if(mSSN%2 == 0) {
 			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);

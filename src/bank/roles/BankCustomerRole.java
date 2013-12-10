@@ -205,10 +205,10 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 
 	@Override
 	public Location getLocation() {
-		if (mBankID == 1) {
+		if (mBankID == 0) {
 			return ContactList.cBANK1_LOCATION;
 		}
-		else if (mBankID == 2) {
+		else if (mBankID == 1) {
 			return ContactList.cBANK2_LOCATION;
 		}
 		return null;
