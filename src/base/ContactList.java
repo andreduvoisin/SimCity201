@@ -163,15 +163,15 @@ public class ContactList {
 	
 	//INTERSECTION BLOCKS
 	public static List<Block> cINTERSECTIONBLOCKS;
-	public static final Block cINTERSECTIONBLOCK0 = new Block(280,	35, 320, 85);
+	public static final Block cINTERSECTIONBLOCK0 = new Block(280,	35, 320, 95);
 	public static final Block cINTERSECTIONBLOCK1 = new Block(280,	280, 320, 320);
-	public static final Block cINTERSECTIONBLOCK2 = new Block(35,	280, 85, 320);
-	public static final Block cINTERSECTIONBLOCK3 = new Block(515,	280, 565, 320);
-	public static final Block cINTERSECTIONBLOCK4 = new Block(280,	515, 320, 565);
-	public static final Block cINTERSECTIONBLOCK5 = new Block(35, 35, 85, 85); 		//Upper Left
-	public static final Block cINTERSECTIONBLOCK6 = new Block(515, 35, 565, 85); 	//Upper Right
-	public static final Block cINTERSECTIONBLOCK7 = new Block(515, 515, 565, 565); 	//Bottom Right
-	public static final Block cINTERSECTIONBLOCK8 = new Block(35, 515, 85, 565); 	//Bottom Left
+	public static final Block cINTERSECTIONBLOCK2 = new Block(35,	280, 95, 320);
+	public static final Block cINTERSECTIONBLOCK3 = new Block(505,	280, 565, 320);
+	public static final Block cINTERSECTIONBLOCK4 = new Block(280,	505, 320, 565);
+	public static final Block cINTERSECTIONBLOCK5 = new Block(35, 35, 95, 95); 		//Upper Left
+	public static final Block cINTERSECTIONBLOCK6 = new Block(505, 35, 565, 95); 	//Upper Right
+	public static final Block cINTERSECTIONBLOCK7 = new Block(505, 505, 565, 565); 	//Bottom Right
+	public static final Block cINTERSECTIONBLOCK8 = new Block(35, 505, 95, 565); 	//Bottom Left
 	static{
 		List<Block> list = new ArrayList<>();
 		list.add(cINTERSECTIONBLOCK0);

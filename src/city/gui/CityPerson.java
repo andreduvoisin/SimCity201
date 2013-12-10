@@ -115,7 +115,7 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
 		//If person has a car
-		if (!mGettingCar) {
+		if (mPerson.hasCar() && !mGettingCar) {
 			if (mPerson.hasCar()) {
 				//if at corner closest to destination, walk to destination
 				if (mLocation.equals(destParking)){
@@ -169,7 +169,7 @@ public class CityPerson extends CityComponent {
 			}
 			else {
 				if (mLocation.equals(closeCorner)) {
-	//				mPerson.print("got to closecorner");
+//					mPerson.print("got to closecorner");
 					if (mUsingBus) {
 						mPerson.print("IN HEREUSING BUS");
 						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
