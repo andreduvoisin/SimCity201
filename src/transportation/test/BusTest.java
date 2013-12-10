@@ -79,10 +79,14 @@ public class BusTest extends TestCase {
 				+ rider.log.getLastLoggedEvent(),
 				rider.log.containsString("Received msgBoardBus"));
 
+		assertTrue("Bus should have state ReadyToTravel; instead it has state "
+				+ bus.state,
+				bus.state == TransportationBus.enumState.ReadyToTravel);
+
 
 		// Schedule bus to advance to stop1
-//		assertTrue("Bus's scheduler should return true; it doesn't",
-//				bus.pickAndExecuteAnAction());
+		assertTrue("Bus's scheduler should return true; it doesn't",
+				bus.pickAndExecuteAnAction());
 
 		assertTrue("Bus should have logged AdvanceToNextStop(); instead it logged "
 				+ bus.log.getLastLoggedEvent(),

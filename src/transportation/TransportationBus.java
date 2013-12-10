@@ -74,7 +74,6 @@ public class TransportationBus extends Agent {
 		synchronized(mBusStops.get(riderCurrentStop).mWaitingPeople) {
 			mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 		}
-		stateChanged();
 	}
 
 	/**
@@ -125,7 +124,7 @@ public class TransportationBus extends Agent {
 		
 		if (state == enumState.ReadyToTravel) {
 			AdvanceToNextStop();
-			return false;
+			return true;
 		}
 
 		return false;
