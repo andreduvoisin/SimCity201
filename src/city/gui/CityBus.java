@@ -32,7 +32,6 @@ public class CityBus extends CityComponent {
 	/**
 	 * Creates new CityBus
 	 * @param b Bus "driver"
-	 * @param busNum Index of this instance of bus
 	 */
 	public CityBus(TransportationBus b) {
 		mBus = b;
