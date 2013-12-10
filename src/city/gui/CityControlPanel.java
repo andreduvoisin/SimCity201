@@ -1,6 +1,7 @@
 package city.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,6 +9,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -20,7 +23,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.SpinnerNumberModel;
 
 import base.ConfigParser;
 import base.ContactList;
@@ -82,7 +88,24 @@ public class CityControlPanel extends JPanel implements ActionListener{
     						"Housing", 
     						"Transportation", 
     						"None"};
-	
+
+
+    // People panel
+    JLabel peopleLabel;
+    JLabel jobLabel;
+	@SuppressWarnings("rawtypes")
+	JComboBox jobs;
+    String[] jobList = {	"Bank",
+    						"Market",
+    						"Restaurant",
+    						"None"};
+    JLabel cashLabel;
+	JSpinner cashSpin;
+	JLabel nameLabel;
+	JTextArea nameArea;
+	JButton createButton;
+
+
     //Properties Panel
     @SuppressWarnings("rawtypes")
 	JComboBox places;
@@ -463,11 +486,75 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			}
 		});
 	}
-	
+
+
+
+	//CHASE initPeople()
+	//PeopleTab
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initPeople() {
-		
+		Dimension size = new Dimension(90, 20);
+
+		peopleLabel = new JLabel("Create a Person:");
+		peopleLabel.setPreferredSize(new Dimension(180, 30));
+
+		jobLabel = new JLabel("Job Type:");
+		jobLabel.setPreferredSize(size);
+	    jobs = new JComboBox(jobList);
+	    jobs.setSelectedIndex(0);
+	    jobs.setPreferredSize(size);
+
+	    cashLabel = new JLabel("Initial Cash:");
+	    cashLabel.setPreferredSize(size);
+	    cashSpin = new JSpinner();
+	    cashSpin.setModel(new SpinnerNumberModel(100, 0, 50000, 10));
+	    cashSpin.setPreferredSize(size);
+
+	    nameLabel = new JLabel("Name:");
+	    nameLabel.setPreferredSize(size);
+	    nameArea = new JTextArea();
+	    nameArea.setPreferredSize(size);
+	    nameArea.addKeyListener(new KeyListener() {
+	    	public void keyPressed(KeyEvent e) {
+	    		nameArea.setBackground(Color.white);
+	    	}
+			public void keyReleased(KeyEvent arg0) {}
+			public void keyTyped(KeyEvent arg0) {}
+	    });
+
+	    createButton = new JButton("Create Person");
+	    createButton.setPreferredSize(new Dimension(180, 30));
+	    createButton.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		CreatePerson();
+	    	}
+	    });
+
+	    PeopleTab.add(peopleLabel);
+	    PeopleTab.add(jobLabel);
+	    PeopleTab.add(jobs);
+	    PeopleTab.add(cashLabel);
+	    PeopleTab.add(cashSpin);
+	    PeopleTab.add(nameLabel);
+	    PeopleTab.add(nameArea);
+	    PeopleTab.add(createButton);
 	}
-	
+
+	private void CreatePerson() {
+		if (nameArea.getText().equals("")) {
+			nameArea.setBackground(Color.pink);
+			return;
+		}
+		StringBuilder configString = new StringBuilder();
+		configString.append(jobs.getSelectedItem().toString().toUpperCase() + " ");
+		configString.append(cashSpin.getValue().toString() + " ");
+		configString.append(nameArea.getText());
+
+		// CHASE send configString to configParser
+	}
+
+
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void initProperties() {
 		// North: COMBOBOX
