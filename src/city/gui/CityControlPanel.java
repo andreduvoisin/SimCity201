@@ -550,7 +550,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		configString.append(cashSpin.getValue().toString() + " ");
 		configString.append(nameArea.getText());
 
-		// CHASE send configString to configParser
+		try {
+			ConfigParser.getInstanceOf().readFileCreatePersons(SimCityGui.getInstance(), configString.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -641,60 +645,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		// JButton
-		/*
-		if(e.getSource() instanceof JButton) {
-			//Scenario A
-			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "config1.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-			
-			
-			
-			for (int i = 0; i < 8; i++) {
-				if (((JButton) e.getSource()).getText()
-						.equals("Restaurant " + i)) {
-					try {
-						ConfigParser.getInstanceOf().readFileCreatePersons(city, "restConfig"+i+".txt");
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Bank")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "BankConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Housing")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "HouseConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Food Market")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "marketConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Party")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "PartyConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-		}*/
+		
 	}
 }

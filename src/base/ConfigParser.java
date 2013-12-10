@@ -19,8 +19,15 @@ public class ConfigParser {
 	private static ConfigParser instance = null;
 	private final static int timeBlock = 16;
 
-	public void readFileCreatePersons(SimCityGui simcitygui, String fileName) throws FileNotFoundException {
-		Scanner scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+fileName));
+	public void readFileCreatePersons(SimCityGui simcitygui, String input) throws FileNotFoundException {
+		
+		Scanner scanFile;
+		if(input.contains(".txt")) {
+			scanFile = new Scanner(getClass().getResourceAsStream("/runconfig/"+input));
+		}
+		else {
+			scanFile = new Scanner(input);
+		}
 		
 		//Instantiate the base roles before creating the people
 //		boolean mInstantiateRoles = true;
