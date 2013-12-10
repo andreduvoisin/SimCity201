@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 
 public class Time {

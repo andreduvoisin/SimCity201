@@ -15,6 +15,7 @@ import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import transportation.TransportationBus;
 import bank.Bank;
 import bank.interfaces.BankMasterTeller;
@@ -38,7 +39,8 @@ public class ContactList {
 	public static JerrywebRestaurant JerrywebRestaurant;
 	public static AndreRestaurant AndreRestaurant;
 	public static SmilehamRestaurant SmilehamRestaurant;
-	public static MaggiyanRestaurant MaggiyanRestaurant; 
+	public static MaggiyanRestaurant MaggiyanRestaurant;
+	public static CwagonerRestaurant CwagonerRestaurant;
 	
 	//Setup
 	public static void setup(){

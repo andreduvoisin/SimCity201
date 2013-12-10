@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
@@ -30,7 +31,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		animationPanel = panel;
 		this.setGui(new CwagonerWaiterGui(this, panel));// TODO add to panel from gui constructor
 
-		panel.host.addWaiter(this);
+		CwagonerRestaurant.host.addWaiter(this);
 	}
 
 	public String getName() {
@@ -252,13 +253,13 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		gui.DoGoToCashier();
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
-		if (c.food != "") animationPanel.cashier.msgCustomerOrdered(this, c.customer, c.food);
+		if (c.food != "") CwagonerRestaurant.cashier.msgCustomerOrdered(this, c.customer, c.food);
 		
 		gui.DoGoToTable(c.tableNum);
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
 		c.customer.msgAcknowledgeLeaving();
-		animationPanel.host.msgCustomerGoneTableEmpty(c.customer, c.tableNum);
+		CwagonerRestaurant.host.msgCustomerGoneTableEmpty(c.customer, c.tableNum);
 		
 		Customers.remove(c);
 		gui.DoGoToHomePosition();
@@ -325,7 +326,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 
 		print("Messaging cook with order");
-		CwagonerAnimationPanel.cook.msgHeresAnOrder(this, c.tableNum, c.food);
+		CwagonerRestaurant.cook.msgHeresAnOrder(this, c.tableNum, c.food);
 
 		c.state = AssignedCustomer.State.orderDeliveredToCook;
 

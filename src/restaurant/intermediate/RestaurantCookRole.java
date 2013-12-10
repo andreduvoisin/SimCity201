@@ -13,7 +13,7 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -236,7 +236,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	restaurantCashier = AndreRestaurant.cashier.mRole;
                 	break;
                 case 1: //chase
-                	restaurantCashier = CwagonerAnimationPanel.cashier.mRole;
+                	restaurantCashier = CwagonerRestaurant.cashier.mRole;
                 	break;
                 case 2: //jerry
                 	restaurantCashier = JerrywebRestaurant.cashier.mRole;
