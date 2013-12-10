@@ -451,6 +451,8 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mCommutingTo = null;
 			mCommuterRole.mActive = false;
+			
+			stateChanged();
 		}
 	}
 	

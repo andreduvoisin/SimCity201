@@ -14,7 +14,7 @@ import base.SortingHat;
 public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
 
-	public static int TESTNUM = 0;
+	public static int TESTNUM = 6;
 	
 	public static boolean GRADINGVIEW = true;
 
