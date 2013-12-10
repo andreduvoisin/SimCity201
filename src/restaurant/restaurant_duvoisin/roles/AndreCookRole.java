@@ -83,12 +83,7 @@ public class AndreCookRole extends BaseRole implements Cook {
         cookingTimes.put("chicken", 7500);
         cookingTimes.put("salad", 5000);
         cookingTimes.put("pizza", 7500);
-        
-        hasOrdered.put("steak", false);
-        hasOrdered.put("chicken", false);
-        hasOrdered.put("salad", false);
-        hasOrdered.put("pizza", false);
-        // ANDRE: hasOrdered never gets set back to false... ask Angel
+    
 	}
 	
 	public void runStandTimer() {
@@ -218,10 +213,8 @@ public class AndreCookRole extends BaseRole implements Cook {
 			return;
 		}
 		mRole.decreaseInventory(Item.stringToEnum(o.choice));
-		//ANDRE: Null Pointer Exception in integration?
 		if(foodAmount <= FOOD_LOW  && mRole.mHasCreatedOrder.get(Item.stringToEnum(o.choice))) {
 			mRole.mItemsDesired.put(Item.stringToEnum(o.choice), mRole.mItemsDesired.get(Item.stringToEnum(o.choice)) + FOOD_ORDER);
-			hasOrdered.put(o.choice, true);
 		}
 		o.state = OrderState.Cooking;
 		for(int i = 0; i < cookHere.length; i++)

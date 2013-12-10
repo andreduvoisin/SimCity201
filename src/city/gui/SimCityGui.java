@@ -9,12 +9,13 @@ import javax.swing.JFrame;
 
 import base.ContactList;
 import base.SortingHat;
+import base.Time;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
 	public static boolean TESTING = true;
 
-	public static int TESTNUM = 3;
+	public static int TESTNUM = 5;
 	
 	public static boolean GRADINGVIEW = true;
 
@@ -25,6 +26,7 @@ public class SimCityGui extends JFrame {
 	CityControlPanel CP;
 	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
 	
+	Time time = new Time();
 	
 	public static SimCityGui getInstance() {
 		return instance;

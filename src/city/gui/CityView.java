@@ -72,9 +72,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 //		//Rest 6
 		TranacAnimationPanel tranac = new TranacAnimationPanel(city);
 		cards.put("r_tranac", tranac);
-//		TranacRestaurantPanel tranac = new TranacRestaurantPanel(city);
-//		city.citypanel.masterRestaurantList.add(tranac);
-//		cards.put("r_tranac", tranac);
 		
 		//Rest 7		
 		RexAnimationPanel xurex = new RexAnimationPanel(city);
