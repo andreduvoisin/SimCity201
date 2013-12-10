@@ -55,11 +55,7 @@ public class SmilehamRestaurant {
 	
 	public static void removeGui(Gui g) {
 		synchronized(mGuis) {
-		for (Gui gui: mGuis) {
-			if (gui == g) {
-				mGuis.remove(gui);
-			}
-		}
+			mGuis.remove(g);
 		}
 	}
 

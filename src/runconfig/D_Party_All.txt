@@ -1,4 +1,3 @@
-NONE 200 partyPerson 
 NONE 50	otherPerson1
 NONE 51	otherPerson2
 NONE 52	otherPerson3
@@ -9,4 +8,4 @@ NONE 56	otherPerson7
 NONE 57	otherPerson8
 NONE 58	otherPerson9
 NONE 59	otherPerson10
-
+NONE 200 partyPerson

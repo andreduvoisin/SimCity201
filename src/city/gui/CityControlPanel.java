@@ -1,6 +1,7 @@
 package city.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -8,6 +9,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -20,7 +23,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.SpinnerNumberModel;
 
 import base.ConfigParser;
 import base.ContactList;
@@ -82,7 +88,24 @@ public class CityControlPanel extends JPanel implements ActionListener{
     						"Housing", 
     						"Transportation", 
     						"None"};
-	
+
+
+    // People panel
+    JLabel peopleLabel;
+    JLabel jobLabel;
+	@SuppressWarnings("rawtypes")
+	JComboBox jobs;
+    String[] jobList = {	"Bank",
+    						"Market",
+    						"Restaurant",
+    						"None"};
+    JLabel cashLabel;
+	JSpinner cashSpin;
+	JLabel nameLabel;
+	JTextArea nameArea;
+	JButton createButton;
+
+
     //Properties Panel
     @SuppressWarnings("rawtypes")
 	JComboBox places;
@@ -262,9 +285,9 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioJ.addActionListener(getActionListener("J_All_Interweave.txt"));
 			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
 			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
-			scenarioQ.addActionListener(getActionListener("Q_Crash_2.txt"));
+			scenarioQ.addActionListener(getActionListener("Q_Person_Crash.txt"));
 			scenarioR.addActionListener(getActionListener(""));
-			scenarioS.addActionListener(getActionListener(""));
+			scenarioS.addActionListener(getActionListener("S_Firing.txt"));
 	}
 	
 	//Used to shorten above code
@@ -276,7 +299,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					Timer collisionTimer = new Timer();
 					TimerTask detectCrashes = new TimerTask() {
 						public void run() {
-							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
@@ -285,7 +308,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					Timer collisionTimer = new Timer();
 					TimerTask detectCrashes = new TimerTask() {
 						public void run() {
-							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
@@ -463,11 +486,79 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			}
 		});
 	}
-	
+
+
+
+	//CHASE initPeople()
+	//PeopleTab
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initPeople() {
-		
+		Dimension size = new Dimension(90, 20);
+
+		peopleLabel = new JLabel("Create a Person:");
+		peopleLabel.setPreferredSize(new Dimension(180, 30));
+
+		jobLabel = new JLabel("Job Type:");
+		jobLabel.setPreferredSize(size);
+	    jobs = new JComboBox(jobList);
+	    jobs.setSelectedIndex(0);
+	    jobs.setPreferredSize(size);
+
+	    cashLabel = new JLabel("Initial Cash:");
+	    cashLabel.setPreferredSize(size);
+	    cashSpin = new JSpinner();
+	    cashSpin.setModel(new SpinnerNumberModel(100, 0, 50000, 10));
+	    cashSpin.setPreferredSize(size);
+
+	    nameLabel = new JLabel("Name:");
+	    nameLabel.setPreferredSize(size);
+	    nameArea = new JTextArea();
+	    nameArea.setPreferredSize(size);
+	    nameArea.addKeyListener(new KeyListener() {
+	    	public void keyPressed(KeyEvent e) {
+	    		nameArea.setBackground(Color.white);
+	    	}
+			public void keyReleased(KeyEvent arg0) {}
+			public void keyTyped(KeyEvent arg0) {}
+	    });
+
+	    createButton = new JButton("Create Person");
+	    createButton.setPreferredSize(new Dimension(180, 30));
+	    createButton.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		CreatePerson();
+	    	}
+	    });
+
+	    PeopleTab.add(peopleLabel);
+	    PeopleTab.add(jobLabel);
+	    PeopleTab.add(jobs);
+	    PeopleTab.add(cashLabel);
+	    PeopleTab.add(cashSpin);
+	    PeopleTab.add(nameLabel);
+	    PeopleTab.add(nameArea);
+	    PeopleTab.add(createButton);
 	}
-	
+
+	private void CreatePerson() {
+		if (nameArea.getText().equals("")) {
+			nameArea.setBackground(Color.pink);
+			return;
+		}
+		StringBuilder configString = new StringBuilder();
+		configString.append(jobs.getSelectedItem().toString().toUpperCase() + " ");
+		configString.append(cashSpin.getValue().toString() + " ");
+		configString.append(nameArea.getText());
+
+		try {
+			ConfigParser.getInstanceOf().readFileCreatePersons(SimCityGui.getInstance(), configString.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void initProperties() {
 		// North: COMBOBOX
@@ -529,9 +620,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	disable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, false);
-					Inspection.sClosedImages.get(iLocation).enable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, false);
+						Inspection.sClosedImages.get(iLocation).enable();
+					}
 				}
 			}
 		});
@@ -539,9 +632,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	enable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, true);
-					Inspection.sClosedImages.get(iLocation).disable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, true);
+						Inspection.sClosedImages.get(iLocation).disable();
+					}
 				}
 			}
 		});
@@ -550,60 +645,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	
 	public void actionPerformed(ActionEvent e) {
-		// JButton
-		/*
-		if(e.getSource() instanceof JButton) {
-			//Scenario A
-			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "config1.txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-			
-			
-			
-			for (int i = 0; i < 8; i++) {
-				if (((JButton) e.getSource()).getText()
-						.equals("Restaurant " + i)) {
-					try {
-						ConfigParser.getInstanceOf().readFileCreatePersons(city, "restConfig"+i+".txt");
-					} catch (FileNotFoundException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Bank")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "BankConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Housing")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "HouseConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Food Market")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "marketConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			if (((JButton) e.getSource()).getText().equals("Party")) {
-				try {
-					ConfigParser.getInstanceOf().readFileCreatePersons(city, "PartyConfig"+".txt");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-		}*/
+		
 	}
 }

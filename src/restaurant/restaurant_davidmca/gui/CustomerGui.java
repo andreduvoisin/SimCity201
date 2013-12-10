@@ -105,8 +105,8 @@ public class CustomerGui implements Gui {
         }
 
         public void DoExitRestaurant() {
-                xDestination = -40;
-                yDestination = -40;
+                xDestination = 550;
+                yDestination = -50;
                 command = Command.LeaveRestaurant;
         }
 
