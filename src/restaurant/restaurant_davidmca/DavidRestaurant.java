@@ -32,14 +32,14 @@ public class DavidRestaurant {
 	public static int waiterCount = 0;
 	private final int NUMTABLES = 4;
 	public static Collection<Table> tables;
-	private int[] xpositions = { 0, 125, 225, 325, 225 };
-	private int[] ypositions = { 0, 200, 100, 200, 300 };
+	private int[] xpositions = { 0, 200, 300, 400 };
+	private int[] ypositions = { 0, 100, 200, 300 };
 	
 	public DavidRestaurant() {
 		customers = new Vector<DavidCustomerRole>();
 		guis = Collections.synchronizedList(new ArrayList<Gui>());
-		tables = Collections.synchronizedList(new ArrayList<Table>(4));
-		for (int ix = 1; ix <= NUMTABLES; ix++) {
+		tables = Collections.synchronizedList(new ArrayList<Table>());
+		for (int ix = 1; ix < NUMTABLES; ix++) {
 			tables.add(new Table(ix, xpositions[ix], ypositions[ix], 1));
 		}
 	}

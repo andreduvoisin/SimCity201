@@ -153,8 +153,8 @@ public class ContactList {
 	// 0 1 
 	// 3 2
 	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-35, cGRID_POINT1-35); //65, 65 DAVID these may be wrong
-	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8+35, cGRID_POINT1-35);	//535, 65
-	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+35, cGRID_POINT8+35);	//535, 535
+	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8+35, cGRID_POINT1-25);	//535, 65
+	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+15, cGRID_POINT8+35);	//535, 535
 	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8+25);	//65, 500
 	public static List<Location> cPARKINGLOTS;
 	static {

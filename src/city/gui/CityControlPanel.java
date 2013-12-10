@@ -276,7 +276,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					Timer collisionTimer = new Timer();
 					TimerTask detectCrashes = new TimerTask() {
 						public void run() {
-							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
@@ -285,7 +285,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					Timer collisionTimer = new Timer();
 					TimerTask detectCrashes = new TimerTask() {
 						public void run() {
-							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
