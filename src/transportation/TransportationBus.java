@@ -6,6 +6,7 @@ import java.util.List;
 
 import test.mock.EventLog;
 import test.mock.LoggedEvent;
+import transportation.interfaces.Bus;
 import transportation.interfaces.TransportationRider;
 import base.Agent;
 import city.gui.CityBus;
@@ -15,7 +16,7 @@ import city.gui.trace.AlertTag;
  * The controller who handles people waiting at bus stops, boarding buses, and
  * the buses themselves
  */
-public class TransportationBus extends Agent {
+public class TransportationBus extends Agent implements Bus {
 
 	public static TransportationBus instance = null;
 	public boolean testing;
@@ -25,7 +26,7 @@ public class TransportationBus extends Agent {
 		instance = this;
 		testing = testBus;
 
-		if (!testing) mGui = new CityBus(this);
+		if (! testing) mGui = new CityBus(this);
 
 		for (int i = 0; i < base.ContactList.cBUS_STOPS.size(); i++) {
 			mBusStops.add(new TransportationBusStop());
@@ -60,7 +61,7 @@ public class TransportationBus extends Agent {
 		state = enumState.ReadyToUnload;
 		stateChanged();
 
-		log.add(new LoggedEvent("Received msgGuiArrivedAtStop(" + mCurrentStop + ")"));
+		log.add(new LoggedEvent("Received msgGuiArrivedAtStop"));
 	}
 
 	/**
@@ -73,7 +74,7 @@ public class TransportationBus extends Agent {
 			mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 		}
 
-		log.add(new LoggedEvent("Received msgNeedARide(" + r.getName() + ", " + riderCurrentStop + ")"));
+		log.add(new LoggedEvent("Received msgNeedARide from " + r.getName()));
 	}
 
 	/**
@@ -90,7 +91,7 @@ public class TransportationBus extends Agent {
 			mRiders.add(r);
 		}
 
-		log.add(new LoggedEvent("Received msgImOn(" + r.getName() + ")"));
+		log.add(new LoggedEvent("Received msgImOn from " + r.getName()));
 	}
 
 	/**
@@ -103,7 +104,7 @@ public class TransportationBus extends Agent {
 			mRiders.remove(r);
 		}
 
-		log.add(new LoggedEvent("Received msgImOff"));
+		log.add(new LoggedEvent("Received msgImOff from " + r.getName()));
 	}
 
 
@@ -150,7 +151,7 @@ public class TransportationBus extends Agent {
 		state = enumState.ReadyToBoard;
 		stateChanged();
 
-		log.add(new LoggedEvent(("TellRidersToGetOff()")));
+		log.add(new LoggedEvent(("TellRidersToGetOff")));
 	}
 
 	/**
@@ -170,7 +171,7 @@ public class TransportationBus extends Agent {
 		state = enumState.ReadyToTravel;
 		stateChanged();
 
-		log.add(new LoggedEvent(("TellRidersToBoard()")));
+		log.add(new LoggedEvent(("TellRidersToBoard")));
 	}
 
 	/**
@@ -182,7 +183,7 @@ public class TransportationBus extends Agent {
 		if (! testing) mGui.DoAdvanceToNextStop();
 		// Moved delay to CityBus.DoAdvanceToNextStop()
 
-		log.add(new LoggedEvent(("AdvanceToNextStop()")));
+		log.add(new LoggedEvent(("AdvanceToNextStop")));
 	}
 
 	public String getName() {

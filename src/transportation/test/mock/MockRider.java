@@ -16,7 +16,7 @@ public class MockRider extends Mock implements TransportationRider {
 	}
 
 	public void msgAtBusStop(int currentStop, int destinationStop){
-		log.add(new LoggedEvent("Received msgAtBusStop(current stop = " + currentStop + ", destination stop = " + destinationStop + ")"));
+		log.add(new LoggedEvent("Received msgAtBusStop(" + currentStop + ", " + destinationStop + ")"));
 	}
 	
 	public void msgBoardBus() {
