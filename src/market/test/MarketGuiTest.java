@@ -13,7 +13,6 @@ import market.gui.MarketPanel;
 import market.gui.MarketWorkerGui;
 import market.test.mock.MockCashier;
 import market.test.mock.MockCustomer;
-import market.test.mock.MockDeliveryTruck;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
 

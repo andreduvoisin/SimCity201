@@ -44,7 +44,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 2;	//ANGELICA
+        public int DEFAULT_FOOD_QTY = 5;	//ANGELICA
         private AlertTag mAlertTag;
         
         public RestaurantCookRole(Person person, int restaurantID){
@@ -93,11 +93,11 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 2: //jerry
 					mAlertTag = AlertTag.R2;
 					subRole = new JerrywebCookRole(super.mPerson, this);
-//					if (JerrywebRestaurant.cook == null) {
+					if (JerrywebRestaurant.cook == null) {
 						JerrywebRestaurant.addPerson((JerrywebCookRole) subRole);
-//					} else {
-//						subRole = JerrywebRestaurant.cook;
-//					}
+					} else {
+						subRole = JerrywebRestaurant.cook;
+					}
 					break;
 				case 3: //maggi
 					mAlertTag = AlertTag.R3;
@@ -232,7 +232,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		int m;
         		if(mMarketCashier == null) {
         			m = (int) (Math.random() % 2);
-        			mMarketCashier = ContactList.sMarketList.get(1).mCashier;	//ANGELICA
+        			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
         		}
                 mMarketCashier.msgOrderPlacement(o);
                 RestaurantCashierRole restaurantCashier = null;

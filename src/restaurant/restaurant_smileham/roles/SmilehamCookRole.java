@@ -232,7 +232,7 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 			}*/
 			
 			//if food amount below threshold
-			if(mRole.mItemInventory.get(iType) < Food.cTHRESHOLD) {
+			if((mRole.mItemInventory.get(iType) < Food.cTHRESHOLD) && !mRole.mHasCreatedOrder.get(iType)) {
 				mRole.mItemsDesired.put(iType, sBaseNeed);
 			}
 			
