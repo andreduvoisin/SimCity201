@@ -717,7 +717,7 @@ public class PersonAgent extends Agent implements Person {
 					synchronized(((EventParty)iEvent).mAttendees){
 						((EventParty) iEvent).mAttendees.remove(this);
 					}
-					print("Responding to RSVP: NO"); eatFood();
+					print("Responding to RSVP: NO"); mPersonGui.disable();
 				}
 				else if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
 					synchronized(((EventParty)iEvent).mAttendees){
@@ -728,7 +728,7 @@ public class PersonAgent extends Agent implements Person {
 					synchronized(((EventParty)iEvent).mAttendees){
 						((EventParty) iEvent).mAttendees.remove(this);
 					}
-					print("Responding to RSVP: NO"); eatFood();
+					print("Responding to RSVP: NO"); mPersonGui.disable();
 				}
 			}
 		}
