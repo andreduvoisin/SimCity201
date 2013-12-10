@@ -451,27 +451,41 @@ public class PersonAgent extends Agent implements Person {
 					}
 					break;
 				case BANK:
-					for (Role iRole : mRoles.keySet()){
-						if (iRole instanceof BankCustomerRole){
-							BankCustomerRole bankCustomerRole = (BankCustomerRole)iRole;
-							ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
-							
-							//plan robbery
-							if(mName.contains("robber")){
-								//REX: hard coded to try to steal 100
-								print("Robbery action added to bank options");
-								bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
-							}
-							
-							//deposit check
-							int deposit = 50; //REX: add mDeposit, and do after leaving job
-							bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
-							
-							//pay back loan if needed
-							if(mLoan > 0){
-								double payment = Math.max(mCash, mLoan);
-								mCash -= payment;
-								bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
+					synchronized(ContactList.sOpenBuildings) {
+						for (Role iRole : mRoles.keySet()){
+							if (iRole instanceof BankCustomerRole){
+								BankCustomerRole bankCustomerRole = (BankCustomerRole)iRole;
+								ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
+								
+								//plan robbery
+								if(mName.contains("robber")){
+									//REX: hard coded to try to steal 100
+									print("Robbery action added to bank options");
+									bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
+								}
+								
+								//deposit check
+								int deposit = 50; //REX: add mDeposit, and do after leaving job
+								bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
+								
+								//pay back loan if needed
+								if(mLoan > 0){
+									double payment = Math.max(mCash, mLoan);
+									mCash -= payment;
+									bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
+								}
+								
+								if(mSSN % 2 == 0) {
+									if(!ContactList.sOpenBuildings.get("B1")) {
+										msgRoleFinished();
+										assignNextEvent();
+									}
+								} else {
+									if(!ContactList.sOpenBuildings.get("B2")) {
+										msgRoleFinished();
+										assignNextEvent();
+									}
+								}
 							}
 						}
 					}
@@ -494,6 +508,17 @@ public class PersonAgent extends Agent implements Person {
 					jobRole.setActive();
 					break;
 				case MARKET:
+					if(mSSN % 2 == 0) {
+						if(!ContactList.sOpenBuildings.get("M1")) {
+							msgRoleFinished();
+							assignNextEvent();
+						}
+					} else {
+						if(!ContactList.sOpenBuildings.get("M2")) {
+							msgRoleFinished();
+							assignNextEvent();
+						}
+					}
 					break;
 				case PARTY:
 					PartyRole partyPerson = null;
@@ -700,7 +725,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//GO TO BANK AND DO STUFF
 		mCommuterRole.mActive = true;
-		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
+		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0 ? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		mCommutingTo = EnumCommuteTo.BANK;
 	}
 	
