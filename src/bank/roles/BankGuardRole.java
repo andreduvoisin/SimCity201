@@ -52,7 +52,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	}
 	public void msgReadyToWork(BankTeller t){
 		mTellers.put(t, true);
-		//print("RECEIVED READY TO WORK");
+		print("RECEIVED READY TO WORK");
 		stateChanged();
 	}
 	public void msgRobberAlert(BankCustomer c){
@@ -95,6 +95,7 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	
 	private void killRobber(MyCustomer c){
 		c.customer.msgStopRobber();
+		mCustomers.remove(c);
 	}
 	private void provideService(BankCustomer c, BankTeller t){
 		c.msgGoToTeller(t);
@@ -129,14 +130,17 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	}
 	
 	public void Do(String msg) {
-		super.Do(msg, AlertTag.BANK);
+		if(mPerson != null)
+			super.Do(msg, AlertTag.BANK);
 	}
 	
 	public void print(String msg) {
-		super.print(msg, AlertTag.BANK);
+		if(mPerson != null)
+			super.print(msg, AlertTag.BANK);
 	}
 	
 	public void print(String msg, Throwable e) {
-		super.print(msg, AlertTag.BANK, e);
+		if(mPerson != null)
+			super.print(msg, AlertTag.BANK, e);
 	}
 }
