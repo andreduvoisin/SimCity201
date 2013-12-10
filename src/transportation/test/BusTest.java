@@ -9,7 +9,6 @@ import transportation.test.mock.MockRider;
  * This class is a JUnit test class to unit test
  * the transportation system's bus (TransportationBus)
  */
-
 public class BusTest extends TestCase {
 	// these are instantiated for each test separately via the setUp() method.
 
@@ -40,10 +39,6 @@ public class BusTest extends TestCase {
 				+ bus.mRiders.size(),
 				bus.mRiders.size() == 0);
 
-		assertTrue("Bus's mBusStops should have size 4; instead, has size "
-				+ bus.mBusStops.size(),
-				bus.mBusStops.size() == 4);
-
 		for (int i = 0; i < bus.mBusStops.size(); i++) {
 			assertTrue("Bus's mBusStops[" + i + "].mWaitingPeople should be empty, instead it has size "
 					+ bus.mBusStops.get(i).mWaitingPeople.size(),
@@ -52,7 +47,7 @@ public class BusTest extends TestCase {
 
 
 		// Add a rider
-		int testStartStop = 0, testDestStop = 1;
+		int testStartStop = 1, testDestStop = 2;
 		rider.msgAtBusStop(testStartStop, testDestStop);
 		bus.msgNeedARide(rider, testStartStop);
 
@@ -64,19 +59,12 @@ public class BusTest extends TestCase {
 				+ bus.mBusStops.get(testStartStop).mWaitingPeople.size(),
 				bus.mBusStops.get(testStartStop).mWaitingPeople.size() == 1);
 
-		assertTrue("First waiting person should equal the rider who just messaged the bus; it does not",
+		assertTrue("First waiting person should be the rider who just messaged the bus; it does not",
 				bus.mBusStops.get(testStartStop).mWaitingPeople.get(0).equals(rider));
 
 
 
 		// Schedule stop0's waiting people to board
-		assertTrue("Bus should have state ReadyToBoard; instead, it has state "
-				+ bus.state,
-				bus.state == enumState.ReadyToBoard);
-
-		assertTrue("Bus's scheduler should return true; it doesn't",
-				bus.pickAndExecuteAnAction());
-
 		assertTrue("Bus should have logged TellRidersToBoard(); instead it logged "
 				+ bus.log.getLastLoggedEvent(),
 				bus.log.containsString("TellRidersToBoard()"));
