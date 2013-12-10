@@ -76,8 +76,12 @@ public class ConfigParser {
 					person.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 8));
 				else if(name.contains("robber"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, -1));
-				else if(name.contains("inspection"))
-					person.msgAddEvent(new Event(EnumEventType.INSPECTION, -1));
+				else if(name.contains("inspection")){
+					if(name.contains("hascar"))
+						person.setHasCar(true);
+					person.msgAddEvent(new Event(EnumEventType.EAT, -1));
+					person.msgAddEvent(new Event(EnumEventType.INSPECTION, 0));
+				}
 			}
 
 			//DAVID SHANE: add more events
