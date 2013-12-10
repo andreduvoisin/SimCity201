@@ -262,7 +262,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioJ.addActionListener(getActionListener("J_All_Interweave.txt"));
 			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
 			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
-			scenarioQ.addActionListener(getActionListener("Q_Crash_2.txt"));
+			scenarioQ.addActionListener(getActionListener("Q_Person_Crash.txt"));
 			scenarioR.addActionListener(getActionListener(""));
 			scenarioS.addActionListener(getActionListener("S_Firing.txt"));
 	}
