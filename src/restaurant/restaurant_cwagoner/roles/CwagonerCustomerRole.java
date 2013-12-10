@@ -36,6 +36,8 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	private CwagonerCustomerGui gui;
 	
 	CwagonerWaiter waiter;
+	CwagonerHostRole host;
+	CwagonerCashierRole cashier;
 	CwagonerAnimationPanel animationPanel;
 
 	public enum State { doingNothing, inRestaurant, waitingToBeSeated,
@@ -292,7 +294,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	private void AlertHost() {
 		print("AlertHost() - sending msgIWantFood");
 		state = State.waitingToBeSeated;
-		CwagonerRestaurant.host.msgIWantFood(this);
+		host.msgIWantFood(this);
 	}
 
 	private void SitDown() {
@@ -404,7 +406,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		print("TellCashierReady()");
 
 		state = State.waitingAtCashier;
-		CwagonerRestaurant.cashier.msgReadyToPay(this);
+		cashier.msgReadyToPay(this);
 	}
 	
 	private void PayCashier() {
@@ -469,6 +471,14 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.R1, e);
+	}
+
+	public void setHost(CwagonerHostRole h) {
+		host = h;
+	}
+
+	public void setCashier(CwagonerCashierRole c) {
+		cashier = c;
 	}
 }
 

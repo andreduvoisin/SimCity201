@@ -23,7 +23,7 @@ public class CwagonerRestaurant {
 
     static int numTables = 4;
 
-    public void addGui(CwagonerGui gui) {
+    public static void addGui(CwagonerGui gui) {
     	synchronized(guis) {
     		guis.add(gui);
     	}
@@ -39,21 +39,31 @@ public class CwagonerRestaurant {
     	if (subRole instanceof CwagonerHostRole) {
     		host = (CwagonerHostRole)subRole;
     		host.setNumTables(numTables);
+    		for (CwagonerWaiter iWaiter : Waiters) {
+    			host.addWaiter(iWaiter);
+    		}
     	}
     	else if (subRole instanceof CwagonerCashierRole) {
     		cashier = (CwagonerCashierRole)subRole;
     	}
     	else if (subRole instanceof CwagonerCookRole) {
     		cook = (CwagonerCookRole)subRole;
+    		cook.setCashier(cashier);
     	}
     	else if (subRole instanceof CwagonerCustomerRole) {	
     		Customers.add((CwagonerCustomerRole) subRole);
+    		((CwagonerCustomerRole)subRole).setHost(host);
+    		((CwagonerCustomerRole) subRole).setCashier(cashier);
     	}
     	else if (subRole instanceof CwagonerSharedWaiterRole) {
     		Waiters.add((CwagonerSharedWaiterRole)subRole);
+    		((CwagonerSharedWaiterRole) subRole).setHost(host);
+    		if (host != null) host.addWaiter((CwagonerWaiter)subRole);
     	}
-    	else if (subRole instanceof CwagonerWaiterRole) {	
+    	else if (subRole instanceof CwagonerWaiterRole) {
     		Waiters.add((CwagonerWaiterRole) subRole);
+    		((CwagonerWaiterRole)subRole).setHost(host);
+    		if (host != null) host.addWaiter((CwagonerWaiter)subRole);
     	}
     }
 }

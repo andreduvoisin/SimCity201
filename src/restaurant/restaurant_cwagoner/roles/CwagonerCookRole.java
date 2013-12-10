@@ -27,6 +27,7 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 		super(person);
 		mRole = r;
     	revolvingStandTimer.scheduleAtFixedRate(checkStand, 10000, 10000);
+    	gui = new CwagonerCookGui(this);
 	}
 
 	public String getName() {

@@ -34,7 +34,7 @@ public class JerrywebCookRole extends BaseRole {
 	//public Map<EnumItemType, Integer> mItemsDesired = new HashMap<EnumItemType, Integer>();
 	Timer cookingTimer = new Timer();
 	private Timer checkRevolvingStand = new Timer();
-	public List<JerrywebWaiterRole> Waiters = new ArrayList<JerrywebWaiterRole>();
+	public List<Waiter> Waiters = new ArrayList<Waiter>();
 	public Menu m = new Menu();
 	public Map<String,Food> foodMap = new HashMap<String,Food>(4);
 	public Map<EnumItemType,Integer> mCookTimes = new HashMap<EnumItemType, Integer>();
@@ -85,12 +85,10 @@ public class JerrywebCookRole extends BaseRole {
 	private String name;
 	private Semaphore atTable = new Semaphore(semaphoreCerts,true);
 
-	//public HostGui hostGui = null;
-
 	public JerrywebCookRole(Person p, RestaurantCookRole r){ 
 		super(p);
 		mRole = r;
-		//this.name = person.getName();
+		this.name = "JerrywebCook";
 
 		//This populates the food map using the string names of the food items as keys and holds the
 		/*foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 5, 2));
@@ -102,15 +100,16 @@ public class JerrywebCookRole extends BaseRole {
         mCookTimes.put(EnumItemType.SALAD,2000);
         mCookTimes.put(EnumItemType.PIZZA,14000);
         
-		checkRevolvingStand.schedule(new TimerTask() {
-			public void run() {
-				
-				moveRevlovingStandOrders();
-//				stateChanged(); //JERRY: 1 Add this back in with your restaurant
-			}
-		},
-		25000);
+        checkRevolvingStand.scheduleAtFixedRate(checkRS, 15000, 10000);
 	}
+	
+	TimerTask checkRS = new TimerTask(){
+		public void run(){
+			if(mPerson != null){
+				moveRevlovingStandOrders();
+			}
+		}
+	};
 
 	public String getMaitreDName() {
 		return name;
@@ -120,7 +119,7 @@ public class JerrywebCookRole extends BaseRole {
 		return name;
 	}
 	
-	public void addWaiter(JerrywebWaiterRole w){
+	public void addWaiter(Waiter w){
 		Waiters.add(w);
 	}
 
@@ -161,7 +160,7 @@ public class JerrywebCookRole extends BaseRole {
 		}
 	}
 	
-	public void msgCookThis(JerrywebWaiterRole w, String choice, int table){
+	public void msgCookThis(Waiter w, String choice, int table){
 		//Orders.choice = m.menuItems.get(choice);
 		if(choice.equals("nothing")){
 			//print("No");

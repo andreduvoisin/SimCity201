@@ -22,7 +22,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 		ridingBus, exitingBus, noNewDestination};
 	private int mCurrentBusStop;
 	private int mDestinationBusStop; 
-	private PersonState mState = PersonState.walking;
+	public PersonState mState = PersonState.walking;
 	private TransportationBus mBus; 
 	
 	//CONSTRUCTOR
@@ -204,4 +204,5 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	public Location getLocation() {
 		return mCurrentLocation; 
 	}
+	
 }
