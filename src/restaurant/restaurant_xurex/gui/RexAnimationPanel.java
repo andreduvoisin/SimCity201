@@ -6,11 +6,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import restaurant.restaurant_xurex.RexCashierRole;
@@ -29,6 +32,9 @@ import city.gui.SimCityGui;
 public class RexAnimationPanel extends CityCard implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
+	
+	//ANIMATION
+	private BufferedImage background;
 	
 	private static RexAnimationPanel instance;
 	public static RexAnimationPanel getInstance(){
@@ -84,6 +90,15 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
  
     	Timer timer = new Timer(Time.cSYSCLK/20, this );
     	timer.start();
+    	
+    	background = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mybg.png");
+    	background = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
 	public void actionPerformed(ActionEvent e) {
@@ -106,6 +121,9 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
         g2.setColor(Color.ORANGE);
+        
+        if(background != null)
+        	g2.drawImage(background,0,0,null);
         
         //TABLES
         g2.fillRect(TABLEX, TABLEY, TABLEDIM, TABLEDIM);		//table 1 : 200,250 : SW

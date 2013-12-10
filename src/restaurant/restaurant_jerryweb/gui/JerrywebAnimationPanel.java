@@ -7,9 +7,12 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
@@ -57,6 +60,10 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
     private final int WINDOWY = 500;
     private Image bufferImage;
     private Dimension bufferSize;
+    
+    //ANIMATION
+  	private BufferedImage background;
+    
     /*
     private static JerrywebHostRole mHost;
     private static JerrywebCookRole mCook;
@@ -76,6 +83,15 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
         //mCustomers = new Vector<JerrywebCustomerRole>();
     	Timer timer = new Timer(Time.cSYSCLK/10, this );
     	timer.start();
+    	
+    	background = null;
+    	try {
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mybg.png");
+    	background = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
     /*
     public static void addPerson(BaseRole role){
@@ -121,6 +137,9 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
         g2.setColor(getBackground());
         g2.fillRect(panelXpos, panelYpos, WINDOWX, WINDOWY ); //This centers the screen on the restaurant scene with the table located in it... if not located at 0,0 then 
         //part of the RestaurantPanel would show
+        
+        if(background != null)
+        	g2.drawImage(background,0,0,null);
 
         //Here is the table
         g2.setColor(Color.ORANGE);
