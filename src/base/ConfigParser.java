@@ -52,7 +52,6 @@ public class ConfigParser {
 			
 			//Name
 			String name = scanPerson.next();
-			
 			//Instantiate Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			

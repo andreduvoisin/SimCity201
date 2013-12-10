@@ -309,8 +309,8 @@ public class ContactList {
 	//BANKS, MARKETS
 	public static final Location cBANK1_LOCATION = gridLocation(1, 1);
 	public static final Location cBANK2_LOCATION = gridLocation(2, 2);
-	public static final Location cMARKET1_LOCATION = gridLocation(2, 1);
-	public static final Location cMARKET2_LOCATION = gridLocation(1, 2);
+	public static final Location cMARKET1_LOCATION = gridLocation(2, 1);	//Honeydukes
+	public static final Location cMARKET2_LOCATION = gridLocation(1, 2);	//Ollivanders
 	
 	
 	//RESTAURANTS
