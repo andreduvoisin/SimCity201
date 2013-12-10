@@ -767,7 +767,7 @@ public class PersonAgent extends Agent implements Person {
 	}*/
 	
 	private boolean isCheap(){
-		return (mLoan == 0 && mCash > 30);
+		return (mLoan == 0 && mCash < 30);
 	}
 
 	public void acquireSemaphore(Semaphore semaphore){
