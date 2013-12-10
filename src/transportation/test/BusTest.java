@@ -24,6 +24,7 @@ public class BusTest extends TestCase {
 		super.setUp();
 
 		bus = new TransportationBus(true);
+		bus.startThread();
 		rider = new MockRider(bus);
 	}
 	

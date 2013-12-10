@@ -39,7 +39,7 @@ public class TransportationBus extends Agent {
 	// ------------------------------------- DATA ---------------------------------------
 	// ==================================================================================
 
-	public List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
+	public List<TransportationBusStop> mBusStops = Collections.synchronizedList(new ArrayList<TransportationBusStop>());
 	public List<TransportationRider> mRiders = Collections.synchronizedList(new ArrayList<TransportationRider>());
 	CityBus mGui;
 	public int mCurrentStop;
@@ -159,11 +159,16 @@ public class TransportationBus extends Agent {
 	private void TellRidersToBoard() {
 		log.add(new LoggedEvent(("TellRidersToBoard()")));
 		
+		synchronized(mBusStops) {
 		synchronized(mBusStops.get(mCurrentStop).mWaitingPeople) {
-			for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
+			for (TransportationRider r : 
+				mBusStops.
+					get(mCurrentStop).
+					mWaitingPeople) {
 				r.msgBoardBus();
 			}
 			mBusStops.get(mCurrentStop).mWaitingPeople.clear();
+		}
 		}
 
 		state = enumState.ReadyToTravel;
