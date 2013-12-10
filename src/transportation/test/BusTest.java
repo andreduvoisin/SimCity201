@@ -2,6 +2,7 @@ package transportation.test;
 
 import junit.framework.TestCase;
 import transportation.TransportationBus;
+import transportation.TransportationBus.enumState;
 import transportation.test.mock.MockRider;
 
 /**
@@ -32,7 +33,7 @@ public class BusTest extends TestCase {
 
 		assertTrue("Bus's state should be ReadyToBoard, instead it is "
 				+ bus.state,
-				bus.state == TransportationBus.enumState.ReadyToBoard);
+				bus.state == enumState.ReadyToBoard);
 
 		assertTrue("Bus's mRiders should be empty; instead it has size "
 				+ bus.mRiders.size(),
@@ -81,16 +82,19 @@ public class BusTest extends TestCase {
 
 		assertTrue("Bus should have state ReadyToTravel; instead it has state "
 				+ bus.state,
-				bus.state == TransportationBus.enumState.ReadyToTravel);
+				bus.state == enumState.ReadyToTravel);
 
+		// Bus already called AdvanceToNextStop()
+
+		assertTrue("Bus should have state traveling; instead it has state "
+				+ bus.state,
+				bus.state == enumState.traveling);
+
+		bus.msgGuiArrivedAtStop();
 
 		// Schedule bus to advance to stop1
 		assertTrue("Bus's scheduler should return true; it doesn't",
 				bus.pickAndExecuteAnAction());
-
-		assertTrue("Bus should have logged AdvanceToNextStop(); instead it logged "
-				+ bus.log.getLastLoggedEvent(),
-				bus.log.containsString("AdvanceToNextStop()"));
 
 
 		// Schedule stop1's destined riders to unload
