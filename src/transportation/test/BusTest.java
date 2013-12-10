@@ -24,8 +24,53 @@ public class BusTest extends TestCase {
 		bus = new TransportationBus(true);
 		rider = new MockRider(bus);
 	}
+
+	public void testBusRunsAroundCityOnceWithNoRidersAtAnyStop() {
+		for (int i = 0; i < 4; i++) {
+			// Preconditions
+			assertEquals("Bus should be at stop "+i+"; it is at " + bus.mCurrentStop, bus.mCurrentStop, i);
+			assertEquals("Bus should be ReadyToBoard; it is " + bus.state, bus.state, enumState.ReadyToBoard);
+			assertEquals("mRiders should be empty; it has size " + bus.mRiders.size(), bus.mRiders.size(), 0);
+			// All bus stop waiting lists empty
+			for (int j = 0; j < bus.mBusStops.size(); j++) {
+				assertEquals("mBusStops["+j+"].mWaitingPeople should be empty; it has size " + bus.mBusStops.get(j).mWaitingPeople.size(),
+						bus.mBusStops.get(j).mWaitingPeople.size(), 0);
+			}
 	
-	public void testBusPicksPersonUpAtFirstStopAndDropsThemOffAtNextStop() {
+			// Schedule bus to board
+			assertEquals("Bus should be ReadyToBoard; it is " + bus.state, bus.state, enumState.ReadyToBoard);
+			assertTrue("Bus's scheduler should return true", bus.pickAndExecuteAnAction());
+			assertTrue("Bus should have logged TellRidersToBoard", bus.log.containsString("TellRidersToBoard"));
+	
+			// Schedule bus to advance
+			assertEquals("Bus should be ReadyToTravel", bus.state, enumState.ReadyToTravel);
+			assertTrue("Bus's scheduler should return true", bus.pickAndExecuteAnAction());
+			assertTrue("Bus should have logged AdvanceToNextStop", bus.log.containsString("AdvanceToNextStop"));
+	
+			// Bus arrives at stop1
+			assertEquals("Bus should be traveling; it is " + bus.state, bus.state, enumState.traveling);
+			bus.msgGuiArrivedAtStop();
+			assertEquals("Bus should be at stop "+((i+1)%bus.mBusStops.size())+"; it's at stop " + bus.mCurrentStop, bus.mCurrentStop, ((i+1)%bus.mBusStops.size()));
+	
+			// Schedule bus to unload
+			assertEquals("Bus should be ReadyToUnload; it is " + bus.state, bus.state, enumState.ReadyToUnload);
+			assertTrue("Bus's scheduler should return true", bus.pickAndExecuteAnAction());
+			assertTrue("Bus should have logged TellRidersToGetOff", bus.log.containsString("TellRidersToGetOff"));
+		}
+
+		// Postconditions
+		assertEquals("Bus should be at stop 0; it is at " + bus.mCurrentStop, bus.mCurrentStop, 0);
+		assertEquals("Bus should be ReadyToBoard; it is " + bus.state, bus.state, enumState.ReadyToBoard);
+		assertEquals("mRiders should be empty; it has size " + bus.mRiders.size(), bus.mRiders.size(), 0);
+		// All bus stop waiting lists empty
+		for (int i = 0; i < bus.mBusStops.size(); i++) {
+			assertEquals("mBusStops["+i+"].mWaitingPeople should be empty; it has size " + bus.mBusStops.get(i).mWaitingPeople.size(),
+					bus.mBusStops.get(i).mWaitingPeople.size(), 0);
+		}
+	}
+
+	public void testBusStartsAtStopZeroThenPicksPersonUpAtStopOneThenDropsThemOffAtStopTwo() {
+
 		// Preconditions
 		assertEquals("Bus should be at stop 0; it is at " + bus.mCurrentStop, bus.mCurrentStop, 0);
 		assertEquals("Bus should be ReadyToBoard; it is " + bus.state, bus.state, enumState.ReadyToBoard);
