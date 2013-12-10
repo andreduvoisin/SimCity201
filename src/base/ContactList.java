@@ -386,13 +386,15 @@ public class ContactList {
 	
 	//OPEN PLACES
 	static{
-		sOpenPlaces.put(cBANK1_LOCATION, true);
-		sOpenPlaces.put(cBANK2_LOCATION, true);
-		sOpenPlaces.put(cMARKET1_LOCATION, true);
-		sOpenPlaces.put(cMARKET2_LOCATION, true);
-		synchronized(cRESTAURANT_LOCATIONS){
-			for(Location iLocation : cRESTAURANT_LOCATIONS){
-				sOpenPlaces.put(iLocation, true);
+		synchronized(sOpenPlaces) {
+			sOpenPlaces.put(cBANK1_LOCATION, true);
+			sOpenPlaces.put(cBANK2_LOCATION, true);
+			sOpenPlaces.put(cMARKET1_LOCATION, true);
+			sOpenPlaces.put(cMARKET2_LOCATION, true);
+			synchronized(cRESTAURANT_LOCATIONS){
+				for(Location iLocation : cRESTAURANT_LOCATIONS){
+					sOpenPlaces.put(iLocation, true);
+				}
 			}
 		}
 	}

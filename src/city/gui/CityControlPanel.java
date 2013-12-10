@@ -529,9 +529,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	disable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, false);
-					Inspection.sClosedImages.get(iLocation).enable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, false);
+						Inspection.sClosedImages.get(iLocation).enable();
+					}
 				}
 			}
 		});
@@ -539,9 +541,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	enable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, true);
-					Inspection.sClosedImages.get(iLocation).disable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, true);
+						Inspection.sClosedImages.get(iLocation).disable();
+					}
 				}
 			}
 		});
