@@ -11,7 +11,7 @@ import base.Gui;
 
 public class BankTellerGui implements Gui {
 
-	private BankTeller bankTeller = null;
+//	private BankTeller bankTeller = null;
 	private boolean isPresent = true;
 
 	private int xPos, yPos;
@@ -24,7 +24,7 @@ public class BankTellerGui implements Gui {
 	static final int STARTPOSY = 450;
 	
 	public BankTellerGui(BankTeller bt) {
-		bankTeller = bt;
+//		bankTeller = bt;
 		xPos =  225;
 		yPos = 0;
 		xDestination = STARTPOSX1;

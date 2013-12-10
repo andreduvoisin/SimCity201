@@ -316,7 +316,7 @@ public class CustomerTest extends TestCase{
 		assertTrue("Teller Sched should have run, but it didn't.", mTeller.pickAndExecuteAnAction());
 		
 		mCustomer.msgHereIsBalance(200);
-		assertEquals("The customer's event should be RECIEVED, but it's not.", mCustomer.mEvent.Received, mCustomer.mEvent );
+		assertEquals("The customer's event should be RECIEVED, but it's not.", EnumEvent.Received, mCustomer.mEvent );
 		
 		mGuard.msgRobberAlert(mCustomer);
 		//assertEquals("The guard should have one customer ", mGuard.mCustomers.size(),);

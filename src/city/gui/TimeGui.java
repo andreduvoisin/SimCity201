@@ -8,18 +8,10 @@ import java.awt.Graphics2D;
 import base.Time;
 
 public class TimeGui extends CityComponent{
-	private int mX;
-	private int mY;
-	private int mXspan;
-	private int mYspan;
 	private static final int fontSize = 12;
 	
 	public TimeGui(int x, int y){
 		super(x, y);
-		mX = x;
-		mY = y;
-		mXspan = 600 - mX;
-		mYspan = 600 - mY;
 	}
 	
 	public void paint(Graphics g) {

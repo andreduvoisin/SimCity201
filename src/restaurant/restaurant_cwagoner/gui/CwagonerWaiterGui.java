@@ -36,7 +36,7 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements CwagonerGui {
     	state = State.idle;
         waiterNum++;
 
-        animationPanel.addGui(this);
+        CwagonerAnimationPanel.restaurant.addGui(this);
 
         position = new Location(homePos.mX, homePos.mY);
         destination = new Location(homePos.mX, homePos.mY);
