@@ -157,7 +157,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Lists
 		mFriends = new ArrayList<Person>();
-		mEvents = new ArrayList<Event>();
+		mEvents = Collections.synchronizedList(new ArrayList<Event>());
 		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 			//populate inventory
 			mItemInventory.put(EnumItemType.CAR,0);
@@ -195,7 +195,7 @@ public class PersonAgent extends Agent implements Person {
         mPersonGui = new CityPerson(this, SimCityGui.getInstance(), startLocation);
         
 		// Event Setup
-		mEvents = new ArrayList<Event>();
+		mEvents = Collections.synchronizedList(new ArrayList<Event>());
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -258,7 +258,9 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
-			Collections.sort(mEvents);
+			synchronized(mEvents){
+				Collections.sort((mEvents));
+			}
 			if(mEvents.isEmpty())
 				return false;
 			Event event = mEvents.get(0); //next event
@@ -352,10 +354,15 @@ public class PersonAgent extends Agent implements Person {
 			if (event instanceof EventParty){
 				if(((EventParty)event).mAttendees.isEmpty()){
 					print("OMG THIS PARTY SUCKS and is cancelled");
+					synchronized(mEvents){
+						mEvents.remove(event);
+					}
 					return;
 				}
-				goParty((EventParty)event);
-				mCurrentParty = (EventParty)event;
+				else{
+					goParty((EventParty)event);
+					mCurrentParty = (EventParty)event;
+				}
 			}
 		}
 		else if (event.mEventType == EnumEventType.PLANPARTY) {
@@ -710,29 +717,39 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 		}
+		synchronized(party.mAttendees){
 		for (Person iPerson : party.mAttendees.keySet()){
 			if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
 				Event rsvp = new EventParty(EnumEventType.RSVP2, -1, this);
 				iPerson.msgAddEvent(rsvp);
 			}
 		}
+		}
 	}
 	
 	private void respondToRSVP(){
+		synchronized(mEvents){
 		for (Event iEvent : mEvents){
 			if (iEvent instanceof EventParty){
 				if(((EventParty) iEvent).mHost.getName().equals("partyPersonNO")){
-					((EventParty) iEvent).mAttendees.remove(this);
+					synchronized(((EventParty)iEvent).mAttendees){
+						((EventParty) iEvent).mAttendees.remove(this);
+					}
 					print("Responding to RSVP: NO");
 				}
 				else if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
-					((EventParty) iEvent).mAttendees.put(this, true);
+					synchronized(((EventParty)iEvent).mAttendees){
+						((EventParty) iEvent).mAttendees.put(this, true);
+					}
 					print("Responding to RSVP: YES");
 				}else{
-					((EventParty) iEvent).mAttendees.remove(this);
+					synchronized(((EventParty)iEvent).mAttendees){
+						((EventParty) iEvent).mAttendees.remove(this);
+					}
 					print("Responding to RSVP: NO");
 				}
 			}
+		}
 		}
 	}
 	
