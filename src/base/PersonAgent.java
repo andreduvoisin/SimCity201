@@ -262,19 +262,19 @@ public class PersonAgent extends Agent implements Person {
 				Collections.sort((mEvents));
 			}
 			if(mEvents.isEmpty()) {
-				System.out.println("test");
+//				System.out.println("test");
 				return false;
 			}
 			Event event = mEvents.get(0); //next event
 			print("" + event.mEventType);
-			if (event.mTime <= Time.GetTime()){ //only do events that have started
+			if (event.mTime <= Time.GetTime()) { //only do events that have started
 				if(!mName.contains("party") && !mName.contains("other")) //required because party is not a role
 					mRoleFinished = false; //doing a role
 				processEvent(event);
 				return true;
 			}
 		}
-
+		
 		// Do role actions
 		for (Role iRole : mRoles.keySet()) {
 			if (mRoles.get(iRole) && iRole!= null) {
@@ -438,6 +438,17 @@ public class PersonAgent extends Agent implements Person {
 				case MARKET:
 					break;
 				case PARTY:
+					PartyRole partyPerson = null;
+					for (Role iRole : mRoles.keySet()){
+						if (iRole instanceof PartyRole){
+							partyPerson = (PartyRole)iRole;
+						}
+					}
+					mRoles.put(partyPerson, false);
+					
+					print("going to house #" + mCurrentParty.mHost
+							.getHousingRole().getHouse().mHouseNum);
+					
 					((HousingBaseRole) getHousingRole()).gui.setPresent(true);
 					SimCityGui.getInstance().cityview.mCityHousingList.get(mCurrentParty.mHost
 							.getHousingRole().getHouse().mHouseNum).mPanel
@@ -634,7 +645,7 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		if(!mName.equals("partyPerson"))
 			mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-//		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+//		Location partyLocation = new Location(500,500); //REX: remove hardcoded party pad after dehobo the host
 		Location partyLocation = getHousingRole().getLocation();
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
@@ -644,19 +655,31 @@ public class PersonAgent extends Agent implements Person {
 	private void goParty(EventParty event) {
 		print("Going to party");
 
-		mPersonGui.DoGoToDestination(event.mLocation);
-		//acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
-		SimCityGui.getInstance().cityview.mCityHousingList.get(event.mHost
-				.getHousingRole().getHouse().mHouseNum).mPanel
-				.addGui((Gui) ((HousingBaseRole) getHousingRole()).gui);
-		((HousingBaseRole) getHousingRole()).gui.DoParty();
-
+//		mPersonGui.DoGoToDestination(event.mLocation);
+//		acquireSemaphore(semAnimationDone);
+//		mPersonGui.setPresent(false);
+//		((HousingBaseRole) getHousingRole()).gui.setPresent(true);
+//		SimCityGui.getInstance().cityview.mCityHousingList.get(event.mHost
+//				.getHousingRole().getHouse().mHouseNum).mPanel
+//				.addGui((Gui) ((HousingBaseRole) getHousingRole()).gui);
+//		((HousingBaseRole) getHousingRole()).gui.DoParty();
+		
+		PartyRole partyPerson = null;
+		for (Role iRole : mRoles.keySet()){
+			if (iRole instanceof PartyRole){
+				partyPerson = (PartyRole)iRole;
+			}
+		}
+		if(partyPerson == null)
+			partyPerson = new PartyRole(this);
+		
+		mRoles.put(partyPerson, true);
+		
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(event.mLocation);
 		mCommutingTo = EnumCommuteTo.PARTY;
-
+		
+		mRoleFinished = false;
 	}
 
 	private void inviteToParty() {
@@ -670,7 +693,7 @@ public class PersonAgent extends Agent implements Person {
 		print("First RSVP is sent out");
 		//party is in 3 days
 		//send RSVP1 and event invite
-		Location partyLocation = new Location(100, 0);
+		Location partyLocation = getHousingRole().getLocation();//new Location(100, 0);
 		Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, partyLocation, this, mFriends);
 		
 		//Event party = new EventParty(EnumEventType.PARTY, Time.GetTime()+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends);
@@ -702,12 +725,12 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		synchronized(party.mAttendees){
-		for (Person iPerson : party.mAttendees.keySet()){
-			if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
-				Event rsvp = new EventParty(EnumEventType.RSVP2, -1, this);
-				iPerson.msgAddEvent(rsvp);
+			for (Person iPerson : party.mAttendees.keySet()){
+				if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
+					Event rsvp = new EventParty(EnumEventType.RSVP2, -1, this);
+					iPerson.msgAddEvent(rsvp);
+				}
 			}
-		}
 		}
 	}
 	
