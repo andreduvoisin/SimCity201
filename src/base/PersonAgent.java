@@ -528,15 +528,30 @@ public class PersonAgent extends Agent implements Person {
 /*************************************************************************/
 	
 	public void getHouse() {
+		print("Requesting House");
 		HousingLandlordRole assignedLandlord = null;
 		if (getHousingRole() instanceof HousingRenterRole) {
 			for (Person p : ContactList.sPersonList) {
 				for (Role r : p.getRoles().keySet()) {
 					if (r instanceof HousingLandlordRole) {
 						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
+							
+							r.setActive();
+							r.setPerson(p);
+							((PersonAgent) p).mRoles.put(r, true);
+							
+							((HousingRenterRole) getHousingRole()).setActive();
+							((HousingRenterRole) getHousingRole()).setPerson(this);
+							mRoles.put((HousingRenterRole) getHousingRole(), true);
+							
 							assignedLandlord = (HousingLandlordRole) r;
 							((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
 							((HousingRenterRole) getHousingRole()).msgRequestHousing();
+							
+							assignNextEvent();
+							msgRoleFinished();
+							p.assignNextEvent();
+							p.msgRoleFinished();
 							return;
 						}
 					}

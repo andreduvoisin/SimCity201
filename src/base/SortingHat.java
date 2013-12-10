@@ -2,6 +2,7 @@ package base;
 
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -236,11 +237,11 @@ public class SortingHat {
 			return newLandLordRole;
 		}
 		
-	/*	if (sRenterCount < sMaxRenters){
+		if (sRenterCount < sMaxRenters){
 			sRenterCount++;
 			return new HousingRenterRole(person);
 		}
-	*/	//ANGELICA 0 housing shit
+		//ANGELICA 0 housing shit
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
 		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
 		sHouseCount++;
