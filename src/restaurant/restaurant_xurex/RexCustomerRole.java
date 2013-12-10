@@ -15,8 +15,6 @@ import restaurant.restaurant_xurex.interfaces.Host;
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
-import base.Event;
-import base.Event.EnumEventType;
 import base.Location;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
@@ -343,16 +341,16 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		customerGui.DoGoToSeat(5);
 	}
 	private void leaveTable() {
-		mPerson.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-		mPerson.setJobFalse();
-		//Time.sGlobalTimeInt = 5;
 		Do("Leaving.");
 		waiter.Leaving(this);
 		customerGui.DoExitRestaurant();
-		mPerson.msgRoleFinished();
-		//Time.sGlobalShift = 1;
 		customerGui.animationPanel.removeCustomer(this);
 		customerGui.animationPanel.removeGui(customerGui);
+		
+		//Set Up Next Event
+		mPerson.setJobFalse();
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 	
 	// ACCESSORS //

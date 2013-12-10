@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Semaphore;
 
@@ -1018,5 +1019,12 @@ public class PersonAgent extends Agent implements Person {
 	
 	public List<Person> getFriendList(){
 		return mFriends;
+	}
+	
+	public void assignNextEvent(){
+		Random rand = new Random();
+		Event nextEvent = ContactList.sEventList.get(rand.nextInt(ContactList.sEventList.size() - 1));
+		nextEvent.setTime(Time.GetTime());
+		mEvents.add(new Event (nextEvent, -1));
 	}
 }
