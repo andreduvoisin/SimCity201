@@ -35,7 +35,7 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
         position.setTo(homePos);
         destination.setTo(homePos);
 
-        animationPanel.addGui(this);
+        CwagonerAnimationPanel.restaurant.addGui(this);
     }
 
     public void updatePosition() {

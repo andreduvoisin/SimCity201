@@ -12,6 +12,7 @@ import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -294,7 +295,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	private void AlertHost() {
 		print("AlertHost() - sending msgIWantFood");
 		state = State.waitingToBeSeated;
-		animationPanel.host.msgIWantFood(this);
+		CwagonerRestaurant.host.msgIWantFood(this);
 	}
 
 	private void SitDown() {
@@ -406,7 +407,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		print("TellCashierReady()");
 
 		state = State.waitingAtCashier;
-		animationPanel.cashier.msgReadyToPay(this);
+		CwagonerRestaurant.cashier.msgReadyToPay(this);
 	}
 	
 	private void PayCashier() {
@@ -424,7 +425,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		}
 		
 		state = State.paid;
-		animationPanel.cashier.msgPayment(this, amountPaid);
+		CwagonerRestaurant.cashier.msgPayment(this, amountPaid);
 		stateChanged();
 	}
 	
