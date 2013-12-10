@@ -30,8 +30,8 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	
 	private String food = "";
 
-	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerAnimationPanel panel) {
-		super(c, panel);
+	public CwagonerCustomerGui(CwagonerCustomerRole c) {
+		super(c);
 		customerNum++;
 
 		CwagonerAnimationPanel.restaurant.addGui(this);
@@ -41,7 +41,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	}
 	
 	public void setTableLocation(int tableNum) {
-		Location tableLoc = animationPanel.getTableLocation(tableNum);
+		Location tableLoc = CwagonerAnimationPanel.getTableLocation(tableNum);
 		tablePos.setTo(tableLoc);
 	}
 

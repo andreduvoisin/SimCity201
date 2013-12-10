@@ -20,7 +20,7 @@ import city.gui.trace.AlertTag;
 
 public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 
-	public CwagonerWaiterRole(Person person, CwagonerAnimationPanel panel) {
+	public CwagonerWaiterRole(Person person) {
 		super(person);
 		// Initialize menu
 		menu.put("Steak", 8);
@@ -28,8 +28,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		menu.put("Salad", 2);
 		menu.put("Pizza", 4);
 
-		animationPanel = panel;
-		this.setGui(new CwagonerWaiterGui(this, panel));// TODO add to panel from gui constructor
+		this.setGui(new CwagonerWaiterGui(this));
 
 		CwagonerRestaurant.host.addWaiter(this);
 	}

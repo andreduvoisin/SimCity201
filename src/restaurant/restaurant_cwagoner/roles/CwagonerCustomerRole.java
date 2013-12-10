@@ -49,12 +49,11 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 						cashierAccepted, doneLeaving };
 	Event event = Event.none;
 
-	public CwagonerCustomerRole(Person person, CwagonerAnimationPanel panel) {
+	public CwagonerCustomerRole(Person person) {
 		super(person);
 		print("CwagonerCustomerRole created inRestaurant");
 
-		animationPanel = panel;
-		this.setGui(new CwagonerCustomerGui(this, panel));
+		this.setGui(new CwagonerCustomerGui(this));
 	}
 	
 	// MESSAGES

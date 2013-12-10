@@ -21,7 +21,7 @@ public class CwagonerRestaurant {
     public static List<CwagonerGui> guis =
     		Collections.synchronizedList(new ArrayList<CwagonerGui>());
 
-    int numTables = 4;
+    static int numTables = 4;
 
     public void addGui(CwagonerGui gui) {
     	synchronized(guis) {
@@ -35,7 +35,7 @@ public class CwagonerRestaurant {
     	}
     }
 
-    public void addPerson(Role subRole) {
+    public static void addPerson(Role subRole) {
     	if (subRole instanceof CwagonerHostRole) {
     		host = (CwagonerHostRole)subRole;
     		host.setNumTables(numTables);

@@ -30,7 +30,7 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
     static BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
 
     public CwagonerCookGui(CwagonerCookRole c, CwagonerAnimationPanel panel) {
-    	super(c, panel);
+    	super(c);
     	state = State.idle;
         position.setTo(homePos);
         destination.setTo(homePos);

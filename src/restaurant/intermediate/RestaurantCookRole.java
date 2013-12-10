@@ -14,6 +14,7 @@ import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -79,11 +80,11 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 						subRole = AndreRestaurant.cook;
 					}
 					break;
-//				case 1: //chase
-//					mAlertTag = AlertTag.R1;
-//					subRole = new CwagonerCookRole(super.mPerson);
-//					CwagonerRestaurantPanel.cook = (CwagonerCookRole) subRole;
-//					break;
+				case 1: //chase
+					mAlertTag = AlertTag.R1;
+					subRole = new CwagonerCookRole(super.mPerson, this);
+					CwagonerRestaurant.addPerson((CwagonerCookRole) subRole);
+					break;
 				case 2: //jerry
 					mAlertTag = AlertTag.R2;
 					subRole = new JerrywebCookRole(super.mPerson, this);

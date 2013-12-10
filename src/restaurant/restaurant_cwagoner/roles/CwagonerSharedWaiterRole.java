@@ -26,7 +26,7 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 
 	CwagonerAnimationPanel animationPanel;
 
-	public CwagonerSharedWaiterRole(Person person, CwagonerAnimationPanel panel) {
+	public CwagonerSharedWaiterRole(Person person) {
 		super(person);
 		// Initialize menu
 		menu.put("Steak", 8);
@@ -34,8 +34,7 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 		menu.put("Salad", 2);
 		menu.put("Pizza", 4);
 
-		animationPanel = panel;
-		this.setGui(new CwagonerWaiterGui((CwagonerWaiter) this, panel));//TODO add gui
+		this.setGui(new CwagonerWaiterGui((CwagonerWaiter) this));
 
 		CwagonerRestaurant.host.addWaiter(this);
 	}

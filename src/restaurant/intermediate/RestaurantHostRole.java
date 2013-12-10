@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_cwagoner.roles.CwagonerHostRole;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -45,10 +46,10 @@ public class RestaurantHostRole extends BaseRole implements
 				subRole = AndreRestaurant.host;
 			}
 			break;
-//		case 1: // chase
-//			subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).host;
-//			subRole.setPerson(super.mPerson);
-//			break;
+		case 1: // chase
+			subRole = new CwagonerHostRole(super.mPerson);
+			subRole.setPerson(super.mPerson);
+			break;
 		case 2: // jerry
 			subRole = new JerrywebHostRole(super.mPerson);
 			if(JerrywebRestaurant.host == null){

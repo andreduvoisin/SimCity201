@@ -24,7 +24,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 	int tableSize = 50;
 	public static CwagonerRestaurant restaurant;
 
-    ArrayList<Location> tableLocations = new ArrayList<Location>();
+    static ArrayList<Location> tableLocations = new ArrayList<Location>();
 
     public CwagonerAnimationPanel(SimCityGui g, CwagonerRestaurant r) {
     	super(g);
@@ -65,7 +65,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		}
     }
 
-    public Location getTableLocation(int tableNum) {
+    public static Location getTableLocation(int tableNum) {
     	return tableLocations.get(tableNum);
     }
 
