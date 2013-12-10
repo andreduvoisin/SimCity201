@@ -25,6 +25,7 @@ import city.gui.trace.AlertTag;
 public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
 	Semaphore inTransit = new Semaphore(0,true);
 	int mMarketID;
+	boolean atMarket = true;
 	
 	List<MarketOrder> mPendingDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
@@ -43,14 +44,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		}
 		stateChanged();
 	}
-	
-	public void msgAnimationAtRestaurant() {
-		inTransit.release();
-	}
-	
-	public void msgAnimationAtMarket() {
-		inTransit.release();
-	}
 
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
@@ -66,7 +59,8 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			return true;
 		}
 		}
-		waitAtMarket();
+		if(!atMarket)
+			waitAtMarket();
 		return false;
 	}
 	
@@ -75,17 +69,19 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		//check all the restaurants
 		for(int i=0;i<8;i++) {
 			synchronized(mDeliveries) {
-			for(MarketOrder o : mDeliveries) {
-				Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
-				if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) {
-					DoGoToRestaurant(i);
-					print("Delivering order.");
-					o.mStatus = EnumOrderStatus.FULFILLING;
-					((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
-					mDeliveries.remove(o);
-					break;
+				synchronized(ContactList.sOpenPlaces) {
+					for(MarketOrder o : mDeliveries) {
+						Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
+						if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) {
+							DoGoToRestaurant(i);
+							print("Delivering order.");
+							o.mStatus = EnumOrderStatus.FULFILLING;
+							((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
+							mDeliveries.remove(o);
+							break;
+						}
+					}
 				}
-			}
 			}
 		}
 	}
@@ -107,7 +103,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Animation Actions */
 	private void DoGoToRestaurant(int n) {
-//		mGui.DoGoToRestaurant(n);
+		atMarket = false;
 		if(mPerson instanceof PersonAgent) {
 			Location location = ContactList.cRESTAURANT_LOCATIONS.get(n);
 			PersonAgent p = (PersonAgent) mPerson;
@@ -119,13 +115,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	private void DoGoToMarket() {
-//		mGui.DoGoToMarket();
-//		try {
-//			inTransit.acquire();
-//		}
-//		catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+		atMarket = true;
 		if(mPerson instanceof PersonAgent) {
 			Location location = null;
 			if(mMarketID == 0)
@@ -144,10 +134,10 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 	@Override
 	public Location getLocation() {
-		if (mMarketID == 1) {
+		if (mMarketID == 0) {
 			return ContactList.cMARKET1_LOCATION;
 		}
-		else if (mMarketID == 2) {
+		else if (mMarketID == 1) {
 			return ContactList.cMARKET2_LOCATION;
 		}
 		return null;

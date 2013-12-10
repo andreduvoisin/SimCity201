@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import base.interfaces.Role;
-import restaurant.restaurant_cwagoner.gui.CwagonerGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
-import restaurant.restaurant_cwagoner.roles.*;
+import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerHostRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerSharedWaiterRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
+import base.Gui;
+import base.interfaces.Role;
 
 public class CwagonerRestaurant {
 
@@ -18,18 +23,18 @@ public class CwagonerRestaurant {
 			Collections.synchronizedList(new ArrayList<CwagonerCustomerRole>());
 	public static List<CwagonerWaiter> Waiters =
 			Collections.synchronizedList(new ArrayList<CwagonerWaiter>());
-    public static List<CwagonerGui> guis =
-    		Collections.synchronizedList(new ArrayList<CwagonerGui>());
+    public static List<Gui> guis =
+    		Collections.synchronizedList(new ArrayList<Gui>());
 
     static int numTables = 4;
 
-    public static void addGui(CwagonerGui gui) {
+    public static void addGui(Gui gui) {
     	synchronized(guis) {
     		guis.add(gui);
     	}
     }
 
-    public void removeGui(CwagonerGui gui) {
+    public static void removeGui(Gui gui) {
     	synchronized(guis) {
     		guis.remove(gui);
     	}

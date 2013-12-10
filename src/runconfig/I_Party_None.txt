@@ -1,0 +1,22 @@
+NONE 10 partyPersonNO
+NONE 10	otherPerson1
+NONE 10	otherPerson2
+NONE 10	otherPerson3
+NONE 10	otherPerson4
+NONE 10	otherPerson5
+NONE 10	otherPerson6
+NONE 10	otherPerson7
+NONE 10	otherPerson8
+NONE 10	otherPerson9
+NONE 10	otherPerson10
+NONE 10	otherPerson11
+NONE 10	otherPerson12
+NONE 10	otherPerson13
+NONE 10	otherPerson14
+NONE 10	otherPerson15
+NONE 10	otherPerson16
+NONE 10	otherPerson17
+NONE 10	otherPerson18
+NONE 10	otherPerson19
+NONE 10	otherPerson20
+

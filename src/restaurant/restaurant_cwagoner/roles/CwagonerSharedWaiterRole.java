@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
@@ -330,7 +331,7 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 
 		print("Adding to cook's revolving stand");
-		((CwagonerCookRole) cook).RevolvingStand.add(new Order((CwagonerWaiter) this, c.tableNum, c.food));
+		CwagonerRestaurant.cook.RevolvingStand.add(new Order((CwagonerWaiter) this, c.tableNum, c.food));
 
 		c.state = AssignedCustomer.State.orderDeliveredToCook;
 

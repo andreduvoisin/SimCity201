@@ -48,14 +48,14 @@ public class SmilehamRestaurant {
 	}
 	
 	public static void addGui(Gui g) {
-		mGuis.add(g);
+		synchronized(mGuis) {
+			mGuis.add(g);
+		}
 	}
 	
 	public static void removeGui(Gui g) {
-		for (Gui gui: mGuis) {
-			if (gui == g) {
-				mGuis.remove(gui);
-			}
+		synchronized(mGuis) {
+			mGuis.remove(g);
 		}
 	}
 

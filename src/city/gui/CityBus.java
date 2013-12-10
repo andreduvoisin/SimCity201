@@ -64,6 +64,7 @@ public class CityBus extends CityComponent {
 	}
 
 	public void paint(Graphics g) {
+		if (isActive)
 		draw((Graphics2D)g);
 	}
 

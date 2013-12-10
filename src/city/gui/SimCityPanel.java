@@ -15,6 +15,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import base.Location;
+
 @SuppressWarnings("serial")
 public abstract class SimCityPanel extends JPanel implements ActionListener, MouseListener {
 
@@ -24,11 +26,14 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	protected static List<CityComponent> statics;
 	public List<CityComponent> movings;
 	public List<CityIntersection> intersections;
+	public List<Location> crashes;
+	public enum EnumCrashType { NONE, PERSON_VEHICLE, VEHICLE_VEHICLE };
+	public EnumCrashType mCrashScenario = EnumCrashType.NONE;
 	
 	protected Color background;
 	protected Timer timer;
 	private BufferedImage backgroundImage;
-
+	private BufferedImage crashImage;
 	
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
@@ -36,6 +41,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		statics = Collections.synchronizedList(new ArrayList<CityComponent>());
 		movings = Collections.synchronizedList(new ArrayList<CityComponent>());
 		intersections = Collections.synchronizedList(new ArrayList<CityIntersection>());
+		crashes = Collections.synchronizedList(new ArrayList<Location>());
 		timer = new Timer(10, this);
 		timer.start();
 		
@@ -43,6 +49,8 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 		try {
 			java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/citypanel-bg.png");
 			backgroundImage = ImageIO.read(imageURL);
+			java.net.URL imageURL2 = this.getClass().getClassLoader().getResource("city/gui/images/Blood_Splatter.png");
+			crashImage = ImageIO.read(imageURL2);			
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -78,22 +86,55 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 				c.paint(g);
 			}
 		}
+		
+		if (mCrashScenario != EnumCrashType.NONE) {
+			for (Location crash : crashes) {
+				g.drawImage(crashImage, crash.mX, crash.mY, null);
+			}
+			synchronized (movings) {
+				for (CityComponent c : movings) {
+					for (CityComponent x : movings) {
+						if (mCrashScenario == EnumCrashType.PERSON_VEHICLE) {
+							if (!(c instanceof CityBus)
+									&& !(x instanceof CityBus)
+									&& c.collidesWith(x)) {
+								if (c.isActive && x.isActive) {
+									crashes.add(new Location(c.x, c.y));
+									c.disable();
+									x.disable();
+								}
+							}
+						} else {
+							if (c.collidesWith(x)) {
+								if (c.isActive && x.isActive) {
+									crashes.add(new Location(c.x, c.y));
+									c.disable();
+									x.disable();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public void moveComponents() {
 		
 		synchronized(movings) {
 			for (CityComponent c:movings) {
-				c.updatePosition();
+				if (c.isActive()) c.updatePosition();
 			}
 		}
-		synchronized(intersections) {
-			for (CityIntersection ci:intersections) {
+		synchronized (intersections) {
+			for (CityIntersection ci : intersections) {
 				ci.setOccupant(null);
-				synchronized(movings) {
-					for (CityComponent cc: movings) {
-						if (ci.collidesWith(cc)) {
-							ci.setOccupant(cc);
+				synchronized (movings) {
+					for (CityComponent cc : movings) {
+						if (ci.isActive() && cc.isActive) {
+							if (ci.collidesWith(cc)) {
+								ci.setOccupant(cc);
+							}
 						}
 					}
 				}

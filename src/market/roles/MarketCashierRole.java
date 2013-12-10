@@ -159,7 +159,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
         if (personRole instanceof RestaurantCookInterface){
         	order.mDeliveryTruck = mDeliveryTruck;
             RestaurantCookInterface cook = (RestaurantCookInterface) order.mPersonRole;
-            cook.msgCannotFulfillItems(order, cannotFulfill);
             RestaurantCashierInterface restaurantCashier = null;
             
             switch(order.mRestaurantNumber) {
@@ -189,7 +188,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	break;
             }
             restaurantCashier.msgInvoiceToPerson(cannotFulfill, invoice);
-            cook.msgCannotFulfillItems(order, cannotFulfill);//ANGLE, SHANE... why is this called twice?
+            cook.msgCannotFulfillItems(order, cannotFulfill);
         }
         
 		//if a customer
@@ -251,10 +250,10 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 
 	public Location getLocation() {
-		if (mMarketID == 1) {
+		if (mMarketID == 0) {
 			return ContactList.cMARKET1_LOCATION;
 		}
-		else if (mMarketID == 2) {
+		else if (mMarketID == 1) {
 			return ContactList.cMARKET2_LOCATION;
 		}
 		return null;

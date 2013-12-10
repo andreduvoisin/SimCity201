@@ -198,10 +198,10 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 
 	@Override
 	public Location getLocation() {
-		if (mMarketID == 1) {
+		if (mMarketID == 0) {
 			return ContactList.cMARKET1_LOCATION;
 		}
-		else if (mMarketID == 2) {
+		else if (mMarketID == 1) {
 			return ContactList.cMARKET2_LOCATION;
 		}
 		return null;

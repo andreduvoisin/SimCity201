@@ -47,6 +47,7 @@ public class DavidRestaurant {
 	public static void addCook(DavidCookRole ck) {
 		cook = ck;
 		CookGui g = new CookGui(cook);
+		cook.setGui(g);
 		host.setCook(cook);
 		guis.add(g);
 	}

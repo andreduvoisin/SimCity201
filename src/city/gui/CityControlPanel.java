@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -24,6 +26,7 @@ import base.ConfigParser;
 import base.ContactList;
 import base.Inspection;
 import base.Location;
+import city.gui.SimCityPanel.EnumCrashType;
 import city.gui.properties.PlacesButtonListener;
 import city.gui.properties.PlacesListener;
 import city.gui.properties.PlacesPropertiesLabel;
@@ -48,7 +51,9 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JPanel PeopleTab = new JPanel();
     JPanel PropertiesTab = new JPanel();
     JPanel TraceTab = new JPanel();
-    
+    //Crash Buttons
+    JButton scenarioP;
+    JButton scenarioQ;
     // Trace Panel
     TracePanel tracePanel;
     // Selection for Trace Panel
@@ -186,8 +191,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    	
 	    	JLabel label4 = new JLabel("Non-Normative - We Design");
 	    	JButton scenarioO = new JButton("O: Bank Robbery");
-	    	JButton scenarioP = new JButton("P: Vehicle Accident");
-	    	JButton scenarioQ = new JButton("Q: Vehicle Hits Person");
+	    	scenarioP = new JButton("P: Vehicle Accident");
+	    	scenarioQ = new JButton("Q: Vehicle Hits Person");
 	    	JButton scenarioR = new JButton("R: Different on Weekends");
 	    	JButton scenarioS = new JButton("S: Job Shifts");
     	
@@ -246,20 +251,20 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
 			scenarioA.addActionListener(getActionListener("A_all_inspect1.txt"));
-			scenarioB.addActionListener(getActionListener("restConfig7.txt"));
-			scenarioC.addActionListener(getActionListener("MarketRestaurantConfig_C.txt"));
-			scenarioD.addActionListener(getActionListener("PartyConfig_D.txt"));
-			scenarioE.addActionListener(getActionListener(""));
-			scenarioF.addActionListener(getActionListener("Inspection_F.txt"));
-			scenarioG.addActionListener(getActionListener("MarketConfig_G.txt"));
-			scenarioH.addActionListener(getActionListener("PartyConfig_H.txt"));
-			scenarioI.addActionListener(getActionListener("PartyConfig_I.txt"));
-			scenarioJ.addActionListener(getActionListener("config1.txt"));
-			scenarioO.addActionListener(getActionListener("BankConfig.txt"));
-			scenarioP.addActionListener(getActionListener(""));
-			scenarioQ.addActionListener(getActionListener(""));
+			scenarioB.addActionListener(getActionListener("B_all_inspect3.txt"));
+			scenarioC.addActionListener(getActionListener("C_Market_Cook_Cashier.txt"));
+			scenarioD.addActionListener(getActionListener("D_Party_All.txt"));
+			scenarioE.addActionListener(getActionListener("E_Bus_Stop.txt"));
+			scenarioF.addActionListener(getActionListener("F_Inspection.txt"));
+			scenarioG.addActionListener(getActionListener("G_Market_Redeliver.txt"));
+			scenarioH.addActionListener(getActionListener("H_Party_Half.txt"));
+			scenarioI.addActionListener(getActionListener("I_Party_None.txt"));
+			scenarioJ.addActionListener(getActionListener("J_All_Interweave.txt"));
+			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
+			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
+			scenarioQ.addActionListener(getActionListener("Q_Crash_2.txt"));
 			scenarioR.addActionListener(getActionListener(""));
-			scenarioS.addActionListener(getActionListener(""));
+			scenarioS.addActionListener(getActionListener("S_Firing.txt"));
 	}
 	
 	//Used to shorten above code
@@ -267,6 +272,24 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()== scenarioP) {
+					Timer collisionTimer = new Timer();
+					TimerTask detectCrashes = new TimerTask() {
+						public void run() {
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
+						}
+					};
+					collisionTimer.schedule(detectCrashes, 6500);
+				}
+				if (e.getSource()== scenarioQ) {
+					Timer collisionTimer = new Timer();
+					TimerTask detectCrashes = new TimerTask() {
+						public void run() {
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
+						}
+					};
+					collisionTimer.schedule(detectCrashes, 6500);
+				}
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
 					config.readFileCreatePersons(city, filename);
@@ -506,9 +529,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	disable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, false);
-					Inspection.sClosedImages.get(iLocation).enable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, false);
+						Inspection.sClosedImages.get(iLocation).enable();
+					}
 				}
 			}
 		});
@@ -516,9 +541,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	enable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, true);
-					Inspection.sClosedImages.get(iLocation).disable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, true);
+						Inspection.sClosedImages.get(iLocation).disable();
+					}
 				}
 			}
 		});
@@ -526,7 +553,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	
 	
-	public void actionPerformed(ActionEvent e) {		
+	public void actionPerformed(ActionEvent e) {
 		// JButton
 		/*
 		if(e.getSource() instanceof JButton) {

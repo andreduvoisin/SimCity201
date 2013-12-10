@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
+import base.Gui;
 import base.Location;
 
-public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui {
+public class CwagonerCustomerGui extends CwagonerBaseGui implements Gui {
 
 	private final int PLATE = 20;
 	private static int customerNum = 0;
@@ -68,7 +70,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 					&& destination.mX == gonePos.mX && destination.mY == gonePos.mY) {
 				((CwagonerCustomerRole)role).msgGuiLeftRestaurant();
 				isHungry = false;
-				CwagonerAnimationPanel.restaurant.removeGui(this);
+				CwagonerRestaurant.removeGui(this);
 			}
 			command = Command.noCommand;
 		}
@@ -143,5 +145,11 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	
 	public void clearFood() {
 		food = "";
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
 	}
 }
