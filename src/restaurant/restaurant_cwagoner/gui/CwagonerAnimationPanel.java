@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
+import base.Gui;
 import base.Location;
 import base.Time;
 import city.gui.CityCard;
@@ -73,7 +74,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		repaint();  // Will have paint() called
 		
 		synchronized(CwagonerRestaurant.guis) {
-			for (CwagonerGui gui : CwagonerRestaurant.guis) {
+			for (Gui gui : CwagonerRestaurant.guis) {
 	            gui.updatePosition();
 	        }
 		}
@@ -103,7 +104,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		g.drawImage(CwagonerCookGui.fridgeImg, CwagonerCookGui.fridgePos.mX, CwagonerCookGui.fridgePos.mY, null);
 
 		synchronized(CwagonerRestaurant.guis) {
-	        for (CwagonerGui gui : CwagonerRestaurant.guis) {
+	        for (Gui gui : CwagonerRestaurant.guis) {
 	            gui.draw(g2);
 	        }
         }

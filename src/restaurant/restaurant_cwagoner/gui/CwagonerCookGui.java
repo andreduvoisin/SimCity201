@@ -8,9 +8,10 @@ import java.awt.image.BufferedImage;
 
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
+import base.Gui;
 import base.Location;
 
-public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
+public class CwagonerCookGui extends CwagonerBaseGui implements Gui {
     
     private enum State { idle, goingToFridge, goingToCooking, goingToPlating }
     private State state;
@@ -109,4 +110,16 @@ public class CwagonerCookGui extends CwagonerBaseGui implements CwagonerGui {
     public void DoClearFood() {
     	food = "";
     }
+
+	@Override
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }
