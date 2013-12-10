@@ -20,6 +20,7 @@ import city.gui.SimCityGui;
  * @author David Carr, Maggi Yang
  */
 
+@SuppressWarnings("serial")
 public class HousingGuiPanel extends CityCard implements ActionListener {
 
 	private final int WINDOWX = 500;

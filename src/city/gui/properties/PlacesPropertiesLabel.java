@@ -432,7 +432,6 @@ public class PlacesPropertiesLabel extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 	        if (e.getSource() == changeStaffField || e.getSource() == changeStaffButton) {
 	        	if(!changeStaffType.getSelectedItem().toString().equals("")) {
-	        		System.out.println("blah, test");	//ANGELICA:
 	        	}
 	        }
 	        if (e.getSource() == changeInventoryField || e.getSource() == changeInventoryButton) {

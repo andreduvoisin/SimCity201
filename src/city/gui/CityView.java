@@ -50,7 +50,7 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 		cards.put("r_duvoisin", duvoisin);
 		
 //		//Rest 1
-		CwagonerAnimationPanel cwagoner = new CwagonerAnimationPanel(city);
+		CwagonerAnimationPanel cwagoner = new CwagonerAnimationPanel(city, ContactList.CwagonerRestaurant);
 		cards.put("r_cwagoner", cwagoner);
 		
 //		//Rest 2

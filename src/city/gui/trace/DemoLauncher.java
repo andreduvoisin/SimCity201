@@ -225,7 +225,7 @@ public class DemoLauncher extends JFrame {
 	
 	//CONTROL PANEL CLASS
 	private class ControlPanel extends JPanel {
-		TracePanel tp;	//Hack so I can easily call showAlertsWithLevel for this demo.
+//		TracePanel tp;	//Hack so I can easily call showAlertsWithLevel for this demo.
 		
 		JButton enableMessagesButton;		//You could (and probably should) substitute a JToggleButton to replace both
 		JButton disableMessagesButton;		//of these, but I split it into enable and disable for clarity in the demo.
@@ -235,7 +235,7 @@ public class DemoLauncher extends JFrame {
 		JButton disableBankCustTagButton;		//of these, but I split it into enable and disable for clarity in the demo.
 		
 		public ControlPanel(final TracePanel tracePanel) {
-			this.tp = tracePanel;
+//			this.tp = tracePanel;
 			enableMessagesButton = new JButton("Show Level: MESSAGE");
 			disableMessagesButton = new JButton("Hide Level: MESSAGE");
 			enableErrorButton = new JButton("Show Level: ERROR");

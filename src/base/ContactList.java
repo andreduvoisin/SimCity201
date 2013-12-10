@@ -15,6 +15,7 @@ import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import transportation.TransportationBus;
 import bank.Bank;
 import bank.interfaces.BankMasterTeller;
@@ -38,7 +39,8 @@ public class ContactList {
 	public static JerrywebRestaurant JerrywebRestaurant;
 	public static AndreRestaurant AndreRestaurant;
 	public static SmilehamRestaurant SmilehamRestaurant;
-	public static MaggiyanRestaurant MaggiyanRestaurant; 
+	public static MaggiyanRestaurant MaggiyanRestaurant;
+	public static CwagonerRestaurant CwagonerRestaurant;
 	
 	//Setup
 	public static void setup(){
@@ -309,8 +311,8 @@ public class ContactList {
 	//BANKS, MARKETS
 	public static final Location cBANK1_LOCATION = gridLocation(1, 1);
 	public static final Location cBANK2_LOCATION = gridLocation(2, 2);
-	public static final Location cMARKET1_LOCATION = gridLocation(2, 1);
-	public static final Location cMARKET2_LOCATION = gridLocation(1, 2);
+	public static final Location cMARKET1_LOCATION = gridLocation(1, 2);	//Honeydukes
+	public static final Location cMARKET2_LOCATION = gridLocation(2, 1);	//Ollivanders
 	
 	
 	//RESTAURANTS

@@ -18,6 +18,7 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -78,7 +79,10 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Messages
 	public void msgOrderPlacement(MarketOrder order){
-		mOrders.add(order);
+		print("Msg gotten");
+		synchronized(mOrders) {
+			mOrders.add(order);
+		}
 		order.mEvent = EnumOrderEvent.ORDER_PLACED;
 		stateChanged();
 	}
@@ -104,6 +108,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		 * if cashier has just started, go to position
 		 */
 		if (mOrders.size() > 0){
+			synchronized(mOrders) {
 			for (MarketOrder iOrder : mOrders){
 				//notify customer if an order has been placed
 				if ((iOrder.mStatus == EnumOrderStatus.PLACED) && (iOrder.mEvent == EnumOrderEvent.ORDER_PLACED)){
@@ -112,12 +117,15 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 					return true;
 				}
 			}
+			}
+			synchronized(mOrders) {
 			for (MarketOrder iOrder : mOrders){
 				if ((iOrder.mStatus == EnumOrderStatus.PAID) && (iOrder.mEvent == EnumOrderEvent.ORDER_PAID)){
 					iOrder.mStatus = EnumOrderStatus.SENT;
 					fulfillOrder(iOrder);
 					return true;
 				}
+			}
 			}
 		}
 		/*
@@ -161,7 +169,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	restaurantCashier = AndreRestaurant.cashier.mRole;
             	break;
             case 1: //chase
-            	restaurantCashier = CwagonerAnimationPanel.cashier.mRole;
+            	restaurantCashier = CwagonerRestaurant.cashier.mRole;
             	break;
             case 2: //jerry
             	restaurantCashier = JerrywebRestaurant.cashier.mRole;

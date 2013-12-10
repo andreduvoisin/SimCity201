@@ -1,7 +1,6 @@
 package housing.test;
 
 import housing.House;
-import housing.gui.HousingPersonGui;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 import junit.framework.TestCase;
@@ -40,10 +39,12 @@ public class BasicTest extends TestCase {
 	public void testHousingGui() {
 		mPerson = new PersonAgent();
 		mPerson2 = new PersonAgent();
-		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
-		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
-		HousingPersonGui gui1 = new HousingPersonGui();
-		HousingPersonGui gui2 = new HousingPersonGui();
+//		HousingRenterRole renter1 = new HousingRenterRole(mPerson);
+//		HousingRenterRole renter2 = new HousingRenterRole(mPerson2);
+//		HousingPersonGui gui1 = new HousingPersonGui();
+//		HousingPersonGui gui2 = new HousingPersonGui();
+		
+		
 //		renter1.setGui(gui1);
 //		renter2.setGui(gui2);
 		/*HousingHouseGuiPanel housepanel = HousingHouseGuiPanel.getInstance();
@@ -73,8 +74,8 @@ public class BasicTest extends TestCase {
 		mPerson2.pickAndExecuteAnAction();
 	}
 
-	private void print(String message) {
-		System.out.println("[PersonTest] " + message);
-	}
+//	private void print(String message) {
+//		System.out.println("[PersonTest] " + message);
+//	}
 
 }

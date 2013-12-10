@@ -79,8 +79,8 @@ public class WorkerTest extends TestCase {
 		
 		mWorker.pickAndExecuteAnAction();
 	  //assert order state
-		assertEquals("Order state should be ordering.",
-				mWorker.getOrder(0).mStatus, EnumOrderStatus.ORDERING);
+		assertEquals("Order state should be ordering.",EnumOrderStatus.ORDERING
+				,mWorker.getOrder(0).mStatus );
 		
 		
 		mWorker.msgOrderFulfilled(mOrder);
@@ -134,8 +134,8 @@ public class WorkerTest extends TestCase {
 			
 			mWorker.pickAndExecuteAnAction();
 		  //assert order state
-			assertEquals("Order state should be ordering.",
-					mWorker.getOrder(0).mStatus, EnumOrderStatus.ORDERING);
+			assertEquals("Order state should be ordering, but wasn't.",EnumOrderStatus.ORDERING
+					,mWorker.getOrder(0).mStatus );
 			
 			
 			mWorker.msgOrderFulfilled(mOrder);

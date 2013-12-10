@@ -52,7 +52,6 @@ public class ConfigParser {
 			
 			//Name
 			String name = scanPerson.next();
-			
 			//Instantiate Person
 			Person person = new PersonAgent(jobType, cash, name); //adds role automatically
 			
@@ -68,8 +67,9 @@ public class ConfigParser {
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 				else if(name.contains("restcust"))
 					person.msgAddEvent(new Event(EnumEventType.EAT, 0));
-				else if(name.contains("party"))
+				else if(name.contains("party")){
 					person.msgAddEvent(new Event(EnumEventType.PLANPARTY, -1));
+				}
 				else if(name.contains("car"))
 					person.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
 				else if(name.contains("house"))

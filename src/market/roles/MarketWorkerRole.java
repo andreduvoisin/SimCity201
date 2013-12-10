@@ -112,14 +112,14 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 	}
 	
 	private void fulfillOrder(MarketOrder o) {
-		print("Fulfilling order.");
+		print("Giving customer their order.");
 		DoGoToCustomer();
 		((MarketCustomer)(o.mPersonRole)).msgHereIsCustomerOrder(o);
 		mOrders.remove(o);
 	}
 	
 	private void sendOrder(MarketOrder o) {
-		print("Sending order.");
+		print("Sending order to delivery truck.");
 		DoGoToDeliveryTruck();
 		mMarket.mDeliveryTruck.msgDeliverOrderToCook(o);
 		mOrders.remove(o);

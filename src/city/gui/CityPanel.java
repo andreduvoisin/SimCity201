@@ -5,9 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
-import base.Block;
 import base.ContactList;
 import base.Inspection;
 
@@ -106,10 +104,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 
 	public static CityPanel getInstance() {
 		return instance;
-	}
-	
-	public void addDeliveryTruck(MarketDeliveryTruckGui g) {
-		addMoving(g);
 	}
 	
 	public void mouseClicked(MouseEvent arg0) {

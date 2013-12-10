@@ -8,40 +8,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
-import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
-import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
-import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
-import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
-import restaurant.restaurant_cwagoner.roles.CwagonerHostRole;
-import restaurant.restaurant_cwagoner.roles.CwagonerSharedWaiterRole;
-import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import base.Location;
 import base.Time;
-import base.interfaces.Role;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
 @SuppressWarnings("serial")
 public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 
-	int tableSize = 50, numTables = 4;
-    List<CwagonerGui> guis = Collections.synchronizedList(new ArrayList<CwagonerGui>());
-    ArrayList<Location> tableLocations = new ArrayList<Location>();
+	int tableSize = 50;
+	public static CwagonerRestaurant restaurant;
 
-    public static CwagonerHostRole host;
-    public static CwagonerCashierRole cashier;
-    public static CwagonerCookRole cook;
-    private List<CwagonerCustomerRole> Customers = new ArrayList<CwagonerCustomerRole>();
-    private List<CwagonerWaiter> Waiters = new ArrayList<CwagonerWaiter>();
+    static ArrayList<Location> tableLocations = new ArrayList<Location>();
 
-    public CwagonerAnimationPanel(SimCityGui g) {
+    public CwagonerAnimationPanel(SimCityGui g, CwagonerRestaurant r) {
     	super(g);
+    	CwagonerAnimationPanel.restaurant = r;
+
     	this.setVisible(true);
 
     	this.setBounds(0, 0, CARD_WIDTH, CARD_HEIGHT);
@@ -77,15 +65,15 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		}
     }
 
-    public Location getTableLocation(int tableNum) {
+    public static Location getTableLocation(int tableNum) {
     	return tableLocations.get(tableNum);
     }
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();  // Will have paint() called
 		
-		synchronized(guis) {
-			for (CwagonerGui gui : guis) {
+		synchronized(CwagonerRestaurant.guis) {
+			for (CwagonerGui gui : CwagonerRestaurant.guis) {
 	            gui.updatePosition();
 	        }
 		}
@@ -114,38 +102,10 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
     	// Fridge
 		g.drawImage(CwagonerCookGui.fridgeImg, CwagonerCookGui.fridgePos.mX, CwagonerCookGui.fridgePos.mY, null);
 
-		synchronized(guis) {
-	        for (CwagonerGui gui : guis) {
+		synchronized(CwagonerRestaurant.guis) {
+	        for (CwagonerGui gui : CwagonerRestaurant.guis) {
 	            gui.draw(g2);
 	        }
         }
-    }
-
-    public void addGui(CwagonerGui gui) {
-    	synchronized(guis) {
-    		guis.add(gui);
-    	}
-    }
-
-    public void addPerson(Role subRole) {
-    	if (subRole instanceof CwagonerHostRole) {
-    		host = (CwagonerHostRole)subRole;
-    		host.setNumTables(numTables);
-    	}
-    	else if (subRole instanceof CwagonerCashierRole) {
-    		cashier = (CwagonerCashierRole)subRole;
-    	}
-    	else if (subRole instanceof CwagonerCookRole) {
-    		cook = (CwagonerCookRole)subRole;
-    	}
-    	else if (subRole instanceof CwagonerCustomerRole) {	
-    		Customers.add((CwagonerCustomerRole) subRole);
-    	}
-    	else if (subRole instanceof CwagonerSharedWaiterRole) {
-    		Waiters.add((CwagonerSharedWaiterRole)subRole);
-    	}
-    	else if (subRole instanceof CwagonerWaiterRole) {	
-    		Waiters.add((CwagonerWaiterRole) subRole);
-    	}
     }
 }

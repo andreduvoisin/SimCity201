@@ -12,6 +12,7 @@ import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerCustomerGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
@@ -25,7 +26,6 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	// DATA
 	
-	private int hungerLevel = 5;        // determines length of meal
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
 	private String food;
 	private double myMoney;
@@ -41,21 +41,19 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	public enum State { doingNothing, inRestaurant, waitingToBeSeated,
 						goingToSeat, lookingAtMenu, readyToOrder, ordering, ordered,
 						eating, askedForCheck, goingToCashier, waitingAtCashier, paid, leaving};
-	private State state = State.doingNothing;
+	private State state = State.inRestaurant;
 
-	public enum Event { none, gotHungry, followWaiter, seated, decidedOnFood,
+	public enum Event { none, followWaiter, seated, decidedOnFood,
 						waiterAskedForOrder, gaveOrderToWaiter, foodDelivered,
 						doneEating, checkReady, arrivedAtCashier, checkGiven,
 						cashierAccepted, doneLeaving };
 	Event event = Event.none;
 
-	public CwagonerCustomerRole(Person person, CwagonerAnimationPanel panel) {
+	public CwagonerCustomerRole(Person person) {
 		super(person);
-		// CHASE: handle payment: moneyOwed, myMoney?
-		state = State.inRestaurant;
+		print("CwagonerCustomerRole created inRestaurant");
 
-		animationPanel = panel;
-		this.setGui(new CwagonerCustomerGui(this, panel));
+		this.setGui(new CwagonerCustomerGui(this));
 	}
 	
 	// MESSAGES
@@ -294,7 +292,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	private void AlertHost() {
 		print("AlertHost() - sending msgIWantFood");
 		state = State.waitingToBeSeated;
-		animationPanel.host.msgIWantFood(this);
+		CwagonerRestaurant.host.msgIWantFood(this);
 	}
 
 	private void SitDown() {
@@ -349,7 +347,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 				
 				stateChanged();
 			}
-		}, hungerLevel * 1000);
+		}, 5000);
 	}
 	
 	public void AlertWaiter() {
@@ -382,7 +380,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 				event = Event.doneEating;
 				stateChanged();
 			}
-		}, hungerLevel * 1000);
+		}, 5000);
 	}
 
 	private void TellWaiterLeaving() {
@@ -406,7 +404,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		print("TellCashierReady()");
 
 		state = State.waitingAtCashier;
-		animationPanel.cashier.msgReadyToPay(this);
+		CwagonerRestaurant.cashier.msgReadyToPay(this);
 	}
 	
 	private void PayCashier() {
@@ -424,7 +422,7 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 		}
 		
 		state = State.paid;
-		animationPanel.cashier.msgPayment(this, amountPaid);
+		CwagonerRestaurant.cashier.msgPayment(this, amountPaid);
 		stateChanged();
 	}
 	
@@ -442,16 +440,6 @@ public class CwagonerCustomerRole extends BaseRole implements CwagonerCustomer {
 	
 	public String getName() {
 		return "CwagonerCustomer " + mPerson.getName();
-	}
-	
-	public int getHungerLevel() {
-		return hungerLevel;
-	}
-
-	public void setHungerLevel(int h) {
-		hungerLevel = h;
-		// could be a state change. Maybe you don't
-		// need to eat until hunger lever is > 5?
 	}
 
 	public void setGui(CwagonerCustomerGui g) {

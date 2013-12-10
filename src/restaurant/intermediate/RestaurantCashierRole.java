@@ -11,6 +11,8 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
+import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCashierRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -58,11 +60,16 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 					subRole = AndreRestaurant.cashier;
 				}
 				break;
-//			case 1: //chase
-//				mAlertTag = AlertTag.R1;
-//				subRole = ((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).cashier;
-//				subRole.setPerson(super.mPerson);
-//				break;
+			case 1: //chase
+				mAlertTag = AlertTag.R1;
+				subRole = new CwagonerCashierRole(super.mPerson, this);
+				if (CwagonerRestaurant.cashier == null) {
+					CwagonerRestaurant.cashier = (CwagonerCashierRole)subRole;
+				}
+				else {
+					subRole = CwagonerRestaurant.cashier;
+				}
+				break;
 			case 2: //jerry
 				mAlertTag = AlertTag.R2;
 				subRole = new JerrywebCashierRole(super.mPerson, this);

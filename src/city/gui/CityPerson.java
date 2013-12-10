@@ -12,7 +12,7 @@ import base.PersonAgent;
 
 public class CityPerson extends CityComponent {
 	
-	private String name = "";
+//	private String name = "";
 	PersonAgent mPerson = null;
 	SimCityGui gui;
 	
@@ -22,7 +22,8 @@ public class CityPerson extends CityComponent {
 	public boolean mUsingBus = true;
 	public boolean mGettingCar = false;
 	public boolean mCanMove = true;
-	
+	public boolean mDeliverying = false;
+
 	static final int xIndex = 10;
 	static final int yIndex = 10;
 
@@ -116,8 +117,8 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
 		//If person has a car
-		if (mPerson.hasCar() && !mGettingCar) {
-			if (mPerson.hasCar()) {
+		if (mDeliverying ||(mPerson.hasCar() && !mGettingCar)) {	//ANGELICA
+			if (mDeliverying || mPerson.hasCar()) {
 				//if at corner closest to destination, walk to destination
 				if (mLocation.equals(destParking)){
 					x = closeCorner.mX;
@@ -192,9 +193,13 @@ public class CityPerson extends CityComponent {
 		if(isActive) {
 			if (! onBus) {
 //				if(SimCityGui.GRADINGVIEW) {
-					g.setColor(color.white);
+					g.setColor(Color.WHITE);
 					g.drawString(mPerson.getName(),x,y);
-					if (mUsingCar) {
+					if(mDeliverying) {			//ANGELICA
+						g.setColor(Color.MAGENTA);
+						g.fillRect(x,y,10,10);
+					}
+					else if (mUsingCar) {
 						g.setColor(Color.cyan);
 						g.fillRect(x, y, 10, 10);
 					}

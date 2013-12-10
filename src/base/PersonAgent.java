@@ -144,8 +144,8 @@ public class PersonAgent extends Agent implements Person {
 		
 		mRoles.put(SortingHat.getHousingRole(this), true);
 		//mRoles.put(new CommuterRole(this), false); 
-		mRoles.put(new BankCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
-		mRoles.put(new MarketCustomerRole(this, mSSN%ContactList.cNumTimeShifts), false);
+		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
+		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
 		
 	}
@@ -157,7 +157,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Lists
 		mFriends = new ArrayList<Person>();
-		mEvents = new ArrayList<Event>();
+		mEvents = Collections.synchronizedList(new ArrayList<Event>());
 		mItemInventory = Collections.synchronizedMap(new HashMap<EnumItemType, Integer>());
 			//populate inventory
 			mItemInventory.put(EnumItemType.CAR,0);
@@ -176,6 +176,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
+		//mTimeShift = 0;
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
 		mHasCar = true; 
@@ -195,7 +196,7 @@ public class PersonAgent extends Agent implements Person {
         mPersonGui = new CityPerson(this, SimCityGui.getInstance(), startLocation);
         
 		// Event Setup
-		mEvents = new ArrayList<Event>();
+		mEvents = Collections.synchronizedList(new ArrayList<Event>());
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -258,13 +259,16 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		if ((mRoleFinished) && (!mAtJob) ){
 			// Process events (calendar)
-			Collections.sort(mEvents);
+			synchronized(mEvents){
+				Collections.sort((mEvents));
+			}
 			if(mEvents.isEmpty())
 				return false;
 			Event event = mEvents.get(0); //next event
 			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
-				mRoleFinished = false; //doing a role
+				if(!mName.contains("party") && !mName.contains("other")) //required because party is not a role
+					mRoleFinished = false; //doing a role
 				processEvent(event);
 				return true;
 			}
@@ -351,10 +355,15 @@ public class PersonAgent extends Agent implements Person {
 			if (event instanceof EventParty){
 				if(((EventParty)event).mAttendees.isEmpty()){
 					print("OMG THIS PARTY SUCKS and is cancelled");
+					synchronized(mEvents){
+						mEvents.remove(event);
+					}
 					return;
 				}
-				goParty((EventParty)event);
-				mCurrentParty = (EventParty)event;
+				else{
+					goParty((EventParty)event);
+					mCurrentParty = (EventParty)event;
+				}
 			}
 		}
 		else if (event.mEventType == EnumEventType.PLANPARTY) {
@@ -570,22 +579,6 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goToMarket() {
 
-		//mCommuterRole.mActive = true;
-		mPersonGui.DoGoToDestination(mSSN%2==0? ContactList.cMARKET1_LOCATION:ContactList.cMARKET2_LOCATION);
-		//acquireSemaphore(semAnimationDone);
-		mPersonGui.setPresent(false);
-
-		//ANGELICA: hack
-		mItemsDesired.put(EnumItemType.SALAD, sBaseWanted);
-		mItemsDesired.put(EnumItemType.CHICKEN, sBaseWanted);
-
-
-		mCommuterRole.mActive = true;
-		mCommuterRole.setLocation(ContactList.cMARKET1_LOCATION);
-
-	//}	
-		//SHANE: is this supposed to be one function?
-	//private void goToMarket() {		
 		switch(mSSN % 4) {
 			case 0:
 				mItemsDesired.put(EnumItemType.PIZZA, sBaseWanted);
@@ -610,7 +603,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		
 		Location location;
-		if(mSSN%ContactList.cNumTimeShifts == 0) {
+		if(mSSN%2 == 0) {
 			location = ContactList.getDoorLocation(ContactList.cMARKET1_LOCATION);
 		} else {
 			location = ContactList.getDoorLocation(ContactList.cMARKET2_LOCATION);
@@ -634,7 +627,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//GO TO BANK AND DO STUFF
 		mCommuterRole.mActive = true;
-		mCommuterRole.setLocation(ContactList.cBANK1_LOCATION);
+		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		mCommutingTo = EnumCommuteTo.BANK;
 	}
 	
@@ -646,6 +639,7 @@ public class PersonAgent extends Agent implements Person {
 		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
+		print("I have events: "+mEvents.size());
 	}
 
 	private void goParty(EventParty event) {
@@ -668,12 +662,11 @@ public class PersonAgent extends Agent implements Person {
 
 	private void inviteToParty() {
 		if(mFriends.isEmpty()){
-			int numPeople = ContactList.sPersonList.size();
-//			print("Num People in city: " + numPeople);
-			for (int i = 0; i < numPeople; i = i + 2){
-				mFriends.add(ContactList.sPersonList.get(i));
+			for (Person iPerson : ContactList.sPersonList){
+				mFriends.add(iPerson);
 			}
-			print("Created friends for party host");
+			print("There are "+ContactList.sPersonList.size()+" people in the city");
+			print("Created "+mFriends.size()+" friends for party host");
 		}
 		print("First RSVP is sent out");
 		//party is in 3 days
@@ -709,29 +702,39 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 		}
+		synchronized(party.mAttendees){
 		for (Person iPerson : party.mAttendees.keySet()){
 			if (party.mAttendees.get(iPerson) == false){ //haven't responded yet
 				Event rsvp = new EventParty(EnumEventType.RSVP2, -1, this);
 				iPerson.msgAddEvent(rsvp);
 			}
 		}
+		}
 	}
 	
 	private void respondToRSVP(){
+		synchronized(mEvents){
 		for (Event iEvent : mEvents){
 			if (iEvent instanceof EventParty){
 				if(((EventParty) iEvent).mHost.getName().equals("partyPersonNO")){
-					((EventParty) iEvent).mAttendees.remove(this);
+					synchronized(((EventParty)iEvent).mAttendees){
+						((EventParty) iEvent).mAttendees.remove(this);
+					}
 					print("Responding to RSVP: NO");
 				}
 				else if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
-					((EventParty) iEvent).mAttendees.put(this, true);
+					synchronized(((EventParty)iEvent).mAttendees){
+						((EventParty) iEvent).mAttendees.put(this, true);
+					}
 					print("Responding to RSVP: YES");
 				}else{
-					((EventParty) iEvent).mAttendees.remove(this);
+					synchronized(((EventParty)iEvent).mAttendees){
+						((EventParty) iEvent).mAttendees.remove(this);
+					}
 					print("Responding to RSVP: NO");
 				}
 			}
+		}
 		}
 	}
 	
@@ -766,7 +769,7 @@ public class PersonAgent extends Agent implements Person {
 		return false;
 	}
 
-	private void acquireSemaphore(Semaphore semaphore){
+	public void acquireSemaphore(Semaphore semaphore){
 		try {
 			semaphore.acquire();
 		} catch (InterruptedException e) {
@@ -912,6 +915,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	public boolean hasCar() {
 		return mHasCar;
+	}
+	
+	public void setHasCar(boolean c) {
+		mHasCar = c;
 	}
 	
 	public void Do(String msg) {

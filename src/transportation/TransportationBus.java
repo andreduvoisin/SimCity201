@@ -7,7 +7,6 @@ import java.util.List;
 import test.mock.EventLog;
 import test.mock.LoggedEvent;
 import transportation.interfaces.TransportationRider;
-import transportation.roles.CommuterRole;
 import base.Agent;
 import city.gui.CityBus;
 import city.gui.trace.AlertTag;
@@ -40,7 +39,7 @@ public class TransportationBus extends Agent {
 	// ------------------------------------- DATA ---------------------------------------
 	// ==================================================================================
 
-	public List<TransportationBusStop> mBusStops = new ArrayList<TransportationBusStop>();
+	public List<TransportationBusStop> mBusStops = Collections.synchronizedList(new ArrayList<TransportationBusStop>());
 	public List<TransportationRider> mRiders = Collections.synchronizedList(new ArrayList<TransportationRider>());
 	CityBus mGui;
 	public int mCurrentStop;
@@ -74,7 +73,6 @@ public class TransportationBus extends Agent {
 		synchronized(mBusStops.get(riderCurrentStop).mWaitingPeople) {
 			mBusStops.get(riderCurrentStop).mWaitingPeople.add(r);
 		}
-		stateChanged();
 	}
 
 	/**
@@ -84,7 +82,7 @@ public class TransportationBus extends Agent {
 	 * @param riderDestination The stop number the Person is going to
 	 */
 	public void msgImOn(TransportationRider r) {
-		log.add(new LoggedEvent("Received msgImOn(" + ((CommuterRole)r).getName() + ")"));
+		log.add(new LoggedEvent("Received msgImOn(" + r.getName() + ")"));
 
 		synchronized(mBusStops.get(mCurrentStop).mWaitingPeople) {
 			mBusStops.get(mCurrentStop).mWaitingPeople.remove(r);
@@ -125,7 +123,7 @@ public class TransportationBus extends Agent {
 		
 		if (state == enumState.ReadyToTravel) {
 			AdvanceToNextStop();
-			return false;
+			return true;
 		}
 
 		return false;
@@ -161,12 +159,17 @@ public class TransportationBus extends Agent {
 	private void TellRidersToBoard() {
 		log.add(new LoggedEvent(("TellRidersToBoard()")));
 		
+		synchronized(mBusStops) {
 		synchronized(mBusStops.get(mCurrentStop).mWaitingPeople) {
-			for (TransportationRider r : mBusStops.get(mCurrentStop).mWaitingPeople) {
+			for (TransportationRider r : 
+				mBusStops.
+					get(mCurrentStop).
+					mWaitingPeople) {
 				r.msgBoardBus();
 			}
+			mBusStops.get(mCurrentStop).mWaitingPeople.clear();
 		}
-		mBusStops.get(mCurrentStop).mWaitingPeople.clear();
+		}
 
 		state = enumState.ReadyToTravel;
 		stateChanged();
@@ -180,7 +183,7 @@ public class TransportationBus extends Agent {
 		log.add(new LoggedEvent(("AdvanceToNextStop()")));
 
 		state = enumState.traveling;
-		mGui.DoAdvanceToNextStop();
+		if (! testing) mGui.DoAdvanceToNextStop();
 		// Moved delay to CityBus.DoAdvanceToNextStop()
 	}
 

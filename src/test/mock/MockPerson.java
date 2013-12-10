@@ -8,6 +8,7 @@ import bank.interfaces.BankMasterTeller;
 import base.Event;
 import base.Item.EnumItemType;
 import base.PersonAgent;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityHousing;
@@ -129,7 +130,7 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public Map<Role, Boolean> getRoles() {
-		
+		log.add(new LoggedEvent("GetRoles was called and will return null"));
 		return null;
 	}
 
@@ -141,13 +142,12 @@ public class MockPerson extends Mock implements Person {
 
 	@Override
 	public void subLoan(double mTransaction) {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("SubLoan called for the transaction value for " + mTransaction));
 	}
 
 	@Override
 	public CityPerson getPersonGui() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("Called GetPersonGui Person function"));
 		return null;
 	}
 
@@ -158,37 +158,34 @@ public class MockPerson extends Mock implements Person {
 	}
 
 	public CityHousing getHouse() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("Called GetHouse Person function"));
 		return null;
 	}
 
 	@Override
 	public void setGuiPresent() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("Called setGuiPresent function"));
 		
 	}
 
 	@Override
 	public CityPerson getGui() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("Called GetGui function"));
 		return null;
 	}
 
 	@Override
 	public void msgRoleFinished() {
-		// TODO Auto-generated method stub
-		
+		log.add(new LoggedEvent("Called msgRoleFinished for Mock Person"));
 	}
 
 	@Override
 	public void setJobFalse() {
-		// TODO Auto-generated method stub
-		
-	}
+		log.add(new LoggedEvent("The setJobFalse method was function was called"));	}
 
 	@Override
 	public boolean hasCar() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("Called hasCar and will return false"));
 		return false;
 	}
 
@@ -208,6 +205,12 @@ public class MockPerson extends Mock implements Person {
 	public void msgStateChanged() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public EnumJobType getJobType() {
+		log.add(new LoggedEvent("Called getJobType for Mock Person. This should return null"));
+		return null;
 	}
 
 }

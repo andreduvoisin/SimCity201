@@ -13,10 +13,9 @@ public class PlacesListener implements ActionListener {
 	JButton button;
 	@SuppressWarnings("rawtypes")
 	JComboBox places;
-	@SuppressWarnings("rawtypes")
 	PlacesPropertiesLabel label;
 	public
-	PlacesListener(JButton b, JComboBox p, PlacesPropertiesLabel l){
+	PlacesListener(JButton b, @SuppressWarnings("rawtypes") JComboBox p, PlacesPropertiesLabel l){
 		button = b;
 		places = p;
 		label = l;
