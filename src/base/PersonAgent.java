@@ -176,8 +176,8 @@ public class PersonAgent extends Agent implements Person {
 		
 		//Personal Variables
 		mSSN = sSSN++; // assign SSN
-		mTimeShift = 0;
-		//		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule ANGELICA
+		//mTimeShift = 0;
+		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
 		mHasCar = false; 
 		
