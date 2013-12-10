@@ -126,8 +126,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
         tabbedPane.addTab("Properties", PropertiesTab);
         tabbedPane.addTab("Scenarios", ScenariosTab);
         tabbedPane.addTab("Trace", TraceTab);
- //       tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
-        tabbedPane.setSelectedIndex(1);
+        tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
+//        tabbedPane.setSelectedIndex(1);
         add(tabbedPane);
         
         // Pretty/Ugly View

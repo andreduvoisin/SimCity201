@@ -12,7 +12,7 @@ import base.PersonAgent;
 
 public class CityPerson extends CityComponent {
 	
-	private String name = "";
+//	private String name = "";
 	PersonAgent mPerson = null;
 	SimCityGui gui;
 	
@@ -191,7 +191,7 @@ public class CityPerson extends CityComponent {
 		if(isActive) {
 			if (! onBus) {
 //				if(SimCityGui.GRADINGVIEW) {
-					g.setColor(color.white);
+					g.setColor(Color.WHITE);
 					g.drawString(mPerson.getName(),x,y);
 					if (mUsingCar) {
 						g.setColor(Color.cyan);

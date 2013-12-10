@@ -11,7 +11,7 @@ import base.Gui;
 
 public class BankGuardGui implements Gui {
 
-	private BankGuard agent = null;
+//	private BankGuard agent = null;
 	private boolean isPresent = true;
 	
 
@@ -26,7 +26,7 @@ public class BankGuardGui implements Gui {
 	private BufferedImage bankguardimage;
 	//Jerry changed the constructors for both this and the customer constructers
 	public BankGuardGui(BankGuard bg){
-		agent = bg;
+//		agent = bg;
 		xPos = STARTPOSX;
 		yPos = STARTPOSY;
 		xDestination = STARTPOSX;
