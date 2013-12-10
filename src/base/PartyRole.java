@@ -5,6 +5,7 @@ import base.Location;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
+// "Dummy" role!
 public class PartyRole extends BaseRole{
 	
 //	DATA
