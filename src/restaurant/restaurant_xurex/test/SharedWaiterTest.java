@@ -50,23 +50,35 @@ public class SharedWaiterTest extends TestCase
 		waiter.setCook(cook);
 		waiter.setCashier(cashier);
 		waiter.setGui(waiterGui);
+		
+		//Prevents Test Stall
+		for(int i = 0; i<99; i++){
+			waiter.releaseSem();
+		}
 	}	
 	
 	public void testOne_OneCustomer(){
 	//  setUp()
 		
 	//	Preconditions
+		assertTrue("Waiter has a gui", waiter.getGui() != null);
+		assertTrue("Waiter gui is correct", waiter.getGui() == waiterGui);
 		assertTrue("Waiter has no customers", waiter.customers.isEmpty());
 		assertTrue("Waiter has no ordeers", waiter.orders.isEmpty());
 		assertTrue("Waiter state is good", waiter.state == WaiterState.good);
+		assertTrue("Host log is empty", host.log.size()==0);
+		assertTrue("Cook log is empty", cook.log.size()==0);
+		assertTrue("Cashier log is empty", cashier.log.size()==0);
+		assertTrue("Waiter gui log is empty", waiterGui.log.size()==0);
 
 	//	1: add one customer
 		waiter.PleaseSeatCustomer(customer1, 2);
 		
 	//	Check
 		assertTrue("Waiter has one customer", waiter.customers.size() == 1);
-		assertTrue("Waiter state is working", waiter.state == WaiterState.working);
+		assertTrue("Waiter has proper customer", waiter.customers.get(0).c == customer1);
 		assertTrue("Customer state is waiting", waiter.customers.get(0).s == CustomerState.waiting);
+		assertTrue("Waiter state is working", waiter.state == WaiterState.working);
 		
 	//	2: p.a.e.a. (SeatCustomer(c))
 		assertTrue("p.a.e.a. seatCustomer(c)", waiter.pickAndExecuteAnAction()); 
@@ -75,7 +87,7 @@ public class SharedWaiterTest extends TestCase
 		assertTrue("Customer 1 received FollowMe", customer1.log.containsString("FollowMe: 2"));
 		assertTrue("Waiter Gui received DoGoToTable. Instead: "+
 					waiterGui.log.getLastLoggedEvent().toString(), waiterGui.log.containsString("DoGoToTable: 2"));
-		/*assertTrue("Customer 1 state is ignore", waiter.customers.get(0).s == CustomerState.ignore);
+		assertTrue("Customer 1 state is ignore", waiter.customers.get(0).s == CustomerState.ignore);
 		
 	//	3: msgReadyToOrder
 		waiter.ReadyToOrder(customer1);
@@ -155,7 +167,7 @@ public class SharedWaiterTest extends TestCase
 		
 	//	Check
 		assertTrue("Waiter state is now good", waiter.state == WaiterState.good);
-		assertTrue("Host received IAmFree", host.log.containsString("IAmFree"));*/
+		assertTrue("Host received IAmFree", host.log.containsString("IAmFree"));
 	}
 	
 }
