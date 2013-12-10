@@ -18,6 +18,7 @@ import base.BaseRole;
 import base.ContactList;
 import base.Event;
 import base.Event.EnumEventType;
+import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
 import base.PersonAgent;
@@ -232,7 +233,7 @@ public class MarketCustomerRole extends BaseRole implements MarketCustomer {
 		return mInvoices;
 	}
 	
-	public Map getCannotFulFillMap(){
+	public Map<Item.EnumItemType,Integer> getCannotFulFillMap(){
 		return mCannotFulfill;
 	}
 }

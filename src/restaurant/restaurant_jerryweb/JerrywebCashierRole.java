@@ -101,7 +101,7 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 	public HostGui hostGui = null;
 
 	public JerrywebCashierRole(Person person, RestaurantCashierRole rcr) {
-		super(null);
+		super(person);
 		mRole = rcr;
 		 name = person.getName();
 		foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 0, 15.99));

@@ -61,7 +61,7 @@ public class RestaurantHostRole extends BaseRole implements
 			if(JerrywebRestaurant.host == null){
 				JerrywebRestaurant.host = (JerrywebHostRole) subRole;
 			} else {
-				subRole = MaggiyanRestaurant.mHost;
+				subRole = JerrywebRestaurant.host;
 			}
 			break;
 		case 3: // maggi

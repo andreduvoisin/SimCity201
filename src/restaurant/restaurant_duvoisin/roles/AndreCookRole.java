@@ -219,7 +219,7 @@ public class AndreCookRole extends BaseRole implements Cook {
 		}
 		mRole.decreaseInventory(Item.stringToEnum(o.choice));
 		//ANDRE: Null Pointer Exception in integration?
-		if(foodAmount <= FOOD_LOW /*&& !hasOrdered.get(o.choice)*/) {
+		if(foodAmount <= FOOD_LOW  && mRole.mHasCreatedOrder.get(Item.stringToEnum(o.choice))) {
 			mRole.mItemsDesired.put(Item.stringToEnum(o.choice), mRole.mItemsDesired.get(Item.stringToEnum(o.choice)) + FOOD_ORDER);
 			hasOrdered.put(o.choice, true);
 		}

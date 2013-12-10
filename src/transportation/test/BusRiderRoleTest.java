@@ -3,6 +3,7 @@ package transportation.test;
 import junit.framework.TestCase;
 import transportation.TransportationBus;
 import transportation.roles.CommuterRole;
+import transportation.test.mock.MockBus;
 import transportation.test.mock.MockCommuter;
 import base.ContactList;
 import base.PersonAgent;
@@ -18,6 +19,7 @@ import base.PersonAgent.EnumJobType;
 public class BusRiderRoleTest extends TestCase {
 	// these are instantiated for each test separately via the setUp() method.
 	MockCommuter mockCommuter;
+	MockBus mockBus;
 	TransportationBus bus;
 	CommuterRole commuterRole;
 	PersonAgent p;
@@ -31,6 +33,7 @@ public class BusRiderRoleTest extends TestCase {
 		ContactList.setup();
 		p = new PersonAgent(EnumJobType.NONE, 200,"bob");
 		mockCommuter = new MockCommuter();
+		mockBus = new MockBus();
 		commuterRole = new CommuterRole(null);
 		bus = new TransportationBus(false);
 	}
@@ -47,12 +50,13 @@ public class BusRiderRoleTest extends TestCase {
 	public void testCommuterScenario()
 	{
 		//preconditions
+		assertEquals("mockBus shouldn't have any events in it's event log, but it does.", 0, mockBus.log.size());
+		assertEquals("commuterRole should be in the walking state, but he's not.", commuterRole.mState.walking, commuterRole.mState);
 		
+		commuterRole.mState = commuterRole.mState.atBusStop;
 		
-		
-		
-		commuterRole.msgBoardBus();
-		//
+		//commuterRole.pickAndExecuteAnAction();
+		//assertTrue("The CommuterRole's pickAndExecuteAction should have returned true, but it didn't", commuterRole.pickAndExecuteAnAction());
 		//assertEquals("The MockCommuterRole's log should have one event, it doesn't: ", 1, commuterRole.log.size());
 		
 		

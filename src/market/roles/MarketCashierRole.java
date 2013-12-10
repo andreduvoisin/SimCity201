@@ -19,7 +19,6 @@ import market.interfaces.MarketWorker;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
-import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
@@ -79,7 +78,6 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Messages
 	public void msgOrderPlacement(MarketOrder order){
-		print("Msg gotten");
 		synchronized(mOrders) {
 			mOrders.add(order);
 		}

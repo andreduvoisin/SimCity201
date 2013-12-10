@@ -20,16 +20,16 @@ public class CustomerGui implements Gui{
 	private Command command=Command.noCommand;
 
     public static final int xTable1 = 200;
-    public static final int yTable1 = 250;
+    public static final int yTable1 = 350;
 	
 	public static final int  xTable2 = 310;
-	public static final int  yTable2 = 185;
+	public static final int  yTable2 = 285;
 
 	public static final int  xTable3 = 370;
-	public static final int  yTable3 = 100;
+	public static final int  yTable3 = 175;
 	
 	static final int cashierXpos = 50;
-	static final int cashierYpos = 200;
+	static final int cashierYpos = 320;
 	
 	public String customerString = "";
 	

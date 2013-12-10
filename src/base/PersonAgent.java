@@ -179,7 +179,7 @@ public class PersonAgent extends Agent implements Person {
 		//mTimeShift = 0;
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
-		mHasCar = false; 
+		mHasCar = true; 
 		
 		//Role References
 		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
@@ -451,6 +451,8 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mCommutingTo = null;
 			mCommuterRole.mActive = false;
+			
+			stateChanged();
 		}
 	}
 	
@@ -765,8 +767,7 @@ public class PersonAgent extends Agent implements Person {
 	}*/
 	
 	private boolean isCheap(){
-//		return (mLoan == 0) && (mCash > 30); //SHANE: 4 return this to normal
-		return false;
+		return (mLoan == 0 && mCash > 30);
 	}
 
 	public void acquireSemaphore(Semaphore semaphore){

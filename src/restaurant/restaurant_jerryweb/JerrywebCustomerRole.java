@@ -55,6 +55,8 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 	public JerrywebCustomerRole(Person person){
 		super(person);
 		this.name = person.getName();
+		customerGui = new CustomerGui(this);
+		this.setGui(customerGui);
 		if(!name.equals("flake")){
 			if(name.equals("5")){
 				cash = 5;
@@ -69,13 +71,14 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 				cash = 20;}
 		}
 		else{ cash = 0;}
+		this.gotHungry();
+		
 	}
 
 	/**
 	 * hack to establish connection to Host agent.
 	 */
 	public void setHost(JerrywebHostRole host) {
-		
 		this.host = host;
 	}
 	
@@ -95,35 +98,48 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 	}
 	
 	public void msgWaitInQue(int positionNumber){
-		if(positionNumber == 0){
+		if(positionNumber > 6){
+			customerGui.xDestination = 20 + 22;
+			customerGui.yDestination = 20 + (positionNumber - 6)*22;
+		}
+		else{
+			customerGui.xDestination = 20;
+			customerGui.yDestination = 20 + positionNumber*22;
+			}
+		/*
+		if(positionNumber == 6){
+			customerGui.xDestination = 20;
+			customerGui.yDestination = 140;
+		}
+		if(positionNumber == 5){
 			customerGui.xDestination = 20;
 			customerGui.yDestination = 120;
 		}
 		
-		if(positionNumber == 1){
+		if(positionNumber == 4){
 			customerGui.xDestination = 20;
 			customerGui.yDestination = 98;
 		}
 		
-		if(positionNumber == 2){
+		if(positionNumber == 3){
 			customerGui.xDestination = 20;
 			customerGui.yDestination = 86;
 		}
 		
-		if(positionNumber == 3){
+		if(positionNumber == 2){
 			customerGui.xDestination = 20;
 			customerGui.yDestination = 64;
 		}
 		
-		if(positionNumber == 4){
+		if(positionNumber == 1){
 			customerGui.xDestination = 20;
 			customerGui.yDestination = 42;
 		}
 		
-		if(positionNumber == 5){
+		if(positionNumber == 0){
 			customerGui.xDestination = 20;
 			customerGui.yDestination = 20;
-		}
+		}*/
 	}
 
 	public void msgSitAtTable(int tableNumber, Menu m, Waiter w) {
@@ -273,7 +289,7 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 	private void goToRestaurant() {
 		Do("Going to restaurant");
 		host.msgIWantFood(this);//send our instance, so he can respond to us
-		//waiter.msgIWantFood(this);
+		
 	}
 
 	private void SitDown(Menu m) {
@@ -478,6 +494,10 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 		this.hungerLevel = hungerLevel;
 		//could be a state change. Maybe you don't
 		//need to eat until hunger lever is > 5?
+	}
+	
+	public JerrywebHostRole getHost(){
+		return host;
 	}
 
 	public String toString() {

@@ -51,6 +51,7 @@ public interface Person {
 	public void msgRoleFinished();
 	public void setJobFalse();
 	public boolean hasCar();
+	public void setHasCar(boolean c);
 	
 	abstract void print(String msg, AlertTag tag);
 	abstract void print(String msg, AlertTag tag, Throwable e);

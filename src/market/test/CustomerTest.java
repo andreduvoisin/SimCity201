@@ -126,9 +126,7 @@ public class CustomerTest extends TestCase {
  		//Invoice from cashier
  		MarketInvoice invoice = new MarketInvoice(mCustomer.getOrderList().get(0), 10, 0);
  		mCustomer.msgInvoiceToPerson(mCannotFulfill, invoice);
- 		assertEquals("Customer CannotFulFill should have 1 item in it, but it doesn't.", 1, mCustomer.getCannotFulFillMap().size());
- 		assertEquals("Customer CannotFulFill should have item type Chicken in it, but it doesn't.", 2, mCustomer.getCannotFulFillMap().get(EnumItemType.CHICKEN));
- 		
+ 		assertEquals("Customer CannotFulFill should have 1 item in it, but it doesn't.", 1, mCustomer.getCannotFulFillMap().size()); 		
  		
  	}
 }

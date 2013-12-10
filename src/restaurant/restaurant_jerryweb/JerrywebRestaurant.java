@@ -30,21 +30,32 @@ public class JerrywebRestaurant {
 		guis = Collections.synchronizedList(new ArrayList<Gui>());
 		
 	}
+	public static void addRSWaiter(JerrywebRSWaiterRole role){
+		WaiterGui gui = new WaiterGui((Waiter) role, host);
+		((JerrywebRSWaiterRole) role).setGui(gui);
+		guis.add(gui);
+		JerrywebRSWaiterRole rswaiter = (JerrywebRSWaiterRole) role;
+		rswaiter.setHost(host);
+		rswaiter.setCook(cook);
+		rswaiter.setCashier(cashier);
+		//JerrywebHostRole host = rswaiter.getHost();
+		host.addWaiter((JerrywebRSWaiterRole)rswaiter);
+		NumOfWatiers++;
+	}
 	
 	public static void addPerson(BaseRole role){
     	if (role instanceof JerrywebCustomerRole){
-    		CustomerGui gui = new CustomerGui((JerrywebCustomerRole) role);
-    		//((JerrywebCustomerRole) role).setGui(gui);
-    		guis.add(gui);
+    		//CustomerGui gui = new CustomerGui((JerrywebCustomerRole) role);
     		JerrywebCustomerRole customer = (JerrywebCustomerRole) role;
-    		customer.setGui(gui);
-    		
+    		CustomerGui gui = new CustomerGui(customer);
+    		guis.add(gui);
     		customer.setHost(host);
+    		//JerrywebHostRole host = customer.getHost();
     		customer.setCashier(cashier);
-    		customer.gotHungry();
+    		//customer.gotHungry();
     		customers.add(customer);
-    		
-    		
+    		customer.setGui(gui);
+    		gui.setHungry();
     		NumOfCustomers++;
     	}
     	else if (role instanceof JerrywebWaiterRole){
@@ -53,7 +64,9 @@ public class JerrywebRestaurant {
     		guis.add(gui);
     		JerrywebWaiterRole waiter = (JerrywebWaiterRole) role;
     		waiter.setHost(host);
-    		JerrywebHostRole host = waiter.getHost();
+    		waiter.setCook(cook);
+    		waiter.setCashier(cashier);
+    		//JerrywebHostRole host = waiter.getHost();
     		host.addWaiter((JerrywebWaiterRole)waiter);
     		NumOfWatiers++;
     	}
@@ -63,7 +76,8 @@ public class JerrywebRestaurant {
     		guis.add(gui);
     		JerrywebRSWaiterRole rswaiter = (JerrywebRSWaiterRole) role;
     		rswaiter.setHost(host);
-    		JerrywebHostRole host = rswaiter.getHost();
+    		rswaiter.setCook(cook);
+    		//JerrywebHostRole host = rswaiter.getHost();
     		host.addWaiter((JerrywebRSWaiterRole)rswaiter);
     		NumOfWatiers++;
     	}
