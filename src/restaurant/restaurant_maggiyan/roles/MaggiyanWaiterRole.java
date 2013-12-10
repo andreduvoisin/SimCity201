@@ -11,7 +11,6 @@ import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;

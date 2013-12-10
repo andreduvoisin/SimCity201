@@ -178,7 +178,7 @@ public class PersonAgent extends Agent implements Person {
 		mSSN = sSSN++; // assign SSN
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
-		mHasCar = true; 
+		mHasCar = false; 
 		
 		//Role References
 		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
@@ -264,7 +264,8 @@ public class PersonAgent extends Agent implements Person {
 			Event event = mEvents.get(0); //next event
 			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
-				mRoleFinished = false; //doing a role
+				if(!mName.contains("party") && !mName.contains("other")) //required because party is not a role
+					mRoleFinished = false; //doing a role
 				processEvent(event);
 				return true;
 			}
@@ -646,6 +647,7 @@ public class PersonAgent extends Agent implements Person {
 		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
+		print("I have events: "+mEvents.size());
 	}
 
 	private void goParty(EventParty event) {
@@ -668,12 +670,11 @@ public class PersonAgent extends Agent implements Person {
 
 	private void inviteToParty() {
 		if(mFriends.isEmpty()){
-			int numPeople = ContactList.sPersonList.size();
-//			print("Num People in city: " + numPeople);
-			for (int i = 0; i < numPeople; i = i + 2){
-				mFriends.add(ContactList.sPersonList.get(i));
+			for (Person iPerson : ContactList.sPersonList){
+				mFriends.add(iPerson);
 			}
-			print("Created friends for party host");
+			print("There are "+ContactList.sPersonList.size()+" people in the city");
+			print("Created "+mFriends.size()+" friends for party host");
 		}
 		print("First RSVP is sent out");
 		//party is in 3 days

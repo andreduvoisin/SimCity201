@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 
 import bank.Bank;
 import bank.interfaces.BankCustomer;
+import bank.roles.BankCustomerRole;
 import base.ContactList;
 import base.Gui;
 
@@ -19,6 +20,8 @@ public class BankCustomerGui implements Gui {
 	private boolean isPresent = false;
 
 	private Timer timer = new Timer(); 
+	
+	private static final int deathTime = 5000;
 	
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -149,5 +152,11 @@ public class BankCustomerGui implements Gui {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
+		timer.schedule(new TimerTask(){
+			public void run(){
+				//setPresent(false);
+				((BankCustomerRole)agent).mTeller.msgLeaving();
+			}
+		}, deathTime);
 	}
 }

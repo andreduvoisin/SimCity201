@@ -8,6 +8,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
+import restaurant.restaurant_xurex.gui.WaiterGui;
 import restaurant.restaurant_xurex.interfaces.Cashier;
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.Customer;
@@ -66,6 +68,10 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 	public RexWaiterRole2(Person person) {
 		super(person);
 		//this.name = name;
+		WaiterGui gui = new WaiterGui(this, RexAnimationPanel.getInstance());
+		gui.setRole(this);
+		this.setGui(gui);
+		RexAnimationPanel.getInstance().addGui(gui);
 		initializeMenu();
 	}
 	public RexWaiterRole2(String name, Host host, Cook cook, Person person){
@@ -82,7 +88,7 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 	//CUSTOMER MESSAGES
 	public void ReadyToOrder(Customer c){
 		for(MyCustomer customer:customers){
-			if(customer.c.getName().equals(c.getName())){
+			if(((RexCustomerRole)customer.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				customer.s=CustomerState.readyToOrder;
 			}
 		}
@@ -91,7 +97,7 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 	}
 	public void HereIsChoice(Customer c, String choice){
 		for(MyCustomer customer:customers){
-			if(customer.c.getName()==c.getName()){
+			if(((RexCustomerRole)customer.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				customer.choice=choice;
 				customer.s=CustomerState.ordered;
 			}
@@ -101,7 +107,7 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 	}
 	public void Leaving(Customer c){
 		for(MyCustomer customer:customers){
-			if(customer.c.getName()==c.getName()){
+			if(((RexCustomerRole)customer.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				customer.s=CustomerState.done;
 			}
 		}
@@ -152,9 +158,9 @@ public class RexWaiterRole2 extends BaseRole implements Waiter{
 		stateChanged();
 	}
 	//CASHIER MESSAGES
-	public void HereIsBill(Customer customer, float bill){
+	public void HereIsBill(Customer c, float bill){
 		for(MyCustomer mc : customers){
-			if(mc.c.getName().equals(customer.getName())){
+			if(((RexCustomerRole)mc.c).getSSN() == ((RexCustomerRole)c).getSSN()){
 				mc.bill = bill;
 			}
 		}

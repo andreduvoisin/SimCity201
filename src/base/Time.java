@@ -33,15 +33,15 @@ public class Time {
 				//state changed
 				if (sGlobalTimeInt % 60 == 0){
 					notifyPeople();					
-					if (sGlobalTimeInt % ((24 / ContactList.cNumTimeShifts)*60) == 0){
-						System.out.println("Time Shift! (but not)");
-						synchronized (mPersons) {
-							for (Person iPerson : mPersons) {
-								if(iPerson.getJobType() == EnumJobType.BANK)
-										iPerson.msgTimeShift(); 
-							}
-						}
-					}
+//					if (sGlobalTimeInt % ((24 / ContactList.cNumTimeShifts)*60) == 0){
+//						System.out.println("Time Shift! (but not)");
+//						synchronized (mPersons) {
+//							for (Person iPerson : mPersons) {
+//								if(iPerson.getJobType() == EnumJobType.BANK)
+//										iPerson.msgTimeShift(); 
+//							}
+//						}
+//					}
 				}
 			}
 		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 2

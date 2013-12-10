@@ -12,7 +12,6 @@ import market.MarketOrder.EnumOrderStatus;
 import market.test.mock.MockCashier;
 import market.test.mock.MockWorker;
 import restaurant.intermediate.RestaurantCookRole;
-import restaurant.restaurant_tranac.gui.TranacAnimationPanel;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 

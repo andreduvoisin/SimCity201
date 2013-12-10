@@ -12,8 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import restaurant.intermediate.RestaurantCookRole;
 import market.Market;
+import restaurant.intermediate.RestaurantCookRole;
 import bank.Bank;
 import base.ContactList;
 import base.Item;

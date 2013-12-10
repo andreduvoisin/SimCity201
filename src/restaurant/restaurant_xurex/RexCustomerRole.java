@@ -65,17 +65,21 @@ public class RexCustomerRole extends BaseRole implements Customer{
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public RexCustomerRole(String name, Person person){
+	public RexCustomerRole(Person person){
 		super(person);
-		this.name = name;
-		if(IsInt(name)){
-			this.cash = (float) Integer.parseInt(name);
-		}
-		else{
-			this.cash = generator.nextInt(20)+10;
-		}
-		Do(this.getName()+" created with $"+cash);
-		
+//		this.name = name;
+//		if(IsInt(name)){
+//			this.cash = (float) Integer.parseInt(name);
+//		}
+//		else{
+//			this.cash = generator.nextInt(20)+10;
+//		}
+//		Do(this.getName()+" created with $"+cash);
+		CustomerGui gui = new CustomerGui(this, RexAnimationPanel.getInstance());
+		gui.setRole(this);
+		this.setGui(gui);
+		RexAnimationPanel.getInstance().addGui(gui);
+		mNum = sNum++;
 	}
 	
 	public RexCustomerRole(){
@@ -381,13 +385,13 @@ public class RexCustomerRole extends BaseRole implements Customer{
 			stringMenu.add(key);
 		}
 		choice = stringMenu.get(option);
-	}
+	}/*
 	private boolean IsInt(String name){
 		try
 		  { Integer.parseInt(name); return true; }
 		 catch(NumberFormatException er)
 		  { return false; }
-	}
+	}*/
 	public void SetChoice(String choice){
 		this.choice = choice;
 	}

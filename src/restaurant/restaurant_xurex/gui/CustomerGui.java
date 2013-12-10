@@ -87,7 +87,7 @@ public class CustomerGui implements Gui{
                 return isHungry;
         }
         public void setPresent(boolean present){
-        		//isPresent = present;
+        		//isActive = present;
         }
 
         public void DoGoToSeat(int seatnumber) {
