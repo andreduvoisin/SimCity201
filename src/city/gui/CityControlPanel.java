@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -48,7 +50,9 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JPanel PeopleTab = new JPanel();
     JPanel PropertiesTab = new JPanel();
     JPanel TraceTab = new JPanel();
-    
+    //Crash Buttons
+    JButton scenarioP;
+    JButton scenarioQ;
     // Trace Panel
     TracePanel tracePanel;
     // Selection for Trace Panel
@@ -186,8 +190,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    	
 	    	JLabel label4 = new JLabel("Non-Normative - We Design");
 	    	JButton scenarioO = new JButton("O: Bank Robbery");
-	    	JButton scenarioP = new JButton("P: Vehicle Accident");
-	    	JButton scenarioQ = new JButton("Q: Vehicle Hits Person");
+	    	scenarioP = new JButton("P: Vehicle Accident");
+	    	scenarioQ = new JButton("Q: Vehicle Hits Person");
 	    	JButton scenarioR = new JButton("R: Different on Weekends");
 	    	JButton scenarioS = new JButton("S: Job Shifts");
     	
@@ -256,7 +260,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioI.addActionListener(getActionListener("I_Party_None.txt"));
 			scenarioJ.addActionListener(getActionListener("J_All_Interweave.txt"));
 			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
-			scenarioP.addActionListener(getActionListener(""));
+			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
 			scenarioQ.addActionListener(getActionListener(""));
 			scenarioR.addActionListener(getActionListener(""));
 			scenarioS.addActionListener(getActionListener(""));
@@ -267,6 +271,16 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		return new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (e.getSource()== scenarioP) {
+					System.out.println("trigger crashes...");
+					Timer collisionTimer = new Timer();
+					TimerTask detectCrashes = new TimerTask() {
+						public void run() {
+							SimCityGui.getInstance().citypanel.mCrashScenario = true;
+						}
+					};
+					collisionTimer.schedule(detectCrashes, 6500);
+				}
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
 					config.readFileCreatePersons(city, filename);
@@ -526,7 +540,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	
 	
-	public void actionPerformed(ActionEvent e) {		
+	public void actionPerformed(ActionEvent e) {
 		// JButton
 		/*
 		if(e.getSource() instanceof JButton) {

@@ -44,5 +44,8 @@ public class Event implements Comparable<Event> {
 		}
 		return 1;
 	}
-
+	
+	public void setTime(int time){
+		mTime = time;
+	}
 }

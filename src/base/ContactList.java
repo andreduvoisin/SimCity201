@@ -19,6 +19,7 @@ import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import transportation.TransportationBus;
 import bank.Bank;
 import bank.interfaces.BankMasterTeller;
+import base.Event.EnumEventType;
 import base.interfaces.Person;
 
 public class ContactList {
@@ -70,6 +71,9 @@ public class ContactList {
 	//----------------------------------------------------------LISTS----------------------------------------------------------
 	//List of all people
 	public static List<Person> sPersonList = Collections.synchronizedList(new ArrayList<Person>());
+	
+	//Interesting Event List
+	public static List<Event> sEventList = new ArrayList<Event>();
 	
 	//Decoupled data
 	public static List<Market> sMarketList = Collections.synchronizedList(new ArrayList<Market>());
@@ -380,7 +384,7 @@ public class ContactList {
 		cHOUSE_LOCATIONS = Collections.unmodifiableList(houseList);
 	}
 	
-	//Workplace Availability
+	//OPEN PLACES
 	static{
 		sOpenPlaces.put(cBANK1_LOCATION, true);
 		sOpenPlaces.put(cBANK2_LOCATION, true);
@@ -393,6 +397,15 @@ public class ContactList {
 		}
 	}
 	
+	//EVENT LIST
+	static{
+		for(int i=0; i<3; i++){ //Weighted for Eating
+		sEventList.add(new Event(EnumEventType.EAT, 0));}
+		sEventList.add(new Event(EnumEventType.GET_CAR, 0));
+		sEventList.add(new Event(EnumEventType.GO_TO_MARKET, 0));
+		sEventList.add(new Event(EnumEventType.DEPOSIT_CHECK, 0));
+		sEventList.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+	}
 		
 	
 	//----------------------------------------------------------OTHER----------------------------------------------------------
