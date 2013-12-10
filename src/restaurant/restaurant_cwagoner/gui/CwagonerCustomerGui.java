@@ -68,6 +68,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 					&& destination.mX == gonePos.mX && destination.mY == gonePos.mY) {
 				((CwagonerCustomerRole)role).msgGuiLeftRestaurant();
 				isHungry = false;
+				CwagonerAnimationPanel.restaurant.removeGui(this);
 			}
 			command = Command.noCommand;
 		}
@@ -100,6 +101,10 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	
 	public boolean isHungry() {
 		return isHungry;
+	}
+
+	public boolean isPresent() {
+		return true;
 	}
 	
 	public Dimension getPosition() {

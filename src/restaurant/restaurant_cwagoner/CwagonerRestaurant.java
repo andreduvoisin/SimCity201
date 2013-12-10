@@ -29,6 +29,12 @@ public class CwagonerRestaurant {
     	}
     }
 
+    public void removeGui(CwagonerGui gui) {
+    	synchronized(guis) {
+    		guis.remove(gui);
+    	}
+    }
+
     public void addPerson(Role subRole) {
     	if (subRole instanceof CwagonerHostRole) {
     		host = (CwagonerHostRole)subRole;
