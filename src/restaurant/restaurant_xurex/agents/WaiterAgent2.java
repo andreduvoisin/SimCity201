@@ -31,7 +31,7 @@ import city.gui.trace.AlertTag;
 
 
 public class WaiterAgent2 extends Agent implements Waiter{
-	private Semaphore atLocation = new Semaphore(0,true);
+	private Semaphore atLocation = new Semaphore(10000,true);
 	private String name;
 	private int number = -1;
 	private static final int breakDuration = 10000;
@@ -300,9 +300,6 @@ public class WaiterAgent2 extends Agent implements Waiter{
 		DoGoToTable(c.table);
 		c.s = CustomerState.ignore;
 	}
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#goOnBreak()
-	 */
 	@Override
 	public void goOnBreak(){
 		state = WaiterState.onBreak;
@@ -329,9 +326,6 @@ public class WaiterAgent2 extends Agent implements Waiter{
 	}
 	
 	// ANIMATIONS
-	/* (non-Javadoc)
-	 * @see restaurant.Waiter#DoGoToTable(int)
-	 */
 	@Override
 	public void DoGoToTable(int table){
 		waiterGui.DoGoToTable(table);

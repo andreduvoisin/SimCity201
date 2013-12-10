@@ -86,6 +86,7 @@ public class ContactList {
 	
 	//Map of open places
 	public static Map<Location, Boolean> sOpenPlaces = Collections.synchronizedMap(new HashMap<Location, Boolean>());
+	public static Map<String, Boolean> sOpenBuildings = Collections.synchronizedMap(new HashMap<String, Boolean>());
 	
 	//----------------------------------------------------------LOCATIONS----------------------------------------------------------
 	
@@ -399,14 +400,34 @@ public class ContactList {
 		}
 	}
 	
+	//OPEN LOCATIONS
+	static{
+		synchronized(sOpenBuildings) {
+			sOpenBuildings.put("B1", true);
+			sOpenBuildings.put("B2", true);
+			sOpenBuildings.put("M1", true);
+			sOpenBuildings.put("M2", true);
+			sOpenBuildings.put("R0", true);
+			sOpenBuildings.put("R1", true);
+			sOpenBuildings.put("R2", true);
+			sOpenBuildings.put("R3", true);
+			sOpenBuildings.put("R4", true);
+			sOpenBuildings.put("R5", true);
+			sOpenBuildings.put("R6", true);
+			sOpenBuildings.put("R7", true);
+		}
+	}
+	
 	//EVENT LIST
 	static{
-		for(int i=0; i<3; i++){ //Weighted for Eating
-		sEventList.add(new Event(EnumEventType.EAT, 0));}
+		for(int i=0; i<5; i++){ //Weighted for Eating
+			sEventList.add(new Event(EnumEventType.EAT, 0));
+		}
 		sEventList.add(new Event(EnumEventType.GET_CAR, 0));
 		sEventList.add(new Event(EnumEventType.GO_TO_MARKET, 0));
 		sEventList.add(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 		sEventList.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+		//sEventList.add(new Event(EnumEventType.INSPECTION, 0));
 	}
 		
 	

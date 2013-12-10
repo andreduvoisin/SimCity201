@@ -27,6 +27,7 @@ import city.gui.trace.AlertTag;
 
 public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 	public TranacWaiterGui waiterGui = null;
+	@SuppressWarnings("unused")
 	private Timer timer = new Timer();	//used for breaks
 	
 	//agent correspondents
@@ -40,6 +41,7 @@ public class TranacWaiterRole extends BaseRole implements TranacWaiter{
 
 	private enum WaiterState {Active, WantToGoOnBreak, CanGoOnBreak, NoBreak, OnBreak};
 	
+	@SuppressWarnings("unused")
 	private WaiterState mState = WaiterState.Active;
 	
 	//semaphores to prevent action while waiting for another message

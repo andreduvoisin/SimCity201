@@ -29,6 +29,7 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 	static final int NTABLES = 4;		//number of tables in rest
 	static final int NWAITINGAREA = 20;
 	public Collection<Table> tables;
+	@SuppressWarnings("unused")
 	private int numWaiters;
 
 	//list of agents interacting in the restaurant
@@ -360,6 +361,7 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 		TranacCustomer c;
 		CustomerState s;
 		MyWaiter w;
+		@SuppressWarnings("unused")
 		boolean willWait = false;
 		int n;
 		

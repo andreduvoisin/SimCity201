@@ -47,6 +47,7 @@ public class BusRiderRoleTest extends TestCase {
 		
 	}
 
+	@SuppressWarnings("static-access")
 	public void testCommuterScenario()
 	{
 		//preconditions
