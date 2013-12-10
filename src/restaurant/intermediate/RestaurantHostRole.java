@@ -50,7 +50,7 @@ public class RestaurantHostRole extends BaseRole implements
 		case 1: // chase
 			subRole = new CwagonerHostRole(super.mPerson);
 			if (CwagonerRestaurant.host == null) {
-				subRole.setPerson(super.mPerson);
+				CwagonerRestaurant.addPerson((CwagonerHostRole)subRole);
 			}
 			else {
 				subRole = CwagonerRestaurant.host;

@@ -37,7 +37,6 @@ public class CwagonerRestaurant {
 
     public static void addPerson(Role subRole) {
     	if (subRole instanceof CwagonerHostRole) {
-    		System.out.println("SETTING HOST MOFO");
     		host = (CwagonerHostRole)subRole;
     		host.setNumTables(numTables);
     		for (CwagonerWaiter iWaiter : Waiters) {
@@ -59,10 +58,12 @@ public class CwagonerRestaurant {
     	else if (subRole instanceof CwagonerSharedWaiterRole) {
     		Waiters.add((CwagonerSharedWaiterRole)subRole);
     		((CwagonerSharedWaiterRole) subRole).setHost(host);
+    		if (host != null) host.addWaiter((CwagonerWaiter)subRole);
     	}
-    	else if (subRole instanceof CwagonerWaiterRole) {	
+    	else if (subRole instanceof CwagonerWaiterRole) {
     		Waiters.add((CwagonerWaiterRole) subRole);
     		((CwagonerWaiterRole)subRole).setHost(host);
+    		if (host != null) host.addWaiter((CwagonerWaiter)subRole);
     	}
     }
 }
