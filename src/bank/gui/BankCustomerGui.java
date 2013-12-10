@@ -21,7 +21,7 @@ public class BankCustomerGui implements Gui {
 
 	private Timer timer = new Timer(); 
 	
-	private static final int deathTime = 5000;
+	private static final int deathTime = 15000;
 	
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -154,7 +154,7 @@ public class BankCustomerGui implements Gui {
     	}
 		timer.schedule(new TimerTask(){
 			public void run(){
-				//setPresent(false);
+				setPresent(false);
 				((BankCustomerRole)agent).mTeller.msgLeaving();
 			}
 		}, deathTime);

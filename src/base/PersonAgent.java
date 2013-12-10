@@ -147,7 +147,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
-		
 	}
 	
 	private void initializePerson(){
@@ -228,7 +227,7 @@ public class PersonAgent extends Agent implements Person {
 				return;
 			}
 		}
-		mEvents.add(event);
+		mEvents.add(event); print(mEvents.size()+" events");
 	}
 	
 	public void msgAnimationDone(){
