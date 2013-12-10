@@ -25,7 +25,9 @@ public class BusTest extends TestCase {
 		rider = new MockRider(bus);
 	}
 
-	public void testBusRunsAroundCityOnceWithNoRidersAtAnyStop() {
+
+
+	public void testBusRunsAroundCityOnceFromStopZeroToStopOneToStopTwoToStopThreeToStopZeroAgainWithNoRidersAtAnyStop() {
 		for (int i = 0; i < 4; i++) {
 			// Preconditions
 			assertEquals("Bus should be at stop "+i+"; it is at " + bus.mCurrentStop, bus.mCurrentStop, i);
@@ -69,7 +71,9 @@ public class BusTest extends TestCase {
 		}
 	}
 
-	public void testBusStartsAtStopZeroThenPicksPersonUpAtStopOneThenDropsThemOffAtStopTwo() {
+
+
+	public void testBusStartsAtStopZeroThenPicksOneSinglePersonUpAtStopOneThenDropsThemOffAtStopTwo() {
 
 		// Preconditions
 		assertEquals("Bus should be at stop 0; it is at " + bus.mCurrentStop, bus.mCurrentStop, 0);
