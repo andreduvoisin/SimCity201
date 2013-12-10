@@ -53,16 +53,12 @@ public class DavidCookRole extends BaseRole implements Cook {
 	public List<Order> pendingOrders = Collections
 			.synchronizedList(new ArrayList<Order>());
 	public List<Order> revolvingStand = Collections
-			.synchronizedList(new ArrayList<Order>());
-//	List<MarketAgent> marketList = Collections
-//			.synchronizedList(new ArrayList<MarketAgent>());
+			.synchronizedList(new ArrayList<Order>());;
 	int cooktime = 5000; // hack
 
 	public enum OrderState {
 		Received, Cooking, Finished
 	};
-
-//	Map<String, Stock> foodList = new HashMap<String, Stock>();
 
 	private String name;
 
@@ -90,10 +86,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 		this.name = "DavidCook";
 		ordering = false;
 		reorder = false;
-//		foodList.put("Steak", new Stock("Steak", qty));
-//		foodList.put("Salad", new Stock("Salad", qty));
-//		foodList.put("Chicken", new Stock("Chicken", qty));
-//		foodList.put("Pizza", new Stock("Pizza", qty));
 		standTimer.scheduleAtFixedRate(standTimerTask, new Date( System.currentTimeMillis() + 10000), 10000);
 	}
 
@@ -105,9 +97,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 		cookGui = g;
 	}
 
-//	public void addMarket(MarketAgent mkt) {
-//		marketList.add(mkt);
-//	}
 
 	// Messages
 
@@ -121,41 +110,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 		stateChanged();
 	}
 
-//	public void msgOrderFullFillment(Market mkt, List<Stock> recieved) {
-//		synchronized (recieved) {
-//			for (Stock stock : recieved) {
-//				Iterator<Entry<String, Integer>> it = currentRequest.stuffToBuy
-//						.entrySet().iterator();
-//				while (it.hasNext()) {
-//					Entry<String, Integer> r = it.next();
-//					if (stock.getChoice() == r.getKey()) {
-//						if (stock.getQuantity() == 0) {
-//							print(mkt.getName()
-//									+ " didn't have "
-//									+ stock.getChoice()
-//									+ ", adding this market to blacklist so we order elsewhere");
-//							currentRequest.askedMarkets.add(mkt);
-//						} else {
-//							foodList.get(stock.getChoice()).setQuantity(
-//									stock.getQuantity());
-//							print("Quantity in stock of " + stock.getChoice()
-//									+ " is now " + stock.getQuantity());
-//							it.remove();
-//						}
-//					}
-//				}
-//			}
-//		}
-//		if (currentRequest.stuffToBuy.size() > 0) {
-//			reorder = true;
-//		} else {
-//			ordering = false;
-//			reorder = false;
-//			currentRequest = null;
-//		}
-//		stateChanged();
-//	}
-
 	// Scheduler
 
 	public boolean pickAndExecuteAnAction() {
@@ -163,24 +117,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 			CheckStand();
 			return true;
 		}
-//		if (reorder) {
-//			reorder = false;
-//			DoOrderFood();
-//			return true;
-//		}
-//		if (!ordering) {
-//			ordering = true;
-//			currentRequest = new Request();
-//			for (Map.Entry<String, Stock> f : foodList.entrySet()) {
-//				if (f.getValue().getQuantity() == 0) {
-//					currentRequest.stuffToBuy.put(f.getKey(), defaultqty);
-//				}
-//			}
-//			if (currentRequest.stuffToBuy.size() > 0) {
-//				DoOrderFood();
-//			}
-//			return true;
-//		}
 		if (!pendingOrders.isEmpty()) {
 			if (pendingOrders.get(0).status == OrderState.Finished) {
 				Notify(pendingOrders.get(0));
@@ -197,16 +133,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 	}
 
 	// Actions
-
-//	private void DoOrderFood() {
-//		for (Market mkt : marketList) {
-//			if (!currentRequest.askedMarkets.contains(mkt)) {
-//				print("Ordering from " + mkt.getName());
-//				mkt.msgWantToBuy(this, currentRequest.stuffToBuy);
-//				break;
-//			}
-//		}
-//	}
 
 	private void Cook(Order order) {
 		cookGui.setLabelText("Picking up order");
@@ -255,7 +181,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 					e.printStackTrace();
 				}
 				pendingOrders.get(0).status = OrderState.Finished;
-//				foodList.get(thischoice).decrementQuantity();
 				mRole.mItemInventory.put(Item.stringToEnum(thischoice), mRole.mItemInventory.get(Item.stringToEnum(thischoice))-1);
 				if (mRole.mItemInventory.get(Item.stringToEnum(thischoice)) < orderThreshold) {
 					mRole.mItemsDesired.put(Item.stringToEnum(thischoice), 5);
@@ -308,10 +233,6 @@ public class DavidCookRole extends BaseRole implements Cook {
 			e.printStackTrace();
 		}
 	}
-
-//	public Collection<MarketAgent> getMarketList() {
-//		return marketList;
-//	}
 
 	@Override
 	public List<Order> getRevolvingStand() {
