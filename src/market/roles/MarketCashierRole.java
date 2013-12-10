@@ -18,6 +18,7 @@ import market.interfaces.MarketDeliveryTruck;
 import market.interfaces.MarketWorker;
 import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -168,7 +169,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
             	restaurantCashier = AndreRestaurant.cashier.mRole;
             	break;
             case 1: //chase
-            	restaurantCashier = CwagonerAnimationPanel.cashier.mRole;
+            	restaurantCashier = CwagonerRestaurant.cashier.mRole;
             	break;
             case 2: //jerry
             	restaurantCashier = JerrywebRestaurant.cashier.mRole;
