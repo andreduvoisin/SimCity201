@@ -146,9 +146,9 @@ public class ContactList {
 	//PARKING LOTS
 	// 0 1 
 	// 3 2
-	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-51, cGRID_POINT1-51); //65, 65 DAVID these may be wrong
+	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-35, cGRID_POINT1-35); //65, 65 DAVID these may be wrong
 	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8+35, cGRID_POINT1-35);	//535, 65
-	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+51, cGRID_POINT8+51);	//535, 535
+	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+35, cGRID_POINT8+35);	//535, 535
 	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8+35);	//65, 500
 	public static List<Location> cPARKINGLOTS;
 	static {
@@ -212,7 +212,7 @@ public class ContactList {
 	public static final Block cCARBLOCK_Clockwise4 = new Block (320, 320, 515, 515); //Lower Right
 	
 	//cNAVBLOCKS[2] = Counterclockwise 
-	public static final Block cCARBLOCK_CounterClockwise1 = new Block(85, 65, 515, 535);
+	public static final Block cCARBLOCK_CounterClockwise1 = new Block(65, 65, 535, 535);
 	public static final Block cCARBLOCK_CounterClockwise2 = new Block(65, 85, 535, 515);
 	
 	//cNAVBLOCKS[3] = Diagonal NE/SW
@@ -236,6 +236,9 @@ public class ContactList {
 	public static final Block cCARBLOCK_NW3 = new Block(85, 300, 280, 515);
 	public static final Block cCARBLOCK_NW4 = new Block(85, 320, 300, 515);
 	public static final Block cCARBLOCK_NW5 = new Block(320, 320, 535, 515);
+	
+	//cNAVBLOCKS[6] = Special case, 0 to 3
+	public static final Block cCARBLOCK_0to3 = new Block(65, 65, 515, 515);
 	
 	// 0 - Walking
 	// 1 - Clockwise
@@ -296,6 +299,9 @@ public class ContactList {
 			list5.add(cCARBLOCK_NW4);
 			list5.add(cCARBLOCK_NW5);
 			blockLists.add(list5);
+		List<Block> list6 = new ArrayList<Block>(); //Special case 0 to 3
+			list6.add(cCARBLOCK_0to3);
+			blockLists.add(list6);
 		cNAVBLOCKS = Collections.unmodifiableList(blockLists);
 	}
 	

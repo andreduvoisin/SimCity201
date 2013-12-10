@@ -48,10 +48,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		busDispatch.startThread();
 		
 		//Add Roads
-		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL, 50, 600));
-		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL, 50, 600));
-		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL, 50, 600));
-		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL, 50, 600));
+		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL, 60, 600));
+		this.addStatic(new CityRoad(505, RoadDirection.VERTICAL, 60, 600));
+		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL, 60, 600));
+		this.addStatic(new CityRoad(505, RoadDirection.HORIZONTAL, 60, 600));
 		this.addStatic(new CityRoad(280, RoadDirection.VERTICAL, 40, 480));
 		this.addStatic(new CityRoad(280, RoadDirection.HORIZONTAL, 40, 480));
 		
@@ -92,9 +92,9 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//DAVID testing add personblocks
 //		for (List<Block> list : ContactList.cNAVBLOCKS) {
-			for (Block b : ContactList.cNAVBLOCKS.get(2)) {
-				this.addStatic(b);
-			}
+//			for (Block b : ContactList.cNAVBLOCKS.get(4)) {
+//				this.addStatic(b);
+//			}
 //		}
 			
 		//Create Timer Display
