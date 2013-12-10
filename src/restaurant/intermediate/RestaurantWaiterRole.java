@@ -78,7 +78,8 @@ public class RestaurantWaiterRole extends BaseRole implements
 				JerrywebRestaurant.addPerson((JerrywebWaiterRole) subRole);
 			} else if (mWaiterType == 0) {
 				subRole = new JerrywebRSWaiterRole(super.mPerson);
-				JerrywebRestaurant.addPerson((JerrywebRSWaiterRole) subRole);
+				//JerrywebRestaurant.addPerson((JerrywebRSWaiterRole) subRole);
+				JerrywebRestaurant.addRSWaiter((JerrywebRSWaiterRole) subRole);
 			}
 			break;
 		case 3: // maggi

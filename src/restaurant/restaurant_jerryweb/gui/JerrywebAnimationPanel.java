@@ -22,13 +22,13 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	static final int tableWidth = 50;
 	static final int tableHeight = 50;
 	static final int table1Xpos = 200;
-	static final int table1Ypos = 250;
+	static final int table1Ypos = 350;
 	
 	static final int table2Xpos = 310;
-	static final int table2Ypos = 185;
+	static final int table2Ypos = 285;
 
 	static final int table3Xpos = 370;
-	static final int table3Ypos = 100;
+	static final int table3Ypos = 175;
 	
 	static final int kitchenXpos = 225;
 	static final int kitchenYpos = 50;
@@ -41,7 +41,7 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	static final int grillHeight = 20;
 	
 	static final int cashierXpos = 50;
-	static final int cashierYpos = 200;
+	static final int cashierYpos = 320;
 	static final int cashierWidth = 20;
 	static final int cashierHeight = 20;
 	
