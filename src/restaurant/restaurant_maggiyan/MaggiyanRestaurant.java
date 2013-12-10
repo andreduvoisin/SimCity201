@@ -35,6 +35,7 @@ public class MaggiyanRestaurant {
     public static void addCook(MaggiyanCookRole c){
     	mCook = c; 
     	MaggiyanCookGui g = new MaggiyanCookGui(mCook); 
+    	c.setGui(g);; 
     	mHost.setCook(mCook); 
     	guis.add(g); 
     }

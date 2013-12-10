@@ -7,7 +7,6 @@ import java.util.concurrent.Semaphore;
 
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderStatus;
-import market.gui.MarketDeliveryTruckGui;
 import market.interfaces.MarketDeliveryTruck;
 import restaurant.intermediate.RestaurantCookRole;
 import base.BaseRole;
