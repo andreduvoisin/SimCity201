@@ -79,6 +79,8 @@ public class ConfigParser {
 				else if(name.contains("inspection")){
 					if(name.contains("hascar"))
 						person.setHasCar(true);
+					if(name.contains("nocar"))
+						person.setHasCar(false);
 					person.msgAddEvent(new Event(EnumEventType.EAT, -1));
 					person.msgAddEvent(new Event(EnumEventType.INSPECTION, 0));
 				}

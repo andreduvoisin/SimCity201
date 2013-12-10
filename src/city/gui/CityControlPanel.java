@@ -245,17 +245,17 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioS.setPreferredSize(buttonDim);
 		
 		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
-			scenarioA.addActionListener(getActionListener("A_all_inspect1.txt"));
-			scenarioB.addActionListener(getActionListener("restConfig7.txt"));
-			scenarioC.addActionListener(getActionListener("MarketRestaurantConfig_C.txt"));
-			scenarioD.addActionListener(getActionListener("PartyConfig_D.txt"));
-			scenarioE.addActionListener(getActionListener(""));
-			scenarioF.addActionListener(getActionListener("Inspection_F.txt"));
-			scenarioG.addActionListener(getActionListener("MarketConfig_G.txt"));
-			scenarioH.addActionListener(getActionListener("PartyConfig_H.txt"));
-			scenarioI.addActionListener(getActionListener("PartyConfig_I.txt"));
-			scenarioJ.addActionListener(getActionListener("config1.txt"));
-			scenarioO.addActionListener(getActionListener("BankConfig.txt"));
+			scenarioA.addActionListener(getActionListener("A_All_Inspect1.txt"));
+			scenarioB.addActionListener(getActionListener("B_All_Inspect3.txt"));
+			scenarioC.addActionListener(getActionListener("C_Cook_Cashier_Market.txt"));
+			scenarioD.addActionListener(getActionListener("D_Party_All.txt"));
+			scenarioE.addActionListener(getActionListener("E_Bus_Stop.txt"));
+			scenarioF.addActionListener(getActionListener("F_Inspection.txt"));
+			scenarioG.addActionListener(getActionListener("G_Market_Redeliver.txt"));
+			scenarioH.addActionListener(getActionListener("H_Party_Half.txt"));
+			scenarioI.addActionListener(getActionListener("I_Party_None.txt"));
+			scenarioJ.addActionListener(getActionListener("J_All_Interweave.txt"));
+			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
 			scenarioP.addActionListener(getActionListener(""));
 			scenarioQ.addActionListener(getActionListener(""));
 			scenarioR.addActionListener(getActionListener(""));
