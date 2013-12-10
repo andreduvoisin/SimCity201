@@ -43,7 +43,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 50;
+        public int DEFAULT_FOOD_QTY = 2;	//ANGELICA
         private AlertTag mAlertTag;
         
         public RestaurantCookRole(Person person, int restaurantID){
@@ -151,7 +151,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
         public List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
         
-        protected static final int sBaseNeed = 3;
+        protected static final int sBaseNeed = 5;
         
         MarketCashier mMarketCashier;
         
@@ -226,7 +226,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		int m;
         		if(mMarketCashier == null) {
         			m = (int) (Math.random() % 2);
-        			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
+        			mMarketCashier = ContactList.sMarketList.get(1).mCashier;	//ANGELICA
         		}
                 mMarketCashier.msgOrderPlacement(o);
                 RestaurantCashierRole restaurantCashier = null;

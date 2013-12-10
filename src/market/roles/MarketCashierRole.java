@@ -78,6 +78,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	
 //	Messages
 	public void msgOrderPlacement(MarketOrder order){
+		print("Msg gotten");
 		synchronized(mOrders) {
 			mOrders.add(order);
 		}

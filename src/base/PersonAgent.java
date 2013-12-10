@@ -428,6 +428,7 @@ public class PersonAgent extends Agent implements Person {
 				case HOUSE:
 					break;
 				case JOB:
+					print("At job");	//ANGELICA
 					mAtJob = true; //set to false in msgTimeShift
 					Role jobRole = getJobRole();
 					if(!jobRole.hasPerson()) {
