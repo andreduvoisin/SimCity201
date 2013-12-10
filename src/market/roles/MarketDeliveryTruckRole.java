@@ -43,14 +43,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		}
 		stateChanged();
 	}
-	
-	public void msgAnimationAtRestaurant() {
-		inTransit.release();
-	}
-	
-	public void msgAnimationAtMarket() {
-		inTransit.release();
-	}
 
 /* Scheduler */
 	public boolean pickAndExecuteAnAction() {
@@ -107,7 +99,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 
 /* Animation Actions */
 	private void DoGoToRestaurant(int n) {
-//		mGui.DoGoToRestaurant(n);
 		if(mPerson instanceof PersonAgent) {
 			Location location = ContactList.cRESTAURANT_LOCATIONS.get(n);
 			PersonAgent p = (PersonAgent) mPerson;
@@ -119,13 +110,6 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	private void DoGoToMarket() {
-//		mGui.DoGoToMarket();
-//		try {
-//			inTransit.acquire();
-//		}
-//		catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
 		if(mPerson instanceof PersonAgent) {
 			Location location = null;
 			if(mMarketID == 0)

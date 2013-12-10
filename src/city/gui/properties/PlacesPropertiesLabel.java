@@ -223,7 +223,7 @@ public class PlacesPropertiesLabel extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 	        if (e.getSource() == changeStaffField || e.getSource() == changeStaffButton) {
 	        	if(!changeStaffType.getSelectedItem().toString().equals("")) {
-	        		System.out.println("blah, test");	//ANGELICA:
+	        		System.out.println("blah, test");	//ANGELICA
 	        		updateStaff();
 	        	}
 	        }
@@ -357,7 +357,7 @@ public class PlacesPropertiesLabel extends JPanel{
 				}
 				break;
 			case 7: //rex
-				//ANGELICA;
+				//ANGELICA
 				break;
 			}
 			
@@ -407,7 +407,7 @@ public class PlacesPropertiesLabel extends JPanel{
 				}
 				break;
 			case 7: //rex
-				//ANGELICA;
+				//ANGELICA
 				break;
 			}
 			

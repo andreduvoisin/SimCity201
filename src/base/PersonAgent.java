@@ -551,30 +551,26 @@ public class PersonAgent extends Agent implements Person {
 			mCommutingTo = EnumCommuteTo.HOUSE;
 		}else{
 			print("Going to restaurant");
+			
 			//set random restaurant
-			Role restCustRole = null;
+			int restaurantChoice;
+			if (SimCityGui.TESTING)
+				restaurantChoice = SimCityGui.TESTNUM; //override if testing
+			else
+				restaurantChoice = (int)Math.random() % 8;
+			
+			RestaurantCustomerRole restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
 				if (iRole instanceof RestaurantCustomerRole){
-					restCustRole = iRole;
+					restCustRole = (RestaurantCustomerRole)iRole;
 				}
 			}
+			restCustRole.setRestaurant(restaurantChoice);
 			mRoles.put(restCustRole, true);
-			
-			//SHANE DAVID ALL: 3 make this random
-			int restaurantChoice = 0;
-			
-			if (SimCityGui.TESTING){
-				restaurantChoice = SimCityGui.TESTNUM; //override if testing
-			}
 			
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-			mCommutingTo = EnumCommuteTo.RESTAURANT;
-			
-//			mPersonGui.setPresent(true);
-//			mPersonGui.DoGoToDestination(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-//			acquireSemaphore(semAnimationDone);
-//			mPersonGui.setPresent(false);			
+			mCommutingTo = EnumCommuteTo.RESTAURANT;	
 		}		
 	}
 	
