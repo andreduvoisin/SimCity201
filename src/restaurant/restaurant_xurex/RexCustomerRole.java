@@ -348,7 +348,6 @@ public class RexCustomerRole extends BaseRole implements Customer{
 		customerGui.animationPanel.removeGui(customerGui);
 		
 		//Set Up Next Event
-		mPerson.setJobFalse();
 		mPerson.msgRoleFinished();
 		mPerson.assignNextEvent();
 	}

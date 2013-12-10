@@ -345,9 +345,9 @@ public class JerrywebCustomerRole extends BaseRole implements Customer {
 		Do("Leaving.");
 		waiter.msgLeavingTable(this);
 		customerGui.DoExitRestaurant();
-		mPerson.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
-		mPerson.setJobFalse();
+		
 		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 	
 	public void readMenu(){

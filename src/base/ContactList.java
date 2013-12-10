@@ -420,13 +420,14 @@ public class ContactList {
 	
 	//EVENT LIST
 	static{
-		for(int i=0; i<3; i++){ //Weighted for Eating
-		sEventList.add(new Event(EnumEventType.EAT, 0));}
+		for(int i=0; i<5; i++){ //Weighted for Eating
+			sEventList.add(new Event(EnumEventType.EAT, 0));
+		}
 		sEventList.add(new Event(EnumEventType.GET_CAR, 0));
 		sEventList.add(new Event(EnumEventType.GO_TO_MARKET, 0));
 		sEventList.add(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-//		sEventList.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
-//		sEventList.add(new Event(EnumEventType.INSPECTION, 0));
+		sEventList.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+		sEventList.add(new Event(EnumEventType.INSPECTION, 0));
 	}
 		
 	

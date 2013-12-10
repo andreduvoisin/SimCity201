@@ -36,10 +36,12 @@ public class BankMasterTellerRole extends BaseRole implements BankMasterTeller{
 	
 	//------------------------------------------------------SCHEDULER------------------------------------------------------
 	public boolean pickAndExecuteAnAction(){
-		for (BankTransaction t : mTransactions){
-			processTransaction(t);
-			mTransactions.remove(t);
-			return true;
+		synchronized(mTransactions) {
+			for (BankTransaction t : mTransactions){
+				processTransaction(t);
+				mTransactions.remove(t);
+				return true;
+			}
 		}
 		return false;
 	}

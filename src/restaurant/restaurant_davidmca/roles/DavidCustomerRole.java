@@ -366,10 +366,9 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		Do("Leaving.");
 		waiter.msgDoneEating(this);
 		customerGui.DoExitRestaurant();
-		mPerson.msgAddEvent(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
-		mPerson.setJobFalse();
+		
 		mPerson.msgRoleFinished();
-		stateChanged();
+		mPerson.assignNextEvent();
 	}
 
 	// Accessors, etc.

@@ -348,6 +348,9 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 		waiter.msgLeavingTable(this);
 		hideChoice();
 		customerGui.DoExitRestaurant();
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 
 	// Accessors

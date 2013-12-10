@@ -34,6 +34,7 @@ import restaurant.restaurant_smileham.roles.SmilehamCustomerRole;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
 import restaurant.restaurant_xurex.RexCustomerRole;
 import transportation.roles.CommuterRole;
+import transportation.roles.CommuterRole.PersonState;
 import bank.BankAction;
 import bank.roles.BankCustomerRole;
 import bank.roles.BankCustomerRole.EnumAction;
@@ -47,6 +48,7 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
+import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 
 
@@ -93,6 +95,7 @@ public class PersonAgent extends Agent implements Person {
 										BANK,
 										PARTY};
 	public EventParty mCurrentParty = null;
+	public Boolean firstRun = true;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -294,7 +297,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 				else if (mCommuterRole.mActive){
 					if(mCommuterRole.pickAndExecuteAnAction()){
-						//print("Executes CommuterRole"); 
+						AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "moving...");
 						return true;
 					}
 				}
@@ -327,11 +330,9 @@ public class PersonAgent extends Agent implements Person {
 				mAtJob = true;
 				goToJob();
 			}
-			mEvents.add(new Event(event, 24));
 		}
 		else if (event.mEventType == EnumEventType.EAT) {
 			eatFood();
-			mEvents.add(new Event(event, 24));
 		}
 
 		//Intermittent Events (Deposit Check)
@@ -384,8 +385,6 @@ public class PersonAgent extends Agent implements Person {
 		//Inspection
 		else if (event.mEventType == EnumEventType.INSPECTION) {
 			inspect();
-			mEvents.add(new Event(event, -1));
-			//REX: created looping inspection, easy to fix
 		}
 		
 		//Market
@@ -568,7 +567,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void inspect() {
 		//REX ALL: HOW IS THIS WORKING WITH COMMUTER ROLE!?
-		print("I AM INSPECTING SHIT");
+		print("I AM INSPECTING");
 		mPersonGui.setPresent(true);
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
@@ -615,10 +614,16 @@ public class PersonAgent extends Agent implements Person {
 			
 			//set random restaurant
 			int restaurantChoice;
-			if (SimCityGui.TESTING)
+			Random rand = new Random();
+			if (SimCityGui.TESTING) {
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
-			else
+			} else if(firstRun) {
 				restaurantChoice = mSSN % 8;
+				firstRun = false;
+			} else {
+				restaurantChoice = rand.nextInt(8);
+				AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "" + restaurantChoice);
+			}
 			
 			RestaurantCustomerRole restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -632,7 +637,8 @@ public class PersonAgent extends Agent implements Person {
 			
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
-			mCommutingTo = EnumCommuteTo.RESTAURANT;	
+			mCommutingTo = EnumCommuteTo.RESTAURANT;
+			stateChanged();
 		}		
 	}
 	
@@ -1023,8 +1029,8 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void assignNextEvent(){
 		Random rand = new Random();
-		Event nextEvent = ContactList.sEventList.get(rand.nextInt(ContactList.sEventList.size() - 1));
-		nextEvent.setTime(Time.GetTime());
-		mEvents.add(new Event (nextEvent, -1));
+		mEvents.add(ContactList.sEventList.get(rand.nextInt(ContactList.sEventList.size())));
+		mCommuterRole.mState = PersonState.walking;
+		stateChanged();
 	}
 }

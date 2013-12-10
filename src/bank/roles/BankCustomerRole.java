@@ -160,6 +160,9 @@ public class BankCustomerRole extends BaseRole implements BankCustomer{
 		mTeller.msgLeaving();
 		mTransactionAmount = -1;
 		canLeave = false;
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
 	}
 	private void processTransaction(){
 		EnumAction action = mActions.get(0).action;
