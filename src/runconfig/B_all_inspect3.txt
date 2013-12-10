@@ -92,5 +92,5 @@ NONE 100 bankcust6
 NONE 100 bankcust7
 NONE 100 bankcust8
 NONE 20 inspection1
-NONE 20 inspection2
+NONE 20 inspectionnoca
 NONE 20 inspectionhasc

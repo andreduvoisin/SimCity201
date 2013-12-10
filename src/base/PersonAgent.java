@@ -257,6 +257,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		if ((mRoleFinished) && (!mAtJob) ){
+			print("IN EVENT LOOP");
 			// Process events (calendar)
 			synchronized(mEvents){
 				Collections.sort((mEvents));
@@ -268,7 +269,7 @@ public class PersonAgent extends Agent implements Person {
 			Event event = mEvents.get(0); //next event
 			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
-				if(!mName.contains("party") && !mName.contains("other")) //required because party is not a role
+				if(!mName.contains("party") && !mName.contains("other") && !mName.contains("inter")) //required because party is not a role
 					mRoleFinished = false; //doing a role
 				processEvent(event);
 				return true;
@@ -507,6 +508,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void inspect() {
 		//REX ALL: HOW IS THIS WORKING WITH COMMUTER ROLE!?
+		print("I AM INSPECTING SHIT");
 		mPersonGui.setPresent(true);
 		synchronized(ContactList.sOpenPlaces){
 			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
@@ -638,7 +640,6 @@ public class PersonAgent extends Agent implements Person {
 		Location partyLocation = getHousingRole().getLocation();
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
-		print("I have events: "+mEvents.size());
 	}
 
 	private void goParty(EventParty event) {
