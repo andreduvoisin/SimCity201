@@ -1,6 +1,7 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.roles.CwagonerHostRole;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidHostRole;
@@ -48,7 +49,12 @@ public class RestaurantHostRole extends BaseRole implements
 			break;
 		case 1: // chase
 			subRole = new CwagonerHostRole(super.mPerson);
-			subRole.setPerson(super.mPerson);
+			if (CwagonerRestaurant.host == null) {
+				subRole.setPerson(super.mPerson);
+			}
+			else {
+				subRole = CwagonerRestaurant.host;
+			}
 			break;
 		case 2: // jerry
 			subRole = new JerrywebHostRole(super.mPerson);

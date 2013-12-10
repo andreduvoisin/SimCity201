@@ -83,7 +83,12 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 				case 1: //chase
 					mAlertTag = AlertTag.R1;
 					subRole = new CwagonerCookRole(super.mPerson, this);
-					CwagonerRestaurant.addPerson((CwagonerCookRole) subRole);
+					if (CwagonerRestaurant.cook == null) {
+						CwagonerRestaurant.addPerson((CwagonerCookRole) subRole);
+					}
+					else {
+						subRole = CwagonerRestaurant.cook;
+					}
 					break;
 				case 2: //jerry
 					mAlertTag = AlertTag.R2;
