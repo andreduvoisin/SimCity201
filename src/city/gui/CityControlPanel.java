@@ -631,11 +631,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					ContactList.sOpenBuildings.put("B2", false);
 					ContactList.sOpenBuildings.put("M1", false);
 					ContactList.sOpenBuildings.put("M2", false);
-					synchronized(ContactList.cRESTAURANT_LOCATIONS){
-						for(int i = 0; i < ContactList.cRESTAURANT_LOCATIONS.size(); i++){
-							ContactList.sOpenBuildings.put("R" + ContactList.cRESTAURANT_LOCATIONS, false);
-						}
-					}
+					ContactList.sOpenBuildings.put("R0", false);
+					ContactList.sOpenBuildings.put("R1", false);
+					ContactList.sOpenBuildings.put("R2", false);
+					ContactList.sOpenBuildings.put("R3", false);
+					ContactList.sOpenBuildings.put("R4", false);
+					ContactList.sOpenBuildings.put("R5", false);
+					ContactList.sOpenBuildings.put("R6", false);
+					ContactList.sOpenBuildings.put("R7", false);
 				}
 			}
 		});
@@ -654,11 +657,14 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					ContactList.sOpenBuildings.put("B2", true);
 					ContactList.sOpenBuildings.put("M1", true);
 					ContactList.sOpenBuildings.put("M2", true);
-					synchronized(ContactList.cRESTAURANT_LOCATIONS){
-						for(int i = 0; i < ContactList.cRESTAURANT_LOCATIONS.size(); i++){
-							ContactList.sOpenBuildings.put("R" + ContactList.cRESTAURANT_LOCATIONS, true);
-						}
-					}
+					ContactList.sOpenBuildings.put("R0", true);
+					ContactList.sOpenBuildings.put("R1", true);
+					ContactList.sOpenBuildings.put("R2", true);
+					ContactList.sOpenBuildings.put("R3", true);
+					ContactList.sOpenBuildings.put("R4", true);
+					ContactList.sOpenBuildings.put("R5", true);
+					ContactList.sOpenBuildings.put("R6", true);
+					ContactList.sOpenBuildings.put("R7", true);
 				}
 			}
 		});

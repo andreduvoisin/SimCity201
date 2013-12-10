@@ -78,9 +78,11 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 			}
 		}
 		
-		synchronized(intersections) {
-			for (CityIntersection c:intersections) {
-				c.paint(g);
+		if (mCrashScenario == EnumCrashType.NONE) {
+			synchronized (intersections) {
+				for (CityIntersection c : intersections) {
+					c.paint(g);
+				}
 			}
 		}
 		
@@ -103,7 +105,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 						if (mCrashScenario == EnumCrashType.PERSON_VEHICLE) {
 							if (!(c instanceof CityBus)
 									&& !(x instanceof CityBus)
-									&& c.collidesWith(x)) {
+									&& c.collidesWith(x) && c != x) {
 								if (c.isActive && x.isActive) {
 									crashes.add(new Location(c.x, c.y));
 									c.disable();
@@ -112,7 +114,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 							}
 						} else {
 							if (c.collidesWith(x)) {
-								if (c.isActive && x.isActive) {
+								if (c != x && c.isActive && x.isActive) {
 									crashes.add(new Location(c.x, c.y));
 									c.disable();
 									x.disable();

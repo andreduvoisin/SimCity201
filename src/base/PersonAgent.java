@@ -297,7 +297,6 @@ public class PersonAgent extends Agent implements Person {
 				}
 				else if (mCommuterRole.mActive){
 					if(mCommuterRole.pickAndExecuteAnAction()){
-						AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "moving...");
 						return true;
 					}
 				}
@@ -401,50 +400,50 @@ public class PersonAgent extends Agent implements Person {
 		if(mCommutingTo != null) {
 			switch(mCommutingTo) {
 				case RESTAURANT:
-					for (Role iRole : mRoles.keySet()){
-						if (iRole instanceof RestaurantCustomerRole){
-							((RestaurantCustomerRole) iRole).setPerson(this);
-							
-							synchronized(ContactList.sOpenBuildings) {
+					synchronized(ContactList.sOpenBuildings) {
+						for (Role iRole : mRoles.keySet()){
+							if (iRole instanceof RestaurantCustomerRole){
+								((RestaurantCustomerRole) iRole).setPerson(this);
+								
 								if(((RestaurantCustomerRole)iRole).subRole instanceof AndreCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R0")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof CwagonerCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R1")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof JerrywebCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R2")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof MaggiyanCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R3")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof DavidCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R4")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof SmilehamCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R5")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof TranacCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R6")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								} else if(((RestaurantCustomerRole)iRole).subRole instanceof RexCustomerRole) {
 									if(!ContactList.sOpenBuildings.get("R7")) {
-										mRoles.remove(iRole);
-										//assignNextEvent();
+										msgRoleFinished();
+										assignNextEvent();
 									}
 								}
 							}
@@ -452,32 +451,52 @@ public class PersonAgent extends Agent implements Person {
 					}
 					break;
 				case BANK:
-					for (Role iRole : mRoles.keySet()){
-						if (iRole instanceof BankCustomerRole){
-							BankCustomerRole bankCustomerRole = (BankCustomerRole)iRole;
-							ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
-							
-							//plan robbery
-							if(mName.contains("robber")){
-								//REX: hard coded to try to steal 100
-								print("Robbery action added to bank options");
-								bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
-							}
-							
-							//deposit check
-							int deposit = 50; //REX: add mDeposit, and do after leaving job
-							bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
-							
-							//pay back loan if needed
-							if(mLoan > 0){
-								double payment = Math.max(mCash, mLoan);
-								mCash -= payment;
-								bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
+					synchronized(ContactList.sOpenBuildings) {
+						for (Role iRole : mRoles.keySet()){
+							if (iRole instanceof BankCustomerRole){
+								BankCustomerRole bankCustomerRole = (BankCustomerRole)iRole;
+								ContactList.sBankList.get(bankCustomerRole.getBankID()).addPerson(bankCustomerRole);
+								
+								//plan robbery
+								if(mName.contains("robber")){
+									//REX: hard coded to try to steal 100
+									print("Robbery action added to bank options");
+									bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
+								}
+								
+								//deposit check
+								int deposit = 50; //REX: add mDeposit, and do after leaving job
+								bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
+								
+								//pay back loan if needed
+								if(mLoan > 0){
+									double payment = Math.max(mCash, mLoan);
+									mCash -= payment;
+									bankCustomerRole.mActions.add(new BankAction(EnumAction.Payment, payment));
+								}
+								
+								if(mSSN % 2 == 0) {
+									if(!ContactList.sOpenBuildings.get("B1")) {
+										msgRoleFinished();
+										assignNextEvent();
+									}
+								} else {
+									if(!ContactList.sOpenBuildings.get("B2")) {
+										msgRoleFinished();
+										assignNextEvent();
+									}
+								}
 							}
 						}
 					}
 					break;
 				case HOUSE:
+					HousingBase housingRole = getHousingRole();
+					if (!((Role) housingRole).hasPerson()) {
+						((Role) housingRole).setPerson(this);
+					}
+					mRoles.put((Role) housingRole, true);
+					((Role) housingRole).setActive();
 					break;
 				case JOB:
 					mAtJob = true; //set to false in msgTimeShift
@@ -489,6 +508,17 @@ public class PersonAgent extends Agent implements Person {
 					jobRole.setActive();
 					break;
 				case MARKET:
+					if(mSSN % 2 == 0) {
+						if(!ContactList.sOpenBuildings.get("M1")) {
+							msgRoleFinished();
+							assignNextEvent();
+						}
+					} else {
+						if(!ContactList.sOpenBuildings.get("M2")) {
+							msgRoleFinished();
+							assignNextEvent();
+						}
+					}
 					break;
 				case PARTY:
 					PartyRole partyPerson = null;
@@ -603,11 +633,13 @@ public class PersonAgent extends Agent implements Person {
 
 	public void eatFood() {
 		if (isCheap() && getHousingRole().getHouse() != null){
+			//DAVID I'm trying this out to see what happens...
+			print("Going to market to buy food to eat at home");
+			goToMarket();
 			print("Going to eat at home");
 			getHousingRole().msgEatAtHome();
-			
 			mCommuterRole.mActive = true;
-			mCommuterRole.setLocation(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+			mCommuterRole.setLocation(getHousingRole().getLocation());
 			mCommutingTo = EnumCommuteTo.HOUSE;
 		}else{
 			print("Going to restaurant");
@@ -693,7 +725,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		//GO TO BANK AND DO STUFF
 		mCommuterRole.mActive = true;
-		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
+		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0 ? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		mCommutingTo = EnumCommuteTo.BANK;
 	}
 	
@@ -822,16 +854,12 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void invokeMaintenance() {
 		//ALL: this is a hack needs to be fixed
-//		mJobRole = (HousingBaseRole) SortingHat.getHousingRole(this); //get housing status
-//		Role jobRole = new HousingOwnerRole(this);
-//		jobRole.setPerson(this);
-//		((HousingBaseRole) jobRole).setHouse(ContactList.sHouseList.get(sHouseCounter));
-//		mPersonGui.setPresent(true);
-//		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(sHouseCounter));
-//		sHouseCounter++;
-//		acquireSemaphore(semAnimationDone);
-//		mPersonGui.setPresent(false);
-//		((HousingBaseRole) jobRole).msgTimeToMaintain();
+		if (getHousingRole().getHouse() != null) {
+			mCommuterRole.mActive = true;
+			mCommuterRole.setLocation(getHousingRole().getLocation());
+			mCommutingTo = EnumCommuteTo.HOUSE;
+			((HousingBaseRole) getHousingRole()).msgTimeToMaintain();
+		}
 	}
 	
 	/*private List<Person> getBestFriends(){
