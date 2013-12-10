@@ -75,7 +75,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
         	g2.drawImage(background,0,0,null);
 
 		for (Table table : restaurant.tables) {
-			g.setColor(Color.ORANGE);
+			g.setColor(Color.RED);
 			g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
 		}
 
