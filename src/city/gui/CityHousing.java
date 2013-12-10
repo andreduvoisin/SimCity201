@@ -41,6 +41,10 @@ public class CityHousing extends CityComponent {
 	}
 	
 	public void paint(Graphics g) {
+		if(!mPanel.guis.isEmpty())
+			color = Color.PINK;
+		else
+			color = Color.BLUE;
 		if(SimCityGui.GRADINGVIEW) {
 			g.setColor(color);
 			g.fillRect(x, y, 20, 20);

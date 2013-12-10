@@ -25,7 +25,7 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 
 	private final int WINDOWX = 500;
 	private final int WINDOWY = 500;
-	private List<Gui> guis = new ArrayList<Gui>();
+	public List<Gui> guis = new ArrayList<Gui>();
 	
 	//Furniture Positions
 	private int CHAIRXPOS = 280; 
