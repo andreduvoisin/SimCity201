@@ -74,9 +74,11 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 		repaint();  // Will have paint() called
 		
 		synchronized(CwagonerRestaurant.guis) {
-			for (Gui gui : CwagonerRestaurant.guis) {
-	            gui.updatePosition();
-	        }
+			try {
+				for (Gui gui : CwagonerRestaurant.guis) {
+		            gui.updatePosition();
+		        }
+			} catch(Exception ex) { }
 		}
 	}
 
