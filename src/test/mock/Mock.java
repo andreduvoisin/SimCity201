@@ -18,6 +18,7 @@ public class Mock {
 	}
 
 //	UTILITIES
+	@SuppressWarnings("unused")
 	private void print(String message){
 		System.out.println(message);
 	}

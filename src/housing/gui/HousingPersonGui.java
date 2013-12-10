@@ -27,14 +27,14 @@ public class HousingPersonGui implements Gui {
 	private boolean currentlyAnimating;
 	private boolean present;
 
-	//Furniture Positions
-	private int CHAIRXPOS = 280; 
-	private int CHAIRYPOS = 210; 
-	private int DiningTableDim = 50; 
-
-	//Person Positions
-	private int COUCHXPOS = 75;
-	private int COUCHYPOS = 265;
+//	//Furniture Positions
+//	private int CHAIRXPOS = 280; 
+//	private int CHAIRYPOS = 210; 
+//	private int DiningTableDim = 50; 
+//
+//	//Person Positions
+//	private int COUCHXPOS = 75;
+//	private int COUCHYPOS = 265;
 	
 	//Animation Images
 	private BufferedImage image;
@@ -69,7 +69,7 @@ public class HousingPersonGui implements Gui {
 	
 	private boolean party = false;
 	
-	private static int GUISIZE = 20;
+	//private static int GUISIZE = 20;
 
 	public HousingPersonGui(){ 
 		super(); 

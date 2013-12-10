@@ -207,6 +207,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 	}
 	
 /* Animation Actions */
+	@SuppressWarnings("unused")
 	private void DoGoToPosition() {
 		mGui.DoGoToPosition();
 		try {
@@ -217,6 +218,7 @@ public class MarketCashierRole extends BaseRole implements MarketCashier{
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void DoLeaveMarket() {
 		mGui.DoLeaveMarket();
 		try {

@@ -4,11 +4,8 @@ package restaurant.restaurant_xurex.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
@@ -19,7 +16,8 @@ public class WaiterGui implements Gui, WaiterGui_ {
     RexAnimationPanel animationPanel;
     
     //Animation Image
-    private BufferedImage image;
+    @SuppressWarnings("unused")
+	private BufferedImage image;
     
     private static int sNum = 0;
     private int mNum;

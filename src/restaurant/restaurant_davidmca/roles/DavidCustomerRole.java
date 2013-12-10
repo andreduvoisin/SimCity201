@@ -257,6 +257,7 @@ public class DavidCustomerRole extends BaseRole implements Customer {
 		} else if (!availability) {
 			Random rand = new Random();
 			int randvalue = rand.nextInt(1000);
+			@SuppressWarnings("unused")
 			int stay = randvalue % 2;
 //			switch (stay) {
 //			case 0:

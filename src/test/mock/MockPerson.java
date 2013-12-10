@@ -219,4 +219,10 @@ public class MockPerson extends Mock implements Person {
 		
 	}
 
+	@Override
+	public void assignNextEvent() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
