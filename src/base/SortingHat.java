@@ -219,7 +219,6 @@ public class SortingHat {
 
 	public static Role getHousingRole(Person person) {
 		//landlord, renter, owner (in that order)		
-
 		if (sLandlordCount < sMaxLandlords){
 			sLandlordCount++;
 			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
@@ -238,11 +237,11 @@ public class SortingHat {
 			return newLandLordRole;
 		}
 		
-		if (sRenterCount < sMaxRenters){
+	/*	if (sRenterCount < sMaxRenters){
 			sRenterCount++;
 			return new HousingRenterRole(person);
 		}
-		
+	*/	//ANGELICA 0 housing shit
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
 		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
 		sHouseCount++;

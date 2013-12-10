@@ -285,9 +285,9 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioJ.addActionListener(getActionListener("J_All_Interweave.txt"));
 			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
 			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
-			scenarioQ.addActionListener(getActionListener("Q_Crash_2.txt"));
+			scenarioQ.addActionListener(getActionListener("Q_Person_Crash.txt"));
 			scenarioR.addActionListener(getActionListener(""));
-			scenarioS.addActionListener(getActionListener(""));
+			scenarioS.addActionListener(getActionListener("S_Firing.txt"));
 	}
 	
 	//Used to shorten above code
@@ -299,7 +299,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					Timer collisionTimer = new Timer();
 					TimerTask detectCrashes = new TimerTask() {
 						public void run() {
-							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
@@ -308,7 +308,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					Timer collisionTimer = new Timer();
 					TimerTask detectCrashes = new TimerTask() {
 						public void run() {
-							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.VEHICLE_VEHICLE;
+							SimCityGui.getInstance().citypanel.mCrashScenario = EnumCrashType.PERSON_VEHICLE;
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
@@ -616,9 +616,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	disable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, false);
-					Inspection.sClosedImages.get(iLocation).enable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, false);
+						Inspection.sClosedImages.get(iLocation).enable();
+					}
 				}
 			}
 		});
@@ -626,9 +628,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
     	enable.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-					ContactList.sOpenPlaces.put(iLocation, true);
-					Inspection.sClosedImages.get(iLocation).disable();
+				synchronized(ContactList.sOpenPlaces) {
+					for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+						ContactList.sOpenPlaces.put(iLocation, true);
+						Inspection.sClosedImages.get(iLocation).disable();
+					}
 				}
 			}
 		});

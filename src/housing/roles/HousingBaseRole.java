@@ -7,6 +7,7 @@ import housing.interfaces.HousingBase;
 import java.util.concurrent.Semaphore;
 
 import base.BaseRole;
+import base.ContactList;
 import base.Location;
 import base.interfaces.Person;
 import city.gui.SimCityGui;
@@ -103,7 +104,7 @@ public class HousingBaseRole extends BaseRole implements HousingBase {
 
 	@Override
 	public Location getLocation() {
-		return null;//ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
+		return ContactList.cHOUSE_LOCATIONS.get(mHouse.mHouseNum);
 	}
 
 	@Override

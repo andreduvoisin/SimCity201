@@ -10,10 +10,11 @@ import javax.imageio.ImageIO;
 
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
+import base.Gui;
 import base.Location;
 import base.interfaces.Role;
 
-public class CwagonerWaiterGui extends CwagonerBaseGui implements CwagonerGui {
+public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
 
 	private static int waiterNum = 0;
     
@@ -120,4 +121,16 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements CwagonerGui {
     public void DoClearFood() {
     	food = "";
     }
+
+	@Override
+	public boolean isPresent() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void setPresent(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

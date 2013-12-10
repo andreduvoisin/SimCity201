@@ -147,7 +147,6 @@ public class PersonAgent extends Agent implements Person {
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
 		mRoles.put(new RestaurantCustomerRole(this), false);
-		
 	}
 	
 	private void initializePerson(){
@@ -228,7 +227,7 @@ public class PersonAgent extends Agent implements Person {
 				return;
 			}
 		}
-		mEvents.add(event);
+		mEvents.add(event); print(mEvents.size()+" events");
 	}
 	
 	public void msgAnimationDone(){
@@ -262,8 +261,10 @@ public class PersonAgent extends Agent implements Person {
 			synchronized(mEvents){
 				Collections.sort((mEvents));
 			}
-			if(mEvents.isEmpty())
+			if(mEvents.isEmpty()) {
+				System.out.println("test");
 				return false;
+			}
 			Event event = mEvents.get(0); //next event
 			print("" + event.mEventType);
 			if (event.mTime <= Time.GetTime()){ //only do events that have started
@@ -555,7 +556,7 @@ public class PersonAgent extends Agent implements Person {
 			if (SimCityGui.TESTING)
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
 			else
-				restaurantChoice = (int)Math.random() % 8;
+				restaurantChoice = mSSN % 8;
 			
 			RestaurantCustomerRole restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -633,7 +634,8 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		if(!mName.equals("partyPerson"))
 			mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+//		Location partyLocation = new Location(100, 0); //REX: remove hardcoded party pad after dehobo the host
+		Location partyLocation = getHousingRole().getLocation();
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
 		print("I have events: "+mEvents.size());
@@ -717,7 +719,7 @@ public class PersonAgent extends Agent implements Person {
 					synchronized(((EventParty)iEvent).mAttendees){
 						((EventParty) iEvent).mAttendees.remove(this);
 					}
-					print("Responding to RSVP: NO");
+					print("Responding to RSVP: NO"); mPersonGui.disable();
 				}
 				else if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
 					synchronized(((EventParty)iEvent).mAttendees){
@@ -728,7 +730,7 @@ public class PersonAgent extends Agent implements Person {
 					synchronized(((EventParty)iEvent).mAttendees){
 						((EventParty) iEvent).mAttendees.remove(this);
 					}
-					print("Responding to RSVP: NO");
+					print("Responding to RSVP: NO"); mPersonGui.disable();
 				}
 			}
 		}

@@ -3,14 +3,6 @@ BANK 200 guard11
 BANK 200 guard12
 BANK 200 teller11
 BANK 200 teller12
-BANK 100 bankcust1
-BANK 100 bankcust2
-BANK 100 bankcust3
-BANK 100 bankcust4
-BANK 100 bankcust5
-BANK 100 bankcust6
-BANK 100 bankcust7
-BANK 100 bankcust8
 MARKET 200 m1
 MARKET 200 m2
 MARKET 200 m3
@@ -91,4 +83,12 @@ NONE 200 restcust21
 NONE 200 restcust22
 NONE 200 restcust23
 NONE 200 restcust24
+NONE 100 bankcust1
+NONE 100 bankcust2
+NONE 100 bankcust3
+NONE 100 bankcust4
+NONE 100 bankcust5
+NONE 100 bankcust6
+NONE 100 bankcust7
+NONE 100 bankcust8
 NONE 20 inspection
