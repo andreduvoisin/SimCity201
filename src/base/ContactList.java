@@ -170,7 +170,7 @@ public class ContactList {
 	//INTERSECTION BLOCKS
 	public static List<Block> cINTERSECTIONBLOCKS;
 	public static final Block cINTERSECTIONBLOCK0 = new Block(280,	35, 320, 85);
-	public static final Block cINTERSECTIONBLOCK1 = new Block(280,	280, 320, 320);
+	public static final Block cINTERSECTIONBLOCK1 = new Block(280,	280, 315, 315);
 	public static final Block cINTERSECTIONBLOCK2 = new Block(35,	280, 85, 320);
 	public static final Block cINTERSECTIONBLOCK3 = new Block(515,	280, 565, 320);
 	public static final Block cINTERSECTIONBLOCK4 = new Block(280,	515, 320, 565);
@@ -314,7 +314,7 @@ public class ContactList {
 	
 	//BANKS, MARKETS
 	public static final Location cBANK1_LOCATION = gridLocation(1, 1);
-	public static final Location cBANK2_LOCATION = new Location(cGRID_POINT5+10,cGRID_POINT5);	//hack to avoid collision problem grid(2,2)
+	public static final Location cBANK2_LOCATION = new Location(cGRID_POINT5,cGRID_POINT5);	//hack to avoid collision problem grid(2,2)
 	public static final Location cMARKET1_LOCATION = gridLocation(1, 2);	//Honeydukes
 	public static final Location cMARKET2_LOCATION = gridLocation(2, 1);	//Ollivanders
 	
