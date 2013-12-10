@@ -126,8 +126,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
         tabbedPane.addTab("Properties", PropertiesTab);
         tabbedPane.addTab("Scenarios", ScenariosTab);
         tabbedPane.addTab("Trace", TraceTab);
- //       tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
-        tabbedPane.setSelectedIndex(1);
+        tabbedPane.setSelectedIndex(2);	// Defaults to "Scenarios"
+//        tabbedPane.setSelectedIndex(1);
         add(tabbedPane);
         
         // Pretty/Ugly View
@@ -245,8 +245,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioS.setPreferredSize(buttonDim);
 		
 		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
-			scenarioA.addActionListener(getActionListener("restConfig0.txt"));
-			scenarioB.addActionListener(getActionListener(""));
+			scenarioA.addActionListener(getActionListener("A_all_inspect1.txt"));
+			scenarioB.addActionListener(getActionListener("restConfig7.txt"));
 			scenarioC.addActionListener(getActionListener("MarketRestaurantConfig_C.txt"));
 			scenarioD.addActionListener(getActionListener("PartyConfig_D.txt"));
 			scenarioE.addActionListener(getActionListener(""));
@@ -528,6 +528,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	
 	public void actionPerformed(ActionEvent e) {		
 		// JButton
+		/*
 		if(e.getSource() instanceof JButton) {
 			//Scenario A
 			if (((JButton) e.getSource()).getText().equals("Simulate All")) {
@@ -580,6 +581,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				}
 			}
 			
-		}
+		}*/
 	}
 }

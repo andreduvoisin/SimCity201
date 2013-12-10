@@ -21,7 +21,7 @@ import city.gui.trace.AlertTag;
 
 
 public class CwagonerCookRole extends BaseRole implements CwagonerCook {
-	public RestaurantCookRole mRole;
+	private RestaurantCookRole mRole;
 	
 	public CwagonerCookRole(Person person, RestaurantCookRole r) {
 		super(person);

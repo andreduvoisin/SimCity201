@@ -31,12 +31,12 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements CwagonerGui {
     
     BufferedImage waiterImg;
 
-    public CwagonerWaiterGui(CwagonerWaiter w, CwagonerAnimationPanel panel) {
-    	super((Role)w, panel);
+    public CwagonerWaiterGui(CwagonerWaiter w) {
+    	super((Role)w);
     	state = State.idle;
         waiterNum++;
 
-        animationPanel.addGui(this);
+        CwagonerAnimationPanel.restaurant.addGui(this);
 
         position = new Location(homePos.mX, homePos.mY);
         destination = new Location(homePos.mX, homePos.mY);
@@ -85,7 +85,7 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements CwagonerGui {
     // and returning to table to take order or deliver food
     public void DoGoToTable(int tableNum) {
     	state = State.movingToTable;
-    	Location tableLoc = animationPanel.getTableLocation(tableNum);
+    	Location tableLoc = CwagonerAnimationPanel.getTableLocation(tableNum);
         destination.mX = tableLoc.mX + size;
         destination.mY = tableLoc.mY - size;
     }

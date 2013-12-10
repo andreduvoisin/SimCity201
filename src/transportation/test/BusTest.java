@@ -24,7 +24,8 @@ public class BusTest extends TestCase {
 		super.setUp();
 
 		bus = new TransportationBus(true);
-		rider = new MockRider();
+		bus.startThread();
+		rider = new MockRider(bus);
 	}
 	
 	public void testBusPicksPersonUpAtFirstStopAndDropsThemOffAtNextStop() {
@@ -69,6 +70,10 @@ public class BusTest extends TestCase {
 
 
 		// Schedule stop0's waiting people to board
+		assertTrue("Bus should have state ReadyToBoard; instead, it has state "
+				+ bus.state,
+				bus.state == enumState.ReadyToBoard);
+
 		assertTrue("Bus's scheduler should return true; it doesn't",
 				bus.pickAndExecuteAnAction());
 
@@ -84,7 +89,11 @@ public class BusTest extends TestCase {
 				+ bus.state,
 				bus.state == enumState.ReadyToTravel);
 
-		// Bus already called AdvanceToNextStop()
+		assertTrue("Bus's scheduler should return true; doesn't",
+				bus.pickAndExecuteAnAction());
+
+		assertTrue("Bus should have logged AdvanceToNextStop(); it didn't",
+				bus.log.containsString("AdvanceToNextStop()"));
 
 		assertTrue("Bus should have state traveling; instead it has state "
 				+ bus.state,
@@ -93,11 +102,14 @@ public class BusTest extends TestCase {
 		bus.msgGuiArrivedAtStop();
 
 		// Schedule bus to advance to stop1
-		assertTrue("Bus's scheduler should return true; it doesn't",
-				bus.pickAndExecuteAnAction());
+		assertTrue("Bus should have state ReadyToUnload; instead it has state "
+				+ bus.state,
+				bus.state == enumState.ReadyToUnload);
 
+		assertTrue("Bus should still have one rider; instead it has "
+				+ bus.mRiders.size(),
+				bus.mRiders.size() == 1);
 
-		// Schedule stop1's destined riders to unload
 		assertTrue("Bus's scheduler should return true; it doesn't",
 				bus.pickAndExecuteAnAction());
 
@@ -105,9 +117,18 @@ public class BusTest extends TestCase {
 				+ bus.log.getLastLoggedEvent(),
 				bus.log.containsString("TellRidersToGetOff()"));
 
-		assertTrue("Bus should have sent msgAtStop(1); it didn't; rider last logged "
+		assertTrue("Bus should have sent msgAtStop(" + testDestStop + "); it didn't; rider last logged "
 				+ rider.log.getLastLoggedEvent(),
-				rider.log.containsString("Received msgAtStop(1)"));
+				rider.log.containsString("Received msgAtStop(" + testDestStop + ")"));
+
+
+		assertTrue("Bus should have state ReadyToBoard; instead it has state "
+				+ bus.state,
+				bus.state == enumState.ReadyToBoard);
+
+		// Tell waiting passengers to get off
+		assertTrue("Bus's scheduler should return true; it doesn't",
+				bus.pickAndExecuteAnAction());
 
 
 		// Schedule stop1's riders to board

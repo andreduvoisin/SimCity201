@@ -15,6 +15,7 @@ import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import transportation.TransportationBus;
 import bank.Bank;
 import bank.interfaces.BankMasterTeller;
@@ -38,7 +39,8 @@ public class ContactList {
 	public static JerrywebRestaurant JerrywebRestaurant;
 	public static AndreRestaurant AndreRestaurant;
 	public static SmilehamRestaurant SmilehamRestaurant;
-	public static MaggiyanRestaurant MaggiyanRestaurant; 
+	public static MaggiyanRestaurant MaggiyanRestaurant;
+	public static CwagonerRestaurant CwagonerRestaurant;
 	
 	//Setup
 	public static void setup(){
@@ -149,7 +151,7 @@ public class ContactList {
 	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-35, cGRID_POINT1-35); //65, 65 DAVID these may be wrong
 	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8+35, cGRID_POINT1-35);	//535, 65
 	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+35, cGRID_POINT8+35);	//535, 535
-	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8+35);	//65, 500
+	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8+25);	//65, 500
 	public static List<Location> cPARKINGLOTS;
 	static {
 		List<Location> list = new ArrayList<Location>();
@@ -163,15 +165,15 @@ public class ContactList {
 	
 	//INTERSECTION BLOCKS
 	public static List<Block> cINTERSECTIONBLOCKS;
-	public static final Block cINTERSECTIONBLOCK0 = new Block(280,	35, 320, 95);
+	public static final Block cINTERSECTIONBLOCK0 = new Block(280,	35, 320, 85);
 	public static final Block cINTERSECTIONBLOCK1 = new Block(280,	280, 320, 320);
-	public static final Block cINTERSECTIONBLOCK2 = new Block(35,	280, 95, 320);
-	public static final Block cINTERSECTIONBLOCK3 = new Block(505,	280, 565, 320);
-	public static final Block cINTERSECTIONBLOCK4 = new Block(280,	505, 320, 565);
-	public static final Block cINTERSECTIONBLOCK5 = new Block(35, 35, 95, 95); 		//Upper Left
-	public static final Block cINTERSECTIONBLOCK6 = new Block(505, 35, 565, 95); 	//Upper Right
-	public static final Block cINTERSECTIONBLOCK7 = new Block(505, 505, 565, 565); 	//Bottom Right
-	public static final Block cINTERSECTIONBLOCK8 = new Block(35, 505, 95, 565); 	//Bottom Left
+	public static final Block cINTERSECTIONBLOCK2 = new Block(35,	280, 85, 320);
+	public static final Block cINTERSECTIONBLOCK3 = new Block(515,	280, 565, 320);
+	public static final Block cINTERSECTIONBLOCK4 = new Block(280,	515, 320, 565);
+	public static final Block cINTERSECTIONBLOCK5 = new Block(35, 35, 75, 75); 		//Upper Left
+	public static final Block cINTERSECTIONBLOCK6 = new Block(525, 35, 565, 75); 	//Upper Right
+	public static final Block cINTERSECTIONBLOCK7 = new Block(525, 525, 565, 565); 	//Bottom Right
+	public static final Block cINTERSECTIONBLOCK8 = new Block(35, 525, 75, 565); 	//Bottom Left
 	static{
 		List<Block> list = new ArrayList<>();
 		list.add(cINTERSECTIONBLOCK0);
@@ -309,8 +311,8 @@ public class ContactList {
 	//BANKS, MARKETS
 	public static final Location cBANK1_LOCATION = gridLocation(1, 1);
 	public static final Location cBANK2_LOCATION = gridLocation(2, 2);
-	public static final Location cMARKET1_LOCATION = gridLocation(2, 1);
-	public static final Location cMARKET2_LOCATION = gridLocation(1, 2);
+	public static final Location cMARKET1_LOCATION = gridLocation(1, 2);	//Honeydukes
+	public static final Location cMARKET2_LOCATION = gridLocation(2, 1);	//Ollivanders
 	
 	
 	//RESTAURANTS

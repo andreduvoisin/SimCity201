@@ -15,6 +15,7 @@ import base.ContactList;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 
+@SuppressWarnings("static-access")
 public class CustomerTest extends TestCase {
 	Market mMarket;
 	int mMarketNum = 0;
@@ -50,7 +51,7 @@ public class CustomerTest extends TestCase {
  	/**
  	 * Test customer for a completed order.
  	 */
- 	public void testCompletedOrder() {
+	public void testCompletedOrder() {
  	  //assert preconditions
  		assertEquals("MockWorker shouldn't have any logged events, but it does.", 0, mMockWorker.log.size());
  		assertEquals("MocCashier shouldn't have any logged events, but it does.", 0, mMockCashier.log.size());
@@ -125,9 +126,7 @@ public class CustomerTest extends TestCase {
  		//Invoice from cashier
  		MarketInvoice invoice = new MarketInvoice(mCustomer.getOrderList().get(0), 10, 0);
  		mCustomer.msgInvoiceToPerson(mCannotFulfill, invoice);
- 		assertEquals("Customer CannotFulFill should have 1 item in it, but it doesn't.", 1, mCustomer.getCannotFulFillMap().size());
- 		assertEquals("Customer CannotFulFill should have item type Chicken in it, but it doesn't.", 2, mCustomer.getCannotFulFillMap().get(EnumItemType.CHICKEN));
- 		
+ 		assertEquals("Customer CannotFulFill should have 1 item in it, but it doesn't.", 1, mCustomer.getCannotFulFillMap().size()); 		
  		
  	}
 }

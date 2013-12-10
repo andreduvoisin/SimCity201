@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.util.List;
 
-import market.gui.MarketDeliveryTruckGui;
 import transportation.TransportationBus;
 import base.Block;
 import base.ContactList;
@@ -48,10 +48,10 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		busDispatch.startThread();
 		
 		//Add Roads
-		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL, 60, 600));
-		this.addStatic(new CityRoad(505, RoadDirection.VERTICAL, 60, 600));
-		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL, 60, 600));
-		this.addStatic(new CityRoad(505, RoadDirection.HORIZONTAL, 60, 600));
+		this.addStatic(new CityRoad(35, RoadDirection.VERTICAL, 50, 600));
+		this.addStatic(new CityRoad(515, RoadDirection.VERTICAL, 50, 600));
+		this.addStatic(new CityRoad(35, RoadDirection.HORIZONTAL, 50, 600));
+		this.addStatic(new CityRoad(515, RoadDirection.HORIZONTAL, 50, 600));
 		this.addStatic(new CityRoad(280, RoadDirection.VERTICAL, 40, 480));
 		this.addStatic(new CityRoad(280, RoadDirection.HORIZONTAL, 40, 480));
 		
@@ -92,7 +92,7 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		
 		//DAVID testing add personblocks
 //		for (List<Block> list : ContactList.cNAVBLOCKS) {
-//			for (Block b : ContactList.cNAVBLOCKS.get(4)) {
+//			for (Block b : ContactList.cNAVBLOCKS.get(1)) {
 //				this.addStatic(b);
 //			}
 //		}
@@ -106,10 +106,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 
 	public static CityPanel getInstance() {
 		return instance;
-	}
-	
-	public void addDeliveryTruck(MarketDeliveryTruckGui g) {
-		addMoving(g);
 	}
 	
 	public void mouseClicked(MouseEvent arg0) {

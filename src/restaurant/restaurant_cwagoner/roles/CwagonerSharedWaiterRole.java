@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
 import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
@@ -25,7 +26,7 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 
 	CwagonerAnimationPanel animationPanel;
 
-	public CwagonerSharedWaiterRole(Person person, CwagonerAnimationPanel panel) {
+	public CwagonerSharedWaiterRole(Person person) {
 		super(person);
 		// Initialize menu
 		menu.put("Steak", 8);
@@ -33,10 +34,9 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 		menu.put("Salad", 2);
 		menu.put("Pizza", 4);
 
-		animationPanel = panel;
-		this.setGui(new CwagonerWaiterGui((CwagonerWaiter) this, panel));//TODO add gui
+		this.setGui(new CwagonerWaiterGui((CwagonerWaiter) this));
 
-		panel.host.addWaiter(this);
+		CwagonerRestaurant.host.addWaiter(this);
 	}
 
 	public String getName() {

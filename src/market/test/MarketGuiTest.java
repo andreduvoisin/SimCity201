@@ -8,7 +8,6 @@ import market.Market;
 import market.MarketOrder;
 import market.gui.MarketCashierGui;
 import market.gui.MarketCustomerGui;
-import market.gui.MarketDeliveryTruckGui;
 import market.gui.MarketItemsGui;
 import market.gui.MarketPanel;
 import market.gui.MarketWorkerGui;
@@ -200,13 +199,5 @@ public class MarketGuiTest extends TestCase {
 	  //assert
 		assertTrue("Worker should have received msgAnimationLeftMarket. Instead " + mWorker.log.getLastLoggedEvent().toString(),
 				mWorker.log.containsString("Received msgAnimationLeftMarket."));
-	}
-	
-	public void testDeliveryTruckGui() {
-		MockDeliveryTruck mDeliveryTruck = new MockDeliveryTruck();
-		MarketDeliveryTruckGui mDeliveryTruckGui = new MarketDeliveryTruckGui(mDeliveryTruck,mMarketNum);
-		mDeliveryTruck.setGui(mDeliveryTruckGui);
-		
-	  //assert preconditions
 	}
 }

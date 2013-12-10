@@ -13,7 +13,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	private final int PLATE = 20;
 	private static int customerNum = 0;
 	
-	private boolean isHungry = false;
+	private boolean isHungry = true;
 
 	CwagonerWaiterRole waiter;
 
@@ -30,18 +30,18 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	
 	private String food = "";
 
-	public CwagonerCustomerGui(CwagonerCustomerRole c, CwagonerAnimationPanel panel) {
-		super(c, panel);
+	public CwagonerCustomerGui(CwagonerCustomerRole c) {
+		super(c);
 		customerNum++;
 
-		animationPanel.addGui(this);
+		CwagonerAnimationPanel.restaurant.addGui(this);
 
         position = new Location(waitingPos.mX, waitingPos.mY);
         destination = new Location(waitingPos.mX, waitingPos.mY);
 	}
 	
 	public void setTableLocation(int tableNum) {
-		Location tableLoc = animationPanel.getTableLocation(tableNum);
+		Location tableLoc = CwagonerAnimationPanel.getTableLocation(tableNum);
 		tablePos.setTo(tableLoc);
 	}
 
@@ -68,6 +68,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 					&& destination.mX == gonePos.mX && destination.mY == gonePos.mY) {
 				((CwagonerCustomerRole)role).msgGuiLeftRestaurant();
 				isHungry = false;
+				CwagonerAnimationPanel.restaurant.removeGui(this);
 			}
 			command = Command.noCommand;
 		}
@@ -100,6 +101,10 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements CwagonerGui 
 	
 	public boolean isHungry() {
 		return isHungry;
+	}
+
+	public boolean isPresent() {
+		return true;
 	}
 	
 	public Dimension getPosition() {

@@ -13,7 +13,8 @@ import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
-import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
+import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidCookRole;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
@@ -43,7 +44,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 50;
+        public int DEFAULT_FOOD_QTY = 2;	//ANGELICA
         private AlertTag mAlertTag;
         
         public RestaurantCookRole(Person person, int restaurantID){
@@ -79,11 +80,16 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
 						subRole = AndreRestaurant.cook;
 					}
 					break;
-//				case 1: //chase
-//					mAlertTag = AlertTag.R1;
-//					subRole = new CwagonerCookRole(super.mPerson);
-//					CwagonerRestaurantPanel.cook = (CwagonerCookRole) subRole;
-//					break;
+				case 1: //chase
+					mAlertTag = AlertTag.R1;
+					subRole = new CwagonerCookRole(super.mPerson, this);
+					if (CwagonerRestaurant.cook == null) {
+						CwagonerRestaurant.addPerson((CwagonerCookRole) subRole);
+					}
+					else {
+						subRole = CwagonerRestaurant.cook;
+					}
+					break;
 				case 2: //jerry
 					mAlertTag = AlertTag.R2;
 					subRole = new JerrywebCookRole(super.mPerson, this);
@@ -130,7 +136,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
        }
         
         public boolean pickAndExecuteAnAction() {
-    		if(marketPickAndExecuteAnAction())		//ANGELICA: change priority back
+    		if(marketPickAndExecuteAnAction())
     			return true;
         	if(subRole != null) {
         		if(subRole.pickAndExecuteAnAction())
@@ -151,7 +157,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public List<MarketOrder> mOrders = Collections.synchronizedList(new ArrayList<MarketOrder>());
         public List<MarketInvoice> mInvoices = Collections.synchronizedList(new ArrayList<MarketInvoice>());
         
-        protected static final int sBaseNeed = 3;
+        protected static final int sBaseNeed = 5;
         
         MarketCashier mMarketCashier;
         
@@ -226,7 +232,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		int m;
         		if(mMarketCashier == null) {
         			m = (int) (Math.random() % 2);
-        			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
+        			mMarketCashier = ContactList.sMarketList.get(1).mCashier;	//ANGELICA
         		}
                 mMarketCashier.msgOrderPlacement(o);
                 RestaurantCashierRole restaurantCashier = null;
@@ -236,7 +242,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	restaurantCashier = AndreRestaurant.cashier.mRole;
                 	break;
                 case 1: //chase
-                	restaurantCashier = CwagonerAnimationPanel.cashier.mRole;
+                	restaurantCashier = CwagonerRestaurant.cashier.mRole;
                 	break;
                 case 2: //jerry
                 	restaurantCashier = JerrywebRestaurant.cashier.mRole;

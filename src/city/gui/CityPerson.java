@@ -12,7 +12,7 @@ import base.PersonAgent;
 
 public class CityPerson extends CityComponent {
 	
-	private String name = "";
+//	private String name = "";
 	PersonAgent mPerson = null;
 	SimCityGui gui;
 	
@@ -21,9 +21,11 @@ public class CityPerson extends CityComponent {
 	public boolean mUsingCar = false;
 	public boolean mUsingBus = true;
 	public boolean mGettingCar = false;
-	
+	public boolean mDeliverying = false;
+
 	static final int xIndex = 10;
 	static final int yIndex = 10;
+	int previousX, previousY;
 
 	public boolean onBus;
 	
@@ -39,9 +41,9 @@ public class CityPerson extends CityComponent {
 
 	@Override
 	public void updatePosition() {
-		int previousX = x;
-		int previousY = y;
-		
+		previousX = x;
+		previousY = y;
+			
 		if (mDestination != null) {
 			if (x < mDestination.mX)		x++;
 	        else if (x > mDestination.mX)	x--;
@@ -61,34 +63,12 @@ public class CityPerson extends CityComponent {
 	    	}
 		}
 		
-		if (mUsingCar) {
-			rectangle.setBounds(x, y, 10, 10);
-		}
-		else {
-			rectangle.setBounds(x, y, 5, 5);
-		}
-		
-        //Check intersections (if going into busy intersection - stay)
-        for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
-        	if(rectangle.intersects(iIntersect.rectangle)) {
-        		if (iIntersect.mOccupant != this) {
-	        		x = previousX;
-	        		y = previousY;
-        		}
-        		return;
-        	}
-        }
-        
-        if (mUsingCar) {
-			rectangle.setBounds(x, y, 10, 10);
-		}
-		else {
-			rectangle.setBounds(x, y, 5, 5);
-		}
+		if (mUsingCar) rectangle.setBounds(x, y, 10, 10);
+		else rectangle.setBounds(x, y, 5, 5);
 
-        //B* Algorithm
-        
-        for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)){
+		// B* Algorithm
+
+		for (Block iBlock : ContactList.cNAVBLOCKS.get(mDestinationPathType)) {
 			if (rectangle.intersects(iBlock.rectangle)) {
 				rectangle.x = previousX;
 				if (rectangle.intersects(iBlock.rectangle)) {
@@ -96,16 +76,26 @@ public class CityPerson extends CityComponent {
 					rectangle.y = previousY;
 				}
 			}
-        }
-        
-       x = rectangle.x;
-       y = rectangle.y;
+		}
+
+		// Check intersections (if going into busy intersection - stay)
+		for (CityIntersection iIntersect : SimCityGui.getInstance().citypanel.intersections) {
+			if (rectangle.intersects(iIntersect.rectangle)) {
+				if (iIntersect.mOccupant != this) {
+					x = previousX;
+					y = previousY;
+				}
+				return;
+			}
+		}
+
+		x = rectangle.x;
+		y = rectangle.y;
 	}
 	
 	public void DoGoToDestination(Location location){
 		this.enable(); 
 		
-//		mFinalDestination = ContactList.getDoorLocation(location);
 		mFinalDestination = location;
 		//calculate intermediate destination
 		Location mLocation = new Location(x, y);
@@ -115,8 +105,8 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
 		//If person has a car
-		if (mPerson.hasCar() && !mGettingCar) {
-			if (mPerson.hasCar()) {
+		if (mDeliverying ||(mPerson.hasCar() && !mGettingCar)) {	//ANGELICA
+			if (mDeliverying || mPerson.hasCar()) {
 				//if at corner closest to destination, walk to destination
 				if (mLocation.equals(destParking)){
 					x = closeCorner.mX;
@@ -191,9 +181,13 @@ public class CityPerson extends CityComponent {
 		if(isActive) {
 			if (! onBus) {
 //				if(SimCityGui.GRADINGVIEW) {
-					g.setColor(color.white);
+					g.setColor(Color.WHITE);
 					g.drawString(mPerson.getName(),x,y);
-					if (mUsingCar) {
+					if(mDeliverying) {			//ANGELICA
+						g.setColor(Color.MAGENTA);
+						g.fillRect(x,y,10,10);
+					}
+					else if (mUsingCar) {
 						g.setColor(Color.cyan);
 						g.fillRect(x, y, 10, 10);
 					}

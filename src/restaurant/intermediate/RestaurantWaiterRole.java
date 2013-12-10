@@ -1,6 +1,9 @@
 package restaurant.intermediate;
 
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
+import restaurant.restaurant_cwagoner.roles.CwagonerSharedWaiterRole;
+import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
 import restaurant.restaurant_davidmca.roles.DavidWaiterRoleShared;
@@ -62,16 +65,16 @@ public class RestaurantWaiterRole extends BaseRole implements
 //				}
 			}
 			break;
-//		case 1: // chase
-//			if (mWaiterType == 1) {
-//				subRole = new CwagonerWaiterRole(super.mPerson);
-//				((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
-//			}
-//			else if (mWaiterType == 0) {
-//				subRole = new CwagonerSharedWaiterRole(super.mPerson);
-//				((CwagonerRestaurantPanel) SimCityGui.getInstance().citypanel.masterRestaurantList.get(1)).addPerson(subRole);
-//			}
-//			break;
+		case 1: // chase
+			if (mWaiterType == 1) {
+				subRole = new CwagonerWaiterRole(super.mPerson);
+				CwagonerRestaurant.addPerson(subRole);
+			}
+			else if (mWaiterType == 0) {
+				subRole = new CwagonerSharedWaiterRole(super.mPerson);
+				CwagonerRestaurant.addPerson(subRole);
+			}
+			break;
 		case 2:
 			if (mWaiterType == 1) {
 				subRole = new JerrywebWaiterRole(super.mPerson);
