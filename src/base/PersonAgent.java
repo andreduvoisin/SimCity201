@@ -70,7 +70,7 @@ public class PersonAgent extends Agent implements Person {
 	private int mTimeShift;
 	private double mCash;
 	private double mLoan;
-	private boolean mHasCar;	//ALL MAGGI: 3 car will be implemented later
+	private boolean mHasCar;
 	private boolean mAtJob;		//used in PAEA
 	
 	// GUI/Commuter Stuff
@@ -391,11 +391,9 @@ public class PersonAgent extends Agent implements Person {
 		if(mCommutingTo != null) {
 			switch(mCommutingTo) {
 				case RESTAURANT:
-					// ANDRE MAGGI: FIX THIS SHIT
 					for (Role iRole : mRoles.keySet()){
 						if (iRole instanceof RestaurantCustomerRole){
 							((RestaurantCustomerRole) iRole).setPerson(this);
-							((RestaurantCustomerRole) iRole).setRestaurant(SimCityGui.TESTNUM);
 						}
 					}
 					break;
@@ -566,6 +564,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 			restCustRole.setRestaurant(restaurantChoice);
+			
 			mRoles.put(restCustRole, true);
 			
 			mCommuterRole.mActive = true;

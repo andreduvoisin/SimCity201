@@ -44,7 +44,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 5;	//ANGELICA
+        public int DEFAULT_FOOD_QTY = 2;
         private AlertTag mAlertTag;
         
         public RestaurantCookRole(Person person, int restaurantID){
@@ -271,6 +271,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		print("Processing market order.", mAlertTag);
                 for(EnumItemType item : mCannotFulfill.keySet()) {
                         mItemsDesired.put(item, mItemsDesired.get(item)+mCannotFulfill.get(item));
+                        mHasCreatedOrder.put(item,false);
                 }
         }
         
