@@ -16,7 +16,6 @@ public class TimeGui extends CityComponent{
 	
 	public void paint(Graphics g) {
 		String printThis;
-		
 		//g.setColor(Color.BLACK);
 		//g.fillRect(mX, mY, mXspan, mYspan);
 		g.setColor(Color.WHITE);
@@ -56,6 +55,7 @@ public class TimeGui extends CityComponent{
 				printThis += Time.GetMinute();
 		}
 		g.drawString(printThis, x-10 , y + 20);
+		System.out.println(printThis);
 	}
 	
 	@Override

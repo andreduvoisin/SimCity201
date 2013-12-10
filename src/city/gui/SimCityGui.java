@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import base.ContactList;
 import base.SortingHat;
+import base.Time;
 
 @SuppressWarnings("serial")
 public class SimCityGui extends JFrame {
@@ -25,6 +26,7 @@ public class SimCityGui extends JFrame {
 	CityControlPanel CP;
 	GridBagConstraints mGridBagConstraints = new GridBagConstraints();
 	
+	Time time = new Time();
 	
 	public static SimCityGui getInstance() {
 		return instance;
