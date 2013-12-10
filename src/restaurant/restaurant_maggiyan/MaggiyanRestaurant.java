@@ -25,6 +25,7 @@ public class MaggiyanRestaurant {
      
     public static List<MaggiyanGui> guis;
     public static int waiterPosCounter = 1; 
+    public static int customerPosCounter = 1; 
 
     public MaggiyanRestaurant(){
     	guis = Collections.synchronizedList(new ArrayList<MaggiyanGui>());

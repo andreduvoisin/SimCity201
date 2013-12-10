@@ -107,10 +107,6 @@ public class CityPanel extends SimCityPanel implements MouseMotionListener {
 		return instance;
 	}
 	
-	public void addDeliveryTruck(MarketDeliveryTruckGui g) {
-		addMoving(g);
-	}
-	
 	public void mouseClicked(MouseEvent arg0) {
 		
 	}

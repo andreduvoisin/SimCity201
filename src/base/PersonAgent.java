@@ -769,7 +769,7 @@ public class PersonAgent extends Agent implements Person {
 		return false;
 	}
 
-	private void acquireSemaphore(Semaphore semaphore){
+	public void acquireSemaphore(Semaphore semaphore){
 		try {
 			semaphore.acquire();
 		} catch (InterruptedException e) {
