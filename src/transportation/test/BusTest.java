@@ -26,7 +26,7 @@ public class BusTest extends TestCase {
 		rider = new MockRider();
 	}
 	
-	public void testBusPicksPersonUpAtOneStopAndDropsThemOffAtNextStop() {
+	public void testBusPicksPersonUpAtFirstStopAndDropsThemOffAtNextStop() {
 		assertTrue("Bus should be at stop 0; instead it is at " + bus.mCurrentStop,
 				bus.mCurrentStop == 0);
 
@@ -50,19 +50,20 @@ public class BusTest extends TestCase {
 
 
 		// Add a rider
-		int testStopNum = 1;
-		bus.msgNeedARide(rider, testStopNum);
+		int testStartStop = 0, testDestStop = 1;
+		rider.msgAtBusStop(testStartStop, testDestStop);
+		bus.msgNeedARide(rider, testStartStop);
 
 		assertTrue("Bus's log should contain \"Received msgNeedARide\"; instead, last logged event is "
 		         + bus.log.getLastLoggedEvent(),
 		         bus.log.containsString("Received msgNeedARide"));
 
-		assertTrue("Bus's mBusStops[" + testStopNum + "].mWaitingPeople should have size 1; instead, has size "
-				+ bus.mBusStops.get(testStopNum).mWaitingPeople.size(),
-				bus.mBusStops.get(testStopNum).mWaitingPeople.size() == 1);
+		assertTrue("Bus's mBusStops[" + testStartStop + "].mWaitingPeople should have size 1; instead, has size "
+				+ bus.mBusStops.get(testStartStop).mWaitingPeople.size(),
+				bus.mBusStops.get(testStartStop).mWaitingPeople.size() == 1);
 
 		assertTrue("First waiting person should equal the rider who just messaged the bus; it does not",
-				bus.mBusStops.get(testStopNum).mWaitingPeople.get(0).equals(rider));
+				bus.mBusStops.get(testStartStop).mWaitingPeople.get(0).equals(rider));
 
 
 
@@ -74,10 +75,14 @@ public class BusTest extends TestCase {
 				+ bus.log.getLastLoggedEvent(),
 				bus.log.containsString("TellRidersToBoard()"));
 
+		assertTrue("Bus should have sent msgBoardBus(); it didn't; rider last logged "
+				+ rider.log.getLastLoggedEvent(),
+				rider.log.containsString("Received msgBoardBus"));
+
 
 		// Schedule bus to advance to stop1
-		assertTrue("Bus's scheduler should return true; it doesn't",
-				bus.pickAndExecuteAnAction());
+//		assertTrue("Bus's scheduler should return true; it doesn't",
+//				bus.pickAndExecuteAnAction());
 
 		assertTrue("Bus should have logged AdvanceToNextStop(); instead it logged "
 				+ bus.log.getLastLoggedEvent(),
@@ -92,6 +97,10 @@ public class BusTest extends TestCase {
 				+ bus.log.getLastLoggedEvent(),
 				bus.log.containsString("TellRidersToGetOff()"));
 
+		assertTrue("Bus should have sent msgAtStop(1); it didn't; rider last logged "
+				+ rider.log.getLastLoggedEvent(),
+				rider.log.containsString("Received msgAtStop(1)"));
+
 
 		// Schedule stop1's riders to board
 		assertTrue("Bus's scheduler should return true; it doesn't",
@@ -100,9 +109,6 @@ public class BusTest extends TestCase {
 		assertTrue("Bus should have logged TellRidersToBoard(); instead it logged "
 				+ bus.log.getLastLoggedEvent(),
 				bus.log.containsString("TellRidersToBoard()"));
-
-		assertTrue("Bus should have messaged rider msgBoardBus",
-				rider.log.containsString("Received msgBoardBus"));
 
 		
 	}

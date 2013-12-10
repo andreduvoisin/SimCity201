@@ -1,13 +1,12 @@
 package transportation.test.mock;
 
-import test.mock.EventLog;
 import test.mock.LoggedEvent;
+import test.mock.Mock;
 import transportation.interfaces.TransportationRider;
 import transportation.roles.CommuterRole.PersonState;
 
-public class MockRider implements TransportationRider {
+public class MockRider extends Mock implements TransportationRider {
 
-	public EventLog log = new EventLog(); 
 	public int mCurrentBusStop, mDestinationBusStop; 
 	public PersonState mState;
 	private static int sRiderNum = 0;
@@ -31,7 +30,7 @@ public class MockRider implements TransportationRider {
 	public void msgAtStop(int busStop){
 		log.add(new LoggedEvent("Received msgAtStop(bus's stop = " + busStop + ")"));
 		if(busStop == mDestinationBusStop){
-			mState = PersonState.noBus; 
+			mState = PersonState.noNewDestination; 
 		}
 	}
 

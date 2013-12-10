@@ -20,6 +20,7 @@ public class CityPerson extends CityComponent {
 	public Location mFinalDestination = null;
 	public boolean mUsingCar = false;
 	public boolean mUsingBus = true;
+	public boolean mGettingCar = false;
 	
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -114,41 +115,50 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
 		//If person has a car
-		if (mPerson.hasCar()) {
-			//if at corner closest to destination, walk to destination
-			if (mLocation.equals(destParking)){
-				x = closeCorner.mX;
-				y = closeCorner.mY;
-				mDestination = ContactList.getDoorLocation(mFinalDestination);
-				mFinalDestination = null;
-				//walk to destination
-				mUsingCar = false;
-				mDestinationPathType = 0; //Walking
-			}
-			//if at closest parking lot, drive to parking lot nearest destination
-			else if (mLocation.equals(closeParking)) {
-				mUsingCar = true;
-				//calculate corners
-				int currentCornerNum = -1;
-				int destCornerNum = -1;
-				for (int iParking = 0; iParking < ContactList.cPARKINGLOTS.size(); iParking++){
-					if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParking))){
-						currentCornerNum = iParking;
-					}
-					if (destParking.equals(ContactList.cPARKINGLOTS.get(iParking))){
-						destCornerNum = iParking;
-					}
+		if (mPerson.hasCar() && !mGettingCar) {
+			if (mPerson.hasCar()) {
+				//if at corner closest to destination, walk to destination
+				if (mLocation.equals(destParking)){
+					x = closeCorner.mX;
+					y = closeCorner.mY;
+					mDestination = ContactList.getDoorLocation(mFinalDestination);
+					mFinalDestination = null;
+					//walk to destination
+					mUsingCar = false;
+					mGettingCar = true;
+					mDestinationPathType = 0; //Walking
 				}
-				mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
-				mPerson.print("route :"+mDestinationPathType);
-				mDestination = destParking;
-			}
-			else {
-				mUsingCar = true;
-				mDestinationPathType = 1;
-				mDestination = closeParking;
+				//if at closest parking lot, drive to parking lot nearest destination
+				else if (mLocation.equals(closeParking)) {
+					mUsingCar = true;
+					//calculate corners
+					int currentCornerNum = -1;
+					int destCornerNum = -1;
+					for (int iParking = 0; iParking < ContactList.cPARKINGLOTS.size(); iParking++){
+						if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParking))){
+							currentCornerNum = iParking;
+						}
+						if (destParking.equals(ContactList.cPARKINGLOTS.get(iParking))){
+							destCornerNum = iParking;
+						}
+					}
+					mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
+					mPerson.print("route :"+mDestinationPathType);
+					if (mDestinationPathType == 6) {
+						x = 50;
+						y = 65;
+						destParking = new Location(50, 535);
+					}
+					mDestination = destParking;
+				}
+				else {
+					mUsingCar = true;
+					mDestinationPathType = 1;
+					mDestination = closeParking;
+				}
 			}
 		}
+		
 		//Else - if person does not have car, use bus
 		else {
 			if (mLocation.equals(destCorner)) {
@@ -159,13 +169,14 @@ public class CityPerson extends CityComponent {
 			}
 			else {
 				if (mLocation.equals(closeCorner)) {
-	//				mPerson.print("got to closecorner");
+//					mPerson.print("got to closecorner");
 					if (mUsingBus) {
 						mPerson.print("IN HEREUSING BUS");
 						DoTakeBus(getBusStop(x, y), getBusStop(destCorner.mX, destCorner.mY));
 					}
 				} else {
 					mUsingCar = false;
+					mGettingCar = false;
 					mDestinationPathType = 0;
 					mDestination = closeCorner;
 				}
@@ -251,7 +262,7 @@ public class CityPerson extends CityComponent {
 			switch (dest) {
 			case 1: type = 1; break;
 			case 2: type = 4; break; //SE
-			case 3: type = 2; break; 
+			case 3: type = 6; break; 
 			} break;
 		case 1:
 			switch (dest) {
