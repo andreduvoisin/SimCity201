@@ -28,7 +28,7 @@ public class RestaurantCustomerRole extends BaseRole implements
 
 	static int totalCustomers = 0;
 
-	Role subRole = null;
+	public Role subRole = null;
 	int mRestaurantID = -1;
 
 	public RestaurantCustomerRole(Person person) {
