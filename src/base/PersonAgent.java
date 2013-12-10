@@ -555,7 +555,7 @@ public class PersonAgent extends Agent implements Person {
 			if (SimCityGui.TESTING)
 				restaurantChoice = SimCityGui.TESTNUM; //override if testing
 			else
-				restaurantChoice = (int)Math.random() % 8;
+				restaurantChoice = mSSN % 8;
 			
 			RestaurantCustomerRole restCustRole = null;
 			for (Role iRole : mRoles.keySet()){
@@ -717,7 +717,7 @@ public class PersonAgent extends Agent implements Person {
 					synchronized(((EventParty)iEvent).mAttendees){
 						((EventParty) iEvent).mAttendees.remove(this);
 					}
-					print("Responding to RSVP: NO");
+					print("Responding to RSVP: NO"); eatFood();
 				}
 				else if (((EventParty) iEvent).mHost.getTimeShift() == mTimeShift){
 					synchronized(((EventParty)iEvent).mAttendees){
@@ -728,7 +728,7 @@ public class PersonAgent extends Agent implements Person {
 					synchronized(((EventParty)iEvent).mAttendees){
 						((EventParty) iEvent).mAttendees.remove(this);
 					}
-					print("Responding to RSVP: NO");
+					print("Responding to RSVP: NO"); eatFood();
 				}
 			}
 		}
