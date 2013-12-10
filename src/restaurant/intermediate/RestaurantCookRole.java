@@ -130,7 +130,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
        }
         
         public boolean pickAndExecuteAnAction() {
-    		if(marketPickAndExecuteAnAction())		//ANGELICA: change priority back
+    		if(marketPickAndExecuteAnAction())
     			return true;
         	if(subRole != null) {
         		if(subRole.pickAndExecuteAnAction())
