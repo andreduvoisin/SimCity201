@@ -24,11 +24,11 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 	protected static List<CityComponent> statics;
 	public List<CityComponent> movings;
 	public List<CityIntersection> intersections;
+	public boolean mCrashScenario = false;
 	
 	protected Color background;
 	protected Timer timer;
 	private BufferedImage backgroundImage;
-
 	
 	public SimCityPanel(SimCityGui city) {
 		this.city = city;
@@ -78,22 +78,46 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 				c.paint(g);
 			}
 		}
+		
+		if (mCrashScenario) {
+			synchronized (movings) {
+				for (CityComponent c : movings) {
+					for (CityComponent x : movings) {
+						if (c.collidesWith(x)) {
+							if (c.isActive && x.isActive) {
+								try {
+									java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/Blood_Splatter.png");
+									BufferedImage crashImage = ImageIO.read(imageURL);
+									g.drawImage(crashImage, c.x, c.y, null);
+									c.disable();
+									x.disable();
+								} catch (IOException e) {
+									System.out.println(e.getMessage());
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	public void moveComponents() {
 		
 		synchronized(movings) {
 			for (CityComponent c:movings) {
-				c.updatePosition();
+				if (c.isActive()) c.updatePosition();
 			}
 		}
-		synchronized(intersections) {
-			for (CityIntersection ci:intersections) {
+		synchronized (intersections) {
+			for (CityIntersection ci : intersections) {
 				ci.setOccupant(null);
-				synchronized(movings) {
-					for (CityComponent cc: movings) {
-						if (ci.collidesWith(cc)) {
-							ci.setOccupant(cc);
+				synchronized (movings) {
+					for (CityComponent cc : movings) {
+						if (ci.isActive() && cc.isActive) {
+							if (ci.collidesWith(cc)) {
+								ci.setOccupant(cc);
+							}
 						}
 					}
 				}
