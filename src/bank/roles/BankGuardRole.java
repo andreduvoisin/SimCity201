@@ -123,8 +123,8 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 	@Override
 	public Location getLocation() {
 		switch (mBankID){
-			case 1: return ContactList.cBANK1_LOCATION;
-			case 2: return ContactList.cBANK2_LOCATION;
+			case 0: return ContactList.cBANK1_LOCATION;
+			case 1: return ContactList.cBANK2_LOCATION;
 		}
 		return null;
 	}

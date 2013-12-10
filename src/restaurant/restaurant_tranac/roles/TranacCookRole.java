@@ -32,9 +32,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
         public enum FoodState {Good, LowStock, Ordered, NoStock};
         
-//        private List<Market> markets = Collections.synchronizedList(new ArrayList<Market>());
         private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
-//        private List<Food> inventory = Collections.synchronizedList(new ArrayList<Food>());
         
         private Map<EnumItemType,Integer> mCookTimes = new HashMap<EnumItemType,Integer>();
         
@@ -94,52 +92,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 o.s = OrderState.Done;
                 stateChanged();
         }
-        /*
-        public void msgCanFulfillInventory(String f, int n) {
-                Food food = null;
-                synchronized(inventory) {
-                        for(Food i : inventory) {
-                                if(i.name == f)
-                                        food = i;
-                        }
-                }
-                food.s = FoodState.Ordered;
-                if(n < food.numNeeded) {
-                        food.s = FoodState.LowStock;
-                        food.numNeeded = food.numNeeded - n;
-                }
-                else {
-                        food.numNeeded = 0;
-                }
-                stateChanged();
-        }
-        
-        public void msgHereIsInventory(String f, int n) {
-                Food food = null;
-                synchronized(inventory) {
-                        for(Food i : inventory) {
-                                if(i.name == f)
-                                        food = i;
-                        }
-                }
-                food.s = FoodState.Good;
-                food.stock = food.stock + n;
-                stateChanged();
-        }
-        
-        public void msgOutOfInventory(Market m, String f) {
-                Food food = null;
-                synchronized(inventory) {
-                        for(Food i : inventory) {
-                                if(i.name == f)
-                                        food = i;
-                        }
-                }
-                food.s = FoodState.LowStock;
-                food.addMarketOutOfItem(m);
-                stateChanged();
-        }
-        */
+
         /** Animation Messages */
         public void msgAnimationAtGrill() {
                 inTransit.release();
@@ -155,13 +108,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
          * Scheduler.  Determine what action is called for, and do it.
          */
         public boolean pickAndExecuteAnAction() {
-        /*        for(Food f : inventory) {
-                        if(f.s == FoodState.LowStock) {
-                                orderFood();
-                                return true;
-                        }
-                }
-        */
+
             for(Order o : orders) {
                 if(o.s == OrderState.PickedUp) {
                         removeOrder(o);
@@ -187,13 +134,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
 
         private void tryToCookIt(final Order o) {
                 EnumItemType food = o.choice;
-                /*
-                synchronized(inventory) {
-                        for(Food i : inventory) {
-                                if(i.name == o.choice)
-                                        food = i;
-                        }
-                }*/
+
                 if(mRole.mItemInventory.get(food) < mItemThreshold) {
                     if(!mRole.mHasCreatedOrder.get(food)) {
                     	mRole.mItemsDesired.put(food,baseNeed);
@@ -260,39 +201,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 plates.put(o.n, false);
                 o.n = 0;
         }
-        /*
-        private void orderFood() {                                //order all food items that are lowStock
-                print("Ordering food");
-                synchronized(inventory) {
-                        for(Food f : inventory) {
-                                if(f.s == FoodState.LowStock) {
-                                synchronized(markets) {
-                                        for(Market m : markets) {
-                                                if(!f.outOfItem.isEmpty()) {
-                                                        for(Market out : f.outOfItem) {
-                                                                if(m != out) {
-                                                                        f.s = FoodState.Ordered;
-                                                                        m.msgOrderFood(this,f.name,f.numNeeded);
-                                                                        break;
-                                                                }
-                                                        }
-                                                if(f.s == FoodState.Ordered)
-                                                        break;
-                                                }
-                                                else {
-                                                        f.s = FoodState.Ordered;
-                                                        m.msgOrderFood(this,f.name,f.numNeeded);
-                                                        break;
-                                                }
-                                        }
-                                }
-                                if(f.s != FoodState.Ordered)
-                                        f.s = FoodState.NoStock;                        //if all markets are out of stock, cannot order more
-                                }
-                        }
-                }
-        }
-        */
+
         /** Animation Actions */
         private void DoGoToHome() {
                 cookGui.DoGoToHome();
@@ -313,7 +222,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         }
         
         private void DoGoToPlate(Order o) {
-                cookGui.DoGoToPlate(o.n, o.choice.toString());                        //change to choose correct plate
+                cookGui.DoGoToPlate(o.n, o.choice.toString());   //change to choose correct plate
                 try {
                         inTransit.acquire();
                 }
@@ -340,42 +249,10 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 return cookGui;
         }
 
-        /*
-        public void addMarket(Market m) {
-                markets.add(m);
-        }
-        
-        public void setInventory(int n) {
-                synchronized(inventory) {
-                        for(Food f : inventory) {
-                                f.stock = n;
-                                if(n <= stockThreshold) {
-                                        f.s = FoodState.LowStock;
-                                        f.numNeeded = baseNeed;
-                                }
-                        }
-                }
-        }
-        
-        public void setInventory(String f, int n) {
-                synchronized(inventory) {
-                        for(Food food : inventory) {
-                                if(food.name.equals(f)) {
-                                        food.stock = n;
-                                        if(n <= stockThreshold) {
-                                                food.s = FoodState.LowStock;
-                                                food.numNeeded = baseNeed;
-                                        }
-                                }
-                        }
-                }
-        }
-*/
         /** Classes */
         
-        private class Order {                //holds all relevant information for the order
+        private class Order {
                 TranacWaiter waiter;
-//                String choice;
                 EnumItemType choice;
                 int table;
                 int n;
@@ -389,32 +266,12 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                         s = OrderState.Pending;
                 }
         }
-        /*
-        private class Food {
-                String name;
-                int cookingTime;
-                int stock;
-                int numNeeded;
-                FoodState s;
-                List<TranacMarket> outOfItem = new ArrayList<TranacMarket> ();
-                
-                Food(String n, int c, int s) {
-                        name = n;
-                        cookingTime = c;
-                        stock = s;
-                        this.s = FoodState.Good;
-                        numNeeded = 0;
-                }
-                
-                public void addMarketOutOfItem(TranacMarket m) {
-                        outOfItem.add(m);
-                }
-        } 
-        */
+
         @Override
     	public Location getLocation() {
     		return ContactList.cRESTAURANT_LOCATIONS.get(6);
     	}
+        
         public void Do(String msg) {
     		super.Do(msg, AlertTag.R6);
     	}
