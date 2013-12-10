@@ -179,7 +179,7 @@ public class PersonAgent extends Agent implements Person {
 		//mTimeShift = 0;
 		mTimeShift = (mSSN % ContactList.cNumTimeShifts); // assign time schedule
 		mLoan = 0;
-		mHasCar = false; 
+		mHasCar = true; 
 		
 		//Role References
 		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
@@ -451,6 +451,8 @@ public class PersonAgent extends Agent implements Person {
 			}
 			mCommutingTo = null;
 			mCommuterRole.mActive = false;
+			
+			stateChanged();
 		}
 	}
 	

@@ -340,10 +340,10 @@ public class ContactList {
 	
 	//BUS STOPS
 	public static List<Location> cBUS_STOPS;
-	static final Location cBusStop0 = new Location(60, 60);
-	static final Location cBusStop1 = new Location(515, 60);
-	static final Location cBusStop2 = new Location(515, 515);
-	static final Location cBusStop3 = new Location(60, 515);
+	static final Location cBusStop0 = new Location(70, 70);
+	static final Location cBusStop1 = new Location(505, 70);
+	static final Location cBusStop2 = new Location(505, 505);
+	static final Location cBusStop3 = new Location(70, 505);
 	static {
 		List<Location> bslist = new ArrayList<Location>();
 		bslist.add(cBusStop0);

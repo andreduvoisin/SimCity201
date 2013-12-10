@@ -21,8 +21,9 @@ public class CityPerson extends CityComponent {
 	public boolean mUsingCar = false;
 	public boolean mUsingBus = true;
 	public boolean mGettingCar = false;
+	public boolean mCanMove = true;
 	public boolean mDeliverying = false;
-	
+
 	static final int xIndex = 10;
 	static final int yIndex = 10;
 
@@ -42,8 +43,16 @@ public class CityPerson extends CityComponent {
 	public void updatePosition() {
 		int previousX = x;
 		int previousY = y;
+	
+//		mCanMove = true;
+//		//Check cars (if going to crash - stop);
+//		for (CityComponent iMoving : SimCityGui.getInstance().citypanel.movings) {
+//			if (rectangle.intersects(iMoving.rectangle)) {
+//				mCanMove = false;
+//			}
+//		}
 		
-		if (mDestination != null) {
+		if (mDestination != null && mCanMove) {
 			if (x < mDestination.mX)		x++;
 	        else if (x > mDestination.mX)	x--;
 	
@@ -62,12 +71,8 @@ public class CityPerson extends CityComponent {
 	    	}
 		}
 		
-		if (mUsingCar) {
-			rectangle.setBounds(x, y, 10, 10);
-		}
-		else {
-			rectangle.setBounds(x, y, 5, 5);
-		}
+		if (mUsingCar) rectangle.setBounds(x, y, 10, 10);
+		else rectangle.setBounds(x, y, 5, 5);
 		
         //Check intersections (if going into busy intersection - stay)
         for (CityIntersection iIntersect: SimCityGui.getInstance().citypanel.intersections) {
@@ -80,12 +85,8 @@ public class CityPerson extends CityComponent {
         	}
         }
         
-        if (mUsingCar) {
-			rectangle.setBounds(x, y, 10, 10);
-		}
-		else {
-			rectangle.setBounds(x, y, 5, 5);
-		}
+        if (mUsingCar) rectangle.setBounds(x, y, 10, 10);
+		else rectangle.setBounds(x, y, 5, 5);
 
         //B* Algorithm
         
