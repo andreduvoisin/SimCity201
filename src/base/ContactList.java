@@ -427,7 +427,7 @@ public class ContactList {
 		sEventList.add(new Event(EnumEventType.GO_TO_MARKET, 0));
 		sEventList.add(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 		sEventList.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
-		sEventList.add(new Event(EnumEventType.INSPECTION, 0));
+		//sEventList.add(new Event(EnumEventType.INSPECTION, 0));
 	}
 		
 	
