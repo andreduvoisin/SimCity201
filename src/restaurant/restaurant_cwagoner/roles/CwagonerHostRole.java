@@ -21,8 +21,6 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 
 	public CwagonerHostRole(Person person) {
 		super(person);
-
-		print("CwagonerHostRole created");
 	}
 	
 	
@@ -81,7 +79,7 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	 * marks the table occupied
 	 */
 	public boolean pickAndExecuteAnAction() {
-		
+		System.out.println("HOST PAEA");
 		// A waiter with state askedForBreak CANNOT make it past the first rule,
 		// so the next rule only checks for state working (the alternative is onBreak)
 		
@@ -157,7 +155,6 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	}
 	
 	public void addWaiter(CwagonerWaiter w) {
-		print("Adding waiter " + w.getName());
 		Waiters.add(new MyWaiter(w));
 		stateChanged();
 	}
