@@ -1,4 +1,3 @@
-NONE 200 partyPersonFlake 
 NONE 50	otherPerson1
 NONE 51	otherPerson2
 NONE 52	otherPerson3
@@ -19,5 +18,4 @@ NONE 66	otherPerson17
 NONE 67	otherPerson18
 NONE 68	otherPerson19
 NONE 69	otherPerson20
-
-
+NONE 200 partyPersonFlake

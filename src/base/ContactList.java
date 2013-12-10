@@ -406,7 +406,8 @@ public class ContactList {
 		sEventList.add(new Event(EnumEventType.GET_CAR, 0));
 		sEventList.add(new Event(EnumEventType.GO_TO_MARKET, 0));
 		sEventList.add(new Event(EnumEventType.DEPOSIT_CHECK, 0));
-		sEventList.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+//		sEventList.add(new Event(EnumEventType.MAINTAIN_HOUSE, 0));
+//		sEventList.add(new Event(EnumEventType.INSPECTION, 0));
 	}
 		
 	
