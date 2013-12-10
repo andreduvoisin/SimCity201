@@ -13,6 +13,7 @@ import restaurant.intermediate.RestaurantCookRole;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -23,7 +24,6 @@ import city.gui.trace.AlertTag;
  */
 
 public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryTruck {
-	MarketDeliveryTruckGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
 	int mMarketID;
 	
@@ -34,10 +34,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		super(person);
 		mMarketID = marketID;
 		
-		
-		mGui = new MarketDeliveryTruckGui(this, marketID);
 		ContactList.sMarketList.get(mMarketID).mDeliveryTruck = this;
-//		//ANGELICA: add delivery truck to city view gui
 	}
 	
 /* Messages */
@@ -81,7 +78,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			for(MarketOrder o : mDeliveries) {
 				Location location = ContactList.cRESTAURANT_LOCATIONS.get(i);
 				if(o.mRestaurantNumber == i && ContactList.sOpenPlaces.get(location)) {
-	//ANGELICA:				DoGoToRestaurant(i);
+					DoGoToRestaurant(i);
 					print("Delivering order.");
 					o.mStatus = EnumOrderStatus.FULFILLING;
 					((RestaurantCookRole)o.mPersonRole).msgHereIsCookOrder(o);
@@ -94,7 +91,7 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	public void pickUpOrdersFromMarket() {
-//ANGELICA:		DoGoToMarket();
+		DoGoToMarket();
 		print("Picking up orders from market!");
 		synchronized(mPendingDeliveries) {
 		for(MarketOrder o : mPendingDeliveries) {
@@ -105,21 +102,43 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	}
 	
 	public void waitAtMarket() {
-//ANGELICA:		DoGoToMarket();
+		DoGoToMarket();
 	}
 
 /* Animation Actions */
 	private void DoGoToRestaurant(int n) {
-		mGui.DoGoToRestaurant(n);
+//		mGui.DoGoToRestaurant(n);
+		if(mPerson instanceof PersonAgent) {
+			Location location = ContactList.cRESTAURANT_LOCATIONS.get(n);
+			PersonAgent p = (PersonAgent) mPerson;
+			p.mPersonGui.mDeliverying = true;
+			p.mPersonGui.DoGoToDestination(location);
+			p.acquireSemaphore(p.semAnimationDone);
+			print("test");
+			p.mPersonGui.mDeliverying = false;
+		}
 	}
 	
 	private void DoGoToMarket() {
-		mGui.DoGoToMarket();
-		try {
-			inTransit.acquire();
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
+//		mGui.DoGoToMarket();
+//		try {
+//			inTransit.acquire();
+//		}
+//		catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+		if(mPerson instanceof PersonAgent) {
+			Location location = null;
+			if(mMarketID == 0)
+				location = ContactList.cMARKET1_LOCATION;
+			else
+				location = ContactList.cMARKET2_LOCATION;
+			PersonAgent p = (PersonAgent) mPerson;
+			p.mPersonGui.mDeliverying = true;
+			p.mPersonGui.DoGoToDestination(location);
+			p.acquireSemaphore(p.semAnimationDone);
+			print("test");
+			p.mPersonGui.mDeliverying = false;
 		}
 	}
 	
