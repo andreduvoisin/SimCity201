@@ -1,11 +1,14 @@
 package restaurant.restaurant_smileham.test;
 
+import java.util.concurrent.Semaphore;
+
 import junit.framework.TestCase;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterBase;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRoleShared;
 import restaurant.restaurant_smileham.test.mock.SmilehamMockCook;
 import restaurant.restaurant_smileham.test.mock.SmilehamMockCustomer;
 import base.PersonAgent;
@@ -29,14 +32,19 @@ public class WaiterTest extends TestCase {
 		
 	}
 	
+	//test deliver order method for both waiters
+	
+	//test deliverOrder for regular waiter
 	public void testRegularWaiter() {
 		waiter = new SmilehamWaiterRole(person);
+		waiter.semAtCook = new Semaphore(100);
 		waiter.mCook = cook;
 		
 	}
 	
 	public void testSharedWaiter(){
-		
+		waiter = new SmilehamWaiterRoleShared(person);
+		waiter.semAtCook = new Semaphore(100);
 	}
 	
 	
