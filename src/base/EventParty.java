@@ -7,7 +7,7 @@ import java.util.Map;
 
 import base.interfaces.Person;
 
-/* SHANE: Check this
+/*
   People like parties. They like to give them when they get the urge and go to them when we're invited. Here are the requirements for a PersonAgent. 
 	 Your friends will be located in your contact list. 
 	 Planning a Party at your house:

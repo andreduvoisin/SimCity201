@@ -72,7 +72,7 @@ public class SortingHat {
 		ContactList.masterLandlord = masterLandLord;
 		
 		//Restaurants
-		int numRestaurants = 8; //SHANE: 4 use ContactList.cNumRestaurants
+		int numRestaurants = ContactList.cNumRestaurants;
 		int numStart = 0;
 		if(SimCityGui.TESTING) {
 			if (SimCityGui.TESTNUM >= 0) {
