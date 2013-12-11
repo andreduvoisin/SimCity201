@@ -27,8 +27,8 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	int mMarketID;
 	boolean atMarket = true;
 	
-	List<MarketOrder> mPendingDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
-	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	public List<MarketOrder> mPendingDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	public List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	public MarketDeliveryTruckRole(Person person, int marketID) {
 		super(person);
