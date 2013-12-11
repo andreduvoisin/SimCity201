@@ -17,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.Semaphore;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -632,8 +631,6 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    PeopleTab.add(r5);
 	    PeopleTab.add(r6);
 	    PeopleTab.add(r7);
-	    
-	    Semaphore killAgent = new Semaphore(0);
 	    
 	    //ACTION LISTENERS FOR FIRE BUTTONS
 	    gringotts.addActionListener(new ActionListener() {
