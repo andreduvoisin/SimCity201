@@ -34,11 +34,11 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	protected TranacCashier mCashier = null;
 	
 	//synchronized list to make it "thread-safe"
-	protected List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
+	public List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	public enum CustomerState {Waiting, Seated, ReadyToOrder, OutOfFood, Reordering, Ordered, WaitingForFood, FoodDone, Eating, ReadyForCheck, WaitingForCheck, ReceivingCheck, ReceivedCheck, Paying, Done};
 	
 	//semaphores to prevent action while waiting for another message
-	protected Semaphore inTransit = new Semaphore(0,true);		//used for animation
+	public Semaphore inTransit = new Semaphore(0,true);		//used for animation
 	protected Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
 
 	public TranacWaiterBase(Person p) {
@@ -144,6 +144,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 
 	/** Animation Messages*/
 	public void msgAnimationDone() {
+		print("Waiter");
 		inTransit.release();
 	}
 	
@@ -402,7 +403,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	}
 	
 	/** Classes */
-	class MyCustomer {
+	public class MyCustomer {
 		TranacCustomer c;
 		int n;
 		int table;
@@ -411,7 +412,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		CustomerState s;
 		TranacCheck check;
 		
-		MyCustomer(TranacCustomer c, int n, int t, CustomerState s) {
+		public MyCustomer(TranacCustomer c, int n, int t, CustomerState s) {
 			this.c = c;
 			this.n = n;
 			this.table = t;
@@ -440,6 +441,13 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.R6, e);
+	}
+	
+	//used for unit testing
+	public void addCustomer(TranacCustomer c, int n, int t, CustomerState s) {
+		MyCustomer customer = new MyCustomer(c,n,t,s);
+		customers.add(customer);
+		customer.choice = "Food";
 	}
 	
 	public void fired(){

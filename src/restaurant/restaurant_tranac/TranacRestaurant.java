@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Vector;
 
 import restaurant.restaurant_tranac.gui.Gui;
+import restaurant.restaurant_tranac.interfaces.TranacCashier;
+import restaurant.restaurant_tranac.interfaces.TranacCook;
+import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
@@ -17,9 +20,9 @@ public class TranacRestaurant {
 	public static TranacRestaurant instance;
 	public static List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
 	
-    public static TranacCashierRole mCashier;
-    public static TranacCookRole mCook;
-    public static TranacHostRole mHost;
+    public static TranacCashier mCashier;
+    public static TranacCook mCook;
+    public static TranacHost mHost;
       
     public static Vector<TranacWaiterBase> mWaiters = new Vector<TranacWaiterBase>();
     public static Vector<TranacCustomerRole> mCustomers = new Vector<TranacCustomerRole>();
@@ -65,15 +68,15 @@ public class TranacRestaurant {
     	return mWaiters.size();
     }
     
-    public static TranacCashierRole getCashier(){
+    public static TranacCashier getCashier(){
     	return mCashier;
     }
     
-    public static TranacCookRole getCook(){
+    public static TranacCook getCook(){
     	return mCook;
     }
     
-    public static TranacHostRole getHost(){
+    public static TranacHost getHost(){
     	return mHost;
     }
 }
