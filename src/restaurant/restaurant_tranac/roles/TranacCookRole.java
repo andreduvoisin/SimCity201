@@ -129,12 +129,12 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         /** Animation Messages */
         public void msgAnimationAtGrill() {
                 inTransit.release();
-                stateChanged();
+    //            stateChanged();
         }
         
         public void msgAnimationAtPlate() {
                 inTransit.release();
-                stateChanged();
+      //          stateChanged();
         }
         
         /**

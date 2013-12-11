@@ -94,8 +94,7 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	}
 
 	/** Messages */
-	public void msgGotHungry() { // from animation
-		print("I'm hungry.");
+	public void msgGotHungry() {
 		event = AgentEvent.gotHungry;
 		stateChanged();
 	}
@@ -303,12 +302,12 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	/** Actions */
 
 	private void goToRestaurant() {
-		print("Going to restaurant.");
+	//	print("Going to restaurant.");
 		DoGoToHost();
 	}
 
 	private void tellHostAtRestaurant() {
-		print("Helloooo.");
+	//	print("Helloooo.");
 		host.msgIWantFood(this);
 	}
 

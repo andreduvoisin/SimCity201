@@ -172,34 +172,39 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	/** Animation Messages*/
 	public void msgAnimationAtWaitingArea() {
 		inTransit.release();
-		stateChanged();
+	//	stateChanged();
 	}
 	
 	public void msgAnimationAtTable() {
 		inTransit.release();
-		stateChanged();
+	//	stateChanged();
 	}
 	
 	public void msgAnimationAtCook() {
 		inTransit.release();
-		stateChanged();
+	//	stateChanged();
 	}
 	
 	public void msgAnimationAtOrderPickup() {
 		inTransit.release();
-		stateChanged();
+	//	stateChanged();
 	}
 	
 	public void msgAnimationAtHost() {
 		inTransit.release();
-		stateChanged();
+	//	stateChanged();
 	}
 
 	public void msgAnimationAtCashier() {
 		inTransit.release();
-		stateChanged();
+	//	stateChanged();
 	}
 	
+//	public void msgAnimationDone() {
+//		print("releasing in transit");
+//		inTransit.release();
+//	}
+//	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */

@@ -37,7 +37,7 @@ public class TranacWaiterGui implements Gui {
     private BufferedImage askingBubble;
     
     private enum Command {noCommand, goToHome, goToHost, goToWaitingArea, goToTable, goToPlaceOrder, goToGetOrder, goToCashier, goToStand};
-    private Command command = Command.noCommand;
+    private Command command = Command.goToHome;
     
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
@@ -178,10 +178,6 @@ public class TranacWaiterGui implements Gui {
         			command = Command.noCommand;
         			break;
         		}
-        		case goToHome: {
-        			command = Command.noCommand;
-        			break;
-        		}
         		case goToHost: {
         			agent.msgAnimationAtHost();
         			command = Command.noCommand;
@@ -191,9 +187,21 @@ public class TranacWaiterGui implements Gui {
         			agent.msgAnimationAtCashier();
         			command = Command.noCommand;
         		}
+        		case goToStand: {
+        			agent.msgAnimationAtCook();
+        			command = Command.noCommand;
+        		}
         		default:
+        			command = Command.noCommand;
         			break;
         	}
+//        	if(command == Command.goToHome) {
+//        		command = Command.noCommand;
+//        	}
+//        	else if(command != Command.noCommand){
+//        		agent.msgAnimationDone();
+//        		command = Command.noCommand;
+//        	}
         }     
     }
 
