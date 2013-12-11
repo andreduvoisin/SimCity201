@@ -102,9 +102,11 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
         g2.setColor(getBackground());
         g2.fillRect(0, 0, CARD_WIDTH, CARD_HEIGHT);
         
-        if(background != null)
-        	g2.drawImage(background,0,0,null);
-
+        if(!SimCityGui.GRADINGVIEW) {
+        	if(background != null)
+        		g2.drawImage(background,0,0,null);
+        	
+        }
         // Tables
         g2.setColor(Color.ORANGE);
         

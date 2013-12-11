@@ -40,7 +40,7 @@ public class TranacWaiterGui implements Gui {
     private BufferedImage askingBubble;
     
     private enum Command {noCommand, goToHome, goToHost, goToWaitingArea, goToTable, goToPlaceOrder, goToGetOrder, goToCashier, goToStand};
-    private Command command = Command.goToHome;
+    private Command command = Command.noCommand;
     
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
@@ -167,54 +167,12 @@ public class TranacWaiterGui implements Gui {
         else if (yPos > yDestination)
             yPos--;
 
-        //sends the correct message to the waiter about the final destination
         if (xPos == xDestination && yPos == yDestination) {
-        	switch(command) {
-        		case goToPlaceOrder: {
-        			agent.msgAnimationAtCook();
-        			command = Command.noCommand;
-        			break;
-        		}
-        		case goToGetOrder: {
-        			agent.msgAnimationAtOrderPickup();
-        			command = Command.noCommand;
-        			break;
-        		}
-        		case goToWaitingArea: {
-        			agent.msgAnimationAtWaitingArea();
-        			command = Command.noCommand;
-        			break;
-        		}
-        		case goToTable: {
-        			agent.msgAnimationAtTable();
-        			command = Command.noCommand;
-        			break;
-        		}
-        		case goToHost: {
-        			agent.msgAnimationAtHost();
-        			command = Command.noCommand;
-        			break;
-        		}
-        		case goToCashier: {
-        			agent.msgAnimationAtCashier();
-        			command = Command.noCommand;
-        		}
-        		case goToStand: {
-        			agent.msgAnimationAtCook();
-        			command = Command.noCommand;
-        		}
-        		default:
-        			command = Command.noCommand;
-        			break;
+        	if(command != Command.noCommand) {
+        		agent.msgAnimationDone();
+        		command = Command.noCommand;
         	}
-//        	if(command == Command.goToHome) {
-//        		command = Command.noCommand;
-//        	}
-//        	else if(command != Command.noCommand){
-//        		agent.msgAnimationDone();
-//        		command = Command.noCommand;
-//        	}
-        }     
+        }
     }
 
     public void draw(Graphics2D g) {
@@ -222,7 +180,7 @@ public class TranacWaiterGui implements Gui {
         if(onFire)
 			g.drawImage(fireImage, xPos, yPos, null);
 		else if(SimCityGui.GRADINGVIEW) {
-    		g.drawString("W"+mNum, xPos+10, yPos);
+    		g.drawString("W"+mNum, xPos+10, yPos-5);
     	}
         else {
     	g.drawImage(image, xPos, yPos, null);
@@ -293,7 +251,7 @@ public class TranacWaiterGui implements Gui {
     /** Messages. These set the destination coordinates. */
     
     public void DoGoToHome() {
-    	command = Command.goToHome;
+    	command = Command.noCommand;
     	
     	xDestination = xHome;
     	yDestination = yHome;

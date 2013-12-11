@@ -15,12 +15,9 @@ public class Location {
 	}
 	
 	public boolean equals(Location location){
-		if(location != null) {
-			if (this.mX != location.mX) return false;
-			if (this.mY != location.mY) return false;
-		} else {
-			return false;
-		}
+		if (location == null) return false;
+		if (this.mX != location.mX) return false;
+		if (this.mY != location.mY) return false;
 		return true;
 	}
 	
