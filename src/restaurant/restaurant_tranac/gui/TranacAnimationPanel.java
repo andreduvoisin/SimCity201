@@ -36,7 +36,7 @@ public class TranacAnimationPanel extends CityCard implements ActionListener {
     	
     	background = null;
     	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/restaurant.png");
+    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_tranac/gui/images/restaurant-tranac.png");
     	background = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {

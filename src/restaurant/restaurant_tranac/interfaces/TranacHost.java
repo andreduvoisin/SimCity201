@@ -1,5 +1,7 @@
 package restaurant.restaurant_tranac.interfaces;
 
+import restaurant.restaurant_tranac.roles.TranacWaiterBase;
+
 /**
  * Host interface built for unit testing.
  *
@@ -18,8 +20,6 @@ public interface TranacHost {
 	public abstract void msgCustomerSeated(TranacCustomer c);
 	
 	public abstract void msgTableIsFree(int t);
-	
-	public abstract void msgWantToGoOnBreak(TranacWaiter w);
-	
-	public abstract void msgBackFromBreak(TranacWaiter w);
+
+	public abstract void addWaiter(TranacWaiter w);
 }
