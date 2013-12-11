@@ -137,7 +137,7 @@ public class ContactList {
 	// 0 1 
 	// 3 2
 	public static List<Location> cPERSONCORNERS;
-	public static final Location cPERSONCORNER0 = new Location(cGRID_POINT1-5, cGRID_POINT1-5); //95, 95 DAVID these may be wrong
+	public static final Location cPERSONCORNER0 = new Location(cGRID_POINT1-5, cGRID_POINT1-5); //95, 95
 	public static final Location cPERSONCORNER1 = new Location(cGRID_POINT8, cGRID_POINT1-5);	//500, 95
 	public static final Location cPERSONCORNER2 = new Location(cGRID_POINT8, cGRID_POINT8);		//500, 500
 	public static final Location cPERSONCORNER3 = new Location(cGRID_POINT1-5, cGRID_POINT8);	//95, 500
@@ -153,7 +153,7 @@ public class ContactList {
 	//PARKING LOTS
 	// 0 1 
 	// 3 2
-	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-35, cGRID_POINT1-35); //65, 65 DAVID these may be wrong
+	public static final Location cPARKINGLOT0 = new Location(cGRID_POINT1-35, cGRID_POINT1-35); //65, 65 
 	public static final Location cPARKINGLOT1 = new Location(cGRID_POINT8+35, cGRID_POINT1-25);	//535, 65
 	public static final Location cPARKINGLOT2 = new Location(cGRID_POINT8+15, cGRID_POINT8+35);	//535, 535
 	public static final Location cPARKINGLOT3 = new Location(cGRID_POINT1-35, cGRID_POINT8+25);	//65, 500

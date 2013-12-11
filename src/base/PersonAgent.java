@@ -318,9 +318,7 @@ public class PersonAgent extends Agent implements Person {
 			getCar();
 		}
 		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
-			if (getHousingRole().getHouse() == null) {
-				getHouse();
-			}
+			requestHouse();
 		}
 		//Daily Recurring Events (Job, Eat)
 		else if (event.mEventType == EnumEventType.JOB) {
@@ -551,33 +549,10 @@ public class PersonAgent extends Agent implements Person {
 	
 /*************************************************************************/
 	
-	public void getHouse() {
+	public void requestHouse() {
 		print("Requesting House");
-		HousingLandlordRole assignedLandlord = null;
-		if (getHousingRole() instanceof HousingRenterRole) {
-			for (Person p : ContactList.sPersonList) {
-				for (Role r : p.getRoles().keySet()) {
-					if (r instanceof HousingLandlordRole) {
-						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
-							
-							r.setActive();
-							r.setPerson(p);
-							((PersonAgent) p).mRoles.put(r, true);
-							
-							((HousingRenterRole) getHousingRole()).setActive();
-							((HousingRenterRole) getHousingRole()).setPerson(this);
-							mRoles.put((HousingRenterRole) getHousingRole(), true);
-							
-							assignedLandlord = (HousingLandlordRole) r;
-							((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
-							((HousingRenterRole) getHousingRole()).msgRequestHousing();
-							
-							return;
-						}
-					}
-				}
-			}
-		}
+		getHousingRole().setHouse(SortingHat.getNextHouse());
+		stateChanged();
 	}
 	
 	public void getCar(){
@@ -632,14 +607,11 @@ public class PersonAgent extends Agent implements Person {
 		//print("goToJob");
 		Role jobRole = getJobRole();
 		if(jobRole == null){
-			//print("didn't go to job"); 
 			return;
-		}
-		
+		}		
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(getJobLocation());
 		mCommutingTo = EnumCommuteTo.JOB;
-//		print("my job is " +jobRole.toString());
 	}
 
 	public void eatFood() {
