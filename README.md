@@ -115,6 +115,9 @@ The button at the bottom of control panel toggles between grading and beautiful 
 ###Full Disclosure
 Unfortunately, there are a few areas of the city that we were not able to complete to our satisfaction.
 
+####Restaurants
+No A* implemented in restaurants. However, collisions have been mitigated by clever interior design.
+
 ####Money
 Our SimCity does not acknowledge changes in day. Accordingly, money has diminished value. E.g. daily working capital does not matter.
 
