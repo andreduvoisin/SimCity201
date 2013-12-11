@@ -568,7 +568,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    
 	    
 	    //FIRING PEOPLE
-	    fireLabel = new JLabel("FIRE:");
+	    fireLabel = new JLabel("Fire person from:");
 	    fireLabel.setPreferredSize(new Dimension(180, 50));
 	    fireLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    

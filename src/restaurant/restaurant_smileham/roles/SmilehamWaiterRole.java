@@ -485,7 +485,7 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 			super.print(msg, AlertTag.R5, e);
 		}
 		
-		public void fuckYou(){
+		public void fired(){
 			mWaiterGui.setFired(true);
 			
 			mPerson.msgRoleFinished();

@@ -459,7 +459,7 @@ public class RexWaiterRole1 extends BaseRole implements Waiter{
 		super.print(msg, AlertTag.R7, e);
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		waiterGui.setFired(true);
 		
 		mPerson.msgRoleFinished();

@@ -556,7 +556,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		super.print(msg, AlertTag.R6, e);
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		waiterGui.setFired(true);
 		
 		mPerson.msgRoleFinished();
