@@ -12,7 +12,7 @@ public class SmilehamMockCook extends SmilehamMock implements SmilehamCook{
 
 	@Override
 	public void msgMakeFood(Order order) {
-		
+		log.add(new LoggedEvent("msgMakeFood"));
 	}
 
 	@Override

@@ -45,9 +45,8 @@ public class WaiterTest extends TestCase {
 		assertTrue("Cook should have 0 messages", SmilehamCook.log.size() == 0);
 		//paea
 		waiter.pickAndExecuteAnAction();
-		//assert cook has an 
-		
-		
+		//assert postconditions
+		assertEquals("Cook should have 1 message", SmilehamCook.log.size(), 1);
 		
 	}
 	
@@ -55,6 +54,9 @@ public class WaiterTest extends TestCase {
 		waiter = new SmilehamWaiterRoleShared(person);
 		waiter.mCook = cook;
 		waiter.msgAnimationAtCook(); //give permit
+		
+		
+		
 	}
 	
 	
