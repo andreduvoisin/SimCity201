@@ -6,14 +6,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import restaurant.restaurant_xurex.RexCashierRole;
@@ -34,7 +31,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	//ANIMATION
-	private BufferedImage background;
+	//private BufferedImage background;
 	
 	private static RexAnimationPanel instance;
 	public static RexAnimationPanel getInstance(){
@@ -91,14 +88,14 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     	Timer timer = new Timer(Time.cSYSCLK/20, this );
     	timer.start();
     	
-    	background = null;
-    	try {
-    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mybg.png");
-    	background = ImageIO.read(imageURL);
-    	}
-    	catch (IOException e) {
-    		System.out.println(e.getMessage());
-    	}
+//    	background = null;
+//    	try {
+//    	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mybg.png");
+//    	background = ImageIO.read(imageURL);
+//    	}
+//    	catch (IOException e) {
+//    		System.out.println(e.getMessage());
+//    	}
     }
 
 	public void actionPerformed(ActionEvent e) {
@@ -116,17 +113,17 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame
-        g2.setBackground(Color.WHITE);
-        g2.setColor(Color.WHITE);
+        g2.setBackground(Color.white);
+        g2.setColor(Color.white);
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
-        g2.setColor(Color.RED);
-        
-        if(!SimCityGui.GRADINGVIEW) {
-        	if(background != null)
-        		g2.drawImage(background,0,0,null);
-        	
-        }
+        g2.setColor(Color.lightGray);
+//        
+//        if(!SimCityGui.GRADINGVIEW) {
+//        	if(background != null)
+//        		g2.drawImage(background,0,0,null);
+//        	
+//        }
         //TABLES
         g2.fillRect(TABLEX, TABLEY, TABLEDIM, TABLEDIM);		//table 1 : 200,250 : SW
         g2.fillRect(TABLEX+100, TABLEY, TABLEDIM, TABLEDIM); 	//table 2 : 300,250 : SE
@@ -140,7 +137,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2.fillRect(0 , 150, TABLEDIM, TABLEDIM*5);
         g2.fillRect(75, 150, TABLEDIM, TABLEDIM*5);
         
-        g2.setColor(Color.BLACK);
+        g2.setColor(Color.WHITE);
         g2.setStroke(new BasicStroke(2));
         g2.drawRect(0,  150, TABLEDIM, TABLEDIM);
         g2.drawRect(0,  175, TABLEDIM, TABLEDIM);
@@ -179,6 +176,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     }
 
     private void drawFood(){
+    	g2.setColor(Color.black);
     	synchronized(foodIcons){
     	if(!foodIcons.isEmpty()){
     		for(Icon food:foodIcons){

@@ -46,7 +46,6 @@ public class WaiterGui implements Gui {
 	}
 
 	public void updatePosition() {
-    	if(!onFire){
 		if (xPos < xDestination)
 			xPos += 1;
 		else if (xPos > xDestination)
@@ -59,7 +58,6 @@ public class WaiterGui implements Gui {
 			currentlyAnimating = false;
 			role.msgDoneAnimating();
 		}
-    	}
 	}
 
 	public void wantsBreak() {
