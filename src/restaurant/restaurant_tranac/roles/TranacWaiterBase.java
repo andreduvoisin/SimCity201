@@ -49,6 +49,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		TranacRestaurant.addGui(waiterGui);
 		
 		mHost = TranacRestaurant.getHost();
+		mHost.addWaiter(this);
 		mCook = TranacRestaurant.getCook();
 		mCashier = TranacRestaurant.getCashier();
 	}
@@ -63,14 +64,14 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	}
 
 	public void msgReadyToOrder(TranacCustomer c) {
-//		synchronized(customers) {
+		synchronized(customers) {
 			for(MyCustomer mc : customers) {
 				if(mc.c == c) {
 					mc.s = CustomerState.ReadyToOrder;
 					stateChanged();
 				}
 			}	
-//		}
+		}
 	}
 	
 	public void msgOutOfFood(String choice, int table) {
@@ -154,7 +155,8 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		synchronized(customers) {
 			for(MyCustomer c : customers) {
 				if(c.s == CustomerState.Waiting)
-				{
+				{	
+					c.s = CustomerState.Seated;
 					seatCustomer(c);
 					return true;
 				}
@@ -183,6 +185,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 			for(MyCustomer c: customers) {
 				if(c.s == CustomerState.OutOfFood)
 				{
+					c.s = CustomerState.Reordering;
 					tellCustomerOutOfFood(c);
 					return true;
 				}
@@ -202,6 +205,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 			for(MyCustomer c: customers) {
 				if(c.s == CustomerState.ReadyForCheck)
 				{
+					c.s = CustomerState.WaitingForCheck;
 					computeCheck(c);
 					return true;
 				}
@@ -236,7 +240,6 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		c.c.msgFollowMe(new TranacMenu(), this);	//tell customer to follow
 		mHost.msgCustomerSeated(c.c);		//tell host customer is seated
 		DoSeatCustomer(c);
-		c.s = CustomerState.Seated;
 	}
 	
 	protected void takeOrder(MyCustomer c) {
@@ -255,7 +258,6 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		print("Telling customer out of food.");
 		DoGoToTable(c.table);
 		c.c.msgOutOfChoice();
-		c.s = CustomerState.Reordering;
 	}
 	
 	protected abstract void sendOrder(MyCustomer c);
@@ -275,7 +277,6 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	
 	protected void computeCheck(MyCustomer c) {
 		print("Asking cashier for check");
-		c.s = CustomerState.WaitingForCheck;
 		DoGoToCashier();
 		mCashier.msgComputeCheck(this,c.c,c.choice);
 	}
