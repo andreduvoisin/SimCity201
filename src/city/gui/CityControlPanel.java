@@ -229,7 +229,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    	JButton scenarioO = new JButton("O: Bank Robbery");
 	    	scenarioP = new JButton("P: Vehicle Accident");
 	    	scenarioQ = new JButton("Q: Vehicle Hits Person");
-	    	JButton scenarioR = new JButton("R: Different on Weekends");
+	    	scenarioR = new JButton("R: Different on Weekends");
 	    	JButton scenarioS = new JButton("S: Job Shifts");
     	
     	//Add labels and buttons to tab
