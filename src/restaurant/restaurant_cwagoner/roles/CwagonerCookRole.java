@@ -1,6 +1,7 @@
 package restaurant.restaurant_cwagoner.roles;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Timer;
@@ -47,7 +48,8 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 	public List<Order> Orders = new ArrayList<Order>();
 	
 	// SharedWaiter list
-	public List<Order> RevolvingStand = new ArrayList<Order>();
+	public List<Order> RevolvingStand =
+			Collections.synchronizedList(new ArrayList<Order>());
 	
 	Timer cookingTimer = new Timer();
 	Timer revolvingStandTimer = new Timer();
@@ -55,11 +57,13 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 	TimerTask checkStand = new TimerTask() {
 		public void run() {
 			if (mPerson != null) {
-				for (Order o : RevolvingStand) {
-					print("Adding order from RevolvingStand");
-					Orders.add(o);
+				synchronized(RevolvingStand) {
+					for (Order o : RevolvingStand) {
+						print("Adding order from RevolvingStand");
+						Orders.add(o);
+					}
+					RevolvingStand.clear();
 				}
-				RevolvingStand.clear();
 				stateChanged();
 			}
 		}
