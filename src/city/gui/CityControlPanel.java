@@ -292,7 +292,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioR.setPreferredSize(buttonDim);
 			scenarioS.setPreferredSize(buttonDim);
 		
-		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
+		// Action Listeners.
 			scenarioA.addActionListener(getActionListener("A_all_inspect1.txt"));
 			scenarioB.addActionListener(getActionListener("B_all_inspect3.txt"));
 			scenarioC.addActionListener(getActionListener("C_Market_Cook_Cashier.txt"));
@@ -674,7 +674,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    });
 	    r0.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//REX: 0 Do the rest of these!!!
 	    	}
 	    });
 	    r1.addActionListener(new ActionListener() {

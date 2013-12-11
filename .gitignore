@@ -22,3 +22,9 @@ Desktop.ini
 
 # Build Folder
 build/*
+bin/*
+
+# Excess Files
+.classpath
+.project
+diffFile.txt

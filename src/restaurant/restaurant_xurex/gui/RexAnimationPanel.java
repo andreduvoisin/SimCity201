@@ -271,4 +271,11 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     public static RexCashierRole getCashier(){
     	return (RexCashierRole) cashier;
     }
+
+	public int getWaiterNumber(int mWaiterType) {
+		mWaiterType *= 2;
+		mWaiterType += 1;
+		mWaiterType %= 2;
+		return mWaiterType;
+	}
 }
