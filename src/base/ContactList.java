@@ -438,5 +438,4 @@ public class ContactList {
 	public static void SendPayment(int senderSSN, int receiverSSN, double amount){
 		masterTeller.msgSendPayment(senderSSN, receiverSSN, amount);
 	}
-	//REX: 5 change list iteration and put bank master teller outside
 }

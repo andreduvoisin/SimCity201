@@ -11,7 +11,7 @@ import restaurant.restaurant_smileham.test.mock.EventLog;
 
 public interface SmilehamWaiter {
 	
-	public EventLog log = new EventLog(); //SHANE: 3 is this allowed?
+	public EventLog log = new EventLog();
 	
 	//Messages
 	public abstract void msgSeatCustomer(Table table, SmilehamCustomer customer);

@@ -32,6 +32,7 @@ import base.ConfigParser;
 import base.ContactList;
 import base.Inspection;
 import base.Location;
+import base.SortingHat;
 import city.gui.SimCityPanel.EnumCrashType;
 import city.gui.properties.PlacesButtonListener;
 import city.gui.properties.PlacesListener;
@@ -61,6 +62,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JButton scenarioP;
     JButton scenarioQ;
     JButton scenarioR;
+    JButton scenarioS;
     // Trace Panel
     TracePanel tracePanel;
     // Selection for Trace Panel
@@ -230,8 +232,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    	JButton scenarioO = new JButton("O: Bank Robbery");
 	    	scenarioP = new JButton("P: Vehicle Accident");
 	    	scenarioQ = new JButton("Q: Vehicle Hits Person");
-	    	JButton scenarioR = new JButton("R: Different on Weekends");
-	    	JButton scenarioS = new JButton("S: Job Shifts");
+	    	scenarioR = new JButton("R: Different on Weekends");
+	    	scenarioS = new JButton("S: Job Shifts");
     	
     	//Add labels and buttons to tab
 	    	ScenariosTab.add(label1);
@@ -348,6 +350,11 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(3)).enable();
 					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(5)).enable();
 					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(7)).enable();
+				}
+				if (e.getSource() == scenarioS) {
+					SortingHat.sNumBankTellers++;
+					SortingHat.sNumMarketWorkers++;
+					SortingHat.sNumRestaurantWaiters++;
 				}
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
@@ -569,7 +576,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    
 	    
 	    //FIRING PEOPLE
-	    fireLabel = new JLabel("FIRE:");
+	    fireLabel = new JLabel("Fire person from:");
 	    fireLabel.setPreferredSize(new Dimension(180, 50));
 	    fireLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
@@ -626,7 +633,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    //ACTION LISTENERS FOR FIRE BUTTONS
 	    gringotts.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+//	    		System.out.println("test"); //This works
+	    		//SHANE 0 Action Listener Here
 	    	}
 	    });
 	    piggybank.addActionListener(new ActionListener() {

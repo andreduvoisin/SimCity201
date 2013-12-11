@@ -6,7 +6,7 @@ import restaurant.restaurant_smileham.test.mock.EventLog;
 import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 
-// ALL: DO NOT COMMIT CODE THAT CAUSES ERRORS IN THE PROJECT
+
 
 /**
  * Base class for simple agents

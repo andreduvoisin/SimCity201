@@ -4,7 +4,6 @@ import housing.House;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
-import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,9 +30,9 @@ public class SortingHat {
 	private static List<Role> sRoles; //list of roles
 	static List<Map<Role, Boolean>> sRolesFilled;
 	
-	static int sNumBankTellers = 1;
-	static int sNumMarketWorkers = 2;
-	static int sNumRestaurantWaiters = 3;	
+	public static int sNumBankTellers = 1;
+	public static int sNumMarketWorkers = 2;
+	public static int sNumRestaurantWaiters = 3;
 	
 	public static void InstantiateBaseRoles(){
 		sRoles = new ArrayList<Role>();
@@ -72,7 +71,7 @@ public class SortingHat {
 		ContactList.masterLandlord = masterLandLord;
 		
 		//Restaurants
-		int numRestaurants = 8; //SHANE: 4 use ContactList.cNumRestaurants
+		int numRestaurants = ContactList.cNumRestaurants;
 		int numStart = 0;
 		if(SimCityGui.TESTING) {
 			if (SimCityGui.TESTNUM >= 0) {
@@ -242,12 +241,12 @@ public class SortingHat {
 			}
 		}
 		
-		if (sRenterCount < sMaxRenters){
-			sRenterCount++;
-			HousingRenterRole newRenter = new HousingRenterRole(person);
-			newRenter.setLandlord(ContactList.masterLandlord);
-			return newRenter;
-		}
+//		if (sRenterCount < sMaxRenters){
+//			sRenterCount++;
+//			HousingRenterRole newRenter = new HousingRenterRole(person);
+//			newRenter.setLandlord(ContactList.masterLandlord);
+//			return newRenter;
+//		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
 		newOwnerRole.setHouse(getNextHouse());

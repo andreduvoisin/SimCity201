@@ -25,9 +25,9 @@ public class TranacWaiterGui implements Gui {
     private final int xHome, yHome;
     private static final int xBase = 100, yBase = 5;
     private static final int xWaitingArea = 40, yWaitingArea = 60;
-    private static final int xPlaceOrder = 455, yPlaceOrder = 125;
+    private static final int xPlaceOrder = 329, yPlaceOrder = 125;
     private static final int xCashier = 230, yCashier = 180;
-    private static final int xStand = 455, yStand = 180;
+    private static final int xStand = 329, yStand = 180;
     private Map<Integer, Coordinates> tableLocations = new HashMap<Integer, Coordinates>();
     private Map<Integer, Coordinates> plateLocations = new HashMap<Integer, Coordinates>();
     
@@ -54,14 +54,13 @@ public class TranacWaiterGui implements Gui {
         mNum = i;
         
         //home coordinates based off of what num waiter is
-        xHome = xBase + 30*(i % 10);
-        yHome = yBase + 40*(int)(i/10);
+        xHome = xBase + 30*(i % 5);
+        yHome = yBase + 40*(int)(i/5);
         
         //table coordinates are matched to the animationPanel table coordinates
-        tableLocations.put(1, new Coordinates(100,325));
-        tableLocations.put(2, new Coordinates(220,320));
-        tableLocations.put(3, new Coordinates(400,320));
-        tableLocations.put(4, new Coordinates(528,320));
+        tableLocations.put(2, new Coordinates(94,320));
+        tableLocations.put(3, new Coordinates(274,320));
+        tableLocations.put(4, new Coordinates(402,320));
         
         //plate coordinates
         plateLocations.put(1, new Coordinates(410,20));
@@ -119,13 +118,11 @@ public class TranacWaiterGui implements Gui {
         tableLocations.put(1, new Coordinates(100,325));
         tableLocations.put(2, new Coordinates(220,320));
         tableLocations.put(3, new Coordinates(400,320));
-        tableLocations.put(4, new Coordinates(528,320));
         
         //plate coordinates
-        plateLocations.put(1, new Coordinates(410,20));
-        plateLocations.put(2, new Coordinates(410,80));
-        plateLocations.put(3, new Coordinates(508,165));
-        plateLocations.put(4, new Coordinates(568,165));
+        plateLocations.put(1, new Coordinates(284,20));
+        plateLocations.put(2, new Coordinates(284,80));
+        plateLocations.put(3, new Coordinates(382,165));
         
     	image = null;
     	try {
