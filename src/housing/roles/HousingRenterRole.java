@@ -64,22 +64,21 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 		stateChanged();
 	}
 
-	public void msgRentDue(int ssn, double total) {
+	public void msgRentDue(int landlordSSN, double total) {
 		print("Message- msgRentDue");
-		mBills.add(new Bill(ssn, total));
+		mBills.add(new Bill(landlordSSN, total));
 		stateChanged();
 	}
 
-	public void msgOverdueNotice(int ssn, double total) {
+	public void msgOverdueNotice(int landlordSSN, double total) {
 		print("Message - msgOverdueNotice");
-		mBills.add(new Bill(ssn, total));
+		mBills.add(new Bill(landlordSSN, total));
 		stateChanged();
 	}
 
 	public void msgEviction() {
 		print("Message - msgEviction");
 		mHouse = null;
-		// DoLeaveHouse() //Some eviction animation
 	}
 
 	/* Scheduler */

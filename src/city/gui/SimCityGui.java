@@ -15,7 +15,7 @@ import base.Time;
 public class SimCityGui extends JFrame {
 	public static boolean TESTING = false;
 
-	public static int TESTNUM = 5;
+	public static int TESTNUM = 6;
 	
 	public static boolean GRADINGVIEW = true;
 

@@ -92,9 +92,12 @@ public class AndreAnimationPanel extends CityCard implements ActionListener {
         g2.setColor(getBackground());
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
-        if(background != null)
-        	g2.drawImage(background,0,0,null);
-
+        if(!SimCityGui.GRADINGVIEW) {
+        	if(background != null)
+        		g2.drawImage(background,0,0,null);
+        	
+        }
+        
         //Here is the table
         g2.setColor(Color.ORANGE);
         g2.fillRect(AndreRestaurant.tgui.getTableX(0), AndreRestaurant.tgui.getTableY(0), AndreRestaurant.tgui.getTableSize(0), AndreRestaurant.tgui.getTableSize(0));

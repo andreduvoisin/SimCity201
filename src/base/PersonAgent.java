@@ -2,7 +2,6 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
-import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -61,7 +60,8 @@ public class PersonAgent extends Agent implements Person {
 	public static int sBaseInventory = 0;
 	public static int sBaseWanted = 1;
 	//Roles and Job
-	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
+	public static enum EnumJobType {	HOUSING,	//master landlord
+										BANK,		//master teller, teller, guard... 
 										MARKET, 	//cashier, worker...
 										RESTAURANT, //...
 										NONE};		//party person, non-norms (can add NN1, NN2, ...)
@@ -134,6 +134,9 @@ public class PersonAgent extends Agent implements Person {
 				if(jobRole != null)
 					print(jobRole.toString());
 				break;
+			case HOUSING:
+				jobRole = SortingHat.getHousingRole(this, mTimeShift);
+				break;
 			case NONE:
 				break;
 		}
@@ -154,7 +157,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = false;
 		mCommutingTo = null;
 		
-		mRoles.put(SortingHat.getHousingRole(this), true);
+		mRoles.put(SortingHat.getHousingRole(this, mTimeShift), true);
 		//mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
@@ -246,7 +249,7 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
-	public void msgRoleFinished(){ //SHANE ALL: 3 Call at end of role
+	public void msgRoleFinished(){
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
 		for (Role iRole : mRoles.keySet()){
@@ -317,10 +320,8 @@ public class PersonAgent extends Agent implements Person {
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
 		}
-		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
-			if (getHousingRole().getHouse() == null) {
-				getHouse();
-			}
+		else if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
+			requestHouse();
 		}
 		//Daily Recurring Events (Job, Eat)
 		else if (event.mEventType == EnumEventType.JOB) {
@@ -459,13 +460,12 @@ public class PersonAgent extends Agent implements Person {
 								
 								//plan robbery
 								if(mName.contains("robber")){
-									//REX: hard coded to try to steal 100
 									print("Robbery action added to bank options");
 									bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
 								}
 								
 								//deposit check
-								int deposit = 50; //REX: add mDeposit, and do after leaving job
+								int deposit = 50;
 								bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
 								
 								//pay back loan if needed
@@ -502,7 +502,7 @@ public class PersonAgent extends Agent implements Person {
 					mAtJob = true; //set to false in msgTimeShift
 					Role jobRole = getJobRole();
 					if(!jobRole.hasPerson()) {
-						jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+						jobRole.setPerson(this);
 					}
 					mRoles.put(jobRole, true); //set role to active
 					jobRole.setActive();
@@ -551,21 +551,10 @@ public class PersonAgent extends Agent implements Person {
 	
 /*************************************************************************/
 	
-	public void getHouse() {
-		HousingLandlordRole assignedLandlord = null;
-		if (getHousingRole() instanceof HousingRenterRole) {
-			for (Person p : ContactList.sPersonList) {
-				for (Role r : p.getRoles().keySet()) {
-					if (r instanceof HousingLandlordRole) {
-						if (((HousingLandlordRole) r).getNumAvailableHouses() > 0) {
-							assignedLandlord = (HousingLandlordRole) r;
-							((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
-							((HousingRenterRole) getHousingRole()).msgRequestHousing();
-							return;
-						}
-					}
-				}
-			}
+	public void requestHouse() {
+		print("Requesting House");
+		if (getHousingRole().getHouse() == null) {
+			((HousingRenterRole) getHousingRole()).msgRequestHousing();
 		}
 	}
 	
@@ -593,10 +582,10 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(location);
 		mCommutingTo = EnumCommuteTo.MARKET;
+		mCommuterRole.mState = PersonState.walking;
 	}
 	
 	public void inspect() {
-		//REX ALL: HOW IS THIS WORKING WITH COMMUTER ROLE!?
 		print("I AM INSPECTING");
 		mPersonGui.setPresent(true);
 		synchronized(ContactList.sOpenPlaces){
@@ -621,14 +610,12 @@ public class PersonAgent extends Agent implements Person {
 		//print("goToJob");
 		Role jobRole = getJobRole();
 		if(jobRole == null){
-			//print("didn't go to job"); 
 			return;
-		}
-		
+		}		
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(getJobLocation());
 		mCommutingTo = EnumCommuteTo.JOB;
-//		print("my job is " +jobRole.toString());
+		mCommuterRole.mState = PersonState.walking;
 	}
 
 	public void eatFood() {
@@ -641,6 +628,7 @@ public class PersonAgent extends Agent implements Person {
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(getHousingRole().getLocation());
 			mCommutingTo = EnumCommuteTo.HOUSE;
+			mCommuterRole.mState = PersonState.walking;
 		}else{
 			print("Going to restaurant");
 			
@@ -670,6 +658,7 @@ public class PersonAgent extends Agent implements Person {
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			mCommutingTo = EnumCommuteTo.RESTAURANT;
+			mCommuterRole.mState = PersonState.walking;
 			stateChanged();
 		}		
 	}
@@ -710,6 +699,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(location);
 		mCommutingTo = EnumCommuteTo.MARKET;
+		mCommuterRole.mState = PersonState.walking;
 	}
 	
 	private void depositCheck() {		
@@ -727,6 +717,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0 ? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		mCommutingTo = EnumCommuteTo.BANK;
+		mCommuterRole.mState = PersonState.walking;
 	}
 	
 	private void planParty(int time){
@@ -734,7 +725,6 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		if(!mName.equals("partyPerson"))
 			mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-//		Location partyLocation = new Location(500,500); //REX: remove hardcoded party pad after dehobo the host
 		Location partyLocation = getHousingRole().getLocation();
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
@@ -766,6 +756,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(event.mLocation);
 		mCommutingTo = EnumCommuteTo.PARTY;
+		mCommuterRole.mState = PersonState.walking;
 		
 		mRoleFinished = false;
 	}
@@ -853,11 +844,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-		//ALL: this is a hack needs to be fixed
 		if (getHousingRole().getHouse() != null) {
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(getHousingRole().getLocation());
 			mCommutingTo = EnumCommuteTo.HOUSE;
+			mCommuterRole.mState = PersonState.walking;
 			((HousingBaseRole) getHousingRole()).msgTimeToMaintain();
 		}
 	}
@@ -922,6 +913,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void removeRole(Role r) {
+		mRoles.put(r, false);
 		mRoles.remove(r);
 	}
 
@@ -1060,5 +1052,10 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(ContactList.sEventList.get(rand.nextInt(ContactList.sEventList.size())));
 		mCommuterRole.mState = PersonState.walking;
 		stateChanged();
+	}
+
+	@Override
+	public void setJobType(EnumJobType type) {
+		mJobType = type;
 	}
 }

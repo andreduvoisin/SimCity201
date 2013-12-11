@@ -25,6 +25,7 @@ import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -48,7 +49,7 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 	private SmilehamCook mCook;
 	private Timer mTimer;
 	
-	//Semaphores //SHANE: 5 public private
+	//Semaphores
 	public Semaphore semAtTable = new Semaphore(0);
 	private Semaphore semAtPickupArea = new Semaphore(0);
 	public Semaphore semAtCook = new Semaphore(0);
@@ -482,6 +483,16 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 		
 		public void print(String msg, Throwable e) {
 			super.print(msg, AlertTag.R5, e);
+		}
+		
+		public void fired(){
+			mWaiterGui.setFired(true);
+			
+			mPerson.msgRoleFinished();
+			mPerson.assignNextEvent();
+			
+			mPerson.removeRole(this);
+			mPerson.setJobType(EnumJobType.NONE);
 		}
 }
 

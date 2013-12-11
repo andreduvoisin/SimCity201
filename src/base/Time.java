@@ -43,7 +43,7 @@ public class Time {
 //					}
 				}
 			}
-		}, new Date( System.currentTimeMillis()), cSYSCLK); //SHANE: 2
+		}, new Date( System.currentTimeMillis()), cSYSCLK);
 		
 	}
 	

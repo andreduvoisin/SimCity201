@@ -2,6 +2,10 @@ package restaurant.restaurant_duvoisin.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_duvoisin.interfaces.Waiter;
@@ -15,6 +19,9 @@ public class WaiterGui implements Gui {
     static final int WAITERSIZE = 20;	// Size of each side of host (square).
     static final int STARTPOS = -20;
     private int currentTable = 0;
+    
+    private boolean onFire = false;
+	private BufferedImage fireImage;
     
     private int xPos = STARTPOS, yPos = STARTPOS;//default waiter position
     private int xDestination = STARTPOS, yDestination = STARTPOS;//default start position
@@ -57,6 +64,15 @@ public class WaiterGui implements Gui {
 				AndreRestaurant.idleHere[i] = true;
 				break;
 			}
+        
+        fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
     
     public WaiterGui(AndreWaiterRole role) {
@@ -70,6 +86,15 @@ public class WaiterGui implements Gui {
 				AndreRestaurant.idleHere[i] = true;
 				break;
 			}
+        
+        fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
     public void updatePosition() {
@@ -110,10 +135,13 @@ public class WaiterGui implements Gui {
     }
 
     public void draw(Graphics2D g) {
+    	if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else{
         g.setColor(Color.MAGENTA);
         g.fillRect(xPos, yPos, WAITERSIZE, WAITERSIZE);
         g.setColor(Color.BLACK);
-		g.drawString(currentOrder, xPos + TEXT_OFFSET_X, yPos + TEXT_OFFSET_Y);
+		g.drawString(currentOrder, xPos + TEXT_OFFSET_X, yPos + TEXT_OFFSET_Y);}
     }
 
     public boolean isPresent() {
@@ -203,5 +231,10 @@ public class WaiterGui implements Gui {
 	public void setPresent(boolean state) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setFired(boolean state) {
+		onFire = state;
 	}
 }

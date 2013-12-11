@@ -191,7 +191,7 @@ public class CityPerson extends CityComponent {
 						}
 					}
 					mDestinationPathType = findPathType(currentCornerNum, destCornerNum);
-					mPerson.print("route :"+mDestinationPathType);
+//					mPerson.print("route :"+mDestinationPathType);
 					if (mDestinationPathType == 6) {
 						x = 50;
 						y = 65;

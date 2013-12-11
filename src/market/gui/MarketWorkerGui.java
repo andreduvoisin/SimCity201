@@ -18,12 +18,16 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorker mAgent;
 	private int mNum;
 
+	private boolean onFire = false;
+	private BufferedImage fireImage;
+
+
 	private MarketOrder mOrder = null;
 	
 	private static final int xStart = -20, yStart = -20;
 	private static final int xBase = 60, yBase = 450;
-	private static final int xDeliveryTruck = 250, yDeliveryTruck = 500;
-	private int xCustomer = 100, yCustomer = 250;
+	private static final int xDeliveryTruck = 230, yDeliveryTruck = 0;
+	private int xCustomerBase = 50, yCustomerBase = 140;
 	
 	private int xPos, yPos;
 	private int xHome, yHome;
@@ -51,6 +55,14 @@ public class MarketWorkerGui implements MarketBaseGui {
     	try {
     	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/worker.png");
     	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
@@ -105,7 +117,9 @@ public class MarketWorkerGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-		if(SimCityGui.GRADINGVIEW) {
+		if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else if(SimCityGui.GRADINGVIEW) {
 			g.setColor(Color.BLACK);
 			g.drawString("W"+mNum,xPos,yPos);
 		}
@@ -124,18 +138,20 @@ public class MarketWorkerGui implements MarketBaseGui {
 		mOrder = o;
 		for(EnumItemType item : mOrder.mItems.keySet()) {
 			MarketWorkerRole r = (MarketWorkerRole) mAgent;
-			MarketCoordinates c = r.mMarket.mItemsGui.getItemCoordinates(item);
-			xDestination = c.getX()-30;
-			yDestination = c.getY();
-			mCommand = EnumCommand.goToItem;
-			try {
-				gettingItem.acquire();
-			}
-			catch(InterruptedException e) {
-				e.printStackTrace();
-			}
-			mCommand = EnumCommand.noCommand;
+			if(mOrder.mItems.get(item) != 0) {
+				MarketCoordinates c = r.mMarket.mItemsGui.getItemCoordinates(item);
+				xDestination = c.getX()-30;
+				yDestination = c.getY();
+				mCommand = EnumCommand.goToItem;
+				try {
+					gettingItem.acquire();
+				}
+				catch(InterruptedException e) {
+					e.printStackTrace();
+				}
+				mCommand = EnumCommand.noCommand;
 			r.mMarket.mItemsGui.decreaseItemCount(item, mOrder.mItems.get(item));		
+			}
 		}
 		mAgent.msgOrderFulfilled(mOrder);
 		mOrder = null;
@@ -143,8 +159,8 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	//ANGELICA: add in parameter
 	public void DoGoToCustomer() {
-		xDestination = xCustomer;
-		yDestination = yCustomer;
+		xDestination = xCustomerBase;
+		yDestination = yCustomerBase;
 		mCommand = EnumCommand.goToCustomer;
 	}
 	
@@ -180,5 +196,9 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public int getYPos() {
 		return yPos;
+	}
+	
+	public void setFired(boolean state){
+		onFire = state;
 	}
 }

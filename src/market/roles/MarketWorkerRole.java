@@ -15,6 +15,7 @@ import market.interfaces.MarketWorker;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -227,5 +228,15 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		}
 		else
 			return "";
+	}
+	
+	public void fired(){
+		mGui.setFired(true);
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
+		
+		mPerson.removeRole(this);
+		mPerson.setJobType(EnumJobType.NONE);
 	}
 }

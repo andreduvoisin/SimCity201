@@ -18,7 +18,6 @@ public class HousingOwnerRole extends HousingBaseRole implements HousingOwner {
 	/* Scheduler */
 
 	public boolean pickAndExecuteAnAction() {
-		// DAVID MAGGI: establish what triggers the RequestHousing() action
 
 		if (mHungry) {
 			mHungry = false;

@@ -10,8 +10,8 @@ import java.util.concurrent.Semaphore;
 import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
+import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
@@ -42,10 +42,10 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 
 	private String name;
 	public Menu menu = new Menu(); 
-	private Semaphore waitingToOrder = new Semaphore(0, true); 
-	private Semaphore atTable = new Semaphore(0,true);
-	private Semaphore goingToKitchen = new Semaphore(0,true); 
-	private Semaphore waiterReady = new Semaphore(0, true);
+	public Semaphore waitingToOrder = new Semaphore(0, true); 
+	public Semaphore atTable = new Semaphore(0,true);
+	public Semaphore goingToKitchen = new Semaphore(0,true); 
+	public Semaphore waiterReady = new Semaphore(0, true);
 	private Semaphore animationReady = new Semaphore(0, true); 
 
 	public boolean justGotToWork = false;
@@ -58,7 +58,6 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	private MaggiyanHost host; 
 	private MaggiyanCashier cashier; 
 	private MaggiyanWaiterGui waiterGui = null;
-	private MaggiyanAnimationPanel animationPanel; 
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
@@ -193,12 +192,13 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	public void msgReadyToOrder(MaggiyanCustomer cust){
 		MyCustomer mc = findCustomer(cust); 
 		mc.s = CustomerState.readyToOrder; 
+		print("cust state: " + mc.s); 
 		stateChanged(); 
 	}
 	
 	public void msgHereIsMyOrder(String choice, MaggiyanCustomer c){
 		MyCustomer mc = findCustomer(c); 
-		mc.s = CustomerState.gaveOrder; 
+		mc.s = CustomerState.orderGiven; 
 		mc.choice = choice; 
 		waitingToOrder.release(); 
 		stateChanged(); 
@@ -244,8 +244,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	
 	public void msgAtTable() {
 		if(alreadyAtTable){
-			atTable.release();
-			print("At Table release"); 
+			atTable.release(); 
 			alreadyAtTable = false; 
 		}
 		stateChanged();
@@ -254,7 +253,6 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	public void msgWaiterFree(){
 		if(waiterIsReady){
 			waiterReady.release(); 
-			print("waiter ready release");
 			waiterIsReady = false; 
 		} 
 		stateChanged(); 
@@ -277,7 +275,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 				return true; 
 			}
 		
-			if (!customers.isEmpty()) { 
+			if (!customers.isEmpty()) {  
 					for(int i=0; i<customers.size(); i++){
 						if(customers.get(i).s == CustomerState.waiting){
 							seatCustomer(customers.get(i)); 
@@ -439,12 +437,11 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 //		}
 	}
 	
-	private void takeOrder(MyCustomer cust){
+	private void takeOrder(MyCustomer cust){ 
 		host.msgWaiterBusy(this);
 		alreadyAtTable = true; 
 		DoTakeOrder(cust); 
-		try{ 
-			print("At Table acquire"); 
+		try{  
 			atTable.acquire(); 
 		}
 		catch(Exception e){
@@ -477,7 +474,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 		catch(Exception e){
 			print ("giveOrderToCook exception");
 		}
-		cook.addRStandOrder(this, cust.choice, cust.table); 
+		cook.getRevolvingStand().add(new Order(this, cust.choice, cust.table)); 
 	}
 	
 	private void giveCustomerFood(MyCustomer mc){
@@ -503,7 +500,7 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 		}
 		waiterGui.hideCustomerChoice();
 		mc.c.msgHereIsYourFood();
-		cashier.msgPleaseCalculateBill(this, mc.c, mc.choice); 
+		cashier.msgPleaseCalculateBill(this, mc.c, mc.choice);
 		mc.s = CustomerState.eating;
 
 

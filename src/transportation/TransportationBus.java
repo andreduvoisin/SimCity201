@@ -65,9 +65,9 @@ public class TransportationBus extends Agent implements Bus {
 	}
 
 	/**
-	 * From Person who arrived at a bus stop
-	 * @param p The Person who arrived at the stop
-	 * @param riderCurrentStop The stop number the Person is at
+	 * From TransportationRider who arrived at a bus stop
+	 * @param r The Rider who arrived at the stop
+	 * @param riderCurrentStop The stop number the Rider is at
 	 */
 	public void msgNeedARide(TransportationRider r, int riderCurrentStop) {
 		synchronized(mBusStops.get(riderCurrentStop).mWaitingPeople) {

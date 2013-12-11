@@ -16,6 +16,7 @@ import restaurant.restaurant_duvoisin.interfaces.Waiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -461,5 +462,15 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.R0, e);
+	}
+	
+	public void fired(){
+		waiterGui.setFired(true);
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
+		
+		mPerson.removeRole(this);
+		mPerson.setJobType(EnumJobType.NONE);
 	}
 }

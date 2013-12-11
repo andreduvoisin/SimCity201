@@ -151,4 +151,9 @@ public void updatePosition() {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void setFired(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

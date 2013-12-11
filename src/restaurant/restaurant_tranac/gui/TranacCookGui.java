@@ -31,7 +31,7 @@ public class TranacCookGui implements Gui {
 
     private enum FoodState {Cooking, Plating};
     
-    private enum Command {noCommand, goToHome, goToGrill, goToPlate};
+    private enum Command {noCommand, goToGrill, goToPlate};
     private Command command = Command.noCommand;
 
     private BufferedImage image;
@@ -84,31 +84,18 @@ public class TranacCookGui implements Gui {
             yPos--;
         
         if(xPos == xDestination && yPos == yDestination) {
-        	switch(command) {
-        		case goToHome: {
-        			command = Command.noCommand;
-        			break;
-        		}
-        		case goToGrill: {
-        			agent.msgAnimationAtGrill();
-        			command = Command.noCommand;
-        			break;
-        		}
-        		case goToPlate: {
-        			agent.msgAnimationAtPlate();
-        			command = Command.noCommand;
-        			break;
-        		}
-        		default:
-        			break;
+        	if(command != Command.noCommand) {
+        		agent.msgAnimationDone();
+        		command = Command.noCommand;
         	}
+        	
         }
 	}
 	
     public void draw(Graphics2D g) {
     	if(SimCityGui.GRADINGVIEW) {
     		g.setColor(Color.WHITE);
-    		g.drawString("Cook",xPos,yPos);
+    		g.drawString("Cook",xPos,yPos-10);
     	}
     	else {
     		g.setColor(Color.BLACK);
@@ -129,7 +116,7 @@ public class TranacCookGui implements Gui {
     /** Messages. These set the destination coordinates. */
    
     public void DoGoToHome() {
-    	command = Command.goToHome;
+    	command = Command.noCommand;
     	
     	xDestination = xHome;
     	yDestination = yHome;

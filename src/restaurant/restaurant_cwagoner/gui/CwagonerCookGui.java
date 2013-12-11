@@ -122,4 +122,10 @@ public class CwagonerCookGui extends CwagonerBaseGui implements Gui {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setFired(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

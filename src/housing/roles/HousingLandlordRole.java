@@ -23,7 +23,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			.synchronizedList(new ArrayList<MyRenter>());
 	public List<House> mHousesList = Collections
 			.synchronizedList(new ArrayList<House>());
-	int mMinCash = 50;
+	int mMinCash = 0;
 	int mMinSSN = 0;
 	
 	enum EnumRenterState {
@@ -165,6 +165,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 					r.mHouse.mOccupant = r.mRenter;
 					r.mRenter.msgApplicationAccepted(r.mHouse);
 					r.mState = EnumRenterState.RentPaid;
+					stateChanged();
 					return;
 				}
 			}
@@ -172,6 +173,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			synchronized (mRenterList) {
 				mRenterList.remove(r);
 			}
+			stateChanged();
 			return;
 
 		} else {
@@ -179,6 +181,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			synchronized (mRenterList) {
 				mRenterList.remove(r);
 			}
+			stateChanged();
 			return;
 		}
 	}

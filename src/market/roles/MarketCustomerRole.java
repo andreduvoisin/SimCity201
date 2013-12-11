@@ -16,8 +16,6 @@ import market.interfaces.MarketCashier;
 import market.interfaces.MarketCustomer;
 import base.BaseRole;
 import base.ContactList;
-import base.Event;
-import base.Event.EnumEventType;
 import base.Item;
 import base.Item.EnumItemType;
 import base.Location;
