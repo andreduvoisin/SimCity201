@@ -3,7 +3,6 @@ package restaurant.restaurant_tranac.roles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
 import java.util.concurrent.Semaphore;
 
 import restaurant.restaurant_tranac.TranacCheck;

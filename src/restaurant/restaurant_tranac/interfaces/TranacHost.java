@@ -1,7 +1,5 @@
 package restaurant.restaurant_tranac.interfaces;
 
-import restaurant.restaurant_tranac.roles.TranacWaiterBase;
-
 /**
  * Host interface built for unit testing.
  *

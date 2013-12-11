@@ -8,6 +8,7 @@ import market.Market;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
+import market.gui.MarketItemsGui;
 import market.roles.MarketWorkerRole;
 import market.test.mock.MockCashier;
 import market.test.mock.MockCookCustomer;
@@ -35,6 +36,7 @@ public class WorkerTest extends TestCase {
 		super.setUp();
 		ContactList.setup();
  		mMarket = ContactList.sMarketList.get(mMarketNum);
+ 		mMarket.mItemsGui = new MarketItemsGui();
 		mPerson = new PersonAgent();
 		mWorker = new MarketWorkerRole(mPerson, 0);
 		
@@ -56,7 +58,7 @@ public class WorkerTest extends TestCase {
 	  //create order; set state of
 	  //order to beginning of worker obligations
 		mOrder = new MarketOrder(mItems, mMockCustomer);
-		mOrder.mStatus = EnumOrderStatus.PAID;
+		mOrder.mStatus = EnumOrderStatus.SENT;
 		mOrder.mCashier = mMockCashier;
 		mOrder.mWorker = mWorker;
 
@@ -75,8 +77,8 @@ public class WorkerTest extends TestCase {
 	  //assert order event
 		assertEquals("Order event should be order paid.",
 				mWorker.getOrder(0).mEvent, EnumOrderEvent.ORDER_PAID);
-		
-		
+		System.out.println("test");
+
 		mWorker.pickAndExecuteAnAction();
 	  //assert order state
 		assertEquals("Order state should be ordering.",EnumOrderStatus.ORDERING
@@ -87,7 +89,7 @@ public class WorkerTest extends TestCase {
 	  //assert order event
 		assertEquals("Order event should be told to fulfill.",
 				mWorker.getOrder(0).mEvent, EnumOrderEvent.TOLD_TO_FULFILL);
-		
+
 		
 		mWorker.pickAndExecuteAnAction();
 	  //assert order state and event
@@ -110,7 +112,7 @@ public class WorkerTest extends TestCase {
 		  //create order; set state of order to beginning of
 		  //worker obligations; 
 			mOrder = new MarketOrder(mItems, mMockCookCustomer);
-			mOrder.mStatus = EnumOrderStatus.PAID;
+			mOrder.mStatus = EnumOrderStatus.SENT;
 			mOrder.mDeliveryTruck = mMockDeliveryTruck;
 			mOrder.mCashier = mMockCashier;
 			mOrder.mWorker = mWorker;
@@ -119,7 +121,7 @@ public class WorkerTest extends TestCase {
 			assertEquals("Worker should have 0 orders.",
 					mWorker.getNumOrders(), 0);
 			assertEquals("Order state should be paid.",
-					mOrder.mStatus, EnumOrderStatus.PAID);
+					mOrder.mStatus, EnumOrderStatus.SENT);
 			assertEquals("Order event should be none.",
 					mOrder.mEvent, EnumOrderEvent.NONE);
 			
@@ -131,13 +133,12 @@ public class WorkerTest extends TestCase {
 			assertEquals("Order event should be order paid.",
 					mWorker.getOrder(0).mEvent, EnumOrderEvent.ORDER_PAID);
 			
-			
 			mWorker.pickAndExecuteAnAction();
 		  //assert order state
 			assertEquals("Order state should be ordering, but wasn't.",EnumOrderStatus.ORDERING
 					,mWorker.getOrder(0).mStatus );
 			
-			
+
 			mWorker.msgOrderFulfilled(mOrder);
 		  //assert order event
 			assertEquals("Order event should be told to send.",

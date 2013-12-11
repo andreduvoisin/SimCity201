@@ -5,7 +5,6 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import market.Market;
-import market.MarketInvoice;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
@@ -15,7 +14,6 @@ import market.test.mock.MockRestaurantCashier;
 import market.test.mock.MockWorker;
 import restaurant.intermediate.RestaurantCookRole;
 import base.Item.EnumItemType;
-import base.ContactList;
 import base.PersonAgent;
 
 public class CookCustomerTest extends TestCase {
