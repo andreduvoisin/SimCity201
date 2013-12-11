@@ -270,7 +270,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		// Dimensions of Buttons
 			Dimension buttonDim = scenarioA.getPreferredSize();
-			buttonDim.height -= 4;
+			buttonDim.height -= 7;
 			buttonDim.width = 180;
 			scenarioA.setPreferredSize(buttonDim);
 			scenarioB.setPreferredSize(buttonDim);
@@ -537,7 +537,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initPeople() {
 		Dimension size = new Dimension(90, 20);
-		Dimension preferred = new Dimension(180, 20);
+		Dimension preferred = new Dimension(180, 15);
 
 		peopleLabel = new JLabel("Create a Person:");
 		peopleLabel.setPreferredSize(preferred);
