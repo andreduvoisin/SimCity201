@@ -230,7 +230,7 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 			return "";
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		mGui.setFired(true);
 		
 		mPerson.msgRoleFinished();

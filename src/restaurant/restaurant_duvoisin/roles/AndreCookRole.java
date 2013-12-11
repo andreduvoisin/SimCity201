@@ -52,7 +52,6 @@ public class AndreCookRole extends BaseRole implements Cook {
 	
 	static final int FOOD_LOW = 2;
 	static final int FOOD_ORDER = 5;
-	Map<String, Boolean> hasOrdered = new HashMap<String, Boolean>();
 	Map<String, Integer> cookingTimes = new HashMap<String, Integer>();
 	
 	public EventLog log = new EventLog();

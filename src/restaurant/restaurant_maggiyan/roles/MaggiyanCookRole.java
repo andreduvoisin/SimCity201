@@ -332,8 +332,8 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	}
 	
 	//Utilities
-	public void addRStandOrder(MaggiyanWaiter w, String c, int t){
-		rStandOrders.add(new Order(w, c, t)); 
+	public List<Order> getRevolvingStand(){
+		return rStandOrders; 
 	}
 	
 	public Order findOrder(int pos){

@@ -1,8 +1,9 @@
 package base;
 
+import housing.House;
+import housing.roles.HousingBaseRole;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
-import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,9 +30,9 @@ public class SortingHat {
 	private static List<Role> sRoles; //list of roles
 	static List<Map<Role, Boolean>> sRolesFilled;
 	
-	static int sNumBankTellers = 1;
-	static int sNumMarketWorkers = 2;
-	static int sNumRestaurantWaiters = 3;	
+	public static int sNumBankTellers = 1;
+	public static int sNumMarketWorkers = 2;
+	public static int sNumRestaurantWaiters = 3;
 	
 	public static void InstantiateBaseRoles(){
 		sRoles = new ArrayList<Role>();
@@ -59,8 +60,18 @@ public class SortingHat {
 			}
 		}
 		
+		//Housing
+		HousingLandlordRole masterLandLord = new HousingLandlordRole(null);
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
+		sRoles.add(masterLandLord);
+		ContactList.masterLandlord = masterLandLord;
+		
 		//Restaurants
-		int numRestaurants = 8; //SHANE: 4 use ContactList.cNumRestaurants
+		int numRestaurants = ContactList.cNumRestaurants;
 		int numStart = 0;
 		if(SimCityGui.TESTING) {
 			if (SimCityGui.TESTNUM >= 0) {
@@ -210,42 +221,40 @@ public class SortingHat {
 	
 	
 	//HOUSING
-	static int sLandlordCount = 0;
 	static int sRenterCount = 0;
 	static int sHouseCount = 0;
 	static final int sHouseSize = 5;
-	static final int sMaxLandlords = 5;
-	static final int sMaxRenters = sMaxLandlords*sHouseSize;
+	static final int sMaxRenters = 5;
 
-	public static Role getHousingRole(Person person) {
-		//landlord, renter, owner (in that order)		
-		if (sLandlordCount < sMaxLandlords){
-			sLandlordCount++;
-			HousingLandlordRole newLandLordRole = new HousingLandlordRole(person);
-			newLandLordRole.setHouse(ContactList.sHouseList.get(sHouseCount)); 
-			sHouseCount++;
-			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
-			sHouseCount++;
-			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
-			sHouseCount++;
-			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
-			sHouseCount++;
-			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
-			sHouseCount++;
-			newLandLordRole.mHousesList.add(ContactList.sHouseList.get(sHouseCount));
-			sHouseCount++;
-			return newLandLordRole;
+	public static Role getHousingRole(Person person, int shift) {
+		//landlord, renter, owner (in that order)	
+		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
+		
+		for (Role iRole : shiftRoles.keySet()){
+			if (iRole instanceof HousingLandlordRole){ //find role
+				if (shiftRoles.get(iRole) == false){ //if role not filled
+					shiftRoles.put(iRole, true); //fill it
+					((HousingBaseRole) iRole).setHouse(getNextHouse());
+					((HousingBaseRole) iRole).setPerson(person);
+					return (HousingLandlordRole) iRole; //return role
+				}
+			}
 		}
 		
-		if (sRenterCount < sMaxRenters){
-			sRenterCount++;
-			return new HousingRenterRole(person);
-		}
-		//ANGELICA 0 housing shit
+//		if (sRenterCount < sMaxRenters){
+//			sRenterCount++;
+//			HousingRenterRole newRenter = new HousingRenterRole(person);
+//			newRenter.setLandlord(ContactList.masterLandlord);
+//			return newRenter;
+//		}
+		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
-		sHouseCount++;
+		newOwnerRole.setHouse(getNextHouse());
 		return newOwnerRole;
+	}
+	
+	public static House getNextHouse() {
+		return ContactList.sHouseList.get(sHouseCount++ % ContactList.sHouseList.size());
 	}
 	
 	public static List<Role> getRoleList(){

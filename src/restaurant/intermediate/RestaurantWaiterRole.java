@@ -109,7 +109,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 				subRole = new SmilehamWaiterRole(super.mPerson);
 				SmilehamRestaurant.addPerson((SmilehamWaiterRole) subRole);
 			//} else if (mWaiterType == 0) {
-				// SHANE: add shared waiter
+				// SHANE: 1 add shared waiter
 			//}
 			break;
 		case 6: // angelica

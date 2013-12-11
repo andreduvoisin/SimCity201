@@ -120,11 +120,13 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
-        g2.setColor(Color.ORANGE);
+        g2.setColor(Color.RED);
         
-        if(background != null)
-        	g2.drawImage(background,0,0,null);
-        
+        if(!SimCityGui.GRADINGVIEW) {
+        	if(background != null)
+        		g2.drawImage(background,0,0,null);
+        	
+        }
         //TABLES
         g2.fillRect(TABLEX, TABLEY, TABLEDIM, TABLEDIM);		//table 1 : 200,250 : SW
         g2.fillRect(TABLEX+100, TABLEY, TABLEDIM, TABLEDIM); 	//table 2 : 300,250 : SE

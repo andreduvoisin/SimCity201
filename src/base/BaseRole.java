@@ -91,7 +91,7 @@ public abstract class BaseRole implements Role {
 		mPerson.print(msg, tag, e);
 	}
 	
-	public boolean isRestaurantPerson(){ //DAVID: Put this in base rest class
+	public boolean isRestaurantPerson(){ 
 		if ((this instanceof RestaurantCashierRole) ||
 				(this instanceof RestaurantCookRole) ||
 				(this instanceof RestaurantWaiterRole) ||
