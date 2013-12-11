@@ -50,7 +50,7 @@ public class JerrywebHostRole extends BaseRole {
 	 */
 	public class MyWaiter{
 		
-		Waiter w;
+		public Waiter w;
 		WaiterState ws;
 		
 		public MyWaiter(Waiter waiter, WaiterState state) {

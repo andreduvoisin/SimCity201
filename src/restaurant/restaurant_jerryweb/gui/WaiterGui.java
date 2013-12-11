@@ -94,6 +94,7 @@ public class WaiterGui implements Gui {
     }
 
     public void updatePosition() {
+    	if(!onFire){
     	 previousX = xPos;
     	 previousY = yPos;
         if (xPos < xDestination)
@@ -140,8 +141,7 @@ public class WaiterGui implements Gui {
         	//agent.msgAtCook();
 
         }
-        
-              
+    	}     
     }
 
     public void draw(Graphics2D g) {
