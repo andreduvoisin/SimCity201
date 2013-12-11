@@ -28,7 +28,7 @@ public class WaiterTest extends TestCase {
 		customer = new SmilehamMockCustomer("customer");
 		table = new Table(0);
 		order = new Order(waiter, table, customer, EnumOrderStatus.ORDERED);
-		
+		SmilehamCook.log.clear();
 	}
 	
 	//test deliver order method for both waiters
@@ -42,11 +42,11 @@ public class WaiterTest extends TestCase {
 		
 		//assert preconditions
 		assertEquals("Waiter should have 1 order", waiter.mOrders.size(), 1);
-		assertEquals("Cook should have 1 message", SmilehamCook.log.size(), 1);
+		assertEquals("Cook should have 0 messages", SmilehamCook.log.size(), 0);
 		//paea
 		waiter.pickAndExecuteAnAction();
 		//assert postconditions
-		assertEquals("Cook should have 2 messages", SmilehamCook.log.size(), 2);
+		assertEquals("Cook should have 1 message", SmilehamCook.log.size(), 1);
 		
 	}
 	
@@ -58,13 +58,11 @@ public class WaiterTest extends TestCase {
 		
 		//assert preconditions
 		assertEquals("Waiter should have 1 order", waiter.mOrders.size(), 1);
-		assertTrue("Cook should have 0 messages", SmilehamCook.log.size() == 0);
+		assertEquals("Cook should have 0 messages", SmilehamCook.log.size(), 0);
 		//paea
 		waiter.pickAndExecuteAnAction();
 		//assert postconditions
 		assertEquals("Cook should have 1 message", SmilehamCook.log.size(), 1);
-		
-		
 	}
 	
 	
