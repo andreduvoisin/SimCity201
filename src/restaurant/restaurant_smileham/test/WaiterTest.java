@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
 import restaurant.restaurant_smileham.Table;
+import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterBase;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRoleShared;
@@ -41,6 +42,10 @@ public class WaiterTest extends TestCase {
 		
 		//assert preconditions
 		assertEquals("Waiter should have 1 order", waiter.mOrders.size(), 1);
+		assertTrue("Cook should have 0 messages", SmilehamCook.log.size() == 0);
+		//paea
+		waiter.pickAndExecuteAnAction();
+		//assert cook has an 
 		
 		
 		
