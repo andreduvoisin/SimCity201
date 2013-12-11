@@ -29,6 +29,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 	
 	//ANIMATION
 	private BufferedImage background;
+	private BufferedImage table;
 	
 	/*
 	 * Constructor
@@ -46,6 +47,8 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
     	try {
     	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mybg.png");
     	background = ImageIO.read(imageURL);
+    	java.net.URL imageURL2 = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mytable.png");
+    	table = ImageIO.read(imageURL2);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
@@ -80,9 +83,8 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		else {
 			if(background != null)
         		g2.drawImage(background,0,0,null);
-			for (Table table : restaurant.tables) {
-				g.setColor(Color.BLACK);
-				g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
+			for (Table t : restaurant.tables) {
+				g2.drawImage(table, t.getX(),t.getY(), null);
 			}
 		}
 		
