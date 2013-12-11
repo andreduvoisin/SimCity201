@@ -46,7 +46,7 @@ public abstract class SmilehamWaiterBase extends BaseRole implements SmilehamWai
 	private List<Order> mOrders;
 	private List<EnumFoodOptions> mFoodsOut;
 	private SmilehamHost mHost;
-	protected SmilehamCook mCook;
+	public SmilehamCook mCook;
 	private Timer mTimer;
 	
 	//Semaphores
