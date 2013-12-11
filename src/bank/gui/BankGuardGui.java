@@ -12,8 +12,8 @@ import base.Gui;
 public class BankGuardGui implements Gui {
 
 //	private BankGuard agent = null;
+	private boolean onFire = false;
 	private boolean isPresent = true;
-	
 
 	private int xPos, yPos;
 	private int xDestination, yDestination;
@@ -23,8 +23,9 @@ public class BankGuardGui implements Gui {
 	static final int STARTPOSY = 40;
 	
 	//Animation upgrades
+	private BufferedImage fireImage;
 	private BufferedImage bankguardimage;
-	//Jerry changed the constructors for both this and the customer constructers
+	
 	public BankGuardGui(BankGuard bg){
 //		agent = bg;
 		xPos = STARTPOSX;
@@ -36,6 +37,14 @@ public class BankGuardGui implements Gui {
     	try {
     		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/dad1.png");
     		bankguardimage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
@@ -55,7 +64,10 @@ public class BankGuardGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.drawImage(bankguardimage, xPos, yPos, null);
+		if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else
+			g.drawImage(bankguardimage, xPos, yPos, null);
 	}
 
 	public boolean isPresent() {
@@ -69,6 +81,11 @@ public class BankGuardGui implements Gui {
 //	MESSAGES
 	public void DoKillRobber () {
 		
+	}
+
+	@Override
+	public void setFired(boolean state) {
+		onFire = state;
 	}
 	
 }

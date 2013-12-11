@@ -18,6 +18,7 @@ import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -553,5 +554,15 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.R6, e);
+	}
+	
+	public void fuckYou(){
+		waiterGui.setFired(true);
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
+		
+		mPerson.removeRole(this);
+		mPerson.setJobType(EnumJobType.NONE);
 	}
 }

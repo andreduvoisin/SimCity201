@@ -3,6 +3,10 @@ package restaurant.restaurant_maggiyan.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 
@@ -10,6 +14,9 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     
     private MaggiyanWaiter agent = null; 
   	public String customerOrder = " ";
+  	
+  	private boolean onFire = false;
+	private BufferedImage fireImage;
 
     public int xHome;
     public static final int yHome = 75; 
@@ -48,6 +55,15 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     public MaggiyanWaiterGui(MaggiyanWaiter waiter) {
         this.agent = waiter;
         tablePositions();
+        
+        fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
     
     public void updatePosition() { 
@@ -128,9 +144,13 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     }
 
     public void draw(Graphics2D g) {
-        g.setColor(Color.MAGENTA);
-        g.fillRect(xPos, yPos, 20, 20);
-        g.drawString(customerOrder, xPos, yPos-15);
+    	if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else{
+			g.setColor(Color.MAGENTA);
+        	g.fillRect(xPos, yPos, 20, 20);
+        	g.drawString(customerOrder, xPos, yPos-15);
+		}
         
     }
 
@@ -216,6 +236,10 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
 		xDestination = 50;
         yDestination = 50;
 		
+	}
+
+	public void setFired(boolean state) {
+		onFire = state;
 	}
     
 }

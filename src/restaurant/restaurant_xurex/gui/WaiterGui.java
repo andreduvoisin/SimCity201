@@ -4,13 +4,19 @@ package restaurant.restaurant_xurex.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_xurex.interfaces.Waiter;
 import restaurant.restaurant_xurex.interfaces.WaiterGui_;
 
 public class WaiterGui implements Gui, WaiterGui_ {
+	
+	private boolean onFire = false;
+	private BufferedImage fireImage;
 
     private Waiter role = null;
     RexAnimationPanel animationPanel;
@@ -45,6 +51,14 @@ public class WaiterGui implements Gui, WaiterGui_ {
 //    	catch (IOException e) {
 //    		System.out.println(e.getMessage());
 //    	}
+    	fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
         //TABLES
         places.put(new Integer(1), new Point(200,150));
 		places.put(new Integer(2), new Point(300,150));
@@ -85,8 +99,12 @@ public class WaiterGui implements Gui, WaiterGui_ {
 
     public void draw(Graphics2D g) {
 //    	g.drawImage(image, xPos, yPos, null);
-        g.setColor(Color.MAGENTA);
-        g.fillRect(xPos, yPos, waiterDim, waiterDim);
+    	if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else{
+			g.setColor(Color.MAGENTA);
+        	g.fillRect(xPos, yPos, waiterDim, waiterDim);
+		}
     }
     
     public void DoServeFood(String choice){
@@ -175,5 +193,9 @@ public class WaiterGui implements Gui, WaiterGui_ {
 
     public int getYPos() {
         return yPos;
+    }
+    
+    public void setFired(boolean state){
+    	onFire = state;
     }
 }
