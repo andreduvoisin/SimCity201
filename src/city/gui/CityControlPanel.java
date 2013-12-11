@@ -57,9 +57,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JPanel PeopleTab = new JPanel();
     JPanel PropertiesTab = new JPanel();
     JPanel TraceTab = new JPanel();
-    //Crash Buttons
+    //Custom Buttons
     JButton scenarioP;
     JButton scenarioQ;
+    JButton scenarioR;
     // Trace Panel
     TracePanel tracePanel;
     // Selection for Trace Panel
@@ -298,7 +299,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
 			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
 			scenarioQ.addActionListener(getActionListener("Q_Person_Crash.txt"));
-			scenarioR.addActionListener(getActionListener(""));
+			scenarioR.addActionListener(getActionListener("R_Weekend.txt"));
 			scenarioS.addActionListener(getActionListener("S_Firing.txt"));
 	}
 	
@@ -324,6 +325,28 @@ public class CityControlPanel extends JPanel implements ActionListener{
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
+				}
+				if (e.getSource() == scenarioR) {
+					ContactList.sOpenPlaces.put (ContactList.cBANK1_LOCATION, false);
+					ContactList.sOpenPlaces.put (ContactList.cBANK2_LOCATION, false);
+					ContactList.sOpenBuildings.put("B1", false);
+					ContactList.sOpenBuildings.put("B2", false)
+					Inspection.sClosedImages.get(ContactList.cBANK1_LOCATION).enable();
+					Inspection.sClosedImages.get(ContactList.cBANK2_LOCATION).enable();
+					
+					ContactList.sOpenPlaces.put (ContactList.cMARKET1_LOCATION, false);
+					ContactList.sOpenBuildings.put("M1", false);
+					Inspection.sClosedImages.get(ContactList.cMARKET1_LOCATION).enable();
+					
+					ContactList.sOpenPlaces.put (ContactList.cRESTAURANT_LOCATIONS.get(3), false);
+					ContactList.sOpenPlaces.put (ContactList.cRESTAURANT_LOCATIONS.get(5), false);
+					ContactList.sOpenPlaces.put (ContactList.cRESTAURANT_LOCATIONS.get(7), false);
+					ContactList.sOpenBuildings.put("R3", false);
+					ContactList.sOpenBuildings.put("R5", false);
+					ContactList.sOpenBuildings.put("R7", false);
+					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(3)).enable();
+					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(5)).enable();
+					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(7)).enable();
 				}
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
