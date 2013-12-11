@@ -98,7 +98,6 @@ public class WaiterGui implements Gui {
     }
 
     public void updatePosition() {
-    	if(!onFire){
         if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
@@ -133,7 +132,6 @@ public class WaiterGui implements Gui {
         		& (xDestination == CASHIER_X) & (yDestination == CASHIER_Y)) {
         	agent.msgAtCashier();
         }
-    	}
     }
 
     public void draw(Graphics2D g) {
