@@ -108,6 +108,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 
 	/* Actions */
 	private void CollectRent(){
+		print("CollectRent");
 		synchronized (mRenterList) {
 			Iterator<MyRenter> itr = mRenterList.iterator();
 			while (itr.hasNext()) {

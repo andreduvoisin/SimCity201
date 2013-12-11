@@ -76,7 +76,7 @@ public class ConfigParser {
 					person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 0));
 				}
 				else if (name.contains("landlord"))
-					person.msgAddEvent(new Event(EnumEventType.ASK_FOR_RENT, 1));
+					person.msgAddEvent(new Event(EnumEventType.ASK_FOR_RENT, 5));
 				else if(name.contains("bankcust"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 				else if(name.contains("restcust"))
