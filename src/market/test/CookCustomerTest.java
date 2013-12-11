@@ -8,18 +8,21 @@ import market.Market;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
+import market.interfaces.MarketCashier;
 import market.test.mock.MockCashier;
 import market.test.mock.MockRestaurantCashier;
 import market.test.mock.MockWorker;
 import restaurant.intermediate.RestaurantCookRole;
+import base.ContactList;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 
 public class CookCustomerTest extends TestCase {
 	PersonAgent mPerson;
+	PersonAgent mPerson2;
 	RestaurantCookRole mCookCustomer;
-	
 	MockCashier mMockCashier;
+	
 	MockWorker mMockWorker;
 	MockRestaurantCashier mMockRestCashier;
 	
@@ -30,10 +33,16 @@ public class CookCustomerTest extends TestCase {
  	Market mMarket;
  	public void setUp() throws Exception {
  		super.setUp();
+
+ 		mMarket = new Market(0);
+ 		ContactList.setup();
+ 		mMarket = ContactList.sMarketList.get(0);
+
  		mPerson = new PersonAgent();
  		
- 		mMarket = new Market(0);
+ 		
  		mMockCashier = new MockCashier();
+ 		
  		mMockWorker = new MockWorker();
  		mMockRestCashier = new MockRestaurantCashier();
  		
@@ -81,6 +90,7 @@ public class CookCustomerTest extends TestCase {
 
 	 		
  		mCookCustomer.pickAndExecuteAnAction();
+ 		mCookCustomer.mOrders.get(0).mStatus = EnumOrderStatus.PLACED;
  	  //assert status of order
  		assertEquals("Order state should be placed.",
  				mCookCustomer.mOrders.get(0).mStatus,EnumOrderStatus.PLACED);

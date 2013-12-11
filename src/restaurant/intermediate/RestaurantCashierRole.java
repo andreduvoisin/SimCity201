@@ -77,7 +77,7 @@ public class RestaurantCashierRole extends BaseRole implements RestaurantCashier
 					JerrywebRestaurant.cashier = (JerrywebCashierRole) subRole;
 				}
 				else {
-					subRole = MaggiyanRestaurant.mCashier;
+					subRole = JerrywebRestaurant.cashier;
 				}
 				break;
 			case 3: //maggi

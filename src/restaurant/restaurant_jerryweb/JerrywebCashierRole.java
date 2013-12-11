@@ -104,7 +104,7 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 	public JerrywebCashierRole(Person person, RestaurantCashierRole rcr) {
 		super(person);
 		mRole = rcr;
-		 name = person.getName();
+		name = person.getName();
 		foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 0, 15.99));
 		foodMap.put("chicken",new Food("chicken", FoodState.delivered, 12000, 7, 0, 10.99));
 		foodMap.put("salad",new Food("salad", FoodState.delivered, 2000, 10, 1, 5.99));

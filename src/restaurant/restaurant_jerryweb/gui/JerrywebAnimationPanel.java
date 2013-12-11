@@ -83,7 +83,7 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
         //mInstance = this;
         //bufferSize = this.getSize();
         //mCustomers = new Vector<JerrywebCustomerRole>();
-    	Timer timer = new Timer(Time.cSYSCLK/10, this );
+    	Timer timer = new Timer(Time.cSYSCLK/35, this );
     	timer.start();
     	
     	background = null;
