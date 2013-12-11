@@ -78,7 +78,7 @@ public abstract class SimCityPanel extends JPanel implements ActionListener, Mou
 			}
 		}
 		
-		if (mCrashScenario == EnumCrashType.NONE) {
+		if (mCrashScenario == EnumCrashType.NONE && SimCityGui.GRADINGVIEW) {
 			synchronized (intersections) {
 				for (CityIntersection c : intersections) {
 					c.paint(g);

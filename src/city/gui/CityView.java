@@ -113,7 +113,6 @@ public class CityView extends JPanel implements MouseListener, ActionListener {
 			mCityHousingList.add(newHouse);
 		}
 
-		layout.show(this, "null");
 	}
 	
 	public boolean addView(CityCard panel, String key) {
