@@ -87,6 +87,7 @@ public class MockWaiter extends Mock implements Waiter{
 		log.add(new LoggedEvent("Recieved the TakeFood message."));
 	}
 	
+	@SuppressWarnings("unused")
 	private void seatCustomer(MyCustomer customer) {
 		log.add(new LoggedEvent("Executing the seatCustomer for customer " + customer.getCustomer().getName()));
 	}

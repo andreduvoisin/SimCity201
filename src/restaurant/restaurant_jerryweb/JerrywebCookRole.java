@@ -83,6 +83,7 @@ public class JerrywebCookRole extends BaseRole {
 	{ordered, delivered}
 	
 	private String name;
+	@SuppressWarnings("unused")
 	private Semaphore atTable = new Semaphore(semaphoreCerts,true);
 
 	public JerrywebCookRole(Person p, RestaurantCookRole r){ 

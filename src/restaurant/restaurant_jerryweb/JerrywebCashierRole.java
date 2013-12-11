@@ -96,6 +96,7 @@ public class JerrywebCashierRole extends BaseRole implements Cashier {
 	{waiting, seated, doneEating}
 	
 	private String name;
+	@SuppressWarnings("unused")
 	private Semaphore atTable = new Semaphore(semaphoreCerts,true);
 
 	public HostGui hostGui = null;

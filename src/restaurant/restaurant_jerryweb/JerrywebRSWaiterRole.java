@@ -105,6 +105,7 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 		return name;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getWaitingCustomers() {
 		return Customers;
 	}

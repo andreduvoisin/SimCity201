@@ -2,8 +2,10 @@ package restaurant.restaurant_jerryweb.test;
 
 import base.ContactList;
 import base.PersonAgent;
+
 import base.interfaces.Person;
 import base.interfaces.Role;
+
 import junit.framework.TestCase;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;

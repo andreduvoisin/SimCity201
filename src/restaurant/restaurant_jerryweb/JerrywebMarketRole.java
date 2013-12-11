@@ -68,7 +68,8 @@ public class JerrywebMarketRole extends BaseRole implements Market {
 	//private Semaphore atTable = new Semaphore(semaphoreCerts,true);
 
 	//public HostGui hostGui = null;
-    private Semaphore inTransit = new Semaphore(0, true);
+    @SuppressWarnings("unused")
+	private Semaphore inTransit = new Semaphore(0, true);
 
 	public JerrywebMarketRole(Person person) {
 		super(person);
