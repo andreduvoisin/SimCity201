@@ -36,7 +36,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToItem, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
 	
-	private Semaphore gettingItem = new Semaphore(0,true);
+	public Semaphore gettingItem = new Semaphore(0,true);
 	
 	BufferedImage image;
 	
@@ -57,7 +57,7 @@ public class MarketWorkerGui implements MarketBaseGui {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	fireImage = null;
     	try {
@@ -65,7 +65,7 @@ public class MarketWorkerGui implements MarketBaseGui {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 	

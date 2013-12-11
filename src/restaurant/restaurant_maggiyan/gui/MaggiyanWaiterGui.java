@@ -62,7 +62,7 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     }
     
@@ -116,7 +116,7 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
 //        			if(xPos != prevXPos){
 //        				prevXPos = xPos;
 //        				prevYPos = yPos;
-//                		System.out.println("Release animation"); 
+//                		//System.out.println("Release animation"); 
 //                		agent.msgAnimationReady(); 
 //                	}
         			agent.msgReachedKitchen(); 
@@ -133,7 +133,7 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
         if (xPos == -20 && yPos == -20 && atStart == false)
         {
 //        	if(xPos != prevXPos && yPos != prevYPos){
-//        		System.out.println("Release animation"); 
+//        		//System.out.println("Release animation"); 
 //        		agent.msgAnimationReady(); 
 //        	}
         	atStart = true;

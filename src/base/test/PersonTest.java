@@ -52,7 +52,7 @@ public class PersonTest extends TestCase{
 	
 	
 //	private void print(String message){
-//		System.out.println("[PersonTest] " + message);
+//		//System.out.println("[PersonTest] " + message);
 //	}
 }
 

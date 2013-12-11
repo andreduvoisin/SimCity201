@@ -37,6 +37,15 @@ public class DeliveryTruckTest extends TestCase {
  		mItems.put(EnumItemType.CHICKEN, 3);
  		mItems.put(EnumItemType.STEAK, 1);
  		mOrder = new MarketOrder(mItems,mMockCookCustomer);
+ 		
+ 		//byapss animation
+ 		PersonAgent p = (PersonAgent)mDeliveryTruck.getPerson();
+ 		p.msgAnimationDone();
+ 		p.msgAnimationDone();
+ 		p.msgAnimationDone();
+ 		p.msgAnimationDone();
+ 		p.msgAnimationDone();
+
  	}
  	
  	/**
@@ -44,16 +53,22 @@ public class DeliveryTruckTest extends TestCase {
  	 */
  	public void testDeliveryTruck() {
  		//assert preconditions
- 		
+ 		assertEquals("Delivery truck has no deliveries.",
+ 				mDeliveryTruck.mPendingDeliveries.size(),0);
+ 		assertEquals("Delivery truck has no pending deliveries.",
+ 				mDeliveryTruck.mDeliveries.size(),0);
  		mDeliveryTruck.msgDeliverOrderToCook(mOrder);
  		//assert size of pending deliveries
  		assertEquals("Delivery truck should have one pending order.",
  				mDeliveryTruck.mPendingDeliveries.size(),1);
  		
  		mDeliveryTruck.pickAndExecuteAnAction();
- 		PersonAgent p = (PersonAgent)mDeliveryTruck.getPerson();
- 		p.msgAnimationDone();
- 		
- 		
+ 		//assert size of deliveries
+ 		assertEquals("Delivery truck should have one order.",
+ 				mDeliveryTruck.mDeliveries.size(),1);
+ 		//assert size of pending deliveries
+ 		assertEquals("Delivery truck should have no pending orders.",
+ 				mDeliveryTruck.mPendingDeliveries.size(),0);
+ 
  	}
 }

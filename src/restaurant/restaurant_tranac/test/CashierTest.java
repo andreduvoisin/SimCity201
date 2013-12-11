@@ -42,7 +42,7 @@
 //	 * Tests the cashier paying one market bill.
 //	 */
 //	public void testOneMarket() {
-//		System.out.println("One Market");
+//		//System.out.println("One Market");
 //	  //create info for bill
 //		String item = "mockItem";
 //		double cost = 15;
@@ -82,7 +82,7 @@
 //	 * Tests the cashier paying two market bills.
 //	 */
 //	public void testTwoMarkets() {
-//		System.out.println("Two Markets");
+//		//System.out.println("Two Markets");
 //	  //create info for bills
 //		String item = "mockItem";
 //		double cost = 15;
@@ -159,7 +159,7 @@
 //	 */
 //	public void testOneCustomerOneWaiter()
 //	{
-//		System.out.println("One Customer");
+//		//System.out.println("One Customer");
 //	  //create info for check
 //		String item = "Steak";
 //		double cost = 15.99;
@@ -213,7 +213,7 @@
 //	 */
 //	public void testTwoCustomersOneWaiter()
 //	{
-//		System.out.println("Two Customers");
+//		//System.out.println("Two Customers");
 //	  //create second customer and waiter
 //		TranacMockCustomer customer2 = new TranacMockCustomer();
 //	  //create test items
@@ -323,7 +323,7 @@
 //	 */
 //	public void testFlakeCustomerScenario()
 //	{
-//		System.out.println("One Flake");
+//		//System.out.println("One Flake");
 //	  //create info for check
 //		String item = "Steak";
 //		double cost = 15.99;
@@ -378,7 +378,7 @@
 //	 */
 //	public void testTwoCustomersTwoWaiters()
 //	{
-//		System.out.println("One Regular, One Flake");
+//		//System.out.println("One Regular, One Flake");
 //  	  //create second customer and waiter
 //		TranacMockCustomer customer2 = new TranacMockCustomer();
 //		TranacMockWaiter waiter2 = new TranacMockWaiter();
@@ -488,7 +488,7 @@
 //	 */
 //	public void testFullInteraction()
 //	{
-//		System.out.println("Full Scenario");
+//		//System.out.println("Full Scenario");
 //	  //create second customer
 //		TranacMockCustomer customer2 = new TranacMockCustomer();
 //	  //create test items
@@ -629,7 +629,7 @@
 //	 * Tests if a cashier cannot fulfill a market bill.
 //	 */
 //	public void testBrokeCashier() {
-//		System.out.println("Bankrupt Restaurant");
+//		//System.out.println("Bankrupt Restaurant");
 //	  //set money
 //	//	cashier.setMoney(0.0);
 //	  //create test items
@@ -638,7 +638,7 @@
 //		String item2 = "mockItem";
 //		double cost2 = 10;
 //	  //check preconditions
-////		System.out.println(cashier.money);
+////		//System.out.println(cashier.money);
 //		assertEquals("Cashier should have 0 checks. It doesn't.",cashier.getNumChecks(), 0);
 ////		assertEquals("Cashier should have no money. It doesn't.",cashier.money,0.0);
 //		assertEquals("Cashier should have 0 bills. It doesn't.",cashier.getNumBills(), 0);

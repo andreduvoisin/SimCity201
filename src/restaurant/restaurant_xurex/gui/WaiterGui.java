@@ -47,7 +47,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	fireImage = null;
     	try {
@@ -55,7 +55,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
         //TABLES
         places.put(new Integer(1), new Point(200,150));

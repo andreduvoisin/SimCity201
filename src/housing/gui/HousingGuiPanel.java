@@ -70,7 +70,7 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	//hack for person
@@ -80,7 +80,7 @@ public class HousingGuiPanel extends CityCard implements ActionListener {
 //    	person = ImageIO.read(imageURL);
 //    	}
 //    	catch (IOException e) {
-//    		System.out.println(e.getMessage());
+//    		//System.out.println(e.getMessage());
 //    	}
 
 	}

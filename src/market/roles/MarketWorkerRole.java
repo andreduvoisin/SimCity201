@@ -28,7 +28,7 @@ import city.gui.trace.AlertTag;
  */
 
 public class MarketWorkerRole extends BaseRole implements MarketWorker {
-	MarketWorkerGui mGui;
+	public MarketWorkerGui mGui;
 	Semaphore inTransit = new Semaphore(0,true);
 	public Market mMarket;
 	int mMarketID;

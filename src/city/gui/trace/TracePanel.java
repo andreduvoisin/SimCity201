@@ -179,7 +179,7 @@ public class TracePanel extends JScrollPane implements AlertListener {
 		for(Alert alert:alerts) {
 			if(visibleTags.contains(alert.tag) && visibleLevels.contains(alert.level)) {
 				newAlerts.add(alert);
-				//System.out.println("Adding Alert: " + alert.name + alert.level + alert.tag);
+				////System.out.println("Adding Alert: " + alert.name + alert.level + alert.tag);
 			}
 		}
 

@@ -1,11 +1,8 @@
 package restaurant.restaurant_tranac.test;
 
-import java.util.concurrent.Semaphore;
-
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacWaiterBase;
 import restaurant.restaurant_tranac.roles.TranacWaiterBase.CustomerState;
-import restaurant.restaurant_tranac.roles.TranacWaiterBase.MyCustomer;
 import restaurant.restaurant_tranac.roles.TranacWaiterRSRole;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 import restaurant.restaurant_tranac.test.mock.TranacMockCook;
@@ -37,10 +34,12 @@ public class WaiterTest extends TestCase {
 		waiter = new TranacWaiterRole(person);
 		waiter.setCook(cook);
 		//bypass animation
-		waiter.inTransit = new Semaphore(1000000000,true);
+		waiter.msgAnimationDone();
+		waiter.msgAnimationDone();
+		waiter.msgAnimationDone();
 		
 		//add customer to waiter so he has an order to send
-		waiter.addCustomer(customer,0,0,CustomerState.Ordered);
+		waiter.addCustomer(customer,1,1,CustomerState.Ordered);
 		
 		//send order to cook;
 		waiter.pickAndExecuteAnAction();
@@ -48,30 +47,49 @@ public class WaiterTest extends TestCase {
 		assertTrue("Cook should have received the message.",
 				cook.log.containsString("Received msgHereIsOrder."));
 		
-		//send msg of order to waiter
-		waiter.msgOrderDone("Food",0,0);
-		//assert waiter changed order to done
+		//send order to waiter
+		waiter.msgOrderDone("Food",1,1);
+	//assert waiter changed order to done
 		assertEquals(waiter.customers.get(0).s,CustomerState.FoodDone);
+	
+		//send order to customer
+		waiter.pickAndExecuteAnAction();
+	  //assert customer receives message
+		assertTrue("Customer should receive message from waiter.",
+				customer.log.containsString("Received msgHereIsFood."));
 	}
 	
 	public void testRevolvingStandWaiter() {
 		waiter = new TranacWaiterRSRole(person);
 		waiter.setCook(cook);
 		//bypass animation
-		waiter.inTransit = new Semaphore(1000000000,true);
+		waiter.msgAnimationDone();
+		waiter.msgAnimationDone();
+		waiter.msgAnimationDone();
 		
 		//add customer to waiter so he has an order to send
-		waiter.addCustomer(customer,0,0,CustomerState.Ordered);
+		waiter.addCustomer(customer,1,1,CustomerState.Ordered);
+	 //assert waiter has a customer
+		assertEquals("Waiter should have one customer.",waiter.customers.size(), 1);
 		
 		//send order to cook;
 		waiter.pickAndExecuteAnAction();
 	 //assert cook has an order
 		assertTrue("Cook should have added an order to its stand.",
 				cook.log.containsString("Waiter added role to stand."));
+	 //assert customer state
+		assertEquals(waiter.customers.get(0).s,CustomerState.WaitingForFood);
+	
 		
-		//send msg of order to waiter
-		waiter.msgOrderDone("Food",0,0);
-		//assert waiter changed order to done
+		//send order to waiter
+		waiter.msgOrderDone("Food",1,1);
+	//assert waiter changed order to done
 		assertEquals(waiter.customers.get(0).s,CustomerState.FoodDone);
+	
+		//send order to customer
+		waiter.pickAndExecuteAnAction();
+	  //assert customer receives message
+		assertTrue("Customer should receive message from waiter.",
+				customer.log.containsString("Received msgHereIsFood."));
 	}
 }

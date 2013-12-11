@@ -8,7 +8,6 @@ import market.Market;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
-import market.interfaces.MarketCashier;
 import market.test.mock.MockCashier;
 import market.test.mock.MockRestaurantCashier;
 import market.test.mock.MockWorker;
@@ -59,7 +58,6 @@ public class CookCustomerTest extends TestCase {
  	/**
  	 * Test cook customer for a completed order from coder's restaurant.
  	 */
- 	//ANGELICA add in restaurant cashire mesage
  	public void testTranacRestaurant() {
  	  //set up the test
  		

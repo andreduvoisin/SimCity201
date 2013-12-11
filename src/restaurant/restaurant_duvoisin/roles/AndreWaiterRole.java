@@ -171,7 +171,6 @@ public class AndreWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgAtTable() { //from animation
-		print("msgAtTable() called");
 		atTable.release();
 		stateChanged();
 	}

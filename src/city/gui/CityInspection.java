@@ -32,7 +32,7 @@ public class CityInspection extends CityComponent {
     		image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	disable();
 	}
@@ -50,7 +50,7 @@ public class CityInspection extends CityComponent {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	disable();
 	}
@@ -67,7 +67,7 @@ public class CityInspection extends CityComponent {
 		if (isActive) {
 			/*
 			g.setColor(Color.BLACK);
-			System.out.println("x: "+x+" y: "+y);
+			//System.out.println("x: "+x+" y: "+y);
 			g.fillRect(x, y, span, span);*/
 			g.drawImage(image, x, y, null);
 		}

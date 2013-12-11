@@ -44,9 +44,22 @@ public class WorkerTest extends TestCase {
 		mMockCustomer = new MockCustomer();		
 		mMockCookCustomer = new MockCookCustomer();
 		mMockDeliveryTruck = new MockDeliveryTruck();
+		
+		mMarket.mDeliveryTruck = mMockDeliveryTruck;
 
 		mItems.put(EnumItemType.CHICKEN, 3);
 		mItems.put(EnumItemType.STEAK, 1);
+		
+		//bypass animation
+		mWorker.msgAnimationAtCustomer();
+		mWorker.msgAnimationAtDeliveryTruck();
+		mWorker.msgAnimationAtMarket();
+		mWorker.msgAnimationLeftMarket();
+
+		mWorker.mGui.gettingItem.release();
+		mWorker.mGui.gettingItem.release();
+		mWorker.mGui.gettingItem.release();
+		mWorker.mGui.gettingItem.release();
 	}
 	
 /** 
@@ -54,7 +67,7 @@ public class WorkerTest extends TestCase {
  * for a regular customer.
  */
 	public void testWorkerCustomer() {
-		System.out.println("Test Worker Functions");
+		//System.out.println("Test Worker Functions");
 	  //create order; set state of
 	  //order to beginning of worker obligations
 		mOrder = new MarketOrder(mItems, mMockCustomer);
@@ -66,7 +79,7 @@ public class WorkerTest extends TestCase {
 		assertEquals("Worker should have 0 orders.",
 				mWorker.getNumOrders(), 0);
 		assertEquals("Order state should be paid.",
-				mOrder.mStatus, EnumOrderStatus.PAID);
+				mOrder.mStatus, EnumOrderStatus.SENT);
 		assertEquals("Order event should be none.",
 				mOrder.mEvent, EnumOrderEvent.NONE);
 		
@@ -77,7 +90,6 @@ public class WorkerTest extends TestCase {
 	  //assert order event
 		assertEquals("Order event should be order paid.",
 				mWorker.getOrder(0).mEvent, EnumOrderEvent.ORDER_PAID);
-		System.out.println("test");
 
 		mWorker.pickAndExecuteAnAction();
 	  //assert order state
@@ -108,7 +120,7 @@ public class WorkerTest extends TestCase {
 	 * for a cook customer
 	 */
 		public void testWorkerCookCustomer() {
-			System.out.println("Test Worker Functions");
+			//System.out.println("Test Worker Functions");
 		  //create order; set state of order to beginning of
 		  //worker obligations; 
 			mOrder = new MarketOrder(mItems, mMockCookCustomer);

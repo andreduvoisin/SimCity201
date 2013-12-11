@@ -292,7 +292,7 @@ public class PersonAgent extends Agent implements Person {
 				Collections.sort((mEvents));
 			}
 			if(mEvents.isEmpty()) {
-//				System.out.println("test");
+//				//System.out.println("test");
 				return false;
 			}
 			Event event = mEvents.get(0); //next event

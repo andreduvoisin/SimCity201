@@ -51,7 +51,7 @@ public class CookGui implements Gui, CookGui_ {
     		image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     }
 

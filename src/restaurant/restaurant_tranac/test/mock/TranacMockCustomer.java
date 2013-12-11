@@ -44,7 +44,9 @@ public class TranacMockCustomer extends Mock implements TranacCustomer {
 	
 	public void msgOutOfChoice() {	}
 	
-	public void msgHereIsFood() {	}
+	public void msgHereIsFood() {
+		log.add(new LoggedEvent("Received msgHereIsFood."));
+	}
 	
 	public void msgDoneEating() {	}
 	

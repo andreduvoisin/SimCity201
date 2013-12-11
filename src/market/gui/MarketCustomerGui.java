@@ -52,7 +52,7 @@ public class MarketCustomerGui implements MarketBaseGui {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 	

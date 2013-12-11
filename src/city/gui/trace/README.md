@@ -34,7 +34,7 @@ Where the tag is a label that you use to group the message, the name is the name
 ###The Trace Panel
 The other big feature of these classes is the TracePanel.  It takes events that have been logged in the AlertLog and displays them (much like the console in eclipse) nicely formatted with timestamps, sender names, and coloring.  You can see documentation on how to use it in the city demo, as well as the demo in the trace package.  Using it is relatively straightforward, as much of the behind-the-scenes management of the Alerts is taken care of internally.  You can simply instantiate it and then use it like any other JPanel.
 
-The biggest feature of this panel over simply writing everything with System.out.println() is the ability to filter the content.  You can tell the TracePanel to only display ERRORs and WARNINGs, or to hide all messages tagged with BANK\_CUSTOMER, or show messages tagged with PERSON\_HOUSE\_ROLE, etc.  You can sort by Level and by Tag, presuming that you have set up more enum values in AlertTag.  
+The biggest feature of this panel over simply writing everything with //System.out.println() is the ability to filter the content.  You can tell the TracePanel to only display ERRORs and WARNINGs, or to hide all messages tagged with BANK\_CUSTOMER, or show messages tagged with PERSON\_HOUSE\_ROLE, etc.  You can sort by Level and by Tag, presuming that you have set up more enum values in AlertTag.  
 
 **NOTE: An alert will only be printed if its AlertLevel is enabled, AND its AlertTag is not hidden!  By default, all levels are enabled, but none of the tags are.**
 

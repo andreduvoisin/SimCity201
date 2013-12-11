@@ -39,7 +39,7 @@ public class BankGuardGui implements Gui {
     		bankguardimage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	fireImage = null;
     	try {
@@ -47,7 +47,7 @@ public class BankGuardGui implements Gui {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 

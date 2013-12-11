@@ -63,7 +63,7 @@ public class BankCustomerGui implements Gui {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	mBank = ContactList.sBankList.get(bc.getBankID());
@@ -150,7 +150,7 @@ public class BankCustomerGui implements Gui {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 		timer.schedule(new TimerTask(){
 			public void run(){

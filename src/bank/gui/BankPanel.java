@@ -66,7 +66,7 @@ public class BankPanel extends CityCard implements ActionListener{
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 	

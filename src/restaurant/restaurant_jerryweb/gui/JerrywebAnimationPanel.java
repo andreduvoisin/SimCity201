@@ -92,7 +92,7 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
     	background = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     }
     /*
