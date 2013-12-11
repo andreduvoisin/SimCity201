@@ -570,7 +570,7 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 		super.print(msg, AlertTag.R3, e);
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		waiterGui.setFired(true);
 		
 		mPerson.msgRoleFinished();

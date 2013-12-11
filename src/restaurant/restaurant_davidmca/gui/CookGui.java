@@ -3,6 +3,7 @@ package restaurant.restaurant_davidmca.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import city.gui.SimCityGui;
 import restaurant.restaurant_davidmca.interfaces.Cook;
 import base.Gui;
 
@@ -45,7 +46,12 @@ public class CookGui implements Gui {
 	public void draw(Graphics2D g) {
 		g.setColor(Color.RED);
 		g.fillRect(xPos, yPos, CookSize, CookSize);
-		g.setColor(Color.BLACK);
+		 if (SimCityGui.TESTING) {
+         	g.setColor(Color.BLACK);
+		 }
+         else {
+         	g.setColor(Color.WHITE);
+         }
 		g.drawString(labelText, xPos, yPos);
 		g.setColor(Color.BLACK);
 		g.fillRect(xPos+CookSize, yPos+CookSize, FoodSize, FoodSize);

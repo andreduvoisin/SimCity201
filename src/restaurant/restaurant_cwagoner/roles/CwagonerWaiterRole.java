@@ -418,7 +418,7 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 		host = h;
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		gui.setFired(true);
 		
 		mPerson.msgRoleFinished();

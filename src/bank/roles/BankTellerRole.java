@@ -225,7 +225,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		super.print(msg, AlertTag.BANK, e);
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		mGUI.setFired(true);
 		
 		mPerson.msgRoleFinished();

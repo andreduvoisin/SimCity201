@@ -556,7 +556,7 @@ public class JerrywebWaiterRole extends BaseRole implements Waiter {
 		super.print(msg, AlertTag.R2, e);
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		waiterGui.setFired(true);
 		
 		mPerson.msgRoleFinished();
