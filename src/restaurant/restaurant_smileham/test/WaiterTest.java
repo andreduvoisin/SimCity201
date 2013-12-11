@@ -18,7 +18,9 @@ public class WaiterTest extends TestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		person = new PersonAgent();
-		
+		//waiter is different for each test
+		cook = new SmilehamMockCook("cook");
+		customer = new SmilehamMockCustomer("customer");
 		
 	}
 	
