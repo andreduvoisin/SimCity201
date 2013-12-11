@@ -26,4 +26,6 @@ public interface SmilehamCook {
 	public abstract CookGui getGui();
 	public abstract String toString();
 
+	public abstract void addOrderToStand(Order order);
+
 }

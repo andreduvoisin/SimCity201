@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import city.gui.trace.AlertLog;
+import city.gui.trace.AlertTag;
 import base.interfaces.Person;
 
 /*
@@ -106,6 +108,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 
 	/* Actions */
 	private void CollectRent(){
+		print("CollectRent");
 		synchronized (mRenterList) {
 			Iterator<MyRenter> itr = mRenterList.iterator();
 			while (itr.hasNext()) {

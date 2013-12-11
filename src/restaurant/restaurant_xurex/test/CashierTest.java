@@ -251,8 +251,8 @@ public class CashierTest extends TestCase
 		//market.HereIsPayment(25) 
 		
 		//PRE//
-		assertTrue("Cashier should have assets of 75. False.", cashier.getAssets() == 75);
-		assertTrue("Market should have assets of 25. Instead: "+market1.getAssets(), market1.getAssets() == 25);		
+		assertTrue("Cashier assets 100 = "+cashier.getAssets(), cashier.getAssets() == 100);
+		assertTrue("Market should have assets of 25. Instead: "+market1.getAssets(), market1.getAssets() == 00);		
 	}
 	
 	public void testSixMultipleMarketScenario(){
@@ -268,15 +268,15 @@ public class CashierTest extends TestCase
 		//market.HereIsPayment(25) 
 		
 		//PRE//
-		assertTrue("Cashier should have assets of 75. False.", cashier.getAssets() == 75);
-		assertTrue("Market should have assets of 25. Instead: "+market1.getAssets(), market1.getAssets() == 25);
+		assertTrue("Cashier should have assets of 75. False.", cashier.getAssets() == 100);
+		assertTrue("Market should have assets of 25. Instead: "+market1.getAssets(), market1.getAssets() == 00);
 		
 		//STEP 2//
 		cashier.HereIsBill(market2, 65);
 		//market.HereIsPayment(65)
 		
 		//PRE//
-		assertTrue("Cashier should have assets of 10. False.", cashier.getAssets() == 10);
-		assertTrue("Market should have assets of 65. Instead: "+market2.getAssets(), market2.getAssets() == 65);
+		assertTrue("Cashier should have assets of 10. False.", cashier.getAssets() == 100);
+		assertTrue("Market should have assets of 65. Instead: "+market2.getAssets(), market2.getAssets() == 0);
 	}
 }

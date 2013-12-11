@@ -10,11 +10,7 @@ import java.util.concurrent.Semaphore;
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.gui.CwagonerAnimationPanel;
 import restaurant.restaurant_cwagoner.gui.CwagonerWaiterGui;
-import restaurant.restaurant_cwagoner.interfaces.CwagonerCashier;
-import restaurant.restaurant_cwagoner.interfaces.CwagonerCook;
-import restaurant.restaurant_cwagoner.interfaces.CwagonerCustomer;
-import restaurant.restaurant_cwagoner.interfaces.CwagonerHost;
-import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
+import restaurant.restaurant_cwagoner.interfaces.*;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole.Order;
 import base.BaseRole;
 import base.ContactList;
@@ -43,10 +39,6 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 	
 	
 	// DATA
-
-	CwagonerHost host;
-	CwagonerCook cook;
-	CwagonerCashier cashier;
 	
 	private HashMap<String, Integer> menu = new HashMap<String, Integer>();
 	
@@ -258,13 +250,13 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 		gui.DoGoToCashier();
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
-		if (c.food != "") cashier.msgCustomerOrdered(this, c.customer, c.food);
+		if (c.food != "") CwagonerRestaurant.cashier.msgCustomerOrdered(this, c.customer, c.food);
 		
 		gui.DoGoToTable(c.tableNum);
 		try { animationFinished.acquire(); } catch (InterruptedException e) {}
 		
 		c.customer.msgAcknowledgeLeaving();
-		host.msgCustomerGoneTableEmpty(c.customer, c.tableNum);
+		CwagonerRestaurant.host.msgCustomerGoneTableEmpty(c.customer, c.tableNum);
 		
 		Customers.remove(c);
 		gui.DoGoToHomePosition();
@@ -368,18 +360,6 @@ public class CwagonerSharedWaiterRole extends BaseRole implements CwagonerWaiter
 	
 	public void setGui(CwagonerWaiterGui waiterGui) {
 		gui = waiterGui;
-	}
-
-	public void setHost(CwagonerHost h) {
-		host = h;
-	}
-
-	public void setCook(CwagonerCook cook) {
-		this.cook = cook;
-	}
-	
-	public void setCashier(CwagonerCashier cashier) {
-		this.cashier = cashier;
 	}
 
 	// For host to determine which waiter has fewest customers

@@ -128,7 +128,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		print("Message: msgSitAtTable()");
 		mTableNum = tableNum;
 		mMenu = menu;
-		mWaiter = (SmilehamWaiterRole) waiter;
+		mWaiter = (SmilehamWaiterBase) waiter;
 		mEvent = EnumAgentEvent.followHost;
 		stateChanged();
 	}
