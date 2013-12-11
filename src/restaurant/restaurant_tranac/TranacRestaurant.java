@@ -20,9 +20,9 @@ public class TranacRestaurant {
 	public static TranacRestaurant instance;
 	public static List<Gui> guis = Collections.synchronizedList(new ArrayList<Gui>());
 	
-    public static TranacCashier mCashier;
-    public static TranacCook mCook;
-    public static TranacHost mHost;
+    public static TranacCashierRole mCashier;
+    public static TranacCookRole mCook;
+    public static TranacHostRole mHost;
       
     public static Vector<TranacWaiterBase> mWaiters = new Vector<TranacWaiterBase>();
     public static Vector<TranacCustomerRole> mCustomers = new Vector<TranacCustomerRole>();
@@ -68,15 +68,15 @@ public class TranacRestaurant {
     	return mWaiters.size();
     }
     
-    public static TranacCashier getCashier(){
+    public static TranacCashierRole getCashier(){
     	return mCashier;
     }
     
-    public static TranacCook getCook(){
+    public static TranacCookRole getCook(){
     	return mCook;
     }
     
-    public static TranacHost getHost(){
+    public static TranacHostRole getHost(){
     	return mHost;
     }
 }

@@ -48,7 +48,8 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		TranacRestaurant.addGui(waiterGui);
 		
 		mHost = TranacRestaurant.getHost();
-		mHost.addWaiter(this);
+		if(mHost != null)
+			mHost.addWaiter(this);
 		mCook = TranacRestaurant.getCook();
 		mCashier = TranacRestaurant.getCashier();
 	}

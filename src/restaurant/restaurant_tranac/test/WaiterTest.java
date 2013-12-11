@@ -32,8 +32,6 @@ public class WaiterTest extends TestCase {
 		cook = new TranacMockCook();
 		customer = new TranacMockCustomer();
 		
-		restaurant.mHost = host;
-		restaurant.mCook = cook;
 	}
 	
 	public void testRegularWaiter() {
@@ -42,6 +40,7 @@ public class WaiterTest extends TestCase {
 		//bypass animation
 		waiter.inTransit = new Semaphore(1000000000,true);
 	 ///assert preconditions
+		
 		
 		//add customer to waiter so he has an order to send
 		waiter.addCustomer(customer,0,0,CustomerState.Ordered);
@@ -59,9 +58,14 @@ public class WaiterTest extends TestCase {
 	
 	public void testRevolvingStandWaiter() {
 		waiter = new TranacWaiterRSRole(person);
-		//assert waiter has an order to send to the cook
+		waiter.setCook(cook);
+		//bypass animation
+		waiter.inTransit = new Semaphore(1000000000,true);
+	 ///assert preconditions
 		
-		//send order to cook
+		
+		//add customer to waiter so he has an order to send
+		waiter.addCustomer(customer,0,0,CustomerState.Ordered);
 		
 		//assert cook has order
 		
