@@ -56,6 +56,7 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 
 	//GUI
 	private CookGui mCookGui;
+	@SuppressWarnings("unused")
 	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
@@ -271,6 +272,7 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 			cookingTime*1000);
 		}
 		
+		@SuppressWarnings("unused")
 		private void plateFood(Food food){
 			print("Done cooking: " + food.toString());
 			

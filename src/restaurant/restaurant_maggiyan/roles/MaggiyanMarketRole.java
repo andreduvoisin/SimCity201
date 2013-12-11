@@ -23,7 +23,9 @@ import city.gui.trace.AlertTag;
 public class MaggiyanMarketRole extends BaseRole implements MaggiyanMarket{
 	private String n; 
 	private int maxINVENTORY = 4; 
+	@SuppressWarnings("unused")
 	private MaggiyanCashier cashier; 
+	@SuppressWarnings("unused")
 	private MaggiyanCook cook; 
 	//private List<MarketOrder> marketOrders = Collections.synchronizedList(new ArrayList<MarketOrder>()); 
 	public enum state {idle, fulfillingOrder};

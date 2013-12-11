@@ -283,7 +283,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		// Dimensions of Buttons
 			Dimension buttonDim = scenarioA.getPreferredSize();
-			buttonDim.height -= 4;
+			buttonDim.height -= 7;
 			buttonDim.width = 180;
 			scenarioA.setPreferredSize(buttonDim);
 			scenarioB.setPreferredSize(buttonDim);
@@ -301,7 +301,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioR.setPreferredSize(buttonDim);
 			scenarioS.setPreferredSize(buttonDim);
 		
-		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
+		// Action Listeners.
 			scenarioA.addActionListener(getActionListener("A_all_inspect1.txt"));
 			scenarioB.addActionListener(getActionListener("B_all_inspect3.txt"));
 			scenarioC.addActionListener(getActionListener("C_Market_Cook_Cashier.txt"));
@@ -550,7 +550,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initPeople() {
 		Dimension size = new Dimension(90, 20);
-		Dimension preferred = new Dimension(180, 20);
+		Dimension preferred = new Dimension(180, 15);
 
 		peopleLabel = new JLabel("Create a Person:");
 		peopleLabel.setPreferredSize(preferred);

@@ -11,15 +11,18 @@ import base.Gui;
 
 public class HostGui implements Gui {
 
-    private SmilehamHostRole mHostAgent;
+    @SuppressWarnings("unused")
+	private SmilehamHostRole mHostAgent;
     private static final int cPOS_DEFAULT_X = -20;
     private static final int cPOS_DEFAULT_Y = -20;
     private static final int cHOST_LENGTH = 20;
     
     private int mPosX = cPOS_DEFAULT_X;
     private int mPosY = cPOS_DEFAULT_Y;
-    private int mDestinationX = cPOS_DEFAULT_X; 
-    private int mDestinationY = cPOS_DEFAULT_Y;
+    @SuppressWarnings("unused")
+	private int mDestinationX = cPOS_DEFAULT_X; 
+    @SuppressWarnings("unused")
+	private int mDestinationY = cPOS_DEFAULT_Y;
 
     public HostGui(SmilehamHostRole hostAgent) {
         mHostAgent = hostAgent;

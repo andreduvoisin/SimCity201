@@ -27,8 +27,8 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 	int mMarketID;
 	boolean atMarket = true;
 	
-	List<MarketOrder> mPendingDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
-	List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	public List<MarketOrder> mPendingDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
+	public List<MarketOrder> mDeliveries = Collections.synchronizedList(new ArrayList<MarketOrder>());
 	
 	public MarketDeliveryTruckRole(Person person, int marketID) {
 		super(person);
@@ -107,10 +107,10 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 		if(mPerson instanceof PersonAgent) {
 			Location location = ContactList.cRESTAURANT_LOCATIONS.get(n);
 			PersonAgent p = (PersonAgent) mPerson;
-			p.mPersonGui.mDeliverying = true;
+			p.mPersonGui.mDelivering = true;
 			p.mPersonGui.DoGoToDestination(location);
 			p.acquireSemaphore(p.semAnimationDone);
-			p.mPersonGui.mDeliverying = false;
+			p.mPersonGui.mDelivering = false;
 		}
 	}
 	
@@ -123,10 +123,10 @@ public class MarketDeliveryTruckRole extends BaseRole implements MarketDeliveryT
 			else
 				location = ContactList.cMARKET2_LOCATION;
 			PersonAgent p = (PersonAgent) mPerson;
-			p.mPersonGui.mDeliverying = true;
+			p.mPersonGui.mDelivering = true;
 			p.mPersonGui.DoGoToDestination(location);
 			p.acquireSemaphore(p.semAnimationDone);
-			p.mPersonGui.mDeliverying = false;
+			p.mPersonGui.mDelivering = false;
 		}
 	}
 	

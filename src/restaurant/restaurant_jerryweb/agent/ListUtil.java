@@ -35,6 +35,7 @@ import java.util.StringTokenizer;
 /**
  * Create a list of Object from a call list.
  */
+@SuppressWarnings("rawtypes")
 public class ListUtil {
     /**
      * Don't construct.

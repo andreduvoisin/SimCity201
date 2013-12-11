@@ -10,6 +10,7 @@ import market.test.mock.MockCashier;
 import market.test.mock.MockCookCustomer;
 import market.test.mock.MockWorker;
 import base.Item.EnumItemType;
+import base.ContactList;
 import base.PersonAgent;
 
 public class DeliveryTruckTest extends TestCase {
@@ -25,7 +26,7 @@ public class DeliveryTruckTest extends TestCase {
  	
  	public void setUp() throws Exception {
  		super.setUp();
- 		
+ 		ContactList.setup();
  		mPerson = new PersonAgent();
  		mDeliveryTruck = new MarketDeliveryTruckRole(mPerson, 0);
  		
@@ -35,12 +36,24 @@ public class DeliveryTruckTest extends TestCase {
  		
  		mItems.put(EnumItemType.CHICKEN, 3);
  		mItems.put(EnumItemType.STEAK, 1);
+ 		mOrder = new MarketOrder(mItems,mMockCookCustomer);
  	}
  	
  	/**
- 	 * Test delivery truck functionality.
+ 	 * Test delivery truck functionality for open restaurant.
  	 */
  	public void testDeliveryTruck() {
+ 		//assert preconditions
+ 		
+ 		mDeliveryTruck.msgDeliverOrderToCook(mOrder);
+ 		//assert size of pending deliveries
+ 		assertEquals("Delivery truck should have one pending order.",
+ 				mDeliveryTruck.mPendingDeliveries.size(),1);
+ 		
+ 		mDeliveryTruck.pickAndExecuteAnAction();
+ 		PersonAgent p = (PersonAgent)mDeliveryTruck.getPerson();
+ 		p.msgAnimationDone();
+ 		
  		
  	}
 }

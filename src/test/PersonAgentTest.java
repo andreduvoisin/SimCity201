@@ -153,26 +153,30 @@ public class PersonAgentTest extends TestCase {
 		//mPerson3 = new PersonAgent(EnumJobType.BANK, 100, "RON");
 		mPerson.getFriendList().add(mPerson2);
 		//mPerson.getFriendList().add(mPerson3);
-		time = new Time();
-		//Preconditions
+		Time.sGlobalTimeInt = 0;		//Preconditions
 		assertEquals("partyPerson should have 0 Events in his list of events. It does not.", 0, mPerson.getEvents().size());
 		assertEquals("Time should be 0. It is not. ",0, time.GetTime());
 		assertEquals("mPerson2 should have 0 Events in his list of events. It does not.", 0, mPerson2.getEvents().size());
 		assertEquals("partyPerson should have 1 friend on it's mFriends list. It does not.", 1, mPerson.getFriendList().size());
 		
 		//Start of Party test
-		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, 0));
+		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, Time.GetTime()));
+		Time.sGlobalTimeInt = 1;
 		assertEquals("partyPerson should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
-		assertEquals("Time should be 0. It is not. ",1, time.GetTime());
+		assertEquals("Time should be 0. It is not. ",1, Time.GetTime());
 		assertTrue("partyPerson scheduler should have been called. It was not. ", mPerson.pickAndExecuteAnAction());
 
 		assertFalse("mPerson2 scheduler should not have been called. It was. ", mPerson2.pickAndExecuteAnAction());
-		time.notifyPeople();
+		
+		
+		Time.sGlobalTimeInt = 3;
 		//distribution of invites
 		
-		//mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,0));
+		assertEquals("Global time should be at 2. It is not.", 3, Time.GetTime());
+		//assertFalse("Harry scheduler should not have been called. It was not. ", mPerson.pickAndExecuteAnAction());
+		assertEquals("Harry should have two Events in his list of events. It does not.", 2, mPerson.getEvents().size());
 		
-		assertFalse("partyPerson scheduler should not have been called. It was not. ", mPerson.pickAndExecuteAnAction());
+		assertTrue("partyPerson scheduler should not have been called. It was ", mPerson.pickAndExecuteAnAction());
 		//assertEquals("partyPerson should have three Events in his list of events. It does not.", 3, mPerson.getEvents().size());
 
 	}
@@ -188,27 +192,29 @@ public class PersonAgentTest extends TestCase {
 		mPerson3 = new PersonAgent(EnumJobType.NONE, 100, "Ron");
 		mPerson.getFriendList().add(mPerson2);
 		mPerson.getFriendList().add(mPerson3);
-		time = new Time();
+		//time = new Time();
 		//Preconditions
-		assertEquals("Global time should be at 0. It is not.", 0, time.GetTime());
+		Time.sGlobalTimeInt = 0;
+		assertEquals("Global time should be at 0. It is not.", 0, Time.GetTime());
 		assertEquals("partyPerson should have 0 Event in his list of events. It does not.", 0, mPerson.getEvents().size());
 		assertEquals("mPerson2 should have 0 Event in his list of events. It does not.", 0, mPerson2.getEvents().size());
 		assertEquals("partyPerson should have 2 friends on it's mFriends list. It does not.", 2, mPerson.getFriendList().size());
-		time.notifyPeople();
+		
 		//Start of Party test
-		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, time.GetTime()));
-		assertEquals("Global time should be at 1. It is not.", 1, time.GetTime());
+		mPerson.msgAddEvent(new Event(EnumEventType.PLANPARTY, Time.GetTime()));
+		Time.sGlobalTimeInt = 1;
+		assertEquals("Global time should be at 1. It is not.", 1, Time.GetTime());
 		assertEquals("Harry should have one Event in his list of events. It does not.", 1, mPerson.getEvents().size());
 		assertTrue("Harry scheduler should have been called. It was not. ", mPerson.pickAndExecuteAnAction());
 		assertFalse("mPerson2 scheduler should not have been called. It was. ", mPerson2.pickAndExecuteAnAction());
-		time.notifyPeople();
+		//time.notifyPeople();
 		//time.equals(1);
-		
+		Time.sGlobalTimeInt = 3;
 		//distribution of invites
-		//mPerson.msgAddEvent(new Event(EnumEventType.INVITE1,1));
-		assertEquals("Global time should be at 2. It is not.", 2, time.GetTime());
+		
+		assertEquals("Global time should be at 2. It is not.", 3, Time.GetTime());
 		assertFalse("Harry scheduler should not have been called. It was not. ", mPerson.pickAndExecuteAnAction());
-		assertEquals("Harry should have four Events in his list of events. It does not.", 4, mPerson.getEvents().size());
+		assertEquals("Harry should have three Events in his list of events. It does not.", 3, mPerson.getEvents().size());
 		
 	}	
 	

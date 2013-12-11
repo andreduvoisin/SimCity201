@@ -21,7 +21,7 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	public enum PersonState {walking, atBusStop, waitingForBus, boardingBus, 
 		ridingBus, exitingBus, noNewDestination};
 	private int mCurrentBusStop;
-	private int mDestinationBusStop; 
+	public int mDestinationBusStop; 
 	public PersonState mState = PersonState.walking;
 	private TransportationBus mBus; 
 	

@@ -17,7 +17,7 @@ import city.gui.SimCityGui;
 public class ConfigParser {
 
 	private static ConfigParser instance = null;
-	private final static int timeBlock = 8;
+//	private final static int timeBlock = 8;
 
 	public void readFileCreatePersons(SimCityGui simcitygui, String input) throws FileNotFoundException {
 		

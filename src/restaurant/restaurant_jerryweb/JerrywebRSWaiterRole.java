@@ -78,8 +78,8 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 	public class MyCustomer{
 		Customer c;
 		CustomerState s;
-		int table;
-		String choice;
+		public int table;
+		public String choice;
 
 		public MyCustomer(Customer cust, int tableNum, CustomerState state) {
 			c = cust;
@@ -105,6 +105,7 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 		return name;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public List getWaitingCustomers() {
 		return Customers;
 	}
@@ -238,7 +239,7 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 	}
 	
 	public void msgHereIsBill(Customer customer, double check){
-		//print("thanks for the bill");
+		
 		int x = find(customer);
 		Customers.get(x).s = CustomerState.waitingForBill;
 		stateChanged();
@@ -387,7 +388,7 @@ public class JerrywebRSWaiterRole extends BaseRole implements Waiter {
 		//cook.msgCookThis(this, customer.choice, customer.table);
 		cook.addToRevolvingStand(this, customer.choice, customer.table, OrderState.pending);
 
-		print("putting order on revolving stand" + customer.c.getName() + " wants " + customer.choice);
+		//print("putting order on revolving stand" + customer.c.getName() + " wants " + customer.choice);
 
 		waiterGui.DoGoToCook();
 		try{

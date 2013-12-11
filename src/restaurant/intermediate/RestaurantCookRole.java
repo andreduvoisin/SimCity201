@@ -70,35 +70,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		mItemsDesired.put(EnumItemType.PIZZA, 0);
         		
                	mRestaurantCashier = null;
-                
-               	if(AndreRestaurant.cashier != null) {
-                switch(mRestaurantID) {
-                case 0:	//andre
-                	mRestaurantCashier = AndreRestaurant.cashier.mRole;
-                	break;
-                case 1: //chase
-                	mRestaurantCashier = CwagonerRestaurant.cashier.mRole;
-                	break;
-                case 2: //jerry
-                	mRestaurantCashier = JerrywebRestaurant.cashier.mRole;
-                	break;
-                case 3: //maggi
-                	mRestaurantCashier = MaggiyanRestaurant.mCashier.mRole;
-                	break;
-                case 4: //david
-                	mRestaurantCashier = DavidRestaurant.cashier.mRole;
-                	break;
-                case 5: //shane
-                	mRestaurantCashier = SmilehamRestaurant.mCashier.mRole;
-                	break;
-                case 6: //angel
-                	mRestaurantCashier = TranacRestaurant.mCashier.mRole;
-                	break;
-                case 7: //rex
-                	 mRestaurantCashier = RexAnimationPanel.cashier.mRole;
-                	break;
-                }
-               	}
+        
         }
         
         public void setPerson(Person person){
@@ -267,6 +239,33 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         			m = (int) (Math.random() % 2);
         			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
         		}
+        		
+                if(mRestaurantCashier == null) {switch(mRestaurantID) {
+                case 0:	//andre
+                	mRestaurantCashier = AndreRestaurant.cashier.mRole;
+                	break;
+                case 1: //chase
+                	mRestaurantCashier = CwagonerRestaurant.cashier.mRole;
+                	break;
+                case 2: //jerry
+                	mRestaurantCashier = JerrywebRestaurant.cashier.mRole;
+                	break;
+                case 3: //maggi
+                	mRestaurantCashier = MaggiyanRestaurant.mCashier.mRole;
+                	break;
+                case 4: //david
+                	mRestaurantCashier = DavidRestaurant.cashier.mRole;
+                	break;
+                case 5: //shane
+                	mRestaurantCashier = SmilehamRestaurant.mCashier.mRole;
+                	break;
+                case 6: //angel
+                	mRestaurantCashier = TranacRestaurant.mCashier.mRole;
+                	break;
+                case 7: //rex
+                	 mRestaurantCashier = RexAnimationPanel.cashier.mRole;
+                	break;
+                }}
                 mMarketCashier.msgOrderPlacement(o);
                 mRestaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
         }

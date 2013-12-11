@@ -85,6 +85,7 @@ public class JerrywebHostRole extends BaseRole {
 	{waiting, seated, doneEating}
 	
 	private String name;
+	@SuppressWarnings("unused")
 	private Semaphore atTable = new Semaphore(semaphoreCerts,true);
 
 	public HostGui hostGui = null;
@@ -115,6 +116,7 @@ public class JerrywebHostRole extends BaseRole {
 //		stateChanged();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public Collection getTables() {
 		return tables;
 	}

@@ -51,7 +51,7 @@ public class WaiterGui implements Gui {
 	public int previousX = 0;
 	public int previousY = 0;
 	int idleSpotX = 0;
-	int idleSpotY = 0;
+	int idleSpotY = 20;
 	
 	static final int waiterWidth = 20;
 	static final int waiterHeight = 20;
