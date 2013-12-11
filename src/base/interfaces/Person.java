@@ -50,6 +50,8 @@ public interface Person {
 	
 	public void msgRoleFinished();
 	public void setJobFalse();
+	public void setJobType(EnumJobType type);
+	
 	public boolean hasCar();
 	public void setHasCar(boolean c);
 	
@@ -61,4 +63,6 @@ public interface Person {
 	public void assignNextEvent();
 	
 	public abstract EnumJobType getJobType();
+	
+	public void removeRole(Role r);
 }

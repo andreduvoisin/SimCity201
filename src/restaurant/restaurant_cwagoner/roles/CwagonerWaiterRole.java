@@ -15,6 +15,7 @@ import restaurant.restaurant_cwagoner.interfaces.CwagonerWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -415,6 +416,16 @@ public class CwagonerWaiterRole extends BaseRole implements CwagonerWaiter {
 
 	public void setHost(CwagonerHostRole h) {
 		host = h;
+	}
+	
+	public void fuckYou(){
+		gui.setFired(true);
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
+		
+		mPerson.removeRole(this);
+		mPerson.setJobType(EnumJobType.NONE);
 	}
 }
 	

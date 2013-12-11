@@ -3,6 +3,10 @@ package restaurant.restaurant_smileham.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
@@ -11,6 +15,9 @@ import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import base.Gui;
 
 public class WaiterGui implements Gui {
+	
+	private boolean onFire = false;
+	private BufferedImage fireImage;
 
     private SmilehamWaiterRole mWaiterAgent;
     private static final int cPOS_DOOR_X = -20;
@@ -37,6 +44,15 @@ public class WaiterGui implements Gui {
         numWaiter++;
         mPosDefaultX = cPOS_WAITERS_X;
         mPosDefaultY = cPOS_WAITERS_Y + cWAITER_SPACING*numWaiter;
+        
+        fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
     public void updatePosition() {
@@ -78,8 +94,12 @@ public class WaiterGui implements Gui {
     }
 
     public void draw(Graphics2D g) {
-        g.setColor(Color.MAGENTA);
-        g.fillRect(mPosX, mPosY, cWAITER_LENGTH, cWAITER_LENGTH);
+    	if(onFire)
+			g.drawImage(fireImage, mPosX, mPosY, null);
+		else{
+			g.setColor(Color.MAGENTA);
+			g.fillRect(mPosX, mPosY, cWAITER_LENGTH, cWAITER_LENGTH);
+		}
     }
 
     public boolean isPresent() {
@@ -119,5 +139,10 @@ public class WaiterGui implements Gui {
 	public void setPresent(boolean state) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setFired(boolean state) {
+		onFire = state;
 	}
 }

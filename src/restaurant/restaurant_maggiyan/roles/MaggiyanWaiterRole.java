@@ -20,6 +20,7 @@ import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -567,6 +568,16 @@ public class MaggiyanWaiterRole extends BaseRole implements MaggiyanWaiter{
 	
 	public void print(String msg, Throwable e) {
 		super.print(msg, AlertTag.R3, e);
+	}
+	
+	public void fuckYou(){
+		waiterGui.setFired(true);
+		
+		mPerson.msgRoleFinished();
+		mPerson.assignNextEvent();
+		
+		mPerson.removeRole(this);
+		mPerson.setJobType(EnumJobType.NONE);
 	}
 }
 

@@ -30,6 +30,9 @@ public class TranacWaiterGui implements Gui {
     
     private Map<Integer, Coordinates> tableLocations = new HashMap<Integer, Coordinates>();
     private Map<Integer, Coordinates> plateLocations = new HashMap<Integer, Coordinates>();
+    
+    private boolean onFire = false;
+	private BufferedImage fireImage;
 
     private String food;
     private BufferedImage image;
@@ -89,6 +92,15 @@ public class TranacWaiterGui implements Gui {
     	try {
     	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant_tranac/gui/images/speech-question.png");
     	askingBubble = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	
+    	fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
@@ -199,7 +211,9 @@ public class TranacWaiterGui implements Gui {
 
     public void draw(Graphics2D g) {
         g.setColor(Color.WHITE);
-        if(SimCityGui.GRADINGVIEW) {
+        if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else if(SimCityGui.GRADINGVIEW) {
     		g.drawString("W"+mNum, xPos+10, yPos);
     	}
         else {
@@ -336,5 +350,9 @@ public class TranacWaiterGui implements Gui {
 
     public int getYPos() {
         return yPos;
+    }
+    
+    public void setFired(boolean state){
+    	onFire = state;
     }
 }

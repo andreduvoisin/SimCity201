@@ -25,6 +25,7 @@ import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Location;
+import base.PersonAgent.EnumJobType;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 
@@ -482,6 +483,16 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 		
 		public void print(String msg, Throwable e) {
 			super.print(msg, AlertTag.R5, e);
+		}
+		
+		public void fuckYou(){
+			mWaiterGui.setFired(true);
+			
+			mPerson.msgRoleFinished();
+			mPerson.assignNextEvent();
+			
+			mPerson.removeRole(this);
+			mPerson.setJobType(EnumJobType.NONE);
 		}
 }
 

@@ -894,6 +894,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void removeRole(Role r) {
+		mRoles.put(r, false);
 		mRoles.remove(r);
 	}
 
@@ -1032,5 +1033,10 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(ContactList.sEventList.get(rand.nextInt(ContactList.sEventList.size())));
 		mCommuterRole.mState = PersonState.walking;
 		stateChanged();
+	}
+
+	@Override
+	public void setJobType(EnumJobType type) {
+		mJobType = type;
 	}
 }

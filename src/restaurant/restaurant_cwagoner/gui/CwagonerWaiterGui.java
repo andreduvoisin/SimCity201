@@ -17,6 +17,9 @@ import base.interfaces.Role;
 public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
 
 	private static int waiterNum = 0;
+	
+	private boolean onFire = false;
+	private BufferedImage fireImage;
     
     private enum State { idle, gettingCustomer, movingToTable, movingToCook,
     						movingToCashier, onBreak }
@@ -49,6 +52,15 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+        
+        fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
     public void updatePosition() {
@@ -67,7 +79,10 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
     }
 
     public void draw(Graphics2D g) {
-		g.drawImage(waiterImg, position.mX, position.mY, null);
+    	if(onFire)
+			g.drawImage(fireImage, position.mX, position.mY, null);
+		else
+			g.drawImage(waiterImg, position.mX, position.mY, null);
 		
 		if (! food.equals("")) {	// Waiter is carrying food
 			g.setColor(Color.WHITE);
@@ -130,6 +145,11 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
 
 	@Override
 	public void setPresent(boolean state) {
+		onFire = state;
+	}
+
+	@Override
+	public void setFired(boolean state) {
 		// TODO Auto-generated method stub
 		
 	}
