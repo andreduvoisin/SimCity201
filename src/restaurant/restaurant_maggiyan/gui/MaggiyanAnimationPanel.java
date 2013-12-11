@@ -16,6 +16,7 @@ import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
+@SuppressWarnings("serial")
 public class MaggiyanAnimationPanel extends CityCard implements ActionListener {
 	public static MaggiyanAnimationPanel mInstance; 
 	

@@ -3,8 +3,7 @@ TEAM 28: DOBBY
 #SimCity201
 
 ###Team Work
-The CSCI 201 Project teaches students about the myriad facets of team work: pair programming, team ethics, etc. Team 28 has embraced this team 
-mentality and has approached the project accordingly. Although the following section lists _individual_ contributions, the project is the result of team contributions. Every section is the product of a team effort.
+The CSCI 201 Project teaches students about the myriad facets of team work: pair programming, team ethics, etc. Team 28 has embraced this team mentality and has approached the project accordingly. Although the following section lists _individual_ contributions, the project is the result of team contributions. Every section is the product of a team effort.
 
 ####Andre Duvoisin	(Fix-It Felix)
 * Bank GUI
@@ -18,31 +17,48 @@ mentality and has approached the project accordingly. Although the following sec
 
 ####Angelica Tran	(Market Manager)
 * City Animation Upgrades
-* Market Design, Roles, Testing
+* Market Design, Roles, GUI
+* Market Unit Testing: Cook Customer, Cashier, GUI Test, Delivery Truck, Worker
 * Market/Restaurant Integration Manager
-  
+* Building Properties Panel
+
 ####Chase Wagoner	(Bus Driver)
 * Transportation Design, Roles, GUI
 * Restaurant Integration
+* Fixed my restaurant
+* Some help on re-design and implementation of bus
+* Tested transportation
+* Updated design docs
+* Added panel to add people via GUI
 
 ####David Carr		(The Internet)
-* Housing Roles, Design
+* Housing Roles, Design, Testing
 * ConfigParser/SortingHat
 * Control Panel/Configuration Reading
 * Restaurant Base Interface
 * Restaurant Intermediate Roles
 * PersonAgent Scheduler, Jobs, Events
-* Restaurant Integration
+* Restaurant Integration/Unit Testing
+* Transportation
+  * Navigation algorithm
+  * Car/Person animation
+  * Collision detection
+  * Intersections
 
 ####Jerry Webb		(Romantic Interest)
 * GUI Infrastructure
 * Restaurant Integration
+* J-Unit Testing
+* Design Docs
 
 ####Maggi Yang		(Literally Dornsife)
 * Housing Roles
 * Housing Testing
 * City Animation Upgrades 
 * Restaurant Integration
+* Transportation: Commuter Role, car, bus, walking
+* Intersections
+* Blocks for B* algorithm for vehicles 
 
 ####Rex Xu			(Money Man)
 * Bank Design, Roles, Testing
@@ -51,6 +67,10 @@ mentality and has approached the project accordingly. Although the following sec
 * Project Coordination/Management
 * Person Agent Design/Implementation
 * Restaurant Integration
+* Property Panel
+* Inspection Events
+* Party Implementation
+* Config File Setup
 
 ####Shane Mileham	(The Designer)
 * Contact List
@@ -62,41 +82,41 @@ mentality and has approached the project accordingly. Although the following sec
 * Transportation Pickup/Dropoff Design
 * Restaurant Integration
 
-
 ###Run System Run
-Various scenarios can be run via the configuration panel. In v1, to run scenarios successively, the program must be restarted.
-* Restaurant 0	- Andre Duvoisin 
-* Restaurant 1	- Chase Wagoner	 
-* Restaurant 2 	- Jerry Webb	 
-* Restaurant 3	- Maggi Yan	 	 
-* Restaurant 4	- David Carr	 
-* Restaurant 5  - Shane Mileham	 
-* Restaurant 6	- Angelica Tran	 
-* Restaurant 7	- Rex Xu		 
-* Bank		- Sends customers to the bank for transactions 		-> Bank located at north end of Plaza
-* Housing	- Sends people to houses to perform maintenance		-> Housing located all along sides of panel 
-* Food Market	- Sends people to market to purchase food items		-> Market located in southwest quadrant
-* Party		- Creates a party crazed animal (24 hour full run)	-> All people head to the host's house to party
-* Simulate All  - Creates many people with interweaving actions		-> People perform varied actions
+Various scenarios can be run via the configuration panel. To run scenarios successfully, program must be restarted.
+
+####Scenarios Tab
+Scenarios can be run in this tab. Most can be immediately run, but a few require basic set up.
+D: The party is held in the pink house
+F: Selectively disable workplaces in Properties tab
+O: Bank Robbery occurs in Piggy Bank, not in Gringotts
+S: Creates a city with extra workers. Fire these workers in the People tab
+
+####Properties Tab
+*Selectively open/close workplaces
+*View workplace summary information
+*Manually set inventories for workplaces
+
+####Trace Tab
+Filter print statements by type or workplace
+*Info
+*Errors
+*Debugs
+*Warnings
+*Messages
+
+####People Tab
+*Manually add people
+*Fire people from workplaces
+
+####View Toggle
+The button at the bottom of control panel toggles between grading and beautiful view.
 
 ###Full Disclosure
 Unfortunately, there are a few areas of the city that we were not able to complete to our satisfaction.
 
-####General
-For our v1, most agent actions are pre-determined based on simulation choices.
-####Restaurants
-Occasional delays occur in some restaurants. Race conditions sometimes cause debilitating failure in our restaurants.
-####Transportation
-We modelled our transportation system off that of our own city, Los Angeles. Just like our fellow Angelinos, the denizens of SimCity also avoid taking public transportation at all costs. In fact, they do not ever take the bus and choose instead to walk.
+####Money
+Our SimCity does not acknowledge changes in day. Accordingly, money has diminished value. E.g. daily working capital does not matter.
 
-###Questions & Discussion
-Please use the [issue tracker](https://github.com/usc-csci201-fall2013/simcity201/issues) for this repository to ask and discuss topics related to the team project.
-
-###Resources:
-  *  [Overview & Deliverables](http://www-scf.usc.edu/~csci201/team/)
-  *  [Operational Concepts Description](http://www-scf.usc.edu/~csci201/team/operational-concepts-description.html)
-  *  [Requirements](http://www-scf.usc.edu/~csci201/team/simcity201.html)
-  
-
-###SimCity Demo
-A basic demo developed by Professor Crowley is available in the [`demo`](https://github.com/usc-csci201-fall2013/simcity201/tree/master/demo) directory of this repository.
+###V1 README
+[V1 README] (https://github.com/usc-csci201-fall2013/team28/wiki/V1-README)

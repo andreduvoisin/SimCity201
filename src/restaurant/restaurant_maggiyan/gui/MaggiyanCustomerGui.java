@@ -12,8 +12,8 @@ public class MaggiyanCustomerGui implements MaggiyanGui{
 	private MaggiyanCustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
-	private boolean showChoiceLabel =  true; 
-	private int posCounter = 1; 
+//	private boolean showChoiceLabel =  true; 
+//	private int posCounter = 1; 
 	public JLabel myChoice = new JLabel(); 
 	private String nameOfChoice = " "; 
 
