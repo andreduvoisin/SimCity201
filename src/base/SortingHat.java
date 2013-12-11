@@ -4,6 +4,7 @@ import housing.House;
 import housing.roles.HousingBaseRole;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
+import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,6 +63,9 @@ public class SortingHat {
 		
 		//Housing
 		HousingLandlordRole masterLandLord = new HousingLandlordRole(null);
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
 		masterLandLord.mHousesList.add(getNextHouse());
 		masterLandLord.mHousesList.add(getNextHouse());
 		masterLandLord.mHousesList.add(getNextHouse());
@@ -223,10 +227,10 @@ public class SortingHat {
 	//HOUSING
 	static int sRenterCount = 0;
 	static int sHouseCount = 0;
-	static final int sHouseSize = 5;
-	static final int sMaxRenters = 5;
+//	static final int sHouseSize = 5;
+	static final int sMaxRenters = 8;
 
-	public static Role getHousingRole(Person person, int shift) {
+	public static Role getHousingRole(Person person, int shift, boolean renter) {
 		//landlord, renter, owner (in that order)	
 		Map<Role, Boolean> shiftRoles = sRolesFilled.get(shift);
 		
@@ -241,12 +245,14 @@ public class SortingHat {
 			}
 		}
 		
-//		if (sRenterCount < sMaxRenters){
-//			sRenterCount++;
-//			HousingRenterRole newRenter = new HousingRenterRole(person);
-//			newRenter.setLandlord(ContactList.masterLandlord);
-//			return newRenter;
-//		}
+		if (renter) {
+			if (sRenterCount < sMaxRenters) {
+				sRenterCount++;
+				HousingRenterRole newRenter = new HousingRenterRole(person);
+				newRenter.setLandlord(ContactList.masterLandlord);
+				return newRenter;
+			}
+		}
 		
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
 		newOwnerRole.setHouse(getNextHouse());

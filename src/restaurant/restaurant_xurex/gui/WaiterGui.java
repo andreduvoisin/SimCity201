@@ -1,7 +1,6 @@
 package restaurant.restaurant_xurex.gui;
 
 //import java.awt.Color;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -22,14 +21,13 @@ public class WaiterGui implements Gui, WaiterGui_ {
     RexAnimationPanel animationPanel;
     
     //Animation Image
-    @SuppressWarnings("unused")
 	private BufferedImage image;
     
     private static int sNum = 0;
     private int mNum;
     
     private boolean msgSent = true;
-    private static final int waiterDim = 10;
+    //private static final int waiterDim = 10;
     
     public Map<Integer, Point> places = new HashMap<Integer, Point>();
     
@@ -44,13 +42,13 @@ public class WaiterGui implements Gui, WaiterGui_ {
         this.role = agent;
         this.animationPanel = animationPanel;
         image = null;
-//    	try {
-//    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
-//    	image = ImageIO.read(imageURL);
-//    	}
-//    	catch (IOException e) {
-//    		System.out.println(e.getMessage());
-//    	}
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/persondown.png");
+    	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     	fireImage = null;
     	try {
     		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
@@ -82,7 +80,6 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
 
     public void updatePosition() {
-    	if(!onFire){
         if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
@@ -95,16 +92,17 @@ public class WaiterGui implements Gui, WaiterGui_ {
        
         if (xPos == xDestination && yPos == yDestination && !msgSent) {
            role.msgAtLocation(); msgSent=true;
-        }}
+        }
     }
 
     public void draw(Graphics2D g) {
-//    	g.drawImage(image, xPos, yPos, null);
+
     	if(onFire)
 			g.drawImage(fireImage, xPos, yPos, null);
 		else{
-			g.setColor(Color.MAGENTA);
-        	g.fillRect(xPos, yPos, waiterDim, waiterDim);
+	    	g.drawImage(image, xPos, yPos, null);
+//			g.setColor(Color.MAGENTA);
+//        	g.fillRect(xPos, yPos, waiterDim, waiterDim);
 		}
     }
     
