@@ -810,7 +810,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		JLabel placesTitle = new JLabel("Select Property:");
 	    placesTitle.setPreferredSize(new Dimension(180,20));
 
-    	JButton change = new JButton("None");
+    	JButton change = new JButton("Toggle Status");
 	    change.setPreferredSize(new Dimension(180,20));
 	    change.setMaximumSize(new Dimension(180,20));
 	    change.setMinimumSize(new Dimension(180,20));
@@ -833,7 +833,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    places = new JComboBox(placeList);
 	    places.setPreferredSize(new Dimension(180,20));
 	    places.setSelectedIndex(0);
-	    places.addActionListener(new PlacesListener(change, places, placeProperties));
+	    //places.addActionListener(new PlacesListener(change, places, placeProperties));
 	    
 	//    holdPlaces.add(placesTitle, BorderLayout.NORTH);
 	//    holdPlaces.add(places, BorderLayout.CENTER);

@@ -90,14 +90,15 @@ public class ConfigParser {
 				else if(name.contains("robber"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, -1));
 				else if(name.contains("inspection")){
-					if(name.contains("hascar"))
-						person.setHasCar(true);
-					if(name.contains("noca"))
-						person.setHasCar(false);
 					person.msgAddEvent(new Event(EnumEventType.EAT, -1));
 					person.msgAddEvent(new Event(EnumEventType.INSPECTION, 0));
 				}
 			}
+			
+			if(name.contains("hasc"))
+				person.setHasCar(true);
+			if(name.contains("noca"))
+				person.setHasCar(false);
 			
 			synchronized (person) {
 				ContactList.sPersonList.add(person);
