@@ -5,6 +5,8 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -79,7 +81,20 @@ public class PlacesPropertiesTab extends JPanel{
 	}
 	
 	public void changeBuilding(String s) {
-			layout.show(this, s);
+		layout.show(this, s);
+
+		gringottsTab.update();
+		piggyBankTab.update();
+		honeydukesTab.update();
+		ollivandersTab.update();
+		duvoisinTab.update();
+		cwagonerTab.update();
+		jerrywebTab.update();
+		maggiyanTab.update();
+		davidmcaTab.update();
+		smilehamTab.update();
+		tranacTab.update();
+		xurexTab.update();
 	}
 	
 	class BankLabel extends JPanel implements ActionListener {
@@ -97,41 +112,21 @@ public class PlacesPropertiesTab extends JPanel{
 			bankLabel = new JLabel();
 			updateLabel = new JButton("Update Staff Info");
 			updateLabel.addActionListener(this);
-			updateBankLabel();
+			update();
 			
 			add(bankLabel);
 			add(updateLabel);
 		}
 		
-		public void updateBankLabel() {
-//			switch(bank.mTellers.size()) {
-//			case 0:
-//				break;
-//			case 1:
-//				bankLabel.setText("<html><table>" +
-//					"<tr><td>Guard :</td><td>" + bank.mGuard.getPerson().toString() + "</td></tr>" +
-//					"<tr><td>Teller:</td><td>" + bank.mTellers.get(0).getPerson().toString() + "</td></tr>" +
-//					"</table></html>");
-//				break;
-//			case 2:
-//				bankLabel.setText("<html><table>" +
-//						"<tr><td>Guard :</td><td>" + bank.mGuard.getPerson().toString() + "</td></tr>" +
-//						"<tr><td>Teller:</td><td>" + bank.mTellers.get(0).getPerson().toString() + "</td></tr>" +
-//						"<tr><td>Teller:</td><td>" + bank.mTellers.get(1).getPerson().toString() + "</td></tr>" +
-//						"</table></html>");
-//			case 3:
-//				bankLabel.setText("<html><table>" +
-//						"<tr><td>Guard :</td><td>" + bank.mGuard.getPerson().toString() + "</td></tr>" +
-//						"<tr><td>Teller:</td><td>" + bank.mTellers.get(0).getPerson().toString() + "</td></tr>" +
-//						"<tr><td>Teller:</td><td>" + bank.mTellers.get(1).getPerson().toString() + "</td></tr>" +
-//						"<tr><td>Teller:</td><td>" + bank.mTellers.get(2).getPerson().toString() + "</td></tr>" +
-//						"</table></html>");
-//				break;
-//			}
+		public void update() {
+				bankLabel.setText("<html><table>" +
+					"<tr><td>Guard :</td><td>" + bank.mGuard.getName() + "</td></tr>" +
+					"<tr><td>Number of Tellers:</td><td>" + bank.mTellers.size() + "</td></tr>" +
+					"</table></html>");
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			updateBankLabel();
+			update();
 		}
 	}
 	
@@ -147,31 +142,16 @@ public class PlacesPropertiesTab extends JPanel{
 		JTextField changeInventoryField;
 		JButton changeInventoryButton;
 		
-		JPanel changeStaff;
 		JLabel staffLabel;
-		JComboBox<String> changeStaffType;
-		JTextField changeStaffField;
-		JButton changeStaffButton;
+		JButton updateStaffButton;
 		
 		public MarketLabel(int n) {
 			marketNum = n;
 			market = ContactList.sMarketList.get(marketNum);
 			
-			changeStaff = new JPanel();
-			changeStaff.setLayout(new BorderLayout());
 			staffLabel = new JLabel();
-			changeStaffType = new JComboBox<String>(staffTypes);
 			
-			changeStaffField = new JTextField();
-			changeStaffField.setPreferredSize(new Dimension(60,20));
-			changeStaffButton = new JButton("Change Staff");
-			changeStaffButton.setPreferredSize(new Dimension(120,20));
-			changeStaffField.addActionListener(this);
-			changeStaffButton.addActionListener(this);
-			
-			changeStaff.add(changeStaffType,BorderLayout.NORTH);
-			changeStaff.add(changeStaffField, BorderLayout.WEST);
-			changeStaff.add(changeStaffButton, BorderLayout.EAST);
+			updateStaffButton = new JButton("Update Staff");
 			
 			inventoryLabel = new JLabel();
 			changeInventory = new JPanel();
@@ -190,26 +170,24 @@ public class PlacesPropertiesTab extends JPanel{
 			
 			changeInventoryField.addActionListener(this);
 			changeInventoryButton.addActionListener(this);
+			updateStaffButton.addActionListener(this);
 			
-			updateStaff();
-			updateInventory();
+			update();
 			
 			add(staffLabel);
-			add(changeStaff);
+			add(updateStaffButton);
 			add(inventoryLabel);
 			add(changeInventory);
 		}
 		
-		public void updateStaff() {
+		public void update() {
 			staffLabel.setText("<html><center>Staff<br><table>" +
 			"<tr><td>Cashier: </td><td>" + ContactList.sMarketList.get(0).mCashier.toString()+ "</td></tr>" +
 			"<tr><td>DeliveryTruck: </td><td>" + ContactList.sMarketList.get(0).mDeliveryTruck.toString() + "</td></tr>" +
 			"<tr><td>Worker: </td><td>" + ContactList.sMarketList.get(0).mWorkers.get(0).toString() + "</td></tr>" +
 			"<tr><td>Worker: </td><td>" + ContactList.sMarketList.get(0).mWorkers.get(1).toString() + "</td></tr>" +
 			"</table></center></html>");
-		}
-		
-		public void updateInventory() {
+			
 			inventoryLabel.setText("<html><center>Inventory<br><table>" +
 			"<tr><td>Chicken: </td><td>" + ContactList.sMarketList.get(marketNum).getInventory(EnumItemType.CHICKEN) + "</td>" +
 			"<td>Steak: </td><td>" + ContactList.sMarketList.get(marketNum).getInventory(EnumItemType.STEAK) + "</td></tr>" +
@@ -219,21 +197,14 @@ public class PlacesPropertiesTab extends JPanel{
 			"</table></center></html>");
 		}
 		
-		
 		public void actionPerformed(ActionEvent e) {
-	        if (e.getSource() == changeStaffField || e.getSource() == changeStaffButton) {
-	        	if(!changeStaffType.getSelectedItem().toString().equals("")) {
-	        		System.out.println("blah, test");	//ANGELICA
-	        		updateStaff();
-	        	}
-	        }
 	        if (e.getSource() == changeInventoryField || e.getSource() == changeInventoryButton) {
 	        	if(!changeInventoryType.getSelectedItem().toString().equals("")) {
 	        		market.setInventory(Item.stringToEnum(changeInventoryType.getSelectedItem().toString()),
 	        				Integer.parseInt(changeInventoryField.getText()));
-	        		updateInventory();
 	        	}
 	        }
+	        update();
 		}
 	}
 	
@@ -249,33 +220,16 @@ public class PlacesPropertiesTab extends JPanel{
 		JComboBox<String> changeInventoryType;
 		JTextField changeInventoryField;
 		JButton changeInventoryButton;
-		
-		JPanel changeStaff;
+
 		JLabel staffLabel;
-		JComboBox<String> changeStaffType;
-		JTextField changeStaffField;
-		JButton changeStaffButton;
+		JButton updateStaffButton;
 		
 		public RestaurantLabel(int n) {
 			restaurantNum = n;
 			
-			changeStaff = new JPanel();
-			changeStaff.setLayout(new BorderLayout());
-	
-			changeStaffType = new JComboBox<String>(staffTypes);
-			
 			staffLabel = new JLabel();
-			changeStaffField = new JTextField();
-			changeStaffField.setPreferredSize(new Dimension(60,20));
-			changeStaffButton = new JButton("Change Staff");
-			changeStaffButton.setPreferredSize(new Dimension(120,20));
-			changeStaffField.addActionListener(this);
-			changeStaffButton.addActionListener(this);
-			
-			changeStaff.add(changeStaffType,BorderLayout.NORTH);
-			changeStaff.add(changeStaffField, BorderLayout.WEST);
-			changeStaff.add(changeStaffButton, BorderLayout.EAST);
-			
+			updateStaffButton = new JButton("Update Staff");
+
 			inventoryLabel = new JLabel();
 			changeInventory = new JPanel();
 			changeInventory.setLayout(new BorderLayout());
@@ -294,12 +248,11 @@ public class PlacesPropertiesTab extends JPanel{
 			changeInventoryField.addActionListener(this);
 			changeInventoryButton.addActionListener(this);
 			
-
-			updateStaff();
-			updateInventory();
+			updateStaffButton.addActionListener(this);
+			
+			update();
 			
 			add(staffLabel);
-			add(changeStaff);
 			add(inventoryLabel);
 			add(changeInventory);
 		}
@@ -378,7 +331,7 @@ public class PlacesPropertiesTab extends JPanel{
 				cook = ContactList.AndreRestaurant.cook.mRole;
 				}
 				break;
-			case 1: //chase ANGELICA
+			case 1: //chase //ANGELICA
 				break;
 			case 2:
 				if(ContactList.JerrywebRestaurant.cook != null) {
@@ -430,10 +383,6 @@ public class PlacesPropertiesTab extends JPanel{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-	        if (e.getSource() == changeStaffField || e.getSource() == changeStaffButton) {
-	        	if(!changeStaffType.getSelectedItem().toString().equals("")) {
-	        	}
-	        }
 	        if (e.getSource() == changeInventoryField || e.getSource() == changeInventoryButton) {
 	        	if(!changeInventoryType.getSelectedItem().toString().equals("")) {
 	        		if(cook != null) {
@@ -442,8 +391,12 @@ public class PlacesPropertiesTab extends JPanel{
 	        		}
 	        	}
 	        }
-    		updateStaff();
-    		updateInventory();
+    		update();
+		}
+		
+		public void update() {
+			updateStaff();
+			updateInventory();
 		}
 	}
 }
