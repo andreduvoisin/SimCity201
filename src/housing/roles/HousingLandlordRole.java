@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import city.gui.trace.AlertLog;
-import city.gui.trace.AlertTag;
 import base.interfaces.Person;
 
 /*
