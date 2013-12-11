@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import javax.imageio.ImageIO;
+
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
 import base.Gui;
@@ -15,7 +17,7 @@ public class CwagonerCookGui extends CwagonerBaseGui implements Gui {
     
     private enum State { idle, goingToFridge, goingToCooking, goingToPlating }
     private State state;
-    
+    BufferedImage cookImg;
     private String food = "";
 
     // GUI is a square. While not busy, wait in home position
@@ -25,12 +27,6 @@ public class CwagonerCookGui extends CwagonerBaseGui implements Gui {
     				homePos = new Location(200, 350);
     private Dimension fridgeDim = new Dimension(100, 50);
 
-
-	static Location fridgePos = new Location(200, 300),
-					cookingPos = new Location(300, 350),
-					platingPos = new Location(180, 350);
-    static BufferedImage cookImg, fridgeImg, stoveImg, tableImg;
-
     public CwagonerCookGui(CwagonerCookRole c) {
     	super(c);
     	state = State.idle;
@@ -38,6 +34,9 @@ public class CwagonerCookGui extends CwagonerBaseGui implements Gui {
         destination.setTo(homePos);
 
         CwagonerRestaurant.addGui(this);
+
+        java.net.URL cookURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cook.png");
+		try { cookImg = ImageIO.read(cookURL); } catch (Exception e) {}
     }
 
     public void updatePosition() {
@@ -84,20 +83,20 @@ public class CwagonerCookGui extends CwagonerBaseGui implements Gui {
     
     public void DoGoToFridge() {
     	state = State.goingToFridge;
-    	destination.mX = fridgePos.mX + fridgeDim.width / 2;
-    	destination.mY = fridgePos.mY + fridgeDim.height;
+    	destination.mX = CwagonerAnimationPanel.fridgePos.mX + fridgeDim.width / 2;
+    	destination.mY = CwagonerAnimationPanel.fridgePos.mY + fridgeDim.height;
     }
     
     public void DoGoToCooking() {
     	state = State.goingToCooking;
-    	destination.mX = cookingPos.mX - size;
-    	destination.mY = cookingPos.mX + (cookingPos.mY - size) / 2;
+    	destination.mX = CwagonerAnimationPanel.cookingPos.mX - size;
+    	destination.mY = CwagonerAnimationPanel.cookingPos.mX + (CwagonerAnimationPanel.cookingPos.mY - size) / 2;
     }
     
     public void DoGoToPlating() {
     	state = State.goingToPlating;
-    	destination.mX = platingPos.mX + platingPos.mY;
-    	destination.mY = platingPos.mY + plateSize - size;
+    	destination.mX = CwagonerAnimationPanel.platingPos.mX +CwagonerAnimationPanel. platingPos.mY;
+    	destination.mY = CwagonerAnimationPanel.platingPos.mY + plateSize - size;
     }
     
     
