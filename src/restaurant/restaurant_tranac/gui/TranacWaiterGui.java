@@ -154,7 +154,6 @@ public class TranacWaiterGui implements Gui {
     }
 
     public void updatePosition() {
-    	if(!onFire){
         if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
@@ -170,7 +169,7 @@ public class TranacWaiterGui implements Gui {
         		agent.msgAnimationDone();
         		command = Command.noCommand;
         	}
-        }}
+        }
     }
 
     public void draw(Graphics2D g) {

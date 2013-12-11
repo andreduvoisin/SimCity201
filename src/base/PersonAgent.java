@@ -2,6 +2,7 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
+import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import market.interfaces.MarketCustomer;
@@ -47,7 +50,6 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
-import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 
 
@@ -140,7 +142,7 @@ public class PersonAgent extends Agent implements Person {
 					print(jobRole.toString());
 				break;
 			case HOUSING:
-				jobRole = SortingHat.getHousingRole(this, mTimeShift);
+				jobRole = SortingHat.getHousingRole(this, mTimeShift, false);
 				break;
 			case NONE:
 				break;
@@ -162,7 +164,13 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = false;
 		mCommutingTo = null;
 		
-		mRoles.put(SortingHat.getHousingRole(this, mTimeShift), true);
+		if (mName.contains("renter")) {
+			print("made renter!");
+			mRoles.put(SortingHat.getHousingRole(this, mTimeShift, true), true);
+		}
+		else {
+			mRoles.put(SortingHat.getHousingRole(this, mTimeShift, false), true);
+		}
 		//mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
@@ -575,6 +583,15 @@ public class PersonAgent extends Agent implements Person {
 		if (getHousingRole().getHouse() == null) {
 			((HousingRenterRole) getHousingRole()).msgRequestHousing();
 		}
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				mPersonGui.setPresent(true);
+				mPersonGui.DoGoToDestination(getHousingRole().getLocation());
+				acquireSemaphore(semAnimationDone);
+				mPersonGui.setPresent(false);
+			}
+		}, 1000);
 	}
 	
 	public void getCar(){
@@ -952,7 +969,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeRent() {
-		getHousingRole().msgTimeToCheckRent(); //this role is always active
+		print("invokeRent");
+		((HousingLandlordRole) getHousingRole()).mActive = true;
+		((HousingLandlordRole) getHousingRole()).msgTimeToCheckRent(); //this role is always active
 	}
 	
 	public void invokeMaintenance() {

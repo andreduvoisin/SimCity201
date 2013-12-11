@@ -1,9 +1,12 @@
 package restaurant.restaurant_xurex.gui;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_xurex.interfaces.Cook;
 import restaurant.restaurant_xurex.interfaces.CookGui_;
@@ -13,8 +16,11 @@ public class CookGui implements Gui, CookGui_ {
     private Cook agent = null;
     RexAnimationPanel animationPanel;
     
+    //Animation Image
+  	private BufferedImage image;
+  	
     private boolean msgSent = true;
-    private static final int cookDim = 10;
+    //private static final int cookDim = 10;
     
     private final int homex = 45;
     private final int homey = 280;
@@ -38,6 +44,15 @@ public class CookGui implements Gui, CookGui_ {
 		places.put(new Integer(8), new Point(65,200)); //serve3
 		places.put(new Integer(9), new Point(65,225)); //serve4
 		places.put(new Integer(10), new Point(65,250));//serve5
+		
+		image = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/Chef.png");
+    		image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
     public void updatePosition() {
@@ -58,8 +73,9 @@ public class CookGui implements Gui, CookGui_ {
     }
 
     public void draw(Graphics2D g) {
-        g.setColor(Color.CYAN);
-        g.fillRect(xPos, yPos, cookDim, cookDim);
+    	g.drawImage(image, xPos, yPos, null);
+//      g.setColor(Color.CYAN);
+//      g.fillRect(xPos, yPos, cookDim, cookDim);
     }
 
     public void DoDisplayOrder(String choice, int table){

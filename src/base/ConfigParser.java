@@ -72,11 +72,10 @@ public class ConfigParser {
 			if(jobType != EnumJobType.NONE)
 				person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
 			else {
-				if (name.contains("renter"))
+				if (name.contains("renter")) {
 					person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 0));
-				if (name.contains("landlord"))
-					person.msgAddEvent(new Event(EnumEventType.ASK_FOR_RENT, 5));
-				if(name.contains("bankcust"))
+				}
+				else if(name.contains("bankcust"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, 0));
 				else if(name.contains("restcust"))
 					person.msgAddEvent(new Event(EnumEventType.EAT, 0));

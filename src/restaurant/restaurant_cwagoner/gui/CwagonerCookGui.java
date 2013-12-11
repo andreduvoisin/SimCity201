@@ -95,7 +95,7 @@ public class CwagonerCookGui extends CwagonerBaseGui implements Gui {
     
     public void DoGoToPlating() {
     	state = State.goingToPlating;
-    	destination.mX = CwagonerAnimationPanel.platingPos.mX +CwagonerAnimationPanel. platingPos.mY;
+    	destination.mX = CwagonerAnimationPanel.platingPos.mX +CwagonerAnimationPanel.platingPos.mY;
     	destination.mY = CwagonerAnimationPanel.platingPos.mY + plateSize - size;
     }
     

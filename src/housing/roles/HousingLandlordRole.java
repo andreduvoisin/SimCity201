@@ -8,7 +8,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import city.gui.trace.AlertLog;
+import city.gui.trace.AlertTag;
 import base.interfaces.Person;
 
 /*
@@ -50,6 +54,12 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	
 	public HousingLandlordRole(Person person){
 		super(person);
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				mTimeToCheckRent = true;
+			}
+		}, 10000);
 	}
 
 	/* Messages */
@@ -106,6 +116,7 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 
 	/* Actions */
 	private void CollectRent(){
+		print("CollectRent");
 		synchronized (mRenterList) {
 			Iterator<MyRenter> itr = mRenterList.iterator();
 			while (itr.hasNext()) {
