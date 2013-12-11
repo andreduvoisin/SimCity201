@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import market.Market;
 import restaurant.intermediate.RestaurantCookRole;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import bank.Bank;
 import base.ContactList;
 import base.Item;
@@ -120,7 +121,7 @@ public class PlacesPropertiesTab extends JPanel{
 		
 		public void update() {
 				bankLabel.setText("<html><table>" +
-					"<tr><td>Guard :</td><td>" + bank.mGuard.getName() + "</td></tr>" +
+					"<tr><td>Guard :</td><td>" + bank.mGuard.toString() + "</td></tr>" +
 					"<tr><td>Number of Tellers:</td><td>" + bank.mTellers.size() + "</td></tr>" +
 					"</table></html>");
 		}
@@ -262,7 +263,6 @@ public class PlacesPropertiesTab extends JPanel{
 			String host = "";
 			String cashier = "";
 			String cook = "";
-//			int waiters = 0 ;
 			
 			switch(restaurantNum) {
 			case 0:
@@ -272,7 +272,12 @@ public class PlacesPropertiesTab extends JPanel{
 				cook = ContactList.AndreRestaurant.cook.toString();
 				}
 				break;
-			case 1: //chase ANGELICA
+			case 1:
+				if(ContactList.CwagonerRestaurant.host != null) {
+					host = ContactList.CwagonerRestaurant.host.toString();
+					cashier = ContactList.CwagonerRestaurant.cashier.toString();
+					cook = ContactList.CwagonerRestaurant.cook.toString();
+				}
 				break;
 			case 2:
 				if(ContactList.JerrywebRestaurant.host != null) {
@@ -309,8 +314,12 @@ public class PlacesPropertiesTab extends JPanel{
 				cook = ContactList.TranacRestaurant.mCook.toString();
 				}
 				break;
-			case 7: //rex
-				//ANGELICA
+			case 7:
+				if(RexAnimationPanel.getInstance().host != null) {
+					host = RexAnimationPanel.host.toString();
+					cashier = RexAnimationPanel.cashier.toString();
+					cook = RexAnimationPanel.cook.toString();
+				}
 				break;
 			}
 			
@@ -318,7 +327,6 @@ public class PlacesPropertiesTab extends JPanel{
 			"<tr><td>Host: </td><td>" + host + "</td></tr>" +
 			"<tr><td>Cashier: </td><td>" + cashier + "</td></tr>" +
 			"<tr><td>Cook: </td><td>" + cook + "</td></tr>" +
-//			"<tr><td>Number of Waiters:</td><td>" + waiters + "</td></tr>" +
 			"</table></center></html>");
 		}
 		
@@ -327,11 +335,13 @@ public class PlacesPropertiesTab extends JPanel{
 			switch(restaurantNum) {
 			case 0:
 				if(ContactList.AndreRestaurant.cook != null) {
-					System.out.println(0);
 				cook = ContactList.AndreRestaurant.cook.mRole;
 				}
 				break;
-			case 1: //chase //ANGELICA
+			case 1:
+				if(ContactList.CwagonerRestaurant.cook != null) {
+					cook = ContactList.CwagonerRestaurant.cook.mRole;
+				}
 				break;
 			case 2:
 				if(ContactList.JerrywebRestaurant.cook != null) {
@@ -346,7 +356,6 @@ public class PlacesPropertiesTab extends JPanel{
 			case 4:
 				if(ContactList.DavidRestaurant.cook != null) {
 				cook = ContactList.DavidRestaurant.cook.mRole;
-				System.out.println("k");
 				}
 				break;
 			case 5:
@@ -359,8 +368,10 @@ public class PlacesPropertiesTab extends JPanel{
 				cook = ContactList.TranacRestaurant.mCook.mRole;
 				}
 				break;
-			case 7: //rex
-				//ANGELICA
+			case 7:
+				if(RexAnimationPanel.getInstance().cook != null) {
+				cook = RexAnimationPanel.getInstance().cook.mRole;
+				}
 				break;
 			}
 			

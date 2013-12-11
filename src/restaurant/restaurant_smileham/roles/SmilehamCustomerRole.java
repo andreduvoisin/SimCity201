@@ -384,7 +384,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	private void leaveTable() {
 		print("Action: leaveTable()");
 		mState = EnumAgentState.Leaving;
-//		if (mFoodLabelGui != null) mFoodLabelGui.remove();	ANGELICA
+		if (mFoodLabelGui != null) mFoodLabelGui.remove();
 		mCustomerGui.DoExitRestaurant();
 		acquireSemaphore(semLeftRestaurant);
 		mWaiter.msgCustomerLeaving((SmilehamCustomer)this);

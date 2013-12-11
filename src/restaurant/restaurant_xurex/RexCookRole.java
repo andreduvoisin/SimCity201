@@ -28,7 +28,7 @@ import city.gui.trace.AlertTag;
  */
 
 public class RexCookRole extends BaseRole implements Cook {
-	private RestaurantCookRole mRole;
+	public RestaurantCookRole mRole;
 	
 	public enum OrderState
 	{pending, cooking, cooked, served};
