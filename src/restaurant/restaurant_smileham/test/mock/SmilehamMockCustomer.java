@@ -16,14 +16,14 @@ import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
  * @author Monroe Ekilah
  *
  */
-public class MockCustomer extends Mock implements SmilehamCustomer {
+public class SmilehamMockCustomer extends SmilehamMock implements SmilehamCustomer {
 
 	/**
 	 * Reference to the Cashier under test that can be set by the unit test.
 	 */
 	public SmilehamCashier mCashier;
 
-	public MockCustomer(String name) {
+	public SmilehamMockCustomer(String name) {
 		super(name);
 
 	}

@@ -7,9 +7,9 @@ import restaurant.restaurant_smileham.agent.Check;
 import restaurant.restaurant_smileham.interfaces.SmilehamCashier;
 import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 
-public class MockCashier extends Mock implements SmilehamCashier{
+public class SmilehamMockCashier extends SmilehamMock implements SmilehamCashier{
 
-	public MockCashier(String name) {
+	public SmilehamMockCashier(String name) {
 		super(name);
 		
 	}

@@ -4,9 +4,9 @@ import restaurant.restaurant_smileham.Order;
 import restaurant.restaurant_smileham.gui.CookGui;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 
-public class MockCook extends Mock implements SmilehamCook{
+public class SmilehamMockCook extends SmilehamMock implements SmilehamCook{
 
-	public MockCook(String name) {
+	public SmilehamMockCook(String name) {
 		super(name);
 	}
 

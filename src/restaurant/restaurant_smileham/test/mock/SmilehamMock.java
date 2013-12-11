@@ -7,10 +7,10 @@ package restaurant.restaurant_smileham.test.mock;
  * @author Sean Turner
  *
  */
-public class Mock {
+public class SmilehamMock {
 	protected String mName;
 	
-	public Mock(String name) {
+	public SmilehamMock(String name) {
 		this.mName = name;
 	}
 
