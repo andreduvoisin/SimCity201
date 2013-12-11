@@ -2,6 +2,7 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
+import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -968,7 +969,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeRent() {
-		getHousingRole().msgTimeToCheckRent(); //this role is always active
+		print("invokeRent");
+		((HousingLandlordRole) getHousingRole()).mActive = true;
+		((HousingLandlordRole) getHousingRole()).msgTimeToCheckRent(); //this role is always active
 	}
 	
 	public void invokeMaintenance() {
