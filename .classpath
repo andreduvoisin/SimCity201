@@ -4,4 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="jmf.jar"/>
+	<classpathentry kind="lib" path="mp3plugin.jar"/>
+	<classpathentry kind="lib" path="JavaSoundDemo.jar"/>
 </classpath>
