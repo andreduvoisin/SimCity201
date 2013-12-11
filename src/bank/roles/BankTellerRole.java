@@ -234,5 +234,23 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mPerson.removeRole(this);
 		
 		mPerson.setJobType(EnumJobType.NONE);
+		
+		print("Help I've been fired!");
+		
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				hireNewPerson();
+			}
+		}, 2000);
+	}
+	
+	public void hireNewPerson(){
+		String name = mPerson.getName();
+		mPerson.setName("New Person");
+		mGUI.setFired(false);
+		print("Yay I've been hired :)");
+		mPerson.setName(name);
 	}
 }
