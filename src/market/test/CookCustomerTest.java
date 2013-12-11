@@ -8,7 +8,6 @@ import market.Market;
 import market.MarketOrder;
 import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
-import market.interfaces.MarketCashier;
 import market.test.mock.MockCashier;
 import market.test.mock.MockRestaurantCashier;
 import market.test.mock.MockWorker;

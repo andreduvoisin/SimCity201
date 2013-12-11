@@ -6,9 +6,6 @@ import java.util.List;
 import java.util.Vector;
 
 import restaurant.restaurant_tranac.gui.Gui;
-import restaurant.restaurant_tranac.interfaces.TranacCashier;
-import restaurant.restaurant_tranac.interfaces.TranacCook;
-import restaurant.restaurant_tranac.interfaces.TranacHost;
 import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;

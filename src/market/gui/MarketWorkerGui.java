@@ -36,7 +36,7 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private enum EnumCommand {noCommand, goToMarket, fulFillOrder, goToItem, goToCashier, goToCustomer, goToDeliveryTruck, leaveMarket};
 	private EnumCommand mCommand = EnumCommand.noCommand;
 	
-	private Semaphore gettingItem = new Semaphore(0,true);
+	public Semaphore gettingItem = new Semaphore(0,true);
 	
 	BufferedImage image;
 	

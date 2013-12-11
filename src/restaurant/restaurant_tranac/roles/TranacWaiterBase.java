@@ -145,7 +145,6 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 
 	/** Animation Messages*/
 	public void msgAnimationDone() {
-		print("Waiter");
 		inTransit.release();
 	}
 	
@@ -264,7 +263,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	protected abstract void sendOrder(MyCustomer c);
 	
 	protected void deliverFood(MyCustomer c) {
-		print("Delivering food to " + c.getName() + ".");
+		print("Delivering food.");
 		DoGoToGetOrder(c.orderNum);
 		mCook.msgOrderPickedUp(this, c.choice);
 		
