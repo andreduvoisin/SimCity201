@@ -73,7 +73,8 @@ public class ConfigParser {
 				((BankMasterTellerRole) ContactList.masterTeller).mAccounts.add(new BankAccount(0, cash, person));
 				((BankMasterTellerRole) ContactList.masterTeller).mAccountIndex.put(person.getSSN(), ((BankMasterTellerRole) ContactList.masterTeller).mAccounts.size()-1);
 				
-				//Events			
+				//Events		
+				person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, -5));
 				if(jobType != EnumJobType.NONE)
 					person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
 				else {

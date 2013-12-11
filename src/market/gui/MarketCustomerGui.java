@@ -24,7 +24,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 
 	private static final int xStart = -20, yStart = -20;
 	private static final int xMarket = 70, yMarket = 50;
-	private static final int xWaitingArea = 50, yWaitingArea = 420;
+	private static final int xWaitingArea = 50, yWaitingArea = 100;
 	
 	private int xPos = xStart, yPos = yStart;
 	private int xDestination = xStart, yDestination = yStart;
@@ -36,6 +36,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 	
 	public MarketCustomerGui(MarketCustomer agent) {
 		mAgent = agent;
+		mNum = 0;
 		
 		synchronized(sWaitingSpaces) {
 		if(sWaitingSpaces.size() == 0) {
@@ -92,7 +93,7 @@ public class MarketCustomerGui implements MarketBaseGui {
 	public void draw(Graphics2D g) {
 		if(SimCityGui.GRADINGVIEW) {
 			g.setColor(Color.BLACK);
-			g.drawString("MCustomer", xPos, yPos);
+			g.drawString("C"+mNum, xPos, yPos);
 		}
 		else
 			g.drawImage(image, xPos, yPos, null);
@@ -111,8 +112,9 @@ public class MarketCustomerGui implements MarketBaseGui {
 		for(int i=0;i<sNumWaitingSpaces;i++) {
 			if(sWaitingSpaces.get(i).tryAcquire()) {
 				mNum = i;
-				xDestination = xWaitingArea - 30*i;
+				xDestination = xWaitingArea + 30*i;
 				yDestination = yWaitingArea;
+				break;
 			}
 		}
 		mCommand = EnumCommand.goToWaitingArea;
