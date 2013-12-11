@@ -37,16 +37,16 @@ public class WaiterTest extends TestCase {
 	//test deliverOrder for regular waiter
 	public void testRegularWaiter() {
 		waiter = new SmilehamWaiterRole(person);
-		waiter.semAtCook = new Semaphore(100);
 		waiter.mCook = cook;
-		
+		waiter.msgAnimationAtCook(); //give permit
 		
 		
 	}
 	
 	public void testSharedWaiter(){
 		waiter = new SmilehamWaiterRoleShared(person);
-		waiter.semAtCook = new Semaphore(100);
+		waiter.mCook = cook;
+		waiter.msgAnimationAtCook(); //give permit
 	}
 	
 	

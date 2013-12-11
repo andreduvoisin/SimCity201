@@ -49,7 +49,7 @@ public class WaiterTest extends TestCase {
 		
 		//send order to waiter
 		waiter.msgOrderDone("Food",1,1);
-	//assert waiter changed order to done
+		//assert waiter changed order to done
 		assertEquals(waiter.customers.get(0).s,CustomerState.FoodDone);
 	
 		//send order to customer
