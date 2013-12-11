@@ -308,7 +308,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		}
 		
 	}
-	private class MyWaiter{
+	public class MyWaiter{
 		MyWaiter(MaggiyanWaiter waiter){
 			w = waiter; 
 			s = WaiterState.free; 
@@ -318,7 +318,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 			
 		}
 		
-		MaggiyanWaiter w;  
+		public MaggiyanWaiter w;  
 		WaiterState s; 
 		boolean askedToGoOnBreak;
 		@SuppressWarnings("unused")

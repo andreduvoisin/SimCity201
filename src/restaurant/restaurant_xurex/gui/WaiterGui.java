@@ -82,6 +82,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
     }
 
     public void updatePosition() {
+    	if(!onFire){
         if (xPos < xDestination)
             xPos++;
         else if (xPos > xDestination)
@@ -94,7 +95,7 @@ public class WaiterGui implements Gui, WaiterGui_ {
        
         if (xPos == xDestination && yPos == yDestination && !msgSent) {
            role.msgAtLocation(); msgSent=true;
-        }
+        }}
     }
 
     public void draw(Graphics2D g) {
