@@ -55,6 +55,11 @@ public class CwagonerCookRole extends BaseRole implements CwagonerCook {
 	TimerTask checkStand = new TimerTask() {
 		public void run() {
 			if (mPerson != null) {
+				for (Order o : RevolvingStand) {
+					print("Adding order from RevolvingStand");
+					Orders.add(o);
+				}
+				RevolvingStand.clear();
 				stateChanged();
 			}
 		}

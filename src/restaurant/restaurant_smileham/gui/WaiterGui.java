@@ -56,7 +56,7 @@ public class WaiterGui implements Gui {
     }
 
     public void updatePosition() {
-    	
+    	if(!onFire){
     	//Move X and Y
 	        if (mPosX < mDestinationX)
 	            mPosX += cSPEED;
@@ -90,7 +90,7 @@ public class WaiterGui implements Gui {
         	else{
         		if (mWaiterAgent.semAtTable.availablePermits() == 0) mWaiterAgent.semAtTable.release();
         	}
-        }
+        }}
     }
 
     public void draw(Graphics2D g) {

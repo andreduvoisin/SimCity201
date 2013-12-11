@@ -32,7 +32,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         private TranacCookGui cookGui;
         
         public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
-        private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
+        public List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
         
         private Map<EnumItemType,Integer> mCookTimes = new HashMap<EnumItemType,Integer>();
         
@@ -60,7 +60,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         	}
         }
         
-        private void checkStand() {
+        public void checkStand() {
         	print("Checking stand like a boss.");
         	synchronized(revolvingStand) {
         		synchronized(orders) {
