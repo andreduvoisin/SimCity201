@@ -302,12 +302,10 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	/** Actions */
 
 	private void goToRestaurant() {
-	//	print("Going to restaurant.");
 		DoGoToHost();
 	}
 
 	private void tellHostAtRestaurant() {
-	//	print("Helloooo.");
 		host.msgIWantFood(this);
 	}
 
