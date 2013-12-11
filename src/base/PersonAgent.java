@@ -320,7 +320,7 @@ public class PersonAgent extends Agent implements Person {
 		if (event.mEventType == EnumEventType.GET_CAR) {
 			getCar();
 		}
-		if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
+		else if (event.mEventType == EnumEventType.REQUEST_HOUSE) {
 			requestHouse();
 		}
 		//Daily Recurring Events (Job, Eat)
