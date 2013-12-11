@@ -11,8 +11,6 @@ NONE 100 bankcust5
 NONE 100 bankcust6
 NONE 100 bankcust7
 NONE 100 bankcust8
-NONE 100 robber1
-NONE 100 robber2
 MARKET 200 m1
 MARKET 200 m2
 MARKET 200 m3

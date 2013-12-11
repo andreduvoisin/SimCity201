@@ -120,7 +120,7 @@ public class CityPerson extends CityComponent {
 				rectangle.x = previousX;
 				if (rectangle.intersects(iBlock.rectangle)) {
 					rectangle.x = x;
-					rectangle.y = previousY;
+					rectangle.y = previousY; 
 				}
 			}
 		}
