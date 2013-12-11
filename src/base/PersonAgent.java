@@ -583,6 +583,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(location);
 		mCommutingTo = EnumCommuteTo.MARKET;
+		mCommuterRole.mState = PersonState.walking;
 	}
 	
 	public void inspect() {
@@ -616,6 +617,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(getJobLocation());
 		mCommutingTo = EnumCommuteTo.JOB;
+		mCommuterRole.mState = PersonState.walking;
 	}
 
 	public void eatFood() {
@@ -628,6 +630,7 @@ public class PersonAgent extends Agent implements Person {
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(getHousingRole().getLocation());
 			mCommutingTo = EnumCommuteTo.HOUSE;
+			mCommuterRole.mState = PersonState.walking;
 		}else{
 			print("Going to restaurant");
 			
@@ -657,6 +660,7 @@ public class PersonAgent extends Agent implements Person {
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(ContactList.cRESTAURANT_LOCATIONS.get(restaurantChoice));
 			mCommutingTo = EnumCommuteTo.RESTAURANT;
+			mCommuterRole.mState = PersonState.walking;
 			stateChanged();
 		}		
 	}
@@ -697,6 +701,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(location);
 		mCommutingTo = EnumCommuteTo.MARKET;
+		mCommuterRole.mState = PersonState.walking;
 	}
 	
 	private void depositCheck() {		
@@ -714,6 +719,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(bankCustomerRole.getBankID() == 0 ? ContactList.cBANK1_LOCATION:ContactList.cBANK2_LOCATION);
 		mCommutingTo = EnumCommuteTo.BANK;
+		mCommuterRole.mState = PersonState.walking;
 	}
 	
 	private void planParty(int time){
@@ -753,6 +759,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = true;
 		mCommuterRole.setLocation(event.mLocation);
 		mCommutingTo = EnumCommuteTo.PARTY;
+		mCommuterRole.mState = PersonState.walking;
 		
 		mRoleFinished = false;
 	}
@@ -845,6 +852,7 @@ public class PersonAgent extends Agent implements Person {
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(getHousingRole().getLocation());
 			mCommutingTo = EnumCommuteTo.HOUSE;
+			mCommuterRole.mState = PersonState.walking;
 			((HousingBaseRole) getHousingRole()).msgTimeToMaintain();
 		}
 	}
