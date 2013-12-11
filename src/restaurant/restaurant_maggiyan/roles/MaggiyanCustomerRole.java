@@ -33,6 +33,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	
 	//GUI 
 	private MaggiyanCustomerGui customerGui;
+	@SuppressWarnings("unused")
 	private MaggiyanAnimationPanel mAnimationPanel; 
 	
 	private boolean reordering = false; 
@@ -40,8 +41,10 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	Timer timer = new Timer();
 
 	//For test cases
+	@SuppressWarnings("unused")
 	private double minCashAmt = 5.99;
 	private double normCashAmt = 15.99; 
+	@SuppressWarnings("unused")
 	private boolean isImpatient = false;
 	
 	// Agent Correspondents

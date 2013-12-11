@@ -53,6 +53,7 @@ public void msgHereIsBill(Check check) {
 	
 }
 
+@SuppressWarnings("unused")
 private String getCheckTotal(Check check) {
 	// TODO Auto-generated method stub
 	return null;

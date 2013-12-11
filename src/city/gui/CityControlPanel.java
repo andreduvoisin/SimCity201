@@ -29,6 +29,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 
+import market.interfaces.MarketWorker;
+import market.roles.MarketWorkerRole;
 import bank.roles.BankTellerRole;
 import base.ConfigParser;
 import base.ContactList;
@@ -290,7 +292,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioR.setPreferredSize(buttonDim);
 			scenarioS.setPreferredSize(buttonDim);
 		
-		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
+		// Action Listeners.
 			scenarioA.addActionListener(getActionListener("A_all_inspect1.txt"));
 			scenarioB.addActionListener(getActionListener("B_all_inspect3.txt"));
 			scenarioC.addActionListener(getActionListener("C_Market_Cook_Cashier.txt"));
@@ -635,35 +637,44 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    //ACTION LISTENERS FOR FIRE BUTTONS
 	    gringotts.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-//	    		System.out.println("test"); //This works
-	    		//SHANE 0 Action Listener Here
-	    		
 	    		//fire teller
 	    		List<BankTellerRole> tellers = ContactList.sBankList.get(0).mTellers;
 	    		BankTellerRole teller = tellers.get(tellers.size()-1);
 	    		teller.fired();
-	    		
-	    		//get new person
 	    	}
 	    });
 	    piggybank.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire teller
+	    		List<BankTellerRole> tellers = ContactList.sBankList.get(1).mTellers;
+	    		BankTellerRole teller = tellers.get(tellers.size()-1);
+	    		teller.fired();
+	    		
 	    	}
 	    });
 	    ollivanders.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(1).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();
+	    		
 	    	}
 	    });
 	    honeydukes.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(0).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();
+	    		
 	    	}
 	    });
 	    r0.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//REX: 0 Do the rest of these!!!
 	    	}
 	    });
 	    r1.addActionListener(new ActionListener() {
