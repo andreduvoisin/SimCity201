@@ -25,6 +25,10 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 
 	//ANIMATIONS
 	private BufferedImage background;
+	static Location fridgePos = new Location(200, 300),
+			cookingPos = new Location(300, 350),
+			platingPos = new Location(180, 350);
+	BufferedImage fridgeImg, stoveImg, platingImg, tableImg;
 	
 	int tableSize = 50;
 	public static CwagonerRestaurant restaurant;
@@ -66,14 +70,14 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 
     private void initializeCookingArea() {
 		try {
-			java.net.URL cookURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cook.png");
-			CwagonerCookGui.cookImg = ImageIO.read(cookURL);
 			java.net.URL fridgeURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/fridge.png");
-			CwagonerCookGui.fridgeImg = ImageIO.read(fridgeURL);
+			fridgeImg = ImageIO.read(fridgeURL);
 			java.net.URL stoveURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/stove.png");
-			CwagonerCookGui.stoveImg = ImageIO.read(stoveURL);
+			stoveImg = ImageIO.read(stoveURL);
+			java.net.URL platingURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/plating.png");
+			platingImg = ImageIO.read(platingURL);
 			java.net.URL tableURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/table.png");
-			CwagonerCookGui.tableImg = ImageIO.read(tableURL);
+			tableImg = ImageIO.read(tableURL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -91,7 +95,7 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
 				for (Gui gui : CwagonerRestaurant.guis) {
 		            gui.updatePosition();
 		        }
-			} catch(Exception ex) { }
+			} catch(Exception ex) {}
 		}
 	}
 
@@ -107,21 +111,21 @@ public class CwagonerAnimationPanel extends CityCard implements ActionListener {
         		g2.drawImage(background,0,0,null);
         	
         }
+        
         // Tables
         g2.setColor(Color.ORANGE);
         
         for (Location iL : tableLocations) {
-        	g2.fillRect(iL.mX, iL.mY, tableSize, tableSize);
+        	g2.drawImage(tableImg, iL.mX, iL.mY, null);
         }
 
         // Cook areas
-
-    	// Stove
-		g.drawImage(CwagonerCookGui.stoveImg, CwagonerCookGui.cookingPos.mX, CwagonerCookGui.cookingPos.mY, null);
-		// Plating area
-		g.drawImage(CwagonerCookGui.tableImg, CwagonerCookGui.platingPos.mX, CwagonerCookGui.platingPos.mY, null);
-    	// Fridge
-		g.drawImage(CwagonerCookGui.fridgeImg, CwagonerCookGui.fridgePos.mX, CwagonerCookGui.fridgePos.mY, null);
+        	// Stove
+			g2.drawImage(stoveImg, cookingPos.mX, cookingPos.mY, null);
+			// Plating area
+			g2.drawImage(platingImg, platingPos.mX, platingPos.mY, null);
+	    	// Fridge
+			g2.drawImage(fridgeImg, fridgePos.mX, fridgePos.mY, null);
 
 		synchronized(CwagonerRestaurant.guis) {
 	        for (Gui gui : CwagonerRestaurant.guis) {
