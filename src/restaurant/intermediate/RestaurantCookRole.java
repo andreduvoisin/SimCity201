@@ -12,6 +12,7 @@ import market.MarketOrder.EnumOrderEvent;
 import market.MarketOrder.EnumOrderStatus;
 import market.interfaces.MarketCashier;
 import restaurant.intermediate.interfaces.RestaurantBaseInterface;
+import restaurant.intermediate.interfaces.RestaurantCashierInterface;
 import restaurant.intermediate.interfaces.RestaurantCookInterface;
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.roles.CwagonerCookRole;
@@ -42,6 +43,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         static int totalCooks = 0;
         
         public Role subRole = null;
+        private RestaurantCashierInterface mRestaurantCashier;
 
         int mRestaurantID;
         public int DEFAULT_FOOD_QTY = 2;
@@ -66,6 +68,37 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		mItemsDesired.put(EnumItemType.CHICKEN,0);
         		mItemsDesired.put(EnumItemType.SALAD,0);
         		mItemsDesired.put(EnumItemType.PIZZA, 0);
+        		
+               	mRestaurantCashier = null;
+                
+               	if(AndreRestaurant.cashier != null) {
+                switch(mRestaurantID) {
+                case 0:	//andre
+                	mRestaurantCashier = AndreRestaurant.cashier.mRole;
+                	break;
+                case 1: //chase
+                	mRestaurantCashier = CwagonerRestaurant.cashier.mRole;
+                	break;
+                case 2: //jerry
+                	mRestaurantCashier = JerrywebRestaurant.cashier.mRole;
+                	break;
+                case 3: //maggi
+                	mRestaurantCashier = MaggiyanRestaurant.mCashier.mRole;
+                	break;
+                case 4: //david
+                	mRestaurantCashier = DavidRestaurant.cashier.mRole;
+                	break;
+                case 5: //shane
+                	mRestaurantCashier = SmilehamRestaurant.mCashier.mRole;
+                	break;
+                case 6: //angel
+                	mRestaurantCashier = TranacRestaurant.mCashier.mRole;
+                	break;
+                case 7: //rex
+                	 mRestaurantCashier = RexAnimationPanel.cashier.mRole;
+                	break;
+                }
+               	}
         }
         
         public void setPerson(Person person){
@@ -235,36 +268,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         			mMarketCashier = ContactList.sMarketList.get(m).mCashier;
         		}
                 mMarketCashier.msgOrderPlacement(o);
-                RestaurantCashierRole restaurantCashier = null;
-                
-                switch(mRestaurantID) {
-                case 0:	//andre
-                	restaurantCashier = AndreRestaurant.cashier.mRole;
-                	break;
-                case 1: //chase
-                	restaurantCashier = CwagonerRestaurant.cashier.mRole;
-                	break;
-                case 2: //jerry
-                	restaurantCashier = JerrywebRestaurant.cashier.mRole;
-                	break;
-                case 3: //maggi
-                	restaurantCashier = MaggiyanRestaurant.mCashier.mRole;
-                	break;
-                case 4: //david
-                	restaurantCashier = DavidRestaurant.cashier.mRole;
-                	break;
-                case 5: //shane
-                	restaurantCashier = SmilehamRestaurant.mCashier.mRole;
-                	break;
-                case 6: //angel
-                	restaurantCashier = TranacRestaurant.mCashier.mRole;
-                	break;
-                case 7: //rex
-                	 restaurantCashier = RexAnimationPanel.cashier.mRole;
-                	break;
-                }
-                
-                restaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
+                mRestaurantCashier.msgPlacedMarketOrder(o,mMarketCashier);
         }
         
         private void processOrder(MarketInvoice i) {   
@@ -278,6 +282,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         private void completeOrder(MarketOrder o) {
         		print("Complete market order.", mAlertTag);
                 for(EnumItemType item : o.mItems.keySet()) {
+                	print(item.toString() + " " + o.mItems.get(item), mAlertTag);
+                	print(o.mItems.get(item) + " " + mItemInventory.get(item), mAlertTag);
                         mItemInventory.put(item, mItemInventory.get(item)+o.mItems.get(item));
                 }
                 mOrders.remove(o);
@@ -288,12 +294,20 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		mMarketCashier = ContactList.sMarketList.get(n).mCashier;
         }
         
+        public void setMarketCashier(MarketCashier m) {
+        	mMarketCashier = m;
+        }
+        
         public void decreaseInventory(EnumItemType i) {
         	mItemInventory.put(i,mItemInventory.get(i)-1);
         }
 
         public void setInventory(EnumItemType i, int n) {
         	mItemInventory.put(i,n);
+        }
+        
+        public void setRestaurantCashier(RestaurantCashierInterface r) {
+        	mRestaurantCashier = r;
         }
         
         @Override

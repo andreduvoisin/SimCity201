@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,6 +29,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 
+import market.interfaces.MarketWorker;
+import market.roles.MarketWorkerRole;
+import bank.roles.BankTellerRole;
 import base.ConfigParser;
 import base.ContactList;
 import base.Inspection;
@@ -633,28 +637,44 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    //ACTION LISTENERS FOR FIRE BUTTONS
 	    gringotts.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-//	    		System.out.println("test"); //This works
-	    		//SHANE 0 Action Listener Here
+	    		//fire teller
+	    		List<BankTellerRole> tellers = ContactList.sBankList.get(0).mTellers;
+	    		BankTellerRole teller = tellers.get(tellers.size()-1);
+	    		teller.fired();
 	    	}
 	    });
 	    piggybank.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire teller
+	    		List<BankTellerRole> tellers = ContactList.sBankList.get(1).mTellers;
+	    		BankTellerRole teller = tellers.get(tellers.size()-1);
+	    		teller.fired();
+	    		
 	    	}
 	    });
 	    ollivanders.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(1).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();
+	    		
 	    	}
 	    });
 	    honeydukes.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(0).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();
+	    		
 	    	}
 	    });
 	    r0.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//REX: 0 Do the rest of these!!!
 	    	}
 	    });
 	    r1.addActionListener(new ActionListener() {

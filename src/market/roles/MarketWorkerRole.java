@@ -3,6 +3,8 @@ package market.roles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import market.Market;
@@ -237,6 +239,25 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		mPerson.assignNextEvent();
 		
 		mPerson.removeRole(this);
+		
 		mPerson.setJobType(EnumJobType.NONE);
+		
+		print("Help I've been fired!");
+		
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				hireNewPerson();
+			}
+		}, 2000);
+	}
+	
+	public void hireNewPerson(){
+		String name = mPerson.getName();
+		mPerson.setName("New Person");
+		mGui.setFired(false);
+		print("Yay I've been hired :)");
+		mPerson.setName(name);
 	}
 }
