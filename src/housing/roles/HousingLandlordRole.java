@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
@@ -52,6 +54,12 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 	
 	public HousingLandlordRole(Person person){
 		super(person);
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				mTimeToCheckRent = true;
+			}
+		}, 10000);
 	}
 
 	/* Messages */
