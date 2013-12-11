@@ -10,12 +10,12 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
-import restaurant.restaurant_tranac.roles.TranacWaiterRole;
+import restaurant.restaurant_tranac.roles.TranacWaiterBase;
 import city.gui.SimCityGui;
 
 public class TranacWaiterGui implements Gui {
 
-    private TranacWaiterRole agent = null;
+    private TranacWaiterBase agent = null;
     private int mNum;
     
     private int xPos = -20, yPos = -20;						//default waiter position
@@ -27,7 +27,7 @@ public class TranacWaiterGui implements Gui {
     private static final int xWaitingArea = 40, yWaitingArea = 60;
     private static final int xPlaceOrder = 455, yPlaceOrder = 125;
     private static final int xCashier = 230, yCashier = 180;
-    
+    private static final int xStand = 455, yStand = 180;
     private Map<Integer, Coordinates> tableLocations = new HashMap<Integer, Coordinates>();
     private Map<Integer, Coordinates> plateLocations = new HashMap<Integer, Coordinates>();
 
@@ -36,7 +36,7 @@ public class TranacWaiterGui implements Gui {
     private BufferedImage check;
     private BufferedImage askingBubble;
     
-    private enum Command {noCommand, goToHome, goToHost, goToWaitingArea, goToTable, goToPlaceOrder, goToGetOrder, goToCashier};
+    private enum Command {noCommand, goToHome, goToHost, goToWaitingArea, goToTable, goToPlaceOrder, goToGetOrder, goToCashier, goToStand};
     private Command command = Command.noCommand;
     
     private enum State {noState, asking, deliveringFood, deliveringCheck};
@@ -45,7 +45,7 @@ public class TranacWaiterGui implements Gui {
     @SuppressWarnings("unused")
 	private TranacAnimationPanel gui;
     
-    public TranacWaiterGui(TranacWaiterRole agent, TranacAnimationPanel gui, int i) {
+    public TranacWaiterGui(TranacWaiterBase agent, TranacAnimationPanel gui, int i) {
         this.agent = agent;
         this.gui = gui;
         mNum = i;
@@ -95,7 +95,7 @@ public class TranacWaiterGui implements Gui {
     	}
     }
 
-    public TranacWaiterGui(TranacWaiterRole agent, int i) {
+    public TranacWaiterGui(TranacWaiterBase agent, int i) {
         this.agent = agent;
         this.gui = TranacAnimationPanel.getInstance();
         
@@ -326,6 +326,13 @@ public class TranacWaiterGui implements Gui {
     	
     	xDestination = xCashier;
     	yDestination = yCashier;
+    }
+    
+    public void DoGoToRevolvingStand() {
+    	command = Command.goToStand;
+    	
+    	xDestination = xStand;
+    	yDestination = yStand;
     }
 
     /** Utilities */
