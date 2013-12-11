@@ -13,6 +13,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.font.TextAttribute;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,6 +29,18 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 
+import restaurant.restaurant_cwagoner.roles.CwagonerWaiterRole;
+import restaurant.restaurant_davidmca.roles.DavidWaiterRole;
+import restaurant.restaurant_duvoisin.roles.AndreWaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebWaiterRole;
+import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import restaurant.restaurant_tranac.roles.TranacWaiterRole;
+import restaurant.restaurant_xurex.RexWaiterRole1;
+import restaurant.restaurant_xurex.gui.RexAnimationPanel;
+import market.interfaces.MarketWorker;
+import market.roles.MarketWorkerRole;
+import bank.roles.BankTellerRole;
 import base.ConfigParser;
 import base.ContactList;
 import base.Inspection;
@@ -270,7 +283,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		
 		// Dimensions of Buttons
 			Dimension buttonDim = scenarioA.getPreferredSize();
-			buttonDim.height -= 4;
+			buttonDim.height -= 7;
 			buttonDim.width = 180;
 			scenarioA.setPreferredSize(buttonDim);
 			scenarioB.setPreferredSize(buttonDim);
@@ -288,7 +301,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioR.setPreferredSize(buttonDim);
 			scenarioS.setPreferredSize(buttonDim);
 		
-		// Action Listeners. THIS IS WHAT MAKES SHIT HAPPEN WHEN YOU CLICK A BUTTON
+		// Action Listeners.
 			scenarioA.addActionListener(getActionListener("A_all_inspect1.txt"));
 			scenarioB.addActionListener(getActionListener("B_all_inspect3.txt"));
 			scenarioC.addActionListener(getActionListener("C_Market_Cook_Cashier.txt"));
@@ -537,7 +550,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initPeople() {
 		Dimension size = new Dimension(90, 20);
-		Dimension preferred = new Dimension(180, 20);
+		Dimension preferred = new Dimension(180, 15);
 
 		peopleLabel = new JLabel("Create a Person:");
 		peopleLabel.setPreferredSize(preferred);
@@ -633,63 +646,137 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    //ACTION LISTENERS FOR FIRE BUTTONS
 	    gringotts.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-//	    		System.out.println("test"); //This works
-	    		//SHANE 0 Action Listener Here
+	    		//fire teller
+	    		List<BankTellerRole> tellers = ContactList.sBankList.get(0).mTellers;
+	    		BankTellerRole teller = tellers.get(tellers.size()-1);
+	    		teller.fired();
 	    	}
 	    });
 	    piggybank.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire teller
+	    		List<BankTellerRole> tellers = ContactList.sBankList.get(1).mTellers;
+	    		BankTellerRole teller = tellers.get(tellers.size()-1);
+	    		teller.fired();
+	    		
 	    	}
 	    });
 	    ollivanders.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(1).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();
+	    		
 	    	}
 	    });
 	    honeydukes.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(0).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();	    		
 	    	}
 	    });
 	    r0.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    	@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+	    		//fire restaurant worker
+				AndreWaiterRole waiter = null;
+				for(int i=0; i<ContactList.AndreRestaurant.host.waiters.size(); i++){
+					if(ContactList.AndreRestaurant.host.waiters.get(i).waiter instanceof AndreWaiterRole)
+					{	waiter = (AndreWaiterRole) ContactList.AndreRestaurant.host.waiters.get(i).waiter; break; }
+				}
+	    		waiter.fired();
 	    	}
 	    });
 	    r1.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    	@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+	    		//fire restaurant worker
+				CwagonerWaiterRole waiter = null;
+				for(int i=0; i<ContactList.CwagonerRestaurant.Waiters.size(); i++){
+					if(ContactList.CwagonerRestaurant.Waiters.get(i) instanceof CwagonerWaiterRole){
+						waiter = (CwagonerWaiterRole) ContactList.CwagonerRestaurant.Waiters.get(i);
+						break;
+					}
+				}
+	    		waiter.fired();
 	    	}
 	    });
 	    r2.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    	@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+	    		//fire restaurant worker
+				JerrywebWaiterRole waiter = null;
+				for(int i=0; i<ContactList.JerrywebRestaurant.host.Waiters.size(); i++){
+					if(ContactList.JerrywebRestaurant.host.Waiters.get(i).w instanceof JerrywebWaiterRole){
+						waiter = (JerrywebWaiterRole) ContactList.JerrywebRestaurant.host.Waiters.get(i).w;
+						break;
+					}
+				}
+	    		waiter.fired();
 	    	}
 	    });
 	    r3.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    	@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+	    		//fire restaurant worker
+	    		MaggiyanWaiterRole waiter = null;
+	    		for (int i = 0; i<ContactList.MaggiyanRestaurant.mHost.waiters.size(); i++){
+					if( ContactList.MaggiyanRestaurant.mHost.waiters.get(i).w instanceof MaggiyanWaiterRole ){
+						 waiter = (MaggiyanWaiterRole) ContactList.MaggiyanRestaurant.mHost.waiters.get(i).w; 
+						 break;
+					}
+	    		}
+	    		waiter.fired();
 	    	}
 	    });
 	    r4.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    	@SuppressWarnings("static-access") //REX: fix collection iteration
+			public void actionPerformed(ActionEvent e) {
+	    		//fire restaurant worker
+				DavidWaiterRole waiter = null;
+				for(int i=0; i<ContactList.DavidRestaurant.host.getWaitersList().size(); i++){
+					if(ContactList.DavidRestaurant.host.getWaiter().w instanceof DavidWaiterRole){
+						waiter = (DavidWaiterRole) ContactList.DavidRestaurant.host.getWaiter().w;
+					}
+				}
+				waiter.fired();
 	    	}
 	    });
 	    r5.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    	@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+	    		//fire restaurant worker
+				SmilehamWaiterRole waiter = null;
+				for(int i=0; i<ContactList.SmilehamRestaurant.mWaiters.size(); i++){
+					if(ContactList.SmilehamRestaurant.mWaiters.get(i) instanceof SmilehamWaiterRole)
+					{	waiter = ContactList.SmilehamRestaurant.mWaiters.get(i); break;	}
+				}
+	    		waiter.fired();
 	    	}
 	    });
 	    r6.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    	@SuppressWarnings("static-access")
+			public void actionPerformed(ActionEvent e) {
+	    		//fire restaurant worker
+	    		TranacWaiterRole waiter = null;
+	    		for(int i=0; i<ContactList.TranacRestaurant.mWaiters.size(); i++){
+	    			if(ContactList.TranacRestaurant.mWaiters.get(i) instanceof TranacWaiterRole)
+	    				{waiter = (TranacWaiterRole)ContactList.TranacRestaurant.mWaiters.get(i); break;}
+	    		}
+	    		waiter.fired();
 	    	}
 	    });
 	    r7.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire restaurant worker
+	    		@SuppressWarnings("static-access")
+				RexWaiterRole1 waiter = (RexWaiterRole1)RexAnimationPanel.getInstance().waiters.get(0);
+	    		waiter.fired();
 	    	}
 	    });
 	}

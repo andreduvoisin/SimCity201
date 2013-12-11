@@ -29,6 +29,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 	
 	//ANIMATION
 	private BufferedImage background;
+	private BufferedImage table;
 	
 	/*
 	 * Constructor
@@ -46,6 +47,8 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
     	try {
     	java.net.URL imageURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mybg.png");
     	background = ImageIO.read(imageURL);
+    	java.net.URL imageURL2 = this.getClass().getClassLoader().getResource("restaurant/restaurant_maggiyan/images/mytable.png");
+    	table = ImageIO.read(imageURL2);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
@@ -68,19 +71,23 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		Graphics2D g2 = (Graphics2D) g;
 
 		// Clear the screen by painting a rectangle the size of the frame
-		g2.setColor(getBackground());
+		g2.setColor(Color.gray);
 		g2.fillRect(0, 0, WINDOWX, WINDOWY);
 		
-		if(!SimCityGui.GRADINGVIEW) {
-        	if(background != null)
-        		g2.drawImage(background,0,0,null);
-        	
+		if(SimCityGui.GRADINGVIEW) {
+			for (Table table : restaurant.tables) {
+				g.setColor(Color.ORANGE);
+				g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
+			}
         }
-		for (Table table : restaurant.tables) {
-			g.setColor(Color.RED);
-			g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
+		else {
+			if(background != null)
+        		g2.drawImage(background,0,0,null);
+			for (Table t : restaurant.tables) {
+				g2.drawImage(table, t.getX(),t.getY(), null);
+			}
 		}
-
+		
 		for (Gui gui : restaurant.guis) {
 			if (gui.isPresent()) {
 				gui.draw(g2);

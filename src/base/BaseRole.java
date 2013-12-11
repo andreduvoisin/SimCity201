@@ -33,7 +33,7 @@ public abstract class BaseRole implements Role {
 		mPerson.getGui().DoGoToDestination(location);
 	
 	}
-	//SHANE: The commuterRole uses this call to mPerson.getGui() but I can't seem to find that function so I added an empty shell... -Jerry
+	//SHANE: 4 The commuterRole uses this call to mPerson.getGui() but I can't seem to find that function so I added an empty shell... -Jerry
 	public void DriveToDestination(Location location){
 		
 	}
@@ -100,5 +100,11 @@ public abstract class BaseRole implements Role {
 			return true;
 		}
 		return false;
+	}
+	
+	public String toString() {
+		if(mPerson != null)
+			return mPerson.getName();
+		return "";
 	}
 }

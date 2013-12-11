@@ -440,7 +440,8 @@ public class AndreCustomerRole extends BaseRole implements Customer {
 //		mPerson.msgAddEvent(new Event(EnumEventType.GET_CAR, 0));
 //		//mPerson.setJobFalse();
 //		mPerson.msgRoleFinished();
-		// ANDRE: Should probably do something like this...
+		
+		//???
 //		customerGui.animationPanel.removeCustomer(this);
 //		customerGui.animationPanel.removeGui(customerGui);
 	}

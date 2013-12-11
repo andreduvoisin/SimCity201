@@ -45,7 +45,7 @@ import java.util.Vector;
  * @author Thomas S. Robertson
  * @version 0.0
  */
-
+@SuppressWarnings("rawtypes")
 public class StringUtil {
 
     /**

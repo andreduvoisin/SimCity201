@@ -99,7 +99,7 @@ public class MarketCashierGui implements MarketBaseGui {
 	
 /* Utilities */
 	public boolean isPresent() {
-		if(mAgent instanceof MarketCashierRole) {	//ANGELICA z is present function
+		if(mAgent instanceof MarketCashierRole) {
 			MarketCashierRole role = (MarketCashierRole) mAgent;
 			if(role.getPerson() != null) {
 				PersonAgent p = (PersonAgent) role.getPerson();

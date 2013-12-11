@@ -259,8 +259,8 @@ public class AndreHostRole extends BaseRole implements Host {
 		}
 	}
 	
-	private class MyWaiter {
-		Waiter waiter;
+	public class MyWaiter {
+		public Waiter waiter;
 		public int numCustomers;
 		WaiterState state;
 		

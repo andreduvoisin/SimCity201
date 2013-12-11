@@ -18,7 +18,7 @@ import city.gui.trace.AlertTag;
 /**
  * MockPerson built to unit test Housing
  * 
- * @author Maggi Yang
+ * @author Maggi Yang, Jerry Webb
  * 
  */
 public class MockPerson extends Mock implements Person {

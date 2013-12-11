@@ -42,6 +42,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 	public boolean amReady = true; 
 	public enum WaiterState {busy, free, askedToGoOnBreak, onBreak};
 	private MaggiyanWaiterGui hostGui = null;
+	@SuppressWarnings("unused")
 	private MaggiyanCook cook; 
 	private int minWaiters = 1; 
 	//private int minCustomer = Integer.MAX_VALUE; 
@@ -233,6 +234,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		customer.msgRestaurantFull(); 
 	}
 	
+	@SuppressWarnings("unused")
 	private void removeImpatientCustomer(){
 		for(MaggiyanCustomer c: waitingCustomers){
 			if(c.getName().equals("Impatient")){
@@ -292,6 +294,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 			occupiedBy = null;
 		}
 
+		@SuppressWarnings("unused")
 		MaggiyanCustomer getOccupant() {
 			return occupiedBy;
 		}
@@ -305,7 +308,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		}
 		
 	}
-	private class MyWaiter{
+	public class MyWaiter{
 		MyWaiter(MaggiyanWaiter waiter){
 			w = waiter; 
 			s = WaiterState.free; 
@@ -315,10 +318,12 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 			
 		}
 		
-		MaggiyanWaiter w;  
+		public MaggiyanWaiter w;  
 		WaiterState s; 
 		boolean askedToGoOnBreak;
+		@SuppressWarnings("unused")
 		boolean onBreak; 
+		@SuppressWarnings("unused")
 		int customerNum; 
 	}
 	
