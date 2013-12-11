@@ -20,6 +20,7 @@ import base.Time;
 import city.gui.CityCard;
 import city.gui.SimCityGui;
 
+@SuppressWarnings({ "unused", "serial" })
 public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	
 	static final int tableWidth = 50;
@@ -58,7 +59,8 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
 	
     private final int WINDOWX = 500;
     private final int WINDOWY = 500;
-    private Image bufferImage;
+    
+	private Image bufferImage;
     private Dimension bufferSize;
     
     //ANIMATION
@@ -77,11 +79,11 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
     	super(city);
     	setSize(WINDOWX, WINDOWY);
     	setVisible(true);
-    	this.restaurant = r; 
+    	JerrywebAnimationPanel.restaurant = r; 
         //mInstance = this;
         //bufferSize = this.getSize();
         //mCustomers = new Vector<JerrywebCustomerRole>();
-    	Timer timer = new Timer(Time.cSYSCLK/10, this );
+    	Timer timer = new Timer(Time.cSYSCLK/35, this );
     	timer.start();
     	
     	background = null;
@@ -117,8 +119,8 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
     }*/
 	public void actionPerformed(ActionEvent e) {
 		
-			synchronized (restaurant.guis) {
-	        	for(Gui gui : restaurant.guis) {
+			synchronized (JerrywebRestaurant.guis) {
+	        	for(Gui gui : JerrywebRestaurant.guis) {
 	                if (gui.isPresent()) {
 	                    gui.updatePosition();
 	                }
@@ -166,8 +168,8 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
         g2.setColor(Color.YELLOW);
         g2.fillRect(cookXpos, cookYpos, cookWidth, cookHeight);
 
-        synchronized(restaurant.guis){
-        	for(Gui gui : restaurant.guis) {
+        synchronized(JerrywebRestaurant.guis){
+        	for(Gui gui : JerrywebRestaurant.guis) {
         		if (gui.isPresent()) {
         			gui.draw(g2);
         		}

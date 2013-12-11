@@ -22,7 +22,6 @@ import base.BaseRole;
 import base.ContactList;
 import base.Gui;
 import base.Location;
-import base.PersonAgent;
 import base.interfaces.Person;
 import city.gui.trace.AlertTag;
 

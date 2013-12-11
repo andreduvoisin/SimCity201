@@ -42,7 +42,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
 	}
 	
 //	ROLES
-    private static Vector<Waiter> waiters = new Vector<Waiter>();
+    public static Vector<Waiter> waiters = new Vector<Waiter>();
     private static Vector<Customer> customers = new Vector<Customer>();
     //Initial
     public static RexHostRole host; // = new RexHostRole();

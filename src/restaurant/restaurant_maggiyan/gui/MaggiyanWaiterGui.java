@@ -67,7 +67,7 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
     }
     
     public void updatePosition() { 
-    	
+    	if(!onFire){
     	if (xPos < xDestination){
     		prevXPos = xPos; 
     		xPos++;
@@ -141,6 +141,7 @@ public class MaggiyanWaiterGui implements MaggiyanGui {
         	agent.msgWaiterFree(); 
       
         }
+    	}
     }
 
     public void draw(Graphics2D g) {

@@ -106,7 +106,7 @@ public class CityPerson extends CityComponent {
 	    	}
 		}
 		
-		if (mUsingCar) rectangle.setBounds(x, y, 10, 10);
+		if (mUsingCar) rectangle.setBounds(x, y, 13, 13);
 		else rectangle.setBounds(x, y, 5, 5);
 
 		// B* Algorithm

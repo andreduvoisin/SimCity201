@@ -59,7 +59,6 @@ public class MarketWorkerRole extends BaseRole implements MarketWorker {
 		else
 			o.mEvent = EnumOrderEvent.TOLD_TO_SEND;
 		inTransit.release();
-	//	stateChanged();
 	}
 
 	public void msgAnimationAtMarket() {

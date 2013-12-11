@@ -51,7 +51,7 @@ public class WaiterGui implements Gui {
 	public int previousX = 0;
 	public int previousY = 0;
 	int idleSpotX = 0;
-	int idleSpotY = 0;
+	int idleSpotY = 20;
 	
 	static final int waiterWidth = 20;
 	static final int waiterHeight = 20;
@@ -94,6 +94,7 @@ public class WaiterGui implements Gui {
     }
 
     public void updatePosition() {
+    	if(!onFire){
     	 previousX = xPos;
     	 previousY = yPos;
         if (xPos < xDestination)
@@ -140,8 +141,7 @@ public class WaiterGui implements Gui {
         	//agent.msgAtCook();
 
         }
-        
-              
+    	}     
     }
 
     public void draw(Graphics2D g) {

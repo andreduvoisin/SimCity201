@@ -69,7 +69,7 @@ public class JerrywebRestaurant {
     		//JerrywebHostRole host = waiter.getHost();
     		host.addWaiter((JerrywebWaiterRole)waiter);
     		NumOfWatiers++;
-    	}
+    	}/*
     	else if (role instanceof JerrywebRSWaiterRole){
     		WaiterGui gui = new WaiterGui((Waiter) role, host);
     		((JerrywebRSWaiterRole) role).setGui(gui);
@@ -80,7 +80,7 @@ public class JerrywebRestaurant {
     		//JerrywebHostRole host = rswaiter.getHost();
     		host.addWaiter((JerrywebRSWaiterRole)rswaiter);
     		NumOfWatiers++;
-    	}
+    	}*/
     	else if (role instanceof JerrywebHostRole){
     		host = (JerrywebHostRole) role;
     	}
