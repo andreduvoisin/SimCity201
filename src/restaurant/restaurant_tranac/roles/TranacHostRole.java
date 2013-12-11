@@ -26,11 +26,9 @@ import city.gui.trace.AlertTag;
 public class TranacHostRole extends BaseRole implements TranacHost{
 	private TranacHostGui hostGui;
 	
-	static final int NTABLES = 4;		//number of tables in rest
+	static final int NTABLES = 3;		//number of tables in rest
 	static final int NWAITINGAREA = 20;
 	public Collection<Table> tables;
-	@SuppressWarnings("unused")
-	private int numWaiters;
 
 	//list of agents interacting in the restaurant
 	public List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
@@ -57,7 +55,6 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 		for(int i=0;i<NWAITINGAREA;i++) {
 			waitingAreas.put(i,null);
 		}
-		numWaiters = 0;
 	}
 
 	/** Messages */
@@ -129,29 +126,6 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 		stateChanged();
 	}
 	
-	public void msgWantToGoOnBreak(TranacWaiter w) {
-		synchronized(waiters) {
-			for(MyWaiter waiter : waiters) {
-				if(waiter.w == w) {
-					waiter.s = WaiterState.WantToGoOnBreak;
-					stateChanged();
-				}
-			}
-		}
-	}
-
-	public void msgBackFromBreak(TranacWaiter w) {
-		synchronized(waiters) {
-			for(MyWaiter waiter : waiters) {
-				if(waiter.w == w) {
-					waiter.s = WaiterState.Active;
-					numWaiters++;
-					stateChanged();
-				}
-			}
-		}
-	}
-	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -211,15 +185,7 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 				}
 			}
 		}
-	/*	synchronized(waiters) {
-			for(MyWaiter waiter : waiters) {
-				if(waiter.s == WaiterState.WantToGoOnBreak) {
-					checkIfBreakPossible(waiter);
-					return true;
-				}
-			}
-		}
-	*/	return false;
+		return false;
 	}
 
 	/** Actions */
@@ -234,20 +200,6 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 				break;
 			}
 		}
-		/*
-		synchronized(waitingPositions) {
-		for(MyCustomer customer : waitingPositions) {
-			if(customer == null) {
-				customer = c;
-				c.n = waitingPositions.indexOf(customer);
-				c.c.msgPleaseWaitHere(c.n);
-				return;
-			}
-		}
-		}
-		waitingPositions.add(c);
-		c.n = waitingPositions.indexOf(c);*/
-
 	}
 	
 	void seatCustomer(MyCustomer c, Table t) {
@@ -259,15 +211,10 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 		t.setOccupant(c);
 		//finds waiter with the lowest customer count
 		MyWaiter waiter = waiters.get(0);
-		//switches first waiter to second if 1 on break
-		if(waiter.s == WaiterState.OnBreak)
-			waiter = waiters.get(1);
 		synchronized(waiters) {
 			for(MyWaiter w : waiters) {
-				if(w.s == WaiterState.Active) {
-					if((w.getCount() < waiter.getCount()))
-						waiter = w;
-				}
+				if((w.getCount() < waiter.getCount()))
+					waiter = w;
 			}
 		}
 		c.w = waiter;
@@ -303,22 +250,6 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 			}
 		}
 	}
-/*
-	void checkIfBreakPossible(MyWaiter w) {
-		print("Checking if waiter can go on break.");
-		if(numWaiters == 1) {
-			//send message saying no
-			w.s = WaiterState.Active;
-			w.w.msgNoBreak();
-		}
-		else {
-			//send message saying yes
-			w.s = WaiterState.OnBreak;
-			numWaiters--;
-			w.w.msgGoOnBreak();
-		}
-	}
-	*/
 	/** Utilities */
 	public String getName() {
 		return mPerson.getName();
@@ -336,7 +267,6 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 		synchronized(waiters) {
 			waiters.add(new MyWaiter(w));
 		}
-		numWaiters++;
 	}
 	
 	private boolean restaurantFull() {
@@ -380,12 +310,10 @@ public class TranacHostRole extends BaseRole implements TranacHost{
 	private class MyWaiter {
 		TranacWaiter w;
 		int customerCount;
-		WaiterState s;
 		
 		MyWaiter(TranacWaiter w) {
 			this.w = w;
 			customerCount = 0;
-			s = WaiterState.Active;
 		}
 
 		void increaseCount() {

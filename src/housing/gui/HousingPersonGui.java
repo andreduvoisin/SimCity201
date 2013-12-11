@@ -5,6 +5,8 @@ import housing.roles.HousingBaseRole;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +28,8 @@ public class HousingPersonGui implements Gui {
 	private int yDestination = 265;
 	private boolean currentlyAnimating;
 	private boolean present;
+	
+	Timer timer = new Timer(); 
 
 //	//Furniture Positions
 //	private int CHAIRXPOS = 280; 
@@ -37,13 +41,14 @@ public class HousingPersonGui implements Gui {
 //	private int COUCHYPOS = 265;
 	
 	//Animation Images
-	private BufferedImage image;
+	private BufferedImage image, food;
 	
 	//----Person Positions----
 	
 	//Dining table chair Position
 	private int eatingXPos = 280; 
 	private int eatingYPos = 210; 
+	private boolean showFood = false; 
 	
 	//Couch or Rest Position
 	private int restingXPos = 75;
@@ -77,7 +82,9 @@ public class HousingPersonGui implements Gui {
 		image = null;
     	try {
     		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/person.png");
-    	image = ImageIO.read(imageURL);
+    		image = ImageIO.read(imageURL);
+    		java.net.URL foodURL = this.getClass().getClassLoader().getResource("city/gui/images/food.png");
+    		food = ImageIO.read(foodURL);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
@@ -113,8 +120,23 @@ public class HousingPersonGui implements Gui {
 				yPos -= 1;
 			
 			if (xPos == xDestination && yPos == yDestination && currentlyAnimating){
-				currentlyAnimating = false;
-				housingrole.msgDoneAnimating();
+				if(xDestination == eatingXPos && yDestination == eatingYPos){
+					currentlyAnimating = false;
+					showFood = true; 
+					timer.schedule(new TimerTask() {
+						public void run() {
+							showFood = false; 
+							housingrole.msgDoneAnimating();
+						}
+					},
+					4000); 
+				}
+				else{
+					currentlyAnimating = false;
+					housingrole.msgDoneAnimating();
+				}
+				
+				
 			}
 		}
 	}
@@ -123,6 +145,9 @@ public class HousingPersonGui implements Gui {
 		g.drawImage(image, xPos, yPos, null);
 //		g.setColor(Color.BLUE);
 //		g.fillRect(xPos, yPos, GUISIZE, GUISIZE);
+		if(showFood){
+			g.drawImage(food, eatingXPos + 30, eatingYPos + 20, null);
+		}
 	}
 
 	@Override

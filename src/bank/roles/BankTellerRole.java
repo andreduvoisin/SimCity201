@@ -165,7 +165,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 	}
 	private void robbery(){
 //		int accountIndex = mAccountIndex.get(mCustomer.mSSN);
-//		mAccounts.get(accountIndex).balance += mCustomer.amount; //REX: account information must fix in teller
+//		mAccounts.get(accountIndex).balance += mCustomer.amount; 
 		mCustomer.customer.msgHereIsBalance(200); //(mMasterTeller.getAccounts().get(accountIndex).balance);
 		mGuard.msgRobberAlert(mCustomer.customer);
 		print("MESSAGED GUARD ABOUT ROBBERY");
@@ -225,13 +225,14 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		super.print(msg, AlertTag.BANK, e);
 	}
 	
-	public void fuckYou(){
+	public void fired(){
 		mGUI.setFired(true);
 		
 		mPerson.msgRoleFinished();
 		mPerson.assignNextEvent();
 		
 		mPerson.removeRole(this);
+		
 		mPerson.setJobType(EnumJobType.NONE);
 	}
 }

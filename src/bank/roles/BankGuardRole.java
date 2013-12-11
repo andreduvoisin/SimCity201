@@ -143,4 +143,5 @@ public class BankGuardRole extends BaseRole implements BankGuard{
 		if(mPerson != null)
 			super.print(msg, AlertTag.BANK, e);
 	}
+
 }

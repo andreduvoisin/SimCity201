@@ -81,7 +81,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 		//set up customer
 		mCustomerGui = new CustomerGui(this);
 		SmilehamRestaurant.addGui((Gui) mCustomerGui);
-//		mAnimationPanel.addGui(mCustomerGui); //SHANE: 1 Decouple your restaurant!!!
+//		mAnimationPanel.addGui(mCustomerGui);
 		
 		//set data
 		mHunger = cHUNGER_LEVEL;
@@ -372,7 +372,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	private void payCheck(){
 		print("Action: payCheck()");
 		if (mCash < mCheck.mCash){
-			//SHANE: 5 Dine and dash - other actions?
+			//Dine and dash - other actions?
 			//This won't happen because of preconditions...
 		}
 		int cash = mCash;
@@ -384,7 +384,7 @@ public class SmilehamCustomerRole extends BaseRole implements SmilehamCustomer{
 	private void leaveTable() {
 		print("Action: leaveTable()");
 		mState = EnumAgentState.Leaving;
-//		if (mFoodLabelGui != null) mFoodLabelGui.remove();	ANGELICA
+		if (mFoodLabelGui != null) mFoodLabelGui.remove();
 		mCustomerGui.DoExitRestaurant();
 		acquireSemaphore(semLeftRestaurant);
 		mWaiter.msgCustomerLeaving((SmilehamCustomer)this);

@@ -49,7 +49,7 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 	private SmilehamCook mCook;
 	private Timer mTimer;
 	
-	//Semaphores //SHANE: 5 public private
+	//Semaphores
 	public Semaphore semAtTable = new Semaphore(0);
 	private Semaphore semAtPickupArea = new Semaphore(0);
 	public Semaphore semAtCook = new Semaphore(0);
@@ -485,7 +485,7 @@ public class SmilehamWaiterRole extends BaseRole implements SmilehamWaiter {
 			super.print(msg, AlertTag.R5, e);
 		}
 		
-		public void fuckYou(){
+		public void fired(){
 			mWaiterGui.setFired(true);
 			
 			mPerson.msgRoleFinished();

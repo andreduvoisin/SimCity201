@@ -338,7 +338,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 			return;
 		}
 		//normative scenario
-		print("Paying for meal: " + check.getCheckTotal()); 
+		//print("Paying for meal: " + check.getCheckTotal()); 
 		cashier.msgHereIsPayment(this, check.getCheckTotal());
 		event = AgentEvent.donePaying; 
 	}

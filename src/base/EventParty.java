@@ -7,7 +7,7 @@ import java.util.Map;
 
 import base.interfaces.Person;
 
-/* SHANE: Check this
+/*
   People like parties. They like to give them when they get the urge and go to them when we're invited. Here are the requirements for a PersonAgent. 
 	 Your friends will be located in your contact list. 
 	 Planning a Party at your house:
@@ -24,8 +24,6 @@ import base.interfaces.Person;
 	Somehow you must decide if you want to go.
 	 Don't forget to go to the parties when the time arrives!!
  */
-
-//REX: remove redundancies by removing event location
 
 public class EventParty extends Event{
 	public EventParty(EnumEventType type, int time, Location location, Person host, List<Person> pplInvited) {

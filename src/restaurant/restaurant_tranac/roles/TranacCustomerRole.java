@@ -302,12 +302,10 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 	/** Actions */
 
 	private void goToRestaurant() {
-	//	print("Going to restaurant.");
 		DoGoToHost();
 	}
 
 	private void tellHostAtRestaurant() {
-	//	print("Helloooo.");
 		host.msgIWantFood(this);
 	}
 
@@ -354,7 +352,6 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 			int c = Math.abs(rGenerator.nextInt() % 4);
 
 			choice = menu.getChoice(c);
-			print("Want " + choice);
 
 			double p = menu.getCost(choice);
 
@@ -384,7 +381,6 @@ public class TranacCustomerRole extends BaseRole implements TranacCustomer {
 
 		customerGui.setAlerting();
 		waiter.msgReadyToOrder(this);
-
 	}
 
 	private void chooseToStay() {

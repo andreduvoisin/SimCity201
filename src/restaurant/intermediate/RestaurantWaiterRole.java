@@ -50,20 +50,10 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 0: // andre
 			if (mWaiterType == 1) {
 				subRole = new AndreWaiterRole(super.mPerson);
-//				if(AndreRestaurant.waiters % 2 == 0) {
 					AndreRestaurant.addWaiter((AndreWaiterRole) subRole);
-//				} else {
-//					subRole = AndreRestaurant.lastWaiter;
-//					AndreRestaurant.waiters++;
-//				}
 			} else if (mWaiterType == 0) {
 				subRole = new AndreSharedWaiterRole(super.mPerson);
-//				if(AndreRestaurant.sharedWaiters % 2 == 0) {
 					AndreRestaurant.addSharedWaiter((AndreSharedWaiterRole) subRole);
-//				} else {
-//					subRole = AndreRestaurant.lastSharedWaiter;
-//					AndreRestaurant.waiters++;
-//				}
 			}
 			break;
 		case 1: // chase
@@ -109,7 +99,7 @@ public class RestaurantWaiterRole extends BaseRole implements
 				subRole = new SmilehamWaiterRole(super.mPerson);
 				SmilehamRestaurant.addPerson((SmilehamWaiterRole) subRole);
 			//} else if (mWaiterType == 0) {
-				// SHANE: add shared waiter
+				// SHANE: 1 add shared waiter
 			//}
 			break;
 		case 6: // angelica
