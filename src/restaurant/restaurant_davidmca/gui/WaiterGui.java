@@ -2,6 +2,10 @@ package restaurant.restaurant_davidmca.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
@@ -16,6 +20,9 @@ public class WaiterGui implements Gui {
 	private int xDestination = 20, yDestination = 20;
 	private static int WaiterSize = 20;
 	private String labelText = "";
+	
+	private boolean onFire = false;
+	private BufferedImage fireImage;
 
 	private boolean currentlyAnimating;
 
@@ -26,6 +33,15 @@ public class WaiterGui implements Gui {
 		yHome = 150+(100*home);
 		xPos = xHome;
 		yPos = yHome;
+		
+		fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
 
 	public void updatePosition() {
@@ -52,10 +68,13 @@ public class WaiterGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
+		if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else{
 		g.setColor(Color.MAGENTA);
 		g.fillRect(xPos, yPos, WaiterSize, WaiterSize);
 		g.setColor(Color.BLACK);
-		g.drawString(labelText, xPos, yPos);
+		g.drawString(labelText, xPos, yPos);}
 	}
 
 	public boolean isPresent() {
@@ -102,5 +121,10 @@ public class WaiterGui implements Gui {
 	public void setPresent(boolean state) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void setFired(boolean state) {
+		onFire = state;
 	}
 }

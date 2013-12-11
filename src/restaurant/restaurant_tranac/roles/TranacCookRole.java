@@ -2,7 +2,9 @@ package restaurant.restaurant_tranac.roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -30,8 +32,6 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         private TranacCookGui cookGui;
         
         public enum OrderState {Pending, Cooking, Plated, PickedUp, Done, Finished};
-        public enum FoodState {Good, LowStock, Ordered, NoStock};
-        
         private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
         
         private Map<EnumItemType,Integer> mCookTimes = new HashMap<EnumItemType,Integer>();
@@ -41,7 +41,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         private Map<Integer, Boolean> grills = new HashMap<Integer, Boolean>();
         private Map<Integer, Boolean> plates = new HashMap<Integer, Boolean>();
         
-        private Timer timer = new Timer();
+        private Timer cookingTimer = new Timer();
         
         private final int baseTime = 5000;
         private final int baseNeed = 3;
@@ -49,7 +49,33 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         private int mItemThreshold = 3;
         
         private Semaphore inTransit = new Semaphore(0, true);
-
+        
+        /* Revolving Stand Stuff */
+        public List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
+        private Timer standTimer = new Timer();
+        
+        public void addOrderToStand(TranacWaiter w, String c, int t) {
+        	synchronized(revolvingStand) {
+        		revolvingStand.add(new Order(w,c,t));
+        	}
+        }
+        
+        private void checkStand() {
+        	synchronized(revolvingStand) {
+        		synchronized(orders) {
+        			Iterator<Order> itRS = revolvingStand.iterator();
+        			
+        			while(itRS.hasNext()) {
+        				orders.add(itRS.next());
+        				revolvingStand.remove(itRS);
+        				itRS.remove();
+        			}
+        		}
+        	}
+        }
+        
+        /* Revolving Stand Stuff */
+        
         public TranacCookRole(Person p, RestaurantCookRole r) {
                 super(p);
                 cookGui = new TranacCookGui(this);
@@ -68,6 +94,13 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                         grills.put(i,false);
                 for(int i=1;i<=NPLATES;i++)
                         plates.put(i, false);
+
+                //start revolving standTimer
+                standTimer.scheduleAtFixedRate((new TimerTask() {        //runs a new timer to "cook" the food
+                    public void run() {
+                        checkStand();}
+                    }),new Date(System.currentTimeMillis()+8000),
+                    8000);
         }
 
         /** Messages */
@@ -96,12 +129,12 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         /** Animation Messages */
         public void msgAnimationAtGrill() {
                 inTransit.release();
-                stateChanged();
+    //            stateChanged();
         }
         
         public void msgAnimationAtPlate() {
                 inTransit.release();
-                stateChanged();
+      //          stateChanged();
         }
         
         /**
@@ -109,23 +142,30 @@ public class TranacCookRole extends BaseRole implements TranacCook {
          */
         public boolean pickAndExecuteAnAction() {
 
-            for(Order o : orders) {
+            synchronized(orders) {
+            	for(Order o : orders) {
                 if(o.s == OrderState.PickedUp) {
                         removeOrder(o);
                         return true;
                 }
             }
+            }
+            synchronized(orders) {
             for(Order o : orders) {
                 if(o.s == OrderState.Done) {
                         plateIt(o);
                         return true;
                 }
-            }for(Order o : orders) {
+            }
+            }
+            synchronized(orders) {
+            for(Order o : orders) {
                         if(o.s == OrderState.Pending) {
                                 tryToCookIt(o);
                                 return true;
                         }
                 }
+            }
                 DoGoToHome();
                 return false;
         }
@@ -166,7 +206,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
                 
                 DoGoToGrill(o);
                 DoAddFoodItem(o);
-                timer.schedule(new TimerTask() {        //runs a new timer to "cook" the food
+                cookingTimer.schedule(new TimerTask() {        //runs a new timer to "cook" the food
                         public void run() {
                                 msgOrderDone(o);
                         }

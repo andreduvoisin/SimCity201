@@ -104,4 +104,8 @@ public abstract class CityComponent implements Gui{
 	public boolean collidesWith(CityComponent cc) {
 		return cc.rectangle.intersects(this.rectangle);
 	}
+	
+	public void setFired(boolean state){
+		
+	}
 }

@@ -223,9 +223,6 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
-                for(EnumItemType i : o.mItems.keySet()) {
-                	print(i.toString() + " " + items.get(items),mAlertTag);
-                }
                 o.setRestaurantNumber(mRestaurantID);
                 mOrders.add(o);
         }

@@ -57,9 +57,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JPanel PeopleTab = new JPanel();
     JPanel PropertiesTab = new JPanel();
     JPanel TraceTab = new JPanel();
-    //Crash Buttons
+    //Custom Buttons
     JButton scenarioP;
     JButton scenarioQ;
+    JButton scenarioR;
     // Trace Panel
     TracePanel tracePanel;
     // Selection for Trace Panel
@@ -104,7 +105,19 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	JLabel nameLabel;
 	JTextArea nameArea;
 	JButton createButton;
-
+	JLabel fireLabel;
+	JButton gringotts;
+	JButton piggybank;
+	JButton ollivanders;
+	JButton honeydukes;
+	JButton r0;
+	JButton r1;
+	JButton r2;
+	JButton r3;
+	JButton r4;
+	JButton r5;
+	JButton r6;
+	JButton r7;
 
     //Properties Panel
     @SuppressWarnings("rawtypes")
@@ -286,7 +299,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 			scenarioO.addActionListener(getActionListener("O_Bank_Robbery.txt"));
 			scenarioP.addActionListener(getActionListener("P_Car_Crash.txt"));
 			scenarioQ.addActionListener(getActionListener("Q_Person_Crash.txt"));
-			scenarioR.addActionListener(getActionListener(""));
+			scenarioR.addActionListener(getActionListener("R_Weekend.txt"));
 			scenarioS.addActionListener(getActionListener("S_Firing.txt"));
 	}
 	
@@ -312,6 +325,28 @@ public class CityControlPanel extends JPanel implements ActionListener{
 						}
 					};
 					collisionTimer.schedule(detectCrashes, 6500);
+				}
+				if (e.getSource() == scenarioR) {
+					ContactList.sOpenPlaces.put (ContactList.cBANK1_LOCATION, false);
+					ContactList.sOpenPlaces.put (ContactList.cBANK2_LOCATION, false);
+					ContactList.sOpenBuildings.put("B1", false);
+					ContactList.sOpenBuildings.put("B2", false)
+					Inspection.sClosedImages.get(ContactList.cBANK1_LOCATION).enable();
+					Inspection.sClosedImages.get(ContactList.cBANK2_LOCATION).enable();
+					
+					ContactList.sOpenPlaces.put (ContactList.cMARKET1_LOCATION, false);
+					ContactList.sOpenBuildings.put("M1", false);
+					Inspection.sClosedImages.get(ContactList.cMARKET1_LOCATION).enable();
+					
+					ContactList.sOpenPlaces.put (ContactList.cRESTAURANT_LOCATIONS.get(3), false);
+					ContactList.sOpenPlaces.put (ContactList.cRESTAURANT_LOCATIONS.get(5), false);
+					ContactList.sOpenPlaces.put (ContactList.cRESTAURANT_LOCATIONS.get(7), false);
+					ContactList.sOpenBuildings.put("R3", false);
+					ContactList.sOpenBuildings.put("R5", false);
+					ContactList.sOpenBuildings.put("R7", false);
+					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(3)).enable();
+					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(5)).enable();
+					Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(7)).enable();
 				}
 				ConfigParser config = ConfigParser.getInstanceOf();
 				try {
@@ -494,9 +529,10 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void initPeople() {
 		Dimension size = new Dimension(90, 20);
+		Dimension preferred = new Dimension(180, 20);
 
 		peopleLabel = new JLabel("Create a Person:");
-		peopleLabel.setPreferredSize(new Dimension(180, 30));
+		peopleLabel.setPreferredSize(preferred);
 
 		jobLabel = new JLabel("Job Type:");
 		jobLabel.setPreferredSize(size);
@@ -523,12 +559,46 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    });
 
 	    createButton = new JButton("Create Person");
-	    createButton.setPreferredSize(new Dimension(180, 30));
+	    createButton.setPreferredSize(preferred);
 	    createButton.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		CreatePerson();
 	    	}
 	    });
+	    
+	    
+	    //FIRING PEOPLE
+	    fireLabel = new JLabel("FIRE:");
+	    fireLabel.setPreferredSize(new Dimension(180, 50));
+	    fireLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+	    
+	    gringotts 	= new JButton("Gringotts");
+	    piggybank 	= new JButton("Piggy Bank");
+	    ollivanders = new JButton("Ollivanders");
+	    honeydukes	= new JButton("Honeydukes");
+	    
+	    gringotts.setPreferredSize(preferred);
+	    piggybank.setPreferredSize(preferred);
+	    ollivanders.setPreferredSize(preferred);
+	    honeydukes.setPreferredSize(preferred);
+	    
+	    r0 = new JButton("Duvoisin");
+	    r1 = new JButton("Cwagoner");
+	    r2 = new JButton("Jerryweb");
+	    r3 = new JButton("Maggiyan");
+	    r4 = new JButton("Davidmca");
+	    r5 = new JButton("Smileham");
+	    r6 = new JButton("Tranac");
+	    r7 = new JButton("Xurex");
+	    
+	    r0.setPreferredSize(preferred);
+	    r1.setPreferredSize(preferred);
+	    r2.setPreferredSize(preferred);
+	    r3.setPreferredSize(preferred);	    
+	    r4.setPreferredSize(preferred);
+	    r5.setPreferredSize(preferred);
+	    r6.setPreferredSize(preferred);
+	    r7.setPreferredSize(preferred);
 
 	    PeopleTab.add(peopleLabel);
 	    PeopleTab.add(jobLabel);
@@ -538,6 +608,81 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    PeopleTab.add(nameLabel);
 	    PeopleTab.add(nameArea);
 	    PeopleTab.add(createButton);
+	    PeopleTab.add(fireLabel);
+	    PeopleTab.add(gringotts);
+	    PeopleTab.add(piggybank);
+	    PeopleTab.add(ollivanders);
+	    PeopleTab.add(honeydukes);
+	    PeopleTab.add(r0);
+	    PeopleTab.add(r1);
+	    PeopleTab.add(r2);
+	    PeopleTab.add(r3);
+	    PeopleTab.add(r4);
+	    PeopleTab.add(r5);
+	    PeopleTab.add(r6);
+	    PeopleTab.add(r7);
+	    
+	    //ACTION LISTENERS FOR FIRE BUTTONS
+	    gringotts.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    piggybank.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    ollivanders.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    honeydukes.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r0.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r1.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r2.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r3.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r4.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r5.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r6.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
+	    r7.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		//
+	    	}
+	    });
 	}
 
 	private void CreatePerson() {

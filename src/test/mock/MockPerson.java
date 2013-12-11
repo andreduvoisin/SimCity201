@@ -225,4 +225,16 @@ public class MockPerson extends Mock implements Person {
 		
 	}
 
+	@Override
+	public void setJobType(EnumJobType type) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeRole(Role r) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
