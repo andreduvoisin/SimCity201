@@ -35,7 +35,7 @@ import base.Location;
 import city.gui.SimCityPanel.EnumCrashType;
 import city.gui.properties.PlacesButtonListener;
 import city.gui.properties.PlacesListener;
-import city.gui.properties.PlacesPropertiesLabel;
+import city.gui.properties.PlacesPropertiesTab;
 import city.gui.trace.AlertLevel;
 import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
@@ -587,8 +587,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    enable.setMinimumSize(new Dimension(180,20));
 	    enable.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    
-	    //ANGELICA: additions
-	    PlacesPropertiesLabel placeProperties = new PlacesPropertiesLabel();
+	    PlacesPropertiesTab placeProperties = new PlacesPropertiesTab();
 	    
 	    places = new JComboBox(placeList);
 	    places.setPreferredSize(new Dimension(180,20));

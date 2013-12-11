@@ -44,7 +44,7 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         public Role subRole = null;
 
         int mRestaurantID;
-        public int DEFAULT_FOOD_QTY = 3;
+        public int DEFAULT_FOOD_QTY = 2;
         private AlertTag mAlertTag;
         
         public RestaurantCookRole(Person person, int restaurantID){
@@ -63,8 +63,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
         		mHasCreatedOrder.put(EnumItemType.PIZZA,false);
         		
         		mItemsDesired.put(EnumItemType.STEAK,0);
-        		mItemsDesired.put(EnumItemType.CHICKEN,1);
-        		mItemsDesired.put(EnumItemType.SALAD,2);
+        		mItemsDesired.put(EnumItemType.CHICKEN,0);
+        		mItemsDesired.put(EnumItemType.SALAD,0);
         		mItemsDesired.put(EnumItemType.PIZZA, 0);
         }
         
@@ -223,6 +223,9 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 }
                 
                 MarketOrder o = new MarketOrder(items, this);
+                for(EnumItemType i : o.mItems.keySet()) {
+                	print(i.toString() + " " + items.get(items),mAlertTag);
+                }
                 o.setRestaurantNumber(mRestaurantID);
                 mOrders.add(o);
         }

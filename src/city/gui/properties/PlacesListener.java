@@ -13,12 +13,12 @@ public class PlacesListener implements ActionListener {
 	JButton button;
 	@SuppressWarnings("rawtypes")
 	JComboBox places;
-	PlacesPropertiesLabel label;
+	PlacesPropertiesTab label;
 	public
-	PlacesListener(JButton b, @SuppressWarnings("rawtypes") JComboBox p, PlacesPropertiesLabel l){
+	PlacesListener(JButton b, @SuppressWarnings("rawtypes") JComboBox p, PlacesPropertiesTab t){
 		button = b;
 		places = p;
-		label = l;
+		label = t;
 	}
 	public void actionPerformed(ActionEvent e) {
 		label.changeBuilding(places.getSelectedItem().toString());

@@ -1,6 +1,7 @@
 package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
+
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Timer;
@@ -11,7 +12,6 @@ import restaurant.restaurant_maggiyan.Check;
 import restaurant.restaurant_maggiyan.Menu;
 import restaurant.restaurant_maggiyan.MyCustomer;
 import restaurant.restaurant_maggiyan.MyCustomer.CustomerState;
-import restaurant.restaurant_maggiyan.gui.MaggiyanAnimationPanel;
 import restaurant.restaurant_maggiyan.gui.MaggiyanWaiterGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCashier;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
@@ -58,7 +58,6 @@ public class MaggiyanSharedWaiterRole extends BaseRole implements MaggiyanWaiter
 	private MaggiyanHost host; 
 	private MaggiyanCashier cashier; 
 	private MaggiyanWaiterGui waiterGui = null;
-	private MaggiyanAnimationPanel animationPanel; 
 	
 	Timer timer = new Timer();
 	private int breakTime = 15; 
