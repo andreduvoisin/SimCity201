@@ -93,21 +93,21 @@ O: Bank Robbery occurs in Piggy Bank, not in Gringotts
 S: Creates a city with extra workers. Fire these workers in the People tab
 
 ####Properties Tab
-*Selectively open/close workplaces
-*View workplace summary information
-*Manually set inventories for workplaces
++Selectively open/close workplaces
++View workplace summary information
++Manually set inventories for workplaces
 
 ####Trace Tab
 Filter print statements by type or workplace
-*Info
-*Errors
-*Debugs
-*Warnings
++Info
++Errors
++Debugs
++Warnings
 *Messages
 
 ####People Tab
-*Manually add people
-*Fire people from workplaces
++Manually add people
++Fire people from workplaces
 
 ####View Toggle
 The button at the bottom of control panel toggles between grading and beautiful view.
