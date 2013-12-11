@@ -160,7 +160,6 @@ public class TranacCustomerGui implements Gui{
 				}
 				case LeaveRestaurant: {
 					agent.msgAnimationFinishedLeaveRestaurant();
-		//			gui.setEnabled(agent);
 					break;
 				}
 				default:
@@ -173,7 +172,7 @@ public class TranacCustomerGui implements Gui{
 	public void draw(Graphics2D g) {
 		g.setColor(Color.WHITE);
 		if(SimCityGui.GRADINGVIEW) {
-			g.drawString("C"+mNum,xPos+10,yPos);
+			g.drawString("C"+mNum,xPos+10,yPos-10);
 		}
 		else {
 			g.drawImage(image,xPos,yPos,null);
@@ -221,12 +220,7 @@ public class TranacCustomerGui implements Gui{
     	else
     		food = "PIZ";
 	}
-	/*
-	public void setHungry() {
-		agent.msgGotHungry();
-		setPresent(true);
-	}
-	*/
+
 	public boolean isPresent() {
 		return isPresent;
 	}
@@ -260,10 +254,7 @@ public class TranacCustomerGui implements Gui{
     }
     
 	/** Actions called from Customer Agent */
-/*	public void DoSetEnabled() {
-		gui.setEnabled(agent);
-	}
-*/	
+
 	public void DoGoToHost() {
 		xDestination = xHost;
 		yDestination = yHost;
