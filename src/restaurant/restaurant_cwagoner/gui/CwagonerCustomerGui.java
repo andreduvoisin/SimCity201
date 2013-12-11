@@ -89,13 +89,13 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements Gui {
 		if (! food.equals("")) {	// Either ordered or already eating
 			if (food.length() == 2) { 	// Eating. Draw plate
 				g.setColor(Color.WHITE);
-	    		g.fillOval(position.mX, position.mY, PLATE, PLATE);
+	    		g.fillOval(position.mX + 5, position.mY + 15, PLATE, PLATE);
 	    		g.setColor(Color.BLACK); // For delivered food// Write food name
-				g.drawString(food, (int) (position.mX + size / 5), (int) (position.mY + size * 3 / 4));
+				g.drawString(food, position.mX + 5, position.mY + 30);
 			}
 			else {	// Waiting for food
-				g.setColor(Color.RED); // For undelivered food// Write food name
-				g.drawString(food, position.mX, (int) (position.mY + size * 3 / 4));
+				g.setColor(Color.RED); // Write food name
+				g.drawString(food, position.mX + 15, position.mY - 8);
 			}
 		}
 	}

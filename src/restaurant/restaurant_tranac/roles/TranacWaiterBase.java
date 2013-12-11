@@ -410,7 +410,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		int table;
 		String choice;
 		int orderNum;
-		CustomerState s;
+		public CustomerState s;
 		TranacCheck check;
 		
 		public MyCustomer(TranacCustomer c, int n, int t, CustomerState s) {

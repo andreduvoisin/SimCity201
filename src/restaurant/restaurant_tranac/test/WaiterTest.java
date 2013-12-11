@@ -30,8 +30,7 @@ public class WaiterTest extends TestCase {
 		
 		person = new PersonAgent();
 		cook = new TranacMockCook();
-		customer = new TranacMockCustomer();
-		
+		customer = new TranacMockCustomer();	
 	}
 	
 	public void testRegularWaiter() {
@@ -39,8 +38,6 @@ public class WaiterTest extends TestCase {
 		waiter.setCook(cook);
 		//bypass animation
 		waiter.inTransit = new Semaphore(1000000000,true);
-	 ///assert preconditions
-		
 		
 		//add customer to waiter so he has an order to send
 		waiter.addCustomer(customer,0,0,CustomerState.Ordered);
@@ -52,8 +49,9 @@ public class WaiterTest extends TestCase {
 				cook.log.containsString("Received msgHereIsOrder."));
 		
 		//send msg of order to waiter
-		
-		//assert waiter has order
+		waiter.msgOrderDone("Food",0,0);
+		//assert waiter changed order to done
+		assertEquals(waiter.customers.get(0).s,CustomerState.FoodDone);
 	}
 	
 	public void testRevolvingStandWaiter() {
@@ -61,16 +59,19 @@ public class WaiterTest extends TestCase {
 		waiter.setCook(cook);
 		//bypass animation
 		waiter.inTransit = new Semaphore(1000000000,true);
-	 ///assert preconditions
-		
 		
 		//add customer to waiter so he has an order to send
 		waiter.addCustomer(customer,0,0,CustomerState.Ordered);
 		
-		//assert cook has order
+		//send order to cook;
+		waiter.pickAndExecuteAnAction();
+	 //assert cook has an order
+		assertTrue("Cook should have added an order to its stand.",
+				cook.log.containsString("Waiter added role to stand."));
 		
 		//send msg of order to waiter
-		
-		//assert waiter has order
+		waiter.msgOrderDone("Food",0,0);
+		//assert waiter changed order to done
+		assertEquals(waiter.customers.get(0).s,CustomerState.FoodDone);
 	}
 }
