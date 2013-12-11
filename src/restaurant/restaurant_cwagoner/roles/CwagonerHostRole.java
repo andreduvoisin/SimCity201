@@ -79,10 +79,6 @@ public class CwagonerHostRole extends BaseRole implements CwagonerHost {
 	 * marks the table occupied
 	 */
 	public boolean pickAndExecuteAnAction() {
-		System.out.println("HOST PAEA");
-		// A waiter with state askedForBreak CANNOT make it past the first rule,
-		// so the next rule only checks for state working (the alternative is onBreak)
-		
 		// If there is a customer waiting
 		//synchronized(Customers) {
 			for (MyCustomer c : Customers) {
