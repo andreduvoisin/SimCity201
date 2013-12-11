@@ -6,14 +6,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
-import javax.imageio.ImageIO;
 import javax.swing.Timer;
 
 import restaurant.restaurant_xurex.RexCashierRole;
@@ -116,11 +113,11 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
         g2 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame
-        g2.setBackground(Color.WHITE);
-        g2.setColor(Color.WHITE);
+        g2.setBackground(Color.white);
+        g2.setColor(Color.white);
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
-        g2.setColor(Color.BLACK);
+        g2.setColor(Color.lightGray);
 //        
 //        if(!SimCityGui.GRADINGVIEW) {
 //        	if(background != null)
@@ -179,7 +176,7 @@ public class RexAnimationPanel extends CityCard implements ActionListener {
     }
 
     private void drawFood(){
-    	g2.setColor(Color.white);
+    	g2.setColor(Color.black);
     	synchronized(foodIcons){
     	if(!foodIcons.isEmpty()){
     		for(Icon food:foodIcons){
