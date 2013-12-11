@@ -26,7 +26,7 @@ public class WaiterTest extends TestCase {
 		cook = new SmilehamMockCook("cook");
 		customer = new SmilehamMockCustomer("customer");
 		table = new Table(0);
-		order = new Order(waiter, table, customer, EnumOrderStatus.PENDING);
+		order = new Order(waiter, table, customer, EnumOrderStatus.ORDERED);
 		
 	}
 	
@@ -37,6 +37,11 @@ public class WaiterTest extends TestCase {
 		waiter = new SmilehamWaiterRole(person);
 		waiter.mCook = cook;
 		waiter.msgAnimationAtCook(); //give permit
+		waiter.mOrders.add(order);
+		
+		//assert preconditions
+		assertEquals("Waiter should have 1 order", waiter.mOrders.size(), 1);
+		
 		
 		
 	}

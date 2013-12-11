@@ -43,7 +43,7 @@ public abstract class SmilehamWaiterBase extends BaseRole implements SmilehamWai
 	//Member Variables
 	private String mName;
 	private boolean mOnBreak;
-	private List<Order> mOrders;
+	public List<Order> mOrders;
 	private List<EnumFoodOptions> mFoodsOut;
 	private SmilehamHost mHost;
 	public SmilehamCook mCook;
