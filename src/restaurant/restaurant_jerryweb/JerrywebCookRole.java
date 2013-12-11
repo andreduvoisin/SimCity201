@@ -90,11 +90,6 @@ public class JerrywebCookRole extends BaseRole {
 		mRole = r;
 		this.name = "JerrywebCook";
 
-		//This populates the food map using the string names of the food items as keys and holds the
-		/*foodMap.put("steak",new Food("steak", FoodState.delivered, 17000, 5, 5, 2));
-		foodMap.put("chicken",new Food("chicken", FoodState.delivered, 12000, 7, 7, 3));
-		foodMap.put("salad",new Food("salad", FoodState.delivered, 2000, 10, 10, 4));
-		foodMap.put("pizza",new Food("pizza", FoodState.delivered, 14000, 8, 8, 3));*/
         mCookTimes.put(EnumItemType.STEAK,17000);
         mCookTimes.put(EnumItemType.CHICKEN,12000);
         mCookTimes.put(EnumItemType.SALAD,2000);
@@ -150,7 +145,7 @@ public class JerrywebCookRole extends BaseRole {
 		for(int i=0; i<Orders.size(); i++){
 			if(Orders.get(i).choice.equals(choice) && Orders.get(i).s == OrderState.restocking){
 				foodMap = fm;
-				//print("Steak amount is now: " + foodMap.get("steak").amount);
+
 				Orders.remove(i);
 				stateChanged();
 				orderSent = false;
@@ -163,7 +158,7 @@ public class JerrywebCookRole extends BaseRole {
 	public void msgCookThis(Waiter w, String choice, int table){
 		//Orders.choice = m.menuItems.get(choice);
 		if(choice.equals("nothing")){
-			//print("No");
+			
 		}
 		else{ 
 			Orders.add(new Order(w, choice, table, OrderState.pending));
@@ -241,7 +236,7 @@ public class JerrywebCookRole extends BaseRole {
 	public void moveRevlovingStandOrders(){
 		for(int i = 0; i < RevolvingStandOrders.size(); i++){
 			Orders.add(RevolvingStandOrders.get(i));
-			
+			RevolvingStandOrders.remove(i);
 		}
 	}
 	

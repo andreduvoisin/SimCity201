@@ -9,6 +9,7 @@ import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.JerrywebRSWaiterRole;
+import restaurant.restaurant_jerryweb.JerrywebCookRole.OrderState;
 import restaurant.restaurant_jerryweb.gui.WaiterGui;
 import restaurant.restaurant_jerryweb.test.mock.MockCustomer;
 
@@ -47,21 +48,22 @@ public class WaiterRevolvingStandTest extends TestCase {
 		rsWaiter.setCook(cook);
 		rsWaiter.addCustomerForTesting(mCustomer, 1);
 		rsWaiter.setGui(waiterGui);
-		//rsWaiter.Customers.add(new rsWaiter.MyCustomer(mCustomer));
-		//rsWaiter.msgHereIsMyOrder(mCustomer, "salad");
-		//assertEquals("The Cook's scheduler should not have run after the RSWaiter was given an order, so the cook's log should be empty. It does not:  "
-				//+ cook.log.toString(), 0, cook.log.size());
-		//check if the cook has any previous orders
+
 		assertEquals("Cook should not have orders in his list of orders. He does.", cook.Orders.size(), 0);
 		
 		//checking the size of the Waiter's Customers list
 		assertEquals("The rsWaiter should have only one customer in it's MyCustomer list. It doesn't. ", rsWaiter.Customers.size(),1);
 		
-		rsWaiter.sendOrder(rsWaiter.Customers.get(0));
+		//rsWaiter.sendOrder(rsWaiter.Customers.get(0));
+		cook.addToRevolvingStand(rsWaiter, rsWaiter.Customers.get(0).choice, rsWaiter.Customers.get(0).table, OrderState.pending);
 		
 		assertEquals("Cook should still not have any orders in Orders. It does: ", 0, cook.Orders.size()); 
 		assertEquals("Cook should have one order in RevolvingStandOrders. It doesn't: ", 1, cook.RevolvingStandOrders.size()); 
 		
+		cook.moveRevlovingStandOrders();
+		
+		assertEquals("Cook should have order in Orders. It doesn't: ", 1, cook.Orders.size()); 
+		assertEquals("Cook shouldn't have any Orders in RevolvingStandOrders. It does: ", 0, cook.RevolvingStandOrders.size()); 
 		//cook.addToRevolvingStand(rsWaiter, custOrder, t, orderS);
 		//assertEquals("Cook should still not have any orders in Orders. It does: ", 0, cook.Orders.size()); 
 	}

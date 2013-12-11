@@ -29,6 +29,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.SpinnerNumberModel;
 
+import market.interfaces.MarketWorker;
+import market.roles.MarketWorkerRole;
 import bank.roles.BankTellerRole;
 import base.ConfigParser;
 import base.ContactList;
@@ -635,30 +637,39 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    //ACTION LISTENERS FOR FIRE BUTTONS
 	    gringotts.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-//	    		System.out.println("test"); //This works
-	    		//SHANE 0 Action Listener Here
-	    		
 	    		//fire teller
 	    		List<BankTellerRole> tellers = ContactList.sBankList.get(0).mTellers;
 	    		BankTellerRole teller = tellers.get(tellers.size()-1);
 	    		teller.fired();
-	    		
-	    		//get new person
 	    	}
 	    });
 	    piggybank.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire teller
+	    		List<BankTellerRole> tellers = ContactList.sBankList.get(1).mTellers;
+	    		BankTellerRole teller = tellers.get(tellers.size()-1);
+	    		teller.fired();
+	    		
 	    	}
 	    });
 	    ollivanders.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(1).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();
+	    		
 	    	}
 	    });
 	    honeydukes.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//
+	    		//fire market worker
+	    		List<MarketWorker> workers = ContactList.sMarketList.get(0).mWorkers;
+	    		MarketWorker worker = workers.get(workers.size()-1);
+	    		MarketWorkerRole workerRole = (MarketWorkerRole) worker;
+	    		workerRole.fired();
+	    		
 	    	}
 	    });
 	    r0.addActionListener(new ActionListener() {
