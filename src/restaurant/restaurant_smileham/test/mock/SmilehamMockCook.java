@@ -37,7 +37,7 @@ public class SmilehamMockCook extends SmilehamMock implements SmilehamCook{
 
 	@Override
 	public void addOrderToStand(Order order) {
-		
+		log.add(new LoggedEvent("addOrderToStand"));
 	}
 
 	@Override
