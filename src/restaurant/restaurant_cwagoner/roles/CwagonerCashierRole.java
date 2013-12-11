@@ -78,7 +78,6 @@ public class CwagonerCashierRole extends BaseRole implements CwagonerCashier {
 	
 	// From customer
 	public void msgPayment(CwagonerCustomer c, double cashTendered) {
-		javax.swing.JOptionPane.showMessageDialog(null, "Received payment");
 		log.add(new LoggedEvent("Received msgPayment(" + c.getName() + ", $" + cashTendered + ")"));
 		print("Received msgPayment(" + c.getName() + ", $" + cashTendered + ")");
 		
