@@ -914,7 +914,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void removeRole(Role r) {
 		mRoles.put(r, false);
-		mRoles.remove(r);
+//		mRoles.remove(r);
 	}
 
 	public double getCash() {
