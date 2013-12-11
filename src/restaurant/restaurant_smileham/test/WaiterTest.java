@@ -40,6 +40,8 @@ public class WaiterTest extends TestCase {
 		waiter.semAtCook = new Semaphore(100);
 		waiter.mCook = cook;
 		
+		
+		
 	}
 	
 	public void testSharedWaiter(){

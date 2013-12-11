@@ -44,7 +44,7 @@ public class WaiterTest extends TestCase {
 		
 		//send order to cook;
 		waiter.pickAndExecuteAnAction();
-	 //assert cook has an order
+		//assert cook has an order
 		assertTrue("Cook should have received the message.",
 				cook.log.containsString("Received msgHereIsOrder."));
 		
