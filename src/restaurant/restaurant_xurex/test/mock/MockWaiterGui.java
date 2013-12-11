@@ -119,6 +119,12 @@ public class MockWaiterGui extends Mock implements WaiterGui_ {
 		return 0;
 	}
 
+	@Override
+	public void setFired(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

@@ -18,6 +18,10 @@ public class MarketWorkerGui implements MarketBaseGui {
 	private MarketWorker mAgent;
 	private int mNum;
 
+	private boolean onFire = false;
+	private BufferedImage fireImage;
+
+
 	private MarketOrder mOrder = null;
 	
 	private static final int xStart = -20, yStart = -20;
@@ -51,6 +55,14 @@ public class MarketWorkerGui implements MarketBaseGui {
     	try {
     	java.net.URL imageURL = this.getClass().getClassLoader().getResource("market/gui/images/worker.png");
     	image = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
+    	fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
     		System.out.println(e.getMessage());
@@ -105,7 +117,9 @@ public class MarketWorkerGui implements MarketBaseGui {
 	}
 	
 	public void draw(Graphics2D g) {
-		if(SimCityGui.GRADINGVIEW) {
+		if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else if(SimCityGui.GRADINGVIEW) {
 			g.setColor(Color.BLACK);
 			g.drawString("W"+mNum,xPos,yPos);
 		}
@@ -182,5 +196,9 @@ public class MarketWorkerGui implements MarketBaseGui {
 	
 	public int getYPos() {
 		return yPos;
+	}
+	
+	public void setFired(boolean state){
+		onFire = state;
 	}
 }

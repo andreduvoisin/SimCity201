@@ -19,6 +19,8 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import restaurant.restaurant_tranac.roles.TranacWaiterBase;
+import restaurant.restaurant_tranac.roles.TranacWaiterRSRole;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 import restaurant.restaurant_xurex.RexWaiterRole1;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
@@ -113,12 +115,11 @@ public class RestaurantWaiterRole extends BaseRole implements
 		case 6: // angelica
 			if(mWaiterType == 1) {
 				subRole = new TranacWaiterRole(mPerson);
-				TranacRestaurant.addPerson((TranacWaiterRole) subRole);
+				TranacRestaurant.addPerson((TranacWaiterBase) subRole);
 			}
 			else if (mWaiterType == 0) {
-				subRole = new TranacWaiterRole(mPerson);
-				TranacRestaurant.addPerson((TranacWaiterRole) subRole);
-				//ANGELICA: add shared waiter
+				subRole = new TranacWaiterRSRole(mPerson);
+				TranacRestaurant.addPerson((TranacWaiterBase) subRole);
 			}
 			break;
 		case 7: // rex

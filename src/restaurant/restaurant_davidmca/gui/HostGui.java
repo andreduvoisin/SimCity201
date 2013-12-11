@@ -30,4 +30,10 @@ public class HostGui implements Gui {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setFired(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -10,12 +10,12 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import restaurant.restaurant_tranac.interfaces.TranacCustomer;
-import restaurant.restaurant_tranac.roles.TranacWaiterRole;
+import restaurant.restaurant_tranac.roles.TranacWaiterBase;
 import city.gui.SimCityGui;
 
 public class TranacWaiterGui implements Gui {
 
-    private TranacWaiterRole agent = null;
+    private TranacWaiterBase agent = null;
     private int mNum;
     
     private int xPos = -20, yPos = -20;						//default waiter position
@@ -27,17 +27,20 @@ public class TranacWaiterGui implements Gui {
     private static final int xWaitingArea = 40, yWaitingArea = 60;
     private static final int xPlaceOrder = 455, yPlaceOrder = 125;
     private static final int xCashier = 230, yCashier = 180;
-    
+    private static final int xStand = 455, yStand = 180;
     private Map<Integer, Coordinates> tableLocations = new HashMap<Integer, Coordinates>();
     private Map<Integer, Coordinates> plateLocations = new HashMap<Integer, Coordinates>();
+    
+    private boolean onFire = false;
+	private BufferedImage fireImage;
 
     private String food;
     private BufferedImage image;
     private BufferedImage check;
     private BufferedImage askingBubble;
     
-    private enum Command {noCommand, goToHome, goToHost, goToWaitingArea, goToTable, goToPlaceOrder, goToGetOrder, goToCashier};
-    private Command command = Command.noCommand;
+    private enum Command {noCommand, goToHome, goToHost, goToWaitingArea, goToTable, goToPlaceOrder, goToGetOrder, goToCashier, goToStand};
+    private Command command = Command.goToHome;
     
     private enum State {noState, asking, deliveringFood, deliveringCheck};
     private State state = State.noState;
@@ -45,7 +48,7 @@ public class TranacWaiterGui implements Gui {
     @SuppressWarnings("unused")
 	private TranacAnimationPanel gui;
     
-    public TranacWaiterGui(TranacWaiterRole agent, TranacAnimationPanel gui, int i) {
+    public TranacWaiterGui(TranacWaiterBase agent, TranacAnimationPanel gui, int i) {
         this.agent = agent;
         this.gui = gui;
         mNum = i;
@@ -93,9 +96,18 @@ public class TranacWaiterGui implements Gui {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
+    	
+    	fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
-    public TranacWaiterGui(TranacWaiterRole agent, int i) {
+    public TranacWaiterGui(TranacWaiterBase agent, int i) {
         this.agent = agent;
         this.gui = TranacAnimationPanel.getInstance();
         
@@ -178,10 +190,6 @@ public class TranacWaiterGui implements Gui {
         			command = Command.noCommand;
         			break;
         		}
-        		case goToHome: {
-        			command = Command.noCommand;
-        			break;
-        		}
         		case goToHost: {
         			agent.msgAnimationAtHost();
         			command = Command.noCommand;
@@ -191,15 +199,29 @@ public class TranacWaiterGui implements Gui {
         			agent.msgAnimationAtCashier();
         			command = Command.noCommand;
         		}
+        		case goToStand: {
+        			agent.msgAnimationAtCook();
+        			command = Command.noCommand;
+        		}
         		default:
+        			command = Command.noCommand;
         			break;
         	}
+//        	if(command == Command.goToHome) {
+//        		command = Command.noCommand;
+//        	}
+//        	else if(command != Command.noCommand){
+//        		agent.msgAnimationDone();
+//        		command = Command.noCommand;
+//        	}
         }     
     }
 
     public void draw(Graphics2D g) {
         g.setColor(Color.WHITE);
-        if(SimCityGui.GRADINGVIEW) {
+        if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else if(SimCityGui.GRADINGVIEW) {
     		g.drawString("W"+mNum, xPos+10, yPos);
     	}
         else {
@@ -327,6 +349,13 @@ public class TranacWaiterGui implements Gui {
     	xDestination = xCashier;
     	yDestination = yCashier;
     }
+    
+    public void DoGoToRevolvingStand() {
+    	command = Command.goToStand;
+    	
+    	xDestination = xStand;
+    	yDestination = yStand;
+    }
 
     /** Utilities */
     
@@ -336,5 +365,9 @@ public class TranacWaiterGui implements Gui {
 
     public int getYPos() {
         return yPos;
+    }
+    
+    public void setFired(boolean state){
+    	onFire = state;
     }
 }

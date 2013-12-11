@@ -159,4 +159,10 @@ public class BankCustomerGui implements Gui {
 			}
 		}, deathTime);
 	}
+
+	@Override
+	public void setFired(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

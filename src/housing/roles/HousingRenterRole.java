@@ -79,7 +79,6 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	public void msgEviction() {
 		print("Message - msgEviction");
 		mHouse = null;
-		// DoLeaveHouse() //Some eviction animation
 	}
 
 	/* Scheduler */

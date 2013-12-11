@@ -191,4 +191,10 @@ public class HousingPersonGui implements Gui {
 			
 		currentlyAnimating = true; 
 	}
+
+	@Override
+	public void setFired(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

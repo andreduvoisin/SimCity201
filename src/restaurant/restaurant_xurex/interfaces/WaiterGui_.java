@@ -42,4 +42,6 @@ public interface WaiterGui_ {
 
 	public abstract int getYPos();
 
+	public abstract void setFired(boolean b);
+
 }

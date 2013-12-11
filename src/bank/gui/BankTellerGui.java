@@ -13,9 +13,15 @@ public class BankTellerGui implements Gui {
 
 //	private BankTeller bankTeller = null;
 	private boolean isPresent = true;
-
+	
 	private int xPos, yPos;
 	private int xDestination, yDestination;
+	
+	//Animation Upgrades
+	private boolean onFire = false;
+	private BufferedImage fireImage;
+	private BufferedImage bankTellerImage;
+	
 
 	static final int CUSTOMERSIZE = 20;	// Size of each side of customer (square).
 	static final int STARTPOSX1 = 225;
@@ -38,10 +44,15 @@ public class BankTellerGui implements Gui {
     	catch (IOException e) {
     		System.out.println(e.getMessage());
     	}
+    	fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
 	}
-	
-	//Animation Upgrades
-	private BufferedImage bankTellerImage;
 	
 
 	public void updatePosition() {
@@ -57,7 +68,10 @@ public class BankTellerGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.drawImage(bankTellerImage, xPos, yPos, null);
+		if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else
+			g.drawImage(bankTellerImage, xPos, yPos, null);
 	}
 
 	public boolean isPresent() {
@@ -72,5 +86,10 @@ public class BankTellerGui implements Gui {
 	public void DoLeaveBank() {
 		xDestination = 220;
 		yDestination = -50;
+	}
+
+	@Override
+	public void setFired(boolean state) {
+		onFire = state;
 	}
 }

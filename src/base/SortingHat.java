@@ -1,5 +1,6 @@
 package base;
 
+import housing.House;
 import housing.roles.HousingLandlordRole;
 import housing.roles.HousingOwnerRole;
 import housing.roles.HousingRenterRole;
@@ -243,9 +244,12 @@ public class SortingHat {
 		}
 		//ANGELICA 0 housing shit
 		HousingOwnerRole newOwnerRole = new HousingOwnerRole(person);
-		newOwnerRole.setHouse(ContactList.sHouseList.get(sHouseCount % ContactList.sHouseList.size()));
-		sHouseCount++;
+		newOwnerRole.setHouse(getNextHouse());
 		return newOwnerRole;
+	}
+	
+	public static House getNextHouse() {
+		return ContactList.sHouseList.get(sHouseCount++ % ContactList.sHouseList.size());
 	}
 	
 	public static List<Role> getRoleList(){
