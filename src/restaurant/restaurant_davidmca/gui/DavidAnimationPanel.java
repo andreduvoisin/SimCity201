@@ -71,9 +71,11 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		g2.setColor(getBackground());
 		g2.fillRect(0, 0, WINDOWX, WINDOWY);
 		
-		if(background != null)
-        	g2.drawImage(background,0,0,null);
-
+		if(!SimCityGui.GRADINGVIEW) {
+        	if(background != null)
+        		g2.drawImage(background,0,0,null);
+        	
+        }
 		for (Table table : restaurant.tables) {
 			g.setColor(Color.RED);
 			g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
