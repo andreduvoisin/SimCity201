@@ -321,9 +321,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 		public MaggiyanWaiter w;  
 		WaiterState s; 
 		boolean askedToGoOnBreak;
-		@SuppressWarnings("unused")
 		boolean onBreak; 
-		@SuppressWarnings("unused")
 		int customerNum; 
 	}
 	

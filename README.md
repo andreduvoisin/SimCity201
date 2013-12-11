@@ -7,13 +7,21 @@ The CSCI 201 Project teaches students about the myriad facets of team work: pair
 
 ####Andre Duvoisin	(Fix-It Felix)
 * Bank GUI
-* BaseAgent Design
+* Bank Integration
+* PersonAgent Design
 * Base GUI Integration
-* ControlPanel Layout
 * Citywide GUI Integration
+* ControlPanel Layout and Integration
 * CityCard Zoom-In View Functionality
-* Restaurant Integration Manager;
-* Config File Manager for Restaurants
+* Trace Panel Integration
+* Restaurant Integration Manager
+* Helped with Inspector
+* Weekend Behavior
+  * Disabling/Enabling Workplaces
+* Role Switching (Events)
+* Config File Manager
+* Transportation Integration
+* Bug Squasher (hence the nickname!)
 
 ####Angelica Tran	(Market Manager)
 * City Animation Upgrades
