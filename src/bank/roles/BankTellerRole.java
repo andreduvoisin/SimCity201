@@ -232,6 +232,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mPerson.assignNextEvent();
 		
 		mPerson.removeRole(this);
+		
 		mPerson.setJobType(EnumJobType.NONE);
 	}
 }

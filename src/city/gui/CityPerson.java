@@ -141,7 +141,7 @@ public class CityPerson extends CityComponent {
 	}
 	
 	public void DoGoToDestination(Location location){
-		this.enable(); 
+		this.enable();
 		
 		mFinalDestination = location;
 		//calculate intermediate destination
@@ -186,7 +186,9 @@ public class CityPerson extends CityComponent {
 						if (mLocation.equals(ContactList.cPARKINGLOTS.get(iParking))){
 							currentCornerNum = iParking;
 						}
-						if (destParking.equals(ContactList.cPARKINGLOTS.get(iParking))){
+						if (destParking.equals(
+								ContactList.cPARKINGLOTS
+								.get(iParking))){
 							destCornerNum = iParking;
 						}
 					}
@@ -377,7 +379,7 @@ public class CityPerson extends CityComponent {
 			return ContactList.cPARKINGLOT3;
 		}
 		//Else
-		return null;
+		return ContactList.cPARKINGLOT0;
 	}
 	
 
