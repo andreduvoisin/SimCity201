@@ -77,10 +77,10 @@ public class RestaurantWaiterRole extends BaseRole implements
 			}
 			break;
 		case 2:
-			if (mWaiterType == 1) {
+			if (mWaiterType == 0) {
 				subRole = new JerrywebWaiterRole(super.mPerson);
 				JerrywebRestaurant.addPerson((JerrywebWaiterRole) subRole);
-			} else if (mWaiterType == 0) {
+			} else if (mWaiterType == 1) {
 				subRole = new JerrywebRSWaiterRole(super.mPerson);
 				//JerrywebRestaurant.addPerson((JerrywebRSWaiterRole) subRole);
 				JerrywebRestaurant.addRSWaiter((JerrywebRSWaiterRole) subRole);
