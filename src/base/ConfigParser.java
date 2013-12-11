@@ -17,7 +17,7 @@ import city.gui.SimCityGui;
 public class ConfigParser {
 
 	private static ConfigParser instance = null;
-	private final static int timeBlock = 8;
+//	private final static int timeBlock = 8;
 
 	public void readFileCreatePersons(SimCityGui simcitygui, String input) throws FileNotFoundException {
 		
@@ -96,23 +96,6 @@ public class ConfigParser {
 						person.setHasCar(false);
 					person.msgAddEvent(new Event(EnumEventType.EAT, -1));
 					person.msgAddEvent(new Event(EnumEventType.INSPECTION, 0));
-				}
-				
-				//Interesting Interweaving
-				if(name.contains("inter")){
-					int ssn = person.getSSN();
-					int time = Time.GetTime();
-					int size = ContactList.sEventList.size();
-					int timeDelay = timeBlock % ssn;
-					Event e1 = ContactList.sEventList.get(ssn%size); ssn++;
-					Event e2 = ContactList.sEventList.get(ssn%size); ssn++;
-					Event e3 = ContactList.sEventList.get(ssn%size);
-					//Set Time to Current
-					e1.setTime(time); e2.setTime(time); e3.setTime(time);
-					//Add Event to Person
-					person.msgAddEvent(new Event(e1, 0*timeBlock + timeDelay));
-					person.msgAddEvent(new Event(e2, 1*timeBlock + timeDelay));
-					person.msgAddEvent(new Event(e3, 2*timeBlock + timeDelay));
 				}
 			}
 			

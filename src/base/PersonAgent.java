@@ -93,9 +93,13 @@ public class PersonAgent extends Agent implements Person {
 										MARKET,
 										RESTAURANT,
 										BANK,
-										PARTY};
+										PARTY,
+										INSPECT};
 	public EventParty mCurrentParty = null;
 	public Boolean firstRun = true;
+	
+	// Inspector
+//	public int inspectCounter;
 
 	//PAEA Helpers
 	public Semaphore semAnimationDone = new Semaphore(0);
@@ -212,6 +216,8 @@ public class PersonAgent extends Agent implements Person {
         
 		// Event Setup
 		mEvents = Collections.synchronizedList(new ArrayList<Event>());
+		
+//		inspectCounter = -1;
 	}
 	
 	// ----------------------------------------------------------MESSAGES----------------------------------------------------------
@@ -497,6 +503,13 @@ public class PersonAgent extends Agent implements Person {
 					}
 					mRoles.put((Role) housingRole, true);
 					((Role) housingRole).setActive();
+					
+					// If inspector, disable.
+					for (Role iRole : mRoles.keySet()){
+						if (iRole instanceof InspectorRole){
+							mRoles.put((InspectorRole)iRole, false);
+						}
+					}
 					break;
 				case JOB:
 					mAtJob = true; //set to false in msgTimeShift
@@ -539,6 +552,12 @@ public class PersonAgent extends Agent implements Person {
 					((HousingBaseRole) getHousingRole()).gui.DoParty();
 					mCurrentParty = null;
 					break;
+//				case INSPECT:
+//					msgRoleFinished();
+//					msgAddEvent(new Event(EnumEventType.INSPECTION, -1));
+//					mCommuterRole.mState = PersonState.walking;
+//					stateChanged();
+//					break;
 				default:
 					break;
 			}
@@ -587,19 +606,100 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void inspect() {
 		print("I AM INSPECTING");
+		
+//		inspectCounter++;
+//		
+//		if(inspectCounter < ContactList.sOpenPlaces.size()) {
+//			InspectorRole inspector = null;
+//			for (Role iRole : mRoles.keySet()){
+//				if (iRole instanceof InspectorRole){
+//					inspector = (InspectorRole)iRole;
+//				}
+//			}
+//			if(inspector == null)
+//				inspector = new InspectorRole(this);
+//			
+//			mRoles.put(inspector, true);
+//			AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "INSPECTCOUNTER: " + inspectCounter);
+//			mCommuterRole.mActive = true;
+//			synchronized(ContactList.sOpenPlaces) {
+//				if(inspectCounter != 0) {
+//					Location deleteMe = (Location)((ContactList.sOpenPlaces.keySet().toArray())[inspectCounter - 1]);
+//					Inspection.sInspectionImages.get(deleteMe).disable();
+//				}
+//				
+//				Location temp = (Location)((ContactList.sOpenPlaces.keySet().toArray())[inspectCounter]);
+//				mCommuterRole.setLocation(temp);
+//				Inspection.sInspectionImages.get(temp).enable();
+//			}
+//			mCommutingTo = EnumCommuteTo.INSPECT;
+//			mCommuterRole.mState = PersonState.walking;
+//		} else {
+//			if(inspectCounter == ContactList.sOpenPlaces.size()) {
+//				synchronized(ContactList.sOpenPlaces) {
+//					Location deleteMe = (Location)((ContactList.sOpenPlaces.keySet().toArray())[inspectCounter - 1]);
+//					Inspection.sInspectionImages.get(deleteMe).disable();
+//				}
+//			}
+//			
+//			getHousingRole().msgTimeToMaintain();
+//			mCommuterRole.mActive = true;
+//			mCommuterRole.setLocation(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
+//			mCommutingTo = EnumCommuteTo.HOUSE;
+//			mCommuterRole.mState = PersonState.walking;
+//		}
+		
+		// OLD
+		
+		
 		mPersonGui.setPresent(true);
-		synchronized(ContactList.sOpenPlaces){
-			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
-				if(ContactList.sOpenPlaces.get(iLocation)){
-					Inspection.sInspectionImages.get(iLocation).enable();
-					mPersonGui.DoGoToDestination(iLocation);
-					acquireSemaphore(semAnimationDone);
-					Inspection.sInspectionImages.get(iLocation).disable();
-					print("Visited "+iLocation.toString());
-					mPersonGui.setPresent(true);
+		
+		Location[] myDestinations = null;
+		synchronized(ContactList.sOpenPlaces) {
+			if(mSSN % 3 == 0) {
+				myDestinations = ContactList.sOpenPlaces.keySet().toArray(new Location[0]);
+			} else if(mSSN % 3 == 1) {
+				Location[] temp = ContactList.sOpenPlaces.keySet().toArray(new Location[0]);
+				myDestinations = new Location[ContactList.sOpenPlaces.size()];
+				for(int i = ContactList.sOpenPlaces.size() - 1; i >= 0; i--) {
+					myDestinations[i] = temp[i];
+				}
+			} else if(mSSN % 3 == 2) {
+				Location[] temp = ContactList.sOpenPlaces.keySet().toArray(new Location[0]);
+				myDestinations = new Location[ContactList.sOpenPlaces.size()];
+				int j = ContactList.sOpenPlaces.size() - 1;
+				for(int i = ContactList.sOpenPlaces.size() / 2; i < ContactList.sOpenPlaces.size(); i++) {
+					myDestinations[j] = temp[i];
+					j--;
+				}
+				j = 0;
+				for(int i = ContactList.sOpenPlaces.size() / 2; i >= 0; i--) {
+					myDestinations[j] = temp[i];
+					j++;
 				}
 			}
 		}
+		for(Location iLocation : myDestinations){
+			Inspection.sInspectionImages.get(iLocation).enable();
+			mPersonGui.DoGoToDestination(iLocation);
+			acquireSemaphore(semAnimationDone);
+			Inspection.sInspectionImages.get(iLocation).disable();
+			print("Visited "+iLocation.toString());
+			mPersonGui.setPresent(true);
+		}
+		
+//		synchronized(ContactList.sOpenPlaces){
+//			for(Location iLocation : ContactList.sOpenPlaces.keySet()){
+//				if(ContactList.sOpenPlaces.get(iLocation)){
+//					Inspection.sInspectionImages.get(iLocation).enable();
+//					mPersonGui.DoGoToDestination(iLocation);
+//					acquireSemaphore(semAnimationDone);
+//					Inspection.sInspectionImages.get(iLocation).disable();
+//					print("Visited "+iLocation.toString());
+//					mPersonGui.setPresent(true);
+//				}
+//			}
+//		}
 		getHousingRole().msgTimeToMaintain();
 		mPersonGui.DoGoToDestination(ContactList.cHOUSE_LOCATIONS.get(getHousingRole().getHouse().mHouseNum));
 		acquireSemaphore(semAnimationDone);
@@ -914,7 +1014,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void removeRole(Role r) {
 		mRoles.put(r, false);
-		mRoles.remove(r);
+//		mRoles.remove(r);
 	}
 
 	public double getCash() {

@@ -9,7 +9,8 @@ import restaurant.restaurant_jerryweb.JerrywebHostRole;
 
 public class HostGui implements Gui {
 
-    private JerrywebHostRole agent = null;
+    @SuppressWarnings("unused")
+	private JerrywebHostRole agent = null;
     private boolean AtOrigin = true;
     
     

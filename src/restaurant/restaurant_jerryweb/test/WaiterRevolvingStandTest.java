@@ -1,7 +1,6 @@
 package restaurant.restaurant_jerryweb.test;
 
 import base.PersonAgent;
-import base.interfaces.Person;
 import junit.framework.TestCase;
 import restaurant.restaurant_jerryweb.JerrywebCashierRole;
 import restaurant.restaurant_jerryweb.JerrywebCookRole;
