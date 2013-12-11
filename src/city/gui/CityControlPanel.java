@@ -754,7 +754,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				SmilehamWaiterRole waiter = null;
 				for(int i=0; i<ContactList.SmilehamRestaurant.mWaiters.size(); i++){
 					if(ContactList.SmilehamRestaurant.mWaiters.get(i) instanceof SmilehamWaiterRole)
-					{	waiter = ContactList.SmilehamRestaurant.mWaiters.get(i); break;	}
+					{	waiter = (SmilehamWaiterRole) ContactList.SmilehamRestaurant.mWaiters.get(i); break;	}
 				}
 	    		waiter.fired();
 	    	}
