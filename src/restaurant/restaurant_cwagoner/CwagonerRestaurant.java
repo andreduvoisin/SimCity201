@@ -62,7 +62,6 @@ public class CwagonerRestaurant {
     	}
     	else if (subRole instanceof CwagonerSharedWaiterRole) {
     		Waiters.add((CwagonerSharedWaiterRole)subRole);
-    		((CwagonerSharedWaiterRole) subRole).setHost(host);
     		if (host != null) host.addWaiter((CwagonerWaiter)subRole);
     	}
     	else if (subRole instanceof CwagonerWaiterRole) {
