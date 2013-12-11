@@ -754,7 +754,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 				SmilehamWaiterRole waiter = null;
 				for(int i=0; i<ContactList.SmilehamRestaurant.mWaiters.size(); i++){
 					if(ContactList.SmilehamRestaurant.mWaiters.get(i) instanceof SmilehamWaiterRole)
-					{	waiter = ContactList.SmilehamRestaurant.mWaiters.get(i); break;	}
+					{	waiter = (SmilehamWaiterRole) ContactList.SmilehamRestaurant.mWaiters.get(i); break;	}
 				}
 	    		waiter.fired();
 	    	}
@@ -810,7 +810,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		JLabel placesTitle = new JLabel("Select Property:");
 	    placesTitle.setPreferredSize(new Dimension(180,20));
 
-    	JButton change = new JButton("None");
+    	JButton change = new JButton("Toggle Status");
 	    change.setPreferredSize(new Dimension(180,20));
 	    change.setMaximumSize(new Dimension(180,20));
 	    change.setMinimumSize(new Dimension(180,20));
@@ -833,7 +833,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	    places = new JComboBox(placeList);
 	    places.setPreferredSize(new Dimension(180,20));
 	    places.setSelectedIndex(0);
-	    places.addActionListener(new PlacesListener(change, places, placeProperties));
+	    //places.addActionListener(new PlacesListener(change, places, placeProperties));
 	    
 	//    holdPlaces.add(placesTitle, BorderLayout.NORTH);
 	//    holdPlaces.add(places, BorderLayout.CENTER);

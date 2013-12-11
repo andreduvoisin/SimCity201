@@ -1,8 +1,11 @@
 package restaurant.restaurant_smileham.roles;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.Timer;
@@ -20,6 +23,7 @@ import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
+import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Item;
@@ -60,6 +64,35 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 	private SmilehamAnimationPanel mAnimationPanel;
 	
 	
+	/* Revolving Stand Stuff */
+    public List<Order> revolvingStand = Collections.synchronizedList(new ArrayList<Order>());
+    private Timer standTimer = new Timer();
+    
+    public void addOrderToStand(Order order) {
+    	synchronized(revolvingStand) {
+    		revolvingStand.add(order);
+    	}
+    }
+    
+    private void checkStand() {
+    	print("Checking stand like a boss.");
+    	synchronized(revolvingStand) {
+    		synchronized(mOrders) {
+    			Iterator<Order> itRS = revolvingStand.iterator();
+    			
+    			while(itRS.hasNext()) {
+    				mOrders.add(itRS.next());
+    				revolvingStand.remove(itRS);
+    				itRS.remove();
+    			}
+    		}
+    	}
+    }
+    
+    /* Revolving Stand Stuff */
+	
+	
+	
 	//-----------------------------------------------CONSTRUCTOR-----------------------------------------------
 	public SmilehamCookRole(Person person, RestaurantCookRole r){
 		super(person);
@@ -80,6 +113,13 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
     	
 		mTimer = new Timer();
 		mOrders = new HashSet<Order>();
+		
+		//start revolving standTimer
+        standTimer.scheduleAtFixedRate((new TimerTask() {        //runs a new timer to "cook" the food
+            public void run() {
+                checkStand();}
+            }),new Date(System.currentTimeMillis()+8000),
+            8000);
 	}
 	
 	// -----------------------------------------------MESSAGES---------------------------------------------------
