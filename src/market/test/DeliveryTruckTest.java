@@ -35,6 +35,8 @@ public class DeliveryTruckTest extends TestCase {
  		
  		mItems.put(EnumItemType.CHICKEN, 3);
  		mItems.put(EnumItemType.STEAK, 1);
+ 		mOrder = new MarketOrder(mItems,mMockCookCustomer);
+ 		
  	}
  	
  	/**
