@@ -57,7 +57,7 @@ public class MarketWorkerGui implements MarketBaseGui {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	fireImage = null;
     	try {
@@ -65,7 +65,7 @@ public class MarketWorkerGui implements MarketBaseGui {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 	

@@ -42,7 +42,7 @@ public class MarketItemsGui implements MarketBaseGui {
     	image1 = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	image2 = null;
@@ -51,7 +51,7 @@ public class MarketItemsGui implements MarketBaseGui {
     	image2 = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	image3 = null;
@@ -60,7 +60,7 @@ public class MarketItemsGui implements MarketBaseGui {
     	image3 = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	image4 = null;
@@ -69,7 +69,7 @@ public class MarketItemsGui implements MarketBaseGui {
     	image4 = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	image5 = null;
@@ -78,7 +78,7 @@ public class MarketItemsGui implements MarketBaseGui {
     	image5 = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 		
 		mItems.put(new ItemGui(EnumItemType.STEAK,image1,sBaseInventory), new MarketCoordinates(xBase, yBase));

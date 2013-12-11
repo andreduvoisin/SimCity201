@@ -128,9 +128,9 @@ public class AlertLog {
 		Alert alert = new Alert(level, tag, name, message, date);
 		if (this.printedAlertLevels.contains(level)) {
 			if (level == AlertLevel.ERROR) {
-				System.err.println(alert);
+				//System.err.println(alert);
 			} else {
-				System.out.println(alert);
+				//System.out.println(alert);
 			}
 		}
 		this.alerts.add(alert);

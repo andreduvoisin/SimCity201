@@ -103,7 +103,7 @@ public class ConfigParser {
 				ContactList.sPersonList.add(person);
 				simcitygui.citypanel.addMoving(person.getPersonGui()); //allow to move
 				((PersonAgent) person).startThread();
-				System.out.println("num of persons: "+ContactList.sPersonList.size());
+				//System.out.println("num of persons: "+ContactList.sPersonList.size());
 			}
 				
 			scanPerson.close();

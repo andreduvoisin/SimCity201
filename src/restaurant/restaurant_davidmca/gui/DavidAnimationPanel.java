@@ -51,7 +51,7 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
     	table = ImageIO.read(imageURL2);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 		
 	}

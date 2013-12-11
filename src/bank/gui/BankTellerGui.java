@@ -42,7 +42,7 @@ public class BankTellerGui implements Gui {
     		bankTellerImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	fireImage = null;
     	try {
@@ -50,7 +50,7 @@ public class BankTellerGui implements Gui {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 	

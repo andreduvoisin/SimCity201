@@ -59,7 +59,7 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     }
 

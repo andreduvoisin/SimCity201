@@ -74,7 +74,7 @@ public class TranacWaiterGui implements Gui {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	check = null;
@@ -83,7 +83,7 @@ public class TranacWaiterGui implements Gui {
     	check = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	
@@ -93,7 +93,7 @@ public class TranacWaiterGui implements Gui {
     	askingBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	fireImage = null;
@@ -102,7 +102,7 @@ public class TranacWaiterGui implements Gui {
     		fireImage = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     }
 
@@ -130,7 +130,7 @@ public class TranacWaiterGui implements Gui {
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	check = null;
@@ -139,7 +139,7 @@ public class TranacWaiterGui implements Gui {
     	check = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	
@@ -149,7 +149,7 @@ public class TranacWaiterGui implements Gui {
     	askingBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     }
 

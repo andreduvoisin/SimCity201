@@ -267,7 +267,7 @@ public class MaggiyanHostRole extends BaseRole implements MaggiyanHost{
 
 	//Utilities
 //	public void print(String msg){
-//		System.out.println("[" + name + "]: " + msg );
+//		//System.out.println("[" + name + "]: " + msg );
 //	}
 
 	public void setGui(MaggiyanWaiterGui gui) {

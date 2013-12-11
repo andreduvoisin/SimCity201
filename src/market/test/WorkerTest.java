@@ -54,7 +54,7 @@ public class WorkerTest extends TestCase {
  * for a regular customer.
  */
 	public void testWorkerCustomer() {
-		System.out.println("Test Worker Functions");
+		//System.out.println("Test Worker Functions");
 	  //create order; set state of
 	  //order to beginning of worker obligations
 		mOrder = new MarketOrder(mItems, mMockCustomer);
@@ -77,7 +77,7 @@ public class WorkerTest extends TestCase {
 	  //assert order event
 		assertEquals("Order event should be order paid.",
 				mWorker.getOrder(0).mEvent, EnumOrderEvent.ORDER_PAID);
-		System.out.println("test");
+		//System.out.println("test");
 
 		mWorker.pickAndExecuteAnAction();
 	  //assert order state
@@ -108,7 +108,7 @@ public class WorkerTest extends TestCase {
 	 * for a cook customer
 	 */
 		public void testWorkerCookCustomer() {
-			System.out.println("Test Worker Functions");
+			//System.out.println("Test Worker Functions");
 		  //create order; set state of order to beginning of
 		  //worker obligations; 
 			mOrder = new MarketOrder(mItems, mMockCookCustomer);

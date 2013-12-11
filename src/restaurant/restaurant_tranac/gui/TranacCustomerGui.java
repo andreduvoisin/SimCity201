@@ -51,7 +51,7 @@ public class TranacCustomerGui implements Gui{
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	check = null;
@@ -60,7 +60,7 @@ public class TranacCustomerGui implements Gui{
     	check = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	alertBubble = null;
@@ -69,7 +69,7 @@ public class TranacCustomerGui implements Gui{
     	alertBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	askingBubble = null;
@@ -78,7 +78,7 @@ public class TranacCustomerGui implements Gui{
     	askingBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 	
@@ -97,7 +97,7 @@ public class TranacCustomerGui implements Gui{
     	image = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	check = null;
@@ -106,7 +106,7 @@ public class TranacCustomerGui implements Gui{
     	check = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	alertBubble = null;
@@ -115,7 +115,7 @@ public class TranacCustomerGui implements Gui{
     	alertBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
     	
     	askingBubble = null;
@@ -124,7 +124,7 @@ public class TranacCustomerGui implements Gui{
     	askingBubble = ImageIO.read(imageURL);
     	}
     	catch (IOException e) {
-    		System.out.println(e.getMessage());
+    		//System.out.println(e.getMessage());
     	}
 	}
 

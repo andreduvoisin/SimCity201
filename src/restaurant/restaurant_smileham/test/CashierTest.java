@@ -436,6 +436,6 @@
 //	}
 //	
 //	private void print(String message){
-//		System.out.println("[CashierTest] " + message);
+//		//System.out.println("[CashierTest] " + message);
 //	}
 //}

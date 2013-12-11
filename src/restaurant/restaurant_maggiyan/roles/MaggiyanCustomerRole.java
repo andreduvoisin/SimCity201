@@ -83,7 +83,7 @@ public class MaggiyanCustomerRole extends BaseRole implements MaggiyanCustomer{
 	//-----UTILITIES-----
 	
 //	public void print(String msg){
-//		System.out.println("[" + name + "]: " + msg );
+//		//System.out.println("[" + name + "]: " + msg );
 //	}
 	
 	public void setHost(MaggiyanHostRole host) {
