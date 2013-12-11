@@ -99,7 +99,7 @@ public class AndreAnimationPanel extends CityCard implements ActionListener {
         }
         
         //Here is the table
-        g2.setColor(Color.ORANGE);
+        g2.setColor(Color.BLACK);
         g2.fillRect(AndreRestaurant.tgui.getTableX(0), AndreRestaurant.tgui.getTableY(0), AndreRestaurant.tgui.getTableSize(0), AndreRestaurant.tgui.getTableSize(0));
         g2.fillRect(AndreRestaurant.tgui.getTableX(1), AndreRestaurant.tgui.getTableY(1), AndreRestaurant.tgui.getTableSize(1), AndreRestaurant.tgui.getTableSize(1));
         g2.fillRect(AndreRestaurant.tgui.getTableX(2), AndreRestaurant.tgui.getTableY(2), AndreRestaurant.tgui.getTableSize(2), AndreRestaurant.tgui.getTableSize(2));

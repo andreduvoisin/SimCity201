@@ -68,6 +68,9 @@ public class SortingHat {
 		masterLandLord.mHousesList.add(getNextHouse());
 		masterLandLord.mHousesList.add(getNextHouse());
 		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
+		masterLandLord.mHousesList.add(getNextHouse());
 		sRoles.add(masterLandLord);
 		ContactList.masterLandlord = masterLandLord;
 		
@@ -224,8 +227,8 @@ public class SortingHat {
 	//HOUSING
 	static int sRenterCount = 0;
 	static int sHouseCount = 0;
-	static final int sHouseSize = 5;
-	static final int sMaxRenters = 5;
+//	static final int sHouseSize = 5;
+	static final int sMaxRenters = 8;
 
 	public static Role getHousingRole(Person person, int shift, boolean renter) {
 		//landlord, renter, owner (in that order)	

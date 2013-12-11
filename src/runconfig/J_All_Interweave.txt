@@ -4,6 +4,9 @@ NONE 10 renter2
 NONE 10 renter3
 NONE 10 renter4
 NONE 10 renter5
+NONE 10 renter6
+NONE 10 renter7
+NONE 10 renter8
 BANK 200 mtelle1
 BANK 200 guard11
 BANK 200 guard12
