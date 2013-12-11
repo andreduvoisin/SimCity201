@@ -40,4 +40,9 @@ public class SmilehamMockCook extends SmilehamMock implements SmilehamCook{
 		
 	}
 
+	@Override
+	public void checkStand() {
+		
+	}
+
 }
