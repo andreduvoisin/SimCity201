@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Semaphore;
 
 import bank.BankAccount;
 import bank.gui.BankTellerGui;
@@ -232,6 +233,7 @@ public class BankTellerRole extends BaseRole implements BankTeller{
 		mPerson.assignNextEvent();
 		
 		mPerson.removeRole(this);
+		
 		mPerson.setJobType(EnumJobType.NONE);
 	}
 }
