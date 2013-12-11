@@ -63,6 +63,4 @@ public class CookTest extends TestCase {
 		
 	}
 	
-	//SHANE: 1 Test both waiters
-	
 }

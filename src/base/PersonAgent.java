@@ -209,7 +209,7 @@ public class PersonAgent extends Agent implements Person {
 		mHasCar = true; 
 		
 		//Role References
-		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250); //SHANE: 3 Hardcoded start place
+		//mPersonGui = new CityPerson(this, SimCityGui.getInstance(), sSSN * 5 % 600, sSSN % 10 + 250);
 		//Role References
         Location startLocation = null;
         if (mSSN % 8 == 0) startLocation = new Location(60, 0);
@@ -323,7 +323,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		
-		//SHANE: 5 last choice - go home
+		//last choice - go home
 		return false;
 	}
 
