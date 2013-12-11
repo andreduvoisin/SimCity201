@@ -66,7 +66,6 @@ public class Bank {
 				mGuis.add(((BankTellerRole)role).mGUI);
 			}
 		}
-		 //REX ANDRE: add master teller to both banks in sorting hat
 		 if(role instanceof BankMasterTellerRole){
 			 mMasterTeller = ((BankMasterTellerRole)role);
 		 }

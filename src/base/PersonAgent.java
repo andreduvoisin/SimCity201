@@ -249,7 +249,7 @@ public class PersonAgent extends Agent implements Person {
 		if (semAnimationDone.availablePermits() == 0) semAnimationDone.release();
 	}
 	
-	public void msgRoleFinished(){ //SHANE ALL: 3 Call at end of role
+	public void msgRoleFinished(){
 		mRoleFinished = true;
 		mPersonGui.setPresent(true);
 		for (Role iRole : mRoles.keySet()){
@@ -460,13 +460,12 @@ public class PersonAgent extends Agent implements Person {
 								
 								//plan robbery
 								if(mName.contains("robber")){
-									//REX: hard coded to try to steal 100
 									print("Robbery action added to bank options");
 									bankCustomerRole.mActions.add(new BankAction(EnumAction.Robbery, 100));
 								}
 								
 								//deposit check
-								int deposit = 50; //REX: add mDeposit, and do after leaving job
+								int deposit = 50;
 								bankCustomerRole.mActions.add(new BankAction(EnumAction.Deposit, deposit));
 								
 								//pay back loan if needed
@@ -503,7 +502,7 @@ public class PersonAgent extends Agent implements Person {
 					mAtJob = true; //set to false in msgTimeShift
 					Role jobRole = getJobRole();
 					if(!jobRole.hasPerson()) {
-						jobRole.setPerson(this); //take over job role //ANDRE SHANE ALL: 1 FIX FOR RESTAURANTS
+						jobRole.setPerson(this);
 					}
 					mRoles.put(jobRole, true); //set role to active
 					jobRole.setActive();
@@ -587,7 +586,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void inspect() {
-		//REX ALL: HOW IS THIS WORKING WITH COMMUTER ROLE!?
 		print("I AM INSPECTING");
 		mPersonGui.setPresent(true);
 		synchronized(ContactList.sOpenPlaces){
@@ -727,7 +725,6 @@ public class PersonAgent extends Agent implements Person {
 		mEvents.add(new Event(EnumEventType.INVITE1, time));
 		if(!mName.equals("partyPerson"))
 			mEvents.add(new Event(EnumEventType.INVITE2, time+2));
-//		Location partyLocation = new Location(500,500); //REX: remove hardcoded party pad after dehobo the host
 		Location partyLocation = getHousingRole().getLocation();
 		mEvents.add(new EventParty(EnumEventType.PARTY, time+4, partyLocation, this, mFriends));
 		//mEvents.add(new EventParty(EnumEventType.PARTY, time+4, ((HousingBaseRole)getHousingRole()).getLocation(), this, mFriends));
@@ -847,7 +844,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void invokeMaintenance() {
-		//ALL: this is a hack needs to be fixed
 		if (getHousingRole().getHouse() != null) {
 			mCommuterRole.mActive = true;
 			mCommuterRole.setLocation(getHousingRole().getLocation());
