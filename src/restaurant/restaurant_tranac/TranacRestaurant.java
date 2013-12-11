@@ -45,7 +45,6 @@ public class TranacRestaurant {
     	else if (role instanceof TranacWaiterBase){
     		TranacWaiterBase waiter = (TranacWaiterBase) role;
     		mWaiters.add(waiter);
-        	mHost.addWaiter(waiter);
     	}
     	else if (role instanceof TranacCashierRole){
     		mCashier = (TranacCashierRole) role;

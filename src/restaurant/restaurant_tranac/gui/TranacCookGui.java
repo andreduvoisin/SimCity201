@@ -18,10 +18,10 @@ public class TranacCookGui implements Gui {
 
     private TranacCookRole agent;
 
-    private int xPos = 540, yPos = 60;					//default cook position
-    private int xDestination = 540, yDestination = 60;	//default cook position
+    private int xPos = 414, yPos = 60;					//default cook position
+    private int xDestination = 414, yDestination = 60;	//default cook position
     
-    private int xHome = 540, yHome = 60;				//cook home position
+    private int xHome = 414, yHome = 60;				//cook home position
 
     private Map<Integer, Coordinates> grillLocations = new HashMap<Integer, Coordinates>();
     private Map<Integer, Coordinates> grillingLocations = new HashMap<Integer, Coordinates>();
@@ -40,26 +40,26 @@ public class TranacCookGui implements Gui {
         this.agent = agent;
         
         //plating locations for food
-        plateLocations.put(1, new Coordinates(448,50));
-        plateLocations.put(2, new Coordinates(448,110));
-        plateLocations.put(3, new Coordinates(508,145));
-        plateLocations.put(4, new Coordinates(568,145));
+        plateLocations.put(1, new Coordinates(322,50));
+        plateLocations.put(2, new Coordinates(322,110));
+        plateLocations.put(3, new Coordinates(383,145));
+        plateLocations.put(4, new Coordinates(382,145));
         
         //plating locations for cook
-        platingLocations.put(1, new Coordinates(482,30));
-        platingLocations.put(2, new Coordinates(482,80));
-        platingLocations.put(3, new Coordinates(508,85));
-        platingLocations.put(4, new Coordinates(568,85));
+        platingLocations.put(1, new Coordinates(356,30));
+        platingLocations.put(2, new Coordinates(356,80));
+        platingLocations.put(3, new Coordinates(382,85));
+        platingLocations.put(4, new Coordinates(442,85));
         
         //grill locations for food
-        grillLocations.put(1, new Coordinates(500,30));
-        grillLocations.put(2, new Coordinates(547,30));
-        grillLocations.put(3, new Coordinates(590,30));
+        grillLocations.put(1, new Coordinates(374,30));
+        grillLocations.put(2, new Coordinates(422,30));
+        grillLocations.put(3, new Coordinates(464,30));
         
         //grilling locations for cook
-        grillingLocations.put(1, new Coordinates(500,40));
-        grillingLocations.put(2, new Coordinates(550,40));
-        grillingLocations.put(3, new Coordinates(590,40));
+        grillingLocations.put(1, new Coordinates(374,40));
+        grillingLocations.put(2, new Coordinates(424,40));
+        grillingLocations.put(3, new Coordinates(464,40));
         
 
     	image = null;
