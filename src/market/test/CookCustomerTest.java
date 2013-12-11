@@ -58,7 +58,6 @@ public class CookCustomerTest extends TestCase {
  	/**
  	 * Test cook customer for a completed order from coder's restaurant.
  	 */
- 	//ANGELICA add in restaurant cashire mesage
  	public void testTranacRestaurant() {
  	  //set up the test
  		

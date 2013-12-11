@@ -17,7 +17,6 @@ import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
-import restaurant.restaurant_smileham.roles.SmilehamWaiterBase;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRoleShared;
 import restaurant.restaurant_tranac.TranacRestaurant;
