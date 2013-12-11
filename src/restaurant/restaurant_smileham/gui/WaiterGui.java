@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.WaitingArea;
 import restaurant.restaurant_smileham.roles.SmilehamHostRole;
-import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterBase;
 import base.Gui;
 
 public class WaiterGui implements Gui {
@@ -19,7 +19,7 @@ public class WaiterGui implements Gui {
 	private boolean onFire = false;
 	private BufferedImage fireImage;
 
-    private SmilehamWaiterRole mWaiterAgent;
+    private SmilehamWaiterBase mWaiterAgent;
     private static final int cPOS_DOOR_X = -20;
     private static final int cPOS_DOOR_Y = -20;
     public static final int cWAITER_LENGTH = 20;
@@ -39,7 +39,7 @@ public class WaiterGui implements Gui {
 
     private static int numWaiter = 0;
     
-    public WaiterGui(SmilehamWaiterRole waiterAgent) {
+    public WaiterGui(SmilehamWaiterBase waiterAgent) {
         mWaiterAgent = waiterAgent;
         numWaiter++;
         mPosDefaultX = cPOS_WAITERS_X;
