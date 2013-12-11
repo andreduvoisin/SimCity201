@@ -45,8 +45,7 @@ public class Bank {
 			mGuis.add(((BankGuardRole)role).mGUI);
 		}
 		 
-		if(role instanceof BankCustomerRole) {
-			//System.out.println("Bank customer added");
+		if(role instanceof BankCustomerRole) {;
 			mCustomers.add((BankCustomerRole)role);
 			((BankCustomerRole)role).setGuard(mGuard);
 			((BankCustomerRole)role).setTeller(teller);
@@ -64,6 +63,7 @@ public class Bank {
 				((BankTellerRole)role).mGUI = new BankTellerGui((BankTellerRole)role);//, BankPanel);
 				//((BankTellerRole)role).mGUI.setPresent(true);
 				mGuis.add(((BankTellerRole)role).mGUI);
+				teller = ((BankTellerRole)role);
 			}
 		}
 		 if(role instanceof BankMasterTellerRole){

@@ -1,6 +1,7 @@
 package restaurant.restaurant_maggiyan.roles;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.HashMap;
@@ -15,7 +16,7 @@ import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.Order.state;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanCook;
-import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
+//import restaurant.restaurant_maggiyan.interfaces.MaggiyanMarket;
 import restaurant.restaurant_maggiyan.interfaces.MaggiyanWaiter;
 import base.BaseRole;
 import base.ContactList;
@@ -33,7 +34,7 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	private Timer timer = new Timer(); 
 	
 	//Market and Inventory
-	private int maxFoodQty = 4; 
+//	private int maxFoodQty = 4; 
 	private int inventoryLOW = 2; 
 	private int minInventoryOrderCount = 4; 
 	
@@ -42,23 +43,23 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 	private boolean orderPickedUp = false; 
 	private Semaphore animationReady = new Semaphore(0, true);
 	
-	private List<MaggiyanMarket> markets = new ArrayList<MaggiyanMarket>(); 
+//	private List<MaggiyanMarket> markets = new ArrayList<MaggiyanMarket>(); 
 	
 	//Revolving Stand 
 	private Timer RStandTimer = new Timer();  
 	
 	private Map<String, Integer> CookingTimes = new HashMap<String, Integer>(); 
 //	private Map<String, Food> FoodMap = new HashMap<String, Food>();
-	private Map<String, Integer> ShoppingMap = new HashMap<String, Integer>();
+//	private Map<String, Integer> ShoppingMap = new HashMap<String, Integer>();
 	public Map<String, Integer> restockMap = null;  
 	
-	private List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
+	public List<Order> orders = Collections.synchronizedList(new ArrayList<Order>());
 	public List<Order> rStandOrders = Collections.synchronizedList(new ArrayList<Order>());
 	
 
 	public MaggiyanCookRole(Person p, RestaurantCookRole r){
 		super(p);
-		mRole = r;
+		mRole = r; 
 		if(p == null){
 			this.n = "Null cook"; 
 		}
@@ -257,14 +258,14 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 //			print("inventory low"); 
 //			stockInventory = true;
 //		}
-		
+
 		if(mRole.mItemInventory.get(Item.stringToEnum(o.c)) == 0){
 			mRole.mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);  
 			o.w.msgOutOfChoice(o.c, o.table);
 			orders.remove(o);
 			return;
 		}
-		
+
 		if(mRole.mItemInventory.get(Item.stringToEnum(o.c)) <= inventoryLOW){
 			print("Inventory low"); 
 			mRole.mItemsDesired.put(Item.stringToEnum(o.c), minInventoryOrderCount);
@@ -316,6 +317,7 @@ public class MaggiyanCookRole extends BaseRole implements MaggiyanCook{
 //		}catch(Exception e){
 //			print("PlateFood DoGoToPlatingArea exception thrown"); 
 //		}
+		
 		cookGui.DoPlateFood(o.c, o.cookingPos);
 		o.w.msgOrderDone(o.c, o.table, o.cookingPos); 
 		o.s = state.finished; 

@@ -20,12 +20,6 @@ public interface TranacWaiter {
 	
 	public abstract void msgOutOfFood(String choice, int table);
 	
-/*	public abstract void msgWantToGoOnBreak();
-	
-	public abstract void msgGoOnBreak();
-	
-	public abstract void msgNoBreak();
-	*/
 	public abstract void msgAskingForCheck(TranacCustomer c);
 
 	public abstract void msgHereIsCheck(TranacCheck check);
