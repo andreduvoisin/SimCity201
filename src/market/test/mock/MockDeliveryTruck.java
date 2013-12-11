@@ -14,20 +14,4 @@ public class MockDeliveryTruck extends Mock implements MarketDeliveryTruck {
 	public void msgDeliverOrderToCook(MarketOrder o) {
 		log.add(new LoggedEvent("Received msgDeliverOrderToCook."));
 	}
-	
-/** Animation Functions and Messages */
-	public void msgAnimationAtRestaurant() {
-		log.add(new LoggedEvent("Received msgAnimationAtRestaurant."));
-		inTransit.release();
-	}
-	
-	public void msgAnimationAtMarket() {
-		log.add(new LoggedEvent("Received msgAnimationAtMarket."));
-		inTransit.release();
-	}
-	
-	public void msgAnimationLeftMarket() {
-		log.add(new LoggedEvent("Received msgAnimationLeftMarket."));
-		inTransit.release();
-	}
 }
