@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
 import market.interfaces.MarketCustomer;
@@ -47,7 +49,6 @@ import base.interfaces.Person;
 import base.interfaces.Role;
 import city.gui.CityPerson;
 import city.gui.SimCityGui;
-import city.gui.trace.AlertLog;
 import city.gui.trace.AlertTag;
 
 
@@ -581,6 +582,15 @@ public class PersonAgent extends Agent implements Person {
 		if (getHousingRole().getHouse() == null) {
 			((HousingRenterRole) getHousingRole()).msgRequestHousing();
 		}
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				mPersonGui.setPresent(true);
+				mPersonGui.DoGoToDestination(getHousingRole().getLocation());
+				acquireSemaphore(semAnimationDone);
+				mPersonGui.setPresent(false);
+			}
+		}, 1000);
 	}
 	
 	public void getCar(){

@@ -73,7 +73,6 @@ public class ConfigParser {
 				person.msgAddEvent(new Event(EnumEventType.JOB, person.getTimeShift() * (24 / ContactList.cNumTimeShifts)));
 			else {
 				if (name.contains("renter")) {
-					person.msgAddEvent(new Event(EnumEventType.EAT, 0));
 					person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 0));
 				}
 				else if (name.contains("landlord"))
