@@ -140,7 +140,7 @@ public class PersonAgent extends Agent implements Person {
 					print(jobRole.toString());
 				break;
 			case HOUSING:
-				jobRole = SortingHat.getHousingRole(this, mTimeShift);
+				jobRole = SortingHat.getHousingRole(this, mTimeShift, false);
 				break;
 			case NONE:
 				break;
@@ -162,7 +162,13 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = false;
 		mCommutingTo = null;
 		
-		mRoles.put(SortingHat.getHousingRole(this, mTimeShift), true);
+		if (mName.contains("renter")) {
+			print("made renter!");
+			mRoles.put(SortingHat.getHousingRole(this, mTimeShift, true), true);
+		}
+		else {
+			mRoles.put(SortingHat.getHousingRole(this, mTimeShift, false), true);
+		}
 		//mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);

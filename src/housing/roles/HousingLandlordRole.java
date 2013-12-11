@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import city.gui.trace.AlertLog;
+import city.gui.trace.AlertTag;
 import base.interfaces.Person;
 
 /*
