@@ -33,13 +33,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("B1", false);
 							CityClosed c = (CityClosed) Inspection.sClosedImages.get(ContactList.cBANK1_LOCATION);
 							c.enable();
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cBANK1_LOCATION, true);
 							ContactList.sOpenBuildings.put("B1", true);
 							Inspection.sClosedImages.get(ContactList.cBANK1_LOCATION).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "Piggy Bank":
@@ -48,13 +48,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("B2", false);
 							Inspection.sClosedImages.get(ContactList.cBANK2_LOCATION).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cBANK2_LOCATION, true);
 							ContactList.sOpenBuildings.put("B2", true);
 							Inspection.sClosedImages.get(ContactList.cBANK2_LOCATION).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "Honeydukes":
@@ -63,13 +63,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("M1", false);
 							Inspection.sClosedImages.get(ContactList.cMARKET1_LOCATION).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cMARKET1_LOCATION, true);
 							ContactList.sOpenBuildings.put("M1", true);
 							Inspection.sClosedImages.get(ContactList.cMARKET1_LOCATION).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "Ollivanders":
@@ -78,13 +78,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenPlaces.put(ContactList.cMARKET2_LOCATION, false);
 							Inspection.sClosedImages.get(ContactList.cMARKET2_LOCATION).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cMARKET2_LOCATION, true);
 							ContactList.sOpenBuildings.put("M2", true);
 							Inspection.sClosedImages.get(ContactList.cMARKET2_LOCATION).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "duvoisin":
@@ -93,13 +93,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("R0", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(0)).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(0), true);
 							ContactList.sOpenBuildings.put("R0", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(0)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;	
 					case "cwagoner":
@@ -108,13 +108,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("R1", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(1)).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(1), true);
 							ContactList.sOpenBuildings.put("R1", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(1)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "jerryweb":
@@ -123,13 +123,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("R2", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(2)).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(2), true);
 							ContactList.sOpenBuildings.put("R2", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(2)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "maggiyan":
@@ -138,13 +138,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("R3", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(3)).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(3), true);
 							ContactList.sOpenBuildings.put("R3", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(3)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "davidmca":
@@ -153,13 +153,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("R4", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(4)).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(4), true);
 							ContactList.sOpenBuildings.put("R4", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(4)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "smileham":
@@ -168,13 +168,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("R5", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(5)).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(5), true);
 							ContactList.sOpenBuildings.put("R5", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(5)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "tranac":
@@ -183,13 +183,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenBuildings.put("R6", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(6)).enable();
 			
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(6), true);
 							ContactList.sOpenBuildings.put("R6", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(6)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 					case "xurex":
@@ -197,13 +197,13 @@ public class PlacesButtonListener implements ActionListener {
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(7), false);
 							ContactList.sOpenBuildings.put("R7", false);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(7)).enable();
-							button.setText("Enable");
+//							button.setText("Enable");
 						}
 						else{
 							ContactList.sOpenPlaces.put(ContactList.cRESTAURANT_LOCATIONS.get(7), true);
 							ContactList.sOpenBuildings.put("R7", true);
 							Inspection.sClosedImages.get(ContactList.cRESTAURANT_LOCATIONS.get(7)).disable();
-							button.setText("Disable");
+//							button.setText("Disable");
 						}
 						break;
 				}

@@ -3,6 +3,9 @@ package restaurant.restaurant_cwagoner.gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_cwagoner.roles.CwagonerCustomerRole;
@@ -17,6 +20,7 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements Gui {
 	
 	private boolean isHungry = true;
 
+    BufferedImage custImg;
 	CwagonerWaiterRole waiter;
 
 	private int size = 20;
@@ -40,6 +44,9 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements Gui {
 
         position = new Location(waitingPos.mX, waitingPos.mY);
         destination = new Location(waitingPos.mX, waitingPos.mY);
+
+        java.net.URL custURL = this.getClass().getClassLoader().getResource("restaurant/restaurant_cwagoner/gui/img/cust.png");
+		try { custImg = ImageIO.read(custURL); } catch (Exception e) {}
 	}
 	
 	public void setTableLocation(int tableNum) {
@@ -77,14 +84,9 @@ public class CwagonerCustomerGui extends CwagonerBaseGui implements Gui {
 	}
 
 	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(position.mX, position.mY, size, size);
+		g.drawImage(custImg, position.mX, position.mY, null);
 		
-		if (food.equals("")) {
-	    	g.setColor(Color.GREEN);
-	    	g.fillRect(position.mX, position.mY, size, size);
-		}
-		else {	// Either ordered or already eating
+		if (! food.equals("")) {	// Either ordered or already eating
 			if (food.length() == 2) { 	// Eating. Draw plate
 				g.setColor(Color.WHITE);
 	    		g.fillOval(position.mX, position.mY, PLATE, PLATE);

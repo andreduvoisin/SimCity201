@@ -74,7 +74,7 @@ public class ConfigParser {
 			else {
 				if (name.contains("renter")) {
 					person.msgAddEvent(new Event(EnumEventType.EAT, 0));
-					person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, 0));
+					person.msgAddEvent(new Event(EnumEventType.REQUEST_HOUSE, -1));
 				}
 				else if (name.contains("landlord"))
 					person.msgAddEvent(new Event(EnumEventType.ASK_FOR_RENT, 1));
@@ -92,14 +92,15 @@ public class ConfigParser {
 				else if(name.contains("robber"))
 					person.msgAddEvent(new Event(EnumEventType.DEPOSIT_CHECK, -1));
 				else if(name.contains("inspection")){
-					if(name.contains("hascar"))
-						person.setHasCar(true);
-					if(name.contains("noca"))
-						person.setHasCar(false);
 					person.msgAddEvent(new Event(EnumEventType.EAT, -1));
 					person.msgAddEvent(new Event(EnumEventType.INSPECTION, 0));
 				}
 			}
+			
+			if(name.contains("hasc"))
+				person.setHasCar(true);
+			if(name.contains("noca"))
+				person.setHasCar(false);
 			
 			synchronized (person) {
 				ContactList.sPersonList.add(person);

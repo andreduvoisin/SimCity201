@@ -27,6 +27,7 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanCookRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamCookRole;
 import restaurant.restaurant_tranac.TranacRestaurant;
+import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_xurex.RexCookRole;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
@@ -260,7 +261,8 @@ public class RestaurantCookRole extends BaseRole implements RestaurantCookInterf
                 	mRestaurantCashier = SmilehamRestaurant.mCashier.mRole;
                 	break;
                 case 6: //angel
-                	mRestaurantCashier = TranacRestaurant.mCashier.mRole;
+                	TranacCashierRole c = (TranacCashierRole)TranacRestaurant.mCashier;
+                	mRestaurantCashier = c.mRole;
                 	break;
                 case 7: //rex
                 	 mRestaurantCashier = RexAnimationPanel.cashier.mRole;

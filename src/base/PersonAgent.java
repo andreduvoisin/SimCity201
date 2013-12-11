@@ -661,37 +661,50 @@ public class PersonAgent extends Agent implements Person {
 		mPersonGui.setPresent(true);
 		
 		Location[] myDestinations = null;
+		Boolean[] isOpen = null;
 		synchronized(ContactList.sOpenPlaces) {
 			if(mSSN % 3 == 0) {
 				myDestinations = ContactList.sOpenPlaces.keySet().toArray(new Location[0]);
+				isOpen = ContactList.sOpenPlaces.values().toArray(new Boolean[0]);
 			} else if(mSSN % 3 == 1) {
 				Location[] temp = ContactList.sOpenPlaces.keySet().toArray(new Location[0]);
+				Boolean[] tempBool = ContactList.sOpenPlaces.values().toArray(new Boolean[0]);
 				myDestinations = new Location[ContactList.sOpenPlaces.size()];
+				isOpen = new Boolean[ContactList.sOpenPlaces.size()];
 				for(int i = ContactList.sOpenPlaces.size() - 1; i >= 0; i--) {
 					myDestinations[i] = temp[i];
+					isOpen[i] = tempBool[i];
 				}
 			} else if(mSSN % 3 == 2) {
 				Location[] temp = ContactList.sOpenPlaces.keySet().toArray(new Location[0]);
+				Boolean[] tempBool = ContactList.sOpenPlaces.values().toArray(new Boolean[0]);
 				myDestinations = new Location[ContactList.sOpenPlaces.size()];
+				isOpen = new Boolean[ContactList.sOpenPlaces.size()];
 				int j = ContactList.sOpenPlaces.size() - 1;
 				for(int i = ContactList.sOpenPlaces.size() / 2; i < ContactList.sOpenPlaces.size(); i++) {
 					myDestinations[j] = temp[i];
+					isOpen[j] = tempBool[i];
 					j--;
 				}
 				j = 0;
 				for(int i = ContactList.sOpenPlaces.size() / 2; i >= 0; i--) {
 					myDestinations[j] = temp[i];
+					isOpen[j] = tempBool[i];
 					j++;
 				}
 			}
 		}
-		for(Location iLocation : myDestinations){
-			Inspection.sInspectionImages.get(iLocation).enable();
-			mPersonGui.DoGoToDestination(iLocation);
-			acquireSemaphore(semAnimationDone);
-			Inspection.sInspectionImages.get(iLocation).disable();
-			print("Visited "+iLocation.toString());
-			mPersonGui.setPresent(true);
+		for(int iLocation = 0; iLocation < myDestinations.length; iLocation++){
+			if(myDestinations[iLocation] != null) {
+				if(isOpen[iLocation]) {
+					Inspection.sInspectionImages.get(myDestinations[iLocation]).enable();
+					mPersonGui.DoGoToDestination(myDestinations[iLocation]);
+					acquireSemaphore(semAnimationDone);
+					Inspection.sInspectionImages.get(myDestinations[iLocation]).disable();
+					print("Visited "+myDestinations[iLocation].toString());
+					mPersonGui.setPresent(true);
+				}
+			}
 		}
 		
 //		synchronized(ContactList.sOpenPlaces){
@@ -748,7 +761,6 @@ public class PersonAgent extends Agent implements Person {
 				firstRun = false;
 			} else {
 				restaurantChoice = rand.nextInt(8);
-				AlertLog.getInstance().logError(AlertTag.PERSON, getName(), "" + restaurantChoice);
 			}
 			
 			RestaurantCustomerRole restCustRole = null;

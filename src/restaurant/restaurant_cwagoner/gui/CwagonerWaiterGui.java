@@ -64,6 +64,7 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
     }
 
     public void updatePosition() {
+    	if(!onFire){
         if (position.mX < destination.mX)		position.mX++;
         else if (position.mX > destination.mX)	position.mX--;
 
@@ -75,7 +76,7 @@ public class CwagonerWaiterGui extends CwagonerBaseGui implements Gui {
         		state = State.idle;
         		((CwagonerWaiter)role).msgAnimationFinished();
 			}
-        }
+        }}
     }
 
     public void draw(Graphics2D g) {
