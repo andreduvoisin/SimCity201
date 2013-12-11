@@ -29,7 +29,7 @@ public class CityPerson extends CityComponent {
 	public boolean mUsingCar = false;
 	public boolean mUsingBus = true;
 	public boolean mGettingCar = false;
-	public boolean mDeliverying = false;
+	public boolean mDelivering = false;
 
 	static final int xIndex = 10;
 	static final int yIndex = 10;
@@ -82,20 +82,16 @@ public class CityPerson extends CityComponent {
 		if (mDestination != null) {
 			if (x < mDestination.mX){
 				x++; 
-				current = right;
 			}
 	        else if (x > mDestination.mX){
 	        	x--;
-	        	current = left;
 	        }
 	
 	        if (y < mDestination.mY){
 	        	y++;
-	        	current = down; 
 	        }
 	        else if (y > mDestination.mY){
 	        	y--;
-	        	current = up;
 	        }
 	        
 	        //if at destination
@@ -120,7 +116,7 @@ public class CityPerson extends CityComponent {
 				rectangle.x = previousX;
 				if (rectangle.intersects(iBlock.rectangle)) {
 					rectangle.x = x;
-					rectangle.y = previousY;
+					rectangle.y = previousY; 
 				}
 			}
 		}
@@ -152,8 +148,8 @@ public class CityPerson extends CityComponent {
 		Location destCorner = findNearestCorner(mFinalDestination);
 		
 		//If person has a car
-		if (mDeliverying ||(mPerson.hasCar() && !mGettingCar)) {
-			if (mDeliverying || mPerson.hasCar()) {
+		if (mDelivering ||(mPerson.hasCar() && !mGettingCar)) {
+			if (mDelivering || mPerson.hasCar()) {
 				//Animations
 				up = carback;
 				down = carfront;
@@ -248,7 +244,7 @@ public class CityPerson extends CityComponent {
 				if(SimCityGui.GRADINGVIEW) {
 					g.setColor(Color.WHITE);
 					g.drawString(mPerson.getName(),x,y);
-					if(mDeliverying) {
+					if(mDelivering) {
 						g.setColor(Color.MAGENTA);
 						g.fillRect(x,y,10,10);
 					}
@@ -261,7 +257,12 @@ public class CityPerson extends CityComponent {
 						g.fillRect(x, y, 5, 5);
 					}
 				}
-				else{
+				else{ // Beautiful!
+					if (x < previousX)			current = mUsingCar ? carleft	: personleft;
+					else if (x > previousX)		current = mUsingCar ? carright	: personright;
+					else if (y < previousY)		current = mUsingCar ? carback	: personback;
+					else if (y > previousY)		current = mUsingCar ? carfront	: personfront;
+
 					g.drawImage(current, x, y, null);
 				}
 			}
