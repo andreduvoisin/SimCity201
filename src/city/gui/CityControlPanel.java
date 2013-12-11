@@ -330,7 +330,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 					ContactList.sOpenPlaces.put (ContactList.cBANK1_LOCATION, false);
 					ContactList.sOpenPlaces.put (ContactList.cBANK2_LOCATION, false);
 					ContactList.sOpenBuildings.put("B1", false);
-					ContactList.sOpenBuildings.put("B2", false)
+					ContactList.sOpenBuildings.put("B2", false);
 					Inspection.sClosedImages.get(ContactList.cBANK1_LOCATION).enable();
 					Inspection.sClosedImages.get(ContactList.cBANK2_LOCATION).enable();
 					
