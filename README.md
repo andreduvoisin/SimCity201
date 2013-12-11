@@ -12,7 +12,7 @@ The CSCI 201 Project teaches students about the myriad facets of team work: pair
 * ControlPanel Layout
 * Citywide GUI Integration
 * CityCard Zoom-In View Functionality
-* Restaurant Integration Manager
+* Restaurant Integration Manager;
 * Config File Manager for Restaurants
 
 ####Angelica Tran	(Market Manager)
@@ -28,8 +28,8 @@ The CSCI 201 Project teaches students about the myriad facets of team work: pair
 * Fixed my restaurant
 * Some help on re-design and implementation of bus
 * Tested transportation
-* Updated design docs
 * Added panel to add people via GUI
+* Updated design docs for transportation, housing, and restaurants
 
 ####David Carr		(The Internet)
 * Housing Roles, Design, Testing
@@ -93,27 +93,30 @@ O: Bank Robbery occurs in Piggy Bank, not in Gringotts
 S: Creates a city with extra workers. Fire these workers in the People tab
 
 ####Properties Tab
-*Selectively open/close workplaces
-*View workplace summary information
-*Manually set inventories for workplaces
++Selectively open/close workplaces
++View workplace summary information
++Manually set inventories for workplaces
 
 ####Trace Tab
 Filter print statements by type or workplace
-*Info
-*Errors
-*Debugs
-*Warnings
++Info
++Errors
++Debugs
++Warnings
 *Messages
 
 ####People Tab
-*Manually add people
-*Fire people from workplaces
++Manually add people
++Fire people from workplaces
 
 ####View Toggle
 The button at the bottom of control panel toggles between grading and beautiful view.
 
 ###Full Disclosure
 Unfortunately, there are a few areas of the city that we were not able to complete to our satisfaction.
+
+####Restaurants
+No A* implemented in restaurants. However, collisions have been mitigated by clever interior design.
 
 ####Money
 Our SimCity does not acknowledge changes in day. Accordingly, money has diminished value. E.g. daily working capital does not matter.

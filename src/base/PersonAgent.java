@@ -123,6 +123,7 @@ public class PersonAgent extends Agent implements Person {
 					print("Bank role person auto set: "+jobRole.toString());
 					if (jobRole instanceof BankTellerRole){
 						ContactList.sBankList.get(((BankTellerRole)jobRole).mBankID).mGuard.msgReadyToWork((BankTellerRole)jobRole);
+						ContactList.sBankList.get(((BankTellerRole)jobRole).mBankID).addPerson(jobRole);
 					}
 				}
 				break;
@@ -242,7 +243,7 @@ public class PersonAgent extends Agent implements Person {
 				return;
 			}
 		}
-		mEvents.add(event); print(mEvents.size()+" events");
+		mEvents.add(event);
 	}
 	
 	public void msgAnimationDone(){
@@ -272,7 +273,6 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		if ((mRoleFinished) && (!mAtJob) ){
-			print("IN EVENT LOOP");
 			// Process events (calendar)
 			synchronized(mEvents){
 				Collections.sort((mEvents));

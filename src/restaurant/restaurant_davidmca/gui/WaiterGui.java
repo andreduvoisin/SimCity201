@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import city.gui.SimCityGui;
 import restaurant.restaurant_davidmca.Table;
 import restaurant.restaurant_davidmca.interfaces.Waiter;
 import base.Gui;
@@ -71,9 +72,12 @@ public class WaiterGui implements Gui {
 		if(onFire)
 			g.drawImage(fireImage, xPos, yPos, null);
 		else{
-		g.setColor(Color.MAGENTA);
+		g.setColor(Color.CYAN);
 		g.fillRect(xPos, yPos, WaiterSize, WaiterSize);
-		g.setColor(Color.BLACK);
+		 if (SimCityGui.TESTING) 
+         	g.setColor(Color.BLACK);
+         else 
+         	g.setColor(Color.WHITE);
 		g.drawString(labelText, xPos, yPos);}
 	}
 

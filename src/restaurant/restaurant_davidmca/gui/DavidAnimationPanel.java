@@ -68,19 +68,24 @@ public class DavidAnimationPanel extends CityCard implements ActionListener {
 		Graphics2D g2 = (Graphics2D) g;
 
 		// Clear the screen by painting a rectangle the size of the frame
-		g2.setColor(getBackground());
+		g2.setColor(Color.gray);
 		g2.fillRect(0, 0, WINDOWX, WINDOWY);
 		
-		if(!SimCityGui.GRADINGVIEW) {
-        	if(background != null)
-        		g2.drawImage(background,0,0,null);
-        	
+		if(SimCityGui.GRADINGVIEW) {
+			for (Table table : restaurant.tables) {
+				g.setColor(Color.ORANGE);
+				g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
+			}
         }
-		for (Table table : restaurant.tables) {
-			g.setColor(Color.RED);
-			g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
+		else {
+			if(background != null)
+        		g2.drawImage(background,0,0,null);
+			for (Table table : restaurant.tables) {
+				g.setColor(Color.BLACK);
+				g.fillRect(table.getX(), table.getY(), tableSize, tableSize);
+			}
 		}
-
+		
 		for (Gui gui : restaurant.guis) {
 			if (gui.isPresent()) {
 				gui.draw(g2);
