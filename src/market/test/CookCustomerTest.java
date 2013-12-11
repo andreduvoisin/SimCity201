@@ -13,6 +13,7 @@ import market.test.mock.MockCashier;
 import market.test.mock.MockRestaurantCashier;
 import market.test.mock.MockWorker;
 import restaurant.intermediate.RestaurantCookRole;
+import base.ContactList;
 import base.Item.EnumItemType;
 import base.PersonAgent;
 
