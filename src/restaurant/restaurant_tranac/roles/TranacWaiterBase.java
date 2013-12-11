@@ -28,9 +28,7 @@ import city.gui.trace.AlertTag;
 
 public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	public TranacWaiterGui waiterGui = null;
-	@SuppressWarnings("unused")
-	protected Timer timer = new Timer();	//used for breaks
-	
+
 	//agent correspondents
 	protected TranacHost mHost = null; 
 	protected TranacCook mCook = null;
@@ -39,17 +37,11 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	//synchronized list to make it "thread-safe"
 	protected List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	public enum CustomerState {Waiting, Seated, ReadyToOrder, OutOfFood, Reordering, Ordered, WaitingForFood, FoodDone, Eating, ReadyForCheck, WaitingForCheck, ReceivingCheck, ReceivedCheck, Paying, Done};
-
-	protected enum WaiterState {Active, WantToGoOnBreak, CanGoOnBreak, NoBreak, OnBreak};
-	
-	@SuppressWarnings("unused")
-	protected WaiterState mState = WaiterState.Active;
 	
 	//semaphores to prevent action while waiting for another message
 	protected Semaphore inTransit = new Semaphore(0,true);		//used for animation
 	protected Semaphore waitingForOrder = new Semaphore(0,true);	//used for asking for order
-	protected Semaphore askingForBreak = new Semaphore(0,true);
-	
+
 	public TranacWaiterBase(Person p) {
 		super(p);
 		waiterGui = new TranacWaiterGui(this, TranacRestaurant.getNumWaiters());
@@ -71,14 +63,14 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	}
 
 	public void msgReadyToOrder(TranacCustomer c) {
-		synchronized(customers) {
+//		synchronized(customers) {
 			for(MyCustomer mc : customers) {
 				if(mc.c == c) {
 					mc.s = CustomerState.ReadyToOrder;
 					stateChanged();
 				}
 			}	
-		}
+//		}
 	}
 	
 	public void msgOutOfFood(String choice, int table) {
@@ -105,7 +97,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 	}
 	
 	public void msgOrderDone(String choice, int table, int n) {
-		synchronized(customers) {
+	//	synchronized(customers) {
 			for(MyCustomer mc : customers) {
 				if(mc.table == table) {
 					mc.orderNum = n;
@@ -113,7 +105,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 					stateChanged();
 				}
 			}
-		}
+	//	}
 	}
 	
 	public void msgAskingForCheck(TranacCustomer c) {
@@ -150,62 +142,11 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		}
 	}
 
-	public void msgWantToGoOnBreak() {
-		print("Want to go on break.");
-		mState = WaiterState.WantToGoOnBreak;
-		stateChanged();
-	}
-	
-	public void msgGoOnBreak() {
-		print("Go on break.");
-		mState = WaiterState.CanGoOnBreak;
-		askingForBreak.release();
-		stateChanged();
-	}
-	
-	public void msgNoBreak() {
-		print("No break for me.");
-		mState = WaiterState.NoBreak;
-		askingForBreak.release();
-		stateChanged();
-	}
-
 	/** Animation Messages*/
-	public void msgAnimationAtWaitingArea() {
+	public void msgAnimationDone() {
 		inTransit.release();
-	//	stateChanged();
 	}
 	
-	public void msgAnimationAtTable() {
-		inTransit.release();
-	//	stateChanged();
-	}
-	
-	public void msgAnimationAtCook() {
-		inTransit.release();
-	//	stateChanged();
-	}
-	
-	public void msgAnimationAtOrderPickup() {
-		inTransit.release();
-	//	stateChanged();
-	}
-	
-	public void msgAnimationAtHost() {
-		inTransit.release();
-	//	stateChanged();
-	}
-
-	public void msgAnimationAtCashier() {
-		inTransit.release();
-	//	stateChanged();
-	}
-	
-//	public void msgAnimationDone() {
-//		print("releasing in transit");
-//		inTransit.release();
-//	}
-//	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -284,20 +225,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 				}
 			}
 		}
-/*		if(mState == WaiterState.WantToGoOnBreak) {
-			askToGoOnBreak();
-			return true;
-		}
-		if(mState == WaiterState.NoBreak) {
-			setNoBreak();
-			return true;
-		}
-		//check if no customers; go on break
-		if(customers.isEmpty() && mState == WaiterState.CanGoOnBreak) {
-			goOnBreak();
-			return true;
-		}
-*/		DoGoToHome();
+		DoGoToHome();
 		return false;
 	}
 
@@ -330,14 +258,6 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		c.s = CustomerState.Reordering;
 	}
 	
-	
-	//ANGELICA
-//	protected void sendOrder(MyCustomer c) {
-//		print("Sending order.");
-//		DoGoToCook();
-//		c.s = CustomerState.WaitingForFood;
-//		mCook.msgHereIsOrder(this, c.choice, c.table);
-//	}
 	protected abstract void sendOrder(MyCustomer c);
 	
 	protected void deliverFood(MyCustomer c) {
@@ -377,41 +297,7 @@ public abstract class TranacWaiterBase extends BaseRole implements TranacWaiter{
 		mHost.msgTableIsFree(c.table);
 		customers.remove(c);
 	}
-/*
-	protected void askToGoOnBreak() {
-		print("Asking to go on break.");
-		mHost.msgWantToGoOnBreak(this);
-		try {
-			askingForBreak.acquire();		//wait for customer to reply
-		}
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	protected void goOnBreak() {
-		print("Going on break.");
-		mState = WaiterState.OnBreak;
-		DoGoToHome();
-		timer.schedule(new TimerTask() {
-			public void run() {
-				goOffBreak();
-			}
-		},
-		3000);								//MAGIC NUMBER!
-	}
 
-	protected void goOffBreak() {
-		print("Coming off of break.");
-		mState = WaiterState.Active;
-		waiterGui.setBreak();
-		mHost.msgBackFromBreak(this);
-	}
-	
-	protected void setNoBreak() {
-		waiterGui.setBreak();
-	}
-*/
 	/** Animation Actions */
 	protected void DoGoToWaitingArea(int n) {
 		waiterGui.DoGoToWaitingArea(n);

@@ -96,7 +96,8 @@ public class CityControlPanel extends JPanel implements ActionListener{
     JLabel jobLabel;
 	@SuppressWarnings("rawtypes")
 	JComboBox jobs;
-    String[] jobList = {	"Bank",
+    String[] jobList = {	"Housing",
+    						"Bank",
     						"Market",
     						"Restaurant",
     						"None"};

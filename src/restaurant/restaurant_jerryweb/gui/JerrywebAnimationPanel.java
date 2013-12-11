@@ -138,9 +138,11 @@ public class JerrywebAnimationPanel extends CityCard implements ActionListener{
         g2.fillRect(panelXpos, panelYpos, WINDOWX, WINDOWY ); //This centers the screen on the restaurant scene with the table located in it... if not located at 0,0 then 
         //part of the RestaurantPanel would show
         
-        if(background != null)
-        	g2.drawImage(background,0,0,null);
-
+        if(!SimCityGui.GRADINGVIEW) {
+        	if(background != null)
+        		g2.drawImage(background,0,0,null);
+        	
+        }
         //Here is the table
         g2.setColor(Color.ORANGE);
         g2.fillRect(table1Xpos, table1Ypos, tableWidth , tableHeight);//200 and 250 need to be table params(they give the location of the table in the panel.

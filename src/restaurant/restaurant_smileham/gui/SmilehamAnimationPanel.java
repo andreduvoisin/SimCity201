@@ -69,9 +69,11 @@ public class SmilehamAnimationPanel extends CityCard implements ActionListener {
         g2.setColor(getBackground());
         g2.fillRect(0, 0, WINDOWX, WINDOWY );
         
-        if(background != null)
-        	g2.drawImage(background,0,0,null);
-
+        if(!SimCityGui.GRADINGVIEW) {
+        	if(background != null)
+        		g2.drawImage(background,0,0,null);
+        	
+        }
         //draw the tables
         g2.setColor(Table.cTABLE_COLOR);
         for (int iTableNum = 0; iTableNum < SmilehamHostRole.cNUM_TABLES; iTableNum++){

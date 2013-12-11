@@ -1,5 +1,7 @@
 package restaurant.restaurant_maggiyan.interfaces;
 
+import java.util.List;
+
 import restaurant.restaurant_maggiyan.Order;
 import restaurant.restaurant_maggiyan.gui.MaggiyanCookGui;
 
@@ -24,8 +26,8 @@ public interface MaggiyanCook {
 	public abstract void ClearPlatingArea();
 
 	//Utilities
-	public abstract void addRStandOrder(MaggiyanWaiter w, String c, int t);
-
+	public abstract List<Order> getRevolvingStand(); 
+	
 	public abstract Order findOrder(int pos);
 
 	public abstract void setGui(MaggiyanCookGui c);
