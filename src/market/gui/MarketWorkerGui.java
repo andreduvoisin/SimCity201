@@ -157,7 +157,6 @@ public class MarketWorkerGui implements MarketBaseGui {
 		mOrder = null;
 	}
 	
-	//ANGELICA: add in parameter
 	public void DoGoToCustomer() {
 		xDestination = xCustomerBase;
 		yDestination = yCustomerBase;

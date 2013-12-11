@@ -101,4 +101,10 @@ public abstract class BaseRole implements Role {
 		}
 		return false;
 	}
+	
+	public String toString() {
+		if(mPerson != null)
+			return mPerson.getName();
+		return "";
+	}
 }
