@@ -165,6 +165,8 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 					r.mHouse.mOccupant = r.mRenter;
 					r.mRenter.msgApplicationAccepted(r.mHouse);
 					r.mState = EnumRenterState.RentPaid;
+					mPerson.assignNextEvent();
+					mPerson.msgRoleFinished();
 					return;
 				}
 			}
@@ -172,6 +174,8 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			synchronized (mRenterList) {
 				mRenterList.remove(r);
 			}
+			mPerson.assignNextEvent();
+			mPerson.msgRoleFinished();
 			return;
 
 		} else {
@@ -179,6 +183,8 @@ public class HousingLandlordRole extends HousingBaseRole implements HousingLandl
 			synchronized (mRenterList) {
 				mRenterList.remove(r);
 			}
+			mPerson.assignNextEvent();
+			mPerson.msgRoleFinished();
 			return;
 		}
 	}

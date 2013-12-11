@@ -572,10 +572,6 @@ public class PersonAgent extends Agent implements Person {
 							((HousingRenterRole) getHousingRole()).setLandlord(assignedLandlord);
 							((HousingRenterRole) getHousingRole()).msgRequestHousing();
 							
-							assignNextEvent();
-							msgRoleFinished();
-							p.assignNextEvent();
-							p.msgRoleFinished();
 							return;
 						}
 					}

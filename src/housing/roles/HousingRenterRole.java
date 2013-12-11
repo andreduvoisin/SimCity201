@@ -55,6 +55,8 @@ public class HousingRenterRole extends HousingBaseRole implements HousingRenter 
 	public void msgApplicationAccepted(House newHouse) {
 		print("Message - msgApplicationAccepted");
 		mHouse = newHouse;
+		mPerson.assignNextEvent();
+		mPerson.msgRoleFinished();
 		stateChanged();
 	}
 
