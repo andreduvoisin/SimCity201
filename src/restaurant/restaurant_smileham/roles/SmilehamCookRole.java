@@ -3,6 +3,7 @@ package restaurant.restaurant_smileham.roles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -112,6 +113,13 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
     	
 		mTimer = new Timer();
 		mOrders = new HashSet<Order>();
+		
+		//start revolving standTimer
+        standTimer.scheduleAtFixedRate((new TimerTask() {        //runs a new timer to "cook" the food
+            public void run() {
+                checkStand();}
+            }),new Date(System.currentTimeMillis()+8000),
+            8000);
 	}
 	
 	// -----------------------------------------------MESSAGES---------------------------------------------------

@@ -18,6 +18,8 @@ import restaurant.restaurant_maggiyan.roles.MaggiyanSharedWaiterRole;
 import restaurant.restaurant_maggiyan.roles.MaggiyanWaiterRole;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterBase;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
+import restaurant.restaurant_smileham.roles.SmilehamWaiterRoleShared;
 import restaurant.restaurant_tranac.TranacRestaurant;
 import restaurant.restaurant_tranac.roles.TranacWaiterBase;
 import restaurant.restaurant_tranac.roles.TranacWaiterRSRole;
@@ -96,12 +98,13 @@ public class RestaurantWaiterRole extends BaseRole implements
 			}
 			break;
 		case 5: // shane
-			//if (mWaiterType == 1) {
-				subRole = new SmilehamWaiterBase(super.mPerson);
-				SmilehamRestaurant.addPerson((SmilehamWaiterBase) subRole);
-			//} else if (mWaiterType == 0) {
-				// SHANE: 1 add shared waiter
-			//}
+			if (mWaiterType == 1) {
+				subRole = new SmilehamWaiterRole(super.mPerson);
+				SmilehamRestaurant.addPerson((SmilehamWaiterRole) subRole);
+			} else if (mWaiterType == 0) {
+				subRole = new SmilehamWaiterRoleShared(super.mPerson);
+				SmilehamRestaurant.addPerson((SmilehamWaiterRoleShared) subRole);
+			}
 			break;
 		case 6: // angelica
 			if(mWaiterType == 1) {
