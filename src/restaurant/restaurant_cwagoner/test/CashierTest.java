@@ -1,6 +1,8 @@
 package restaurant.restaurant_cwagoner.test;
 
+import base.PersonAgent;
 import junit.framework.TestCase;
+import restaurant.intermediate.RestaurantCashierRole;
 import restaurant.restaurant_cwagoner.roles.CwagonerCashierRole;
 import restaurant.restaurant_cwagoner.test.mock.MockCustomer;
 import restaurant.restaurant_cwagoner.test.mock.MockMarket;
@@ -21,7 +23,9 @@ public class CashierTest extends TestCase {
 	 */
 	public void setUp() throws Exception {
 		super.setUp();		
-		//ERROR cashier = new CwagonerCashierRole(null);		
+		PersonAgent p = new PersonAgent();
+		RestaurantCashierRole rcr = new RestaurantCashierRole(p, 1);
+		cashier = new CwagonerCashierRole(p, rcr);
 		customer = new MockCustomer("mockcustomer");		
 		waiter = new MockWaiter("mockwaiter");
 	}	
