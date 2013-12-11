@@ -23,6 +23,7 @@ import restaurant.restaurant_tranac.roles.TranacWaiterBase;
 import restaurant.restaurant_tranac.roles.TranacWaiterRSRole;
 import restaurant.restaurant_tranac.roles.TranacWaiterRole;
 import restaurant.restaurant_xurex.RexWaiterRole1;
+import restaurant.restaurant_xurex.RexWaiterRole2;
 import restaurant.restaurant_xurex.gui.RexAnimationPanel;
 import base.BaseRole;
 import base.ContactList;
@@ -123,13 +124,14 @@ public class RestaurantWaiterRole extends BaseRole implements
 			}
 			break;
 		case 7: // rex
-//			if (mWaiterType == 1) {
+			mWaiterType = RexAnimationPanel.getInstance().getWaiterNumber(mWaiterType);
+			if (mWaiterType == 1) {
 				subRole = new RexWaiterRole1(mPerson);
 				RexAnimationPanel.addPerson((RexWaiterRole1) subRole);
-//			} else if (mWaiterType == 0) {
-//				subRole = new RexWaiterRole2(mPerson);
-//				RexAnimationPanel.addPerson((RexWaiterRole2) subRole);
-//			}
+			} else if (mWaiterType == 0) {
+				subRole = new RexWaiterRole2(mPerson);
+				RexAnimationPanel.addPerson((RexWaiterRole2) subRole);
+			}
 			break;
 		}
 
