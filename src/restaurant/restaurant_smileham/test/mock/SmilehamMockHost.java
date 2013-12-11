@@ -9,9 +9,9 @@ import restaurant.restaurant_smileham.interfaces.SmilehamCustomer;
 import restaurant.restaurant_smileham.interfaces.SmilehamHost;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
 
-public class MockHost extends Mock implements SmilehamHost{
+public class SmilehamMockHost extends SmilehamMock implements SmilehamHost{
 
-	public MockHost(String name) {
+	public SmilehamMockHost(String name) {
 		super(name);
 	}
 

@@ -23,7 +23,6 @@ import restaurant.restaurant_smileham.gui.LabelGui;
 import restaurant.restaurant_smileham.gui.SmilehamAnimationPanel;
 import restaurant.restaurant_smileham.interfaces.SmilehamCook;
 import restaurant.restaurant_smileham.interfaces.SmilehamWaiter;
-import restaurant.restaurant_tranac.interfaces.TranacWaiter;
 import base.BaseRole;
 import base.ContactList;
 import base.Item;
@@ -38,7 +37,7 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
 	//Member Variables
 	private String mName;
 	private Timer mTimer;
-	private Set<Order> mOrders;
+	public Set<Order> mOrders;
 /*	private Map<EnumFoodOptions, Food> mInventory;
 	private Map<EnumFoodOptions, Integer> mIncomingInventory;
 */	private List<EnumFoodOptions> mFoodsOut;
@@ -74,7 +73,7 @@ public class SmilehamCookRole extends BaseRole implements SmilehamCook {
     	}
     }
     
-    private void checkStand() {
+    public void checkStand() {
     	print("Checking stand like a boss.");
     	synchronized(revolvingStand) {
     		synchronized(mOrders) {

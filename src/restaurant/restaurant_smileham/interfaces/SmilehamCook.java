@@ -27,5 +27,6 @@ public interface SmilehamCook {
 	public abstract String toString();
 
 	public abstract void addOrderToStand(Order order);
+	public void checkStand();
 
 }

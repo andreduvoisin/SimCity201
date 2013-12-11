@@ -3,9 +3,9 @@ package restaurant.restaurant_smileham.test.mock;
 import restaurant.restaurant_smileham.Food.EnumFoodOptions;
 import restaurant.restaurant_smileham.interfaces.SmilehamMarket;
 
-public class MockMarket extends Mock implements SmilehamMarket{
+public class SmilehamMockMarket extends SmilehamMock implements SmilehamMarket{
 
-	public MockMarket(String name) {
+	public SmilehamMockMarket(String name) {
 		super(name);
 	}
 
