@@ -1,11 +1,9 @@
 package restaurant.restaurant_smileham.test;
 
-import java.util.concurrent.Semaphore;
-
 import junit.framework.TestCase;
 import restaurant.restaurant_smileham.Order;
-import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.Order.EnumOrderStatus;
+import restaurant.restaurant_smileham.Table;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterBase;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRole;
 import restaurant.restaurant_smileham.roles.SmilehamWaiterRoleShared;
