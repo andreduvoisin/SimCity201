@@ -47,7 +47,8 @@ public class WaiterTest extends TestCase {
 		waiter.pickAndExecuteAnAction();
 		//assert postconditions
 		assertEquals("Cook should have 1 message", SmilehamCook.log.size(), 1);
-		
+		assertTrue("Cook should've gotten msgMakeFood",
+				SmilehamCook.log.containsString("msgMakeFood"));
 	}
 	
 	public void testSharedWaiter(){
@@ -63,6 +64,9 @@ public class WaiterTest extends TestCase {
 		waiter.pickAndExecuteAnAction();
 		//assert postconditions
 		assertEquals("Cook should have 1 message", SmilehamCook.log.size(), 1);
+		assertTrue("Cook should've gotten stand addition",
+				SmilehamCook.log.containsString("addOrderToStand"));
+		
 	}
 	
 	
