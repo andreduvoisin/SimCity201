@@ -35,4 +35,9 @@ public class MockCook extends Mock implements SmilehamCook{
 		
 	}
 
+	@Override
+	public void addOrderToStand(Order order) {
+		
+	}
+
 }
