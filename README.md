@@ -12,7 +12,7 @@ The CSCI 201 Project teaches students about the myriad facets of team work: pair
 * ControlPanel Layout
 * Citywide GUI Integration
 * CityCard Zoom-In View Functionality
-* Restaurant Integration Manager
+* Restaurant Integration Manager;
 * Config File Manager for Restaurants
 
 ####Angelica Tran	(Market Manager)
@@ -28,8 +28,8 @@ The CSCI 201 Project teaches students about the myriad facets of team work: pair
 * Fixed my restaurant
 * Some help on re-design and implementation of bus
 * Tested transportation
-* Updated design docs
 * Added panel to add people via GUI
+* Updated design docs for transportation, housing, and restaurants
 
 ####David Carr		(The Internet)
 * Housing Roles, Design, Testing
