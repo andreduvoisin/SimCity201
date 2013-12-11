@@ -64,6 +64,8 @@ public class SharedWaiterTest extends TestCase
 		sharedWaiter.msgWaiterFree(); 
 		sharedWaiter.msgReachedKitchen(); 
 		sharedWaiter.msgAnimationReady(); 
+		
+		//CUSTOMER NOTIFIES WAITER IS READY TO ORDER
 		sharedWaiter.msgReadyToOrder(customer1);
 		sharedWaiter.waitingToOrder.release();
 		
@@ -105,6 +107,7 @@ public class SharedWaiterTest extends TestCase
 		//Send shared waiter orderIsReady(); 
 		sharedWaiter.msgOrderDone("Steak", 1, 1);
 		
+		//GUI SEMAPHORE RELEASES
 		sharedWaiter.msgAtTable(); 
 		sharedWaiter.msgWaiterFree(); 
 		sharedWaiter.msgReachedKitchen(); 
