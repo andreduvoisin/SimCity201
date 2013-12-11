@@ -49,6 +49,9 @@ public class ConfigParser {
 				case "NONE":
 					jobType = EnumJobType.NONE;
 					break;
+				case "HOUSING":
+					jobType = EnumJobType.HOUSING;
+					break;
 			}		
 
 			//Cash

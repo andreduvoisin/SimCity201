@@ -1,6 +1,7 @@
 package base;
 
 import housing.House;
+import housing.roles.HousingLandlordRole;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,13 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 import market.Market;
+import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import restaurant.restaurant_davidmca.DavidRestaurant;
 import restaurant.restaurant_duvoisin.AndreRestaurant;
 import restaurant.restaurant_jerryweb.JerrywebRestaurant;
 import restaurant.restaurant_maggiyan.MaggiyanRestaurant;
 import restaurant.restaurant_smileham.SmilehamRestaurant;
 import restaurant.restaurant_tranac.TranacRestaurant;
-import restaurant.restaurant_cwagoner.CwagonerRestaurant;
 import transportation.TransportationBus;
 import bank.Bank;
 import bank.interfaces.BankMasterTeller;
@@ -83,6 +84,7 @@ public class ContactList {
 	//Other people/things
 	public static TransportationBus cBus;
 	public static BankMasterTeller masterTeller;
+	public static HousingLandlordRole masterLandlord;
 	
 	//Map of open places
 	public static Map<Location, Boolean> sOpenPlaces = Collections.synchronizedMap(new HashMap<Location, Boolean>());
