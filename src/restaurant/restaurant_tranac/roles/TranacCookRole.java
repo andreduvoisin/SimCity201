@@ -61,6 +61,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         }
         
         private void checkStand() {
+        	print("Checking stand like a boss.");
         	synchronized(revolvingStand) {
         		synchronized(orders) {
         			Iterator<Order> itRS = revolvingStand.iterator();
@@ -72,6 +73,7 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         			}
         		}
         	}
+  //      	stateChanged();
         }
         
         /* Revolving Stand Stuff */
@@ -127,14 +129,8 @@ public class TranacCookRole extends BaseRole implements TranacCook {
         }
 
         /** Animation Messages */
-        public void msgAnimationAtGrill() {
-                inTransit.release();
-    //            stateChanged();
-        }
-        
-        public void msgAnimationAtPlate() {
-                inTransit.release();
-      //          stateChanged();
+        public void msgAnimationDone() {
+        	inTransit.release();
         }
         
         /**

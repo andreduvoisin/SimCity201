@@ -2,7 +2,6 @@ package base;
 
 import housing.interfaces.HousingBase;
 import housing.roles.HousingBaseRole;
-import housing.roles.HousingLandlordRole;
 import housing.roles.HousingRenterRole;
 
 import java.util.ArrayList;
@@ -61,7 +60,8 @@ public class PersonAgent extends Agent implements Person {
 	public static int sBaseInventory = 0;
 	public static int sBaseWanted = 1;
 	//Roles and Job
-	public static enum EnumJobType {	BANK,		//master teller, teller, guard... 
+	public static enum EnumJobType {	HOUSING,	//master landlord
+										BANK,		//master teller, teller, guard... 
 										MARKET, 	//cashier, worker...
 										RESTAURANT, //...
 										NONE};		//party person, non-norms (can add NN1, NN2, ...)
@@ -134,6 +134,9 @@ public class PersonAgent extends Agent implements Person {
 				if(jobRole != null)
 					print(jobRole.toString());
 				break;
+			case HOUSING:
+				jobRole = SortingHat.getHousingRole(this, mTimeShift);
+				break;
 			case NONE:
 				break;
 		}
@@ -154,7 +157,7 @@ public class PersonAgent extends Agent implements Person {
 		mCommuterRole.mActive = false;
 		mCommutingTo = null;
 		
-		mRoles.put(SortingHat.getHousingRole(this), true);
+		mRoles.put(SortingHat.getHousingRole(this, mTimeShift), true);
 		//mRoles.put(new CommuterRole(this), false); 
 		mRoles.put(new BankCustomerRole(this, mSSN%2), false);
 		mRoles.put(new MarketCustomerRole(this, mSSN%2), false);
@@ -551,8 +554,9 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void requestHouse() {
 		print("Requesting House");
-		getHousingRole().setHouse(SortingHat.getNextHouse());
-		stateChanged();
+		if (getHousingRole().getHouse() == null) {
+			((HousingRenterRole) getHousingRole()).msgRequestHousing();
+		}
 	}
 	
 	public void getCar(){
