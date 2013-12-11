@@ -113,4 +113,10 @@ public class CustomerGui implements Gui {
         public int getHomeLocation() {
                 return xHome;
         }
+
+		@Override
+		public void setFired(boolean state) {
+			// TODO Auto-generated method stub
+			
+		}
 }

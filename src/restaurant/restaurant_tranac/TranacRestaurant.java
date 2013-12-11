@@ -10,7 +10,7 @@ import restaurant.restaurant_tranac.roles.TranacCashierRole;
 import restaurant.restaurant_tranac.roles.TranacCookRole;
 import restaurant.restaurant_tranac.roles.TranacCustomerRole;
 import restaurant.restaurant_tranac.roles.TranacHostRole;
-import restaurant.restaurant_tranac.roles.TranacWaiterRole;
+import restaurant.restaurant_tranac.roles.TranacWaiterBase;
 import base.BaseRole;
 
 public class TranacRestaurant {
@@ -21,7 +21,7 @@ public class TranacRestaurant {
     public static TranacCookRole mCook;
     public static TranacHostRole mHost;
       
-    public static Vector<TranacWaiterRole> mWaiters = new Vector<TranacWaiterRole>();
+    public static Vector<TranacWaiterBase> mWaiters = new Vector<TranacWaiterBase>();
     public static Vector<TranacCustomerRole> mCustomers = new Vector<TranacCustomerRole>();
     
     public TranacRestaurant() {
@@ -42,8 +42,8 @@ public class TranacRestaurant {
     		customer.setCashier(mCashier);
     		customer.msgGotHungry();
     	}
-    	else if (role instanceof TranacWaiterRole){
-    		TranacWaiterRole waiter = (TranacWaiterRole) role;
+    	else if (role instanceof TranacWaiterBase){
+    		TranacWaiterBase waiter = (TranacWaiterBase) role;
     		mWaiters.add(waiter);
         	mHost.addWaiter(waiter);
     	}

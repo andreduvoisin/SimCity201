@@ -65,28 +65,23 @@ public class CommuterRole extends BaseRole implements TransportationRider {
 	
 	//SCHEDULER
 	public boolean pickAndExecuteAnAction() {
-//		if(mPerson.hasCar()){
-//			GoToDestination(); 
-//		}
-//		else{
-			if(mState == PersonState.atBusStop){
-				NotifyBus(); 
-				return true;
-			}
-			else if(mState == PersonState.boardingBus){
-				BoardBus(); 
-				return true; 
-			}
-			else if(mState == PersonState.exitingBus){
-				ExitBus();
-				return true; 
-			}
-			else if(mState == PersonState.walking){
-				GoToDestination(); 
-				mState = PersonState.noNewDestination; 
-				return true; 
-			}
-//		}
+		if (mState == PersonState.atBusStop){
+			NotifyBus(); 
+			return true;
+		}
+		else if (mState == PersonState.boardingBus){
+			BoardBus(); 
+			return true; 
+		}
+		else if (mState == PersonState.exitingBus){
+			ExitBus();
+			return true; 
+		}
+		else if (mState == PersonState.walking){
+			GoToDestination(); 
+			mState = PersonState.noNewDestination; 
+			return true; 
+		}
 		return false; 
 	}
 

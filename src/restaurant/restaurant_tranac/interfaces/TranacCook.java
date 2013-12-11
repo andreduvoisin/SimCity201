@@ -7,14 +7,9 @@ package restaurant.restaurant_tranac.interfaces;
  */
 
 public interface TranacCook {
+	public abstract void addOrderToStand(TranacWaiter w, String c, int t);
+	
 	public abstract void msgHereIsOrder(TranacWaiter w, String c, int t);
 	
 	public abstract void msgOrderPickedUp(TranacWaiter w, String c);
-	
-/*	public abstract void msgCanFulfillInventory(String f, int n);
-	
-	public abstract void msgHereIsInventory(String f, int n);
-	
-	public abstract void msgOutOfInventory(Market m, String f);
-*/
 }

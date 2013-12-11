@@ -50,4 +50,10 @@ public class LabelGui implements Gui{
 		
 	}
 
+	@Override
+	public void setFired(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

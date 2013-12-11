@@ -101,5 +101,4 @@ public abstract class BaseRole implements Role {
 		}
 		return false;
 	}
-
 }

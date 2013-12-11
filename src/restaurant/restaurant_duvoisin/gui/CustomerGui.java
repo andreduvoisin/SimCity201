@@ -157,4 +157,10 @@ public class CustomerGui implements Gui{
 				break;
 		}
 	}
+
+	@Override
+	public void setFired(boolean state) {
+		// TODO Auto-generated method stub
+		
+	}
 }

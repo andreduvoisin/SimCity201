@@ -8,5 +8,6 @@ public interface Gui {
     public void draw(Graphics2D g);
     public boolean isPresent();
     public void setPresent(boolean state);
+    public void setFired(boolean state);
 
 }

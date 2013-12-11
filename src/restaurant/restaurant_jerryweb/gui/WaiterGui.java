@@ -3,6 +3,10 @@ package restaurant.restaurant_jerryweb.gui;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import restaurant.restaurant_jerryweb.JerrywebHostRole;
 import restaurant.restaurant_jerryweb.interfaces.Customer;
@@ -15,9 +19,9 @@ public class WaiterGui implements Gui {
     private boolean AtOrigin = true;
     private boolean AtCustomerQue = false;
     
-    
+    private boolean onFire = false;
+	private BufferedImage fireImage;
    
- 
     private int xPos = -20, yPos = -20;//default waiter position
     private int xDestination = 120, yDestination = 35;//default start position
     public static final int xTable1 = 200;
@@ -54,7 +58,7 @@ public class WaiterGui implements Gui {
 	static final int xIndex = 20;
 	static final int yIndex = 20;
 	
-	private boolean currentlyAtTable = false;
+	//private boolean currentlyAtTable = false;
 	
 	//These are the strings variables that will be draw onto the animation panel. They're values can be changed by the corresponding agent
 	//actions 
@@ -78,6 +82,15 @@ public class WaiterGui implements Gui {
        host = h;
         idleSpotX = 25*host.Waiters.size();
         idleSpotY = 25*host.Waiters.size();
+        
+        fireImage = null;
+    	try {
+    		java.net.URL imageURL = this.getClass().getClassLoader().getResource("city/gui/images/fire.png");
+    		fireImage = ImageIO.read(imageURL);
+    	}
+    	catch (IOException e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 
     public void updatePosition() {
@@ -132,12 +145,15 @@ public class WaiterGui implements Gui {
     }
 
     public void draw(Graphics2D g) {
+    	if(onFire)
+			g.drawImage(fireImage, xPos, yPos, null);
+		else{
         g.setColor(Color.BLACK);
         g.fillRect(xPos, yPos, waiterWidth, waiterHeight);
 
         g.setColor(Color.BLACK);
         g.drawString(waiterString,xPos+20, yPos);
-       
+		}
         
         g.drawString(table1String, xTable1 +15, yTable1 +35);
         g.drawString(customerString1,  xTable1 +5,  yTable1 -5);
@@ -258,5 +274,9 @@ public class WaiterGui implements Gui {
 
     public int getYPos() {
         return yPos;
+    }
+    
+    public void setFired(boolean state){
+    	onFire = state;
     }
 }
