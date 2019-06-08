@@ -154,4 +154,4 @@ Our SimCity does not acknowledge changes in day. Accordingly, money has diminish
 
 ### V1 README
 
-[V1 README](https://github.com/usc-csci201-fall2013/team28/wiki/V1-README)
+[V1 README](https://github.com/andreduvoisin/SimCity201/wiki/V1-README)
